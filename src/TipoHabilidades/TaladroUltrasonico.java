@@ -1,6 +1,6 @@
 package TipoHabilidades;
 
-public class TaladroUltrasonico {
+public class TaladroUltrasonico extends Habilidad{
 	
 	public TaladroUltrasonico(){
 		
