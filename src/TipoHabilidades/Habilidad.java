@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class Habilidad {
+public abstract class Habilidad {
 
 }

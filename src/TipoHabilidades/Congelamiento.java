@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class Congelamiento {
+public class Congelamiento extends Habilidad{
 
 }
