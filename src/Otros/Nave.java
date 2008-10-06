@@ -3,6 +3,8 @@ package Otros;
 import java.util.ArrayList;
 import java.util.List;
 
+import TipoPosicion.Posicionable;
+
 public class Nave extends Posicionable{
 
 	public List pooglings;

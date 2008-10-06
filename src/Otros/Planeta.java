@@ -1,6 +1,8 @@
 package Otros;
 
-public class Planeta {
+import TipoPosicion.Mapa;
+
+public class Planeta extends Mapa{
 
 	private Nave naveEntrada;
 	public Nave getNaveEntrada() {

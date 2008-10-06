@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class TunelElectromagnetico {
+public class TunelElectromagnetico extends Habilidad{
 
 }

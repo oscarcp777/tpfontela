@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class Teletransportacion {
+public class Teletransportacion extends Habilidad{
 
 }

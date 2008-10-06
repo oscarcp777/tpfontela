@@ -1,4 +1,5 @@
-package Otros;
+package TipoPosicion;
+
 
 public abstract class Posicionable {
 	private Posicion posicion;

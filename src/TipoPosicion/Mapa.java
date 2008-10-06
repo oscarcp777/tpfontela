@@ -1,4 +1,7 @@
-package Otros;
+package TipoPosicion;
+
+import Utilidades.Constants;
+
 
 public class Mapa {
 	private Posicionable[][] posicionable;

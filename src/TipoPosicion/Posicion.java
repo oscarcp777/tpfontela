@@ -1,4 +1,4 @@
-package Otros;
+package TipoPosicion;
 
 public class Posicion {
 

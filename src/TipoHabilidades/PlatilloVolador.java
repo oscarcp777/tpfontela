@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class PlatilloVolador {
+public class PlatilloVolador extends Habilidad{
 
 }

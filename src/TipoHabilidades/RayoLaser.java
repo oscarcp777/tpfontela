@@ -1,5 +1,5 @@
 package TipoHabilidades;
 
-public class RayoLaser {
+public class RayoLaser extends Habilidad{
 
 }
