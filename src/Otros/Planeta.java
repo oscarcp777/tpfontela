@@ -2,9 +2,19 @@ package Otros;
 
 import TipoPosicion.Mapa;
 
-public class Planeta extends Mapa{
 
+public class Planeta extends Mapa{
+	
 	private Nave naveEntrada;
+	private Nave naveEscape;
+	
+	public Planeta(Nave naveEntrada,Nave naveEscape){
+		//llamo al constructor del Mapa
+		super();
+		this.naveEntrada = naveEntrada;
+		this.naveEscape = naveEscape;
+	}
+	
 	public Nave getNaveEntrada() {
 		return naveEntrada;
 	}
@@ -17,5 +27,5 @@ public class Planeta extends Mapa{
 	public void setNaveEscape(Nave naveEscape) {
 		this.naveEscape = naveEscape;
 	}
-	private Nave naveEscape;
+	
 } 

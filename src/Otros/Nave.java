@@ -20,5 +20,11 @@ public class Nave extends Posicionable{
 	public void setPooglings(List pooglings) {
 		this.pooglings = pooglings;
 	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

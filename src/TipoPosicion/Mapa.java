@@ -17,4 +17,9 @@ public class Mapa {
 	public void setPosicionable(Posicionable[][] posicionable) {
 		this.posicionable = posicionable;
 	}
+	
+	public boolean mostrarPosicionable(Posicion posicion){
+		return this.posicionable[posicion.getPosicionY()][posicion.getPosicionX()].getPropiedades().esVisible();
+	}
+
 }

@@ -1,6 +1,7 @@
 package TipoTerrenos;
 
 import Otros.Poogling;
+import TipoHabilidades.Habilidad;
 
 public class AgujeroNegro extends Terreno{
 
@@ -14,6 +15,12 @@ public class AgujeroNegro extends Terreno{
 	public boolean movimientoPooglingValido(Poogling poogling) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void aplicarHabilidad(Habilidad habilidad) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

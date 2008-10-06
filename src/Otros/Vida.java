@@ -7,7 +7,7 @@ public class Vida {
 		this.cantidadVidas = cantidadVidas;
 	}
 	
-	public int getCantidadVidas(int vidas){
+	public int getCantidadVidas(){
 		return cantidadVidas;
 	}
 	
