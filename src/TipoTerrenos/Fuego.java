@@ -37,3 +37,4 @@ public class Fuego extends Terreno{
 	}
 
 }
+
