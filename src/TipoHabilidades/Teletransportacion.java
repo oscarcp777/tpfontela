@@ -13,9 +13,16 @@ public class Teletransportacion extends Habilidad{
 			this.terreno=terreno;
 		}
 		
-		public void Teletransportar(){
-			
-			this.poogling=poogling.asignarPosicion([(posicion.getPosicionY)+20][posicion.getPosicionX]);
+		public Poogling Teletransportar(){
+			return this.poogling.asignarPosicion([(posicion.getPosicionY)+20][posicion.getPosicionX]);
 		}
+
+		@Override
+		public void destruirTerreno(Terreno terreno) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
 		
 }

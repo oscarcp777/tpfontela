@@ -29,4 +29,7 @@ public class Velocidad {
 		return this.velocidad;
 	}
 	
+	public void setVelocidad(int velocidad){
+		this.velocidad=velocidad;
+	}
 }
