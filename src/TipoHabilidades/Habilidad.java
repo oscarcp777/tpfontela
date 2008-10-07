@@ -1,8 +1,9 @@
 package TipoHabilidades;
 
-import TipoTerrenos.Terreno;
+import java.util.Comparator;
 
-public abstract class Habilidad {
 
-	public abstract void destruirTerreno(Terreno terreno);
+public abstract class Habilidad implements Comparator{
+
+	
 }
