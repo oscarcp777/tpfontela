@@ -2,6 +2,7 @@ package TipoTerrenos;
 
 import Otros.Poogling;
 import TipoHabilidades.Habilidad;
+import Utilidades.Constants;
 
 public class AgujeroNegro extends Terreno{
 
@@ -22,5 +23,19 @@ public class AgujeroNegro extends Terreno{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return Constants.NombreTerreno.AGUJERO_NEGRO;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }

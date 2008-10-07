@@ -10,19 +10,19 @@ public class Velocidad {
 	}
 	
 	public void velocidadNormal(){
-		this.velocidad=Constants.VELOCIDAD_NORMAL;
+		this.velocidad=Constants.TipoVelocidad.VELOCIDAD_NORMAL;
 	}
 	
 	public void velocidadMedia(){
-		this.velocidad=Constants.VELOCIDAD_MEDIA;
+		this.velocidad=Constants.TipoVelocidad.VELOCIDAD_MEDIA;
 	}
 	
 	public void velocidadRapida(){
-		this.velocidad=Constants.VELOCIDAD_RAPIDA;
+		this.velocidad=Constants.TipoVelocidad.VELOCIDAD_RAPIDA;
 	}
 	
 	public void velocidadMuyRapida(){
-		this.velocidad=Constants.VELOCIDAD_MUYRAPIDA;
+		this.velocidad=Constants.TipoVelocidad.VELOCIDAD_MUYRAPIDA;
 	}
 	
 	public int getVelocidad(){

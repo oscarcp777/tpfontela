@@ -2,6 +2,7 @@ package TipoTerrenos;
 
 import Otros.Poogling;
 import TipoHabilidades.Habilidad;
+import Utilidades.Constants;
 
 public class Fuego extends Terreno{
 
@@ -21,6 +22,18 @@ public class Fuego extends Terreno{
 	public void aplicarHabilidad(Habilidad habilidad) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return Constants.NombreTerreno.FUEGO;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

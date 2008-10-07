@@ -3,11 +3,13 @@ package TipoTerrenos;
 import Otros.Poogling;
 import Otros.Vida;
 import TipoHabilidades.Habilidad;
+import TipoPosicion.Posicionable;
 
 
-public abstract class Terreno {
+public abstract class Terreno extends Posicionable{
 	
 	private Vida vida;
+	private String nombre;
 	
 	public abstract boolean movimientoPooglingValido(Poogling poogling);
 	
@@ -24,5 +26,9 @@ public abstract class Terreno {
 	public Vida getVida() {
 		return vida;
 	}
+	
+	public abstract String getNombre();
+	
+	
 	
 }

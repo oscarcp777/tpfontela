@@ -7,7 +7,7 @@ public class Mapa {
 	private Posicionable[][] posicionable;
 	
 	public Mapa(){
-		posicionable = new Posicionable[Constants.MAX][Constants.MAX];
+		posicionable = new Posicionable[Constants.TamanioMatriz.MAX][Constants.TamanioMatriz.MAX];
 	}
 
 	public Posicionable[][] getPosicionable() {

@@ -4,12 +4,12 @@ public abstract class Posicionable implements Comparable{
 	private Posicion posicion;
 	private Propiedad propiedades;
 	
-	public void asignarPosicion(Posicion posicion){
-		this.posicion=posicion;
-	}
-	
 	public Posicion obtenerPosicion(){
 		return posicion;
+	}
+	
+	public void asignarPosicion(Posicion posicion){
+		this.posicion = posicion;
 	}
 
 	public void setPropiedades(Propiedad propiedades) {
