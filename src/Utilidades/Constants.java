@@ -33,6 +33,7 @@ public class Constants {
 		public static int IZQUIERDA=-1;
 		public static int ABAJO=-2;
 		public static int ARRIBA=2;
+		public static int NULO=0;
 	}
 	
 }
