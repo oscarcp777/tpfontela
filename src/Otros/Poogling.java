@@ -42,7 +42,15 @@ public class Poogling extends Posicionable{
 		return habilidad;
 	}
 		
-	public void asignarPosicion(Posicion posicion,SentidoMovimiento sentido){
+	public void asignarPosicion(Posicion posicion,SentidoMovimiento sentido, int cantidadPosiciones){
 		
+	}
+
+	public SentidoMovimiento getSentido() {
+		return sentido;
+	}
+
+	public void setSentido(SentidoMovimiento sentido) {
+		this.sentido = sentido;
 	}
 }
