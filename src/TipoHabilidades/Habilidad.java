@@ -1,9 +1,10 @@
 package TipoHabilidades;
 
-import java.util.Comparator;
 
+import Otros.Poogling;
+import TipoTerrenos.Terreno;
+public abstract class Habilidad {
 
-public abstract class Habilidad implements Comparator{
-
+	public abstract void destruirTerreno(Terreno terreno);
 	
 }

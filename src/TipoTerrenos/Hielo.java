@@ -1,7 +1,9 @@
 package TipoTerrenos;
 
 import Otros.Poogling;
+import Otros.SentidoMovimiento;
 import TipoHabilidades.Habilidad;
+import Utilidades.Constants;
 
 import TipoPosicion.Velocidad;
 
@@ -37,6 +39,14 @@ public class Hielo extends Terreno{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void darSentidoMovimiento(Poogling poogling) {
+		// TODO Auto-generated method stub
+		//el pooglin mantiene el mismo sentido (solo duplica su velocidad)
+	}
+	
+	
 
 }
 

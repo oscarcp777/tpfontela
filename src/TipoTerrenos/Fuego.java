@@ -1,8 +1,10 @@
 package TipoTerrenos;
 
 import Otros.Poogling;
+import Otros.SentidoMovimiento;
 import TipoHabilidades.Habilidad;
 import Otros.Vida;
+import Utilidades.Constants;
 public class Fuego extends Terreno{
 
 	@Override
@@ -34,6 +36,11 @@ public class Fuego extends Terreno{
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void darSentidoMovimiento(Poogling poogling){
+		// TODO Auto-generated method stub
 	}
 
 }

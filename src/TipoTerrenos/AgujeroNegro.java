@@ -35,6 +35,12 @@ public class AgujeroNegro extends Terreno{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void darSentidoMovimiento(Poogling poogling) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

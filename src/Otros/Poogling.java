@@ -31,6 +31,7 @@ public class Poogling extends Posicionable{
 	@Override
 	public int compareTo(Object arg0) {
 		// TODO Auto-generated method stub
+		//IMPLEMENTAR!!!
 		return 0;
 	}
 
@@ -38,19 +39,20 @@ public class Poogling extends Posicionable{
 		this.habilidad = habilidad;
 	}
 
-	public Habilidad getHabilidad() {
+	public Habilidad getHabilidad() {;
 		return habilidad;
 	}
 		
-	public void asignarPosicion(Posicion posicion,SentidoMovimiento sentido, int cantidadPosiciones){
+	public void asignarPosicion(Posicion posicion,SentidoMovimiento sentido){
 		
 	}
-
-	public SentidoMovimiento getSentido() {
-		return sentido;
+	
+	public SentidoMovimiento getSentido(){
+		return this.sentido;
 	}
-
-	public void setSentido(SentidoMovimiento sentido) {
-		this.sentido = sentido;
+	
+	public void setSentido(SentidoMovimiento sentido){
+		this.sentido=sentido;
 	}
+	
 }

@@ -2,6 +2,7 @@ package TipoTerrenos;
 
 import Otros.Poogling;
 import Otros.Vida;
+import Otros.SentidoMovimiento;
 import TipoHabilidades.Habilidad;
 import TipoPosicion.Posicionable;
 
@@ -28,6 +29,9 @@ public abstract class Terreno extends Posicionable{
 	}
 	
 	public abstract String getNombre();
+	
+	public abstract void darSentidoMovimiento(Poogling poogling); 
+
 	
 	
 	
