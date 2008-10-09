@@ -24,5 +24,11 @@ public class TaladroUltrasonico extends Habilidad {
 	    }
 	}
 
+	@Override
+	public void aplicar(Poogling poogling) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

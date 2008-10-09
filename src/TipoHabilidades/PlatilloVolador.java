@@ -10,6 +10,12 @@ public class PlatilloVolador extends Habilidad{
 		
 	}
 
+	@Override
+	public void aplicar(Poogling poogling) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

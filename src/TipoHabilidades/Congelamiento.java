@@ -1,18 +1,19 @@
 package TipoHabilidades;
 
+import Otros.Poogling;
 import TipoTerrenos.Terreno;
 
 public class Congelamiento extends Habilidad{
-
-
+	@Override
 	public void destruirTerreno(Terreno terreno) {
 				
 	}
 
 	@Override
-	public int compare(Object o1, Object o2) {
+	public void aplicar(Poogling poogling) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
+	
 }
