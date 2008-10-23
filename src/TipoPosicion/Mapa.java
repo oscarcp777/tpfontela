@@ -4,6 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import fabricas.FabricaTerreno;
+
+import fabricas.MapaTerreno;
+
+
+
+import Otros.ColPooglins;
+import Otros.Dimension;
+
+import Otros.ColTerreno;
+import Otros.DimensionTerreno;
+import Otros.InfoNivel;
 import Otros.Nave;
 import Otros.Poogling;
 import TipoTerrenos.Aire;
@@ -13,51 +25,53 @@ import Utilidades.Constants;
 
 
 public class Mapa {
-	private Terreno[][] terreno;
-	private Nave nave;
 	
-	public Mapa(){
-		terreno = new Terreno[Constants.TamanioMatriz.MAX][Constants.TamanioMatriz.MAX];
-	    nave = new Nave ();
-	    nave.asignarPosicion(new Posicion(5,10));
-	    List pooglins = new ArrayList();
-	    Poogling poogling = new Poogling(new Posicion(5,4));
-	    pooglins.add(poogling);
-	    nave.setPooglings(pooglins);
+	//La matriz del terreno tendra como posicion superior izquierda 00
+	//y como posicion inferior derecha Ymax(filaMax) y Xmax(columnaMax)
 	
+	private ColTerreno colTerreno;
+	private MapaTerreno mapaTerreno;
+	private Nave naveIngreso;
+	private Nave naveEscape;
+		
+	public Mapa(InfoNivel infoNivel){
+		//En este constructor se cargan los atributos del mapa de acuerdo a la información recibida por el planeta,
+		//que sería nuestro nivel de juego.
+			 
+		colTerreno = infoNivel.getColTerreno();
+		mapaTerreno = new MapaTerreno(infoNivel.getDimensionTerreno());
+		naveIngreso = new Nave (infoNivel.getPosicionNaveIngreso());
+	    naveEscape = new Nave(infoNivel.getPosicionNaveEscape());
+	    naveIngreso.cargarPooglings(infoNivel.getColPooglins());
 	}
 	
-	public Nave getNave(){
-		return nave;
+	public ColPooglins obtenerPooglins(){
+		return naveIngreso.obtenerPooglings();
 	}
 	
-	public Terreno[][] getTerreno(){
-		return terreno;
+	public Posicion obtenerPosicionNaveIngreso(){
+		return naveIngreso.obtenerPosicion();
 	}
 	
-	public void cargarTerreno(){
-		for (int x=0; x<=10;x++)
-			for(int y=0; y<=4;y++){
-		Terreno terrenoAux = new Aire();
-		terrenoAux.asignarPosicion(new Posicion(x,y));
-			}
-		
-		for (int x=0; x<=9;x++)
-			for(int y=5; y<6;y++){
-		Terreno terrenoAux = new Aire();
-		terrenoAux.asignarPosicion(new Posicion(x,y));
-			}
-		
-		
-		
-		for (int x=0; x<=10;x++)
-			for(int y=6; y<=10;y++){
-		Terreno terrenoAux = new Tierra();
-		terrenoAux.asignarPosicion(new Posicion(x,y));
-			}
-		
+	public Posicion obtenerPosicionNaveEscape(){
+		return naveEscape.obtenerPosicion();
 	}
 	
+	public void subirPooglinNaveEscape(Poogling pooglin){
+		//Cuando las posiciones coinciden el pooglin se sube a la nave
+		//para pasar al 2do nivel
+		naveEscape.colisionPoogling(pooglin);
+	}
 	
-
+	public void cargarTerrenoDeJuego(){
+		for(Iterator itColTerreno=colTerreno.iterator();itColTerreno.hasNext();){
+			Terreno terreno = (Terreno)itColTerreno.next();
+			mapaTerreno.agregarTerreno(terreno);
+		}
+	}
+	
+	public Terreno obtenerTerreno(Posicion posicionKey){
+		return (Terreno)mapaTerreno.obtenerTerreno(posicionKey);
+	}
+	
 }
