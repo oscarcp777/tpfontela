@@ -27,7 +27,10 @@ public class Teletransportacion extends Habilidad{
 		@Override
 		public void aplicar(Poogling poogling) {
 			// TODO Auto-generated method stub
-			
+			/*el pooglin adelanta 20 pasos (posiciones) 
+			 * ya sea de derecha o izquierda (dependiendo de
+			 * su direccion)
+			 */
 		}
 
 		

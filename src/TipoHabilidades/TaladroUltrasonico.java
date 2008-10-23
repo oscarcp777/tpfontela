@@ -27,7 +27,10 @@ public class TaladroUltrasonico extends Habilidad {
 	@Override
 	public void aplicar(Poogling poogling) {
 		// TODO Auto-generated method stub
-		
+	/*se pueden romper hasta 5 bloques de profundidad , recordar que
+	 * la tierra se rompe con 4 vueltas de torpedo, y que la roca no se puede romper	
+	 * 
+	 */
 	}
 
 	
