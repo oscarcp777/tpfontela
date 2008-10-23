@@ -6,30 +6,33 @@ import TipoPosicion.Posicion;
 
 public class Abajo implements Direccion{
 
-	private Posicion posicion;
-	
-	public Abajo(Posicion posicion){
+	public Abajo(){
 		
-		this.posicion = posicion;
+		
 	}
 	
 	@Override
-	public Direccion cambiarDireccion(Posicion posicion) {
+	public Direccion cambiarDireccion() {
 		// TODO Auto-generated method stub
-		return new Derecha(posicion);
-		
+		return new Derecha();
 	}
 
 	@Override
 	public void siguientePosicion(Posicion posicion) {
 		// TODO Auto-generated method stub
-		posicion.decrementarY();
+		posicion.incrementarY(); //baja una fila
 		
 				
 	}
 
+	@Override
+	public boolean verPosicionAbajo(Posicion posicion) {
+		// TODO Auto-generated method stub
+		//devuelve false pues la posicion de abajo se obtiene con el metodo
+		//siguientePosicion
+		siguientePosicion(posicion);
+		return true;
+	}
 	
-
-
 
 }

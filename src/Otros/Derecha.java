@@ -4,27 +4,27 @@ import TipoPosicion.Posicion;
 
 public class Derecha implements Direccion {
 
-private Posicion posicion;
-
-	public Derecha(Posicion posicion) {
-		
+	public Derecha() {
 		// TODO Auto-generated constructor stub
-		this.posicion = posicion;
-		
+	
 	}
 
-	@Override
+	//Si se movio a la derecha se chequeara luego si se puede avanzar a esa posicion mediante los terrenos
+	//Si ya se movio a la derecha, se movera hacia abajo y se chequeara con que tipo de terreno esta parado 
+	//el pooglin.
 	public void siguientePosicion(Posicion posicion) {
-		// TODO Auto-generated method stub
-		
 		posicion.incrementarX();
-
 	}
-
+	
 	@Override
-	public Direccion cambiarDireccion(Posicion posicion) {
+	public Direccion cambiarDireccion() {
 		// TODO Auto-generated method stub
-		return new Izquierda(posicion);
+		return new Izquierda();
+	}
+	
+	public boolean verPosicionAbajo(Posicion posicion) {
+		posicion.incrementarY();
+		return true;
 	}
 
 }

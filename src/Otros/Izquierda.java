@@ -5,10 +5,10 @@ import TipoPosicion.Posicion;
 public class Izquierda implements Direccion {
 
 	
-	private Posicion posicion;
 	
-	public Izquierda(Posicion posicion){
-		this.posicion = posicion;
+	
+	public Izquierda(){
+		
 	}
 
 
@@ -20,9 +20,14 @@ public class Izquierda implements Direccion {
 	}
 
 	@Override
-	public Direccion cambiarDireccion(Posicion posicion) {
+	public Direccion cambiarDireccion() {
 		// TODO Auto-generated method stub
-		return new Derecha(posicion);
+		return new Derecha();
+	}
+	
+	public boolean verPosicionAbajo(Posicion posicion) {
+		posicion.incrementarY();
+		return true;
 	}
 
 }

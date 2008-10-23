@@ -1,8 +1,11 @@
 
 package Otros;
 
+import fabricas.FabricaTerreno;
+import fabricas.Movimiento;
 import TipoHabilidades.Habilidad;
 import TipoPosicion.Estatico;
+import TipoPosicion.Mapa;
 import TipoPosicion.Posicion;
 import TipoPosicion.Posicionable;
 import TipoPosicion.Velocidad;
@@ -13,11 +16,17 @@ public class Poogling extends Posicionable{
 	private Habilidad habilidad;
 	private Vida vida;
 	private Velocidad velocidad;
-	private Direccion direccion;
+	private Movimiento movimiento;
+	
+	//Constructor por defecto
+	public Poogling(){
+	  
+	}
+	
 	
 	public Poogling(Posicion posicionInicial){
-		asignarPosicion(posicionInicial);
-		direccion = new Abajo(posicionInicial);
+		this.asignarPosicion(posicionInicial);
+		movimiento = new Movimiento(posicionInicial);
 	}
 	
 	
@@ -51,22 +60,36 @@ public class Poogling extends Posicionable{
 		
 	}
 	
-	public Direccion getDireccion(){
-		return this.direccion;
+    public void mover(Mapa mapa){
+    	
+    	//obtengo el terreno de la posicion siguiente del pooglin
+		Terreno terrenoCostado=mapa.obtenerTerreno(movimiento.verPosicionSiguiente());
+		terrenoCostado.colisionPoogling(this);
+		movimiento.mover();
+		
+		//para ver donde esta parado el pooglin
+		Terreno terrenoAbajo=mapa.obtenerTerreno(movimiento.verPosicionAbajo());
+		terrenoAbajo.colisionPoogling(this);
+		
+		
+				
 	}
 	
-	public void setDireccion(Direccion direccion){
-		this.direccion=direccion;
+	public Movimiento getMovimiento() {
+		return movimiento;
 	}
-	
-	public void mover(Estatico estatico){
-		
-		if(estatico instanceof Terreno){
-	         Terreno terreno = (Terreno)estatico;
-	         terreno.aplicarAdinamico(this);
-	         
-		}
-		
+
+
+	public void setMovimiento(Movimiento movimiento) {
+		this.movimiento = movimiento;
+	}
+
+
+	//Para copiar datos y no referencias
+	public void pooglingMellizo(Poogling otroPoogling){
+		habilidad = otroPoogling.habilidad;
+		vida = otroPoogling.vida;
+		velocidad = otroPoogling.velocidad;
 	}
 	
 }

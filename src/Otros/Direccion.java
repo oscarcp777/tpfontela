@@ -4,9 +4,11 @@ import TipoPosicion.Posicion;
 
 public interface Direccion {
 	
-	public abstract void siguientePosicion(Posicion posicion);
+	public void siguientePosicion(Posicion posicion); //me actualiza la referencia
 	
-	public abstract Direccion cambiarDireccion(Posicion posicion);
+	public boolean verPosicionAbajo(Posicion posicion); //me actualiza la referencia
+													  				
+	public Direccion cambiarDireccion(); //me actualiza la referencia
 	        
 		
 }
