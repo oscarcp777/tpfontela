@@ -45,8 +45,12 @@ public class Mapa {
 	    naveIngreso.cargarPooglings(infoNivel.getColPooglins());
 	}
 	
-	public ColPooglins obtenerPooglins(){
+	public ColPooglins obtenerPooglinsNaveIngreso(){
 		return naveIngreso.obtenerPooglings();
+	}
+	
+	public ColPooglins obtenerPooglinsNaveEscape(){
+		return naveEscape.obtenerPooglings();
 	}
 	
 	public Posicion obtenerPosicionNaveIngreso(){
@@ -57,10 +61,10 @@ public class Mapa {
 		return naveEscape.obtenerPosicion();
 	}
 	
-	public void subirPooglinNaveEscape(Poogling pooglin){
+	public boolean subirPooglinNaveEscape(Poogling pooglin){
 		//Cuando las posiciones coinciden el pooglin se sube a la nave
 		//para pasar al 2do nivel
-		naveEscape.colisionPoogling(pooglin);
+		return naveEscape.colisionPoogling(pooglin);
 	}
 	
 	public void cargarTerrenoDeJuego(){
