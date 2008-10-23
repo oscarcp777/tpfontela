@@ -13,8 +13,8 @@ public class Nave extends Posicionable implements Estatico{
 	public ColPooglins pooglings;
 	
 	public Nave(Posicion posicion){
-		//pooglings=new ArrayList();
-       this.asignarPosicion(posicion);
+		pooglings = new ColPooglins();
+		this.asignarPosicion(posicion);
 	}
 
 	public ColPooglins obtenerPooglings() {

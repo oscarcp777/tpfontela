@@ -60,19 +60,22 @@ public class Poogling extends Posicionable{
 		
 	}
 	
-    public void mover(Mapa mapa){
+    public boolean mover(Mapa mapa){
     	
-    	//obtengo el terreno de la posicion siguiente del pooglin
+    	boolean movimientoValido;
+    	
+       	//obtengo el terreno de la posicion siguiente del pooglin
 		Terreno terrenoCostado=mapa.obtenerTerreno(movimiento.verPosicionSiguiente());
 		terrenoCostado.colisionPoogling(this);
-		movimiento.mover();
-		
+		movimientoValido=!mapa.subirPooglinNaveEscape(this);
+			
 		//para ver donde esta parado el pooglin
+		if(movimientoValido){
+		movimiento.mover(); //primero me muevo y luego miro que hay abajo
 		Terreno terrenoAbajo=mapa.obtenerTerreno(movimiento.verPosicionAbajo());
 		terrenoAbajo.colisionPoogling(this);
-		
-		
-				
+		}
+		return movimientoValido;
 	}
 	
 	public Movimiento getMovimiento() {

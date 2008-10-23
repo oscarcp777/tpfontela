@@ -26,7 +26,7 @@ public class PruebaDeInteraccion extends TestCase{
 	protected void setUp() throws Exception{
 		super.setUp();
 		Posicion posicionNaveIngreso = new Posicion(0,0); //se posiciona la nave de ingreso
-		Posicion posicionNaveEscape = new Posicion(1,5); //se posiciona la nave de escape
+		Posicion posicionNaveEscape = new Posicion(5,1); //se posiciona la nave de escape
 		DimensionTerreno dimensionTerreno = new DimensionTerreno(); //se da la dimension para la matriz del terreno
 		dimensionTerreno.setdimX(6);
 		dimensionTerreno.setdimY(6);
@@ -83,17 +83,20 @@ public class PruebaDeInteraccion extends TestCase{
 	
 	
 	public void testPooglinConTerreno(){
-		ColPooglins colPooglins = this.planeta.obtenerPooglins();
-		int cantidadDePasos = 0;
-		
+		ColPooglins colPooglins = this.planeta.obtenerPooglinsNaveIngreso();
+				
 		Poogling pooglin=colPooglins.obtenerPooglin(0);
+		boolean movimientoValido;
 		
-		while(cantidadDePasos<=5){
-			planeta.moverPooglin(pooglin);
-			cantidadDePasos++;
-		}
+		do{			
+			movimientoValido=planeta.moverPooglin(pooglin);
+		}while(movimientoValido);
 		
 		assertEquals(true,colPooglins.estaVacia());
+		
+		colPooglins = planeta.obtenerPooglinsNaveEscape();
+		
+		assertEquals(false,colPooglins.estaVacia());
 	}
 	
 

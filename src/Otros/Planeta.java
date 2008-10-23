@@ -14,14 +14,16 @@ public class Planeta{
 		mapa.cargarTerrenoDeJuego();
 	}
 	
-	public void moverPooglin(Poogling pooglin){
-		pooglin.mover(mapa);
+	public boolean moverPooglin(Poogling pooglin){
+		return pooglin.mover(mapa);
 	}
 	
-	public ColPooglins obtenerPooglins(){
-		return mapa.obtenerPooglins();
+	public ColPooglins obtenerPooglinsNaveIngreso(){
+		return mapa.obtenerPooglinsNaveIngreso();
 	}
 	
-	
+	public ColPooglins obtenerPooglinsNaveEscape(){
+		return mapa.obtenerPooglinsNaveEscape();
+	}
 	
 } 
