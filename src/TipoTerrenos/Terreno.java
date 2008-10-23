@@ -6,6 +6,7 @@ import Otros.Vida;
 import TipoHabilidades.Habilidad;
 import TipoPosicion.Estatico;
 import TipoPosicion.Posicionable;
+import Utilidades.Constants;
 
 
 public abstract class Terreno extends Posicionable implements Estatico{
@@ -15,8 +16,14 @@ public abstract class Terreno extends Posicionable implements Estatico{
 	
 	
 	//colisiona el poogling contra el terreno,
-	//si es fuego, se quema y le saca vidas
-	public abstract void colisionPoogling(Poogling poogling);
+	public boolean colisionPoogling(Poogling poogling) {
+		// TODO Auto-generated method stub
+		if(this.obtenerPosicion().compareTo(poogling.getMovimiento().verPosicionSiguiente())==Constants.ValorComparador.IGUAL){
+		poogling.getMovimiento().cambiarMovimiento();
+		return true;
+		}
+		return false;
+	}
 	
 	public abstract void aplicarHabilidad(Habilidad habilidad);
 
@@ -28,15 +35,6 @@ public abstract class Terreno extends Posicionable implements Estatico{
 		return vida;
 	}
 
-	
-	
-	
-	public abstract void aplicarAdinamico(Poogling poogling);
-	
-	
-	
-
-	
 	
 	
 }
