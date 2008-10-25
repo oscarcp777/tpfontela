@@ -3,7 +3,6 @@ package pruebasUnitarias;
 import mapaDeJuego.Planeta;
 import nivelDeJuego.ColPooglins;
 import nivelDeJuego.ColTerreno;
-import nivelDeJuego.DimensionTerreno;
 import nivelDeJuego.InfoNivel;
 import elementosDelMapa.Aire;
 import elementosDelMapa.Hielo;
@@ -27,9 +26,7 @@ public class PruebaDeInteraccion extends TestCase{
 		super.setUp();
 		Posicion posicionNaveIngreso = new Posicion(0,0); //se posiciona la nave de ingreso
 		Posicion posicionNaveEscape = new Posicion(5,1); //se posiciona la nave de escape
-		DimensionTerreno dimensionTerreno = new DimensionTerreno(); //se da la dimension para la matriz del terreno
-		dimensionTerreno.setdimX(6);
-		dimensionTerreno.setdimY(6);
+				
 		/* Se carga el pooglin que va a salir de la nave de entrada */
 		ColPooglins colPooglins = new ColPooglins();
 		
@@ -75,7 +72,7 @@ public class PruebaDeInteraccion extends TestCase{
 		/* Se termino de cargar la coleccion de fabrica de terrenos */
 		
 		//Se carga la información del nivel
-		InfoNivel infoNivel = new InfoNivel(posicionNaveIngreso, posicionNaveEscape, colPooglins, colTerreno, dimensionTerreno);
+		InfoNivel infoNivel = new InfoNivel(posicionNaveIngreso, posicionNaveEscape, colPooglins, colTerreno);
 		
 		//Se carga el planeta con esta info de nivel
 		planeta = new Planeta(infoNivel);
