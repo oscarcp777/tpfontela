@@ -16,18 +16,6 @@ import propiedadesDeElementos.Posicion;
 
 import utilitarios.Constants;
 
-
-
-
-
-
-
-
-
-
-
-
-
 public class Mapa {
 	
 	//La matriz del terreno tendra como posicion superior izquierda 00
@@ -65,7 +53,7 @@ public class Mapa {
 		return naveEscape.obtenerPosicion();
 	}
 	
-	public boolean isPooglinLlegoANaveEscape(Poogling poogling){
+	public boolean llegoPooglinANaveEscape(Poogling poogling){
 		if (poogling.getMovimiento().getPosicion().compareTo(this.naveEscape.obtenerPosicion())==Constants.ValorComparador.IGUAL)
 		return true;
 		else 
