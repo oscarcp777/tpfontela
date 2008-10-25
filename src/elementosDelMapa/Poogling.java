@@ -68,7 +68,7 @@ public class Poogling extends Posicionable{
        	Terreno terrenoCostado=mapa.obtenerTerreno(movimiento.getPosicionSiguiente()); //obtengo el terreno de la posicion siguiente del pooglin
 		terrenoCostado.colisionarPoogling(this); //lo colisiciono con ese terreno
 		
-		if(!mapa.isPooglinLlegoANaveEscape(this)){ //Si el pooglin no llego a la nave, seguira moviendose y colisionando con el terreno
+		if(!mapa.llegoPooglinANaveEscape(this)){ //Si el pooglin no llego a la nave, seguira moviendose y colisionando con el terreno
 		movimiento.mover(); //primero me muevo y luego miro que hay abajo
 		Terreno terrenoAbajo=mapa.obtenerTerreno(movimiento.getPosicion().obtenerPosicionSiguienteAbajo());
 		terrenoAbajo.colisionarPoogling(this);
