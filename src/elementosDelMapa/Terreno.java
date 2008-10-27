@@ -3,6 +3,7 @@ package elementosDelMapa;
 import propiedadesDeElementos.Colisionable;
 import propiedadesDeElementos.Posicionable;
 import propiedadesDeElementos.Vida;
+import utilitarios.Constants;
 import habilidadesPooglins.Habilidad;
 
 
@@ -13,10 +14,13 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 
 	
 	
-	//colisiona el poogling contra el terreno,
+	//colisiona el poogling contra tierra o roca,
+	@Override
 	public void colisionarPoogling(Poogling poogling) {
 		// TODO Auto-generated method stub
-		poogling.getMovimiento().cambiarMovimiento();
+		if(this.obtenerPosicion().compareTo(poogling.siguientePosicion())==
+			Constants.ValorComparador.IGUAL) 
+		poogling.cambiarDireccionDeMovimiento();
 	}
 	
 	public abstract void aplicarHabilidad(Habilidad habilidad);

@@ -1,6 +1,8 @@
 
 package elementosDelMapa;
 
+import java.util.Iterator;
+
 import propiedadesDeElementos.Posicion;
 import propiedadesDeElementos.Posicionable;
 import propiedadesDeElementos.Velocidad;
@@ -23,12 +25,11 @@ public class Poogling extends Posicionable{
 	  
 	}
 	
-	
-	public Poogling(Posicion posicionInicial){
+	public Poogling(Posicion posicionInicial,Vida vida){
 		this.asignarPosicion(posicionInicial);
 		movimiento = new Movimiento(posicionInicial,Abajo.getInstance());
+		this.vida = vida;
 	}
-	
 	
 	public Velocidad getVelocidad() {
 		return velocidad;
@@ -38,16 +39,6 @@ public class Poogling extends Posicionable{
 		this.velocidad = velocidad;
 	}
 
-	public Vida getVida() {
-		return vida;
-	}
-
-	public void setVida(Vida vida) {
-		this.vida = vida;
-	}
-		
-
-
 	public void setHabilidad(Habilidad habilidad) {
 		this.habilidad = habilidad;
 	}
@@ -56,38 +47,50 @@ public class Poogling extends Posicionable{
 		return habilidad;
 	}
 		
-	public void asignarPosicion(Posicion posicion,Direccion direccion){
-		
-	}
-	
 	//Mueve al pooglin y segun sobre que terreno este parado el mismo
 	//cambiará de dirección en que se esta moviendo o se le duplicara 
 	//la velocidad o puede llegar a quitarle la vida.
     public boolean mover(Mapa mapa){
     	    	    	
-       	Terreno terrenoCostado=mapa.obtenerTerreno(movimiento.getPosicionSiguiente()); //obtengo el terreno de la posicion siguiente del pooglin
-		terrenoCostado.colisionarPoogling(this); //lo colisiciono con ese terreno
-		
-		if(!mapa.llegoPooglinANaveEscape(this)){ //Si el pooglin no llego a la nave, seguira moviendose y colisionando con el terreno
-		movimiento.mover(); //primero me muevo y luego miro que hay abajo
-		Terreno terrenoAbajo=mapa.obtenerTerreno(movimiento.getPosicion().obtenerPosicionSiguienteAbajo());
-		terrenoAbajo.colisionarPoogling(this);
-		return true;
-		}else{
-			mapa.subirPooglinNaveEscape(this);
-			return false;
+       	boolean llegoAnave = mapa.llegoPooglinANaveEscape(this);
+    	
+		for(Iterator itColTerrenoContiguo=mapa.obtenerBloquesContiguosAlPooglin(this).iterator(); itColTerrenoContiguo.hasNext();){
+			Terreno terreno=(Terreno)itColTerrenoContiguo.next();
+			terreno.colisionarPoogling(this);
 		}
 		
+		if(!llegoAnave && isConVida()){ //Si el pooglin no llego a la nave, seguira moviendose y colisionando con el terreno
+		this.asignarPosicion(movimiento.siguientePosicion()); //le pido la siguiente posicion y se la asigno al pooglin 
+		return true;
+		}else if(llegoAnave)
+			mapa.subirPooglinNaveEscape(this);
+			
+		
+		return false;	
 	}
 	
-	public Movimiento getMovimiento() {
-		return movimiento;
+    public int cantidadDePasosEnDireccion(){
+    	return movimiento.cantidadDePasosEnDireccion();
+    }
+    
+    public void caerAlVacio(){
+    	movimiento.cambiarDireccion(Abajo.getInstance());
+    }
+    
+    public void cambiarDireccionDeMovimiento(){
+    	movimiento.cambiarDireccion();
+    }
+    
+    public Posicion siguientePosicion(){
+    	return movimiento.verSiguientePosicion();
+    }
+    
+	public void quitarVida(){
+		vida.sacarVidas(vida.getCantidadVidas());
 	}
-
-
-	public void setMovimiento(Movimiento movimiento) {
-		this.movimiento = movimiento;
+	
+	public boolean isConVida(){
+		return vida.hayVida();
 	}
-
 	
 }

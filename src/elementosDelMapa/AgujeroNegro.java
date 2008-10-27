@@ -19,7 +19,7 @@ public class AgujeroNegro extends Terreno{
 	//hace lo mismo que fuego
 	@Override
 	public void colisionarPoogling(Poogling poogling) {
-		poogling.setVida(new Vida(0));
+		poogling.quitarVida();
 	}
 
 

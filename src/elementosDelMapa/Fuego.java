@@ -21,7 +21,10 @@ public class Fuego extends Terreno{
 	//instantanea.
 	@Override
 	public void colisionarPoogling(Poogling poogling) {
-		poogling.setVida(new Vida(0));
+		if(this.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==
+			Constants.ValorComparador.IGUAL) 
+		
+			poogling.quitarVida();
 	}
 
 

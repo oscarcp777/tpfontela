@@ -17,12 +17,6 @@ public class Roca extends Terreno{
 	}
 	
 	@Override
-	public void colisionarPoogling(Poogling poogling) {
-		poogling.getMovimiento().cambiarMovimiento();
-	}
-
-
-	@Override
 	public void aplicarHabilidad(Habilidad habilidad) {
 		// TODO Auto-generated method stub
 		
