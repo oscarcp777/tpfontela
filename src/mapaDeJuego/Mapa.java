@@ -54,7 +54,7 @@ public class Mapa {
 	}
 	
 	public boolean llegoPooglinANaveEscape(Poogling poogling){
-		if (poogling.getMovimiento().getPosicion().compareTo(this.naveEscape.obtenerPosicion())==Constants.ValorComparador.IGUAL)
+		if (poogling.obtenerPosicion().compareTo(this.naveEscape.obtenerPosicion())==Constants.ValorComparador.IGUAL)
 		return true;
 		else 
 			return false;
@@ -76,5 +76,28 @@ public class Mapa {
 	public Terreno obtenerTerreno(Posicion posicionKey){
 		return (Terreno)mapaTerreno.obtenerTerreno(posicionKey);
 	}
+	
+	private void agregarAcolTerrenoBloqueContiguo(ColTerreno colTerrenoContiguos,Terreno terrenoContiguo){
+		if(terrenoContiguo!=null)
+			colTerrenoContiguos.agregarTerreno(terrenoContiguo);
+	}
+	
+	public ColTerreno obtenerBloquesContiguosAlPooglin(Poogling pooglin){
+		Posicion posicionActualPooglin = pooglin.obtenerPosicion();
+		ColTerreno colTerrenoContiguos = new ColTerreno();
+		
+		Terreno terrenoArriba=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteArriba());
+		Terreno terrenoAbajo=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteAbajo());
+		Terreno terrenoDerecha=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteIzquierda());
+		Terreno terrenoIzquierda=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteDerecha());
+	
+		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoArriba);	
+		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoAbajo);
+		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoDerecha);
+		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoIzquierda);
+	
+		return colTerrenoContiguos;
+	}
+	
 	
 }
