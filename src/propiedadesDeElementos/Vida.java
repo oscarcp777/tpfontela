@@ -12,9 +12,14 @@ public class Vida {
 	}
 	
 	public void sacarVidas(int vidas){
-		if(vidas>cantidadVidas)
+		if(vidas>=cantidadVidas)
 			cantidadVidas=0;
 		else
 			cantidadVidas-=vidas;
 	}
+	
+	public boolean hayVida(){
+		return (cantidadVidas>0);
+	}
+
 }

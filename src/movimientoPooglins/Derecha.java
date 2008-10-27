@@ -2,30 +2,29 @@ package movimientoPooglins;
 
 import propiedadesDeElementos.Posicion;
 
-public class Derecha implements Direccion {
+public class Derecha extends Direccion {
 
-	static private Derecha instance=null;
+	private static Derecha instance=new Derecha();
 	
 	private Derecha() {
-	
+		resetearPasosEnDireccion();
 	}
 
 	//devuelve una unica instancia por ser singleton
 	public static Derecha getInstance(){
-		if(instance==null)
-			return new Derecha();
-		else 
-			return instance;
+		return instance;
 	}
 	
 	@Override
 	public Direccion cambiarDireccion() {
 		// TODO Auto-generated method stub
+		resetearPasosEnDireccion();
 		return Izquierda.getInstance();
 	}
 	
 	@Override
 	public Posicion siguientePosicionEnDireccion(Posicion posicion) {
+		darUnPasoEnDireccion();
 		return posicion.obtenerPosicionSiguienteDerecha();		
 	}
 

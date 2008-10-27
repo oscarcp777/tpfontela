@@ -4,6 +4,7 @@ import mapaDeJuego.Planeta;
 import nivelDeJuego.ColPooglins;
 import nivelDeJuego.ColTerreno;
 import nivelDeJuego.InfoNivel;
+import elementosDelMapa.AgujeroNegro;
 import elementosDelMapa.Aire;
 import elementosDelMapa.Hielo;
 import elementosDelMapa.Poogling;
@@ -12,6 +13,7 @@ import elementosDelMapa.Terreno;
 import elementosDelMapa.Tierra;
 import propiedadesDeElementos.Posicion;
 import propiedadesDeElementos.Velocidad;
+import propiedadesDeElementos.Vida;
 import junit.framework.TestCase;
 
 public class PruebaDeInteraccion extends TestCase{
@@ -26,7 +28,7 @@ public class PruebaDeInteraccion extends TestCase{
 		/* Se carga el pooglin que va a salir de la nave de entrada */
 		ColPooglins colPooglins = new ColPooglins();
 		
-		Poogling pooglin = new Poogling(new Posicion(0,0));
+		Poogling pooglin = new Poogling(new Posicion(0,0),new Vida(5));
 		Velocidad velocidadPooglin=new Velocidad();
 		velocidadPooglin.setVelocidad(2);
 		pooglin.setVelocidad(velocidadPooglin);
@@ -57,9 +59,9 @@ public class PruebaDeInteraccion extends TestCase{
 		tierra.asignarPosicion(new Posicion(5,2));
 		colTerreno.agregarTerreno(tierra);
 		
-		Terreno hielo = new Hielo();
-		hielo.asignarPosicion(new Posicion(3,2));
-		colTerreno.agregarTerreno(hielo);
+		Terreno agujeroNegro = new AgujeroNegro();
+		agujeroNegro.asignarPosicion(new Posicion(3,2));
+		colTerreno.agregarTerreno(agujeroNegro);
 		
 		Terreno roca = new Roca();
 		roca.asignarPosicion(new Posicion(4,2));

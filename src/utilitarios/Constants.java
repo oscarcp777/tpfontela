@@ -36,5 +36,9 @@ public class Constants {
 		public static int NULO=0;
 	}
 	
+	public interface PooglinAlVacio{
+		public static int CANTIDAD_PASOS_AIRE_MUERE=5;
+	}
+	
 }
  

@@ -73,26 +73,7 @@ public class Posicion implements Comparable,Comparator{
 	    posicion.setPosicionX(posicion.getPosicionX()-1);
 	    return posicion;
 	}
-	
-	
-	/*
-	public boolean posicionValidaDelTerreno(Estatico estatico,Direccion direccionPooglin){
-		//La posicion del pooglin es la referencia this actual
-		Posicion siguientePosicion = new Posicion(posicionX,posicionY);
-		direccionPooglin.siguientePosicion(siguientePosicion);	 //me devuelve la siguiente posicion del poogling
-		   														 //de acuerdo a la direccion de movimiento que tenia
-	 	Terreno terreno = (Terreno) estatico;
-	 	if(compare(terreno.obtenerPosicion(),siguientePosicion)==0) //El terreno esta al lado
-	 	return true;
-	 	else{
-	 		siguientePosicion.decrementarY();					
-	 		if(compare(siguientePosicion,terreno.obtenerPosicion())==0)		
-	 		return true;
-		}
-		return false;
-	}
-	*/
-	
+
 	public void setPosicionX(int posX){
 		posicionX=posX;
 	}

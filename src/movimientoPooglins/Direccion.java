@@ -2,11 +2,24 @@ package movimientoPooglins;
 
 import propiedadesDeElementos.Posicion;
 
-public interface Direccion {
+public abstract class Direccion {
 	
-	public Posicion siguientePosicionEnDireccion(Posicion posicion); 
+	private PasosEnDireccion pasosEnDireccion = new PasosEnDireccion();
+	
+	public abstract Posicion siguientePosicionEnDireccion(Posicion posicion); 
 								  				
-	public Direccion cambiarDireccion(); //me actualiza la referencia
-	        
-		
+	public abstract Direccion cambiarDireccion();
+
+	public void darUnPasoEnDireccion() {
+		this.pasosEnDireccion.darPasosEnDireccion(1);
+	}
+
+	public int cantidadDePasosEnDireccion() {
+		return pasosEnDireccion.cantidadDePasosEnDireccion();
+	}
+	
+	public void resetearPasosEnDireccion(){
+		this.pasosEnDireccion.inicializarCantidadDePasos();
+	}
+	
 }

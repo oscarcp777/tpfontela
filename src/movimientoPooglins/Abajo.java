@@ -5,30 +5,29 @@ import propiedadesDeElementos.Posicion;
 import com.sun.net.ssl.internal.ssl.Debug;
 
 
-public class Abajo implements Direccion{
+public class Abajo extends Direccion{
 
-	static private Abajo instance;
+	private static Abajo instance = new Abajo();
 	
 	private Abajo(){
-		
+		resetearPasosEnDireccion();
 	}
 	
 	//devuelve una unica instancia por ser singleton
 	public static Abajo getInstance(){
-		if(instance==null)
-			return new Abajo();
-		else
-			return instance;
+		return instance;
 	}
 	
 	@Override
 	public Direccion cambiarDireccion() {
 		// TODO Auto-generated method stub
+		resetearPasosEnDireccion();
 		return Derecha.getInstance();
 	}
 
 	@Override
 	public Posicion siguientePosicionEnDireccion(Posicion posicion) {
+		darUnPasoEnDireccion();
 		return posicion.obtenerPosicionSiguienteAbajo();
 	}
 	
