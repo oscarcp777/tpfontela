@@ -12,9 +12,8 @@ public class Movimiento {
 		
 	}
 	
-	public Movimiento(Posicion posicionInicial,Direccion direccionInicial){
+	public Movimiento(Posicion posicionInicial){
 		posicion = posicionInicial; //le asigna la posicion inicial
-		this.direccion = direccionInicial; //le asigna la direccion inicial
 	}
 	
 	//se delega el movimiento a la dirección, la cual sabe en que direccion moverse
