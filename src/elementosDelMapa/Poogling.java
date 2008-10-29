@@ -27,7 +27,7 @@ public class Poogling extends Posicionable{
 	
 	public Poogling(Posicion posicionInicial,Vida vida){
 		this.asignarPosicion(posicionInicial);
-		movimiento = new Movimiento(posicionInicial,Abajo.getInstance());
+		movimiento = new Movimiento(posicionInicial);
 		this.vida = vida;
 	}
 	
