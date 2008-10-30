@@ -27,6 +27,7 @@ public class Abajo extends Direccion{
 
 	@Override
 	public Posicion siguientePosicionEnDireccion(Posicion posicion) {
+		if(!quietoEnDireccion())
 		darUnPasoEnDireccion();
 		return posicion.obtenerPosicionSiguienteAbajo();
 	}

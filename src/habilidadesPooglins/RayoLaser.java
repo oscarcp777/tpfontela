@@ -1,5 +1,6 @@
 package habilidadesPooglins;
 import propiedadesDeElementos.Vida;
+import utilitarios.Constants;
 import elementosDelMapa.Poogling;
 import elementosDelMapa.Terreno;
 import elementosDelMapa.Tierra;
@@ -17,19 +18,25 @@ public class RayoLaser extends Habilidad{
 		 */
 	}
 
+	//falta ver la posicion del pooglin 
 	@Override
 	public void aplicar(Terreno terreno) {
 
-		Tierra tierra = (Tierra)terreno;	
-		Vida vida = tierra.getVida();
+		if(((terreno.getNombreTerreno()==Constants.NombreTerreno.TIERRA))
+			||((terreno.getNombreTerreno()==Constants.NombreTerreno.HIELO))
+			){
+		
+		Vida vida = terreno.getVida();
 		
 		if(vida.getCantidadVidas()<=4)
 		vida.sacarVidas(1);
 		
-		
+	
+			
 			
 
 	}
 
 	
+	}
 }

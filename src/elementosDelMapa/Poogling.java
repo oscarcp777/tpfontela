@@ -73,6 +73,14 @@ public class Poogling extends Posicionable{
     	return movimiento.cantidadDePasosEnDireccion();
     }
     
+    public void validezMovimiento(boolean mover){
+    	movimiento.valido(mover);
+    }
+    
+    public boolean quieto(){
+    	return movimiento.invalido();
+    }
+    
     public void caerAlVacio(){
     	movimiento.cambiarDireccion(Abajo.getInstance());
     }

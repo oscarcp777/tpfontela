@@ -31,6 +31,14 @@ public class Movimiento {
 		return direccion.cantidadDePasosEnDireccion();
 	}
 	
+	public boolean invalido(){
+		return direccion.quietoEnDireccion();
+	}
+	
+	public void valido(boolean movimientoValido){
+		direccion.moverEnDireccion(movimientoValido);
+	}
+	
 	public void cambiarDireccion(){
 		direccion=direccion.cambiarDireccion();
 	}

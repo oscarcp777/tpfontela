@@ -13,6 +13,14 @@ public abstract class Direccion {
 	public void darUnPasoEnDireccion() {
 		this.pasosEnDireccion.darPasosEnDireccion(1);
 	}
+	
+	public boolean quietoEnDireccion(){
+		return pasosEnDireccion.getQuietoEnDireccion();
+	}
+	
+	public void moverEnDireccion(boolean mover){
+		this.pasosEnDireccion.setQuietoEnDireccion(mover);
+	}
 
 	public int cantidadDePasosEnDireccion() {
 		return pasosEnDireccion.cantidadDePasosEnDireccion();
