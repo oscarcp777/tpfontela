@@ -9,11 +9,12 @@ public class Roca extends Terreno{
 	
 	//Constructor por defecto
 	public Roca(){
-		
+		setNombreTerreno(Constants.NombreTerreno.ROCA);
 	}
 	
 	public Roca(Posicion posicion){
 		asignarPosicion(posicion);
+		setNombreTerreno(Constants.NombreTerreno.ROCA);
 	}
 	
 	@Override

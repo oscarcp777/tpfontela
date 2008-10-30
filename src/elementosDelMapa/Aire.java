@@ -9,11 +9,12 @@ public class Aire extends Terreno{
 	
 	//Constructor por defecto
 	public Aire(){
-		
+		setNombreTerreno(Constants.NombreTerreno.AIRE);
 	}
 	
 	public Aire(Posicion posicion){
 		asignarPosicion(posicion);
+		setNombreTerreno(Constants.NombreTerreno.AIRE);
 	}
 	
 	//con aire este método no hace nada, dado que el pooglin puede moverse

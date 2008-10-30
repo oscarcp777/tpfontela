@@ -10,9 +10,10 @@ import habilidadesPooglins.Habilidad;
 
 public abstract class Terreno extends Posicionable implements Colisionable{
 	
+	private String nombreTerreno;
 	private Vida vida;
-
 	
+	public abstract void aplicarHabilidad(Habilidad habilidad);
 	
 	//colisiona el poogling contra tierra o roca,
 	@Override
@@ -23,8 +24,6 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 		poogling.cambiarDireccionDeMovimiento();
 	}
 	
-	public abstract void aplicarHabilidad(Habilidad habilidad);
-
 	public void setVida(Vida vida) {
 		this.vida = vida;
 	}
@@ -32,7 +31,13 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 	public Vida getVida() {
 		return vida;
 	}
+	
+	public void setNombreTerreno(String nombreTerreno){
+		this.nombreTerreno = nombreTerreno;
+	}
+	
+	public String getNombreTerreno(){
+		return nombreTerreno;
+	}
 
-	
-	
 }

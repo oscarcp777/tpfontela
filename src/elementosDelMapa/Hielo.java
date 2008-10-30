@@ -11,11 +11,12 @@ public class Hielo extends Terreno{
 
 	//Constructor por defecto
 	public Hielo(){
-		
+		setNombreTerreno(Constants.NombreTerreno.HIELO);		
 	}
 	
 	public Hielo(Posicion posicion){
 		asignarPosicion(posicion);
+		setNombreTerreno(Constants.NombreTerreno.HIELO);
 	}
 	
 	@Override
