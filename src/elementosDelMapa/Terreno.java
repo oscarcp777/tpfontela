@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import propiedadesDeElementos.Colisionable;
 import propiedadesDeElementos.Posicionable;
 import propiedadesDeElementos.Vida;
@@ -36,6 +37,10 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 	
 	public String getNombreTerreno(){
 		return nombreTerreno;
+	}
+	
+	public void cambiarPorAire(Mapa mapa){
+		mapa.cambiarTerreno(new Aire(obtenerPosicion()));
 	}
 
 }

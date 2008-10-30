@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import propiedadesDeElementos.Posicion;
 import propiedadesDeElementos.Velocidad;
 import habilidadesPooglins.Habilidad;

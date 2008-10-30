@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import propiedadesDeElementos.Posicion;
 import propiedadesDeElementos.Vida;
 import habilidadesPooglins.Habilidad;
@@ -21,5 +22,11 @@ public class AgujeroNegro extends Terreno{
 	@Override
 	public void colisionarPoogling(Poogling poogling) {
 		poogling.quitarVida();
+	}
+
+	@Override
+	public void cambiarPorAire(Mapa mapa) {
+		// TODO Auto-generated method stub
+		
 	}
 }

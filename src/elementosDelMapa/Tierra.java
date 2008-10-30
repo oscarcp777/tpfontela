@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import propiedadesDeElementos.Posicion;
 import habilidadesPooglins.Habilidad;
 import utilitarios.Constants;
@@ -15,5 +16,5 @@ public class Tierra extends Terreno{
 		asignarPosicion(posicion);
 		setNombreTerreno(Constants.NombreTerreno.TIERRA);
 	}
-	
+
 }

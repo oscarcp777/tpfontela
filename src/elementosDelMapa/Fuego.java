@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import propiedadesDeElementos.Posicion;
 import propiedadesDeElementos.Vida;
 import habilidadesPooglins.Habilidad;
@@ -26,6 +27,12 @@ public class Fuego extends Terreno{
 			Constants.ValorComparador.IGUAL) 
 		
 			poogling.quitarVida();
+	}
+
+	@Override
+	public void cambiarPorAire(Mapa mapa) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
