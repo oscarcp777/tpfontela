@@ -16,13 +16,5 @@ public class Roca extends Terreno{
 		asignarPosicion(posicion);
 		setNombreTerreno(Constants.NombreTerreno.ROCA);
 	}
-	
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 
 }

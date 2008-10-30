@@ -22,14 +22,4 @@ public class AgujeroNegro extends Terreno{
 	public void colisionarPoogling(Poogling poogling) {
 		poogling.quitarVida();
 	}
-
-
-
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
 }

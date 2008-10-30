@@ -28,12 +28,5 @@ public class Fuego extends Terreno{
 			poogling.quitarVida();
 	}
 
-
-
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		
-	}
-
 }
 

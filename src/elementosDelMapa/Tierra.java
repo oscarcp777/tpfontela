@@ -16,10 +16,4 @@ public class Tierra extends Terreno{
 		setNombreTerreno(Constants.NombreTerreno.TIERRA);
 	}
 	
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		
-		
-	}
-
 }

@@ -28,13 +28,5 @@ public class Hielo extends Terreno{
 		poogling.setVelocidad(velocidadPoogling);
 	}
 
-	
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		// TODO Auto-generated method stub
-	
-	}
-	
-
 }
 

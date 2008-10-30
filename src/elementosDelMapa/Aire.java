@@ -32,10 +32,4 @@ public class Aire extends Terreno{
 		}
 	}
 
-	@Override
-	public void aplicarHabilidad(Habilidad habilidad) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

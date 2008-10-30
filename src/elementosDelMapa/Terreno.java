@@ -13,8 +13,6 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 	private String nombreTerreno;
 	private Vida vida;
 	
-	public abstract void aplicarHabilidad(Habilidad habilidad);
-	
 	//colisiona el poogling contra tierra o roca,
 	@Override
 	public void colisionarPoogling(Poogling poogling) {
