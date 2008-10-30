@@ -19,7 +19,10 @@ public class TaladroUltrasonico extends Habilidad {
 	 * 
 	 */
 	}
-
+	
+	public void aplicar(Terreno terreno){
+		
+	}
 	@Override
 	public void aplicar(Terreno terreno) {
 		 try{

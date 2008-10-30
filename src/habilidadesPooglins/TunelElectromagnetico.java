@@ -17,6 +17,9 @@ public class TunelElectromagnetico extends Habilidad{
 		
 	}
 
+	public void aplicar(Terreno terreno){
+		
+	}
 	
 
 }

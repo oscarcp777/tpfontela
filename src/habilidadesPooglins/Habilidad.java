@@ -11,4 +11,5 @@ public abstract class Habilidad {
 	
 	public abstract void aplicar(Terreno terreno);
 	
+	public abstract void aplicar(Terreno terreno);0
 }
