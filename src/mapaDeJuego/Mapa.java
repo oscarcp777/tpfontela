@@ -73,6 +73,13 @@ public class Mapa {
 		}
 	}
 	
+	//Si la clave posicion del terreno se encuentra en el mapa, borra el terreno actual
+	//y lo cambia por el terreno que se le pasa por parametro, en caso contrario no hace dicho cambio. 
+	public void cambiarTerreno(Terreno terreno){
+		if(mapaTerreno.eliminarTerreno(terreno.obtenerPosicion()))
+		mapaTerreno.agregarTerreno(terreno);	
+	}
+	
 	public Terreno obtenerTerreno(Posicion posicionKey){
 		return (Terreno)mapaTerreno.obtenerTerreno(posicionKey);
 	}
