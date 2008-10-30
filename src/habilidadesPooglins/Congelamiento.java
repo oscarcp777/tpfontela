@@ -4,10 +4,6 @@ import elementosDelMapa.Poogling;
 import elementosDelMapa.Terreno;
 
 public class Congelamiento extends Habilidad{
-	@Override
-	public void destruirTerreno(Terreno terreno) {
-				
-	}
 
 	@Override
 	public void aplicar(Poogling poogling) {
@@ -17,6 +13,12 @@ public class Congelamiento extends Habilidad{
 		 * aire (porque alli hay un pooglin) por un 
 		 * bloque de hielo*/
 		 
+	}
+
+	@Override
+	public void aplicar(Terreno terreno) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

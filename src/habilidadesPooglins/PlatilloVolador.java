@@ -5,12 +5,6 @@ import elementosDelMapa.Terreno;
 public class PlatilloVolador extends Habilidad{
 
 	@Override
-	public void destruirTerreno(Terreno terreno) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void aplicar(Poogling poogling) {
 		// TODO Auto-generated method stub
 		/*hace que el pooglin "atraviese" bloques de aire (en direccion 
@@ -20,6 +14,12 @@ public class PlatilloVolador extends Habilidad{
 		 * ver que si el pooglin baja mas de 5 bloques de aire
 		 * sin tener un platillo volador, se muere
 		 */
+	}
+
+	@Override
+	public void aplicar(Terreno terreno) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
