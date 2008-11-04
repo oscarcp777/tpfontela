@@ -2,19 +2,16 @@ package movimientoPooglins;
 
 import propiedadesDeElementos.Posicion;
 
-import com.sun.net.ssl.internal.ssl.Debug;
+public class DiagonalArribaDerecha extends Direccion{
 
-
-public class Abajo extends Direccion{
-
-	private static Abajo instance = new Abajo();
-		
-	private Abajo(){
-			
+	private static DiagonalArribaDerecha instance = new DiagonalArribaDerecha();
+	
+	private DiagonalArribaDerecha(){
+	
 	}
 	
-	//devuelve una unica instancia por ser singleton
-	public static Abajo getInstance(){
+	public static DiagonalArribaDerecha getInstance(){
+		
 		return instance;
 	}
 	
@@ -27,8 +24,7 @@ public class Abajo extends Direccion{
 
 	@Override
 	public Posicion siguientePosicionEnDireccion(Posicion posicion) {
-		return posicion.obtenerPosicionSiguienteAbajo();
+		return posicion.obtenerPosicionSiguienteDerecha().obtenerPosicionSiguienteArriba();
 	}
-	
 
 }

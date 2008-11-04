@@ -1,34 +1,46 @@
 package habilidadesPooglins;
 
+import propiedadesDeElementos.Posicion;
+import mapaDeJuego.Mapa;
+import movimientoPooglins.PasosEnDireccion;
+import utilitarios.Constants;
+import utilitarios.Constants.ValorComparador;
 import elementosDelMapa.Poogling;
 import elementosDelMapa.Terreno;
 
 public class Teletransportacion extends Habilidad{
 		
-		private Poogling poogling;
-		private Terreno terreno;
-		
-		public Teletransportacion(Poogling poogling,Terreno terreno){
-			this.poogling=poogling;
-			this.terreno=terreno;
+	
+		public Teletransportacion(){
+			estadoHabilidad = new EstadoHabilidad();
+			estadoHabilidad.activarHabilidad();
 		}
 		
-		public Poogling Teletransportar(){
-		//	return this.poogling.asignarPosicion([(posicion.getPosicionY)+20][posicion.getPosicionX]);
-		return null;
+		@Override
+		public void aplicarApooglin(Mapa mapa, Poogling poogling, Terreno terreno) {
+
+			if(poogling.obtenerPosicion().compareTo(terreno.obtenerPosicion().obtenerPosicionSiguienteArriba())==
+				Constants.ValorComparador.IGUAL){ //el terreno contiguo que se le pasa por parametro es el piso del pooglin
+				PasosEnDireccion pasosEnDireccion = new PasosEnDireccion();
+				pasosEnDireccion.darPasosEnDireccion(5);
+				Posicion posicionTeletransportacion=poogling.avanzarEnDireccion(pasosEnDireccion);
+				Terreno terrenoTeletranportacion = (Terreno)mapa.obtenerTerreno(posicionTeletransportacion);
+				if(terrenoTeletranportacion!=null && terrenoTeletranportacion.obtenerNombre().equalsIgnoreCase(Constants.NombreTerrenos.AIRE)){ //si el terreno esta dentro de los limites del mapa  
+					poogling.asignarPosicion(posicionTeletransportacion);										 //y si es aire se teletransportara a esa posicion.			
+					poogling.desactivarHabilidad();
+				}
+			}
 		}
 
 		@Override
-		public void aplicar(Poogling poogling) {
+		public String getNombre() {
 			// TODO Auto-generated method stub
-			/*el pooglin adelanta 20 pasos (posiciones) 
-			 * ya sea de derecha o izquierda (dependiendo de
-			 * su direccion)
-			 */
+			return Constants.NombreHabilidades.TELETRANSPORTACION;
 		}
 
 		@Override
-		public void aplicar(Terreno terreno) {
+		public void aplicarAterreno(Mapa mapa, Terreno terreno,
+				Poogling poogling) {
 			// TODO Auto-generated method stub
 			
 		}

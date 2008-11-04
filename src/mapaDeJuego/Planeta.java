@@ -1,5 +1,7 @@
 package mapaDeJuego;
 
+import habilidadesPooglins.ContenedorHabilidades;
+
 import java.util.Iterator;
 
 import nivelDeJuego.ColPooglins;
@@ -17,6 +19,7 @@ public class Planeta{
 	public Planeta(InfoNivel infoNivel){
 		mapa = new Mapa(infoNivel);
 		mapa.cargarTerrenoDeJuego();
+		ContenedorHabilidades.getInstance().mapearHabilidades(infoNivel.getFabricaHabilidades());
 	}
 	
 	public boolean moverPooglin(Poogling pooglin){
@@ -30,5 +33,6 @@ public class Planeta{
 	public ColPooglins obtenerPooglinsNaveEscape(){
 		return mapa.obtenerPooglinsNaveEscape();
 	}
+	
 	
 } 

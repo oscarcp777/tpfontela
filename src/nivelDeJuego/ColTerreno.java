@@ -30,6 +30,10 @@ public class ColTerreno {
 		return colTerrenos.remove(terreno);
 	}
 	
+	public int tamanio(){
+		return colTerrenos.size();
+	}
+	
 	public Iterator iterator(){
 		return colTerrenos.iterator();
 	}

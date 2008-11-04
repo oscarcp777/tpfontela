@@ -13,13 +13,24 @@ public class Constants {
 	public static int VELOCIDAD_MUYRAPIDA=4;
 	}
 	
-	public interface NombreTerreno{
-		public static String AGUJERO_NEGRO="Agujero Negro";
-		public static String AIRE="Aire";
-		public static String FUEGO="Fuego";
-		public static String HIELO="Hielo";
-		public static String ROCA="Roca";
-		public static String TIERRA="Tierra";
+	public interface NombreTerrenos{
+		public static String TIERRA = "tierra";
+		public static String AIRE = "aire";
+		public static String FUEGO = "fuego";
+		public static String ROCA = "roca";
+		public static String AGUJERO_NEGRO = "agujeroNegro";
+		public static String HIELO = "hielo";
+		public static String TUNEL = "tunel";
+		
+	}
+	
+	public interface NombreHabilidades{
+		public static String CONGELAMIENTO = "congelamiento";
+		public static String PLATILLO_VOLADOR = "platilloVolador";
+		public static String RAYO_LASER = "rayoLaser";
+		public static String TALADRO_ULTRASONICO = "taladroUltrasonico";
+		public static String TELETRANSPORTACION = "teletransportacion";
+		public static String TUNEL_ELECTROMAGNETICO = "tunelElectromagnetico";
 	}
 	
 	public interface ValorComparador{

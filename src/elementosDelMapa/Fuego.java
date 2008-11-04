@@ -10,12 +10,12 @@ public class Fuego extends Terreno{
 
 	//Constructor por defecto
 	public Fuego(){
-		setNombreTerreno(Constants.NombreTerreno.FUEGO);
+		
 	}
 	
 	public Fuego(Posicion posicion){
 		asignarPosicion(posicion);
-		setNombreTerreno(Constants.NombreTerreno.FUEGO);
+		
 	}
 	
 	//En caso de que el pooglin colisione con este
@@ -30,7 +30,12 @@ public class Fuego extends Terreno{
 	}
 
 	@Override
-	public void cambiarPorAire(Mapa mapa) {
+	public String obtenerNombre() {
+		return Constants.NombreTerrenos.FUEGO;
+	}
+
+	@Override
+	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,6 +1,7 @@
 package nivelDeJuego;
 
 
+import FabricaHabilidades.FabricaHabilidades;
 import propiedadesDeElementos.Posicion;
 
 public class InfoNivel {
@@ -8,14 +9,16 @@ public class InfoNivel {
 	private Posicion posicionNaveEscape;
 	private ColPooglins colPooglins;
 	private ColTerreno colTerreno;
+	private ColFabricaHabilidades fabricaHabilidades;
 		
 	/** LEVANTA ESTA INFO DE UN XML **/
 	
-	public InfoNivel(Posicion posNaveIngreso, Posicion posNaveEscape, ColPooglins colPooglins, ColTerreno colTerr){
+	public InfoNivel(Posicion posNaveIngreso, Posicion posNaveEscape, ColPooglins colPooglins, ColTerreno colTerr,ColFabricaHabilidades fabrica){
 		this.posicionNaveIngreso = posNaveIngreso;
 		this.posicionNaveEscape = posNaveEscape;
 		this.colPooglins = colPooglins;
 		this.colTerreno = colTerr;
+		this.fabricaHabilidades = fabrica;
 	}
 
 	public Posicion getPosicionNaveIngreso() {
@@ -34,8 +37,8 @@ public class InfoNivel {
 		return colTerreno;
 	}
 
-	public void setColTerreno(ColTerreno colTerreno) {
-		this.colTerreno = colTerreno;
+	public ColFabricaHabilidades getFabricaHabilidades() {
+		return fabricaHabilidades;
 	}
 
 }

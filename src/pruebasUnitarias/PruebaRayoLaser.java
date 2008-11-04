@@ -1,36 +1,36 @@
 package pruebasUnitarias;
 
+import mapaDeJuego.Planeta;
+import nivelDeJuego.ColFabricaHabilidades;
+import nivelDeJuego.ColPooglins;
+import nivelDeJuego.ColTerreno;
+import nivelDeJuego.InfoNivel;
+import propiedadesDeElementos.Posicion;
+import propiedadesDeElementos.Velocidad;
+import propiedadesDeElementos.Vida;
+import utilitarios.Constants;
 import FabricaHabilidades.FabricaCongelamiento;
 import FabricaHabilidades.FabricaPlatilloVolador;
 import FabricaHabilidades.FabricaRayoLaser;
 import FabricaHabilidades.FabricaTaladroUltrasonico;
 import FabricaHabilidades.FabricaTeletransportacion;
 import FabricaHabilidades.FabricaTunelElectromagnetico;
-import mapaDeJuego.Planeta;
-import nivelDeJuego.ColFabricaHabilidades;
-import nivelDeJuego.ColPooglins;
-import nivelDeJuego.ColTerreno;
-import nivelDeJuego.InfoNivel;
 import elementosDelMapa.AgujeroNegro;
 import elementosDelMapa.Aire;
-import elementosDelMapa.Hielo;
 import elementosDelMapa.Poogling;
 import elementosDelMapa.Roca;
 import elementosDelMapa.Terreno;
 import elementosDelMapa.Tierra;
-import propiedadesDeElementos.Posicion;
-import propiedadesDeElementos.Velocidad;
-import propiedadesDeElementos.Vida;
 import junit.framework.TestCase;
 
-public class PruebaDeInteraccion extends TestCase{
-	
+public class PruebaRayoLaser extends TestCase {
+
 	private Planeta planeta;
-		
+	
 	protected void setUp() throws Exception{
 		super.setUp();
 		Posicion posicionNaveIngreso = new Posicion(0,0); //se posiciona la nave de ingreso
-		Posicion posicionNaveEscape = new Posicion(5,1); //se posiciona la nave de escape
+		Posicion posicionNaveEscape = new Posicion(5,3); //se posiciona la nave de escape
 		
 		/*Se crean las fabricas de habilidades que tendra el nivel del juego*/
 		ColFabricaHabilidades colFabrica = new ColFabricaHabilidades();
@@ -54,35 +54,42 @@ public class PruebaDeInteraccion extends TestCase{
 		ColTerreno colTerreno = new ColTerreno();
 		
 		for(int j=0;j<=6;j++){
-			Terreno aireAux = new Aire();
-			aireAux.asignarPosicion(new Posicion(j,0));
-			colTerreno.agregarTerreno(aireAux);
+			Terreno aire = new Aire();
+			aire.asignarPosicion(new Posicion(j,0));
+			colTerreno.agregarTerreno(aire);
 		}
 		
 		for(int j=0;j<=6;j++){
-			Terreno aireAux1 = new Aire();
-			aireAux1.asignarPosicion(new Posicion(j,1));
-			colTerreno.agregarTerreno(aireAux1);
+			Terreno aire = new Aire();
+			aire.asignarPosicion(new Posicion(j,1));
+			colTerreno.agregarTerreno(aire);
 		}
 		
-		for(int j=0;j<=2;j++){
-			Terreno tierraAux = new Tierra();
-			tierraAux.asignarPosicion(new Posicion(j,2));
-			colTerreno.agregarTerreno(tierraAux);
+		
+		for(int j=0;j<=6;j++){
+			Terreno aire = new Aire();
+			aire.asignarPosicion(new Posicion(j,2));
+			colTerreno.agregarTerreno(aire);
+		}
+		
+		
+		for(int j=0;j<=6;j++){
+			Terreno aire = new Aire();
+			aire.asignarPosicion(new Posicion(j,3));
+			colTerreno.agregarTerreno(aire);
+		}
+		
+		for(int j=0;j<=6;j++){
+			Terreno tierra = new Tierra();
+			tierra.asignarPosicion(new Posicion(j,4));
+			colTerreno.agregarTerreno(tierra);
 		}
 			
 		Terreno tierra = new Tierra();
-		tierra.asignarPosicion(new Posicion(5,2));
+		tierra.asignarPosicion(new Posicion(4,3));
+		tierra.setVida(new Vida(4));
 		colTerreno.agregarTerreno(tierra);
 		
-		Terreno agujeroNegro = new AgujeroNegro();
-		agujeroNegro.asignarPosicion(new Posicion(3,2));
-		colTerreno.agregarTerreno(agujeroNegro);
-		
-		Terreno roca = new Roca();
-		roca.asignarPosicion(new Posicion(4,2));
-		colTerreno.agregarTerreno(roca);
-				
 		/* Se termino de cargar la coleccion de fabrica de terrenos */
 		
 		//Se carga la información del nivel
@@ -92,23 +99,26 @@ public class PruebaDeInteraccion extends TestCase{
 		planeta = new Planeta(infoNivel);
 	}
 	
-	
 	public void testPooglinConTerreno(){
 		ColPooglins colPooglins = this.planeta.obtenerPooglinsNaveIngreso();
 				
 		Poogling pooglin=colPooglins.obtenerPooglin(0);
 		boolean movimientoValido;
+		int cantPasos=0;
 		
 		do{			
 			movimientoValido=planeta.moverPooglin(pooglin);
+			cantPasos++;
+			if(cantPasos==3)
+				pooglin.darHabilidad(Constants.NombreHabilidades.RAYO_LASER);
+			
 		}while(movimientoValido);
 		
 		assertEquals(true,colPooglins.estaVacia());
 		
 		colPooglins = planeta.obtenerPooglinsNaveEscape();
 		
-		assertEquals(true,colPooglins.estaVacia());
+		assertEquals(false,colPooglins.estaVacia());
 	}
-	
 
 }

@@ -1,5 +1,6 @@
 package elementosDelMapa;
 
+import mapaDeJuego.Mapa;
 import movimientoPooglins.Abajo;
 import propiedadesDeElementos.Posicion;
 import habilidadesPooglins.Habilidad;
@@ -9,12 +10,12 @@ public class Aire extends Terreno{
 	
 	//Constructor por defecto
 	public Aire(){
-		setNombreTerreno(Constants.NombreTerreno.AIRE);
+		
 	}
 	
 	public Aire(Posicion posicion){
 		asignarPosicion(posicion);
-		setNombreTerreno(Constants.NombreTerreno.AIRE);
+		
 	}
 	
 	//con aire este método no hace nada, dado que el pooglin puede moverse
@@ -22,14 +23,25 @@ public class Aire extends Terreno{
 	@Override
 	public void colisionarPoogling(Poogling poogling) {
 		
-		if(this.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==
-			Constants.ValorComparador.IGUAL){ 
-		
-			poogling.caerAlVacio();
+		if((this.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==
+			Constants.ValorComparador.IGUAL) && !poogling.isConDireccion())
+			poogling.redireccionar(Abajo.getInstance());
 			
-			if(poogling.cantidadDePasosEnDireccion()==Constants.PooglinAlVacio.CANTIDAD_PASOS_AIRE_MUERE)
-			poogling.quitarVida();
-		}
+	}
+
+	@Override
+	public String obtenerNombre() {
+		return Constants.NombreTerrenos.AIRE;
+	}
+
+	@Override
+	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+	public void cambiarPorHielo(Mapa mapa){
+		mapa.cambiarTerreno(new Hielo(obtenerPosicion()));
 	}
 
 }

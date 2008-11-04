@@ -15,7 +15,7 @@ public class Vida {
 		if(vidas>=cantidadVidas)
 			cantidadVidas=0;
 		else
-			cantidadVidas-=vidas;
+			cantidadVidas = cantidadVidas-vidas;
 	}
 	
 	public boolean hayVida(){

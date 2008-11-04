@@ -10,12 +10,12 @@ public class AgujeroNegro extends Terreno{
 
 	//Constructor por defecto
 	public AgujeroNegro(){
-		setNombreTerreno(Constants.NombreTerreno.AGUJERO_NEGRO);
+	
 	}
 	
 	public AgujeroNegro(Posicion posicion){
 		asignarPosicion(posicion);
-		setNombreTerreno(Constants.NombreTerreno.AGUJERO_NEGRO);
+		
 	}
 	
 	//hace lo mismo que fuego
@@ -25,8 +25,15 @@ public class AgujeroNegro extends Terreno{
 	}
 
 	@Override
-	public void cambiarPorAire(Mapa mapa) {
+	public String obtenerNombre() {
+		// TODO Auto-generated method stub
+		return Constants.NombreTerrenos.AGUJERO_NEGRO;
+	}
+
+	@Override
+	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

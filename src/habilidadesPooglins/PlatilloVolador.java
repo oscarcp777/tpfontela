@@ -1,10 +1,18 @@
 package habilidadesPooglins;
+import propiedadesDeElementos.Posicion;
+import mapaDeJuego.Mapa;
+import movimientoPooglins.Abajo;
+import utilitarios.Constants;
 import elementosDelMapa.Poogling;
 import elementosDelMapa.Terreno;
 
 public class PlatilloVolador extends Habilidad{
-
 	
+	public PlatilloVolador() {
+		estadoHabilidad = new EstadoHabilidad();
+		estadoHabilidad.activarHabilidad();
+	}
+
 	/*hace que el pooglin "atraviese" bloques de aire (en direccion 
 	 * hacia abajo) hasta que se choque con algun otro bloque
 	 * diferente de aire
@@ -13,12 +21,27 @@ public class PlatilloVolador extends Habilidad{
 	 * sin tener un platillo volador, se muere
 	 */
 	@Override
-	public void aplicar(Poogling poogling) {
-		poogling.validezMovimiento(false);			
+	public void aplicarApooglin(Mapa mapa, Poogling poogling,Terreno terreno) {
+		
+		if(terreno.obtenerNombre().compareToIgnoreCase(Constants.NombreTerrenos.AIRE)==Constants.ValorComparador.IGUAL &&
+		   terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==Constants.ValorComparador.IGUAL){
+			poogling.contarPasos(false);
+			poogling.redireccionar(Abajo.getInstance());		
+		}else if(poogling.siguientePosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())
+		   !=Constants.ValorComparador.IGUAL){ 	   //si la siguiente posicion no es abajo, el pooglin podra caminar hacia los costados
+			estadoHabilidad.desactivarHabilidad(); //el poogling dejo el platillo volador porque llego a tierra
+			poogling.contarPasos(true); //el pooglin se bajo del platillo y vuelve a contar los pasos en esa direccion
+		}
 	}
 
 	@Override
-	public void aplicar(Terreno terreno) {
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return Constants.NombreHabilidades.PLATILLO_VOLADOR;
+	}
+
+	@Override
+	public void aplicarAterreno(Mapa mapa, Terreno terreno, Poogling poogling) {
 		// TODO Auto-generated method stub
 		
 	}
