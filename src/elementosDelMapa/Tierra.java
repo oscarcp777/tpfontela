@@ -27,7 +27,7 @@ public class Tierra extends Terreno{
 	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
 		/*
 		//Si la siguiente posicion del pooglin (derecha,izquierda o abajo) coincide
-		//con la posicion de tierra, podrá sacarle vidas.
+		//con la posicion de tierra, podra sacarle vidas.
 		if((this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteAbajo())==
 			Constants.ValorComparador.IGUAL)||(this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteDerecha())==
 			Constants.ValorComparador.IGUAL)||(this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteDerecha())==

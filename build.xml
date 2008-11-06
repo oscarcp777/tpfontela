@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TPPooglings" default="todo">
+ 	
+ 	<property name="app.name" value="TPPooglings" /> 
+  	<property name="build.dir" value="bin/" /> 
+  	<property name="src.dir" value="." /> 
+  	<property name="test.dir" value="src/pruebasUnitarias/" /> 
+  	<property name="lib.dir" value="lib/" /> 
+  	<property name="junit.dir" value="lib/junit.jar" /> 
+	   	
+   	<target name="todo" depends="empaqueta, documenta, runtests">
+   	</target>
+
+   <target name="empaqueta" depends="compila">
+   		<jar destfile="../tpPooglins.jar" includes="../bin/**/*.class"/>
+   </target>
+
+   <target name="compila" depends="limpiar">
+  		<mkdir dir="${build.dir}" /> 
+  		<javac srcdir="${src.dir}" classpath="${junit.dir}" destdir="${build.dir}" /> 
+   </target>
+
+   <target name="documenta">
+      <javadoc sourcepath="." destfile="../javadoc" packagenames="*"/>
+   </target>
+   
+ 	<target name="limpiar">
+  		<delete dir="${build.dir}" /> 
+  	</target>
+ 	
+   <target name="compilatests" depends="compila">
+  		<mkdir dir="${build.dir}" /> 
+  		<javac srcdir="${test.dir}" classpath="${junit.dir}" destdir="${build.dir}" /> 
+  	</target>
+   
+   	<target name="runtests" depends="compilatests">
+   		<junit>
+   			<test name="PruebaCrearTunel"/>
+   			<test name="PruebaDeInteraccion"/>
+   			<test name="PruebaPlatilloVolador"/>
+   			<test name="PruebaPooglinAlVacio"/>
+   			<test name="PruebaRayoLaser"/>
+   			<test name="PruebaTaladroUltrasonico"/>
+   			<test name="PruebaTeletransportacion"/>
+   		</junit>
+  	</target> 
+
+   
+
+</project>
+

@@ -18,7 +18,7 @@ public class Aire extends Terreno{
 		
 	}
 	
-	//con aire este método no hace nada, dado que el pooglin puede moverse
+	//con aire este metodo no hace nada, dado que el pooglin puede moverse
 	//libremente sobre este tipo de terreno.
 	@Override
 	public void colisionarPoogling(Poogling poogling) {

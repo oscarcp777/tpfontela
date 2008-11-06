@@ -19,7 +19,7 @@ public class Fuego extends Terreno{
 	}
 	
 	//En caso de que el pooglin colisione con este
-	//tipo de terreno, el mismo morirá de manera
+	//tipo de terreno, el mismo morira de manera
 	//instantanea.
 	@Override
 	public void colisionarPoogling(Poogling poogling) {

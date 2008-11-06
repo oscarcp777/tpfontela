@@ -8,7 +8,7 @@ import elementosDelMapa.Terreno;
 
 public abstract class Habilidad {
 	
-	protected EstadoHabilidad estadoHabilidad; //lo usarán las clases descendientes
+	protected EstadoHabilidad estadoHabilidad; //lo usaran las clases descendientes
 		
 	//se le pasa el mapa, el pooglin y el terreno contiguo al pooglin
 	public abstract void aplicarApooglin(Mapa mapa, Poogling poogling, Terreno terreno);

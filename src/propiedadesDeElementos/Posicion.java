@@ -41,7 +41,7 @@ public class Posicion implements Comparable,Comparator{
 	}
 	
 	//devuelve la posicion siguiente a derecha, respecto
-	//de la posición actual del posicionable
+	//de la posicion actual del posicionable
 	public Posicion obtenerPosicionSiguienteDerecha(){
 		Posicion posicion = new Posicion(this);
 	    posicion.setPosicionX(posicion.getPosicionX()+1);
@@ -49,7 +49,7 @@ public class Posicion implements Comparable,Comparator{
 	}
 
 	//devuelve la posicion siguiente abajo , respecto
-	//de la posición actual del posicionable
+	//de la posicion actual del posicionable
 	public Posicion obtenerPosicionSiguienteAbajo() {
 		Posicion posicion = new Posicion(this);
 	    posicion.setPosicionY(posicion.getPosicionY()+1);
@@ -58,7 +58,7 @@ public class Posicion implements Comparable,Comparator{
 	
 
 	//devuelve la posicion siguiente arriba, respecto
-	//de la posición actual del posicionable
+	//de la posicion actual del posicionable
 	public Posicion obtenerPosicionSiguienteArriba() {
 		Posicion posicion = new Posicion(this);
 	    posicion.setPosicionY(posicion.getPosicionY()-1);
@@ -67,7 +67,7 @@ public class Posicion implements Comparable,Comparator{
 	
 
 	//devuelve la posicion siguiente a izquierda, respecto
-	//de la posición actual del posicionable
+	//de la posicion actual del posicionable
 	public Posicion obtenerPosicionSiguienteIzquierda() {
 		Posicion posicion = new Posicion(this);
 	    posicion.setPosicionX(posicion.getPosicionX()-1);

@@ -18,7 +18,7 @@ public class Movimiento {
 		pasosEnDireccion = new PasosEnDireccion();
 	}
 	
-	//se delega el movimiento a la dirección, la cual sabe en que direccion moverse
+	//se delega el movimiento a la direccion, la cual sabe en que direccion moverse
 	public Posicion siguientePosicion(){
 		if(noCambiaSuPosicion())
 			return posicion;

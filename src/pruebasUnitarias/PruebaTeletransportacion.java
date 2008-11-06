@@ -85,7 +85,7 @@ public class PruebaTeletransportacion extends TestCase {
 				
 		/* Se termino de cargar la coleccion de fabrica de terrenos */
 		
-		//Se carga la información del nivel
+		//Se carga la informacion del nivel
 		InfoNivel infoNivel = new InfoNivel(posicionNaveIngreso, posicionNaveEscape, colPooglins, colTerreno,colFabrica);
 		
 		//Se carga el planeta con esta info de nivel

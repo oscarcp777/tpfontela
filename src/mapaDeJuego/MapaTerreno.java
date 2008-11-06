@@ -30,7 +30,7 @@ public class MapaTerreno implements Comparator{
 
 	public int compare(Object o1, Object o2) {
 		Posicion posicionO1 = (Posicion)o1;
-		return posicionO1.compareTo(o2); //se lo delego a posición que sabe como hacer la comparación			
+		return posicionO1.compareTo(o2); //se lo delego a posicion que sabe como hacer la comparacion			
 	}
 		
 }

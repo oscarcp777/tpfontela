@@ -65,7 +65,7 @@ public class Poogling extends Posicionable{
 	}
 		
 	//Mueve al pooglin y segun sobre que terreno este parado el mismo
-	//cambiará de dirección en que se esta moviendo o se le duplicara 
+	//cambiara de direccion en que se esta moviendo o se le duplicara 
 	//la velocidad o puede llegar a quitarle la vida.
     public boolean mover(Mapa mapa){
     	             	

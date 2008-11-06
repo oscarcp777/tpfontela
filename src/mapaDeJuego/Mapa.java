@@ -27,8 +27,8 @@ public class Mapa {
 	private Nave naveEscape;
 		
 	public Mapa(InfoNivel infoNivel){
-		//En este constructor se cargan los atributos del mapa de acuerdo a la información recibida por el planeta,
-		//que sería nuestro nivel de juego.
+		//En este constructor se cargan los atributos del mapa de acuerdo a la informacion recibida por el planeta,
+		//que seria nuestro nivel de juego.
 			 
 		colTerreno = infoNivel.getColTerreno();
 		mapaTerreno = new MapaTerreno();
