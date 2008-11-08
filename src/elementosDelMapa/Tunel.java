@@ -5,16 +5,18 @@ import mapaDeJuego.Mapa;
 import movimientoPooglins.DiagonalArribaDerecha;
 import movimientoPooglins.DiagonalArribaIzquierda;
 import propiedadesDeElementos.Posicion;
+import propiedadesDeElementos.Vida;
 import utilitarios.Constants;
 
 public class Tunel extends Terreno{
 
 	public Tunel(){
-		
+		setVida(new Vida(5));
 	}
 	
 	public Tunel(Posicion posicion){
 		asignarPosicion(posicion);
+		setVida(new Vida(5));
 	}
 	
 	@Override

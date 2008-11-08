@@ -22,24 +22,6 @@ public class Tierra extends Terreno{
 		return Constants.NombreTerrenos.TIERRA;		
 	}
 
-
-	@Override
-	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
-		/*
-		//Si la siguiente posicion del pooglin (derecha,izquierda o abajo) coincide
-		//con la posicion de tierra, podra sacarle vidas.
-		if((this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteAbajo())==
-			Constants.ValorComparador.IGUAL)||(this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteDerecha())==
-			Constants.ValorComparador.IGUAL)||(this.obtenerPosicion().compareTo(posicionPooglin.obtenerPosicionSiguienteDerecha())==
-			Constants.ValorComparador.IGUAL)){
-			*/
-			habilidad.aplicarAterreno(mapa,this,poogling); //le aplica la habilidad rayoLaser o taladroUltrasonico, depende del tipo de habilidad
-														  //que se reciba.	
-		
-		
-	}
-	
-	
 	public void colisionarPoogling(Poogling poogling) {
 		
 		if((this.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==

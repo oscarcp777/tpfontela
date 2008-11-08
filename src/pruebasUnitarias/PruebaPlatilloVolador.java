@@ -54,42 +54,49 @@ private Planeta planeta;
 		for(int j=0;j<=6;j++){
 			Terreno aireAux = new Aire();
 			aireAux.asignarPosicion(new Posicion(j,0));
+			aireAux.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,1));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,2));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,3));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,4));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,5));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno tierra = new Tierra();
 			tierra.asignarPosicion(new Posicion(j,6));
+			tierra.setVida(new Vida(5));
 			colTerreno.agregarTerreno(tierra);
 		}
 			

@@ -34,8 +34,7 @@ public class TaladroUltrasonico extends Habilidad {
 	public void aplicarAterreno(Mapa mapa, Terreno terreno, Poogling poogling) {
 			
 		//Si el terreno esta por debajo del pooglin, aplica esta habilidad
-		if((terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==
-			Constants.ValorComparador.IGUAL)&& (terreno.obtenerNombre().compareToIgnoreCase(Constants.NombreTerrenos.TIERRA)==
+		if((terreno.obtenerNombre().equals(Constants.NombreTerrenos.TIERRA))&&(terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteAbajo())==
 			Constants.ValorComparador.IGUAL)) {
 				poogling.redireccionar(Abajo.getInstance());
 				Vida vida = terreno.getVida();

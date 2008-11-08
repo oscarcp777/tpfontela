@@ -44,7 +44,14 @@ public abstract class Terreno extends Posicionable implements Colisionable{
 		return vida;
 	}
 	
-	public abstract void aplicar(Habilidad habilidad,Mapa mapa,Poogling poogling);
+	//Para tierra y aire
+	public void aplicar(Habilidad habilidad, Mapa mapa, Poogling poogling) {
+		// TODO Auto-generated method stub
+		habilidad.aplicarAterreno(mapa,this,poogling); //le aplica la habilidad rayoLaser o taladroUltrasonico (si el terreno es tierra)
+													   // o congelamiento (si el terreno es aire, y a este terreno se lo cambiara por hielo).
+		  											   	
+		
+	}
 	
 	public abstract String obtenerNombre();
 	

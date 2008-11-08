@@ -57,37 +57,44 @@ public class PruebaCrearTunel extends TestCase {
 		for(int j=0;j<=6;j++){
 			Terreno aireAux = new Aire();
 			aireAux.asignarPosicion(new Posicion(j,0));
+			aireAux.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,1));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,2));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=2;j++){
 			Terreno tierraAux = new Tierra();
 			tierraAux.asignarPosicion(new Posicion(j,3));
+			tierraAux.setVida(new Vida(5));
 			colTerreno.agregarTerreno(tierraAux);
 		}
 			
 		Terreno tierra = new Tierra();
 		tierra.asignarPosicion(new Posicion(5,3));
+		tierra.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierra);
 		
 		Terreno tierraAux = new Tierra();
 		tierraAux.asignarPosicion(new Posicion(3,3));
+		tierraAux.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierraAux);
 		
 		Terreno roca = new Roca();
 		roca.asignarPosicion(new Posicion(4,3));
+		roca.setVida(new Vida(5));
 		colTerreno.agregarTerreno(roca);
 				
 		/* Se termino de cargar la coleccion de fabrica de terrenos */

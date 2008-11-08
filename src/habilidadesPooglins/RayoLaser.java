@@ -38,9 +38,9 @@ public class RayoLaser extends Habilidad{
 	@Override
 	public void aplicarAterreno(Mapa mapa, Terreno terreno, Poogling poogling) {
 		//esta habilidad solo se aplica si el pooglin tiene tierra a la izquierda o a la derecha
-		if((terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteDerecha())==
+		if((terreno.obtenerNombre().equals(Constants.NombreTerrenos.TIERRA))&&(((terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteDerecha())==
 			Constants.ValorComparador.IGUAL)||(terreno.obtenerPosicion().compareTo(poogling.obtenerPosicion().obtenerPosicionSiguienteIzquierda())==
-				Constants.ValorComparador.IGUAL)){
+				Constants.ValorComparador.IGUAL)))){
 
 			Vida vida = terreno.getVida();
 

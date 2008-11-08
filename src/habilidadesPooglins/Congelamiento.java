@@ -33,8 +33,10 @@ public class Congelamiento extends Habilidad{
 
 	@Override
 	public void aplicarAterreno(Mapa mapa, Terreno terreno, Poogling poogling) {
-		Aire aire = (Aire)terreno;
+		if(poogling.obtenerPosicion().compareTo(terreno.obtenerPosicion())==Constants.ValorComparador.IGUAL){//si la posicion del pooglin coincide con la del terreno
+		Aire aire = (Aire)terreno;																			 //es porque esta sobre aire.		
 		aire.cambiarPorHielo(mapa);
+		}
 	}
 
 	

@@ -56,12 +56,14 @@ public class PruebaRayoLaser extends TestCase {
 		for(int j=0;j<=6;j++){
 			Terreno aire = new Aire();
 			aire.asignarPosicion(new Posicion(j,0));
+			aire.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aire);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aire = new Aire();
 			aire.asignarPosicion(new Posicion(j,1));
+			aire.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aire);
 		}
 		
@@ -69,6 +71,7 @@ public class PruebaRayoLaser extends TestCase {
 		for(int j=0;j<=6;j++){
 			Terreno aire = new Aire();
 			aire.asignarPosicion(new Posicion(j,2));
+			aire.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aire);
 		}
 		
@@ -76,12 +79,14 @@ public class PruebaRayoLaser extends TestCase {
 		for(int j=0;j<=6;j++){
 			Terreno aire = new Aire();
 			aire.asignarPosicion(new Posicion(j,3));
+			aire.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aire);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno tierra = new Tierra();
 			tierra.asignarPosicion(new Posicion(j,4));
+			tierra.setVida(new Vida(5));
 			colTerreno.agregarTerreno(tierra);
 		}
 			

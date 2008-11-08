@@ -72,7 +72,7 @@ public class Poogling extends Posicionable{
 		for(Iterator itColTerrenoContiguo=mapa.obtenerBloquesContiguosAlPooglin(this).iterator(); itColTerrenoContiguo.hasNext();){
 			Terreno terreno=(Terreno)itColTerrenoContiguo.next();
 			aplicarHabilidadTerrenoYpooglin(mapa,terreno); //metodo de pooglin que le aplica la habilidad a si mismo y al terreno
-			if(terreno.getVida()==null||terreno.getVida().hayVida())
+			if((terreno.getVida().hayVida())&&(this.isConVida()))
 			terreno.colisionarPoogling(this);
 		}
 		

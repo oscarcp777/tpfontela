@@ -54,71 +54,85 @@ public class PruebaPooglinAlVacio extends TestCase{
 		for(int j=0;j<=6;j++){
 			Terreno aireAux = new Aire();
 			aireAux.asignarPosicion(new Posicion(j,0));
+			aireAux.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,1));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,2));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,3));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,4));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,5));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 		
 		for(int j=0;j<=6;j++){
 			Terreno aireAux1 = new Aire();
 			aireAux1.asignarPosicion(new Posicion(j,6));
+			aireAux1.setVida(new Vida(5));
 			colTerreno.agregarTerreno(aireAux1);
 		}
 			
 		Terreno tierra = new Tierra();
 		tierra.asignarPosicion(new Posicion(0,6));
+		tierra.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierra);
 		
 		Terreno tierraAux = new Tierra();
 		tierraAux.asignarPosicion(new Posicion(1,6));
+		tierraAux.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierraAux);
 		
 		Terreno tierraAux2 = new Tierra();
 		tierraAux2.asignarPosicion(new Posicion(2,6));
+		tierraAux2.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierraAux2);
 		
 		Terreno tierraAux3 = new Tierra();
 		tierraAux3.asignarPosicion(new Posicion(3,6));
+		tierraAux3.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierraAux3);
 		
 		Terreno tierraAux4 = new Tierra();
 		tierraAux4.asignarPosicion(new Posicion(4,6));
+		tierraAux4.setVida(new Vida(5));
 		colTerreno.agregarTerreno(tierraAux4);
 		
 		Terreno roca = new Roca();
 		roca.asignarPosicion(new Posicion(3,5));
+		roca.setVida(new Vida(5));
 		colTerreno.agregarTerreno(roca);
 		
 		Terreno rocaAux = new Roca();
 		rocaAux.asignarPosicion(new Posicion(-1,5));
+		rocaAux.setVida(new Vida(5));
 		colTerreno.agregarTerreno(rocaAux);
 				
 		/* Se termino de cargar la coleccion de fabrica de terrenos */

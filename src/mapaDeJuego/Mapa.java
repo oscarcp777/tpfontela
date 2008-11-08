@@ -97,11 +97,13 @@ public class Mapa {
 		Terreno terrenoAbajo=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteAbajo());
 		Terreno terrenoDerecha=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteIzquierda());
 		Terreno terrenoIzquierda=(Terreno)obtenerTerreno(posicionActualPooglin.obtenerPosicionSiguienteDerecha());
-	
+		Terreno terrenoActualPooglin=(Terreno)obtenerTerreno(posicionActualPooglin);
+		
 		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoArriba);	
 		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoAbajo);
 		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoDerecha);
 		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoIzquierda);
+		agregarAcolTerrenoBloqueContiguo(colTerrenoContiguos,terrenoActualPooglin);
 	
 		return colTerrenoContiguos;
 	}

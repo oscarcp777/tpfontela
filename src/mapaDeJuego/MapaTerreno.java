@@ -24,9 +24,11 @@ public class MapaTerreno implements Comparator{
 	}
 	
 	public boolean eliminarTerreno(Posicion posicion){
-		return (this.mapTerreno.remove(posicion)==null); //si me devuelve un objeto no nulo, lo borro del 
-														 //mapa y retorna true, sino retorna false.
-	}
+		Terreno terreno = (Terreno)this.mapTerreno.remove(posicion);
+		return (terreno==null)? false:true; //si me devuelve un objeto no nulo, lo borro del
+		 									//mapa y retorna true, sino retorna false. 
+	}	
+	
 
 	public int compare(Object o1, Object o2) {
 		Posicion posicionO1 = (Posicion)o1;
