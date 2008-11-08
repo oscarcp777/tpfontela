@@ -4,24 +4,20 @@
  	<property name="app.name" value="TPPooglings" /> 
   	<property name="build.dir" value="bin/" /> 
   	<property name="src.dir" value="." /> 
-  	<property name="test.dir" value="src/pruebasUnitarias/" /> 
+  	<property name="test.dir" value="src" /> 
   	<property name="lib.dir" value="lib/" /> 
   	<property name="junit.dir" value="lib/junit.jar" /> 
 	   	
-   	<target name="todo" depends="empaqueta, documenta, runtests">
+   	<target name="todo" depends="empaqueta, runtests">
    	</target>
 
    <target name="empaqueta" depends="compila">
-   		<jar destfile="../tpPooglins.jar" includes="../bin/**/*.class"/>
+		<jar destfile="./jar/tpPooglins.jar" basedir="./bin" includes="**"/>
    </target>
 
    <target name="compila" depends="limpiar">
   		<mkdir dir="${build.dir}" /> 
   		<javac srcdir="${src.dir}" classpath="${junit.dir}" destdir="${build.dir}" /> 
-   </target>
-
-   <target name="documenta">
-      <javadoc sourcepath="." destfile="../javadoc" packagenames="*"/>
    </target>
    
  	<target name="limpiar">
@@ -35,15 +31,21 @@
    
    	<target name="runtests" depends="compilatests">
    		<junit>
-   			<test name="PruebaCrearTunel"/>
-   			<test name="PruebaDeInteraccion"/>
-   			<test name="PruebaPlatilloVolador"/>
-   			<test name="PruebaPooglinAlVacio"/>
-   			<test name="PruebaRayoLaser"/>
-   			<test name="PruebaTaladroUltrasonico"/>
-   			<test name="PruebaTeletransportacion"/>
+   			<classpath>
+   			  <pathelement path="${build.dir}" /> 
+   			  <pathelement path="${lib.dir}" /> 
+   			  <pathelement path="${junit.dir}" /> 
+   			</classpath>
+
+   			<test name="pruebasUnitarias.PruebaCrearTunel"/>
+   			<test name="pruebasUnitarias.PruebaDeInteraccion"/>
+   			<test name="pruebasUnitarias.PruebaPlatilloVolador"/>
+   			<test name="pruebasUnitarias.PruebaPooglinAlVacio"/>
+   			<test name="pruebasUnitarias.PruebaRayoLaser"/>
+   			<test name="pruebasUnitarias.PruebaTaladroUltrasonico"/>
+   			<test name="pruebasUnitarias.PruebaTeletransportacion"/>
    		</junit>
-  	</target> 
+   	</target> 
 
    
 
