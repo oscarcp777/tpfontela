@@ -37,13 +37,13 @@
    			  <pathelement path="${junit.dir}" /> 
    			</classpath>
 
-   			<test name="pruebasUnitarias.PruebaCrearTunel"/>
-   			<test name="pruebasUnitarias.PruebaDeInteraccion"/>
-   			<test name="pruebasUnitarias.PruebaPlatilloVolador"/>
-   			<test name="pruebasUnitarias.PruebaPooglinAlVacio"/>
-   			<test name="pruebasUnitarias.PruebaRayoLaser"/>
-   			<test name="pruebasUnitarias.PruebaTaladroUltrasonico"/>
-   			<test name="pruebasUnitarias.PruebaTeletransportacion"/>
+   			<test name="modelo.pruebasUnitarias.PruebaCrearTunel"/>
+   			<test name="modelo.pruebasUnitarias.PruebaDeInteraccion"/>
+   			<test name="modelo.pruebasUnitarias.PruebaPlatilloVolador"/>
+   			<test name="modelo.pruebasUnitarias.PruebaPooglinAlVacio"/>
+   			<test name="modelo.pruebasUnitarias.PruebaRayoLaser"/>
+   			<test name="modelo.pruebasUnitarias.PruebaTaladroUltrasonico"/>
+   			<test name="modelo.pruebasUnitarias.PruebaTeletransportacion"/>
    		</junit>
    	</target> 
 
