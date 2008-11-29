@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mapa>
+    <Terrenos>
+        <Roca>
+            <Posicion posicionX="14" posicionY="0"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="1" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="2" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="3" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="4" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="5" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="6" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="7" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="8" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="9" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="10" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="11" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="12" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="13" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="14" posicionY="1"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="2"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="2" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="2"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="2"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="3"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="3"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="3"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="4"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="4"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="4"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="5"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="5"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="5"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="6"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Tierra>
+            <Posicion posicionX="9" posicionY="6"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="10" posicionY="6"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Aire>
+            <Posicion posicionX="11" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="6"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="6"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="7"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Tierra>
+            <Posicion posicionX="1" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="2" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="3" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="4" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="5" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="6" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="7" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="8" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="9" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="10" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="11" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="12" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="13" posicionY="7"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Roca>
+            <Posicion posicionX="14" posicionY="7"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="8"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Tierra>
+            <Posicion posicionX="1" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="2" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="3" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="4" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="5" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="6" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="7" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="8" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="9" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="10" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="11" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="12" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="13" posicionY="8"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Roca>
+            <Posicion posicionX="14" posicionY="8"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="9"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Tierra>
+            <Posicion posicionX="1" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="2" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="3" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="4" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="5" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="6" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="7" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="8" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="9" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="10" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="11" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="12" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Tierra>
+            <Posicion posicionX="13" posicionY="9"/>
+            <Vida cantidadVidas="5"/>
+        </Tierra>
+        <Roca>
+            <Posicion posicionX="14" posicionY="9"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="10"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="10"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="10"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="11"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="11"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="11"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="1" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="2" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="3" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="4" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="5" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="6" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="7" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="8" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="9" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="10" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="11" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="12" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="13" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="14" posicionY="12"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="13"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Aire>
+            <Posicion posicionX="1" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="2" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="3" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="4" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="5" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="6" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="7" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="8" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="9" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="10" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="11" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="12" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Aire>
+            <Posicion posicionX="13" posicionY="13"/>
+            <Vida cantidadVidas="3"/>
+        </Aire>
+        <Roca>
+            <Posicion posicionX="14" posicionY="13"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="0" posicionY="14"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+        <Roca>
+            <Posicion posicionX="14" posicionY="14"/>
+            <Vida cantidadVidas="80"/>
+        </Roca>
+    </Terrenos>
+    <NaveIngreso cantidadPooglinsInicial="2" posicionX="1" posicionY="2">
+        <Poogling>
+            <Velocidad velocidad="1"/>
+            <Movimiento direccion="Derecha">
+                <PasosEnDireccion cantidadDePasos="2" contar="true" quietoEnDireccion="false"/>
+            </Movimiento>
+            <Posicion posicionX="3" posicionY="6"/>
+            <Vida cantidadVidas="5"/>
+        </Poogling>
+        <Poogling>
+            <Velocidad velocidad="1"/>
+            <Movimiento direccion="Abajo">
+                <PasosEnDireccion cantidadDePasos="4" contar="true" quietoEnDireccion="false"/>
+            </Movimiento>
+            <Posicion posicionX="1" posicionY="6"/>
+            <Vida cantidadVidas="5"/>
+        </Poogling>
+    </NaveIngreso>
+    <NaveEscape cantidadPooglinsFinal="0" posicionX="12" posicionY="11"/>
+    <Dimension ancho="450" largo="490"/>
+    <HabilidadesDisponibles>
+        <Habilidad nombreHabilidad="Teletransportacion">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+        <Habilidad nombreHabilidad="RayoLaser">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+        <Habilidad nombreHabilidad="TaladroUltrasonico">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+        <Habilidad nombreHabilidad="PlatilloVolador">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+        <Habilidad nombreHabilidad="Congelamiento">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+        <Habilidad nombreHabilidad="TunelElectromagnetico">
+            <EstadoHabilidad activada="false"/>
+        </Habilidad>
+    </HabilidadesDisponibles>
+</Mapa>
