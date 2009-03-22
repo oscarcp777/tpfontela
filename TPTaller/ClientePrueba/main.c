@@ -88,15 +88,25 @@ void enviarmsj(){
      Despues medimos la cantidad de caracteres a enviar en "msj" utilizando "sizeof"
      */
      }
+                     
+           
+}
+
+void sockets(){ // Procedimiento que iniciara el socket secuencialmente.
+                int addrleng;
+        if((WSAInicio()) == 0) { // Si se inicio WSAInicio sin errores…
+           if((definirsocket()) == 0) { // Si se inicio definirsocket sin errores…
               if((estructsocket()) == 0) { // Si se inicio estructsocket sin errores…
-                 enviarmsj(); // Iniciamos el procedimiento "enviarmsj"
+                enviarmsj();
+                 
               }  else { // Si no conecto..
                       Sleep(500); // Esperamos 500 Milisegundos y…
-                              sockets(); // Repetimos proceso
+                      sockets(); // Repetimos proceso
                       }
            }
-           }
-     }
+        }
+}
+
 
 int main(int argc, char *argv[])
 {
