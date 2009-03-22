@@ -79,7 +79,7 @@ void enviarmsj(){
 
      char msj[] = "Hola Mundo desde www.aztekmindz.org "; // Definimos el mensaje a enviar
      system("PAUSE");
-     int i = 0;
+     
      while (msj!="exit"){
            printf("INGRESE MENSAJE:  \n");   
            scanf("%s",msj);
