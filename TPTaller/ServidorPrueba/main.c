@@ -85,12 +85,11 @@ void escuchar(){
      int addrleng = sizeof(conexrem);
      int i;
      i=-1;    
-     exitoEscucha = listen(locsock,1);                        
-     do{
-          
-           printf("%d \n",exitoEscucha);
-           
-            if(exitoEscucha==-1){
+     exitoEscucha = listen(locsock,1);  
+	 locsock = accept(locsock, (SOCKADDR*)&conexrem, &addrleng);
+     do{   
+                      
+			if(exitoEscucha==-1){
                       printf("ERROR EN LA ESCUCHA \n");
                       system("PAUSE");
                       }
@@ -98,10 +97,10 @@ void escuchar(){
             else{
                  printf("ESCUCHANDO CORRECTAMENTE \n");
                  
-            locsock = accept(locsock, (SOCKADDR*)&conexrem, &addrleng);
+            
             recv(locsock,pbuff,sizeof(buffin),0);
-            printf("%s \n", buffin);
-            system("PAUSE");
+            printf("%s \n", pbuff);
+		    
             }
      }while(TRUE);    
 }     
