@@ -46,7 +46,7 @@ int estructsocket() { // Definimos procedimiento
          sin utilizar direccion IP directamente.
          Esta sera la IP a donde nuestro Cliente conectara.
          */
-         conexrem.sin_port = htons(2627); //Ordenacion de Red.
+         conexrem.sin_port = htons(2121); //Ordenacion de Red.
      /*  Definimos puerto (9999) del socket utilizando un "short de máquina a short de la red" (htons)
      Esto lo hacemos para ordenar la forma en la que enviaremos y recibiremos los datos por el puerto del socket
      Mas informacion buscar en google "Big-Endian".
@@ -62,7 +62,7 @@ int estructsocket() { // Definimos procedimiento
          */
          memset(conexrem.sin_zero,0,8); // Ponemos en 0 la cadena sin_zero en sus 8 espacios
 
-         if ((bind(locsock, (SOCKADDR*)&conexrem, sizeof(conexrem)))!=-1) { // Si existe un error…
+         if ((bind(locsock, (SOCKADDR*)&conexrem, sizeof(conexrem)))==-1) { // Si existe un error…
      /* Ahora procedemos a realizar la conexion con la IP remota que definimos en la estructura "conexrem.sin_addr"
      y el puerto definido en "conexrem.sin_port". Dado que connect solo acepta "sockaddr" enves de nuestra
      estructura "SOCKADDR_IN" tenemos que realizar un casting para convertir "conexrem" en un "sockaddr".
@@ -82,10 +82,12 @@ int estructsocket() { // Definimos procedimiento
 void escuchar(){
      int exitoEscucha;
      char* lectuar;     
-      int addrleng = sizeof(conexrem);
-                 
+     int addrleng = sizeof(conexrem);
+     int i;
+     i=-1;    
+     exitoEscucha = listen(locsock,1);                        
      do{
-           exitoEscucha = listen(locsock,1); 
+          
            printf("%d \n",exitoEscucha);
            
             if(exitoEscucha==-1){
@@ -95,10 +97,12 @@ void escuchar(){
             
             else{
                  printf("ESCUCHANDO CORRECTAMENTE \n");
-                 /*recv(locsock,pbuff,sizeof(buffin),0);
-                 printf("%s \n", buffin);
-                 system("PAUSE");*/
-                 }            
+                 
+            locsock = accept(locsock, (SOCKADDR*)&conexrem, &addrleng);
+            recv(locsock,pbuff,sizeof(buffin),0);
+            printf("%s \n", buffin);
+            system("PAUSE");
+            }
      }while(TRUE);    
 }     
 
@@ -110,9 +114,7 @@ void sockets(){ // Procedimiento que iniciara el socket secuencialmente.
                 int i;
                 i=-1;               
                  escuchar();
-                  while(i<0){
-                i = accept(locsock, (SOCKADDR*)&conexrem, &addrleng);                
-                }
+                 
               }  else { // Si no conecto..
                       Sleep(500); // Esperamos 500 Milisegundos y…
                               sockets(); // Repetimos proceso

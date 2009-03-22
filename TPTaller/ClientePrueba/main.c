@@ -44,7 +44,7 @@ int estructsocket() { // Definimos procedimiento
          sin utilizar direccion IP directamente.
          Esta sera la IP a donde nuestro Cliente conectara.
          */
-         conexrem.sin_port = htons(3306); //Ordenacion de Red.
+         conexrem.sin_port = htons(2121); //Ordenacion de Red.
      /*  Definimos puerto (9999) del socket utilizando un "short de máquina a short de la red" (htons)
      Esto lo hacemos para ordenar la forma en la que enviaremos y recibiremos los datos por el puerto del socket
      Mas informacion buscar en google "Big-Endian".
@@ -77,17 +77,17 @@ int estructsocket() { // Definimos procedimiento
 
 void enviarmsj(){
 
-     char msj[] = "Hola Mundo desde www.aztekmindz.org"; // Definimos el mensaje a enviar
+     char msj[] = "Hola Mundo desde www.aztekmindz.org "; // Definimos el mensaje a enviar
      system("PAUSE");
-     send(locsock,msj,sizeof(msj),0); // Enviamos mensaje
+     int i = 0;
+     while (msj!="exit"){
+           printf("INGRESE MENSAJE:  \n");   
+           scanf("%s",msj);
+           send(locsock,msj,sizeof(msj),0); // Enviamos mensaje
      /* Utilizamos la funcion "send" para enviar datos atraves del descriptor de fichero "locsock" que nos dio el socket
      Despues medimos la cantidad de caracteres a enviar en "msj" utilizando "sizeof"
      */
      }
-
-void sockets(){ // Procedimiento que iniciara el socket secuencialmente.
-        if((WSAInicio()) == 0) { // Si se inicio WSAInicio sin errores…
-           if((definirsocket()) == 0) { // Si se inicio definirsocket sin errores…
               if((estructsocket()) == 0) { // Si se inicio estructsocket sin errores…
                  enviarmsj(); // Iniciamos el procedimiento "enviarmsj"
               }  else { // Si no conecto..
