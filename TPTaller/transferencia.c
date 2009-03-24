@@ -115,6 +115,30 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 	}
 }
 
+int trPuerto(CONEXION *pConexion, int *pPuerto){
+	
+	if(pConexion != NULL){
+		
+		//Con esta funcion guardaremos el puerto al que vamos a conectar mas adelante.
+		//En el protocolo de red los puertos no se expresan igual que los expresamos nosotros
+		unsigned short sinPort = pConexion->conexrem.sin_port;
+		
+		//obtengo el valor real de puerto
+		unsigned int puerto = ntohs(sinPort);
+			
+		
+		memcpy(pPuerto, &puerto,sizeof(int));
+		
+		//TODO verificar si salio bien el memcpy y despues devolver 0
+		return 0;
+	}
+	else{
+	
+	//mensaje de error	
+	return -1;
+	
+	}
 
 
+}
 
