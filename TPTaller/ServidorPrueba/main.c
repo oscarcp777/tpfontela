@@ -27,8 +27,12 @@ int main(int argc, char *argv[])
         do{   
           recv(conexion.locsock,pbuff,sizeof(buffin),0);
           printf("%s \n", pbuff);
-        }while(TRUE);    
+        }while(strcmp(pbuff,"EXIT") != 0);    
     }
+    char direccion[100];
+    char *pdir = direccion; 
+    trIP(&conexion, pdir);   
+    printf("DIRECCION: %s",pdir);
     system("PAUSE");	
 }
 

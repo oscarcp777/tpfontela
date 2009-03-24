@@ -142,3 +142,10 @@ int trPuerto(CONEXION *pConexion, int *pPuerto){
 
 }
 
+
+int trIP(CONEXION *pConexion, char *pIP){
+    
+    char *paux;
+    paux = inet_ntoa(pConexion->conexrem.sin_addr);
+    memcpy (pIP, paux,100);
+}
