@@ -23,16 +23,19 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 int main(int argc, char *argv[])
 {  
     CONEXION conexion;
-    if (iniciarServidor(&conexion)== 0){ 
+    char direccion[100];
+    char *pdir = direccion; 
+
+	if (iniciarServidor(&conexion)== 0){ 
         do{   
           recv(conexion.locsock,pbuff,sizeof(buffin),0);
           printf("%s \n", pbuff);
         }while(strcmp(pbuff,"EXIT") != 0);    
     }
-    char direccion[100];
-    char *pdir = direccion; 
+
+    
     trIP(&conexion, pdir);   
-    printf("DIRECCION: %s",pdir);
+    printf("DIRECCION: %s \n",pdir);
     system("PAUSE");	
 }
 

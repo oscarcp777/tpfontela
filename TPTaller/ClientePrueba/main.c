@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     iniciarCliente(&conexion); // Iniciamos el Socket
     
 	trPuerto(&conexion,pPuerto);
-	printf("VALOR FINAL %d \n", *pPuerto);
+	printf("NUMERO PUERTO %d \n", *pPuerto);
 
 	while (strcmp(msj,"EXIT") != 0){
          printf("INGRESE MENSAJE: (para salir EXIT) \n");   
