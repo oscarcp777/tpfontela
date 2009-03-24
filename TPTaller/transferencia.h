@@ -8,7 +8,7 @@ typedef struct _CONEXION{
         SOCKET locsock;
 }CONEXION;
 
-enum tr_tipo_dato {td_int , td_char , td_float td_double};
+enum tr_tipo_dato {td_int , td_char , td_float, td_double};
 
 #define RES_OK 0
 
