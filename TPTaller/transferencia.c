@@ -155,42 +155,50 @@ int trIP(CONEXION *pConexion, char *pIP){
 int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const void *datos){
 
 	int i = 0;
-	int pDatosInt[50];
-	char pDatosChar[50];
-	float pDatosFloat[50];
-	double pDatosDouble[50];
-	int* pDatoInt;
-	char* pDatoChar;
-	double* pDatoDouble;
-	float* pDatoFloat;
+	int *pDatosInt;
+	char *pDatosChar;
+	float *pDatosFloat;
+	double *pDatosDouble;
+	int* puntero;
+	int* pInicialInt;
+	char* pInicialChar;
+	float* pInicialFloat;
+	double* pInicialDouble;
 
 	switch(tipo){
 	
 	case td_int:
 
+		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialInt = pDatosInt;
 		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
 		
 		while( i< cantItems){
-		pDatoInt = &pDatosInt[i];
-		send(pConexion->locsock,pDatoInt,sizeof(int),0);		
+		send(pConexion->locsock,pDatosInt++,sizeof(int),0);		
 		i++;
 		
 		}
+		free(pInicialInt);
 		//TODO validar si salio bien
 		return 0;
 		break;
 	
 				
 	case (td_char):
-		
+
+		pDatosChar = (char*)malloc(sizeof(char)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialChar = pDatosChar;
 		memcpy(pDatosChar,datos,sizeof(char)*cantItems);
 		
 		while( i< cantItems){
-		pDatoChar = &pDatosChar[i];
-		send(pConexion->locsock,pDatoChar,sizeof(char),0);		
-		i++;
+			//pDatoChar = &pDatosChar[i];			
+			send(pConexion->locsock,pDatosChar++,sizeof(char),0);		
+			i++;
 		
 		}
+		free(pInicialChar);
 		//TODO validar si salio bien
 		return 0;		
 		
@@ -198,30 +206,34 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 					
 	case (td_float):
-		
+		pDatosFloat = (float*)malloc(sizeof(float)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialFloat = pDatosFloat;
 		memcpy(pDatosFloat,datos,sizeof(float)*cantItems);
 		
-		while( i< cantItems){
-		pDatoFloat = &pDatosFloat[i];
-		send(pConexion->locsock,pDatoFloat,sizeof(float),0);		
-		i++;
+		while( i< cantItems){			
+			send(pConexion->locsock,pDatosFloat++,sizeof(float),0);		
+			i++;
 		
 		}
+		free(pInicialFloat);
 		//TODO validar si salio bien
 		return 0;
 		break;
 
 					
 	case (td_double):
-		
+		pDatosDouble = (double*)malloc(sizeof(double)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialDouble = pDatosDouble;
 		memcpy(pDatosDouble,datos,sizeof(double)*cantItems);
 		
 		while( i< cantItems){
-		pDatoDouble = &pDatosDouble[i];
-		send(pConexion->locsock,pDatoDouble,sizeof(double),0);		
-		i++;
+			send(pConexion->locsock,pDatosDouble++,sizeof(double),0);		
+			i++;
 		
 		}
+		free(pInicialDouble);
 		//TODO validar si salio bien
 		return 0;			
 		break;	

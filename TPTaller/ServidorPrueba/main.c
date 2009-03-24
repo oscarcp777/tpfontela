@@ -27,12 +27,13 @@ int main(int argc, char *argv[])
     char *pdir = direccion; 
 	char dato=10;
 	char* pDato= &dato;
-	
+	int i = 0;
 	if (iniciarServidor(&conexion)== 0){ 
-        do{   
+        while(i<22){   
           recv(conexion.locsock,pDato,sizeof(char),0);
           printf("%c \n", *pDato);
-        }while(*pDato!='d'/*strcmp(pbuff,"EXIT") != 0*/);    
+		  i++;
+        }
     }
 
     

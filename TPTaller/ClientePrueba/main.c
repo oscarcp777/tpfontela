@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     int puerto;
 	int* pPuerto = &puerto;
 	//int datosInt[5]= {1,555,3,4,5};
-	char datosChar[5]= {'t','e','a','m','d'};
+	char datosChar[22]= {'T','A','L','L','E','R',' ','D','E',' ','P','R','O','G','R','A','M','A','C','I','O','N'};
 	//double datosDouble[5]= {123,4234,234234,234234,3243};
 	
 	
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 	printf("NUMERO PUERTO %d \n", *pPuerto);
 	
 	//trEnviar(&conexion,td_int,5, datosInt);
-	trEnviar(&conexion,td_int,5, datosChar);
-	//trEnviar(&conexion,td_int,5, datosDouble);
+	trEnviar(&conexion,td_char,22, datosChar);
+	//trEnviar(&conexion,td_double,5, datosDouble);
 	
 	
 	/*
