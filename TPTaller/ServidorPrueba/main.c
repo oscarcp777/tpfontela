@@ -25,12 +25,14 @@ int main(int argc, char *argv[])
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
-
+	char dato=10;
+	char* pDato= &dato;
+	
 	if (iniciarServidor(&conexion)== 0){ 
         do{   
-          recv(conexion.locsock,pbuff,sizeof(buffin),0);
-          printf("%s \n", pbuff);
-        }while(strcmp(pbuff,"EXIT") != 0);    
+          recv(conexion.locsock,pDato,sizeof(char),0);
+          printf("%c \n", *pDato);
+        }while(*pDato!='d'/*strcmp(pbuff,"EXIT") != 0*/);    
     }
 
     

@@ -149,3 +149,83 @@ int trIP(CONEXION *pConexion, char *pIP){
     paux = inet_ntoa(pConexion->conexrem.sin_addr);
     memcpy (pIP, paux,100);
 }
+
+
+
+int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const void *datos){
+
+	int i = 0;
+	int pDatosInt[50];
+	char pDatosChar[50];
+	float pDatosFloat[50];
+	double pDatosDouble[50];
+	int* pDatoInt;
+	char* pDatoChar;
+	double* pDatoDouble;
+	float* pDatoFloat;
+
+	switch(tipo){
+	
+	case td_int:
+
+		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
+		
+		while( i< cantItems){
+		pDatoInt = &pDatosInt[i];
+		send(pConexion->locsock,pDatoInt,sizeof(int),0);		
+		i++;
+		
+		}
+		//TODO validar si salio bien
+		return 0;
+		break;
+	
+				
+	case (td_char):
+		
+		memcpy(pDatosChar,datos,sizeof(char)*cantItems);
+		
+		while( i< cantItems){
+		pDatoChar = &pDatosChar[i];
+		send(pConexion->locsock,pDatoChar,sizeof(char),0);		
+		i++;
+		
+		}
+		//TODO validar si salio bien
+		return 0;		
+		
+		break;
+
+					
+	case (td_float):
+		
+		memcpy(pDatosFloat,datos,sizeof(float)*cantItems);
+		
+		while( i< cantItems){
+		pDatoFloat = &pDatosFloat[i];
+		send(pConexion->locsock,pDatoFloat,sizeof(float),0);		
+		i++;
+		
+		}
+		//TODO validar si salio bien
+		return 0;
+		break;
+
+					
+	case (td_double):
+		
+		memcpy(pDatosDouble,datos,sizeof(double)*cantItems);
+		
+		while( i< cantItems){
+		pDatoDouble = &pDatosDouble[i];
+		send(pConexion->locsock,pDatoDouble,sizeof(double),0);		
+		i++;
+		
+		}
+		//TODO validar si salio bien
+		return 0;			
+		break;	
+		
+
+	}
+}
