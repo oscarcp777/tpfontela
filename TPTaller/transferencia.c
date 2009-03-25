@@ -36,10 +36,14 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
             if(exito == 0){
 			        int escuchaExitosa = listen(punteroConexion->locsock,1); 
 					if(escuchaExitosa != -1){
-						printf("escuchando correctamente \n");
+  	                    printf("============================================================================== \n\n");
+                       	printf("EL SERVIDOR DE SOMOS LO MAS GROSSO QUE HAY ESTA ESCUCHANDO\n\n");
+					    printf("============================================================================== \n");
+					
 						addrleng = sizeof(punteroConexion->conexrem);
 						punteroConexion->locsock = accept(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
 						printf("CONEXION ACEPTADA \n");
+						punteroConexion->usuario=0;//le asigna un 0 que es servidor
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
                         return 0;// cambiar por RES_OK
 					}
@@ -96,6 +100,11 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
             memset(punteroConexion->conexrem.sin_zero,0,8); 
 			exito = connect(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), sizeof(punteroConexion->conexrem));
 		    if(exito == 0){
+                    	printf("============================================================================== \n\n");
+                       	printf("EL CLIENTE DE  SOMOS LO MAS GROSSO QUE HAY ESTA CONECTADO\n\n");
+					    printf("============================================================================== \n");
+					
+                     punteroConexion->usuario=1;//le asigna  un 1 que es cliente
 			         memcpy (pConexion, punteroConexion,sizeof(CONEXION)); //si se conecto correctamente devuelvo el puntero a la conexion y RES_OK
 					 return 0;// cambiar por RES_OK
 			}
@@ -240,4 +249,23 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		
 
 	}
+}
+int trCerrarConexion(CONEXION *pConexion){
+    //por ahora solo cierra la coneccion si es el cliente 
+    //si es el servidor no hace nada
+    if(pConexion->usuario==1){               
+          closesocket(pConexion->locsock);         
+         }
+      
+    
+}
+
+int trConexionActiva(CONEXION *pConexion){
+    //ESTA funcion devuelve cero si esta activo el sockets sino -1
+  int i=  shutdown(pConexion->locsock,1);
+    if(i==0){
+         printf("LA CONECCION ESTA ACTIVA \n");
+    }else{
+         printf("LA CONECCION ESTA CERRADA \n");
+                   }  
 }
