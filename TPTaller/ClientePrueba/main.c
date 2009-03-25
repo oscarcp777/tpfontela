@@ -25,13 +25,12 @@ int main(int argc, char *argv[])
 	
 	
     iniciarCliente(&conexion); // Iniciamos el Socket
-    
-	trPuerto(&conexion,pPuerto);
-	printf("NUMERO PUERTO %d \n", *pPuerto);
-	
 	//trEnviar(&conexion,td_int,5, datosInt);
 	trEnviar(&conexion,td_char,22, datosChar);
 	//trEnviar(&conexion,td_double,5, datosDouble);
+	trConexionActiva(&conexion);//veo si la coneccion esta activa
+   	trPuerto(&conexion,pPuerto);
+	printf("NUMERO PUERTO %d \n", *pPuerto);
 	
 	
 	/*
@@ -40,6 +39,14 @@ int main(int argc, char *argv[])
          scanf("%s",msj);
          send(conexion.locsock,msj,sizeof(msj),0); // Enviamos mensaje
     }*/
+    printf("QUIERE CERRAR LA CONECCION : S/N  \n");
+      scanf("%s",msj);
+      if(strcmp(msj,"S") == 0 || strcmp(msj,"s") == 0){
+              
+         trCerrarConexion(&conexion);     
+          } 
+     trConexionActiva(&conexion);//veo si cerro la conecion
+
     system("PAUSE");	
 }
 
