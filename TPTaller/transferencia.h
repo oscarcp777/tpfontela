@@ -6,6 +6,8 @@ typedef struct _CONEXION{
         struct hostent* host;
         SOCKADDR_IN conexrem;
         SOCKET locsock;
+        //si es 1 es cliente  , si es 0 en servidor
+        int usuario;
 }CONEXION;
 
 enum tr_tipo_dato {td_int , td_char , td_float, td_double};
