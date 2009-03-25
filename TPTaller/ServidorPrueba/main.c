@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 	char dato=10;
 	char* pDato= &dato;
 	int i = 0;
-	if (iniciarServidor(&conexion)== 0){ 
+	if (iniciarServidor(&conexion)== 0){                          
         while(i<22){   
           recv(conexion.locsock,pDato,sizeof(char),0);
           printf("%c \n", *pDato);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    
+     trConexionActiva(&conexion);//veo si la coneccion esta activa
     trIP(&conexion, pdir);   
     printf("DIRECCION: %s \n",pdir);
     system("PAUSE");	
