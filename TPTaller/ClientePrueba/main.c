@@ -31,6 +31,10 @@ int main(int argc, char *argv[])
 	char *parchlog = archlog;
 	
 	
+	if (parserCrear(&parser,parchconfig,parchlog)==1)
+           printf("OK\n");
+    else
+           printf("NOOO\n");
     iniciarCliente(&conexion); // Iniciamos el Socket
 	while (strcmp(msj,"EXIT") != 0){
          printf("INGRESE MENSAJE: (para salir EXIT) \n");   
