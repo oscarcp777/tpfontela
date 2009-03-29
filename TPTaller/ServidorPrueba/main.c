@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
+	char dato[150];
+	char* pDato= &dato;
 	int i = 0;
 	int vectorEnteros[5];
 	int* datos = vectorEnteros;
