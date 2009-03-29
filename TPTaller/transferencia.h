@@ -10,7 +10,7 @@ typedef struct _CONEXION{
         int usuario;
 }CONEXION;
 
-enum tr_tipo_dato {td_int , td_char , td_float, td_double};
+enum tr_tipo_dato {td_comando, td_int , td_char , td_float, td_double};
 
 #define RES_OK 0
 
@@ -24,7 +24,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 int trCerrarConexion(CONEXION *pConexion);
 
-int trConexionActiva(CONEXION *pConexion);
+// NO VA int trConexionActiva(CONEXION *pConexion);
 
 int trIP(CONEXION *pConexion, char *pIP);
 

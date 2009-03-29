@@ -3,6 +3,105 @@
 #include <winsock2.h> 
 #include "transferencia.h"
 
+int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *datos){
+
+	char* pChar; 
+	char cadena[1000];
+	int i = 0;
+	int *pDatosInt ;
+	char *pDatosChar;
+	float *pDatosFloat;
+	double *pDatosDouble;
+	int* puntero;
+	int* pInicialInt;
+	float* pInicialFloat;
+	double* pInicialDouble;
+	
+	pChar = cadena;	
+
+	switch(tipo){
+	
+	case td_comando:
+			
+		memset(pChar,0,sizeof(cadena));
+		recv(pConexion->locsock,pChar,sizeof(char)*1000,0);	
+		printf("%s \n",pChar);
+		trRecibir(pConexion, td_int, 2, datos);
+		break;
+
+	case td_int:
+		
+		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialInt = pDatosInt;		
+		
+		while( i< cantItems){
+		recv(pConexion->locsock,pDatosInt++,sizeof(int),0);		
+		i++;
+		
+		}
+		memcpy(datos,pDatosInt,sizeof(int)*cantItems);
+		free(pInicialInt);
+		//TODO validar si salio bien
+		return 0;
+		break;
+	
+				
+	case (td_char):
+
+		pDatosChar = (char*)malloc(sizeof(char)*cantItems);
+				
+		recv(pConexion->locsock,pDatosChar,sizeof(char)*cantItems,0);		
+		
+		memcpy(datos,pDatosChar,sizeof(char)*cantItems);
+		free(pDatosChar);
+		//TODO validar si salio bien
+		return 0;		
+		
+		break;
+
+					
+	case (td_float):
+		
+		pDatosFloat = (float*)malloc(sizeof(float)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialFloat = pDatosFloat;
+				
+		while( i< cantItems){			
+			recv(pConexion->locsock,pDatosFloat++,sizeof(float),0);		
+			i++;
+		
+		}
+		memcpy(datos,pDatosFloat,sizeof(float)*cantItems);
+		free(pInicialFloat);
+		//TODO validar si salio bien
+		return 0;
+		break;
+
+					
+	case (td_double):
+		pDatosDouble = (double*)malloc(sizeof(double)*cantItems);
+		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
+		pInicialDouble = pDatosDouble;
+		
+		
+		while( i< cantItems){
+			recv(pConexion->locsock,pDatosDouble++,sizeof(double),0);		
+			i++;
+		
+		}
+		memcpy(datos,pDatosDouble,sizeof(double)*cantItems);
+		free(pInicialDouble);
+		//TODO validar si salio bien
+		return 0;			
+		break;	
+		
+
+	}
+
+
+
+}
 
 int trEscuchar(int Puerto,CONEXION *pConexion){
 	
@@ -176,6 +275,11 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 	switch(tipo){
 	
+	case td_comando:
+		send(pConexion->locsock,(char*)datos,sizeof(char)*strlen((char*)datos),0);		
+		break;
+
+
 	case td_int:
 
 		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
@@ -201,12 +305,12 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		pInicialChar = pDatosChar;
 		memcpy(pDatosChar,datos,sizeof(char)*cantItems);
 		
-		while( i< cantItems){
+		//while( i< cantItems){
 			//pDatoChar = &pDatosChar[i];			
-			send(pConexion->locsock,pDatosChar++,sizeof(char),0);		
-			i++;
+			send(pConexion->locsock,pDatosChar,sizeof(char)*strlen(pDatosChar),0);		
+		//	i++;
 		
-		}
+		//}
 		free(pInicialChar);
 		//TODO validar si salio bien
 		return 0;		

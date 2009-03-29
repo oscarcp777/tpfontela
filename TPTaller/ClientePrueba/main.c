@@ -20,13 +20,22 @@ int main(int argc, char *argv[])
     int puerto;
 	int* pPuerto = &puerto;
 	//int datosInt[5]= {1,555,3,4,5};
-	char datosChar[22]= {'T','A','L','L','E','R',' ','D','E',' ','P','R','O','G','R','A','M','A','C','I','O','N'};
+	//char datosChar[22]= {'T','A','L','L','E','R',' ','D','E',' ','P','R','O','G','R','A','M','A','C','I','O','N'};
 	//double datosDouble[5]= {123,4234,234234,234234,3243};
 	
 	
     iniciarCliente(&conexion); // Iniciamos el Socket
+	while (strcmp(msj,"EXIT") != 0){
+         printf("INGRESE MENSAJE: (para salir EXIT) \n");   
+         gets(msj);
+		 printf("MENSAJE INGRESADO: %s \n ",msj);
+		 trEnviar(&conexion,td_comando,1,msj);
+		 
+		 
+	}
+	
 	//trEnviar(&conexion,td_int,5, datosInt);
-	trEnviar(&conexion,td_char,22, datosChar);
+	//trEnviar(&conexion,td_char,22, datosChar);
 	//trEnviar(&conexion,td_double,5, datosDouble);
 	trConexionActiva(&conexion);//veo si la coneccion esta activa
    	trPuerto(&conexion,pPuerto);
