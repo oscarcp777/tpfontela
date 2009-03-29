@@ -25,15 +25,17 @@ int main(int argc, char *argv[])
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
-	char dato=10;
-	char* pDato= &dato;
 	int i = 0;
-	if (iniciarServidor(&conexion)== 0){                          
-        while(i<22){   
-          recv(conexion.locsock,pDato,sizeof(char),0);
-          printf("%c \n", *pDato);
-		  i++;
-        }
+	int vectorEnteros[5];
+	int* datos = vectorEnteros;
+	
+    if (iniciarServidor(&conexion)== 0){                          
+
+        while(TRUE){
+          trRecibir(&conexion, td_comando,1, datos);          
+				
+		}
+        
     }
 
      trConexionActiva(&conexion);//veo si la coneccion esta activa
