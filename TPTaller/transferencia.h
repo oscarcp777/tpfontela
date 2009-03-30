@@ -24,8 +24,6 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 int trCerrarConexion(CONEXION *pConexion);
 
-// NO VA int trConexionActiva(CONEXION *pConexion);
-
 int trIP(CONEXION *pConexion, char *pIP);
 
 int trPuerto(CONEXION *pConexion, int *pPuerto);

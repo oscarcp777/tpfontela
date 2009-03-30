@@ -35,12 +35,11 @@ int main(int argc, char *argv[])
 
         while(TRUE){
           trRecibir(&conexion, td_comando,1, datos);          
-				
-		}
+			}
         
     }
 
-     trConexionActiva(&conexion);//veo si la coneccion esta activa
+    trConexionActiva(&conexion);//veo si la coneccion esta activa
     trIP(&conexion, pdir);   
     printf("DIRECCION: %s \n",pdir);
     system("PAUSE");	

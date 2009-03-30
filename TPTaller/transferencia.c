@@ -2,7 +2,21 @@
 #include <stdlib.h>
 #include <winsock2.h> 
 #include "transferencia.h"
+#include "parser.h"
 
+
+enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
+	
+	
+	if (strcmp("INT",cadena)==0)
+		return td_int;
+	if (strcmp("DOUBLE",cadena)==0)
+		return td_double;
+
+	return td_char;
+
+
+}
 int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *datos){
 
 	char* pChar; 
@@ -16,7 +30,19 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	int* pInicialInt;
 	float* pInicialFloat;
 	double* pInicialDouble;
+	TDA_Parser parser;
+	char archconfig[50]="config.txt";
+	char archlog[50]="log.txt";
+	char *parchconfig=archconfig;
+	char *parchlog = archlog;
+	char *pTipoDato;
+	char tipoDato[10];
+	char *pCantidadItems;
+	char cantidadItems[1000];
 	
+	pTipoDato = tipoDato;
+	pCantidadItems = cantidadItems;
+
 	pChar = cadena;	
 
 	switch(tipo){
@@ -24,23 +50,46 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	case td_comando:
 			
 		memset(pChar,0,sizeof(cadena));
+		memset(pTipoDato,0,sizeof(tipoDato));
+		//cambiar el *1000
 		recv(pConexion->locsock,pChar,sizeof(char)*1000,0);	
 		printf("%s \n",pChar);
-		trRecibir(pConexion, td_int, 2, datos);
+		parserCrear(&parser,parchconfig,parchlog);
+		parserCargarLinea(&parser,pChar);
+		printf("CAMPOS: %d \n",parserCantCampos(&parser));
+		//tiene que tener dos "palabras" TIPO_DATO CantItems
+		if(parserCantCampos(&parser) == 2){
+			parserCampo(&parser,1,pTipoDato);
+			parserCampo(&parser,2,pCantidadItems);
+			printf("pTipoDato: %s \n",pTipoDato);
+			printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
+			printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
+			trRecibir(pConexion, convertirDeStringATipoDato(pTipoDato) ,atoi(pCantidadItems), datos);
+			
+		}
+
+		parserDestruir(&parser);
+		
+
 		break;
 
 	case td_int:
-		
+		printf("LLEGO BIEN, DATO");
 		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
 		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
 		pInicialInt = pDatosInt;		
+		printf("Cantidad de items CASE: %d \n",cantItems);
 		
 		while( i< cantItems){
+		printf("valor i CASE: %d \n",i);
 		recv(pConexion->locsock,pDatosInt++,sizeof(int),0);		
 		i++;
 		
 		}
-		memcpy(datos,pDatosInt,sizeof(int)*cantItems);
+		memcpy(datos,pInicialInt,sizeof(int)*cantItems);
+		printf("LLEGO BIEN, DATO: %d\n",*(int*)datos);
+		//printf("LLEGO BIEN, DATO2: %d\n",*(int*)datos++);
+		system("pause");
 		free(pInicialInt);
 		//TODO validar si salio bien
 		return 0;
@@ -48,7 +97,6 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	
 				
 	case (td_char):
-
 		pDatosChar = (char*)malloc(sizeof(char)*cantItems);
 				
 		recv(pConexion->locsock,pDatosChar,sizeof(char)*cantItems,0);		
@@ -272,11 +320,15 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	char* pInicialChar;
 	float* pInicialFloat;
 	double* pInicialDouble;
+	
+	
 
 	switch(tipo){
 	
 	case td_comando:
-		send(pConexion->locsock,(char*)datos,sizeof(char)*strlen((char*)datos),0);		
+
+		send(pConexion->locsock,(char*)datos,sizeof(char)*strlen((char*)datos),0);	
+		
 		break;
 
 
@@ -361,7 +413,7 @@ int trCerrarConexion(CONEXION *pConexion){
           closesocket(pConexion->locsock);         
          }
       
-    
+    return 0;
 }
 
 int trConexionActiva(CONEXION *pConexion){
@@ -372,4 +424,5 @@ int trConexionActiva(CONEXION *pConexion){
     }else{
          printf("LA CONECCION ESTA CERRADA \n");
                    }  
+	return 0;
 }

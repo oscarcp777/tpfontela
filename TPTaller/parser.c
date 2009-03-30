@@ -171,7 +171,7 @@ int parserCantCampos(TDA_Parser*tda)
 
 int parserCampo(TDA_Parser* tda, int n, char* valor)
 {
-          
+    char c ='/';  
 //variables para extraer campo de cadena limpia
     char cadenaaux[maxlinea]="";
     char *pcinicio , *pcfinal;   //marcan las posisiones de inicio y fin del campo
@@ -226,7 +226,7 @@ int parserCampo(TDA_Parser* tda, int n, char* valor)
   
   valor=valor2;  
    fprintf(tda->log,"parserCampo: el Campo %d obtenido exitosamente es =%s\n",n,valor);
-  char c ='/';
+  
   
   while ((valor=strchr(valor,c))!=NULL)
      {

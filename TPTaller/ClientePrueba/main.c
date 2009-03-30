@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <winsock2.h> // Referencia a la librería
-#include "..\transferencia.h"
-#include "..\parser.h"
+#include "C:\Users\Richy\Desktop\TP Taller de Programacion\transferencia.h"
+#include "C:\Users\Richy\Desktop\TP Taller de Programacion\parser.h"
 
 void iniciarCliente(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
 
@@ -13,6 +13,22 @@ void iniciarCliente(CONEXION *conexion){ // Procedimiento que iniciara el socket
 }
 
 
+
+enum tr_tipo_dato convertirDeStringATipoDato2(char* cadena){
+	
+	
+	if (strcmp("INT",cadena)==0)
+		return td_int;
+	if (strcmp("DOUBLE",cadena)==0)
+		return td_double;
+
+	return td_char;
+	
+	
+
+}
+
+
 int main(int argc, char *argv[])
 {
     CONEXION conexion;
@@ -20,7 +36,7 @@ int main(int argc, char *argv[])
     char *pmsj = msj;
     int puerto;
 	int* pPuerto = &puerto;
-	//int datosInt[5]= {1,555,3,4,5};
+	int datosInt[2]= {8,4};
 	//double datosDouble[5]= {123,4234,234234,234234,3243};
 	TDA_Parser parser;
 	char campo1[50];
@@ -29,42 +45,60 @@ int main(int argc, char *argv[])
 	char archlog[50]="log.txt";
 	char *parchconfig=archconfig;
 	char *parchlog = archlog;
-	
+	int numCampos;
+	char* pNumCamposEnChar;
+	char NumCamposEnChar[10];
+
+
+	char BORRARPUTO[10];
+	char *pBORRAR=BORRARPUTO;
+	int* punteroHORRIBLEdatosInt = datosInt;
+
+
+	pNumCamposEnChar = NumCamposEnChar;
 	
 	if (parserCrear(&parser,parchconfig,parchlog)==1)
            printf("OK\n");
     else
            printf("NOOO\n");
     iniciarCliente(&conexion); // Iniciamos el Socket
-	while (strcmp(msj,"EXIT") != 0){
+/*	while (strcmp(msj,"EXIT") != 0){
          printf("INGRESE MENSAJE: (para salir EXIT) \n");   
          gets(msj);
 		 printf("MENSAJE INGRESADO: %s \n ",msj);
 		 trEnviar(&conexion,td_comando,1,msj);
 		 
 		 
-	}
+	}*/
 	
-	//trEnviar(&conexion,td_int,5, datosInt);
-	//trEnviar(&conexion,td_char,22, datosChar);
-	//trEnviar(&conexion,td_double,5, datosDouble);
-	trConexionActiva(&conexion);//veo si la coneccion esta activa
+	
+	
    	trPuerto(&conexion,pPuerto);
 	printf("NUMERO PUERTO %d \n", *pPuerto);
 	
 	
-	/*
+	
 	while (strcmp(pmsj,"EXIT") != 0){
          printf("INGRESE MENSAJE: (para salir EXIT) \n");   
          gets(pmsj);
          parserCargarLinea(&parser,pmsj);
          printf(" \n");
-         printf("NUM CAMPOS: %d",parserCantCampos(&parser));
+		 numCampos = parserCantCampos(&parser)-1;
+         printf("NUM CAMPOS: %d \n",numCampos);
          memset(pcampo1,0,sizeof(campo1));         
          parserCampo(&parser, 1, pcampo1);
-         printf("CAMPO PEDIDO: %s",pcampo1);
-         send(conexion.locsock,pcampo1,sizeof(campo1),0); // Enviamos mensaje
-    }*/
+         memcpy(pBORRAR,pcampo1,sizeof(BORRARPUTO));
+
+
+		 strcat(pcampo1," ");
+		 itoa(numCampos,pNumCamposEnChar,10);
+
+		 strcat(pcampo1,pNumCamposEnChar);
+		 printf("CONCATENADAS %s \n",pcampo1);
+		 trEnviar(&conexion,td_comando,1,pcampo1);
+		 trEnviar(&conexion,convertirDeStringATipoDato2(pBORRAR),numCampos,punteroHORRIBLEdatosInt);
+		 	
+    }
     parserDestruir(&parser);
     printf("QUIERE CERRAR LA CONECCION : S/N  \n");
       scanf("%s",msj);
