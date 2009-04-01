@@ -3,8 +3,6 @@
 #include <winsock2.h> // Referencia a la librería
 #include "..\transferencia.h"
 
-char buffin[1024]= "HOLAAA";
-char* pbuff = buffin;
 
 
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
@@ -26,16 +24,25 @@ int main(int argc, char *argv[])
     char direccion[100];
     char *pdir = direccion; 
 	char dato[150];
-	char* pDato= &dato;
+	char* pDato= dato;
 	int i = 0;
-	int vectorEnteros[5];
-	int* datos = vectorEnteros;
+	int k = 1;
+	int datos[100];
+	int* pdatos = datos;
 	
-    if (iniciarServidor(&conexion)== 0){                          
+	if (iniciarServidor(&conexion)== 0){                          
 
         while(TRUE){
-          trRecibir(&conexion, td_comando,1, datos);          
-			}
+          memset(datos,0,100);
+          trRecibir(&conexion, td_comando,1, pdatos);          
+          k = 1;
+          while (*pdatos != NULL){
+                printf("Dato %d: %d \n",k,*pdatos);
+                pdatos++;
+                k++;
+          }
+          pdatos = datos;  	
+        }
         
     }
 

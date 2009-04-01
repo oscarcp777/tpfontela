@@ -4,6 +4,7 @@
 #include "transferencia.h"
 #include "parser.h"
 
+//#define DEBUG                       //Habilitar para debuggear, muestra printfs
 
 enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 	
@@ -21,7 +22,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 	char* pChar; 
 	char cadena[1000];
-	int i = 0;
+	int i = 1;
 	int *pDatosInt ;
 	char *pDatosChar;
 	float *pDatosFloat;
@@ -53,18 +54,23 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 		memset(pTipoDato,0,sizeof(tipoDato));
 		//cambiar el *1000
 		recv(pConexion->locsock,pChar,sizeof(char)*1000,0);	
-		printf("%s \n",pChar);
-		parserCrear(&parser,parchconfig,parchlog);
+		#ifdef DEBUG
+               printf("Primer Recive: %s \n",pChar);
+		#endif
+        parserCrear(&parser,parchconfig,parchlog);
 		parserCargarLinea(&parser,pChar);
-		printf("CAMPOS: %d \n",parserCantCampos(&parser));
-		//tiene que tener dos "palabras" TIPO_DATO CantItems
-		if(parserCantCampos(&parser) == 2){
-			parserCampo(&parser,1,pTipoDato);
+		#ifdef DEBUG
+               printf("CAMPOS: %d \n",parserCantCampos(&parser));
+		#endif
+        if(parserCantCampos(&parser) == 2){    //tiene que tener dos "palabras" TIPO_DATO CantItems
+		    parserCampo(&parser,1,pTipoDato);
 			parserCampo(&parser,2,pCantidadItems);
-			printf("pTipoDato: %s \n",pTipoDato);
-			printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
-			printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
-			trRecibir(pConexion, convertirDeStringATipoDato(pTipoDato) ,atoi(pCantidadItems), datos);
+			#ifdef DEBUG
+                   printf("pTipoDato: %s \n",pTipoDato);
+			       printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
+			       printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
+			#endif
+            trRecibir(pConexion, convertirDeStringATipoDato(pTipoDato) ,atoi(pCantidadItems), datos);
 			
 		}
 
@@ -74,23 +80,27 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 		break;
 
 	case td_int:
-		printf("LLEGO BIEN, DATO");
 		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
+		pInicialInt = pDatosInt;
 		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
 		pInicialInt = pDatosInt;		
-		printf("Cantidad de items CASE: %d \n",cantItems);
+		#ifdef DEBUG
+               printf("Cantidad de items CASE: %d \n",cantItems);
+		#endif
+		while( i<= cantItems){
+		       recv(pConexion->locsock,pDatosInt,sizeof(int),0);		
+		       #ifdef DEBUG
+                      printf("Dato %d: %d \n",i,*pDatosInt);
+               #endif
+               pDatosInt++;
+               i++;
+        }
+         
+        memcpy(datos,pInicialInt,sizeof(int)*cantItems);
+		free(pInicialInt);       
 		
-		while( i< cantItems){
-		printf("valor i CASE: %d \n",i);
-		recv(pConexion->locsock,pDatosInt++,sizeof(int),0);		
-		i++;
-		
-		}
-		memcpy(datos,pInicialInt,sizeof(int)*cantItems);
-		printf("LLEGO BIEN, DATO: %d\n",*(int*)datos);
+        //printf("LLEGO BIEN, DATO: %d\n",*(int*)datos);
 		//printf("LLEGO BIEN, DATO2: %d\n",*(int*)datos++);
-		system("pause");
-		free(pInicialInt);
 		//TODO validar si salio bien
 		return 0;
 		break;
@@ -340,9 +350,8 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
 		
 		while( i< cantItems){
-		send(pConexion->locsock,pDatosInt++,sizeof(int),0);		
-		i++;
-		
+		       send(pConexion->locsock,pDatosInt++,sizeof(int),0);		
+		       i++;
 		}
 		free(pInicialInt);
 		//TODO validar si salio bien

@@ -131,7 +131,6 @@ int parserCargarLinea(TDA_Parser* tda,char* linea)
       else
       {
            fputs("parserSiguiente: Linea leida exitosamente\n",tda->log); 
-           printf("Linea: %s\n",tda->linea); 
            return 1;
       }     
 }         
