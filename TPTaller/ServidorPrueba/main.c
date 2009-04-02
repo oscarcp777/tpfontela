@@ -6,7 +6,7 @@
 
 #define DEBUG
 
-#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
+#define TAM_MSJ 10000                 //Tamaño maximo del mensaje a enviar
 #define PRIMER_ENVIO 15      
 
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "parser.h"
-#define maxlinea 100
+#define maxlinea 1000
 
 int validarComando(char* cadenaIngresada){
 	

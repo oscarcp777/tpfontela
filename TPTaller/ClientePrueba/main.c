@@ -6,7 +6,7 @@
 
 #define DEBUG                       //Habilitar para debuggear, muestra printfs
 
-#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
+#define TAM_MSJ 10000                 //Tamaño maximo del mensaje a enviar
 #define PRIMER_ENVIO 15            //Tamaño máximo primer envio -- {TipoDato CantidadElementos} 
 #define ARCH_CONF "config.txt"    //Nombre archivo configuración parser
 #define ARCH_LOG  "log.txt"     //Nombre archivo de log del parser
@@ -112,8 +112,8 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
      
      
      int i=2;
-	 int k=0;
-     char cadenaaux[10];
+	 int k;
+     char cadenaaux[1000];
      char *paux = cadenaaux;
      enum tr_tipo_dato tipoDatoaEnviar;
      int cantidadElementos;
@@ -142,9 +142,9 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
            datosInt = (int*)malloc(sizeof(int)*cantidadElementos);
            datosIntInicio = datosInt;
 
-		  k = 0;
-          while (k<cantidadElementos){
-                  memset(paux,0,sizeof(char)*10);
+		  k = 1;
+          while (k<=cantidadElementos){
+                  memset(paux,0,sizeof(char)*1000);
                   parserCampo(&parser, i, paux);
                   *datosInt = atoi(paux); 
                   #ifdef DEBUG
@@ -155,19 +155,8 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
 				  k++;
                     
            } 
-		  /* for(i=1;i<=cantidadElementos;datosInt++){
-				  memset(paux,0,sizeof(char)*10);
-                  parserCampo(&parser, i+1, paux);
-                  *datosInt = atoi(paux); 
-                  #ifdef DEBUG
-                         printf("MAIN CLIENTE%d \n",*datosInt);
-                  #endif
-                  //datosInt++;
-                  i++;  
-			 }*/
-		   
-		   printf("contenido de datosIntInicio es lo que le paso a trEnviar %d \n",*datosIntInicio);
-           trEnviar(c,tipoDatoaEnviar,cantidadElementos,datosIntInicio);
+		     
+		   trEnviar(c,tipoDatoaEnviar,cantidadElementos,datosIntInicio);
            free(datosIntInicio);
      }
      
