@@ -5,6 +5,8 @@
 #include "parser.h"
 
 #define DEBUG                       //Habilitar para debuggear, muestra printfs
+#define PRIMER_ENVIO 15
+
 
 enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 	
@@ -20,73 +22,38 @@ enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 }
 int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *datos){
 
-	char* pChar; 
-	char cadena[1000];
 	int i = 1;
 	int *pDatosInt ;
 	char *pDatosChar;
 	float *pDatosFloat;
 	double *pDatosDouble;
 	int* puntero;
-	int* pInicialInt;
+	int* pInt;
 	float* pInicialFloat;
 	double* pInicialDouble;
-	TDA_Parser parser;
-	char archconfig[50]="config.txt";
-	char archlog[50]="log.txt";
-	char *parchconfig=archconfig;
-	char *parchlog = archlog;
-	char *pTipoDato;
-	char tipoDato[10];
-	char *pCantidadItems;
-	char cantidadItems[1000];
+	
 	int estadorecv=0;
-	pTipoDato = tipoDato;
-	pCantidadItems = cantidadItems;
-
-	pChar = cadena;	
-
+	
+	
 	switch(tipo){
 	
 	case td_comando:
 			
-		memset(pChar,0,sizeof(cadena));
-		memset(pTipoDato,0,sizeof(tipoDato));
-		//cambiar el *1000
-		estadorecv=	recv(pConexion->cliente,pChar,sizeof(char)*1000,0);	
+		estadorecv=	recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);	
 		
-	   	#ifdef DEBUG
-    	printf("EL TAMANIO ENVIADO ES : %d \n",estadorecv);
-    	#endif
-		if(estadorecv==0||estadorecv==-1){
+	   	if(estadorecv==0||estadorecv==-1){
    			#ifdef DEBUG                               
-    		printf("EL CLIENTE SE DESCONECTO :  \n");
-    		printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
+    			printf("EL CLIENTE SE DESCONECTO :  \n");
+    			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
 			#endif
             reconectarSockets(pConexion);
               return 0;              
           	break;
-              }                           
+        }                           
 		#ifdef DEBUG
-               printf("Primer Recive: %s \n",pChar);
+               printf("Primer Recive: %s \n",datos);
 		#endif
-        parserCrear(&parser,parchconfig,parchlog);
-		parserCargarLinea(&parser,pChar);
-		#ifdef DEBUG
-               printf("CAMPOS: %d \n",parserCantCampos(&parser));
-		#endif
-        if(parserCantCampos(&parser) == 2){    //tiene que tener dos "palabras" TIPO_DATO CantItems
-		    parserCampo(&parser,1,pTipoDato);
-			parserCampo(&parser,2,pCantidadItems);
-			#ifdef DEBUG
-                   printf("pTipoDato: %s \n",pTipoDato);
-			       printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
-			       printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
-			#endif
-            trRecibir(pConexion, convertirDeStringATipoDato(pTipoDato) ,atoi(pCantidadItems), datos);
-			
-		}
-
+    
 		//parserDestruir(&parser);
 		
 
@@ -94,27 +61,21 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 	case td_int:
 		
-		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
-		pInicialInt = pDatosInt;
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialInt = pDatosInt;		
+		pInt = datos;		
 		#ifdef DEBUG
                printf("Cantidad de items CASE: %d \n",cantItems);
 		#endif
+
 		while( i<= cantItems){
-		       recv(pConexion->cliente,pDatosInt,sizeof(int),0);		
+		       recv(pConexion->cliente,pInt,sizeof(int),0);		
 		       #ifdef DEBUG
-                      printf("Dato %d: %d \n",i,*pDatosInt);
+                      printf("Dato %d: %d \n",i,*pInt);
                #endif
-               pDatosInt++;
+               pInt++;
                i++;
         }
          
-       memcpy(datos,pInicialInt,sizeof(int)*cantItems);
-	   free(pInicialInt);       
-		        
-		//TODO validar si salio bien
-		return 0;
+       	return 0;
 		break;
 	
 				
@@ -354,7 +315,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	float *pDatosFloat;
 	double *pDatosDouble;
 	int* puntero;
-	int* pInicialInt;
+	int* pInt;
 	char* pInicialChar;
 	float* pInicialFloat;
 	double* pInicialDouble;
@@ -372,16 +333,17 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 	case td_int:
 
-		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
+		//pDatosInt = (int*)malloc(sizeof(int)*cantItems);
 		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialInt = pDatosInt;
-		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
+		pInt = (int*)datos;
+		//memcpy(pDatosInt,datos,sizeof(int)*cantItems);
 		
 		while( i< cantItems){
-		   send(pConexion->cliente,pDatosInt++,sizeof(int),0);	
+		   printf("send %d  %d\n",i+1,*pInt);
+			send(pConexion->cliente,pInt++,sizeof(int),0);	
 	       i++;
 		}
-		free(pInicialInt);
+		//free(pInicialInt);
 		//TODO validar si salio bien
 		return 0;
 		break;

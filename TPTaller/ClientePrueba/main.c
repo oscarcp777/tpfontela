@@ -111,7 +111,8 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
      double *datosDoubleInicio;
      
      
-     int i=1;
+     int i=2;
+	 int k=0;
      char cadenaaux[10];
      char *paux = cadenaaux;
      enum tr_tipo_dato tipoDatoaEnviar;
@@ -124,7 +125,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
      parserCargarLinea(&parser,pmsj);
      cantidadElementos = parserCantCampos(&parser)-1;
      
-     memset(pSegundoEnvio,0,sizeof(TAM_MSJ));         
+     memset(pSegundoEnvio,0,sizeof(char)*TAM_MSJ);         
      parserCampo(&parser, 1, pSegundoEnvio);  //Obtengo que tipo de dato es
      #ifdef DEBUG
         printf("Linea Original: %s \n",pmsj);
@@ -140,28 +141,43 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
            #endif
            datosInt = (int*)malloc(sizeof(int)*cantidadElementos);
            datosIntInicio = datosInt;
-           while (i<=cantidadElementos){
-                  memset(paux,0,sizeof(10));
-                  parserCampo(&parser, i+1, paux);
+
+		  k = 0;
+          while (k<cantidadElementos){
+                  memset(paux,0,sizeof(char)*10);
+                  parserCampo(&parser, i, paux);
                   *datosInt = atoi(paux); 
                   #ifdef DEBUG
-                         printf("%d ",*datosInt);
+                         printf("MAIN CLIENTE%d \n",*datosInt);
                   #endif
                   datosInt++;
                   i++;  
+				  k++;
                     
-           }      
+           } 
+		  /* for(i=1;i<=cantidadElementos;datosInt++){
+				  memset(paux,0,sizeof(char)*10);
+                  parserCampo(&parser, i+1, paux);
+                  *datosInt = atoi(paux); 
+                  #ifdef DEBUG
+                         printf("MAIN CLIENTE%d \n",*datosInt);
+                  #endif
+                  //datosInt++;
+                  i++;  
+			 }*/
+		   
+		   printf("contenido de datosIntInicio es lo que le paso a trEnviar %d \n",*datosIntInicio);
            trEnviar(c,tipoDatoaEnviar,cantidadElementos,datosIntInicio);
            free(datosIntInicio);
      }
      
      if (tipoDatoaEnviar == td_char){
-        memset(paux,0,sizeof(10));
+        memset(paux,0,sizeof(char)*10);
         strcpy(paux,pSegundoEnvio);
         #ifdef DEBUG
                printf("CADENAAUX: %s \n",paux);
         #endif
-        memset(pSegundoEnvio,0,sizeof(TAM_MSJ));    //Vuelvo a borrar pmsj2 y cargo los datos
+        memset(pSegundoEnvio,0,sizeof(char)*TAM_MSJ);    //Vuelvo a borrar pmsj2 y cargo los datos
         strncpy(pSegundoEnvio,pmsj+strlen(cadenaaux)+1,strlen(pmsj)-strlen(cadenaaux)-1);
         
         trEnviar(c,tipoDatoaEnviar,cantidadElementos,pSegundoEnvio);     

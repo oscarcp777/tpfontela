@@ -2,8 +2,12 @@
 #include <stdlib.h>
 #include <winsock2.h> // Referencia a la librería
 #include "..\transferencia.h"
-#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
+#include "..\parser.h"
 
+#define DEBUG
+
+#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
+#define PRIMER_ENVIO 15      
 
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
          
@@ -22,6 +26,10 @@ int main(int argc, char *argv[])
 {  
     char msjIngresado[TAM_MSJ];
     char *pmsjIngresado = msjIngresado;
+
+	char primerRecibo[PRIMER_ENVIO];
+	char *pPrimerRecibo = primerRecibo;
+
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
@@ -31,6 +39,23 @@ int main(int argc, char *argv[])
 	int k = 1;
 	int datos[100];
 	int* pdatos = datos;
+
+	TDA_Parser parser;
+	char archconfig[50]="config.txt";
+	char archlog[50]="log.txt";
+	char *parchconfig=archconfig;
+	char *parchlog = archlog;
+	
+	
+	char tipoDato[PRIMER_ENVIO];
+	char *pTipoDato = tipoDato;
+	char cantidadItems[PRIMER_ENVIO];
+	char *pCantidadItems = cantidadItems;
+	
+	char *datosChar;
+	int *datosInt,pDatosIntTemporal;
+	double *datosDouble;
+
 	
 	if (iniciarServidor(&conexion)== 0){                          
 /*       
@@ -45,17 +70,46 @@ int main(int argc, char *argv[])
     trConexionActiva(&conexion);*/
 
         while(TRUE){
-          memset(datos,0,100);
-		  trRecibir(&conexion, td_comando,1, pdatos);
+			memset(datos,0,100);
+			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
+			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
+			trRecibir(&conexion, td_comando,1, pPrimerRecibo);
 		 
-          k = 1;
-		 
-          while (*pdatos != NULL){
-                printf("Dato %d: %d \n",k,*pdatos);
-                pdatos++;
-                k++;
-          }
-		  pdatos = datos;  	
+			parserCrear(&parser,parchconfig,parchlog);
+			parserCargarLinea(&parser,pPrimerRecibo);
+			#ifdef DEBUG
+			       printf("CAMPOS: %d \n",parserCantCampos(&parser));
+			#endif
+			if(parserCantCampos(&parser) == 2){    //tiene que tener dos "palabras" TIPO_DATO CantItems
+				parserCampo(&parser,1,pTipoDato);
+				parserCampo(&parser,2,pCantidadItems);
+				#ifdef DEBUG
+                   printf("pTipoDato: %s \n",pTipoDato);
+			       printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
+			       printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
+				#endif
+				
+			}
+			switch (convertirDeStringATipoDato(pTipoDato)){
+				
+				case td_int:
+						datosInt = (int*)malloc(sizeof(int)*atoi(pCantidadItems));
+						//la siguiente linea es para poder hacer FREE() correctamente, porque datosInt es incrementado
+						pDatosIntTemporal = datosInt;
+						trRecibir(&conexion, td_int ,atoi(pCantidadItems), datosInt);
+						k=1;
+						#ifdef DEBUG
+						while (k <= atoi(pCantidadItems)){
+							 printf("DatoEnMain %d: %d \n",k,*datosInt);
+							 datosInt++;
+							 k++;
+						}
+						#endif
+						free(pDatosIntTemporal);
+				break;
+			}
+	 
+          
         }
         
     }
