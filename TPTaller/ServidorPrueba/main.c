@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <winsock2.h> // Referencia a la librería
 #include "..\transferencia.h"
-
+#define TAM_MSJ 100                 //Tamaño maximo del mensaje a enviar
 
 
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
@@ -20,6 +20,8 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 
 int main(int argc, char *argv[])
 {  
+     char msjIngresado[TAM_MSJ];
+    char *pmsjIngresado = msjIngresado;
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
@@ -31,6 +33,15 @@ int main(int argc, char *argv[])
 	int* pdatos = datos;
 	
 	if (iniciarServidor(&conexion)== 0){                          
+         printf("esto lo hago para probar que se puede cerrar \n ");
+         printf("la coneccion del cliente desde el servidor \n");
+        printf("QUIERE CERRAR LA CONECCION : S/N  \n");
+    scanf("%s",msjIngresado);
+    trConexionActiva(&conexion);
+    if(strcmp(msjIngresado,"S") == 0 || strcmp(msjIngresado,"s") == 0){
+         trCerrarConexion(&conexion);     
+    } 
+    trConexionActiva(&conexion);
 
         while(TRUE){
           memset(datos,0,100);

@@ -181,16 +181,18 @@ int main(int argc, char *argv[])
          parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
          trEnviar(&conexion,td_comando,1,pPrimerEnvio);
 		 segundoEnvio(&conexion,pmsjIngresado);
-         system("pause");
+        
+        
          	
     }
     
     printf("QUIERE CERRAR LA CONECCION : S/N  \n");
     scanf("%s",msjIngresado);
+    trConexionActiva(&conexion);
     if(strcmp(msjIngresado,"S") == 0 || strcmp(msjIngresado,"s") == 0){
          trCerrarConexion(&conexion);     
     } 
-   
+    trConexionActiva(&conexion);
 
     system("PAUSE");	
 }

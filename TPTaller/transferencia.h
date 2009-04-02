@@ -6,6 +6,7 @@ typedef struct _CONEXION{
         struct hostent* host;
         SOCKADDR_IN conexrem;
         SOCKET locsock;
+        SOCKET cliente;
         //si es 1 es cliente  , si es 0 en servidor
         int usuario;
 }CONEXION;
