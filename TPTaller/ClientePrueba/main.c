@@ -4,23 +4,24 @@
 #include "..\transferencia.h"
 #include "..\parser.h"
 
-//#define DEBUG                       //Habilitar para debuggear, muestra printfs
+#define DEBUG                       //Habilitar para debuggear, muestra printfs
 
 #define TAM_MSJ 100                 //Tamaño maximo del mensaje a enviar
 #define PRIMER_ENVIO 15            //Tamaño máximo primer envio -- {TipoDato CantidadElementos} 
 #define ARCH_CONF "config.txt"    //Nombre archivo configuración parser
-#define ARCH_LOG "log.txt"        //Nombre archivo de log del parser
+#define ARCH_LOG  "log.txt"     //Nombre archivo de log del parser
 #define TAM_NOMBRE_ARCH 30
 
 
 void crearParser(TDA_Parser *parser){
            
-     char archconfig[TAM_NOMBRE_ARCH]=ARCH_CONF;
+     char archconfig[TAM_NOMBRE_ARCH]="config.txt";
      char *parchconfig=archconfig;
-     char archlog[TAM_NOMBRE_ARCH]=ARCH_LOG;
+     char archlog[TAM_NOMBRE_ARCH]="log.txt";
 	 char *parchlog = archlog;
      int aux;
-     
+     strcpy(parchlog,"log.txt");
+	 strcpy(parchconfig,"config.txt");
      aux = parserCrear(parser,parchconfig,parchlog);
      #ifdef DEBUG
      if (aux == 1)
@@ -58,17 +59,34 @@ void ingresoMensaje(char *pmsj){
 void parsearPrimerEnvio(char *pmsj,char *pmsj1){
      
      TDA_Parser parser;
+          
      
      int numCampos;	
      char cantidadElementos[10];                //Tengo hasta 10 caracteres para representar el numero de datos a enviar
      char* pCantidadElementos = cantidadElementos ;
-    
-     
-     crearParser(&parser);
-     parserCargarLinea(&parser,pmsj);
-    
-     numCampos = parserCantCampos(&parser)-1;
+     char archconfig[TAM_NOMBRE_ARCH];//="config.txt";
+     char *parchconfig=archconfig;
+     char archlog[TAM_NOMBRE_ARCH];//="log.txt";
+	 char *parchlog = archlog;
+     int aux;
+	
+	 
+     strcpy(parchlog,"log.txt");
+	 strcpy(parchconfig,"config.txt");
+     aux = parserCrear(&parser,parchconfig,parchlog);
+
      #ifdef DEBUG
+     if (aux == 1)
+           printf("Parser Creado Correctamente\n");
+     else
+           printf("Error al Crear Parser\n");
+     #endif    
+	 
+     parserCargarLinea(&parser,pmsj);
+			
+     numCampos = parserCantCampos(&parser)-1;
+	     
+	#ifdef DEBUG
         printf("NUM CAMPOS: %d \n",numCampos);
      #endif
      memset(pmsj1,0,sizeof(PRIMER_ENVIO));         
@@ -79,7 +97,8 @@ void parsearPrimerEnvio(char *pmsj,char *pmsj1){
 	 #ifdef DEBUG
             printf("PRIMER ENVIO: %s \n",pmsj1);
 	 #endif	 
-     parserDestruir(&parser);
+    // parserDestruir(&parser);
+	 
 }     
 
 void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipoDato,int *cantElementos){
@@ -149,7 +168,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
      
      }   
      
-     parserDestruir(&parser);
+     //parserDestruir(&parser);
      
      
      
@@ -169,7 +188,7 @@ int main(int argc, char *argv[])
     
     int puerto;
 	int* pPuerto = &puerto;
-	
+	int exito;
     iniciarCliente(&conexion); // Iniciamos el Socket
    	trPuerto(&conexion,pPuerto);
 	printf("NUMERO PUERTO %d \n", *pPuerto);
@@ -177,13 +196,16 @@ int main(int argc, char *argv[])
 	
 	
 	while (strcmp(pmsjIngresado,"EXIT") != 0){
-         ingresoMensaje(pmsjIngresado); 
-         parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
+         ingresoMensaje(pmsjIngresado);
+		 exito = validarComando(pmsjIngresado);
+		 if(exito == 0){
+		 parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
+		 #ifdef DEBUG
+            printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
+		 #endif	 
          trEnviar(&conexion,td_comando,1,pPrimerEnvio);
 		 segundoEnvio(&conexion,pmsjIngresado);
-        
-        
-         	
+         }       	
     }
     
     printf("QUIERE CERRAR LA CONECCION : S/N  \n");

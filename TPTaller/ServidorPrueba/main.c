@@ -33,26 +33,29 @@ int main(int argc, char *argv[])
 	int* pdatos = datos;
 	
 	if (iniciarServidor(&conexion)== 0){                          
-         printf("esto lo hago para probar que se puede cerrar \n ");
+/*       
+		 printf("esto lo hago para probar que se puede cerrar \n ");
          printf("la coneccion del cliente desde el servidor \n");
-        printf("QUIERE CERRAR LA CONECCION : S/N  \n");
-    scanf("%s",msjIngresado);
-    trConexionActiva(&conexion);
+         printf("QUIERE CERRAR LA CONECCION : S/N  \n");
+		 scanf("%s",msjIngresado);
+		trConexionActiva(&conexion);
     if(strcmp(msjIngresado,"S") == 0 || strcmp(msjIngresado,"s") == 0){
          trCerrarConexion(&conexion);     
     } 
-    trConexionActiva(&conexion);
+    trConexionActiva(&conexion);*/
 
         while(TRUE){
           memset(datos,0,100);
-          trRecibir(&conexion, td_comando,1, pdatos);          
+		  trRecibir(&conexion, td_comando,1, pdatos);
+		 
           k = 1;
+		 
           while (*pdatos != NULL){
                 printf("Dato %d: %d \n",k,*pdatos);
                 pdatos++;
                 k++;
           }
-          pdatos = datos;  	
+		  pdatos = datos;  	
         }
         
     }

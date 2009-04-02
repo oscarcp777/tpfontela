@@ -4,7 +4,36 @@
 #include "parser.h"
 #define maxlinea 100
 
+int validarComando(char* cadenaIngresada){
+	
+	char* resp;
+	char *comando,*datos;
+	int exito;
+	printf ( "cadena inicial  %s \n",cadenaIngresada);
 
+	comando = strtok( cadenaIngresada, " " );
+	datos = strtok ( NULL, "\n" );
+
+	printf ( "datos = %s \n", datos );
+	printf ( "comando = %s \n",comando);
+
+	// los siguientes caracteres no deberian aparecer cuando se manda un DOUBLE O INT
+	//la siguiente funcion devuelve NULL si no encuentra los caracteres dentro de la cadena pasada
+	resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
+	exito = strcmp(comando,"INT");
+	
+	if((resp != NULL) || (exito != 0) ){
+
+	printf("ERROR EN EL COMANDO INGRESADO %s \n",resp);
+	//cambiar para que devuelva ERROR
+	return -1;
+	}
+	else {
+	//cambiar para que devuelva OK
+	return 0;
+	}
+
+}
                
 int limpiaescape (char* a)
 
@@ -91,6 +120,7 @@ int parserCrear(TDA_Parser* tda,char* arch_conf,char* arch_log)
                   }    
        }
        fputs("parserCrear: Parser creado exitosamente\n",tda->log); 
+	   printf("Error al Crear Parser\n");
        fclose(ar);
        tda->linea=NULL;
        

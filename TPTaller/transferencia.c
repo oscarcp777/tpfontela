@@ -54,6 +54,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 		memset(pTipoDato,0,sizeof(tipoDato));
 		//cambiar el *1000
 		estadorecv=	recv(pConexion->cliente,pChar,sizeof(char)*1000,0);	
+		
 	   	#ifdef DEBUG
     	printf("EL TAMANIO ENVIADO ES : %d \n",estadorecv);
     	#endif
@@ -86,12 +87,13 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 			
 		}
 
-		parserDestruir(&parser);
+		//parserDestruir(&parser);
 		
 
 		break;
 
 	case td_int:
+		
 		pDatosInt = (int*)malloc(sizeof(int)*cantItems);
 		pInicialInt = pDatosInt;
 		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
@@ -108,11 +110,9 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
                i++;
         }
          
-        memcpy(datos,pInicialInt,sizeof(int)*cantItems);
-		free(pInicialInt);       
-		
-        //printf("LLEGO BIEN, DATO: %d\n",*(int*)datos);
-		//printf("LLEGO BIEN, DATO2: %d\n",*(int*)datos++);
+       memcpy(datos,pInicialInt,sizeof(int)*cantItems);
+	   free(pInicialInt);       
+		        
 		//TODO validar si salio bien
 		return 0;
 		break;
@@ -358,15 +358,15 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	char* pInicialChar;
 	float* pInicialFloat;
 	double* pInicialDouble;
-	
+	int estadoEnviar=0;
 	
 
 	switch(tipo){
 	
 	case td_comando:
 
-		send(pConexion->cliente,(char*)datos,sizeof(char)*strlen((char*)datos),0);	
-		
+	estadoEnviar=	send(pConexion->cliente,(char*)datos,sizeof(char)*strlen((char*)datos),0);	
+			printf("EL estado del enviar es  : %d \n",estadoEnviar);
 		break;
 
 
@@ -378,7 +378,9 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
 		
 		while( i< cantItems){
-		       send(pConexion->cliente,pDatosInt++,sizeof(int),0);		
+		   estadoEnviar=    send(pConexion->cliente,pDatosInt++,sizeof(int),0);	
+
+			   	printf("EL estado del enviar es  : %d \n",estadoEnviar);
 		       i++;
 		}
 		free(pInicialInt);
