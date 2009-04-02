@@ -6,7 +6,7 @@
 
 #define DEBUG                       //Habilitar para debuggear, muestra printfs
 
-#define TAM_MSJ 100                 //Tamaño maximo del mensaje a enviar
+#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
 #define PRIMER_ENVIO 15            //Tamaño máximo primer envio -- {TipoDato CantidadElementos} 
 #define ARCH_CONF "config.txt"    //Nombre archivo configuración parser
 #define ARCH_LOG  "log.txt"     //Nombre archivo de log del parser
@@ -198,13 +198,14 @@ int main(int argc, char *argv[])
 	while (strcmp(pmsjIngresado,"EXIT") != 0){
          ingresoMensaje(pmsjIngresado);
 		 exito = validarComando(pmsjIngresado);
+		 printf("exito %d \n",exito);
 		 if(exito == 0){
-		 parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
-		 #ifdef DEBUG
+			parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
+			#ifdef DEBUG
             printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
-		 #endif	 
-         trEnviar(&conexion,td_comando,1,pPrimerEnvio);
-		 segundoEnvio(&conexion,pmsjIngresado);
+			#endif	 
+			trEnviar(&conexion,td_comando,1,pPrimerEnvio);
+			segundoEnvio(&conexion,pmsjIngresado);
          }       	
     }
     

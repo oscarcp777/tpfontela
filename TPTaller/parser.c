@@ -6,25 +6,41 @@
 
 int validarComando(char* cadenaIngresada){
 	
+	char *cadena = (char*) malloc(sizeof(char)*maxlinea); 
 	char* resp;
 	char *comando,*datos;
 	int exito;
-	printf ( "cadena inicial  %s \n",cadenaIngresada);
-
-	comando = strtok( cadenaIngresada, " " );
+	
+	memset(cadena,0,sizeof(char)*maxlinea);
+	memcpy(cadena,cadenaIngresada,sizeof(char)*maxlinea);
+	
+	printf("CADENA %s \n",cadena);
+	comando = strtok(cadena, " " );
+	printf("comando %s \n",comando);
 	datos = strtok ( NULL, "\n" );
-
-	printf ( "datos = %s \n", datos );
-	printf ( "comando = %s \n",comando);
-
+	printf("datos %s \n",datos);	
 	// los siguientes caracteres no deberian aparecer cuando se manda un DOUBLE O INT
 	//la siguiente funcion devuelve NULL si no encuentra los caracteres dentro de la cadena pasada
 	resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
-	exito = strcmp(comando,"INT");
 	
+	exito = strcmp(comando,"INT");
+
+	if(exito !=0){
+		exito = strcmp(comando,"STRING");
+	}
+	else{
+		if(exito!=0){
+			exito = strcmp(comando,"DOUBLE");
+		}
+	
+		if(exito!=0){
+			exito = strcmp(comando,"QUIT");
+		}
+	}
+
 	if((resp != NULL) || (exito != 0) ){
 
-	printf("ERROR EN EL COMANDO INGRESADO %s \n",resp);
+	printf("ERROR EN EL COMANDO INGRESADO \n");
 	//cambiar para que devuelva ERROR
 	return -1;
 	}
@@ -120,8 +136,7 @@ int parserCrear(TDA_Parser* tda,char* arch_conf,char* arch_log)
                   }    
        }
        fputs("parserCrear: Parser creado exitosamente\n",tda->log); 
-	   printf("Error al Crear Parser\n");
-       fclose(ar);
+	   fclose(ar);
        tda->linea=NULL;
        
        return 1;

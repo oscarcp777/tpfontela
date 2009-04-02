@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <winsock2.h> // Referencia a la librería
 #include "..\transferencia.h"
-#define TAM_MSJ 100                 //Tamaño maximo del mensaje a enviar
+#define TAM_MSJ 1000                 //Tamaño maximo del mensaje a enviar
 
 
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
@@ -20,7 +20,7 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 
 int main(int argc, char *argv[])
 {  
-     char msjIngresado[TAM_MSJ];
+    char msjIngresado[TAM_MSJ];
     char *pmsjIngresado = msjIngresado;
     CONEXION conexion;
     char direccion[100];

@@ -4,7 +4,7 @@
 #include "transferencia.h"
 #include "parser.h"
 
-//#define DEBUG                       //Habilitar para debuggear, muestra printfs
+#define DEBUG                       //Habilitar para debuggear, muestra printfs
 
 enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 	
@@ -59,10 +59,10 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
     	printf("EL TAMANIO ENVIADO ES : %d \n",estadorecv);
     	#endif
 		if(estadorecv==0||estadorecv==-1){
-   		#ifdef DEBUG                               
-    	printf("EL CLIENTE SE DESCONECTO :  \n");
-    	printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
-    	#endif
+   			#ifdef DEBUG                               
+    		printf("EL CLIENTE SE DESCONECTO :  \n");
+    		printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
+			#endif
             reconectarSockets(pConexion);
               return 0;              
           	break;
@@ -358,15 +358,15 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	char* pInicialChar;
 	float* pInicialFloat;
 	double* pInicialDouble;
-	int estadoEnviar=0;
+	
 	
 
 	switch(tipo){
 	
 	case td_comando:
 
-	estadoEnviar=	send(pConexion->cliente,(char*)datos,sizeof(char)*strlen((char*)datos),0);	
-			printf("EL estado del enviar es  : %d \n",estadoEnviar);
+	send(pConexion->cliente,(char*)datos,sizeof(char)*strlen((char*)datos),0);	
+			
 		break;
 
 
@@ -378,10 +378,8 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		memcpy(pDatosInt,datos,sizeof(int)*cantItems);
 		
 		while( i< cantItems){
-		   estadoEnviar=    send(pConexion->cliente,pDatosInt++,sizeof(int),0);	
-
-			   	printf("EL estado del enviar es  : %d \n",estadoEnviar);
-		       i++;
+		   send(pConexion->cliente,pDatosInt++,sizeof(int),0);	
+	       i++;
 		}
 		free(pInicialInt);
 		//TODO validar si salio bien
