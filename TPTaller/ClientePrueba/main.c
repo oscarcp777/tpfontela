@@ -203,7 +203,6 @@ int main(int argc, char *argv[])
 	while (strcmp(pmsjIngresado,"EXIT") != 0){
          ingresoMensaje(pmsjIngresado);
 		 exito = validarComando(pmsjIngresado);
-		 printf("exito %d \n",exito);
 		 if(exito == 0){
 			parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
 			#ifdef DEBUG
@@ -211,6 +210,7 @@ int main(int argc, char *argv[])
 			#endif	 
 			trEnviar(&conexion,td_comando,1,pPrimerEnvio);
 			segundoEnvio(&conexion,pmsjIngresado);
+			
          }       	
     }
     

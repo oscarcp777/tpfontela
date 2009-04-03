@@ -3,51 +3,90 @@
 #include <stdlib.h>
 #include "parser.h"
 #define maxlinea 1000
+//#define DEBUG
 
 int validarComando(char* cadenaIngresada){
 	
 	char *cadena = (char*) malloc(sizeof(char)*maxlinea); 
-	char* resp;
-	char *comando,*datos;
-	int exito;
+	char* resp = NULL;
+	char *comando;
+	char *datos = NULL;
 	
+	char *dobleEspacio= NULL;
+	char *puntoSeguidoDeEspacio= NULL;
+	char *espacioPuntoEspacio= NULL;
+	char *espacioSeguidoDePunto= NULL;
+
+
 	memset(cadena,0,sizeof(char)*maxlinea);
 	memcpy(cadena,cadenaIngresada,sizeof(char)*maxlinea);
-	
-	printf("CADENA %s \n",cadena);
-	comando = strtok(cadena, " " );
-	printf("comando %s \n",comando);
-	datos = strtok ( NULL, "\n" );
-	printf("datos %s \n",datos);	
-	// los siguientes caracteres no deberian aparecer cuando se manda un DOUBLE O INT
-	//la siguiente funcion devuelve NULL si no encuentra los caracteres dentro de la cadena pasada
-	resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
-	
-	exito = strcmp(comando,"INT");
 
-	if(exito !=0){
-		exito = strcmp(comando,"STRING");
+#ifdef DEBUG	
+	printf("CADENA %s \n",cadena);
+#endif
+	
+	comando = strtok(cadena, " " );
+#ifdef DEBUG	
+	printf("comando %s \n",comando);
+#endif	
+	
+	datos = strtok ( NULL, "\n" );
+#ifdef DEBUG		
+	printf("datos %s \n",datos);	
+#endif		
+
+	if(strcmp(comando,"INT") ==0){
+		
+		resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
+		dobleEspacio = strstr(datos,"  ");
+		
+		if((resp != NULL) || (dobleEspacio != NULL)){
+			printf("ERROR EN EL COMANDO INGRESADO \n");
+			 return -1;	
+		}
+		else {
+			return 0;
+			}
+	
+	}
+	else if (strcmp(comando,"DOUBLE") == 0){
+			
+			//cuando es double pueden haber "." (puntos) asique el punto no esta en la siguiente cadena
+			resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
+		    dobleEspacio = strstr(datos,"  ");
+			puntoSeguidoDeEspacio = strstr(datos,". ");
+			espacioPuntoEspacio = strstr(datos," . ");
+			espacioSeguidoDePunto = strstr(datos," .");
+		
+			if((resp != NULL) || (dobleEspacio != NULL) || (puntoSeguidoDeEspacio != NULL) || (espacioPuntoEspacio != NULL) || (espacioSeguidoDePunto != NULL)){
+				printf("ERROR EN EL COMANDO INGRESADO \n");
+				return -1;	
+			}
+			else {
+				return 0;
+				}	  
+	
+	}
+
+	else if((strcmp(comando,"QUIT")==0) && (datos==NULL)){
+			return 0;
+			
+		  }
+
+	else if(strcmp(comando,"STRING")==0){
+		if(datos==NULL){
+			printf("NO INGRESO NINGUN TEXTO PARA ENVIAR \n");
+			return -1;
+		}
+		else{
+			return 0;	        
+		}
 	}
 	else{
-		if(exito!=0){
-			exito = strcmp(comando,"DOUBLE");
-		}
+		printf("ERROR EN EL COMANDO INGRESADO \n");
+		return -1;	
+	}
 	
-		if(exito!=0){
-			exito = strcmp(comando,"QUIT");
-		}
-	}
-
-	if((resp != NULL) || (exito != 0) ){
-
-	printf("ERROR EN EL COMANDO INGRESADO \n");
-	//cambiar para que devuelva ERROR
-	return -1;
-	}
-	else {
-	//cambiar para que devuelva OK
-	return 0;
-	}
 
 }
                
