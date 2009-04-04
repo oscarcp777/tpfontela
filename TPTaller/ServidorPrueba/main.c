@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <winsock2.h> // Referencia a la librería
+#include <windows.h>
 #include "..\transferencia.h"
 #include "..\parser.h"
+#include "..\Utilidades.h"
 
 #define DEBUG
 
@@ -22,140 +24,40 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
         
 }
 
+
+
 int main(int argc, char *argv[])
 {  
-    char msjIngresado[TAM_MSJ];
-    char *pmsjIngresado = msjIngresado;
-
-	char primerRecibo[PRIMER_ENVIO];
-	char *pPrimerRecibo = primerRecibo;
-
+    
+    
     CONEXION conexion;
     char direccion[100];
     char *pdir = direccion; 
-	char dato[150];
-	char* pDato= dato;
-	int i = 0;
-	int k = 1;
-	int datos[100];
-	int* pdatos = datos;
 
-	TDA_Parser parser;
-	char archconfig[50]="config.txt";
-	char archlog[50]="log.txt";
-	char *parchconfig=archconfig;
-	char *parchlog = archlog;
-	
-	
-	char tipoDato[PRIMER_ENVIO];
-	char *pTipoDato = tipoDato;
-	char cantidadItems[PRIMER_ENVIO];
-	char *pCantidadItems = cantidadItems;
-	
-	char *datosChar = NULL;
-	int *datosInt;
-	int *pDatosIntTemporal;
 
-	double *datosDouble;
-	double *pDatosDoubleTemporal;
+	DWORD  threadId;
+    HANDLE hThread,hThread1;
+    
+
+
+	if (iniciarServidor(&conexion)== 0){       
+
 	
-	int aux;
-	char prueba[TAM_MSJ];
-	char *pPrueba = prueba;
+    hThread = CreateThread( NULL, 0, enviar, &conexion, 0, &threadId );
+	hThread1 = CreateThread( NULL, 0, recibir, &conexion, 0, &threadId );
+	SetThreadPriority(hThread,1);
+	SetThreadPriority(hThread,2);
+
+    // wait for the thread to finish 
+   WaitForSingleObject( hThread, INFINITE ); 
+  
+
+    //clean up resources used by thread 
+    CloseHandle( hThread );
+    CloseHandle( hThread1 );
+
 	
-	if (iniciarServidor(&conexion)== 0){                          
-/*       
-		 printf("esto lo hago para probar que se puede cerrar \n ");
-         printf("la coneccion del cliente desde el servidor \n");
-         printf("QUIERE CERRAR LA CONECCION : S/N  \n");
-		 scanf("%s",msjIngresado);
-		trConexionActiva(&conexion);
-    if(strcmp(msjIngresado,"S") == 0 || strcmp(msjIngresado,"s") == 0){
-         trCerrarConexion(&conexion);     
-    } 
-    trConexionActiva(&conexion);*/
-
-        while(TRUE){
-			memset(datos,0,100);
-			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
-			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
-			trRecibir(&conexion, td_comando,1, pPrimerRecibo);
-		 
-			parserCrear(&parser,parchconfig,parchlog);
-			parserCargarLinea(&parser,pPrimerRecibo);
-			#ifdef DEBUG
-			       printf("CAMPOS: %d \n",parserCantCampos(&parser));
-			#endif
-			if(parserCantCampos(&parser) == 2){    //tiene que tener dos "palabras" TIPO_DATO CantItems
-				parserCampo(&parser,1,pTipoDato);
-				parserCampo(&parser,2,pCantidadItems);
-				#ifdef DEBUG
-                   printf("pTipoDato: %s \n",pTipoDato);
-			       printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
-			       printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
-				#endif
-				
-			}
-			switch (convertirDeStringATipoDato(pTipoDato)){
-				
-				case td_int:
-						datosInt = (int*)malloc(sizeof(int)*atoi(pCantidadItems));
-					
-						//la siguiente linea es para poder hacer FREE() correctamente, porque datosInt es incrementado
-						pDatosIntTemporal = datosInt;
-						trRecibir(&conexion, td_int ,atoi(pCantidadItems), datosInt);
-						k=1;
-						#ifdef DEBUG
-						while (k <= atoi(pCantidadItems)){
-							 printf("DatoEnMain %d: %d \n",k,*datosInt);
-							 datosInt++;
-							 k++;
-						}
-						#endif
-						free(pDatosIntTemporal);
-						break;
-
-				case td_char:
-							
-							aux = atoi(pCantidadItems);
-							datosChar = (char*) malloc(aux*sizeof(char));
-							memset(datosChar,0,aux*sizeof(char));
-							memset(pPrueba,0,TAM_MSJ);
-							//printf("sizeof(char)*(atoi(pCantidadItems) %d \n",aux*sizeof(char));
-							printf("DATOS CHAR DESPUES DEL MALLOC: %s \n",datosChar);
-							//trRecibir(&conexion, td_char ,atoi(pCantidadItems), datosChar);
-							trRecibir(&conexion, td_char ,atoi(pCantidadItems), pPrueba);
-							strcat(pPrueba," ");
-							memcpy(datosChar,pPrueba,aux*sizeof(char)-1);							
-							#ifdef DEBUG
-							printf("mensaje recibido pPrueba: %s \n",pPrueba);
-							printf("mensaje recibido datosChar: %s \n",datosChar);
-							//printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
-							#endif
-							
-							free(datosChar);							
-							break;
-
-				case td_double:
-						datosDouble = (double*)malloc(sizeof(double)*atoi(pCantidadItems));
-					
-						//la siguiente linea es para poder hacer FREE() correctamente, porque datosInt es incrementado
-						pDatosDoubleTemporal = datosDouble;
-						trRecibir(&conexion, td_double ,atoi(pCantidadItems), datosDouble);
-						k=1;
-						#ifdef DEBUG
-						while (k <= atoi(pCantidadItems)){
-							 printf("DatoEnMain %d: %e \n",k,*datosDouble);
-							 datosDouble++;
-							 k++;
-						}
-						#endif
-						free(pDatosDoubleTemporal);
-				break;
-			}
-	 
-          
-        }
+		
         
     }
 
