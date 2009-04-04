@@ -146,7 +146,7 @@ enum tr_tipo_dato deStringATipoDato(char* cadena){
 
 void ingresoMensaje(char *pmsj){
      
-     printf("INGRESE MENSAJE: (para salir EXIT) \n");   
+     printf("INGRESE MENSAJE: (para salir QUIT) \n");   
      gets(pmsj);
 }
 
@@ -420,7 +420,7 @@ DWORD WINAPI recibir(LPVOID c){
 				break;
 			}
 	 
-          
+           printf("INGRESE MENSAJE: (para salir QUIT) \n");
         }
 
 
