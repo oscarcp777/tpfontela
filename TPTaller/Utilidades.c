@@ -54,11 +54,11 @@ int validarComando(char* cadenaIngresada){
 			dobleEspacio = strstr(datos,"  ");
 			
 			if((resp != NULL) || (dobleEspacio != NULL)){
-				printf("ERROR EN EL COMANDO INGRESADO \n");
-				return -1;	
+				
+				return RES_ERROR;	
 			}
 			else {
-				return 0;
+				return RES_OK;
 			}
 	
 		}
@@ -72,39 +72,37 @@ int validarComando(char* cadenaIngresada){
 			espacioSeguidoDePunto = strstr(datos," .");
 		
 				if((resp != NULL) || (dobleEspacio != NULL) || (puntoSeguidoDeEspacio != NULL) || (espacioPuntoEspacio != NULL) || (espacioSeguidoDePunto != NULL)){
-					printf("ERROR EN EL COMANDO INGRESADO \n");
-					return -1;	
+				
+					return RES_ERROR;	
 				}
 				else {
-					return 0;
+					return RES_OK;
 				}	  
 	
 		}
 
 		else if((strcmp(comando,"QUIT")==0) && (datos==NULL)){
-				return -5;
+				return RES_QUIT;
 			
 		  }
 
 		else if(strcmp(comando,"STRING")==0){
 				if(datos==NULL){
-					printf("NO INGRESO NINGUN TEXTO PARA ENVIAR \n");
-					return -1;
+					return RES_ERROR;
 				}
 				else{
-					return 0;	        
+					return RES_OK;	        
 				}
 		}
 
 		
 		else{
-			printf("ERROR EN EL COMANDO INGRESADO \n");
-			return -1;	
+			return RES_ERROR;	
 		}
 }
 	else {
-		printf("ERROR EN EL COMANDO INGRESADO \n");
-		return -1;
+		
+		return RES_ERROR;
 
 	}
 }
@@ -443,20 +441,24 @@ DWORD WINAPI enviar(LPVOID c){
     
 		int puerto;
 		int* pPuerto = &puerto;
-		int exito;
+		int exito=RES_OK;
 		
 
-		while (exito != -5){
+		while (exito != RES_QUIT){
 			ingresoMensaje(pmsjIngresado);
 			exito = validarComando(pmsjIngresado);
-			if(exito == 0){
+			
+			if(exito == RES_OK){
 				parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
 				#ifdef DEBUG
 					printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
 				#endif	 
 				trEnviar(conexion,td_comando,1,pPrimerEnvio);
 				segundoEnvio(conexion,pmsjIngresado);
-			 }       	
+			 }
+			else if(exito==RES_ERROR){
+				printf("ERROR EN EL COMANDO INGRESADO \n");
+			}
 		}
 		trCerrarConexion(conexion);
 
