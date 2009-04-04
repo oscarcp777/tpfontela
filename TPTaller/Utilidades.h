@@ -4,9 +4,11 @@
 #define ARCH_LOG  "log.txt"     //Nombre archivo de log del parser
 #define TAM_NOMBRE_ARCH 30
 #define maxlinea 1000
+
 #define RES_OK 0
 #define RES_ERROR -1
 #define RES_QUIT -2
+
 //#define DEBUG
 
 

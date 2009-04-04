@@ -1,5 +1,6 @@
 #ifndef _TRANSFERENCIA_H_
 #define _TRANSFERENCIA_H_
+#define VER_COMANDO_ENVIADO
 
 typedef struct _CONEXION{
         WSADATA wsdata;

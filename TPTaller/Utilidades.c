@@ -365,9 +365,11 @@ DWORD WINAPI recibir(LPVOID c){
 		 
 			parserCrear(&parser,parchconfig,parchlog);
 			parserCargarLinea(&parser,pPrimerRecibo);
+			
 			#ifdef DEBUG
 			       printf("CAMPOS: %d \n",parserCantCampos(&parser));
 			#endif
+			
 			if(parserCantCampos(&parser) == 2){    //tiene que tener dos "palabras" TIPO_DATO CantItems
 				parserCampo(&parser,1,pTipoDato);
 				parserCampo(&parser,2,pCantidadItems);
@@ -376,8 +378,12 @@ DWORD WINAPI recibir(LPVOID c){
 			       printf("ENUM: %d\n",convertirDeStringATipoDato(pTipoDato));
 			       printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
 				#endif
+				#ifdef VER_COMANDO_ENVIADO
+				printf("%s \n",pTipoDato);
+				#endif
 				
 			}
+				
 			switch (convertirDeStringATipoDato(pTipoDato)){
 				
 				case td_int:

@@ -31,7 +31,6 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	int* pInt;
 	float* pInicialFloat;
 	double* pInicialDouble;
-	
 	int estadorecv=0;
 	
 	
@@ -41,7 +40,8 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 			
 		estadorecv=	recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);	
 		
-	   	if(estadorecv==0||estadorecv==-1){
+				
+			if(estadorecv==0||estadorecv==-1){
    			#ifdef DEBUG                               
     			printf("EL CLIENTE SE DESCONECTO :  \n");
     			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
