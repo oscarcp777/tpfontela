@@ -57,11 +57,7 @@ int main(int argc, char *argv[])
 		
         
     }
-
-    trConexionActiva(&conexion);//veo si la coneccion esta activa
-    trIP(&conexion, pdir);   
-    printf("DIRECCION: %s \n",pdir);
-    system("PAUSE");	
+   	
 }
 
 

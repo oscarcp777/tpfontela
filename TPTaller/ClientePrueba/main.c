@@ -36,16 +36,4 @@ int main(int argc, char *argv[])
     CloseHandle( hThread );
     CloseHandle( hThread1 );
 
-	
-	
-
-    printf("QUIERE CERRAR LA CONECCION : S/N  \n");
-    scanf("%s",msjIngresado);
-    trConexionActiva(&conexion);
-    if(strcmp(msjIngresado,"S") == 0 || strcmp(msjIngresado,"s") == 0){
-         trCerrarConexion(&conexion);     
-    } 
-    trConexionActiva(&conexion);
-
-    system("PAUSE");	
 }

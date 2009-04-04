@@ -166,7 +166,7 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
 			        int escuchaExitosa = listen(punteroConexion->locsock,1); 
 					if(escuchaExitosa != -1){
   	                    printf("============================================================================== \n\n");
-                       	printf("EL SERVIDOR DE SOMOS LO MAS GROSSO QUE HAY ESTA ESCUCHANDO\n\n");
+                       	printf("                     EL SERVIDOR ESTA ESCUCHANDO\n\n");
 					    printf("============================================================================== \n");
 						/*
                            	* La llamada a la funcion accept  esta variable contiene la longitud de la informacion
@@ -233,7 +233,7 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 			exito = connect(punteroConexion->cliente, (SOCKADDR*)&(punteroConexion->conexrem), sizeof(punteroConexion->conexrem));
 		    if(exito == 0){
                     	printf("============================================================================== \n\n");
-                       	printf("EL CLIENTE DE  SOMOS LO MAS GROSSO QUE HAY ESTA CONECTADO\n\n");
+                       	printf("                         EL CLIENTE SE CONECTO\n\n");
 					    printf("============================================================================== \n");
 					
                      punteroConexion->usuario=1;//le asigna  un 1 que es cliente
@@ -336,7 +336,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		
 		pChar = (char*) datos;			
 		send(pConexion->cliente,pChar,sizeof(char)*strlen(pChar),0);
-		printf("en el send sizeof(char)*strlen(pChar) %d \n",sizeof(char)*strlen(pChar));
+		
 				
 		//TODO validar si salio bien
 		return 0;		
@@ -362,7 +362,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 int trCerrarConexion(CONEXION *pConexion){
     //por ahora solo cierra la coneccion si es el cliente 
     //si es el servidor no hace nada
-    if(pConexion->usuario==1){               
+	 if(pConexion->usuario==1){               
           closesocket(pConexion->locsock);         
          }
      if(pConexion->usuario==0){               
