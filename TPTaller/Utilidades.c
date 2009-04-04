@@ -44,32 +44,36 @@ int validarComando(char* cadenaIngresada){
 		#endif	
 	
 		datos = strtok ( NULL, "\n" );
+		
 		#ifdef DEBUG		
 		printf("datos %s \n",datos);	
 		#endif		
 	
 		if(strcmp(comando,"INT") ==0){
-		
-			resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
-			dobleEspacio = strstr(datos,"  ");
+			if(datos != NULL){
+				resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
+				dobleEspacio = strstr(datos,"  ");
 			
-			if((resp != NULL) || (dobleEspacio != NULL)){
+				if((resp != NULL) |(dobleEspacio != NULL)){
 				
-				return RES_ERROR;	
+					return RES_ERROR;	
+				}
+				else {
+					return RES_OK;
+				}
 			}
-			else {
-				return RES_OK;
-			}
+			else return RES_ERROR;
 	
 		}
 		else if (strcmp(comando,"DOUBLE") == 0){
 			
-			//cuando es double pueden haber "." (puntos) asique el punto no esta en la siguiente cadena
-			resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
-		    dobleEspacio = strstr(datos,"  ");
-			puntoSeguidoDeEspacio = strstr(datos,". ");
-			espacioPuntoEspacio = strstr(datos," . ");
-			espacioSeguidoDePunto = strstr(datos," .");
+			if(datos != NULL){
+				//cuando es double pueden haber "." (puntos) asique el punto no esta en la siguiente cadena
+				resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
+				dobleEspacio = strstr(datos,"  ");
+				puntoSeguidoDeEspacio = strstr(datos,". ");
+				espacioPuntoEspacio = strstr(datos," . ");
+				espacioSeguidoDePunto = strstr(datos," .");
 		
 				if((resp != NULL) || (dobleEspacio != NULL) || (puntoSeguidoDeEspacio != NULL) || (espacioPuntoEspacio != NULL) || (espacioSeguidoDePunto != NULL)){
 				
@@ -77,7 +81,11 @@ int validarComando(char* cadenaIngresada){
 				}
 				else {
 					return RES_OK;
-				}	  
+				}
+			}
+			else{
+				return RES_ERROR;
+			}
 	
 		}
 
@@ -465,6 +473,7 @@ DWORD WINAPI enviar(LPVOID c){
 			else if(exito==RES_ERROR){
 				printf("ERROR EN EL COMANDO INGRESADO \n");
 			}
+
 		}
 		trCerrarConexion(conexion);
 
