@@ -6,7 +6,6 @@
 #include "..\parser.h"
 #include "..\Utilidades.h"
 
-#define DEBUG                       //Habilitar para debuggear, muestra printfs
 
 
 
@@ -39,12 +38,6 @@ int main(int argc, char *argv[])
 
 	
 	
-
-	enviar(&conexion);
-	
-
-
-
 
     printf("QUIERE CERRAR LA CONECCION : S/N  \n");
     scanf("%s",msjIngresado);

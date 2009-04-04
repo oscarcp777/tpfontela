@@ -6,7 +6,7 @@
 #include "Utilidades.h"
 
 
-#define DEBUG
+
 
 
 
@@ -295,32 +295,20 @@ DWORD WINAPI recibir(LPVOID c){
 						pDatosIntTemporal = datosInt;
 						trRecibir(conexion, td_int ,atoi(pCantidadItems), datosInt);
 						k=1;
-						#ifdef DEBUG
 						while (k <= atoi(pCantidadItems)){
 							 printf("DatoEnMain %d: %d \n",k,*datosInt);
 							 datosInt++;
 							 k++;
 						}
-						#endif
 						free(pDatosIntTemporal);
 						break;
 
 				case td_char:
 							
-							aux = atoi(pCantidadItems);
-							datosChar = (char*) malloc(aux*sizeof(char));
-							memset(datosChar,0,aux*sizeof(char));
-							memset(pPrueba,0,TAM_MSJ);
-							printf("DATOS CHAR DESPUES DEL MALLOC: %s \n",datosChar);
-							trRecibir(conexion, td_char ,atoi(pCantidadItems), pPrueba);
-							strcat(pPrueba," ");
-							memcpy(datosChar,pPrueba,aux*sizeof(char)-1);							
-							#ifdef DEBUG
-							printf("mensaje recibido pPrueba: %s \n",pPrueba);
-							printf("mensaje recibido datosChar: %s \n",datosChar);
-							//printf("atoi(pCantidadItems) %d \n",atoi(pCantidadItems));
-							#endif
-							
+							datosChar = (char*) malloc((atoi(pCantidadItems)+1)*sizeof(char));
+							trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
+											
+							printf("mensaje recibido %s \n",datosChar);							
 							free(datosChar);							
 							break;
 
@@ -331,13 +319,11 @@ DWORD WINAPI recibir(LPVOID c){
 						pDatosDoubleTemporal = datosDouble;
 						trRecibir(conexion, td_double ,atoi(pCantidadItems), datosDouble);
 						k=1;
-						#ifdef DEBUG
 						while (k <= atoi(pCantidadItems)){
 							 printf("DatoEnMain %d: %e \n",k,*datosDouble);
 							 datosDouble++;
 							 k++;
 						}
-						#endif
 						free(pDatosDoubleTemporal);
 				break;
 			}

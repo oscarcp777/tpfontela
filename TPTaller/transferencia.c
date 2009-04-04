@@ -4,7 +4,7 @@
 #include "transferencia.h"
 #include "parser.h"
 
-#define DEBUG                       //Habilitar para debuggear, muestra printfs
+//#define DEBUG                       //Habilitar para debuggear, muestra printfs
 #define PRIMER_ENVIO 15
 
 
@@ -83,12 +83,13 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 							
 		#ifdef DEBUG
                       printf("Cant Items en td_char %d \n",cantItems);
-        #endif		
-		pDatosChar = (char*)datos;
-		recv(pConexion->cliente,pDatosChar,sizeof(char)*cantItems,0);		
-		//TODO validar si salio bien
-		return 0;		
+        #endif	
 		
+		memset((char*)datos,'\0',(cantItems+1)*sizeof(char));		
+		recv(pConexion->cliente,(char*)datos,sizeof(char)*cantItems,0);		
+		//TODO validar si salio bien
+		return 0;
+
 		break;
 
 					
