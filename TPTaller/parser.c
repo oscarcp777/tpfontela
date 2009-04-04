@@ -37,7 +37,7 @@ int validarComando(char* cadenaIngresada){
 
 	if(strcmp(comando,"INT") ==0){
 		
-		resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
+		resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
 		dobleEspacio = strstr(datos,"  ");
 		
 		if((resp != NULL) || (dobleEspacio != NULL)){
@@ -52,7 +52,7 @@ int validarComando(char* cadenaIngresada){
 	else if (strcmp(comando,"DOUBLE") == 0){
 			
 			//cuando es double pueden haber "." (puntos) asique el punto no esta en la siguiente cadena
-			resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;,-_+*[]{}´¨°¬!#$%&^/=?¡`~");
+			resp = strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:;,!¡¿-_+*[]{}´¨°¬#$%&^/=?`~");
 		    dobleEspacio = strstr(datos,"  ");
 			puntoSeguidoDeEspacio = strstr(datos,". ");
 			espacioPuntoEspacio = strstr(datos," . ");

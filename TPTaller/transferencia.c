@@ -26,7 +26,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	int *pDatosInt ;
 	char *pDatosChar;
 	float *pDatosFloat;
-	double *pDatosDouble;
+	double *pDouble;
 	int* puntero;
 	int* pInt;
 	float* pInicialFloat;
@@ -61,7 +61,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 	case td_int:
 		
-		pInt = datos;		
+		pInt = (int*)datos;		
 		#ifdef DEBUG
                printf("Cantidad de items CASE: %d \n",cantItems);
 		#endif
@@ -80,51 +80,36 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	
 				
 	case (td_char):
-		pDatosChar = (char*)malloc(sizeof(char)*cantItems);
-				
+							
+		#ifdef DEBUG
+                      printf("Cant Items en td_char %d \n",cantItems);
+        #endif		
+		pDatosChar = (char*)datos;
 		recv(pConexion->cliente,pDatosChar,sizeof(char)*cantItems,0);		
-		
-		memcpy(datos,pDatosChar,sizeof(char)*cantItems);
-		free(pDatosChar);
 		//TODO validar si salio bien
 		return 0;		
 		
 		break;
 
 					
-	case (td_float):
-		
-		pDatosFloat = (float*)malloc(sizeof(float)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialFloat = pDatosFloat;
-				
-		while( i< cantItems){			
-			recv(pConexion->cliente,pDatosFloat++,sizeof(float),0);		
-			i++;
-		
-		}
-		memcpy(datos,pDatosFloat,sizeof(float)*cantItems);
-		free(pInicialFloat);
-		//TODO validar si salio bien
-		return 0;
-		break;
-
 					
 	case (td_double):
-		pDatosDouble = (double*)malloc(sizeof(double)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialDouble = pDatosDouble;
+		pDouble = (double*) datos;		
 		
-		
-		while( i< cantItems){
-			recv(pConexion->cliente,pDatosDouble++,sizeof(double),0);		
-			i++;
-		
-		}
-		memcpy(datos,pDatosDouble,sizeof(double)*cantItems);
-		free(pInicialDouble);
-		//TODO validar si salio bien
-		return 0;			
+		#ifdef DEBUG
+               printf("Cantidad de items CASE: %d \n",cantItems);
+		#endif
+
+		while( i<= cantItems){
+		       recv(pConexion->cliente,pDouble,sizeof(double),0);		
+		       #ifdef DEBUG
+                      printf("Dato %d %e \n",i,*pDouble);
+               #endif
+               pDouble++;
+               i++;
+        }
+         
+       	return 0;		
 		break;	
 		
 
@@ -310,13 +295,13 @@ int trIP(CONEXION *pConexion, char *pIP){
 int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const void *datos){
 
 	int i = 0;
-	int *pDatosInt;
-	char *pDatosChar;
-	float *pDatosFloat;
-	double *pDatosDouble;
+	
+	
+	double *pDouble;
 	int* puntero;
 	int* pInt;
-	char* pInicialChar;
+	char *pChar;
+
 	float* pInicialFloat;
 	double* pInicialDouble;
 	
@@ -333,71 +318,39 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 	case td_int:
 
-		//pDatosInt = (int*)malloc(sizeof(int)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
 		pInt = (int*)datos;
-		//memcpy(pDatosInt,datos,sizeof(int)*cantItems);
-		
+			
 		while( i< cantItems){
 		   printf("send %d  %d\n",i+1,*pInt);
 			send(pConexion->cliente,pInt++,sizeof(int),0);	
 	       i++;
 		}
-		//free(pInicialInt);
+		
 		//TODO validar si salio bien
 		return 0;
 		break;
 	
 				
 	case (td_char):
-
-		pDatosChar = (char*)malloc(sizeof(char)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialChar = pDatosChar;
-		memcpy(pDatosChar,datos,sizeof(char)*cantItems);
 		
-		//while( i< cantItems){
-			//pDatoChar = &pDatosChar[i];			
-			send(pConexion->cliente,pDatosChar,sizeof(char)*strlen(pDatosChar),0);		
-		//	i++;
-		
-		//}
-		free(pInicialChar);
+		pChar = (char*) datos;			
+		send(pConexion->cliente,pChar,sizeof(char)*strlen(pChar),0);
+		printf("en el send sizeof(char)*strlen(pChar) %d \n",sizeof(char)*strlen(pChar));
+				
 		//TODO validar si salio bien
 		return 0;		
 		
 		break;
-
-					
-	case (td_float):
-		pDatosFloat = (float*)malloc(sizeof(float)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialFloat = pDatosFloat;
-		memcpy(pDatosFloat,datos,sizeof(float)*cantItems);
 		
-		while( i< cantItems){			
-			send(pConexion->cliente,pDatosFloat++,sizeof(float),0);		
-			i++;
-		
-		}
-		free(pInicialFloat);
-		//TODO validar si salio bien
-		return 0;
-		break;
-
-					
 	case (td_double):
-		pDatosDouble = (double*)malloc(sizeof(double)*cantItems);
-		//el siguiente puntero es para liberar memoria correctamente porque el otro puntero se incrementa
-		pInicialDouble = pDatosDouble;
-		memcpy(pDatosDouble,datos,sizeof(double)*cantItems);
-		
+			pDouble = (double*)datos;
+			
 		while( i< cantItems){
-			send(pConexion->cliente,pDatosDouble++,sizeof(double),0);		
-			i++;
-		
+		   printf("send %d  %e \n",i+1,*pDouble);
+			send(pConexion->cliente,pDouble++,sizeof(double),0);	
+	       i++;
 		}
-		free(pInicialDouble);
+		
 		//TODO validar si salio bien
 		return 0;			
 		break;	

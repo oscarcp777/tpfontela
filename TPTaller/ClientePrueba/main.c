@@ -68,7 +68,7 @@ void parsearPrimerEnvio(char *pmsj,char *pmsj1){
      char *parchconfig=archconfig;
      char archlog[TAM_NOMBRE_ARCH];//="log.txt";
 	 char *parchlog = archlog;
-     int aux;
+	 int aux;
 	
 	 
      strcpy(parchlog,"log.txt");
@@ -89,19 +89,23 @@ void parsearPrimerEnvio(char *pmsj,char *pmsj1){
 	#ifdef DEBUG
         printf("NUM CAMPOS: %d \n",numCampos);
      #endif
-     memset(pmsj1,0,sizeof(PRIMER_ENVIO));         
+     memset(pmsj1,0,sizeof(char)*PRIMER_ENVIO);         
      parserCampo(&parser, 1, pmsj1);
      strcat(pmsj1," ");
-	 itoa(numCampos,pCantidadElementos,10);
+	 if ((strstr(pmsj1,"INT") != NULL)||(strstr(pmsj1,"DOUBLE") != NULL))
+		 itoa(numCampos,pCantidadElementos,10);
+	 
+	 else if(strstr(pmsj1,"STRING") != NULL)
+		itoa(sizeof(char)*(strlen(pmsj)-strlen(pmsj1)),pCantidadElementos,10);
+	 
+
 	 strcat(pmsj1,pCantidadElementos);
-	 #ifdef DEBUG
-            printf("PRIMER ENVIO: %s \n",pmsj1);
-	 #endif	 
+	 
     // parserDestruir(&parser);
 	 
 }     
 
-void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipoDato,int *cantElementos){
+void segundoEnvio(CONEXION *c,char *pmsj){
      
      TDA_Parser parser;
      
@@ -109,7 +113,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
 	 double* datosDouble; //Lo usa si es td_double para cargar los datos
      int *datosIntInicio;
      double *datosDoubleInicio;
-     
+     char *finalPtr; // Lo usa funcion strtod
      
      int i=2;
 	 int k;
@@ -120,17 +124,16 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
      
      char segEnvio[TAM_MSJ]; //Lo usa para hallar el tipo de dato y tambien si es td_char para cargar los datos
      char *pSegundoEnvio = segEnvio;
-     
+	      
      crearParser(&parser);
      parserCargarLinea(&parser,pmsj);
      cantidadElementos = parserCantCampos(&parser)-1;
      
-     memset(pSegundoEnvio,0,sizeof(char)*TAM_MSJ);         
+     memset(pSegundoEnvio,0,TAM_MSJ);         
      parserCampo(&parser, 1, pSegundoEnvio);  //Obtengo que tipo de dato es
      #ifdef DEBUG
         printf("Linea Original: %s \n",pmsj);
         printf("CAMPO1 (Segundo Envio): %s \n",pSegundoEnvio);
-        printf("LEN INT: %d \n",strlen(pSegundoEnvio));        
      #endif
      tipoDatoaEnviar = deStringATipoDato(pSegundoEnvio); //Convierte a el enum corresp.
      
@@ -160,7 +163,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
            free(datosIntInicio);
      }
      
-     if (tipoDatoaEnviar == td_char){
+    else if (tipoDatoaEnviar == td_char){
         memset(paux,0,sizeof(char)*10);
         strcpy(paux,pSegundoEnvio);
         #ifdef DEBUG
@@ -168,10 +171,38 @@ void segundoEnvio(CONEXION *c,char *pmsj){//,char *pmsj2,enum tr_tipo_dato *tipo
         #endif
         memset(pSegundoEnvio,0,sizeof(char)*TAM_MSJ);    //Vuelvo a borrar pmsj2 y cargo los datos
         strncpy(pSegundoEnvio,pmsj+strlen(cadenaaux)+1,strlen(pmsj)-strlen(cadenaaux)-1);
-        
-        trEnviar(c,tipoDatoaEnviar,cantidadElementos,pSegundoEnvio);     
+        #ifdef DEBUG
+		printf("SEGUNDO ENVIO %s \n",pSegundoEnvio);
+		#endif
+	
+        trEnviar(c,tipoDatoaEnviar,cantidadElementos,pSegundoEnvio); 	
      
-     }   
+     } 
+	else if (tipoDatoaEnviar == td_double){
+           #ifdef DEBUG
+                  printf("cantidadElementos: %d\n",cantidadElementos);
+                  printf("SEGUNDO ENVIO(DOUBLE): \n");
+           #endif
+           datosDouble = (double*)malloc(sizeof(double)*cantidadElementos);
+           datosDoubleInicio = datosDouble;
+
+		  k = 1;
+          while (k<=cantidadElementos){
+                  memset(paux,0,sizeof(char)*1000);
+                  parserCampo(&parser, i, paux);
+                  *datosDouble = strtod(paux,&finalPtr); 
+                  #ifdef DEBUG
+                         printf("MAIN CLIENTE %e \n",*datosDouble);
+                  #endif
+                  datosDouble++;
+                  i++;  
+				  k++;
+                    
+           } 
+		     
+		   trEnviar(c,tipoDatoaEnviar,cantidadElementos,datosDoubleInicio);
+           free(datosDoubleInicio);
+     }
      
      //parserDestruir(&parser);
      
@@ -224,7 +255,3 @@ int main(int argc, char *argv[])
 
     system("PAUSE");	
 }
-
-
-
-
