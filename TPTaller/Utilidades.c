@@ -7,9 +7,41 @@
 
 
 
+/** esta funcion se espera que un cliente se conecte cuando el cliente 
+     deja de mandar informacion o cierra su ventana
+*/
+int reconectarSockets(CONEXION *pConexion){
+    int addrleng;
+    	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
+    		memcpy (punteroConexion, pConexion,sizeof(CONEXION));
+    		addrleng = sizeof(punteroConexion->conexrem);
+						punteroConexion->cliente = accept(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
+						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
+						punteroConexion->usuario=0;//le asigna un 0 que es servidor
+						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
+                        return 0;// cambiar por RES_OK
+     }
+int iniciarHilos(CONEXION conexion){
+	DWORD  threadId;
+    HANDLE hThread,hThread1; 	
+    hThread = CreateThread( NULL, 0, enviar, &conexion, 0, &threadId );
+	hThread1 = CreateThread( NULL, 0, recibir, &conexion, 0, &threadId );
+	SetThreadPriority(hThread,1);
+	SetThreadPriority(hThread,2);
 
+    // wait for the thread to finish 
+   WaitForSingleObject( hThread, INFINITE ); 
+  
+    printf("se van a cerrarlos hilos \n");
+    //clean up resources used by thread 
+    CloseHandle( hThread );
+    CloseHandle( hThread1 );
+  printf("se van a cerraron los hilos \n");
+	
+	return 0;	
+        
 
-
+}
 
 
 
@@ -358,7 +390,7 @@ DWORD WINAPI recibir(LPVOID c){
 	double *datosDouble;
 	double *pDatosDoubleTemporal;
 	
-	int aux;
+//	int aux;
 	char prueba[TAM_MSJ];
 	char *pPrueba = prueba;
 	char direccion[100];
@@ -457,11 +489,19 @@ DWORD WINAPI enviar(LPVOID c){
 		int* pPuerto = &puerto;
 		int exito=RES_OK;
 		
-
 		while (exito != RES_QUIT){
 			ingresoMensaje(pmsjIngresado);
 			exito = validarComando(pmsjIngresado);
-			
+		//	if(exito == RES_QUIT&&(conexion->usuario==0)){
+		//		reconectarSockets(conexion);
+		//	}
+			if(exito == RES_QUIT&&(conexion->usuario==1)){
+				trEnviar(conexion,td_comando,1,pmsjIngresado);
+				trCerrarConexion(conexion);
+                trConexionActiva(conexion);
+
+
+			}
 			if(exito == RES_OK){
 				parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
 				#ifdef DEBUG
@@ -473,10 +513,9 @@ DWORD WINAPI enviar(LPVOID c){
 			else if(exito==RES_ERROR){
 				printf("ERROR EN EL COMANDO INGRESADO \n");
 			}
+           
 
 		}
-		trCerrarConexion(conexion);
-
-
+		
 }
    

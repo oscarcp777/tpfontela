@@ -28,38 +28,13 @@ int main(int argc, char *argv[])
     
     
     CONEXION conexion;
-    char direccion[100];
-    char *pdir = direccion; 
-
-
-	DWORD  threadId;
-    HANDLE hThread,hThread1;
-    
-
 
 	if (iniciarServidor(&conexion)== 0){       
-
 	
-    hThread = CreateThread( NULL, 0, enviar, &conexion, 0, &threadId );
-	hThread1 = CreateThread( NULL, 0, recibir, &conexion, 0, &threadId );
-	SetThreadPriority(hThread,1);
-	SetThreadPriority(hThread,2);
-
-    // wait for the thread to finish 
-   WaitForSingleObject( hThread, INFINITE ); 
-  
-
-    //clean up resources used by thread 
-    CloseHandle( hThread );
-    CloseHandle( hThread1 );
-
-	
-		
-        
-    }
-   	
+		do{
+		 iniciarHilos(conexion);
+	     
+		 reconectarSockets(&conexion);
+		}while(TRUE);
 }
-
-
-
-
+}

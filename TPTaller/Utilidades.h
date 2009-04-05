@@ -16,3 +16,5 @@ DWORD WINAPI recibir(CONEXION *conexion);
 
 
 DWORD WINAPI enviar(CONEXION *conexion);
+
+int reconectarSockets(CONEXION *pConexion);

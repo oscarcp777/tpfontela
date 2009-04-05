@@ -23,14 +23,14 @@ enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *datos){
 
 	int i = 1;
-	int *pDatosInt ;
-	char *pDatosChar;
-	float *pDatosFloat;
+//	int *pDatosInt ;
+//	char *pDatosChar;
+//	float *pDatosFloat;
 	double *pDouble;
-	int* puntero;
+//	int* puntero;
 	int* pInt;
-	float* pInicialFloat;
-	double* pInicialDouble;
+//	float* pInicialFloat;
+//	double* pInicialDouble;
 	int estadorecv=0;
 	
 	
@@ -41,15 +41,17 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 		estadorecv=	recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);	
 		
 				
-			if(estadorecv==0||estadorecv==-1){
-   			#ifdef DEBUG                               
+			if(estadorecv==0||estadorecv==-1||(strcmp((char*)datos,"QUIT") == 0)){
+   			  if(pConexion->usuario==0){                     
+                                      
     			printf("EL CLIENTE SE DESCONECTO :  \n");
     			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
-			#endif
-            reconectarSockets(pConexion);
+		
+         //   reconectarSockets(pConexion);
               return 0;              
           	break;
-        }                           
+        }    
+			}	  
 		#ifdef DEBUG
                printf("Primer Recive: %s \n",datos);
 		#endif
@@ -116,23 +118,10 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 
 	}
 
-
+return 0;
 
 }
-/** esta funcion se espera que un cliente se conecte cuando el cliente 
-     deja de mandar informacion o cierra su ventana
-*/
-int reconectarSockets(CONEXION *pConexion){
-    int addrleng;
-    	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
-    		memcpy (punteroConexion, pConexion,sizeof(CONEXION));
-    		addrleng = sizeof(punteroConexion->conexrem);
-						punteroConexion->cliente = accept(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
-						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
-						punteroConexion->usuario=0;//le asigna un 0 que es servidor
-						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-                        return 0;// cambiar por RES_OK
-     }
+
 int trEscuchar(int Puerto,CONEXION *pConexion){
 	
     //Definición Variables
@@ -289,6 +278,7 @@ int trIP(CONEXION *pConexion, char *pIP){
     char *paux;
     paux = inet_ntoa(pConexion->conexrem.sin_addr);
     memcpy (pIP, paux,100);
+	return 0;
 }
 
 
@@ -299,12 +289,12 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	
 	
 	double *pDouble;
-	int* puntero;
+//	int* puntero;
 	int* pInt;
 	char *pChar;
 
-	float* pInicialFloat;
-	double* pInicialDouble;
+//	float* pInicialFloat;
+//	double* pInicialDouble;
 	
 	
 
@@ -358,12 +348,13 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		
 
 	}
+	return 0;
 }
 int trCerrarConexion(CONEXION *pConexion){
     //por ahora solo cierra la coneccion si es el cliente 
     //si es el servidor no hace nada
 	 if(pConexion->usuario==1){               
-          closesocket(pConexion->locsock);         
+          closesocket(pConexion->cliente);         
          }
      if(pConexion->usuario==0){               
           closesocket(pConexion->cliente);         
