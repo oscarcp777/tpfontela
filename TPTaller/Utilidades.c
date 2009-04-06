@@ -235,7 +235,7 @@ void parsearPrimerEnvio(char *pmsj,char *pmsj1){
 
 	 strcat(pmsj1,pCantidadElementos);
 	 
-    // parserDestruir(&parser);
+     parserDestruir(&parser);
 	 
 }     
 
@@ -338,7 +338,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){
            free(datosDoubleInicio);
      }
      
-     //parserDestruir(&parser);
+     parserDestruir(&parser);
      
      
      
@@ -468,7 +468,7 @@ DWORD WINAPI recibir(LPVOID c){
 	 
            printf("INGRESE MENSAJE: (para salir QUIT) \n");
         }
-
+		parserDestruir(&parser);
 
 
 }

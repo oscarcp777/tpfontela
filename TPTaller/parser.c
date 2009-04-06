@@ -119,7 +119,7 @@ int parserCargarLinea(TDA_Parser* tda,char* linea)
       if (tda->linea!=NULL)
       free(tda->linea);
       
-      tda->linea=(char*)malloc(sizeof(maxlinea));
+      tda->linea=(char*)malloc(sizeof(char)*maxlinea);
       
       memcpy(tda->linea,linea,maxlinea);
       if (tda->linea==NULL)
