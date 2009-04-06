@@ -59,10 +59,10 @@ int validarComando(char* cadenaIngresada){
 	char *puntoSeguidoDeEspacio= NULL;
 	char *espacioPuntoEspacio= NULL;
 	char *espacioSeguidoDePunto= NULL;
-	char *cadena = (char*) malloc(sizeof(char)*maxlinea); 
+	char *cadena = (char*) malloc(sizeof(char)*TAM_MSJ); 
 
-	memset(cadena,0,sizeof(char)*maxlinea);
-	memcpy(cadena,cadenaIngresada,sizeof(char)*maxlinea);
+	memset(cadena,0,sizeof(char)*TAM_MSJ);
+	memcpy(cadena,cadenaIngresada,sizeof(char)*TAM_MSJ);
 
 	#ifdef DEBUG	
 		printf("CADENA %s \n",cadena);

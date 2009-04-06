@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "parser.h"
-#define maxlinea 1000
+#define maxlinea 10000
 
              
 int limpiaescape (char* a)
