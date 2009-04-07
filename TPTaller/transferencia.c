@@ -48,7 +48,9 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
     			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
 		
               reconectarSockets(pConexion);
-              return RES_ERROR;              
+			  recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);
+			  //el siguiente RES_OK tiene que devolverse si reconectarSockets tuvo exito, sino no
+              return RES_OK;              
           	break;
         }    
 			}	  

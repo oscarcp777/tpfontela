@@ -28,12 +28,13 @@ int main(int argc, char *argv[])
     
     
     CONEXION conexion;
-	do{
+	//do{
 	
 		if (iniciarServidor(&conexion)== 0){       
 			 iniciarHilos(&conexion);
 	     
 		 //reconectarSockets(&conexion);
-	}while(TRUE);
-}
+		}
+	//}while(TRUE);
+
 }

@@ -22,6 +22,8 @@ int reconectarSockets(CONEXION *pConexion){
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
                         return 0;// cambiar por RES_OK
      }
+
+
 int iniciarHilos(CONEXION *conexion){
 	DWORD  threadId;
     HANDLE hThread,hThread1; 	
@@ -31,7 +33,7 @@ int iniciarHilos(CONEXION *conexion){
 	SetThreadPriority(hThread1,1);
 	SetThreadPriority(hThread,2);
 	
-	printf("PASAAAAAAAAAA \n");
+
 
 	// wait for the thread to finish 
    WaitForSingleObject( hThread, INFINITE ); 
@@ -407,7 +409,7 @@ DWORD WINAPI recibir(LPVOID c){
 			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
 			if (trRecibir(conexion, td_comando,1, pPrimerRecibo) == RES_ERROR)
 				exito= RES_QUIT;
-		 
+			
 			parserCrear(&parser,parchconfig,parchlog);
 			parserCargarLinea(&parser,pPrimerRecibo);
 			

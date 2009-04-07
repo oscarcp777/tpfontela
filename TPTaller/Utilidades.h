@@ -9,7 +9,7 @@
 #define RES_ERROR -1
 #define RES_QUIT -2
 
-//#define DEBUG
+#define DEBUG
 
 
 DWORD WINAPI recibir(CONEXION *conexion);
