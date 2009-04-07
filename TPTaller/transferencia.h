@@ -1,8 +1,9 @@
 #ifndef _TRANSFERENCIA_H_
 #define _TRANSFERENCIA_H_
-#define VER_COMANDO_ENVIADO
+//#define VER_COMANDO_ENVIADO
 #define RES_OK 0
 #define RES_ERROR -1
+#define RES_QUIT -2
 
 typedef struct _CONEXION{
         WSADATA wsdata;

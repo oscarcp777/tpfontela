@@ -36,7 +36,7 @@ int iniciarHilos(CONEXION *conexion){
 
 
 	// wait for the thread to finish 
-   WaitForSingleObject( hThread, INFINITE ); 
+   WaitForSingleObject( hThread1, INFINITE ); 
 	
     printf("se van a cerrarlos hilos \n");
     //clean up resources used by thread 
@@ -54,13 +54,13 @@ int iniciarHilos(CONEXION *conexion){
 
 ////////////////////AUXILIARES/////////////////////////
 
-int validarComando(char* cadenaIngresada){
+int validarComando(char* cadenaIngresada,CONEXION *conexion){
 	
 	
 	char* resp = NULL;
 	char *comando;
 	char *datos = NULL;
-	
+	char cadenaQuit[4] = "QUIT";
 	char *dobleEspacio= NULL;
 	char *puntoSeguidoDeEspacio= NULL;
 	char *espacioPuntoEspacio= NULL;
@@ -128,7 +128,13 @@ int validarComando(char* cadenaIngresada){
 		}
 
 		else if((strcmp(comando,"QUIT")==0) && (datos==NULL)){
+			if(conexion->usuario==1){
 				return RES_QUIT;
+			}
+			else if(conexion->usuario==0){
+				cadenaIngresada = cadenaQuit;
+				return RES_OK;
+			}
 			
 		  }
 
@@ -407,9 +413,11 @@ DWORD WINAPI recibir(LPVOID c){
 			memset(datos,0,100);
 			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
 			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
-			if (trRecibir(conexion, td_comando,1, pPrimerRecibo) == RES_ERROR)
+			if (trRecibir(conexion, td_comando,1, pPrimerRecibo) == RES_QUIT){
 				exito= RES_QUIT;
+			    trCerrarConexion(conexion);				  
 			
+			}
 			parserCrear(&parser,parchconfig,parchlog);
 			parserCargarLinea(&parser,pPrimerRecibo);
 			
@@ -475,8 +483,7 @@ DWORD WINAPI recibir(LPVOID c){
 	 
            printf("INGRESE MENSAJE: (para salir QUIT) \n");
         }
-		parserDestruir(&parser);
-
+		parserDestruir(&parser);	   
 
 }
 
@@ -498,28 +505,39 @@ DWORD WINAPI enviar(LPVOID c){
 		
 		while (exito != RES_QUIT){
 			ingresoMensaje(pmsjIngresado);
-			exito = validarComando(pmsjIngresado);
-		//	if(exito == RES_QUIT&&(conexion->usuario==0)){
-		//		reconectarSockets(conexion);
-		//	}
+			exito = validarComando(pmsjIngresado,conexion);
+	
 			if(exito == RES_QUIT){
+				if(conexion->usuario==1){
 				trCerrarConexion(conexion);
-                //trConexionActiva(conexion);
-
+                
+				}
 			}
 			if(exito == RES_OK){
+				
+				if(strcmp(pmsjIngresado,"QUIT") !=0){
+
+				//si el mensaje no es QUIT que lo parseem sino que lo envie directamente
 				parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
 				#ifdef DEBUG
 					printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
-				#endif	 
+				#endif
 				trEnviar(conexion,td_comando,1,pPrimerEnvio);
 				segundoEnvio(conexion,pmsjIngresado);
+				}
+
+				else{					
+					trEnviar(conexion,td_comando,1,pmsjIngresado);
+
+				}
+				
+				
 			 }
 			else if(exito==RES_ERROR){
 				printf("ERROR EN EL COMANDO INGRESADO \n");
 			}
            
-
+			
 		}
 		
 }

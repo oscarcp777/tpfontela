@@ -38,9 +38,10 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 	
 	case td_comando:
 			
-		estadorecv=	recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);	
-		
-				
+			
+			estadorecv=	recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);	
+			//printf("el valor de datos es: %s  \n",datos);
+			
 			if(estadorecv==0||estadorecv==-1||(strcmp((char*)datos,"QUIT") == 0)){
    			  if(pConexion->usuario==0){                     
                                       
@@ -51,8 +52,14 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 			  recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);
 			  //el siguiente RES_OK tiene que devolverse si reconectarSockets tuvo exito, sino no
               return RES_OK;              
-          	break;
-        }    
+          	  break;
+			 }
+			  else if(pConexion->usuario==1){
+			  //printf("llego el quit cierra conexcion y devuelve RES_QUIT \n");
+              return RES_QUIT;              
+          	  break;
+			  }
+
 			}	  
 		#ifdef DEBUG
                printf("Primer Recive: %s \n",datos);
@@ -370,5 +377,5 @@ int trConexionActiva(CONEXION *pConexion){
     }else{
          printf("LA CONECCION ESTA CERRADA \n");
                    }  
-	return 0;
+	return i;
 }
