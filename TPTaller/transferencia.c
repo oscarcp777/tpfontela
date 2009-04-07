@@ -47,7 +47,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
     			printf("EL CLIENTE SE DESCONECTO :  \n");
     			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
 		
-         //   reconectarSockets(pConexion);
+              reconectarSockets(pConexion);
               return RES_ERROR;              
           	break;
         }    
@@ -355,6 +355,7 @@ int trCerrarConexion(CONEXION *pConexion){
     //si es el servidor no hace nada
 	 closesocket(pConexion->cliente); 
 	 closesocket(pConexion->locsock);  
+	 
      return 0;
 }
 

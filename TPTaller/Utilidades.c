@@ -10,6 +10,7 @@
 /** esta funcion se espera que un cliente se conecte cuando el cliente 
      deja de mandar informacion o cierra su ventana
 */
+
 int reconectarSockets(CONEXION *pConexion){
     int addrleng;
     	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
@@ -25,11 +26,14 @@ int iniciarHilos(CONEXION *conexion){
 	DWORD  threadId;
     HANDLE hThread,hThread1; 	
     hThread = CreateThread( NULL, 0, enviar, conexion, 0, &threadId );
+  
 	hThread1 = CreateThread( NULL, 0, recibir, conexion, 0, &threadId );
+	SetThreadPriority(hThread1,1);
 	SetThreadPriority(hThread,2);
-	SetThreadPriority(hThread,1);
+	
+	printf("PASAAAAAAAAAA \n");
 
-    // wait for the thread to finish 
+	// wait for the thread to finish 
    WaitForSingleObject( hThread, INFINITE ); 
 	
     printf("se van a cerrarlos hilos \n");

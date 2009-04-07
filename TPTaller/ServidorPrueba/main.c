@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
 	
 		if (iniciarServidor(&conexion)== 0){       
 			 iniciarHilos(&conexion);
-		}
+	     
 		 //reconectarSockets(&conexion);
 	}while(TRUE);
 }
-
+}
