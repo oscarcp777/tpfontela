@@ -48,7 +48,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
     			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
 		
          //   reconectarSockets(pConexion);
-              return 0;              
+              return RES_ERROR;              
           	break;
         }    
 			}	  
@@ -351,16 +351,11 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 	return 0;
 }
 int trCerrarConexion(CONEXION *pConexion){
-    //por ahora solo cierra la coneccion si es el cliente 
+    //cierra el socket del cliente 
     //si es el servidor no hace nada
-	 if(pConexion->usuario==1){               
-          closesocket(pConexion->cliente);         
-         }
-     if(pConexion->usuario==0){               
-          closesocket(pConexion->cliente);         
-         }
-      
-    	return 0;
+	 closesocket(pConexion->cliente); 
+	 closesocket(pConexion->locsock);  
+     return 0;
 }
 
 

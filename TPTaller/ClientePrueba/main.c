@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
     CONEXION conexion;
     
     iniciarCliente(&conexion); // Iniciamos el Socket   
-    iniciarHilos(conexion);
+    iniciarHilos(&conexion);
 
 }

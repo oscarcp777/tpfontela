@@ -21,17 +21,17 @@ int reconectarSockets(CONEXION *pConexion){
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
                         return 0;// cambiar por RES_OK
      }
-int iniciarHilos(CONEXION conexion){
+int iniciarHilos(CONEXION *conexion){
 	DWORD  threadId;
     HANDLE hThread,hThread1; 	
-    hThread = CreateThread( NULL, 0, enviar, &conexion, 0, &threadId );
-	hThread1 = CreateThread( NULL, 0, recibir, &conexion, 0, &threadId );
-	SetThreadPriority(hThread,1);
+    hThread = CreateThread( NULL, 0, enviar, conexion, 0, &threadId );
+	hThread1 = CreateThread( NULL, 0, recibir, conexion, 0, &threadId );
 	SetThreadPriority(hThread,2);
+	SetThreadPriority(hThread,1);
 
     // wait for the thread to finish 
    WaitForSingleObject( hThread, INFINITE ); 
-  
+	
     printf("se van a cerrarlos hilos \n");
     //clean up resources used by thread 
     CloseHandle( hThread );
@@ -395,13 +395,14 @@ DWORD WINAPI recibir(LPVOID c){
 	char *pPrueba = prueba;
 	char direccion[100];
     char *pdir = direccion; 
-	
+	int exito;
 
-		while(TRUE){
+		while (exito != RES_QUIT){
 			memset(datos,0,100);
 			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
 			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
-			trRecibir(conexion, td_comando,1, pPrimerRecibo);
+			if (trRecibir(conexion, td_comando,1, pPrimerRecibo) == RES_ERROR)
+				exito= RES_QUIT;
 		 
 			parserCrear(&parser,parchconfig,parchlog);
 			parserCargarLinea(&parser,pPrimerRecibo);
@@ -495,11 +496,9 @@ DWORD WINAPI enviar(LPVOID c){
 		//	if(exito == RES_QUIT&&(conexion->usuario==0)){
 		//		reconectarSockets(conexion);
 		//	}
-			if(exito == RES_QUIT&&(conexion->usuario==1)){
-				trEnviar(conexion,td_comando,1,pmsjIngresado);
+			if(exito == RES_QUIT){
 				trCerrarConexion(conexion);
-                trConexionActiva(conexion);
-
+                //trConexionActiva(conexion);
 
 			}
 			if(exito == RES_OK){
