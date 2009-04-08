@@ -11,6 +11,15 @@
 int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
          
            int a = 0;  
+			
+		   char leyenda[30];
+		   char* pLeyenda = leyenda;
+		   char puerto[50];
+
+		   pLeyenda = "PUERTO DE CONEXION";
+
+		   ingresoMensaje(puerto,pLeyenda);	
+
            a = trEscuchar(2121,conexion);                
            if ( a == -1){ 
                    Sleep(500); // Esperamos 500 Milisegundos y…
