@@ -9,12 +9,14 @@
 #define RES_ERROR -1
 #define RES_QUIT -2
 #define RES_THREAD -3
-//#define DEBUG
 
 
 DWORD WINAPI recibir(CONEXION *conexion);
 
-
 DWORD WINAPI enviar(CONEXION *conexion);
 
 int reconectarSockets(CONEXION *pConexion);
+
+void ingresoMensaje(char *pmsj,char* leyenda);
+
+enum tr_tipo_dato deStringATipoDato(char* cadena);

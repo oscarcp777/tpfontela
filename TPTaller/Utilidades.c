@@ -23,7 +23,6 @@ int reconectarSockets(CONEXION *pConexion){
                         return RES_OK;// cambiar por RES_OK
      }
 
-
 int iniciarHilos(CONEXION *conexion){
 	DWORD  threadId;
     HANDLE hThread,hThread1; 	
@@ -54,6 +53,7 @@ int iniciarHilos(CONEXION *conexion){
         
 
 }
+
 
 
 
@@ -165,6 +165,7 @@ int validarComando(char* cadenaIngresada,CONEXION *conexion){
 	}
 }
   
+  
 void crearParser(TDA_Parser *parser){
            
      char archconfig[TAM_NOMBRE_ARCH]="config.txt";
@@ -185,7 +186,33 @@ void crearParser(TDA_Parser *parser){
 
 void iniciarCliente(CONEXION *conexion){ // Procedimiento que iniciara el socket secuencialmente.
 
-    if (trConectar("localhost",2121,conexion)==-1){ 
+	//por default
+
+	char leyenda[25];
+	char ip[100];
+	char puerto[100];
+	
+	char* pLeyenda = leyenda;
+	char* pIp = ip;
+	char* pPuerto = puerto;
+
+	pLeyenda = "CONECTAR CON LA IP";
+
+	//pPuerto = (char*)malloc(sizeof(char)*100);
+	
+	ingresoMensaje(pIp,pLeyenda);
+	
+	//printf("IP: %s",pIp);
+
+	pLeyenda="CONECTAR CON EL PUERTO";
+
+	ingresoMensaje(pPuerto,pLeyenda);
+ 	
+	//printf("IP: %s",pIp);
+	//printf("puerto: %s",pPuerto);
+
+	
+	if (trConectar(pIp,atoi(pPuerto),conexion)==-1){ 
          Sleep(500); // Esperamos 500 Milisegundos y…
          iniciarCliente(conexion); // Repetimos proceso
     }
@@ -202,10 +229,10 @@ enum tr_tipo_dato deStringATipoDato(char* cadena){
 }
 
 
-void ingresoMensaje(char *pmsj){
+void ingresoMensaje(char *pmsj,char* leyenda){
      
-     printf("INGRESE MENSAJE: (para salir QUIT) \n");   
-     gets(pmsj);
+     printf("%s: \n",leyenda); 
+	 gets(pmsj);
 }
 
 void parsearPrimerEnvio(char *pmsj,char *pmsj1){
@@ -365,11 +392,6 @@ void segundoEnvio(CONEXION *c,char *pmsj){
 
 //////////////////////FIN AUXILIARES/////////////////////////
 
-
-
-
-
-
 DWORD WINAPI recibir(LPVOID c){
 	
 
@@ -493,7 +515,6 @@ DWORD WINAPI recibir(LPVOID c){
 
 }
 
-
 DWORD WINAPI enviar(LPVOID c){
 
 
@@ -504,13 +525,17 @@ DWORD WINAPI enviar(LPVOID c){
     
 		char primerEnvio[PRIMER_ENVIO];
 		char *pPrimerEnvio = primerEnvio;
+
+		char leyenda[TAM_MSJ];
+		char * pLeyenda = leyenda;
     
 		int puerto;
 		int* pPuerto = &puerto;
 		int exito=RES_OK;
 		
 		while (exito != RES_QUIT){
-			ingresoMensaje(pmsjIngresado);
+			pLeyenda = "MENSAJE";
+			ingresoMensaje(pmsjIngresado,pLeyenda);
 			exito = validarComando(pmsjIngresado,conexion);
 	
 			if(exito == RES_QUIT){
