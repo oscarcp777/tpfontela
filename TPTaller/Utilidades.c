@@ -196,7 +196,7 @@ void iniciarCliente(CONEXION *conexion){ // Procedimiento que iniciara el socket
 	char* pIp = ip;
 	char* pPuerto = puerto;
 
-	pLeyenda = "CONECTAR CON LA IP";
+	pLeyenda = "CONECTAR CON LA IP (EJ: localhost)";
 
 	//pPuerto = (char*)malloc(sizeof(char)*100);
 	
@@ -204,7 +204,7 @@ void iniciarCliente(CONEXION *conexion){ // Procedimiento que iniciara el socket
 	
 	//printf("IP: %s",pIp);
 
-	pLeyenda="CONECTAR CON EL PUERTO";
+	pLeyenda="CONECTAR CON EL PUERTO (EJ: 2121)";
 
 	ingresoMensaje(pPuerto,pLeyenda);
  	
