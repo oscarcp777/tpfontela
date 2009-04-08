@@ -17,7 +17,7 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
                    iniciarServidor(conexion); // Repetimos proceso
            }
            else 
-                return a;
+                return RES_OK;
         
 }
 
@@ -28,13 +28,12 @@ int main(int argc, char *argv[])
     
     
     CONEXION conexion;
-	//do{
+
 	
 		if (iniciarServidor(&conexion)== 0){       
 			 iniciarHilos(&conexion);
 	     
-		 //reconectarSockets(&conexion);
+		
 		}
-	//}while(TRUE);
 
 }

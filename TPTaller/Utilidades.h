@@ -8,7 +8,7 @@
 #define RES_OK 0
 #define RES_ERROR -1
 #define RES_QUIT -2
-
+#define RES_THREAD -3
 //#define DEBUG
 
 

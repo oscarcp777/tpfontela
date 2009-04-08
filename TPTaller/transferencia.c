@@ -86,7 +86,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
                i++;
         }
          
-       	return 0;
+       	return RES_OK;
 		break;
 	
 				
@@ -99,7 +99,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 		memset((char*)datos,'\0',(cantItems+1)*sizeof(char));		
 		recv(pConexion->cliente,(char*)datos,sizeof(char)*cantItems,0);		
 		//TODO validar si salio bien
-		return 0;
+		return RES_OK;
 
 		break;
 
@@ -121,13 +121,13 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
                i++;
         }
          
-       	return 0;		
+       	return RES_OK;		
 		break;	
 		
 
 	}
 
-return 0;
+return RES_OK;
 
 }
 
@@ -149,7 +149,7 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
 			printf("FALLA socket() \n");
 			WSACleanup();
 			free(punteroConexion);
-			return -1;
+			return RES_INVALID_SOCKET;
 		}
 		else{
 
@@ -175,20 +175,20 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
 						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
 						punteroConexion->usuario=0;//le asigna un 0 que es servidor
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-                        return 0;// cambiar por RES_OK
+                        return RES_OK;// cambiar por RES_OK
 					}
 					else{
 						printf("FALLA listen() \n");
 						WSACleanup();
 						free(punteroConexion);
-						return -1;
+						return RES_LISTEN;
 					}
 			}
 			else{
 			     	printf("FALLA en bind() \n");
 					WSACleanup();
 					free(punteroConexion);
-					return -1;
+					return RES_BIND;
 			}		
 		
 		}	
@@ -198,7 +198,7 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
 		printf("FALLA EN WSASTARTUP \n");
 		WSACleanup();
 		free(punteroConexion);
-		return -1;	
+		return RES_WSA_STARTUP;	
 	}
 
 
@@ -220,7 +220,7 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 			printf("FALLA socket() \n");
 			WSACleanup();
 			free(punteroConexion);
-			return -1;
+			return RES_INVALID_SOCKET;
 		}
 		else{
             punteroConexion->host=gethostbyname(pDireccion); 
@@ -236,13 +236,13 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 					
                      punteroConexion->usuario=1;//le asigna  un 1 que es cliente
 			         memcpy (pConexion, punteroConexion,sizeof(CONEXION)); //si se conecto correctamente devuelvo el puntero a la conexion y RES_OK
-					 return 0;// cambiar por RES_OK
+					 return RES_OK;// cambiar por RES_OK
 			}
 			else{
 			         printf("FALLA en connect() \n");
 					 WSACleanup();
 					 free(punteroConexion);
-					 return -1;
+					 return RES_CONNECT;
 			}
 		}	
 	}
@@ -250,7 +250,7 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 		printf("FALLA EN WSA STARTUP \n");
 		WSACleanup();
 		free(punteroConexion);
-		return -1;	
+		return RES_WSA_STARTUP;	
 	}
 }
 
@@ -269,12 +269,12 @@ int trPuerto(CONEXION *pConexion, int *pPuerto){
 		memcpy(pPuerto, &puerto,sizeof(int));
 		
 		//TODO verificar si salio bien el memcpy y despues devolver 0
-		return 0;
+		return RES_OK;
 	}
 	else{
 	
 	//mensaje de error	
-	return -1;
+	return RES_PORT;
 	
 	}
 
@@ -287,7 +287,7 @@ int trIP(CONEXION *pConexion, char *pIP){
     char *paux;
     paux = inet_ntoa(pConexion->conexrem.sin_addr);
     memcpy (pIP, paux,100);
-	return 0;
+	return RES_OK;
 }
 
 
@@ -327,7 +327,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		}
 		
 		//TODO validar si salio bien
-		return 0;
+		return RES_OK;
 		break;
 	
 				
@@ -338,7 +338,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		
 				
 		//TODO validar si salio bien
-		return 0;		
+		return RES_OK;		
 		
 		break;
 		
@@ -352,12 +352,12 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		}
 		
 		//TODO validar si salio bien
-		return 0;			
+		return RES_OK;			
 		break;	
 		
 
 	}
-	return 0;
+	return RES_OK;
 }
 int trCerrarConexion(CONEXION *pConexion){
     //cierra el socket del cliente 
@@ -365,7 +365,7 @@ int trCerrarConexion(CONEXION *pConexion){
 	 closesocket(pConexion->cliente); 
 	 closesocket(pConexion->locsock);  
 	 
-     return 0;
+     return RES_OK;
 }
 
 
@@ -377,5 +377,5 @@ int trConexionActiva(CONEXION *pConexion){
     }else{
          printf("LA CONECCION ESTA CERRADA \n");
                    }  
-	return i;
+	return RES_OK;
 }

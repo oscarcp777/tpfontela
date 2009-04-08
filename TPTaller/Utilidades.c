@@ -20,7 +20,7 @@ int reconectarSockets(CONEXION *pConexion){
 						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
 						punteroConexion->usuario=0;//le asigna un 0 que es servidor
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-                        return 0;// cambiar por RES_OK
+                        return RES_OK;// cambiar por RES_OK
      }
 
 
@@ -30,6 +30,13 @@ int iniciarHilos(CONEXION *conexion){
     hThread = CreateThread( NULL, 0, enviar, conexion, 0, &threadId );
   
 	hThread1 = CreateThread( NULL, 0, recibir, conexion, 0, &threadId );
+
+	if(hThread==NULL)
+	return RES_THREAD;   
+	
+	if(hThread1==NULL)
+	return RES_THREAD;   
+	
 	SetThreadPriority(hThread1,1);
 	SetThreadPriority(hThread,2);
 	
@@ -38,13 +45,12 @@ int iniciarHilos(CONEXION *conexion){
 	// wait for the thread to finish 
    WaitForSingleObject( hThread1, INFINITE ); 
 	
-    printf("se van a cerrarlos hilos \n");
+    printf(" EL CLIENTE ESTA DESCONECTADO \n");
     //clean up resources used by thread 
     CloseHandle( hThread );
     CloseHandle( hThread1 );
-  printf("se van a cerraron los hilos \n");
-	
-	return 0;	
+
+	return RES_OK;	
         
 
 }

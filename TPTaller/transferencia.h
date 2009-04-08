@@ -1,9 +1,7 @@
 #ifndef _TRANSFERENCIA_H_
 #define _TRANSFERENCIA_H_
 //#define VER_COMANDO_ENVIADO
-#define RES_OK 0
-#define RES_ERROR -1
-#define RES_QUIT -2
+
 
 typedef struct _CONEXION{
         WSADATA wsdata;
@@ -23,7 +21,14 @@ enum tr_tipo_dato {td_comando, td_int , td_char , td_float, td_double};
 
 /* Los errores que siguen deben empezar con RES_ seguido de un nombre, por ejemplo
    RES_TIMEOUT */
-
+#define RES_ERROR -1
+#define RES_QUIT -2
+#define RES_INVALID_SOCKET -3
+#define RES_LISTEN -4
+#define RES_BIND -5
+#define RES_WSA_STARTUP -6
+#define RES_CONNECT -7
+#define RES_PORT -8
 /*****************************************************************/
 /* trEscuchar: Escucha en un Puerto por conexiones entrantes.    */
 /*             devuelve RES_OK si alguien se conectó y pConexion */
@@ -71,13 +76,6 @@ int trRecibir(CONEXION *pConexion,enum tr_tipo_dato tipo, int cantItems, void *d
 /*             devuelve un codigo de error.                      */
 /*****************************************************************/
 int trCerrarConexion(CONEXION *pConexion);
-
-/*****************************************************************/
-/* trCerrarConexion: cierra una conexion previamente abierta.    */
-/*		Si la conexion está activa devuelve RES_OK de lo    */
-/*             contrario devuelve un codigo de error.            */
-/*****************************************************************/
-int trConexionActiva(CONEXION *pConexion);
 
 /******************************************************************/
 /* trIP: copiar la en pIP con la que se ha establecido la conexión*/
