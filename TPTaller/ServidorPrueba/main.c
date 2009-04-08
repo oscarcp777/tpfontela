@@ -16,7 +16,7 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 		   char* pLeyenda = leyenda;
 		   char puerto[50];
 
-		   pLeyenda = "PUERTO DE CONEXION";
+		   pLeyenda = "PUERTO DE CONEXION (EJ: 2121)";
 
 		   ingresoMensaje(puerto,pLeyenda);	
 
