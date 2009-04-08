@@ -44,9 +44,9 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
 			
 			if(estadorecv==0||estadorecv==-1||(strcmp((char*)datos,"QUIT") == 0)){
    			  if(pConexion->usuario==0){                     
-                                      
-    			printf("EL CLIENTE SE DESCONECTO :  \n");
-    			printf("EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE\n");
+                                       
+    			printf(" \n EL CLIENTE SE DESCONECTO :  \n");
+    			printf(" \n EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE \n");
 		
               reconectarSockets(pConexion);
 			  recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);
@@ -172,7 +172,7 @@ int trEscuchar(int Puerto,CONEXION *pConexion){
 	                         */
 						addrleng = sizeof(punteroConexion->conexrem);
 						punteroConexion->cliente = accept(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
-						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
+						printf("\n CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
 						punteroConexion->usuario=0;//le asigna un 0 que es servidor
 						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
                         return RES_OK;// cambiar por RES_OK

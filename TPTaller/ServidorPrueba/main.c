@@ -32,6 +32,13 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 }
 
 
+/************************************************************/
+/*                                                          */
+/*                  MAIN DEL SERVIDOR                       */
+/* se conecta el servidor y se levantan los hilos           */
+/*                                                          */
+/***********************************************************/
+
 
 int main(int argc, char *argv[])
 {  

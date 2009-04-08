@@ -7,6 +7,12 @@
 #include "..\Utilidades.h"
 
 
+/************************************************************/
+/*                                                          */
+/*                  MAIN DEL CLIENTE                        */
+/* se conecta el cliente y se levantan los hilos            */
+/*                                                          */
+/***********************************************************/
 
 
 int main(int argc, char *argv[])

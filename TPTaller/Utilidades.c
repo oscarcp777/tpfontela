@@ -44,7 +44,7 @@ int iniciarHilos(CONEXION *conexion){
 	// wait for the thread to finish 
    WaitForSingleObject( hThread1, INFINITE ); 
 	
-    printf(" EL CLIENTE ESTA DESCONECTADO \n");
+    printf("\n  EL CLIENTE ESTA DESCONECTADO \n \n");
     //clean up resources used by thread 
     CloseHandle( hThread );
     CloseHandle( hThread1 );
