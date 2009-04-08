@@ -476,11 +476,13 @@ DWORD WINAPI recibir(LPVOID c){
 						pDatosIntTemporal = datosInt;
 						trRecibir(conexion, td_int ,atoi(pCantidadItems), datosInt);
 						k=1;
+						printf("Incoming Message..\n");
 						while (k <= atoi(pCantidadItems)){
-							 printf("DatoEnMain %d: %d \n",k,*datosInt);
+							 printf("%d \n",*datosInt);
 							 datosInt++;
 							 k++;
 						}
+						printf("\n");
 						free(pDatosIntTemporal);
 						break;
 
@@ -489,7 +491,7 @@ DWORD WINAPI recibir(LPVOID c){
 							datosChar = (char*) malloc((atoi(pCantidadItems)+1)*sizeof(char));
 							trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
 											
-							printf("mensaje recibido %s \n",datosChar);							
+							printf("Incoming Message..\n%s \n",datosChar);							
 							free(datosChar);							
 							break;
 
@@ -500,11 +502,13 @@ DWORD WINAPI recibir(LPVOID c){
 						pDatosDoubleTemporal = datosDouble;
 						trRecibir(conexion, td_double ,atoi(pCantidadItems), datosDouble);
 						k=1;
+						printf("Incoming Message..\n");
 						while (k <= atoi(pCantidadItems)){
-							 printf("DatoEnMain %d: %e \n",k,*datosDouble);
+							 printf("%e \n",*datosDouble);
 							 datosDouble++;
 							 k++;
 						}
+						printf("\n");
 						free(pDatosDoubleTemporal);
 				break;
 			}
@@ -534,7 +538,7 @@ DWORD WINAPI enviar(LPVOID c){
 		int exito=RES_OK;
 		
 		while (exito != RES_QUIT){
-			pLeyenda = "MENSAJE";
+			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 			ingresoMensaje(pmsjIngresado,pLeyenda);
 			exito = validarComando(pmsjIngresado,conexion);
 	

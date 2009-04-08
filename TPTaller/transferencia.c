@@ -321,8 +321,10 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		pInt = (int*)datos;
 			
 		while( i< cantItems){
-		   printf("send %d  %d\n",i+1,*pInt);
-			send(pConexion->cliente,pInt++,sizeof(int),0);	
+		    #ifdef DEBUG
+				printf("send %d  %d\n",i+1,*pInt);
+			#endif
+				send(pConexion->cliente,pInt++,sizeof(int),0);	
 	       i++;
 		}
 		
@@ -346,9 +348,11 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 			pDouble = (double*)datos;
 			
 		while( i< cantItems){
-		   printf("send %d  %e \n",i+1,*pDouble);
-			send(pConexion->cliente,pDouble++,sizeof(double),0);	
-	       i++;
+		    #ifdef DEBUG
+				printf("send %d  %e \n",i+1,*pDouble);
+			#endif	
+		    send(pConexion->cliente,pDouble++,sizeof(double),0);	
+	        i++;
 		}
 		
 		//TODO validar si salio bien
