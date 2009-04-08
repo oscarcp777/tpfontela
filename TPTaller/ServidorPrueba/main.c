@@ -20,7 +20,8 @@ int iniciarServidor(CONEXION *conexion){ // Procedimiento que iniciara el socket
 
 		   ingresoMensaje(puerto,pLeyenda);	
 
-           a = trEscuchar(2121,conexion);                
+           a = trEscuchar(atoi(puerto),conexion);  
+		   
            if ( a == -1){ 
                    Sleep(500); // Esperamos 500 Milisegundos y…
                    iniciarServidor(conexion); // Repetimos proceso
