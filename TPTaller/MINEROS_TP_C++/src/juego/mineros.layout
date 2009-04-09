@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_layout_file>
+<CodeBlocks_layout_file>
+	<File name="Actitudes.h" open="0" top="0">
+		<Cursor position="0" topLine="13"/>
+	</File>
+	<File name="Arista.cpp" open="1" top="0">
+		<Cursor position="1444" topLine="29"/>
+	</File>
+	<File name="Arista.h" open="0" top="0">
+		<Cursor position="3456" topLine="63"/>
+	</File>
+	<File name="CargaPerforadora.cpp" open="1" top="0">
+		<Cursor position="884" topLine="18"/>
+	</File>
+	<File name="CargaPerforadora.h" open="0" top="0">
+		<Cursor position="1494" topLine="49"/>
+	</File>
+	<File name="Casillero.h" open="0" top="0">
+		<Cursor position="1600" topLine="127"/>
+	</File>
+	<File name="Cola.cpp" open="0" top="0">
+		<Cursor position="74" topLine="0"/>
+	</File>
+	<File name="Cola.h" open="0" top="0">
+		<Cursor position="3181" topLine="45"/>
+	</File>
+	<File name="Conjunto.cpp" open="1" top="0">
+		<Cursor position="174" topLine="63"/>
+	</File>
+	<File name="Conjunto.h" open="1" top="0">
+		<Cursor position="8398" topLine="212"/>
+	</File>
+	<File name="Equipo.cpp" open="1" top="0">
+		<Cursor position="3285" topLine="75"/>
+	</File>
+	<File name="Equipo.h" open="0" top="0">
+		<Cursor position="1266" topLine="29"/>
+	</File>
+	<File name="Grafo.cpp" open="1" top="0">
+		<Cursor position="4266" topLine="24"/>
+	</File>
+	<File name="Grafo.h" open="1" top="0">
+		<Cursor position="7804" topLine="190"/>
+	</File>
+	<File name="GrafoRecorridos.cpp" open="1" top="0">
+		<Cursor position="2898" topLine="0"/>
+	</File>
+	<File name="GrafoRecorridos.h" open="0" top="0">
+		<Cursor position="3428" topLine="54"/>
+	</File>
+	<File name="Juego.h" open="1" top="0">
+		<Cursor position="2166" topLine="61"/>
+	</File>
+	<File name="MatrizD.cpp" open="1" top="0">
+		<Cursor position="2222" topLine="45"/>
+	</File>
+	<File name="MatrizD.h" open="0" top="0">
+		<Cursor position="665" topLine="6"/>
+	</File>
+	<File name="Minerales.cpp" open="0" top="0">
+		<Cursor position="431" topLine="0"/>
+	</File>
+	<File name="Movimientos.cpp" open="1" top="0">
+		<Cursor position="2170" topLine="116"/>
+	</File>
+	<File name="Movimientos.h" open="0" top="0">
+		<Cursor position="2797" topLine="66"/>
+	</File>
+	<File name="NodoSimplementeEnlazado.cpp" open="0" top="0">
+		<Cursor position="10" topLine="0"/>
+	</File>
+	<File name="NodoSimplementeEnlazado.h" open="0" top="0">
+		<Cursor position="843" topLine="105"/>
+	</File>
+	<File name="Perforadora.cpp" open="1" top="0">
+		<Cursor position="964" topLine="9"/>
+	</File>
+	<File name="Perforadora.h" open="0" top="0">
+		<Cursor position="4412" topLine="37"/>
+	</File>
+	<File name="Pila.cpp" open="0" top="0">
+		<Cursor position="29" topLine="0"/>
+	</File>
+	<File name="Pila.h" open="0" top="0">
+		<Cursor position="4941" topLine="97"/>
+	</File>
+	<File name="Piladeturnos.cpp" open="0" top="0">
+		<Cursor position="2442" topLine="0"/>
+	</File>
+	<File name="Piladeturnos.h" open="0" top="0">
+		<Cursor position="635" topLine="66"/>
+	</File>
+	<File name="Tablero.cpp" open="1" top="1">
+		<Cursor position="18723" topLine="480"/>
+	</File>
+	<File name="Tablero.h" open="1" top="0">
+		<Cursor position="1722" topLine="40"/>
+	</File>
+	<File name="Vertice.cpp" open="1" top="0">
+		<Cursor position="2056" topLine="45"/>
+	</File>
+	<File name="Vertice.h" open="1" top="0">
+		<Cursor position="5733" topLine="136"/>
+	</File>
+	<File name="archivoRegistros.h" open="0" top="0">
+		<Cursor position="0" topLine="57"/>
+	</File>
+	<File name="archivoTexto.cpp" open="0" top="0">
+		<Cursor position="1904" topLine="2"/>
+	</File>
+	<File name="archivoTexto.h" open="0" top="0">
+		<Cursor position="2746" topLine="61"/>
+	</File>
+	<File name="bot.cpp" open="0" top="0">
+		<Cursor position="2185" topLine="3"/>
+	</File>
+	<File name="bot.h" open="0" top="0">
+		<Cursor position="3394" topLine="92"/>
+	</File>
+	<File name="cadena.cpp" open="0" top="0">
+		<Cursor position="180" topLine="0"/>
+	</File>
+	<File name="cadena.h" open="0" top="0">
+		<Cursor position="727" topLine="9"/>
+	</File>
+	<File name="cara.h" open="0" top="0">
+		<Cursor position="1139" topLine="12"/>
+	</File>
+	<File name="casillero.cpp" open="1" top="0">
+		<Cursor position="1119" topLine="32"/>
+	</File>
+	<File name="dado.cpp" open="0" top="0">
+		<Cursor position="663" topLine="2"/>
+	</File>
+	<File name="dado.h" open="0" top="0">
+		<Cursor position="1471" topLine="45"/>
+	</File>
+	<File name="definiciones.h" open="1" top="0">
+		<Cursor position="3131" topLine="82"/>
+	</File>
+	<File name="entorno.cpp" open="0" top="0">
+		<Cursor position="842" topLine="62"/>
+	</File>
+	<File name="entorno.h" open="0" top="0">
+		<Cursor position="3610" topLine="90"/>
+	</File>
+	<File name="estrategia.cpp" open="1" top="0">
+		<Cursor position="4325" topLine="13"/>
+	</File>
+	<File name="estrategia.h" open="0" top="0">
+		<Cursor position="704" topLine="12"/>
+	</File>
+	<File name="grupoequipos.cpp" open="0" top="0">
+		<Cursor position="7845" topLine="160"/>
+	</File>
+	<File name="grupoequipos.h" open="0" top="0">
+		<Cursor position="852" topLine="32"/>
+	</File>
+	<File name="juego.cpp" open="1" top="0">
+		<Cursor position="3671" topLine="83"/>
+	</File>
+	<File name="listadebots.cpp" open="0" top="0">
+		<Cursor position="7313" topLine="225"/>
+	</File>
+	<File name="listadebots.h" open="0" top="0">
+		<Cursor position="630" topLine="74"/>
+	</File>
+	<File name="listadeequipos.cpp" open="0" top="0">
+		<Cursor position="427" topLine="0"/>
+	</File>
+	<File name="listadeequipos.h" open="0" top="0">
+		<Cursor position="487" topLine="0"/>
+	</File>
+	<File name="main.cpp" open="1" top="0">
+		<Cursor position="590" topLine="2"/>
+	</File>
+	<File name="minerales.h" open="0" top="0">
+		<Cursor position="2065" topLine="48"/>
+	</File>
+	<File name="ronda.cpp" open="1" top="0">
+		<Cursor position="4056" topLine="94"/>
+	</File>
+	<File name="ronda.h" open="1" top="0">
+		<Cursor position="1361" topLine="24"/>
+	</File>
+	<File name="turno.cpp" open="1" top="0">
+		<Cursor position="5725" topLine="0"/>
+	</File>
+	<File name="turno.h" open="1" top="0">
+		<Cursor position="2156" topLine="50"/>
+	</File>
+</CodeBlocks_layout_file>

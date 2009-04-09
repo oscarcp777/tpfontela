@@ -1,0 +1,2605 @@
+# depslib dependency file v1.0
+1163561047 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cargaperforadora.h
+	"definiciones.h"
+
+1163652185 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\definiciones.h
+	<iostream>
+
+1163649510 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\equipo.cpp
+	"Equipo.h"
+
+1163650895 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1162427392 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadebots.h
+	"bot.h"
+
+1163637199 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163268552 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543591 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1163345058 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1163269792 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\actitudes.h
+	"definiciones.h"
+
+1163537156 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\minerales.cpp
+	"minerales.h"
+
+1163269596 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\perforadora.cpp
+	"Perforadora.h"
+
+1163432794 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\piladeturnos.h
+	"turno.h"
+
+1163561161 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\archivotexto.h
+	<fstream>
+
+1163636146 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+
+1163519184 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cadena.h
+	<sstream>
+
+1163543606 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+	<time.h>
+
+1163268622 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cara.h
+
+1161028208 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadecaras.h
+	"cara.h"
+
+1163647019 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\tablero.cpp
+	"tablero.h"
+
+1163546091 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\archivoregistros.h
+	<fstream>
+	<string>
+
+1163641124 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\cara.cpp
+	"cara.h"
+
+1163647623 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1163345136 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\entorno.cpp
+	"entorno.h"
+
+1163652119 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\estrategia.cpp
+	"estrategia.h"
+
+1163652685 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\grupoequipos.cpp
+	"grupoequipos.h"
+
+1163638891 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadeequipos.h
+	"Equipo.h"
+
+1163650621 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\juego.cpp
+	"Juego.h"
+
+1163640068 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1163542127 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+
+1163174288 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadecaras.cpp
+	"listadecaras.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\listadeequipos.cpp
+	"listadeequipos.h"
+
+1163650637 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\main.cpp
+	"juego.h"
+	<iostream>
+
+1163629072 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\ronda.cpp
+	"ronda.h"
+
+1163636266 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\turno.cpp
+	"turno.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\sources ultimas\sources ultimas\src\movimientos.cpp
+	"movimientos.h"
+
+1163561047 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cargaperforadora.h
+	"definiciones.h"
+
+1163831884 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\definiciones.h
+	<iostream>
+
+1163805709 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\equipo.cpp
+	"Equipo.h"
+
+1163804679 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803581 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadebots.h
+	"bot.h"
+
+1163637199 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163268552 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543591 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1163345058 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1163543606 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+	<time.h>
+
+1163268622 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cara.h
+
+1161028208 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\actitudes.h
+	"definiciones.h"
+
+1163820915 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\minerales.cpp
+	"minerales.h"
+
+1163547502 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\movimientos.cpp
+	"movimientos.h"
+
+1163269596 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\perforadora.cpp
+	"Perforadora.h"
+
+1163807061 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\archivotexto.h
+	<fstream>
+
+1163828060 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+
+1163519184 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cadena.h
+	<sstream>
+
+1163829648 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\tablero.cpp
+	"tablero.h"
+
+1163546091 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\archivoregistros.h
+	<fstream>
+	<string>
+
+1163641124 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\cara.cpp
+	"cara.h"
+
+1163824986 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1163829975 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\entorno.cpp
+	"entorno.h"
+
+1163652119 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\estrategia.cpp
+	"estrategia.h"
+
+1163805737 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\grupoequipos.cpp
+	"grupoequipos.h"
+
+1163802069 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadeequipos.h
+	"Equipo.h"
+
+1163828540 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\juego.cpp
+	"Juego.h"
+
+1163815609 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1163830586 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+
+1163818708 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadecaras.cpp
+	"listadecaras.h"
+
+1163803581 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\listadeequipos.cpp
+	"listadeequipos.h"
+
+1163829648 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\main.cpp
+	"juego.h"
+	<iostream>
+
+1163829857 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\ronda.cpp
+	"ronda.h"
+
+1163829648 c:\documents and settings\juan\desktop\mineros\sources ultimas\sources ultimas\src\turno.cpp
+	"turno.h"
+
+1163269926 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cara.cpp
+	"cara.h"
+
+1163268622 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cara.h
+
+1163627812 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\minerales.cpp
+	"minerales.h"
+
+1163470148 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\minerales.h
+	"definiciones.h"
+
+1163832604 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\definiciones.h
+	<iostream>
+
+1163547502 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\movimientos.cpp
+	"movimientos.h"
+
+1163547502 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1163543606 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+	<time.h>
+
+1161028208 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\listadecaras.h
+	"cara.h"
+
+1163269596 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\perforadora.cpp
+	"Perforadora.h"
+
+1163268552 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163267882 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cargaperforadora.h
+	"definiciones.h"
+
+1163543592 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1163787384 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163637200 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163345830 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163269792 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\actitudes.h
+	"definiciones.h"
+
+1163546092 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\archivoregistros.h
+	<fstream>
+	<string>
+
+1163641124 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\archivotexto.cpp
+	"archivoTexto.h"
+
+1144065708 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\archivotexto.h
+	<fstream>
+
+1163637344 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\bot.cpp
+	"bot.h"
+
+1163519216 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cadena.cpp
+	"cadena.h"
+
+1163519184 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cadena.h
+	<sstream>
+
+1163561048 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163270254 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\entorno.cpp
+	"entorno.h"
+
+1163652120 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\estrategia.cpp
+	"estrategia.h"
+
+1163346050 c:\windows\escritorio\ultimofinal\ultimo final!\sources ultimas\sources ultimas\src\listadecaras.cpp
+	"listadecaras.h"
+
+1163561048 c:\documents and settings\tarto\escritorio\tp\src\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\tarto\escritorio\tp\src\juego\cargaperforadora.h
+	"definiciones.h"
+
+1164862954 c:\documents and settings\tarto\escritorio\tp\src\juego\definiciones.h
+	<iostream>
+
+1163627812 c:\documents and settings\tarto\escritorio\tp\src\juego\minerales.cpp
+	"minerales.h"
+
+1163470148 c:\documents and settings\tarto\escritorio\tp\src\juego\minerales.h
+	"definiciones.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\tp\src\juego\movimientos.cpp
+	"movimientos.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\tp\src\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151381 c:\documents and settings\tarto\escritorio\tp\src\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\tarto\escritorio\tp\src\juego\cara.h
+
+1161028208 c:\documents and settings\tarto\escritorio\tp\src\juego\listadecaras.h
+	"cara.h"
+
+1163269596 c:\documents and settings\tarto\escritorio\tp\src\juego\perforadora.cpp
+	"Perforadora.h"
+
+1163268552 c:\documents and settings\tarto\escritorio\tp\src\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\tarto\escritorio\tp\src\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863800 c:\documents and settings\tarto\escritorio\tp\src\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163637200 c:\documents and settings\tarto\escritorio\tp\src\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163345830 c:\documents and settings\tarto\escritorio\tp\src\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163269792 c:\documents and settings\tarto\escritorio\tp\src\juego\actitudes.h
+	"definiciones.h"
+
+1163546092 c:\documents and settings\tarto\escritorio\tp\src\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\tarto\escritorio\tp\src\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\documents and settings\tarto\escritorio\tp\src\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1163641124 c:\documents and settings\tarto\escritorio\tp\src\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1144065708 c:\documents and settings\tarto\escritorio\tp\src\juego\archivotexto.h
+	<fstream>
+
+1163637344 c:\documents and settings\tarto\escritorio\tp\src\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\tarto\escritorio\tp\src\juego\cadena.cpp
+	"cadena.h"
+
+1163519184 c:\documents and settings\tarto\escritorio\tp\src\juego\cadena.h
+	<sstream>
+
+1163269926 c:\documents and settings\tarto\escritorio\tp\src\juego\cara.cpp
+	"cara.h"
+
+1163270254 c:\documents and settings\tarto\escritorio\tp\src\juego\entorno.cpp
+	"entorno.h"
+
+1163652120 c:\documents and settings\tarto\escritorio\tp\src\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\tarto\escritorio\tp\src\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1163802070 c:\documents and settings\tarto\escritorio\tp\src\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\tp\src\juego\listadeequipos.h
+	"Equipo.h"
+
+1163804680 c:\documents and settings\tarto\escritorio\tp\src\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\tp\src\juego\listadebots.h
+	"bot.h"
+
+1163346050 c:\documents and settings\tarto\escritorio\tp\src\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163805710 c:\documents and settings\tarto\escritorio\tp\src\juego\equipo.cpp
+	"Equipo.h"
+
+1163820916 c:\documents and settings\tarto\escritorio\tp\src\juego\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\tarto\escritorio\tp\src\juego\matrizd.h
+	"definiciones.h"
+
+1163807062 c:\documents and settings\tarto\escritorio\tp\src\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\tarto\escritorio\tp\src\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\tarto\escritorio\tp\src\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1164864827 c:\documents and settings\tarto\escritorio\tp\src\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1164864006 c:\documents and settings\tarto\escritorio\tp\src\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151381 c:\documents and settings\tarto\escritorio\tp\src\juego\dado.cpp
+	"dado.h"
+
+1163818708 c:\documents and settings\tarto\escritorio\tp\src\juego\listadebots.cpp
+	"listadebots.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\tp\src\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1164151381 c:\documents and settings\tarto\escritorio\tp\src\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1163787392 c:\documents and settings\tarto\escritorio\tp\src\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1163830586 c:\documents and settings\tarto\escritorio\tp\src\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+
+1163831762 c:\documents and settings\tarto\escritorio\tp\src\juego\ronda.cpp
+	"ronda.h"
+
+1163829648 c:\documents and settings\tarto\escritorio\tp\src\juego\turno.cpp
+	"turno.h"
+
+1164152811 c:\documents and settings\tarto\escritorio\tp\src\juego\juego.cpp
+	"Juego.h"
+
+1164862831 c:\documents and settings\tarto\escritorio\tp\src\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1164864309 c:\documents and settings\tarto\escritorio\tp\src\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864309 c:\documents and settings\tarto\escritorio\tp\src\juego\arista.h
+	"Vertice.h"
+
+1164864309 c:\documents and settings\tarto\escritorio\tp\src\juego\conjunto.h
+
+1164862911 c:\documents and settings\tarto\escritorio\tp\src\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864309 c:\documents and settings\tarto\escritorio\tp\src\juego\cola.h
+
+1097806932 c:\documents and settings\tarto\escritorio\tp\src\juego\nodosimplementeenlazado.h
+
+1164862978 c:\documents and settings\tarto\escritorio\tp\src\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1164863001 c:\documents and settings\tarto\escritorio\tp\src\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864142 c:\documents and settings\tarto\escritorio\tp\src\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1164863019 c:\documents and settings\tarto\escritorio\tp\src\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+
+1097810572 c:\documents and settings\tarto\escritorio\tp\src\juego\graforecorridos.h
+	"Grafo.h"
+
+1164864309 c:\documents and settings\tarto\escritorio\tp\src\juego\pila.h
+
+1164863051 c:\documents and settings\tarto\escritorio\tp\src\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1164863072 c:\documents and settings\tarto\escritorio\tp\src\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1164863905 c:\documents and settings\tarto\escritorio\tp\src\juego\tablero.cpp
+	"tablero.h"
+
+1164856542 c:\documents and settings\tarto\escritorio\tp\src\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1164862831 c:\documents and settings\juan\desktop\tpalgo\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1165035330 c:\documents and settings\juan\desktop\tpalgo\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864309 c:\documents and settings\juan\desktop\tpalgo\juego\arista.h
+	"Vertice.h"
+
+1164864309 c:\documents and settings\juan\desktop\tpalgo\juego\conjunto.h
+
+1163561048 c:\documents and settings\juan\desktop\tpalgo\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\juan\desktop\tpalgo\juego\cargaperforadora.h
+	"definiciones.h"
+
+1164862954 c:\documents and settings\juan\desktop\tpalgo\juego\definiciones.h
+	<iostream>
+
+1165009787 c:\documents and settings\juan\desktop\tpalgo\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864309 c:\documents and settings\juan\desktop\tpalgo\juego\cola.h
+
+1097806932 c:\documents and settings\juan\desktop\tpalgo\juego\nodosimplementeenlazado.h
+
+1165011491 c:\documents and settings\juan\desktop\tpalgo\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1163805710 c:\documents and settings\juan\desktop\tpalgo\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\documents and settings\juan\desktop\tpalgo\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\juan\desktop\tpalgo\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\documents and settings\juan\desktop\tpalgo\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163268552 c:\documents and settings\juan\desktop\tpalgo\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\juan\desktop\tpalgo\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863800 c:\documents and settings\juan\desktop\tpalgo\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\juan\desktop\tpalgo\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\juan\desktop\tpalgo\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\juan\desktop\tpalgo\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151381 c:\documents and settings\juan\desktop\tpalgo\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\juan\desktop\tpalgo\juego\cara.h
+
+1161028208 c:\documents and settings\juan\desktop\tpalgo\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\juan\desktop\tpalgo\juego\actitudes.h
+	"definiciones.h"
+
+1164863001 c:\documents and settings\juan\desktop\tpalgo\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864142 c:\documents and settings\juan\desktop\tpalgo\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1163820916 c:\documents and settings\juan\desktop\tpalgo\juego\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\juan\desktop\tpalgo\juego\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\documents and settings\juan\desktop\tpalgo\juego\minerales.cpp
+	"minerales.h"
+
+1163547502 c:\documents and settings\juan\desktop\tpalgo\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863051 c:\documents and settings\juan\desktop\tpalgo\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1163269596 c:\documents and settings\juan\desktop\tpalgo\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863072 c:\documents and settings\juan\desktop\tpalgo\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864309 c:\documents and settings\juan\desktop\tpalgo\juego\pila.h
+
+1163807062 c:\documents and settings\juan\desktop\tpalgo\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\juan\desktop\tpalgo\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\juan\desktop\tpalgo\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\documents and settings\juan\desktop\tpalgo\juego\archivotexto.h
+	<fstream>
+
+1165028746 c:\documents and settings\juan\desktop\tpalgo\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163519184 c:\documents and settings\juan\desktop\tpalgo\juego\cadena.h
+	<sstream>
+
+1163802070 c:\documents and settings\juan\desktop\tpalgo\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\juan\desktop\tpalgo\juego\listadeequipos.h
+	"Equipo.h"
+
+1094518656 c:\documents and settings\juan\desktop\tpalgo\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1165051905 c:\documents and settings\juan\desktop\tpalgo\juego\tablero.cpp
+	"tablero.h"
+
+1165037336 c:\documents and settings\juan\desktop\tpalgo\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\documents and settings\juan\desktop\tpalgo\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\juan\desktop\tpalgo\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1163641124 c:\documents and settings\juan\desktop\tpalgo\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\juan\desktop\tpalgo\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\juan\desktop\tpalgo\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\juan\desktop\tpalgo\juego\cara.cpp
+	"cara.h"
+
+1164864006 c:\documents and settings\juan\desktop\tpalgo\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151381 c:\documents and settings\juan\desktop\tpalgo\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\juan\desktop\tpalgo\juego\entorno.cpp
+	"entorno.h"
+
+1163652120 c:\documents and settings\juan\desktop\tpalgo\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\juan\desktop\tpalgo\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152811 c:\documents and settings\juan\desktop\tpalgo\juego\juego.cpp
+	"Juego.h"
+
+1163787392 c:\documents and settings\juan\desktop\tpalgo\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1163830586 c:\documents and settings\juan\desktop\tpalgo\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+
+1163818708 c:\documents and settings\juan\desktop\tpalgo\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\juan\desktop\tpalgo\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\documents and settings\juan\desktop\tpalgo\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1164151381 c:\documents and settings\juan\desktop\tpalgo\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1163831762 c:\documents and settings\juan\desktop\tpalgo\juego\ronda.cpp
+	"ronda.h"
+
+1165051453 c:\documents and settings\juan\desktop\tpalgo\juego\turno.cpp
+	"turno.h"
+
+1094518574 c:\windows\escritorio\cosas nuevas\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\windows\escritorio\cosas nuevas\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1163561048 c:\windows\escritorio\cosas nuevas\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\windows\escritorio\cosas nuevas\juego\cargaperforadora.h
+	"definiciones.h"
+
+1164862956 c:\windows\escritorio\cosas nuevas\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\windows\escritorio\cosas nuevas\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\windows\escritorio\cosas nuevas\juego\cola.h
+
+1097806932 c:\windows\escritorio\cosas nuevas\juego\nodosimplementeenlazado.h
+
+1165011492 c:\windows\escritorio\cosas nuevas\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1164864310 c:\windows\escritorio\cosas nuevas\juego\conjunto.h
+
+1163805710 c:\windows\escritorio\cosas nuevas\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\windows\escritorio\cosas nuevas\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\windows\escritorio\cosas nuevas\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\windows\escritorio\cosas nuevas\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1163268552 c:\windows\escritorio\cosas nuevas\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\windows\escritorio\cosas nuevas\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\windows\escritorio\cosas nuevas\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\windows\escritorio\cosas nuevas\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\windows\escritorio\cosas nuevas\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\windows\escritorio\cosas nuevas\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\windows\escritorio\cosas nuevas\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\windows\escritorio\cosas nuevas\juego\cara.h
+
+1161028208 c:\windows\escritorio\cosas nuevas\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\windows\escritorio\cosas nuevas\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\windows\escritorio\cosas nuevas\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\windows\escritorio\cosas nuevas\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1164864310 c:\windows\escritorio\cosas nuevas\juego\arista.h
+	"Vertice.h"
+
+1165035332 c:\windows\escritorio\cosas nuevas\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1163820916 c:\windows\escritorio\cosas nuevas\juego\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\windows\escritorio\cosas nuevas\juego\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\windows\escritorio\cosas nuevas\juego\minerales.cpp
+	"minerales.h"
+
+1165083294 c:\windows\escritorio\cosas nuevas\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\windows\escritorio\cosas nuevas\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1163269596 c:\windows\escritorio\cosas nuevas\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\windows\escritorio\cosas nuevas\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\windows\escritorio\cosas nuevas\juego\pila.h
+
+1163807062 c:\windows\escritorio\cosas nuevas\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\windows\escritorio\cosas nuevas\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\windows\escritorio\cosas nuevas\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\windows\escritorio\cosas nuevas\juego\archivotexto.h
+	<fstream>
+
+1165028748 c:\windows\escritorio\cosas nuevas\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163519184 c:\windows\escritorio\cosas nuevas\juego\cadena.h
+	<sstream>
+
+1163802070 c:\windows\escritorio\cosas nuevas\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\windows\escritorio\cosas nuevas\juego\listadeequipos.h
+	"Equipo.h"
+
+1165037338 c:\windows\escritorio\cosas nuevas\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\windows\escritorio\cosas nuevas\juego\actitudes.cpp
+	"Actitudes.h"
+
+1164862832 c:\windows\escritorio\cosas nuevas\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1163641124 c:\windows\escritorio\cosas nuevas\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\windows\escritorio\cosas nuevas\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\windows\escritorio\cosas nuevas\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\windows\escritorio\cosas nuevas\juego\cara.cpp
+	"cara.h"
+
+1165090738 c:\windows\escritorio\cosas nuevas\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\windows\escritorio\cosas nuevas\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\windows\escritorio\cosas nuevas\juego\entorno.cpp
+	"entorno.h"
+
+1165083400 c:\windows\escritorio\cosas nuevas\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\windows\escritorio\cosas nuevas\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\windows\escritorio\cosas nuevas\juego\juego.cpp
+	"Juego.h"
+
+1163787392 c:\windows\escritorio\cosas nuevas\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1163830586 c:\windows\escritorio\cosas nuevas\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+
+1163818708 c:\windows\escritorio\cosas nuevas\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\windows\escritorio\cosas nuevas\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\windows\escritorio\cosas nuevas\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165089182 c:\windows\escritorio\cosas nuevas\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1163831762 c:\windows\escritorio\cosas nuevas\juego\ronda.cpp
+	"ronda.h"
+
+1165082112 c:\windows\escritorio\cosas nuevas\juego\turno.cpp
+	"turno.h"
+
+1165090982 c:\windows\escritorio\cosas nuevas\juego\tablero.cpp
+	"tablero.h"
+
+1164862832 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1165035332 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\arista.h
+	"Vertice.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\conjunto.h
+
+1163561048 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cargaperforadora.h
+	"definiciones.h"
+
+1165111468 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cola.h
+
+1097806932 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\nodosimplementeenlazado.h
+
+1165011492 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1165121840 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1165111468 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cara.h
+
+1161028208 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1163820916 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\minerales.cpp
+	"minerales.h"
+
+1165175865 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1165112732 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\pila.h
+
+1163807062 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\archivotexto.h
+	<fstream>
+
+1165114317 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163519184 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cadena.h
+	<sstream>
+
+1163802070 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadeequipos.h
+	"Equipo.h"
+
+1094518656 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1165187570 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\tablero.cpp
+	"tablero.h"
+
+1165037338 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1163641124 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\cara.cpp
+	"cara.h"
+
+1165180214 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\entorno.cpp
+	"entorno.h"
+
+1165187779 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\juego.cpp
+	"Juego.h"
+
+1165112732 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1165115500 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+	"GrafoRecorridos.h"
+
+1163818708 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165188326 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1165177959 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\ronda.cpp
+	"ronda.h"
+
+1165183978 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\turno.cpp
+	"turno.h"
+
+1165119093 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\graforecorridos.h
+	"Grafo.h"
+	"tablero.h"
+
+1165121525 c:\documents and settings\tarto\escritorio\tp de algortimos\cosas nuevas\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+	"tablero.h"
+	"definiciones.h"
+
+1094518574 c:\windows\escritorio\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1094518656 c:\windows\escritorio\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1163561048 c:\windows\escritorio\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\windows\escritorio\juego\cargaperforadora.h
+	"definiciones.h"
+
+1165111470 c:\windows\escritorio\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\windows\escritorio\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\windows\escritorio\juego\cola.h
+
+1097806932 c:\windows\escritorio\juego\nodosimplementeenlazado.h
+
+1165011492 c:\windows\escritorio\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1165203204 c:\windows\escritorio\juego\conjunto.h
+
+1165202880 c:\windows\escritorio\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\windows\escritorio\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\windows\escritorio\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\windows\escritorio\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1165111470 c:\windows\escritorio\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\windows\escritorio\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\windows\escritorio\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\windows\escritorio\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\windows\escritorio\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\windows\escritorio\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\windows\escritorio\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\windows\escritorio\juego\cara.h
+
+1161028208 c:\windows\escritorio\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\windows\escritorio\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\windows\escritorio\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\windows\escritorio\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1164864310 c:\windows\escritorio\juego\arista.h
+	"Vertice.h"
+
+1165035332 c:\windows\escritorio\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1165121526 c:\windows\escritorio\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+	"tablero.h"
+	"definiciones.h"
+
+1165119094 c:\windows\escritorio\juego\graforecorridos.h
+	"Grafo.h"
+	"tablero.h"
+
+1165200816 c:\windows\escritorio\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163537158 c:\windows\escritorio\juego\matrizd.h
+	"definiciones.h"
+
+1144065708 c:\windows\escritorio\juego\archivotexto.h
+	<fstream>
+
+1163519184 c:\windows\escritorio\juego\cadena.h
+	<sstream>
+
+1163802070 c:\windows\escritorio\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\windows\escritorio\juego\listadeequipos.h
+	"Equipo.h"
+
+1164864310 c:\windows\escritorio\juego\pila.h
+
+1163820916 c:\windows\escritorio\juego\matrizd.cpp
+	"matrizD.h"
+
+1163627812 c:\windows\escritorio\juego\minerales.cpp
+	"minerales.h"
+
+1165175866 c:\windows\escritorio\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\windows\escritorio\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1165112734 c:\windows\escritorio\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\windows\escritorio\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1163807062 c:\windows\escritorio\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\windows\escritorio\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\windows\escritorio\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1165037338 c:\windows\escritorio\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\windows\escritorio\juego\actitudes.cpp
+	"Actitudes.h"
+
+1164862832 c:\windows\escritorio\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1163641124 c:\windows\escritorio\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\windows\escritorio\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\windows\escritorio\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\windows\escritorio\juego\cara.cpp
+	"cara.h"
+
+1165180216 c:\windows\escritorio\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\windows\escritorio\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\windows\escritorio\juego\entorno.cpp
+	"entorno.h"
+
+1165187780 c:\windows\escritorio\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\windows\escritorio\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\windows\escritorio\juego\juego.cpp
+	"Juego.h"
+
+1165112734 c:\windows\escritorio\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1165115502 c:\windows\escritorio\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+	"GrafoRecorridos.h"
+
+1163818708 c:\windows\escritorio\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\windows\escritorio\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\windows\escritorio\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165188328 c:\windows\escritorio\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1165177960 c:\windows\escritorio\juego\ronda.cpp
+	"ronda.h"
+
+1165183980 c:\windows\escritorio\juego\turno.cpp
+	"turno.h"
+
+1165198692 c:\windows\escritorio\juego\tablero.cpp
+	"tablero.h"
+
+1164862832 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1165035332 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\arista.h
+	"Vertice.h"
+
+1165203204 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\conjunto.h
+
+1163561048 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cargaperforadora.h
+	"definiciones.h"
+
+1165111470 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cola.h
+
+1097806932 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\nodosimplementeenlazado.h
+
+1165011492 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1165202880 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1165111470 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cara.h
+
+1161028208 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1163820916 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\matrizd.cpp
+	"matrizD.h"
+
+1163537158 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\matrizd.h
+	"definiciones.h"
+
+1163627812 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\minerales.cpp
+	"minerales.h"
+
+1165175866 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1165112734 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\pila.h
+
+1163807062 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1144065708 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\archivotexto.h
+	<fstream>
+
+1165200816 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163519184 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cadena.h
+	<sstream>
+
+1163802070 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadeequipos.h
+	"Equipo.h"
+
+1094518656 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1165037338 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1163641124 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\cara.cpp
+	"cara.h"
+
+1165180216 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\entorno.cpp
+	"entorno.h"
+
+1165187780 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\juego.cpp
+	"Juego.h"
+
+1165112734 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1165115502 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+	"GrafoRecorridos.h"
+
+1165119094 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\graforecorridos.h
+	"Grafo.h"
+	"tablero.h"
+
+1163818708 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165177960 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\ronda.cpp
+	"ronda.h"
+
+1165183980 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\turno.cpp
+	"turno.h"
+
+1165203896 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+	"tablero.h"
+	"definiciones.h"
+
+1165204864 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\tablero.cpp
+	"tablero.h"
+
+1165204140 c:\documents and settings\tarto\escritorio\mineros\mineros\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1164862832 c:\documents and settings\tarto\escritorio\mineros\src\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1165035332 c:\documents and settings\tarto\escritorio\mineros\src\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\src\juego\arista.h
+	"Vertice.h"
+
+1165203204 c:\documents and settings\tarto\escritorio\mineros\src\juego\conjunto.h
+
+1163561048 c:\documents and settings\tarto\escritorio\mineros\src\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\tarto\escritorio\mineros\src\juego\cargaperforadora.h
+	"definiciones.h"
+
+1165111470 c:\documents and settings\tarto\escritorio\mineros\src\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\documents and settings\tarto\escritorio\mineros\src\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\src\juego\cola.h
+
+1097806932 c:\documents and settings\tarto\escritorio\mineros\src\juego\nodosimplementeenlazado.h
+
+1165011492 c:\documents and settings\tarto\escritorio\mineros\src\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1165202880 c:\documents and settings\tarto\escritorio\mineros\src\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\documents and settings\tarto\escritorio\mineros\src\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\documents and settings\tarto\escritorio\mineros\src\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1165111470 c:\documents and settings\tarto\escritorio\mineros\src\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\tarto\escritorio\mineros\src\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\documents and settings\tarto\escritorio\mineros\src\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\tarto\escritorio\mineros\src\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\tarto\escritorio\mineros\src\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\tarto\escritorio\mineros\src\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\documents and settings\tarto\escritorio\mineros\src\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\tarto\escritorio\mineros\src\juego\cara.h
+
+1161028208 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\tarto\escritorio\mineros\src\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\documents and settings\tarto\escritorio\mineros\src\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\documents and settings\tarto\escritorio\mineros\src\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1165203896 c:\documents and settings\tarto\escritorio\mineros\src\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+	"tablero.h"
+	"definiciones.h"
+
+1165119094 c:\documents and settings\tarto\escritorio\mineros\src\juego\graforecorridos.h
+	"Grafo.h"
+	"tablero.h"
+
+1165200816 c:\documents and settings\tarto\escritorio\mineros\src\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163537158 c:\documents and settings\tarto\escritorio\mineros\src\juego\matrizd.h
+	"definiciones.h"
+
+1144065708 c:\documents and settings\tarto\escritorio\mineros\src\juego\archivotexto.h
+	<fstream>
+
+1163519184 c:\documents and settings\tarto\escritorio\mineros\src\juego\cadena.h
+	<sstream>
+
+1163802070 c:\documents and settings\tarto\escritorio\mineros\src\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadeequipos.h
+	"Equipo.h"
+
+1094518656 c:\documents and settings\tarto\escritorio\mineros\src\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1164864310 c:\documents and settings\tarto\escritorio\mineros\src\juego\pila.h
+
+1163820916 c:\documents and settings\tarto\escritorio\mineros\src\juego\matrizd.cpp
+	"matrizD.h"
+
+1163627812 c:\documents and settings\tarto\escritorio\mineros\src\juego\minerales.cpp
+	"minerales.h"
+
+1165175866 c:\documents and settings\tarto\escritorio\mineros\src\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\documents and settings\tarto\escritorio\mineros\src\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1165112734 c:\documents and settings\tarto\escritorio\mineros\src\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\documents and settings\tarto\escritorio\mineros\src\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1163807062 c:\documents and settings\tarto\escritorio\mineros\src\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\tarto\escritorio\mineros\src\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\tarto\escritorio\mineros\src\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1165204864 c:\documents and settings\tarto\escritorio\mineros\src\juego\tablero.cpp
+	"tablero.h"
+
+1165037338 c:\documents and settings\tarto\escritorio\mineros\src\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\documents and settings\tarto\escritorio\mineros\src\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\tarto\escritorio\mineros\src\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1163641124 c:\documents and settings\tarto\escritorio\mineros\src\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\tarto\escritorio\mineros\src\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\tarto\escritorio\mineros\src\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\tarto\escritorio\mineros\src\juego\cara.cpp
+	"cara.h"
+
+1165180216 c:\documents and settings\tarto\escritorio\mineros\src\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\documents and settings\tarto\escritorio\mineros\src\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\tarto\escritorio\mineros\src\juego\entorno.cpp
+	"entorno.h"
+
+1165187780 c:\documents and settings\tarto\escritorio\mineros\src\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\tarto\escritorio\mineros\src\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\documents and settings\tarto\escritorio\mineros\src\juego\juego.cpp
+	"Juego.h"
+
+1165112734 c:\documents and settings\tarto\escritorio\mineros\src\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1165115502 c:\documents and settings\tarto\escritorio\mineros\src\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+	"GrafoRecorridos.h"
+
+1163818708 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\documents and settings\tarto\escritorio\mineros\src\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165204140 c:\documents and settings\tarto\escritorio\mineros\src\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1165177960 c:\documents and settings\tarto\escritorio\mineros\src\juego\ronda.cpp
+	"ronda.h"
+
+1165183980 c:\documents and settings\tarto\escritorio\mineros\src\juego\turno.cpp
+	"turno.h"
+
+1164862832 c:\documents and settings\emiliano\escritorio\mineros\src\juego\arista.cpp
+	"Vertice.h"
+	"Arista.h"
+
+1165035332 c:\documents and settings\emiliano\escritorio\mineros\src\juego\vertice.h
+	"Arista.h"
+	"Conjunto.h"
+
+1164864310 c:\documents and settings\emiliano\escritorio\mineros\src\juego\arista.h
+	"Vertice.h"
+
+1165203204 c:\documents and settings\emiliano\escritorio\mineros\src\juego\conjunto.h
+
+1163561048 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cargaperforadora.cpp
+	"CargaPerforadora.h"
+
+1163267882 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cargaperforadora.h
+	"definiciones.h"
+
+1165111470 c:\documents and settings\emiliano\escritorio\mineros\src\juego\definiciones.h
+	<iostream>
+
+1165009788 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cola.cpp
+	"Cola.h"
+	"NodoSimplementeEnlazado.h"
+
+1164864310 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cola.h
+
+1097806932 c:\documents and settings\emiliano\escritorio\mineros\src\juego\nodosimplementeenlazado.h
+
+1165011492 c:\documents and settings\emiliano\escritorio\mineros\src\juego\conjunto.cpp
+	"NodoSimplementeEnlazado.h"
+	"Conjunto.h"
+
+1165202880 c:\documents and settings\emiliano\escritorio\mineros\src\juego\equipo.cpp
+	"Equipo.h"
+
+1163804680 c:\documents and settings\emiliano\escritorio\mineros\src\juego\equipo.h
+	"listadebots.h"
+	"bot.h"
+	"definiciones.h"
+
+1163803582 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadebots.h
+	"bot.h"
+
+1163637200 c:\documents and settings\emiliano\escritorio\mineros\src\juego\bot.h
+	"definiciones.h"
+	"Perforadora.h"
+	"estrategia.h"
+
+1165111470 c:\documents and settings\emiliano\escritorio\mineros\src\juego\perforadora.h
+	"CargaPerforadora.h"
+	"Entorno.h"
+
+1163543592 c:\documents and settings\emiliano\escritorio\mineros\src\juego\entorno.h
+	"Casillero.h"
+	"definiciones.h"
+
+1164863802 c:\documents and settings\emiliano\escritorio\mineros\src\juego\casillero.h
+	"minerales.h"
+	"bot.h"
+	"definiciones.h"
+
+1163470148 c:\documents and settings\emiliano\escritorio\mineros\src\juego\minerales.h
+	"definiciones.h"
+
+1163345830 c:\documents and settings\emiliano\escritorio\mineros\src\juego\estrategia.h
+	"bot.h"
+	"Movimientos.h"
+	"Actitudes.h"
+	"casillero.h"
+	"Perforadora.h"
+	"definiciones.h"
+
+1163547502 c:\documents and settings\emiliano\escritorio\mineros\src\juego\movimientos.h
+	"definiciones.h"
+	"dado.h"
+
+1164151382 c:\documents and settings\emiliano\escritorio\mineros\src\juego\dado.h
+	"cara.h"
+	"listadecaras.h"
+	<stdlib.h>
+
+1163268622 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cara.h
+
+1161028208 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadecaras.h
+	"cara.h"
+
+1163269792 c:\documents and settings\emiliano\escritorio\mineros\src\juego\actitudes.h
+	"definiciones.h"
+
+1164863002 c:\documents and settings\emiliano\escritorio\mineros\src\juego\grafo.cpp
+	"Grafo.h"
+	"Conjunto.h"
+	"Vertice.h"
+	"Arista.h"
+
+1164864144 c:\documents and settings\emiliano\escritorio\mineros\src\juego\grafo.h
+	"Arista.h"
+	"Vertice.h"
+
+1165203896 c:\documents and settings\emiliano\escritorio\mineros\src\juego\graforecorridos.cpp
+	"GrafoRecorridos.h"
+	"Cola.h"
+	"Pila.h"
+	"tablero.h"
+	"definiciones.h"
+
+1165119094 c:\documents and settings\emiliano\escritorio\mineros\src\juego\graforecorridos.h
+	"Grafo.h"
+	"tablero.h"
+
+1165200816 c:\documents and settings\emiliano\escritorio\mineros\src\juego\tablero.h
+	"MatrizD.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"definiciones.h"
+	"cadena.h"
+	"dado.h"
+	"casillero.h"
+	"equipo.h"
+	"grupoequipos.h"
+	"Grafo.h"
+
+1163537158 c:\documents and settings\emiliano\escritorio\mineros\src\juego\matrizd.h
+	"definiciones.h"
+
+1144065708 c:\documents and settings\emiliano\escritorio\mineros\src\juego\archivotexto.h
+	<fstream>
+
+1163519184 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cadena.h
+	<sstream>
+
+1163802070 c:\documents and settings\emiliano\escritorio\mineros\src\juego\grupoequipos.h
+	"listadeequipos.h"
+	"definiciones.h"
+	"archivoRegistros.h"
+
+1163201726 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadeequipos.h
+	"Equipo.h"
+
+1094518656 c:\documents and settings\emiliano\escritorio\mineros\src\juego\archivoregistros.h
+	<fstream>
+	<string>
+
+1164864310 c:\documents and settings\emiliano\escritorio\mineros\src\juego\pila.h
+
+1163820916 c:\documents and settings\emiliano\escritorio\mineros\src\juego\matrizd.cpp
+	"matrizD.h"
+
+1163627812 c:\documents and settings\emiliano\escritorio\mineros\src\juego\minerales.cpp
+	"minerales.h"
+
+1165175866 c:\documents and settings\emiliano\escritorio\mineros\src\juego\movimientos.cpp
+	"movimientos.h"
+
+1164863052 c:\documents and settings\emiliano\escritorio\mineros\src\juego\nodosimplementeenlazado.cpp
+	"NodoSimplementeEnlazado.h"
+
+1165112734 c:\documents and settings\emiliano\escritorio\mineros\src\juego\perforadora.cpp
+	"Perforadora.h"
+
+1164863074 c:\documents and settings\emiliano\escritorio\mineros\src\juego\pila.cpp
+	"Pila.h"
+	"NodoSimplementeEnlazado.h"
+
+1163807062 c:\documents and settings\emiliano\escritorio\mineros\src\juego\piladeturnos.cpp
+	"Piladeturnos.h"
+
+1163116490 c:\documents and settings\emiliano\escritorio\mineros\src\juego\piladeturnos.h
+	"turno.h"
+
+1163827796 c:\documents and settings\emiliano\escritorio\mineros\src\juego\turno.h
+	"definiciones.h"
+	"bot.h"
+	"listadebots.h"
+	"archivoTexto.h"
+	"tablero.h"
+	"cadena.h"
+
+1165037338 c:\documents and settings\emiliano\escritorio\mineros\src\juego\vertice.cpp
+	"Vertice.h"
+	"Arista.h"
+	"Conjunto.h"
+
+1163546092 c:\documents and settings\emiliano\escritorio\mineros\src\juego\actitudes.cpp
+	"Actitudes.h"
+
+1094518574 c:\documents and settings\emiliano\escritorio\mineros\src\juego\archivoregistros.cpp
+	"archivoRegistros.h"
+
+1163641124 c:\documents and settings\emiliano\escritorio\mineros\src\juego\archivotexto.cpp
+	"archivoTexto.h"
+
+1163637344 c:\documents and settings\emiliano\escritorio\mineros\src\juego\bot.cpp
+	"bot.h"
+
+1163519216 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cadena.cpp
+	"cadena.h"
+
+1163269926 c:\documents and settings\emiliano\escritorio\mineros\src\juego\cara.cpp
+	"cara.h"
+
+1165180216 c:\documents and settings\emiliano\escritorio\mineros\src\juego\casillero.cpp
+	"Casillero.h"
+	<iostream>
+
+1164151382 c:\documents and settings\emiliano\escritorio\mineros\src\juego\dado.cpp
+	"dado.h"
+
+1163270254 c:\documents and settings\emiliano\escritorio\mineros\src\juego\entorno.cpp
+	"entorno.h"
+
+1165187780 c:\documents and settings\emiliano\escritorio\mineros\src\juego\estrategia.cpp
+	"estrategia.h"
+
+1163787812 c:\documents and settings\emiliano\escritorio\mineros\src\juego\grupoequipos.cpp
+	"grupoequipos.h"
+
+1164152812 c:\documents and settings\emiliano\escritorio\mineros\src\juego\juego.cpp
+	"Juego.h"
+
+1165112734 c:\documents and settings\emiliano\escritorio\mineros\src\juego\juego.h
+	"archivoRegistros.h"
+	"archivoTexto.h"
+	"Tablero.h"
+	"grupoequipos.h"
+	"ronda.h"
+	"definiciones.h"
+
+1165115502 c:\documents and settings\emiliano\escritorio\mineros\src\juego\ronda.h
+	"definiciones.h"
+	"turno.h"
+	"tablero.h"
+	"bot.h"
+	"cadena.h"
+	"archivoTexto.h"
+	"Piladeturnos.h"
+	"dado.h"
+	"listadebots.h"
+	"GrafoRecorridos.h"
+
+1163818708 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadebots.cpp
+	"listadebots.h"
+
+1163346050 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadecaras.cpp
+	"listadecaras.h"
+
+1163803582 c:\documents and settings\emiliano\escritorio\mineros\src\juego\listadeequipos.cpp
+	"listadeequipos.h"
+
+1165204140 c:\documents and settings\emiliano\escritorio\mineros\src\juego\main.cpp
+	"juego.h"
+	<iostream>
+	<time.h>
+	<stdlib.h>
+
+1165177960 c:\documents and settings\emiliano\escritorio\mineros\src\juego\ronda.cpp
+	"ronda.h"
+
+1165183980 c:\documents and settings\emiliano\escritorio\mineros\src\juego\turno.cpp
+	"turno.h"
+

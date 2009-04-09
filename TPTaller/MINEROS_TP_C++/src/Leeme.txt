@@ -1,0 +1,4 @@
+- El archivo que contiene el principal es main.
+- Adjuntamos el archivo de proyecto de codeblocks para que se pueda compilar todo junto
+- El programa completo es el mineros.exe
+- Dependiendo la version y prferencias del codeblocks, puede que halla que cambiar algunas de las mismas para poder compilarlo.

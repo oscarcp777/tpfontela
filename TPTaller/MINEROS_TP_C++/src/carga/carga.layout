@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE CodeBlocks_layout_file>
+<CodeBlocks_layout_file>
+	<File name="archivoRegistros.cpp" open="1" top="0">
+		<Cursor position="552" topLine="97"/>
+	</File>
+	<File name="archivoRegistros.h" open="0" top="0">
+		<Cursor position="2908" topLine="58"/>
+	</File>
+	<File name="archivoTexto.h" open="1" top="0">
+		<Cursor position="2723" topLine="110"/>
+	</File>
+	<File name="cadena.cpp" open="1" top="0">
+		<Cursor position="333" topLine="0"/>
+	</File>
+	<File name="cadena.h" open="0" top="0">
+		<Cursor position="2102" topLine="5"/>
+	</File>
+	<File name="cara.cpp" open="0" top="0">
+		<Cursor position="0" topLine="16"/>
+	</File>
+	<File name="carga.cpp" open="1" top="1">
+		<Cursor position="6115" topLine="167"/>
+	</File>
+	<File name="carga.h" open="1" top="0">
+		<Cursor position="1881" topLine="51"/>
+	</File>
+	<File name="dado.cpp" open="1" top="0">
+		<Cursor position="858" topLine="13"/>
+	</File>
+	<File name="dado.h" open="0" top="0">
+		<Cursor position="793" topLine="0"/>
+	</File>
+	<File name="indiceBots.cpp" open="1" top="0">
+		<Cursor position="533" topLine="30"/>
+	</File>
+	<File name="indiceBots.h" open="1" top="0">
+		<Cursor position="10058" topLine="255"/>
+	</File>
+	<File name="indiceEquipos.cpp" open="0" top="0">
+		<Cursor position="8591" topLine="277"/>
+	</File>
+	<File name="indiceEquipos.h" open="1" top="0">
+		<Cursor position="9595" topLine="197"/>
+	</File>
+	<File name="listadecaras.h" open="0" top="0">
+		<Cursor position="432" topLine="27"/>
+	</File>
+	<File name="main.cpp" open="1" top="0">
+		<Cursor position="1055" topLine="0"/>
+	</File>
+	<Expand folder="/Sources"/>
+	<Expand folder="/Headers"/>
+</CodeBlocks_layout_file>
