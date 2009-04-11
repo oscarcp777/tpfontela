@@ -1,0 +1,7 @@
+class Figura{
+
+	public:
+		Figura(){};
+
+
+};
