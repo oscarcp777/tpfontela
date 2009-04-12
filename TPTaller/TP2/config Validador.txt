@@ -1,0 +1,16 @@
+escenario
+General
+ListaDeTexturas
+textura
+ListaDeElementos
+cuadrado
+circulo
+triangulo
+segmento
+rectangulo
+posicion
+ver1
+ver2
+ver3
+inicio
+fin
