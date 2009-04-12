@@ -1,0 +1,31 @@
+<escenario>
+             <General resolucion="640" colorFondoFig="rojo" texturaFig="id" 
+              colorLinea="azul" colorFondoEsc="negro" textura="id2">
+             </General>
+             <ListadoDeElementos>
+                       <cuadrado id="cuadrado1" lado="5">
+                                <posicion x="5" y="4" />
+                       <cuadrado>
+                       <circulo id="circulo1" radio="4"> 
+                                   <posicion x="5" y="4" />
+                       </circulo>
+                       <rectangulo id="rectangulo1" base="5" altura="4">
+                                     <posicion x="5" y="4" />
+                       </rectangulo>
+                       <triangulo id="triangulo1" >
+                                  <ver1 x="4" y="4"/>
+                                  <ver1 x="7" y="5"/>
+                                  <ver1 x="5" y="46"/>
+                       </triangulo>
+            </ListadoDeElementos>
+            <ListadDeTexturas>
+                        <textura id=textura1" path="C:\texturas\circulo.bmp">
+                        </textura>
+                        <textura id=textura2" path="C:\texturas\cudrado.bmp">
+                        </textura>
+                        <textura id=textura3" path="C:\texturas\rectangulo.bmp">
+                        </textura>
+                        <textura id=textura4" path="C:\texturas\triangulo.bmp">
+                        </textura>            
+             </istadDeTexturas>
+</escenario>
