@@ -1,197 +1,108 @@
-/******************************************************************************
- *                   Algoritmos y Programación II - 75.41                     *
- *                        Cátedra Ing. Mandrafina                             *
- *            Facultad de Ingeniería - Universidad de Buenos Aires            *
- ******************************************************************************/
+/**
+ * Facultad de IngenierÃ­a - Universidad de Buenos Aires
+ * 75.41 - Algoritmos y ProgramaciÃ³n II
+ * Archivo de Texto (implementaciÃ³n)
+ * CÃ¡tedra Ing. Patricia Calvo
+ * v1.0
+ * Autor: Mariano Simone (marianosimone+7541@gmail.com)
+ **/
 
-/* TDA archivoTexto
- * Implementación con fstream.
- * Archivo : archivoTexto.cpp
- * Versión : 1.0
- */
-
-/******************************************************************************/
-/* Headers */
-/*---------*/
-#include <iostream>
+//Inclusiones necesarias
 #include "archivoTexto.h"
-#include "cadena.h"
+#include <string>
 using namespace std;
 
-/******************************************************************************/
-/* Implementación de Primitivas */
-/*------------------------------*/
+ArchivoTexto::ArchivoTexto(const std::string& path) {
+  //intenta abrir el archivo en modo lectura - escritura
+  archivo.open(path.c_str(), std::fstream::in | std::fstream::out);
 
-void crear( ArchivoTexto &archivoTexto , std::string nombre ) {
+  if (!archivo.is_open()) {
+    //si no hubo Ã©xito en la apertura...
+    //limpia los flags de control de estado del archivo
+    archivo.clear();
 
-    /* abre el archivo en modo lectura - escritura*/
-    archivoTexto.archivo.open(nombre.c_str(),std::fstream::in |std::fstream::out);
+    //crea el archivo
+    archivo.open(path.c_str(), std::fstream::out);
+    archivo.close();
 
-    /* determina si tuvo éxito la apertura del archivo */
-    if (! archivoTexto.archivo.is_open()) {
+    //reabre el archivo para lectura - escritura
+    archivo.open(path.c_str(), std::fstream::in | std::fstream::out);
 
-        /* limpia los flags de control de estado del archivo */
-        archivoTexto.archivo.clear();
-
-        /* crea el archivo */
-        archivoTexto.archivo.open(nombre.c_str(),std::fstream::out);
-        archivoTexto.archivo.close();
-
-        /* reabre el archivo para lectura - escritura binario */
-        archivoTexto.archivo.open(nombre.c_str(),std::fstream::in|std::fstream::out);
-
-        /* verifica que haya podido crear el archivo */
-        if (! archivoTexto.archivo.is_open())
-
-            /* arroja una excepción */
-            throw string("El archivo no pudo ser abierto");
-    }
+    if (!archivo.is_open())
+      // si no se pudo crear el archivo arroja una excepciÃ³n/
+      throw std::ios_base::failure("El archivo no pudo ser abierto");
+  }
 }
 
-/*----------------------------------------------------------------------------*/
-void destruir( ArchivoTexto &archivoTexto ) {
-
-    /* cierra el archivo */
-    archivoTexto.archivo.close();
+ArchivoTexto::~ArchivoTexto() {
+  archivo.close();
 }
 
-/*----------------------------------------------------------------------------*/
-void escribirCaracter(ArchivoTexto &archivoTexto, char Caracter) {
+void ArchivoTexto::escribir(char c) {
+  // Intenta escribir el caracter en el archivo
+  archivo.put(c);
 
-    /* verifica que el archivo esté abierto */
-    if (archivoTexto.archivo.is_open()) {
-
-        /* escribe el caracter en el archivo */
-        archivoTexto.archivo.put(Caracter);
-
-        /* chequea si se ha producido un error */
-        if (archivoTexto.archivo.fail())
-            /* arroja una excepción ante la imposibilidad de escribir el caracter */
-            throw string("No se pudo escribir correctamente el registro");
-    }
-    else {
-        /* arroja una excepción porque el archivo no está abierto */
-        throw string("El archivo no está abierto");
-    }
+  if (archivo.fail())
+    //si se produjo un error, arroja una excepciÃ³n
+    throw std::ios_base::failure("No se pudo escribir correctamente el registro");
 }
 
-/*----------------------------------------------------------------------------*/
-void escribirCadena(ArchivoTexto &archivoTexto, std::string Cadena) {
+void ArchivoTexto::escribir(const std::string& cadena) {
+  //intenta escribir la cadena en el archivo
+  archivo << cadena;
 
-    /* verifica que el archivo esté abierto */
-    if (archivoTexto.archivo.is_open()) {
-
-        /* escribe la cadena en el archivo */
-        archivoTexto.archivo<<Cadena;
-
-        /* chequea si se ha producido un error */
-        if (archivoTexto.archivo.fail())
-            /* arroja una excepción ante la imposibilidad de escribir la cad */
-            throw string("No se pudo escribir correctamente el registro");
-    }
-    else {
-        /* arroja una excepción porque el archivo no está abierto */
-        throw string("El archivo no está abierto");
-    }
+  if (archivo.fail())
+    // si se produjo un error, arroja una excepciÃ³n
+    throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
 }
 
-/*----------------------------------------------------------------------------*/
-void bajarDeLinea( ArchivoTexto &archivoTexto ) {
+void ArchivoTexto::terminarLinea() {
+  // intenta escribir en el archivo
+  archivo << endl;
 
-    /* verifica que el archivo esté abierto */
-    if (archivoTexto.archivo.is_open()) {
-
-        /* escribe en el archivo */
-        archivoTexto.archivo<<endl;
-
-        /* chequea si se ha producido un error */
-        if (archivoTexto.archivo.fail())
-            /* arroja una excepción ante la imposibilidad de escribir */
-            throw string("No se pudo escribir correctamente el registro");
-    }
-    else {
-        /* arroja una excepción porque el archivo no está abierto */
-        throw string("El archivo no está abierto");
-    }
+  if (archivo.fail())
+    //si se produjo un error, arroja una excepciÃ³n
+    throw std::ios_base::failure("No se pudo terminar la linea");
 }
 
-/*----------------------------------------------------------------------------*/
-void tabular( ArchivoTexto &archivoTexto ) {
-
-    /* verifica que el archivo esté abierto */
-    if (archivoTexto.archivo.is_open()) {
-
-        /* escribe en el archivo */
-        archivoTexto.archivo.put('\t');
-
-        /* chequea si se ha producido un error */
-        if (archivoTexto.archivo.fail())
-            /* arroja una excepción ante la imposibilidad de escribir */
-            throw string("No se pudo escribir correctamente el registro");
-    }
-    else {
-        /* arroja una excepción porque el archivo no está abierto */
-        throw string("El archivo no está abierto");
-    }
+void ArchivoTexto::tabular() {
+  escribir('\t');
 }
 
-/*----------------------------------------------------------------------------*/
-bool leerLinea( ArchivoTexto &archivoTexto, std::string &Cadena ) {
+bool ArchivoTexto::leerLinea(std::string &cadena) {
+  char linea[MAX_LENGTH];
 
-    /* verifica que el archivo esté abierto */
-    if (archivoTexto.archivo.is_open()) {
+  // lee del archivo a la linea, hasta haber leido:
+  // MAX_LENGTH caracteres, o un fin de linea
+  archivo.getline( (char*)&linea , MAX_LENGTH , '\n');
+  cadena = linea;
 
-        char     Linea[512];
-        int      Valor = 256;
-
-        /* lee del archivo la cadena */
-        archivoTexto.archivo.getline( (char*)&Linea , Valor , '\n' );
-        Cadena=Linea;
-
-        /* chequea si se ha producido un error */
-        if ( archivoTexto.archivo.fail() ) {
-            archivoTexto.archivo.clear();
-            return false;
-        }
-        else
-            return true;
-
-    }
-    else {
-        /* arroja una excepción porque el archivo no está abierto */
-        return false;
-    }
+  if (archivo.fail() ) {
+    //chequea si se ha producido un error, se devuelve false
+    archivo.clear();
+    return false;
+  }
+  return true;
 }
 
-/*----------------------------------------------------------------------------*/
-void irAlComienzo( ArchivoTexto &archivoTexto ) {
-
-    archivoTexto.archivo.tellg();
-    archivoTexto.archivo.clear();
-    archivoTexto.archivo.seekg(0);
-    archivoTexto.archivo.seekp(0);
-    archivoTexto.archivo.tellg();
+/**
+ * Posiciona el cursor al comienzo del archivo
+ */
+void ArchivoTexto::irAlPrincipio() {
+  archivo.tellg();
+  archivo.clear();
+  archivo.seekg(0);
+  archivo.seekp(0);
+  archivo.tellg();
 }
 
-/*----------------------------------------------------------------------------*/
-void irAlFinal( ArchivoTexto &archivoTexto ) {
-
-    archivoTexto.archivo.tellg();
-    archivoTexto.archivo.clear();
-    archivoTexto.archivo.seekg(0,ios::end);
-    archivoTexto.archivo.seekp(0,ios::end);
-    archivoTexto.archivo.tellg();
+/**
+ * Posiciona el cursor al final del archivo
+ */
+void ArchivoTexto::irAlFinal() {
+  archivo.tellg();
+  archivo.clear();
+  archivo.seekg(0, ios::end);
+  archivo.seekp(0, ios::end);
+  archivo.tellg();
 }
-/*----------------------------------------------------------------------------*/
-bool fin(ArchivoTexto &archivoTexto ){
-  /* para comprobar el fin lee un char del buffer, sin retirarlo y lo
-     compara con el fin de archivo */
-  bool esEof = (archivoTexto.archivo.peek() == char_traits<char>::eof());
-
-  if (esEof)
-    /* si llegó al fin del archivo limpia los flags */
-    archivoTexto.archivo.clear();
-
-  return esEof;
-}
-/*----------------------------------------------------------------------------*/

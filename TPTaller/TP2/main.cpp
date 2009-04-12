@@ -1,6 +1,5 @@
 #include <iostream>
-#include <iostream.h>
-#include "cadena.h"
+#include <string>
 #include "archivoTexto.h"
 #include <list>
 #include "Validador.h"
@@ -23,20 +22,21 @@ return exito;
 
 int main()
 {
-	ArchivoTexto archivo;
+
     
 	int exito;
 	Validador *validador = new  Validador("config Validador.txt");
     
 	
-	list<std::string>::iterator iteradorLista;
+	list<string>::iterator i;
     
 //	IMPRIME todos los elementos de la listaTagsValidos
-	for(iteradorLista=validador->ListaTagsValidos.begin(); iteradorLista != validador->ListaTagsValidos.end(); ++iteradorLista) {
-	   std::cout << *iteradorLista << " "<<endl;
+	for(i=validador->ListaTagsValidos.begin(); i != validador->ListaTagsValidos.end(); ++i) {
+	   std::cout << *i<< " "<<endl;
 	}
+   
 
-	exito = validador->validarSintaxis("XML.txt");
+	exito = validador->validarSintaxis("XML.xml");
 
 	if(exito == 0){
 		std::cout <<"LA SINTAXIS DEL ARCHIVO ES CORRECTA"<< " "<<endl;
@@ -45,7 +45,6 @@ int main()
 		std::cout <<"LA SINTAXIS ES INCORRECTA"<< " "<<endl;
 	}
 	system("PAUSE");
-    destruir(archivo);
    
 
 

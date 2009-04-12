@@ -3,19 +3,16 @@
 #include <string>
 #include "Validador.h"
 #include "archivoTexto.h" 
-
+#include "StringUtils.h" 
 using namespace std;
 
 
 Validador::Validador(std::string nombreArchivo){
-	ArchivoTexto archivoConfig;
-	std::string linea;
-	//abre el archivo si existe
-	crear(archivoConfig, nombreArchivo);
-  
-	while (!fin(archivoConfig))
-    {
-       leerLinea(archivoConfig,linea);
+	 ArchivoTexto miArchivo(nombreArchivo);
+  string linea;
+  miArchivo.irAlPrincipio();
+  while (miArchivo.leerLinea(linea)) {
+    std::cout << linea << std::endl;
 	    //leo la linea y la guardo en la Lista
 	   Validador::ListaTagsValidos.push_back(linea);
 
@@ -24,25 +21,20 @@ Validador::Validador(std::string nombreArchivo){
 
 
 Validador::validarSintaxis(std::string nombreArchivo){
-	ArchivoTexto archivoXML;
-	std::string linea;
-	string cadena;
-	
-	//abre el archivo si existe
-	crear(archivoXML, nombreArchivo);
-	
-	while (!fin(archivoXML))
-    {
-	   leerLinea(archivoXML,linea);
+    StringUtils *stringUtils= new StringUtils();
+	string cadena,linea;
+    ArchivoTexto miArchivo(nombreArchivo);
+    miArchivo.irAlPrincipio();
+  
+  while (miArchivo.leerLinea(linea)) {
+//    std::cout << linea << std::endl;
 	   cadena += linea;
-			   
-
+			 
     }
-	Validador::validarCadena(cadena);
-	std::cout<<cadena.begin()<<endl;
-	
+    cadena=stringUtils->trim(cadena);
+    std::cout<<cadena<<endl;
 	return 0;
-}
+}/*
 Validador::validarCadena( string cadena){
 string tagApertura="<";
 cadena
@@ -51,8 +43,7 @@ cadena
 
 
 
-}
-
+}*/
 
 
 

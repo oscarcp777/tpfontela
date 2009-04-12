@@ -1,8 +1,7 @@
 #include <iostream>
 #include <iostream.h>
-
+#include <string>
 #include <list>
-
 using namespace std;
 
 class Validador{

@@ -3,7 +3,7 @@
 #include "Circulo.h"
 
 
-int main(){
+int main_old(){
 
 	//std::string id = "esElCirculo";
 	Posicion *pos = new Posicion(9,10);
