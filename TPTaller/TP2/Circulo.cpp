@@ -2,15 +2,19 @@
 
 
 
-Circulo::Circulo(int r){
+Circulo::Circulo(int r,Posicion *p){//,std:string i):Figura(i){
 	
+
 	radio = r;
+	pos = p;
 	
 }
 
-Circulo::getRadio(){
+int Circulo::getRadio(){
 
 	return radio;
 	
 }
+
+
 

@@ -5,10 +5,15 @@
 
 int main(){
 
-
-	Circulo *a = new Circulo(9);
+	//std::string id = "esElCirculo";
+	Posicion *pos = new Posicion(9,10);
+	Circulo *a = new Circulo(100,pos);
 	int i = 0;
 	while (i<10000)
-		printf("RADIO: %d\n",a->getRadio());
+		std::cout<<a->getRadio()<<endl;
+		
+	
+	
 
+return 0;
 }

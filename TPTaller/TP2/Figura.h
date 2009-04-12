@@ -1,7 +1,13 @@
+#include <iostream>
+
+using namespace std;
+
 class Figura{
 
 	public:
-		Figura(){};
-
+		
+	
+	private:
+		int id;
 
 };
