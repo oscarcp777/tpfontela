@@ -5,7 +5,7 @@
              <ListadoDeElementos>
                        <cuadrado id="cuadrado1" lado="5">
                                 <posicion x="5" y="4" />
-                       <cuadrado>
+                       </cuadrado>
                        <circulo id="circulo1" radio="4"> 
                                    <posicion x="5" y="4" />
                        </circulo>
@@ -18,14 +18,14 @@
                                   <ver1 x="5" y="46"/>
                        </triangulo>
             </ListadoDeElementos>
-            <ListadDeTexturas>
-                        <textura id=textura1" path="C:\texturas\circulo.bmp">
+            <ListadoDeTexturas>
+                        <textura id="textura1" path="C:\texturas\circulo.bmp">
                         </textura>
-                        <textura id=textura2" path="C:\texturas\cudrado.bmp">
+                        <textura id="textura2" path="C:\texturas\cudrado.bmp">
                         </textura>
-                        <textura id=textura3" path="C:\texturas\rectangulo.bmp">
+                        <textura id="textura3" path="C:\texturas\rectangulo.bmp">
                         </textura>
-                        <textura id=textura4" path="C:\texturas\triangulo.bmp">
+                        <textura id="textura4" path="C:\texturas\triangulo.bmp">
                         </textura>            
-             </istadDeTexturas>
+             </ListadoDeTexturas>
 </escenario>
