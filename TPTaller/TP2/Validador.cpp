@@ -12,7 +12,7 @@ Validador::Validador(std::string nombreArchivo){
   string linea;
   miArchivo.irAlPrincipio();
   while (miArchivo.leerLinea(linea)) {
-    std::cout << linea << std::endl;
+        std::cout << linea << std::endl;
 	    //leo la linea y la guardo en la Lista
 	   Validador::ListaTagsValidos.push_back(linea);
 
@@ -27,24 +27,17 @@ Validador::validarSintaxis(std::string nombreArchivo){
     miArchivo.irAlPrincipio();
   
   while (miArchivo.leerLinea(linea)) {
-//    std::cout << linea << std::endl;
+    std::cout << linea << std::endl;
 	   cadena += linea;
 			 
     }
     cadena=stringUtils->trim(cadena);
     std::cout<<cadena<<endl;
+    ArchivoTexto miArchivo1("XMLSinEspacios.txt");
+    miArchivo1.irAlPrincipio();
+    miArchivo1.escribir(cadena);
 	return 0;
-}/*
-Validador::validarCadena( string cadena){
-string tagApertura="<";
-cadena
-<circulo id="hola">
-
-
-
-
-}*/
-
+}
 
 
 

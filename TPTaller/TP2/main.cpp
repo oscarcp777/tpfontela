@@ -31,9 +31,9 @@ int main()
 	list<string>::iterator i;
     
 //	IMPRIME todos los elementos de la listaTagsValidos
-	for(i=validador->ListaTagsValidos.begin(); i != validador->ListaTagsValidos.end(); ++i) {
+/*	for(i=validador->ListaTagsValidos.begin(); i != validador->ListaTagsValidos.end(); ++i) {
 	   std::cout << *i<< " "<<endl;
-	}
+	}*/
    
 
 	exito = validador->validarSintaxis("XML.xml");
