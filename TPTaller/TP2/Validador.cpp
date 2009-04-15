@@ -1,6 +1,6 @@
-#include <iostream>
-#include <list>
-#include <string>
+//#include <iostream>
+//#include <list>
+//#include <string>
 #include "Validador.h"
 #include "archivoTexto.h" 
 #include "StringUtils.h" 

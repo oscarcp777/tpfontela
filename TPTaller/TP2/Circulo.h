@@ -4,10 +4,9 @@
 class Circulo: public Figura{
 	
 	public: 
-		//Circulo(int radio,Posicion *pos,std::string i);
 		Circulo(int radio,Posicion *pos);
 		int getRadio();
-		
+		int dibujar();
 
 	private:
 		int radio;

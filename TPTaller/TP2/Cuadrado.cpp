@@ -6,7 +6,10 @@ Cuadrado::Cuadrado(int l,Posicion *p){//,std::string i):Figura(i){
 	pos = p;
 	
 }
+int Cuadrado::dibujar(){
 
+	return 0;
+}
 int Cuadrado::getLado(){
 
 	return lado;

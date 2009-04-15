@@ -1,13 +1,16 @@
 #include <iostream>
 
-using namespace std;
 
 class Figura{
 
 	public:
-		
+		 virtual int dibujar() = 0; //metodo virtual puro 
+		 
+		 std::string getId();
+		 std::string getIdTextura();
 	
 	private:
-		int id;
+		std::string id;
+		std::string idTextura;
 
 };
