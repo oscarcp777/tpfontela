@@ -1,8 +1,8 @@
 escenario
 General
-ListaDeTexturas
+ListadoDeTexturas
 textura
-ListaDeElementos
+ListadoDeElementos
 cuadrado
 circulo
 triangulo
