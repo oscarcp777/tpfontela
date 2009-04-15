@@ -6,44 +6,33 @@
 
 using namespace std;
 
-int validarSintaxis(list<std::string> L){
- int exito;
-	
-
-
-
-
-
-return exito;
-}
-
-
-
 
 int main()
 {
 
     
 	int exito;
+
 	Validador *validador = new  Validador("config Validador.txt");
-    
-	
-	list<string>::iterator i;
-    
-//	IMPRIME todos los elementos de la listaTagsValidos
-/*	for(i=validador->ListaTagsValidos.begin(); i != validador->ListaTagsValidos.end(); ++i) {
-	   std::cout << *i<< " "<<endl;
-	}*/
-   
-
 	exito = validador->validarSintaxis("XML.xml");
-
 	if(exito == 0){
-		std::cout <<"LA SINTAXIS DEL ARCHIVO ES CORRECTA"<< " "<<endl;
+		std::cout<<"*******************************"<<endl;
+		std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
+		std::cout<<"*******************************"<<endl;
 	}
-	else {
-		std::cout <<"LA SINTAXIS ES INCORRECTA"<< " "<<endl;
+	else{
+		std::cout<<"****************************************"<<endl;
+		std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML"<<endl;
+		std::cout<<"****************************************"<<endl;
 	}
+	/*
+	list<string>::iterator i;
+    i= validador->ListaTagsArchivo.begin();	
+	while(i != validador->ListaTagsArchivo.end()){
+	std::cout << *i<< " "<<endl;
+	i++;
+	}*/
+
 	system("PAUSE");
    
 
