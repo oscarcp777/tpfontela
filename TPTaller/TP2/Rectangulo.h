@@ -1,5 +1,6 @@
 #include "Figura.h"
 #include "Posicion.h"
+#include <iostream.h>
 
 class Rectangulo: public Figura {
 
@@ -9,6 +10,7 @@ class Rectangulo: public Figura {
 		int getBase();
 		int getAltura();
 		int dibujar();
+		Posicion* getPosicion();
 
 	private:
 		int base;

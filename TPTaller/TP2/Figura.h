@@ -1,3 +1,6 @@
+#ifndef _FIGURA_H_
+#define _FIGURA_H_
+
 #include <iostream>
 
 
@@ -14,3 +17,4 @@ class Figura{
 		std::string idTextura;
 
 };
+#endif

@@ -8,7 +8,7 @@ using namespace std;
 
 
 Validador::Validador(std::string nombreArchivo){
-	 ArchivoTexto miArchivo(nombreArchivo);
+  ArchivoTexto miArchivo(nombreArchivo);
   string linea;
   miArchivo.irAlPrincipio();
   while (miArchivo.leerLinea(linea)) {

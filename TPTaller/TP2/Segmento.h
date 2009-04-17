@@ -1,5 +1,6 @@
 #include "Figura.h"
 #include "Posicion.h"
+#include <iostream.h>
 
 class Segmento:public Figura {
 

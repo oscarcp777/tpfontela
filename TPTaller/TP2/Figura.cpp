@@ -2,9 +2,10 @@
 
 
 std::string Figura::getId(){
-		return id;
+		return this->id;
 }
 
 std::string Figura::getIdTextura(){
-		return idTextura;
+		return this->idTextura;
 }
+

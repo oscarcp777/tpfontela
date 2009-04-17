@@ -2,22 +2,25 @@
 
 Rectangulo::Rectangulo(int altura,int base,Posicion *p){
 	
-	altura = altura;
-	base = base;
-	pos = p;
+	this->altura = altura;
+	this->base = base;
+	this->pos = p;
 	
 }
 int Rectangulo::dibujar(){
-
+	std::cout<<"se dibujo un rectangulo \n";
 	return 0;
 }
 int Rectangulo::getAltura(){
 
-	return altura;
+	return this->altura;
 	
 }
 int Rectangulo::getBase(){
 
-	return base;
+	return this->base;
 	
+}
+Posicion* Rectangulo::getPosicion(){
+	return this->pos;
 }

@@ -2,22 +2,27 @@
 
 
 
+
 Circulo::Circulo(int r,Posicion *p){
 	
-	radio = r;
-	pos = p;
+	this->radio = r;
+	this->pos = p;
 	
 }
 
 int Circulo::dibujar(){
+	std::cout<<"se dibujo un circulo \n";
 	return 0;
 
 }
 int Circulo::getRadio(){
 
-	return radio;
+	return this->radio;
 	
 }
 
+Posicion* Circulo::getPosicion(){
+	return this->pos;
+}
 
 

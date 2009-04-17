@@ -1,7 +1,10 @@
+#ifndef _POSICION_H_
+#define _POSICION_H_
+
 class Posicion {
 
 	public: 
-		Posicion(int x,int y);
+		Posicion(int posX,int posY);
 		int getX();
 		int getY();
 
@@ -12,3 +15,5 @@ class Posicion {
 		
 
 };
+
+#endif

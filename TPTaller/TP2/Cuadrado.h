@@ -1,5 +1,6 @@
 #include "Figura.h"
 #include "Posicion.h"
+#include <iostream.h>
 
 class Cuadrado: public Figura{
 
@@ -7,6 +8,8 @@ class Cuadrado: public Figura{
 		Cuadrado(int lado,Posicion *pos);
 		int getLado();
 		int dibujar();
+		Posicion* getPosicion();
+
 	private:
 		int lado;
 		Posicion *pos;

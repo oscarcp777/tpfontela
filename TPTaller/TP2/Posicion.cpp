@@ -1,19 +1,18 @@
 #include "Posicion.h"
+#include <iostream>
 
-
-Posicion::Posicion(int x,int y){
+Posicion::Posicion(int posX,int posY){
 	
-	x = x;
-	y = y;
-			
+	this->x = posX;
+	this->y = posY;
 }
 
 int Posicion::getX(){
 
-	return x;
+	return this->x;
 }
 
 int Posicion::getY(){
 
-	return y;
+	return this->y;
 }

@@ -7,11 +7,14 @@
 class Escenario {
 	
 	public:
-			
+			Escenario();
 			void addFigura(Figura *figura);
 			void addTextura(Textura *textura);
+			int sizeListaFiguras();
+			std::list<Figura*>::iterator iteratorListaFiguras();
 			//TODO hacer geters y setters atributos
 			int graficar();
+			
 	private:
 		
 		int resolucion;
@@ -20,8 +23,8 @@ class Escenario {
 		std::string colorLinea;
 		std::string colorFondoEsc;
 		std::string texturaEsc;
-
-		std::list<Figura*> ListaFiguras;
-		std::map<std::string,std::string> mapaTexturas;  //es un mapa clave valor (string idTextura, string path)
+		std::list<Figura*> listaFiguras;	
+		
+		std::map<std::string,std::string>  mapaTexturas;  //es un mapa clave valor (string idTextura, string path)
 	
 };
