@@ -8,6 +8,7 @@
 #include "Escenario.h"
 #include "archivoTexto.h"
 #include "Validador.h"
+#include "Textura.h"
 
 
 
@@ -84,17 +85,32 @@ int main()
 	std::cout<<"ver3 X segmento  "<<triangulo->getVertice3()->getX()<<endl;
 	std::cout<<"ver3 Y segmento  "<<triangulo->getVertice3()->getY()<<endl;
 	*/
+	Textura *textura = new Textura("foto1","C:/Archivos de Programa/fotos");
+	/*
+	std::cout<<"textura id=  "<<textura->getId()<<endl;
+	std::cout<<"textura path  "<<textura->getPath()<<endl;
+	*/
+	Textura *textura2 = new Textura("foto2","C:/Archivos de Programa/fotos");
+	Textura *textura3 = new Textura("foto3","C:/Archivos de Programa/fotos");
 
+	
 	Escenario *escenario = new Escenario();
 	escenario->addFigura(circulo);
 	escenario->addFigura(cuadrado);
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(segmento);
 	escenario->addFigura(triangulo);
-	
+	escenario->addTextura(textura);
+	escenario->addTextura(textura2);
+	escenario->addTextura(textura3);
 	//grafico todo
 	escenario->graficar();
 	
+	
+	std::cout<<"cantidad texturas "<<escenario->sizeListaTexturas()<<endl;	
+	std::cout<<"path foto1 = "<<escenario->obtenerPathTextura("foto1")<<endl;	
+	std::cout<<"path foto2 = "<<escenario->obtenerPathTextura("foto2")<<endl;	
+	std::cout<<"path foto3 = "<<escenario->obtenerPathTextura("foto3")<<endl;	
 
 	system("PAUSE");
    

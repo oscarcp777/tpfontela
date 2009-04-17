@@ -1,14 +1,14 @@
 #include "Textura.h"
 
 Textura::Textura(std::string id, std::string path){
-	id = id;
-	path = path;
+	this->id = id;
+	this->path = path;
 }
 
 std::string Textura::getId(){
-	return id;
+	return this->id;
 }
 
 std::string Textura::getPath(){
-	return path;
+	return this->path;
 }

@@ -1,3 +1,6 @@
+#ifndef _TEXTURA_H_
+#define _TEXTURA_H_
+
 #include <iostream>
 
 class Textura {
@@ -13,3 +16,5 @@ class Textura {
 
 
 };
+
+#endif

@@ -4,6 +4,8 @@
 #include <list>
 #include <map>
 
+
+
 class Escenario {
 	
 	public:
@@ -11,7 +13,10 @@ class Escenario {
 			void addFigura(Figura *figura);
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
+			int sizeListaTexturas();
 			std::list<Figura*>::iterator iteratorListaFiguras();
+			std::list<Textura*>::iterator iteratorListaTexturas();
+			std::string Escenario::obtenerPathTextura(std::string id);
 			//TODO hacer geters y setters atributos
 			int graficar();
 			
@@ -23,8 +28,8 @@ class Escenario {
 		std::string colorLinea;
 		std::string colorFondoEsc;
 		std::string texturaEsc;
-		std::list<Figura*> listaFiguras;	
 		
-		std::map<std::string,std::string>  mapaTexturas;  //es un mapa clave valor (string idTextura, string path)
-	
+		std::list<Figura*> listaFiguras;	
+		std::list<Textura*> listaTexturas;	
+		
 };
