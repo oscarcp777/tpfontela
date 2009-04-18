@@ -9,7 +9,7 @@
 #include "archivoTexto.h"
 #include "Validador.h"
 #include "Textura.h"
-
+#include "logfinal.h"
 
 
 using namespace std;
@@ -20,9 +20,16 @@ int main()
 
     
 	int exito;
-
+	//en las siguientes tres lineas, se crean el log lo inicializa y ecribe un titulo en el archivo "errores.err"
+	Log log;
+	inicializarLog(log, "errores.err");
+	escribirTituloLog(log,"DESCRIPCION DE ERRORES");
+	destruirLog(log);
+	
+	
 	Validador *validador = new  Validador("config Validador.txt");
 	exito = validador->validarSintaxis("XML.xml");
+
 	if(exito == 0){
 		std::cout<<"*******************************"<<endl;
 		std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
@@ -112,6 +119,7 @@ int main()
 	std::cout<<"path foto2 = "<<escenario->obtenerPathTextura("foto2")<<endl;	
 	std::cout<<"path foto3 = "<<escenario->obtenerPathTextura("foto3")<<endl;	
 
+	
 	system("PAUSE");
    
 	return 0;

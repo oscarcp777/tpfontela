@@ -2,6 +2,7 @@
 #include <iostream.h>
 #include <string>
 #include <list>
+#include "Logfinal.h"
 using namespace std;
 
 class Validador{

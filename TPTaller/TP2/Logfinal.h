@@ -34,7 +34,7 @@ log : estructura a ser inicializada.
 nombreArchivo : nombre del archivo donde se escribirán los mensajes.
 */
 
-void inicializar (Log& log, string nombreArchivo);
+void inicializarLog (Log& log, string nombreArchivo);
 
 /*----------------------------------------------------------------------------*/
 
@@ -43,7 +43,7 @@ pre : log ha sido inicializado con la primitiva inicializar().
 post: el log queda eliminado.
 log : instancia sobre la cual se aplica la primitiva.
 */
-void destruir (Log& log);
+void destruirLog (Log& log);
 
 /*----------------------------------------------------------------------------*/
 
@@ -54,7 +54,7 @@ post: agrega el mensaje al log con el siguiente formato
 log : instancia sobre la cual se aplica la primitiva.
 mensaje : texto a escribir.
 */
-void escribirMensaje (Log& log, string mensaje);
+void escribirMensajeLog (Log& log, string mensaje);
 
 /*----------------------------------------------------------------------------*/
 
@@ -67,7 +67,7 @@ post: agrega el titulo al log, con el formato:
 log : instancia sobre la cual se aplica la primitiva.
 titulo : titulo a escribir.
 */
-void escribirTitulo (Log& log, string titulo);
+void escribirTituloLog (Log& log, string titulo);
 
 /*----------------------------------------------------------------------------*/
 
@@ -79,7 +79,7 @@ momento con el formato:
 [fecha-hora] Total de Mensajes : XX
 log : instancia sobre la cual se aplica la primitiva.
 */
-void escribirTotalMensajes (Log& log);
+void escribirTotalMensajesLog (Log& log);
 
 /*----------------------------------------------------------------------------*/
 
