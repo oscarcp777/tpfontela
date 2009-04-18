@@ -6,7 +6,7 @@ class Rectangulo: public Figura {
 
 
 	public: 
-		Rectangulo(int base,int altura, Posicion *pos);
+		Rectangulo(std::string id, int base,int altura, Posicion *pos);
 		int getBase();
 		int getAltura();
 		int dibujar();

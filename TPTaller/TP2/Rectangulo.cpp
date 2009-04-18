@@ -1,7 +1,7 @@
 #include "Rectangulo.h"
 
-Rectangulo::Rectangulo(int altura,int base,Posicion *p){
-	
+Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
+	this->id = id;
 	this->altura = altura;
 	this->base = base;
 	this->pos = p;

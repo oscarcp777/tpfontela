@@ -1,6 +1,7 @@
 #include "Triangulo.h"
 
-Triangulo::Triangulo(Posicion *ver1,Posicion *ver2,Posicion *ver3){
+Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
+	this->id = id;
 	this->vertice1 = ver1;
 	this->vertice2 = ver2;
 	this->vertice3 = ver3;

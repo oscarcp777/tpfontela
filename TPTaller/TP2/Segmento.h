@@ -5,7 +5,7 @@
 class Segmento:public Figura {
 
 	public:
-			Segmento(Posicion *inicio, Posicion* fin);
+			Segmento(std::string id,Posicion *inicio, Posicion* fin);
 			int dibujar();
 			Posicion* getInicio();
 			Posicion* getFin();

@@ -3,8 +3,8 @@
 
 
 
-Circulo::Circulo(int r,Posicion *p){
-	
+Circulo::Circulo(std::string id,int r,Posicion *p){
+	this->id = id;
 	this->radio = r;
 	this->pos = p;
 	

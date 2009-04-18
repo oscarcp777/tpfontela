@@ -11,8 +11,8 @@ class Figura{
 		 
 		 std::string getId();
 		 std::string getIdTextura();
-	
-	private:
+		 void setIdTextura(std::string idTextura);
+	protected:
 		std::string id;
 		std::string idTextura;
 

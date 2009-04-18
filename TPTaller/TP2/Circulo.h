@@ -5,7 +5,7 @@
 class Circulo: public Figura{
 	
 	public: 
-		Circulo(int radio,Posicion *pos);
+		Circulo(std::string id,int radio,Posicion *pos);
 		int getRadio();
 		int dibujar();
 		Posicion* getPosicion();

@@ -6,7 +6,7 @@ class Triangulo: public Figura {
 
 
 	public: 
-		Triangulo(Posicion *ver1,Posicion *ver2, Posicion *ver3);
+		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3);
 		Posicion* getVertice1();
 		Posicion* getVertice2();
 		Posicion* getVertice3();

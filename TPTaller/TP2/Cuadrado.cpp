@@ -1,7 +1,7 @@
 #include "Cuadrado.h"
 
-Cuadrado::Cuadrado(int l,Posicion *p){//,std::string i):Figura(i){
-	
+Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i){
+	this->id = id;
 	this->lado = l;
 	this->pos = p;
 	

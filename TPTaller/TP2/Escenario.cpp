@@ -4,8 +4,18 @@
 #include <utility>
 
 Escenario::Escenario(){
+	//TODO las listas que contiene escenario son estaticas averiguar como hacer new para que sean dinamicas
 	//listaFiguras = new std::list();
 	//mapaTexturas  = new std::map();
+	
+	
+	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
+	this->resolucion = 800;
+	this->colorFondoFig = "XXXYYYZZZ";
+	this->texturaFig = "id";
+	this->colorLinea = "XXXYYYZZZ";
+	this->colorFondoEsc = "XXXYYYZZZ";
+	this->texturaEsc = "id2";
 	
 }
 void Escenario::addFigura(Figura *figura){
