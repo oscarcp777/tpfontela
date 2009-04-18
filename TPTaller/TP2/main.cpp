@@ -20,27 +20,40 @@ int main()
 
     
 	int exito;
+	std::string nombreArchivoXML;
 	//en las siguientes tres lineas, se crean el log lo inicializa y ecribe un titulo en el archivo "errores.err"
 	Log log;
 	inicializarLog(log, "errores.err");
 	escribirTituloLog(log,"DESCRIPCION DE ERRORES");
 	destruirLog(log);
-	
-	
+		
 	Validador *validador = new  Validador("config Validador.txt");
-	exito = validador->validarSintaxis("XML.xml");
-
-	if(exito == 0){
-		std::cout<<"*******************************"<<endl;
-		std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
-		std::cout<<"*******************************"<<endl;
+	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
+	std::cin>>nombreArchivoXML;
+	
+	try{
+		exito = validador->validarSintaxis(nombreArchivoXML);
+		
+		if(exito == 0){
+			std::cout<<"*******************************"<<endl;
+			std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
+			std::cout<<"*******************************"<<endl;
+		}
+		else{
+			std::cout<<"****************************************"<<endl;
+			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML"<<endl;
+			std::cout<<"****************************************"<<endl;
+		}
 	}
-	else{
-		std::cout<<"****************************************"<<endl;
-		std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML"<<endl;
-		std::cout<<"****************************************"<<endl;
+	catch(std::ios_base::failure){
+		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	
+	
+	std::cout<<endl;
+	std::cout<<endl;
+	std::cout<<endl;
+	std::cout<<"LAS SIGUIENTES SON PRUEBAS (para figura,posicion, textura y escenario)"<<endl;
 	
 	Posicion *posicion1 = new Posicion(20,500);
 	/*std::cout<<"posicion x "<<posicion1->getX()<<endl;

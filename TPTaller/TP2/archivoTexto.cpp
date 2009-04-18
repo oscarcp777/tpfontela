@@ -15,7 +15,7 @@ using namespace std;
 ArchivoTexto::ArchivoTexto(const std::string& path) {
   //intenta abrir el archivo en modo lectura - escritura
   archivo.open(path.c_str(), std::fstream::in | std::fstream::out);
-
+	/*
   if (!archivo.is_open()) {
     //si no hubo éxito en la apertura...
     //limpia los flags de control de estado del archivo
@@ -27,11 +27,14 @@ ArchivoTexto::ArchivoTexto(const std::string& path) {
 
     //reabre el archivo para lectura - escritura
     archivo.open(path.c_str(), std::fstream::in | std::fstream::out);
-
+	
     if (!archivo.is_open())
       // si no se pudo crear el archivo arroja una excepción/
       throw std::ios_base::failure("El archivo no pudo ser abierto");
-  }
+  }*/
+  if (!archivo.is_open())
+      // si no se pudo crear el archivo arroja una excepción/
+      throw std::ios_base::failure("El archivo no pudo ser abierto");
 }
 
 ArchivoTexto::~ArchivoTexto() {
