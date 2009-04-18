@@ -1,4 +1,6 @@
 #include "Segmento.h"
+#include <string>
+#include <iostream>
 
 Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 		this->id = id;
@@ -8,7 +10,7 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 }
 
 int Segmento::dibujar(){
-	std::cout<<"se dibujo un segmento \n";
+	std::cout<<"se dibujo un segmento, id:"<<this->getId()<<"\n";
 	return 0;
 }
 

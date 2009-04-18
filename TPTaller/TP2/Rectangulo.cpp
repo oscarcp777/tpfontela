@@ -1,4 +1,7 @@
 #include "Rectangulo.h"
+#include <string>
+#include <iostream>
+
 
 Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	this->id = id;
@@ -8,7 +11,7 @@ Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	
 }
 int Rectangulo::dibujar(){
-	std::cout<<"se dibujo un rectangulo \n";
+	std::cout<<"se dibujo un rectangulo, id:"<<this->getId()<<"\n";
 	return 0;
 }
 int Rectangulo::getAltura(){

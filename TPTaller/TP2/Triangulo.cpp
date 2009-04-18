@@ -1,4 +1,6 @@
 #include "Triangulo.h"
+#include <string>
+#include <iostream>
 
 Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
 	this->id = id;
@@ -8,7 +10,7 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	
 }
 int Triangulo::dibujar(){
-	std::cout<<"se dibujo un triangulo \n";
+	std::cout<<"se dibujo un triangulo, id:"<<this->getId()<<"\n";
 	return 0;
 }
 

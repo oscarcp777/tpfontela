@@ -19,6 +19,9 @@ int main()
 {
 
     
+	
+
+
 	int exito;
 	std::string nombreArchivoXML;
 	//en las siguientes tres lineas, se crean el log lo inicializa y ecribe un titulo en el archivo "errores.err"
@@ -32,6 +35,7 @@ int main()
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
 	
+
 	try{
 		exito = validador->validarSintaxis(nombreArchivoXML);
 		
@@ -50,7 +54,6 @@ int main()
 	catch(std::ios_base::failure){
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
-	
 	
 	std::cout<<endl;
 	std::cout<<endl;

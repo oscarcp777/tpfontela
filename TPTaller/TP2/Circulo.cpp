@@ -1,5 +1,6 @@
 #include "Circulo.h"
-
+#include <string>
+#include <iostream>
 
 
 
@@ -11,7 +12,7 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 }
 
 int Circulo::dibujar(){
-	std::cout<<"se dibujo un circulo \n";
+	std::cout<<"se dibujo un circulo, id:"<<this->getId()<<"\n";
 	return 0;
 
 }
