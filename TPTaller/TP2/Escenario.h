@@ -5,11 +5,11 @@
 #include <map>
 
 
-
+// ESCENARIO ES UN SINGLETON 
 class Escenario {
 	
 	public:
-			Escenario();
+			static Escenario* obtenerInstancia();
 			void addFigura(Figura *figura);
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
@@ -19,7 +19,10 @@ class Escenario {
 			std::string Escenario::obtenerPathTextura(std::string id);
 			//TODO hacer geters y setters atributos
 			int graficar();
-			
+	
+	protected:
+		Escenario();
+	
 	private:
 		
 		int resolucion;
@@ -28,7 +31,8 @@ class Escenario {
 		std::string colorLinea;
 		std::string colorFondoEsc;
 		std::string texturaEsc;
-		
+		static Escenario *unicaInstanciaEscenario;
+
 		std::list<Figura*> listaFiguras;	
 		std::list<Textura*> listaTexturas;	
 		

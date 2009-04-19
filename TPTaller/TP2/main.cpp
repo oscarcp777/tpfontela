@@ -19,9 +19,6 @@ int main()
 {
 
     
-	
-
-
 	int exito;
 	std::string nombreArchivoXML;
 	//en las siguientes tres lineas, se crean el log lo inicializa y ecribe un titulo en el archivo "errores.err"
@@ -55,6 +52,9 @@ int main()
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	
+
+
+
 	std::cout<<endl;
 	std::cout<<endl;
 	std::cout<<endl;
@@ -129,7 +129,7 @@ int main()
 	Textura *textura3 = new Textura("foto3","C:/Archivos de Programa/fotos");
 
 	
-	Escenario *escenario = new Escenario();
+	Escenario *escenario = Escenario::obtenerInstancia();
 	escenario->addFigura(circulo);
 	escenario->addFigura(cuadrado);
 	escenario->addFigura(rectangulo);
@@ -146,6 +146,8 @@ int main()
 	std::cout<<"path foto1 = "<<escenario->obtenerPathTextura("foto1")<<endl;	
 	std::cout<<"path foto2 = "<<escenario->obtenerPathTextura("foto2")<<endl;	
 	std::cout<<"path foto3 = "<<escenario->obtenerPathTextura("foto3")<<endl;	
+
+	
 
 	
 	system("PAUSE");

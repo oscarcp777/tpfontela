@@ -13,6 +13,18 @@ Escenario::Escenario(){
 	this->texturaEsc = "id2";
 	
 }
+
+Escenario* Escenario::unicaInstanciaEscenario = NULL;
+
+Escenario* Escenario::obtenerInstancia(){
+	
+	if(!Escenario::unicaInstanciaEscenario){
+		Escenario::unicaInstanciaEscenario = new Escenario();
+	}
+	
+	return Escenario::unicaInstanciaEscenario;
+}
+
 void Escenario::addFigura(Figura *figura){
 	this->listaFiguras.push_back(figura);
 }

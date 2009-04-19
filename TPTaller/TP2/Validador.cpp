@@ -4,6 +4,7 @@
 #include "Validador.h"
 #include "archivoTexto.h" 
 #include "StringUtils.h" 
+#include "Escenario.h"
 using namespace std;
 
 
@@ -39,15 +40,15 @@ Validador::validarValues(std::string tipo,std::string values){
 		}
 	}
 	else if(tipo.compare("<textura ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser ">"
+		//obtengo el ultimo caracter, se supone que deben ser >
 		cadena = values.substr(values.length()-1,values.length());
 		
-		//si no es ">" devuelvo -1
+		//si no es el caracter > devuelvo -1
 		if(cadena.compare(">") != 0){
 			exito = -1;
 		}
 		
-		//si es ">" esta todo OK parseo
+		//si es el caracter > esta todo OK parseo
 		else{
 			std::cout<<"values: "<<values<<endl;
 		}
@@ -128,28 +129,89 @@ Validador::validarValues(std::string tipo,std::string values){
 		}
 	}
 	else if(tipo.compare("<General ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA general values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > devuelvo -1
+		if(cadena.compare(">") != 0){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
 	}
 	else if(tipo.compare("<cuadrado ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA cuadrado values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > o si values contiene "<" devuelvo -1
+		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+			std::cout<<"encontro < en values "<<values.find("<")<<endl;
+		}
 	}	
 	else if(tipo.compare("<circulo ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA circulo values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > o si values contiene "<" devuelvo -1
+		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
 	}	
 	else if(tipo.compare("<rectangulo ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA rectangulo values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > o si values contiene "<" devuelvo -1
+		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
 	}	
 	else if(tipo.compare("<triangulo ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA triangulo values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > o si values contiene "<" devuelvo -1
+		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
 	}	
 	else if(tipo.compare("<segmento ")==0){
-		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
-		std::cout<<"LALALALALALALA segmento values: "<<values<<endl;
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es el caracter > o si values contiene "<" devuelvo -1
+		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+			exito = -1;
+		}
+		
+		//si es el caracter > esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
 	}
 	return exito;
 }
@@ -180,19 +242,25 @@ Validador::validarArchivoXML(int i,string cadena){
 	char caracter = NULL;
 	Log log;
 	inicializarLog(log, "errores.err");
-	
-		
+	//std::cout<<"caracter cuando inicia la func "<<caracter<<endl;
+	//std::cout<<"cadena "<<cadena<<endl;	
+	//std::cout<<"valor de i cuando se llama a la fun "<<i<<endl;	
 	// le asigno el caracter "<" a subCadena
 	if(i==1){	
 	subCadena += '<';
 	}
 	//leo el string cadena mientras que no encuntre un " "(espacio) o un ">" 
 	while((caracter != ' ') && (caracter != '>') && (i<cadena.length())){
+			//std::cout<<"valor de i en el while "<<i<<endl;	
 			caracter = cadena.at(i);
+			//std::cout<<caracter<<endl;
 			subCadena += caracter;
-			i++;
+			//std::cout<<subCadena<<endl;
+			i++;			
+			//std::cout<<"valor de i en el while "<<i<<endl;
+
 		}
-		
+		//system("PAUSE");
 		//si el ultimo caracter es ">" es un cierre de etiqueta
 		if(caracter == '>'){
 		
@@ -273,9 +341,9 @@ Validador::validarArchivoXML(int i,string cadena){
 					//si entra aca es porque values termina en ">" asique agrego el tag en la linea siguiente
 					Validador::ListaTagsArchivo.push_back(subCadena.substr(0,posicionEspacio)+='>');
 					exitoValues = Validador::validarValues(subCadena,values);
-					//si exitoValues  es -1 ( hay un error en values) imprimo en log y salgo, si es 0 sigue todo como antes
+					//si exitoValues  es -1 (hay un error en values) imprimo en log y salgo, si es 0 sigue todo como antes
 					if(exitoValues != 0){
-						escribirMensajeLog(log,"error de sintaxis, no se esperaba "+subCadena+values);
+						escribirMensajeLog(log,"error de sintaxis, verifique la linea: "+subCadena+values);
 						destruirLog(log);
 						return -1;
 					}
@@ -688,7 +756,7 @@ Validador::validarSintaxis(std::string nombreArchivo){
 	inicializarLog(log, "errores.err");
 	ArchivoTexto miArchivo(nombreArchivo);
     miArchivo.irAlPrincipio();
-  
+	
   while (miArchivo.leerLinea(linea)) {
     //std::cout << linea << std::endl;
 	   cadena += linea;
