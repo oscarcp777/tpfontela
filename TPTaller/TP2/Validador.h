@@ -9,13 +9,12 @@ class Validador{
 
 	
 private:
-	
-
-public:
 	list<std::string> ListaTagsValidos;
 
 	list<std::string> ListaTagsArchivo;
 
+public:
+	
 	Validador(std::string nombreArchivo);
 	
 	int validarValues(std::string tipo,std::string values);
@@ -30,6 +29,8 @@ public:
 	int compararConTagsValidos(string cadena);
 
 	int borrarDeTagsNoNecesariosDeListaTagsArchivo();
+	
+	int hidratar(std::string tipo, std::string values);
 	
 };
 

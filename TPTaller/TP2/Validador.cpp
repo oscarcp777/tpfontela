@@ -5,6 +5,7 @@
 #include "archivoTexto.h" 
 #include "StringUtils.h" 
 #include "Escenario.h"
+#include "Textura.h"
 using namespace std;
 
 bool dentroDeCuadrado= false;
@@ -25,6 +26,89 @@ Validador::Validador(std::string nombreArchivo){
 
     }
 }
+int Validador::hidratar(std::string tipo, std::string values){
+	int	exito = 0;
+	
+	
+	if(tipo.compare("General") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+	else if(tipo.compare("textura") == 0){
+	std::cout<<"HIDRATAR"<<tipo<<" "<<values<<endl;;
+	std::string cadena;
+	std::string id;
+	std::string path;
+	//obtengo la posicion del primer =
+	int posicionCaracterIgual = values.find_first_of("=");	
+	int posicionPrimeraComilla;
+	int posicionSegundaComilla;
+	int posicionEspacio;
+	//le asigno a cadena la palabra antes del =
+	cadena= values.substr(0,posicionCaracterIgual);
+	std::cout<<"cadena "<<cadena<<endl;
+	//EN LA SIGUIENTE LINEA TENGO QUE VALIDAR CON EL CODIGO DE SANTY NO HARCODEADO
+	if(cadena.compare("id")==0){
+		//obtengo la primer comilla
+		posicionPrimeraComilla = values.find_first_of('"');
+		//saco todo hasta la primer " de values
+		values = values.substr(posicionPrimeraComilla+1,values.size());
+		std::cout<<"nuevo values "<<values<<endl;
+		posicionSegundaComilla = values.find_first_of('"');
+		id=values.substr(0,posicionSegundaComilla);
+		std::cout<<"valor id "<<id<<endl;
+		//saco todo hasta la segunda " de values
+		values = values.substr(posicionSegundaComilla+1,values.size());
+		std::cout<<"nuevo values "<<values<<endl;
+		//obtengo la palabra antes del igual
+		//le asigno a cadena la palabra antes del =
+		int posicionCaracterIgual = values.find_first_of("=");
+		//desde 1 para no tener en cuenta el espacio hasta antes del igual
+		cadena= values.substr(1,posicionCaracterIgual-1);
+		std::cout<<"cadenaAAAA"<<cadena<<"AAAA"<<endl;
+		if(cadena.compare("path")==0){
+			std::cout<<"cadena "<<cadena<<endl;
+			//obtengo la primer comilla
+			posicionPrimeraComilla = values.find_first_of('"');
+			//saco todo hasta la primer " de values
+			values = values.substr(posicionPrimeraComilla+1,values.size());
+			std::cout<<"nuevo values "<<values<<endl;
+			posicionSegundaComilla = values.find_first_of('"');
+			path=values.substr(0,posicionSegundaComilla);
+			std::cout<<"valor path "<<path<<endl;
+			Textura *textura = new Textura(id,path);
+			Escenario::obtenerInstancia()->addTextura(textura);
+
+		}
+		else{
+			//error de sintaxis no es la palabra path
+			exito=-1;
+		}
+		
+	}
+	
+	else{
+			//error de sintaxis no es la palabra id
+			exito=-1;
+		}
+	}
+	else if(tipo.compare("circulo") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+	else if(tipo.compare("cuadrado") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+	else if(tipo.compare("rectangulo") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+	else if(tipo.compare("segmento") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+	else if(tipo.compare("triangulo") == 0){
+	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	}
+
+	return exito;
+}
 
 Validador::validarValues(std::string tipo,std::string values){
 	//el tipo puede ser (<posicion,<textura,<ver1,<ver2,<ver3,<inicio,<fin y cualquier tipo de figura
@@ -43,7 +127,8 @@ Validador::validarValues(std::string tipo,std::string values){
 		
 		//si es el caracter > esta todo OK parseo
 		else{
-			std::cout<<"values: "<<values<<endl;
+			//std::cout<<"values: "<<values<<endl;
+			exito=this->hidratar("textura",values.substr(0,values.size()-1));
 		}
 	}
 		
@@ -58,7 +143,8 @@ Validador::validarValues(std::string tipo,std::string values){
 		
 		//si es el caracter > esta todo OK parseo
 		else{
-			std::cout<<"values: "<<values<<endl;
+			//std::cout<<"values: "<<values<<endl;
+			exito=this->hidratar("General",values);
 		}
 	}
 	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
@@ -97,7 +183,8 @@ Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
-					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					exito=this->hidratar("cuadrado",todosLosValues);
 					dentroDeCuadrado = false;
 				}
 			}
@@ -142,7 +229,8 @@ Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
-					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					exito=this->hidratar("circulo",todosLosValues);
 					dentroDeCirculo = false;
 				}
 			}
@@ -185,8 +273,9 @@ Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
-					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					dentroDeRectangulo = false;
+					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					this->hidratar("rectangulo",todosLosValues);
+					exito=dentroDeRectangulo = false;
 				}
 			}
 			std::cout<<"FIN de Rectangulo"<<endl;
@@ -258,7 +347,8 @@ Validador::validarValues(std::string tipo,std::string values){
 			else{
 			//std::cout<<"values: "<<values<<endl;
 			todosLosValues += values.substr(0,values.size()-2);
-			std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+			//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+			exito=this->hidratar("triangulo",todosLosValues);
 			//si llega a vertice3 sale 
 			dentroDeTriangulo = false;
 			}
@@ -317,7 +407,8 @@ Validador::validarValues(std::string tipo,std::string values){
 			else{
 				//std::cout<<"values: "<<values<<endl;
 				todosLosValues += values.substr(0,values.size()-2);
-				std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+				//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+				exito=this->hidratar("segmento",todosLosValues);
 				dentroDeSegmento= false;
 			}
 		}
