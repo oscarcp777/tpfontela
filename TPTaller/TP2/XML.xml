@@ -14,8 +14,8 @@
                        </rectangulo>
                        <triangulo id="triangulo1" >
                                   <ver1 x="4" y="4"/>
-                                  <ver1 x="7" y="5"/>
-                                  <ver1 x="5" y="46"/>
+                                  <ver2 x="7" y="5"/>
+                                  <ver3 x="5" y="46"/>
                        </triangulo>
             </ListadoDeElementos>
             <ListadoDeTexturas>

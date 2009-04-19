@@ -6,7 +6,9 @@
 #include "StringUtils.h" 
 #include "Escenario.h"
 #include "Textura.h"
+#include "Tag.h"
 using namespace std;
+const char MARCADOR_TAG = '-'; 
 
 bool dentroDeCuadrado= false;
 bool dentroDeCirculo= false;
@@ -15,17 +17,36 @@ bool dentroDeTriangulo= false;
 bool dentroDeRectangulo= false;
 std::string todosLosValues;
 
-Validador::Validador(std::string nombreArchivo){
-  ArchivoTexto miArchivo(nombreArchivo);
-  string linea;
-  miArchivo.irAlPrincipio();
-  while (miArchivo.leerLinea(linea)) {
+Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtributos){
+  ArchivoTexto miArchivoTags(nombreArchivoTags);
+  ArchivoTexto miArchivoAtributos(nombreArchivoAtributos);
+  string linea1, linea2;
+  miArchivoTags.irAlPrincipio();
+  bool encontro = false;
+  Tag *tagActual; 
+  while (miArchivoTags.leerLinea(linea1)) {
    // std::cout << linea << std::endl;
 	    //leo la linea y la guardo en la Lista
-	   Validador::ListaTagsValidos.push_back(linea);
-
-    }
+	  tagActual = new Tag(linea1); 
+	  miArchivoAtributos.irAlPrincipio();
+	  encontro = false;
+  	  while(miArchivoAtributos.leerLinea(linea2) && encontro == false){
+		  if(linea2.at(0)== MARCADOR_TAG){
+			linea2 = linea2.substr(1,linea2.size());
+			if (linea2.compare(linea1) == 0){
+				encontro = true;
+				while (linea2.at(0)!= MARCADOR_TAG  && miArchivoAtributos.leerLinea(linea2))
+						tagActual->addAtributo(linea2);
+						
+             }
+		  }	
+	  }
+	  Validador::ListaTagsValidos.push_back(tagActual);
+  }
+  
 }
+
+
 int Validador::hidratar(std::string tipo, std::string values){
 	int	exito = 0;
 	
@@ -46,8 +67,7 @@ int Validador::hidratar(std::string tipo, std::string values){
 	//le asigno a cadena la palabra antes del =
 	cadena= values.substr(0,posicionCaracterIgual);
 	
-	//EN LA SIGUIENTE LINEA TENGO QUE VALIDAR CON EL CODIGO DE SANTY NO HARCODEADO
-	if(cadena.compare("id")==0){
+	if(Validador::compararConAtributosValidos("textura",cadena)==0){
 		//obtengo la primer comilla
 		posicionPrimeraComilla = values.find_first_of('"');
 		//saco todo hasta la primer " de values
@@ -65,7 +85,7 @@ int Validador::hidratar(std::string tipo, std::string values){
 		//desde 1 para no tener en cuenta el espacio hasta antes del igual
 		cadena= values.substr(1,posicionCaracterIgual-1);
 		
-		if(cadena.compare("path")==0){
+		if(Validador::compararConAtributosValidos("textura",cadena)==0){
 			
 			//obtengo la primer comilla
 			posicionPrimeraComilla = values.find_first_of('"');
@@ -92,7 +112,7 @@ int Validador::hidratar(std::string tipo, std::string values){
 			//error de sintaxis no es la palabra id
 			exito=-1;
 		}
-	}
+	}					    
 	else if(tipo.compare("circulo") == 0){
 	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
@@ -423,12 +443,16 @@ Validador::validarValues(std::string tipo,std::string values){
 
 
 Validador::compararConTagsValidos(string cadena){
-	list<string>::iterator i;
+	list<Tag*>::iterator i;
     int exito=-1;
+	Tag* nombreTag;
 	i=Validador::ListaTagsValidos.begin();
 	
 	while(i != Validador::ListaTagsValidos.end()){
-	exito = cadena.compare(*i);
+	//exito = cadena.compare(*i);
+	nombreTag = *i;
+	exito = cadena.compare(nombreTag->getNombreTag());
+	
 	//std::cout << *i<< " "<<endl;
 	//std::cout <<"exito"<<exito<<endl;	
 	if(exito == 0){
@@ -439,6 +463,33 @@ Validador::compararConTagsValidos(string cadena){
 	   
 	return exito;
 }
+
+Validador::compararConAtributosValidos(string cadenaTag, string cadenaAtributo){
+	list<Tag*>::iterator i;
+    int exito=-1;
+	Tag* tag;
+	i=Validador::ListaTagsValidos.begin();
+	int atributoValido = -1;
+
+	while(i != Validador::ListaTagsValidos.end()){
+	//exito = cadena.compare(*i);
+	tag = *i;
+	exito = cadenaTag.compare(tag->getNombreTag());
+	
+	//std::cout << *i<< " "<<endl;
+	//std::cout <<"exito"<<exito<<endl;	
+	if(exito == 0){
+			
+			atributoValido =tag->chequearAtributo(cadenaAtributo);
+		
+			return atributoValido;
+		}
+	i++;
+	}
+	   
+	return atributoValido;
+}
+
 
 Validador::validarArchivoXML(int i,string cadena){
 	int exito = 0;

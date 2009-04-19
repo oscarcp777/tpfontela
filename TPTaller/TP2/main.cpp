@@ -28,7 +28,7 @@ int main()
 	destruirLog(log);
 	
 	//el archivo config Validador.txt tiene las palabras de los tags validos ej CIRCULO ESCENARIO etc
-	Validador *validador = new  Validador("config Validador.txt");
+	Validador *validador = new  Validador("config Validador.txt","config Atributos.txt");
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
 	
