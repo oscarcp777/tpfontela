@@ -19,6 +19,142 @@ Validador::Validador(std::string nombreArchivo){
     }
 }
 
+Validador::validarValues(std::string tipo,std::string values){
+	//el tipo puede ser (<posicion,<textura,<ver1,<ver2,<ver3,<inicio,<fin y cualquier tipo de figura
+	//valida que esten bien los datos que llegan en value (porque el tipo ya fue validado, devuelve 0 si esta todo OK, sino devuelve -1
+	int exito = 0;
+	std::string cadena;
+	if(tipo.compare("<posicion ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	else if(tipo.compare("<textura ")==0){
+		//obtengo el ultimo caracter, se supone que deben ser ">"
+		cadena = values.substr(values.length()-1,values.length());
+		
+		//si no es ">" devuelvo -1
+		if(cadena.compare(">") != 0){
+			exito = -1;
+		}
+		
+		//si es ">" esta todo OK parseo
+		else{
+			std::cout<<"values: "<<values<<endl;
+		}
+	}
+	
+	else if(tipo.compare("<ver1 ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	
+	else if(tipo.compare("<ver2 ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	
+	else if(tipo.compare("<ver3 ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	
+	else if(tipo.compare("<inicio ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	
+	else if(tipo.compare("<fin ")==0){
+		//obtengo los dos ultimos caracteres, se supone que deben ser />
+		cadena = values.substr(values.length()-2,values.length());
+		
+		//si no son /> devuelvo -1
+		if(cadena.compare("/>") != 0){
+			exito = -1;
+		}
+		
+		//si son /> esta todo OK parseo
+		else{
+		std::cout<<"values: "<<values<<endl;
+		}
+	}
+	else if(tipo.compare("<General ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA general values: "<<values<<endl;
+	}
+	else if(tipo.compare("<cuadrado ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA cuadrado values: "<<values<<endl;
+	}	
+	else if(tipo.compare("<circulo ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA circulo values: "<<values<<endl;
+	}	
+	else if(tipo.compare("<rectangulo ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA rectangulo values: "<<values<<endl;
+	}	
+	else if(tipo.compare("<triangulo ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA triangulo values: "<<values<<endl;
+	}	
+	else if(tipo.compare("<segmento ")==0){
+		std::cout<<"FIIIIIIIIIIIIIIIIIIIIIIN DE VALUES"<<values.substr(values.length()-2,values.length())<<endl;
+		std::cout<<"LALALALALALALA segmento values: "<<values<<endl;
+	}
+	return exito;
+}
+
+
 Validador::compararConTagsValidos(string cadena){
 	list<string>::iterator i;
     int exito=-1;
@@ -39,6 +175,7 @@ Validador::compararConTagsValidos(string cadena){
 
 Validador::validarArchivoXML(int i,string cadena){
 	int exito = 0;
+	int exitoValues;
 	string subCadena,values;
 	char caracter = NULL;
 	Log log;
@@ -135,7 +272,14 @@ Validador::validarArchivoXML(int i,string cadena){
 				else{
 					//si entra aca es porque values termina en ">" asique agrego el tag en la linea siguiente
 					Validador::ListaTagsArchivo.push_back(subCadena.substr(0,posicionEspacio)+='>');
-					std::cout<<"values: "<<values<<endl;
+					exitoValues = Validador::validarValues(subCadena,values);
+					//si exitoValues  es -1 ( hay un error en values) imprimo en log y salgo, si es 0 sigue todo como antes
+					if(exitoValues != 0){
+						escribirMensajeLog(log,"error de sintaxis, no se esperaba "+subCadena+values);
+						destruirLog(log);
+						return -1;
+					}
+
 				}
 			}
 						

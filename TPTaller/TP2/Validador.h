@@ -17,6 +17,8 @@ public:
 	list<std::string> ListaTagsArchivo;
 
 	Validador(std::string nombreArchivo);
+	
+	int validarValues(std::string tipo,std::string values);
 
 	int validarSintaxis(std::string nombreArchivo);
 	
