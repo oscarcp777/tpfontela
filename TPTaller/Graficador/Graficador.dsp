@@ -87,7 +87,95 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\imagen.cpp
+SOURCE=..\TP2\archivoTexto.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Circulo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Cuadrado.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Escenario.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Figura.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\main.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Posicion.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Rectangulo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Segmento.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\StringUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Validador.cpp
+# End Source File
+# End Group
+# Begin Group "Header Files"
+
+# PROP Default_Filter "*.h"
+# Begin Source File
+
+SOURCE=..\TP2\archivoTexto.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Circulo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Cuadrado.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Escenario.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Figura.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\gp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Posicion.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Rectangulo.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Segmento.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\StringUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\TP2\Validador.h
 # End Source File
 # End Group
 # End Target
