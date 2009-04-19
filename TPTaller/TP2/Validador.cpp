@@ -31,10 +31,10 @@ int Validador::hidratar(std::string tipo, std::string values){
 	
 	
 	if(tipo.compare("General") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
 	else if(tipo.compare("textura") == 0){
-	std::cout<<"HIDRATAR"<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	std::string cadena;
 	std::string id;
 	std::string path;
@@ -45,36 +45,38 @@ int Validador::hidratar(std::string tipo, std::string values){
 	int posicionEspacio;
 	//le asigno a cadena la palabra antes del =
 	cadena= values.substr(0,posicionCaracterIgual);
-	std::cout<<"cadena "<<cadena<<endl;
+	
 	//EN LA SIGUIENTE LINEA TENGO QUE VALIDAR CON EL CODIGO DE SANTY NO HARCODEADO
 	if(cadena.compare("id")==0){
 		//obtengo la primer comilla
 		posicionPrimeraComilla = values.find_first_of('"');
 		//saco todo hasta la primer " de values
 		values = values.substr(posicionPrimeraComilla+1,values.size());
-		std::cout<<"nuevo values "<<values<<endl;
+		
 		posicionSegundaComilla = values.find_first_of('"');
 		id=values.substr(0,posicionSegundaComilla);
-		std::cout<<"valor id "<<id<<endl;
+		
 		//saco todo hasta la segunda " de values
 		values = values.substr(posicionSegundaComilla+1,values.size());
-		std::cout<<"nuevo values "<<values<<endl;
-		//obtengo la palabra antes del igual
+		
+		
 		//le asigno a cadena la palabra antes del =
 		int posicionCaracterIgual = values.find_first_of("=");
 		//desde 1 para no tener en cuenta el espacio hasta antes del igual
 		cadena= values.substr(1,posicionCaracterIgual-1);
-		std::cout<<"cadenaAAAA"<<cadena<<"AAAA"<<endl;
+		
 		if(cadena.compare("path")==0){
-			std::cout<<"cadena "<<cadena<<endl;
+			
 			//obtengo la primer comilla
 			posicionPrimeraComilla = values.find_first_of('"');
 			//saco todo hasta la primer " de values
 			values = values.substr(posicionPrimeraComilla+1,values.size());
-			std::cout<<"nuevo values "<<values<<endl;
+			
 			posicionSegundaComilla = values.find_first_of('"');
 			path=values.substr(0,posicionSegundaComilla);
 			std::cout<<"valor path "<<path<<endl;
+			std::cout<<"valor id "<<id<<endl;
+			
 			Textura *textura = new Textura(id,path);
 			Escenario::obtenerInstancia()->addTextura(textura);
 
@@ -92,19 +94,19 @@ int Validador::hidratar(std::string tipo, std::string values){
 		}
 	}
 	else if(tipo.compare("circulo") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
 	else if(tipo.compare("cuadrado") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR  \n "<<tipo<<" "<<values<<endl;;
 	}
 	else if(tipo.compare("rectangulo") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR  \n "<<tipo<<" "<<values<<endl;;
 	}
 	else if(tipo.compare("segmento") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
 	else if(tipo.compare("triangulo") == 0){
-	std::cout<<"HIDRATAR "<<tipo<<" "<<values<<endl;;
+	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
 
 	return exito;

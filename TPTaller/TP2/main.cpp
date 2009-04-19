@@ -135,17 +135,15 @@ int main()
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(segmento);
 	escenario->addFigura(triangulo);
-	escenario->addTextura(textura);
-	escenario->addTextura(textura2);
-	escenario->addTextura(textura3);
 	//grafico todo
 	escenario->graficar();
 	
 	
 	std::cout<<"cantidad texturas "<<escenario->sizeListaTexturas()<<endl;	
-	std::cout<<"path foto1 = "<<escenario->obtenerPathTextura("foto1")<<endl;	
-	std::cout<<"path foto2 = "<<escenario->obtenerPathTextura("foto2")<<endl;	
-	std::cout<<"path foto3 = "<<escenario->obtenerPathTextura("foto3")<<endl;	
+	std::cout<<"path textura1 = "<<escenario->obtenerPathTextura("textura1")<<endl;	
+	std::cout<<"path textura2 = "<<escenario->obtenerPathTextura("textura2")<<endl;	
+	std::cout<<"path textura3= "<<escenario->obtenerPathTextura("textura3")<<endl;
+	std::cout<<"path textura4 = "<<escenario->obtenerPathTextura("textura4")<<endl;
 
 	
 
