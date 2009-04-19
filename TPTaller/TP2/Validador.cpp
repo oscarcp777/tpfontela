@@ -154,7 +154,7 @@ Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			std::cout<<"values: "<<values<<endl;
-			std::cout<<"encontro < en values "<<values.find("<")<<endl;
+			
 		}
 	}	
 	else if(tipo.compare("<circulo ")==0){
@@ -542,7 +542,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"se espera <ListadoDeTexturas> cerrado por </ListadoDeTexturas>"<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"se espera <ListadoDeTexturas> cerrado por </ListadoDeTexturas>");
+				escribirMensajeLog(log,"no se esperaba"+cadena+" en  <ListadoDeTexturas>");
 				//para que salga del while hago lo siguiente
 				dentroListaTexturas=false;
 				exito=-2;
@@ -678,9 +678,9 @@ Validador::validarAperturaYCierreTags(){
 			}
 			else{
 				//sino es un error de sintaxis
-				std::cout<<"se espera <ListadoDeElementos> cerrado por </ListadoDeElementos>"<<endl;
+				std::cout<<"no se esperaba"<<cadena<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"se espera <ListadoDeElementos> cerrado por </ListadoDeElementos>");
+				escribirMensajeLog(log,"no se esperaba "+cadena+" en ListadoElementos");
 				//para que salga del while hago lo siguiente
 				dentroListaElementos=false;
 				exito=-2;

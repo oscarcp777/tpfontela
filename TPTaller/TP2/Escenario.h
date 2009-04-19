@@ -19,6 +19,7 @@ class Escenario {
 			std::string Escenario::obtenerPathTextura(std::string id);
 			//TODO hacer geters y setters atributos
 			int graficar();
+			
 	
 	protected:
 		Escenario();

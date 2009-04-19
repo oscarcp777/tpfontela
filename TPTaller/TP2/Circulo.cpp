@@ -17,7 +17,7 @@ int Circulo::dibujar(){
 
 }
 int Circulo::getRadio(){
-
+		
 	return this->radio;
 	
 }

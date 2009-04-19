@@ -1,6 +1,6 @@
 <escenario>
              <General resolucion="640" colorFondoFig="rojo" texturaFig="id" 
-              colorLinea="azul" colorFondoEsc="negro" textura="id2">
+              colorLinea="azul" colorFondoEsc="negro" textura="id2"
              </General>
              <ListadoDeElementos>
                        <cuadrado id="cuadrado1" lado="5">
