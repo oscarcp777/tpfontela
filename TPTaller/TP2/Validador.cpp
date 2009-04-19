@@ -7,6 +7,12 @@
 #include "Escenario.h"
 using namespace std;
 
+bool dentroDeCuadrado= false;
+bool dentroDeCirculo= false;
+bool dentroDeSegmento= false;
+bool dentroDeTriangulo= false;
+bool dentroDeRectangulo= false;
+std::string todosLosValues;
 
 Validador::Validador(std::string nombreArchivo){
   ArchivoTexto miArchivo(nombreArchivo);
@@ -25,21 +31,8 @@ Validador::validarValues(std::string tipo,std::string values){
 	//valida que esten bien los datos que llegan en value (porque el tipo ya fue validado, devuelve 0 si esta todo OK, sino devuelve -1
 	int exito = 0;
 	std::string cadena;
-	if(tipo.compare("<posicion ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
-		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
-	else if(tipo.compare("<textura ")==0){
+	
+	if(tipo.compare("<textura ")==0){
 		//obtengo el ultimo caracter, se supone que deben ser >
 		cadena = values.substr(values.length()-1,values.length());
 		
@@ -53,81 +46,7 @@ Validador::validarValues(std::string tipo,std::string values){
 			std::cout<<"values: "<<values<<endl;
 		}
 	}
-	
-	else if(tipo.compare("<ver1 ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
 		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
-	
-	else if(tipo.compare("<ver2 ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
-		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
-	
-	else if(tipo.compare("<ver3 ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
-		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
-	
-	else if(tipo.compare("<inicio ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
-		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
-	
-	else if(tipo.compare("<fin ")==0){
-		//obtengo los dos ultimos caracteres, se supone que deben ser />
-		cadena = values.substr(values.length()-2,values.length());
-		
-		//si no son /> devuelvo -1
-		if(cadena.compare("/>") != 0){
-			exito = -1;
-		}
-		
-		//si son /> esta todo OK parseo
-		else{
-		std::cout<<"values: "<<values<<endl;
-		}
-	}
 	else if(tipo.compare("<General ")==0){
 		//obtengo el ultimo caracter, se supone que deben ser >
 		cadena = values.substr(values.length()-1,values.length());
@@ -142,75 +61,268 @@ Validador::validarValues(std::string tipo,std::string values){
 			std::cout<<"values: "<<values<<endl;
 		}
 	}
-	else if(tipo.compare("<cuadrado ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser >
-		cadena = values.substr(values.length()-1,values.length());
+	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
 		
-		//si no es el caracter > o si values contiene "<" devuelvo -1
-		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
-			exito = -1;
+		if(!dentroDeCuadrado){
+			//obtengo el ultimo caracter, se supone que deben ser >
+			cadena = values.substr(values.length()-1,values.length());
+		
+			//si no es el caracter > o si values contiene "<" devuelvo -1
+			if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+				exito = -1;
+			}
+		
+			//si es el caracter > esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				//copio los values "solamente" borro el ultimo caracter > 
+				todosLosValues = values.substr(0,values.size()-1)+" ";
+				dentroDeCuadrado = true;
+			}
 		}
-		
-		//si es el caracter > esta todo OK parseo
 		else{
-			std::cout<<"values: "<<values<<endl;
+			std::cout<<"DENTRO de CUADRADO"<<endl;
+			//si entro por segunda vez dentro de cuadrado
+			if(tipo.compare("<posicion ")==0){
+				//obtengo los dos ultimos caracteres, se supone que deben ser />
+				cadena = values.substr(values.length()-2,values.length());
+		
+					//si no son /> devuelvo -1
+				if(cadena.compare("/>") != 0){
+					exito = -1;
+				}
+		
+				//si son /> esta todo OK parseo
+				else{
+					//std::cout<<"values: "<<values<<endl;
+					//copio los values "solamente" borro los ultimos caracteres />
+					todosLosValues += values.substr(0,values.size()-2);
+					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					dentroDeCuadrado = false;
+				}
+			}
+			std::cout<<"FIN de CUADRADO"<<endl;
+		}		
+		
+	}	
+	
+	else if((tipo.compare("<circulo ")==0) || (dentroDeCirculo)){
+		
+		if(!dentroDeCirculo){
+			//obtengo el ultimo caracter, se supone que deben ser >
+			cadena = values.substr(values.length()-1,values.length());
+		
+			//si no es el caracter > o si values contiene "<" devuelvo -1
+			if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+				exito = -1;
+			}
+		
+			//si es el caracter > esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				//copio los values "solamente" borro el ultimo caracter > 
+				todosLosValues = values.substr(0,values.size()-1)+" ";
+				dentroDeCirculo = true;
+			}
+		}
+		else{
+			std::cout<<"DENTRO de Circulo"<<endl;
+			//si entro por segunda vez dentro de cuadrado
+			if(tipo.compare("<posicion ")==0){
+				//obtengo los dos ultimos caracteres, se supone que deben ser />
+				cadena = values.substr(values.length()-2,values.length());
+		
+					//si no son /> devuelvo -1
+				if(cadena.compare("/>") != 0){
+					exito = -1;
+				}
+		
+				//si son /> esta todo OK parseo
+				else{
+					//std::cout<<"values: "<<values<<endl;
+					//copio los values "solamente" borro los ultimos caracteres />
+					todosLosValues += values.substr(0,values.size()-2);
+					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					dentroDeCirculo = false;
+				}
+			}
+			std::cout<<"FIN de CIRCULO"<<endl;
+		}
+	}	
+	else if((tipo.compare("<rectangulo ")==0)||(dentroDeRectangulo)){
+	
+		if(!dentroDeRectangulo){
+			//obtengo el ultimo caracter, se supone que deben ser >
+			cadena = values.substr(values.length()-1,values.length());
+		
+			//si no es el caracter > o si values contiene "<" devuelvo -1
+			if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+				exito = -1;
+			}
+		
+			//si es el caracter > esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				//copio los values "solamente" borro el ultimo caracter > 
+				todosLosValues = values.substr(0,values.size()-1)+" ";
+				dentroDeRectangulo = true;
+			}
+		}
+		else{
+			std::cout<<"DENTRO de Rectangulo"<<endl;
+			//si entro por segunda vez dentro de cuadrado
+			if(tipo.compare("<posicion ")==0){
+				//obtengo los dos ultimos caracteres, se supone que deben ser />
+				cadena = values.substr(values.length()-2,values.length());
+		
+					//si no son /> devuelvo -1
+				if(cadena.compare("/>") != 0){
+					exito = -1;
+				}
+		
+				//si son /> esta todo OK parseo
+				else{
+					//std::cout<<"values: "<<values<<endl;
+					//copio los values "solamente" borro los ultimos caracteres />
+					todosLosValues += values.substr(0,values.size()-2);
+					std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+					dentroDeRectangulo = false;
+				}
+			}
+			std::cout<<"FIN de Rectangulo"<<endl;
+		}
+	}	
+	else if((tipo.compare("<triangulo ")==0) || (dentroDeTriangulo)){
+		
+		if(!dentroDeTriangulo){
+			//obtengo el ultimo caracter, se supone que deben ser >
+			cadena = values.substr(values.length()-1,values.length());
+		
+			//si no es el caracter > o si values contiene "<" devuelvo -1
+			if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+				exito = -1;
+			}
+		
+			//si es el caracter > esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				todosLosValues = values.substr(0,values.size()-1)+" ";
+				dentroDeTriangulo = true;
+			}
+		}
+		else{
+			std::cout<<"DENTRO de triangulo"<<endl;
+				
+			 if(tipo.compare("<ver1 ")==0){
+			//obtengo los dos ultimos caracteres, se supone que deben ser />
+			cadena = values.substr(values.length()-2,values.length());
+		
+			//si no son /> devuelvo -1
+			if(cadena.compare("/>") != 0){
+				exito = -1;
+			}
+		
+			//si son /> esta todo OK parseo
+			else{
+			//std::cout<<"values: "<<values<<endl;
+			todosLosValues += values.substr(0,values.size()-2)+" ";
+			}
+		}
+	
+		else if(tipo.compare("<ver2 ")==0){
+			//obtengo los dos ultimos caracteres, se supone que deben ser />
+			cadena = values.substr(values.length()-2,values.length());
+		
+			//si no son /> devuelvo -1
+			if(cadena.compare("/>") != 0){
+				exito = -1;
+			}
+		
+			//si son /> esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				todosLosValues += values.substr(0,values.size()-2)+" ";
+			}
+		}
+	
+		else if(tipo.compare("<ver3 ")==0){
+			//obtengo los dos ultimos caracteres, se supone que deben ser />
+			cadena = values.substr(values.length()-2,values.length());
+		
+			//si no son /> devuelvo -1
+			if(cadena.compare("/>") != 0){
+				exito = -1;
+			}
+		
+			//si son /> esta todo OK parseo
+			else{
+			//std::cout<<"values: "<<values<<endl;
+			todosLosValues += values.substr(0,values.size()-2);
+			std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+			//si llega a vertice3 sale 
+			dentroDeTriangulo = false;
+			}
+		}
+	
+				
+		std::cout<<"FIN de triangulo"<<endl;
+		}
+	}	
+	else if((tipo.compare("<segmento ")==0) || (dentroDeSegmento)){
+		
+		if(!dentroDeSegmento){
+			//obtengo el ultimo caracter, se supone que deben ser >
+			cadena = values.substr(values.length()-1,values.length());
+		
+			//si no es el caracter > o si values contiene "<" devuelvo -1
+			if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
+				exito = -1;
+			}
+		
+			//si es el caracter > esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				todosLosValues = values.substr(0,values.size()-1)+" ";
+				dentroDeSegmento = true;
+			}
+		}
+		else{
+				std::cout<<"DENTRO de segmento"<<endl;
+				if(tipo.compare("<inicio ")==0){
+					//obtengo los dos ultimos caracteres, se supone que deben ser />
+					cadena = values.substr(values.length()-2,values.length());
+		
+				//si no son /> devuelvo -1
+				if(cadena.compare("/>") != 0){
+					exito = -1;
+				}
+		
+				//si son /> esta todo OK parseo
+				else{
+					//std::cout<<"values: "<<values<<endl;
+					todosLosValues += values.substr(0,values.size()-2)+" ";
+				}
+			}
+	
+		else if(tipo.compare("<fin ")==0){
+			//obtengo los dos ultimos caracteres, se supone que deben ser />
+			cadena = values.substr(values.length()-2,values.length());
+		
+			//si no son /> devuelvo -1
+			if(cadena.compare("/>") != 0){
+				exito = -1;
+			}
+		
+			//si son /> esta todo OK parseo
+			else{
+				//std::cout<<"values: "<<values<<endl;
+				todosLosValues += values.substr(0,values.size()-2);
+				std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
+				dentroDeSegmento= false;
+			}
+		}
 			
-		}
-	}	
-	else if(tipo.compare("<circulo ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser >
-		cadena = values.substr(values.length()-1,values.length());
-		
-		//si no es el caracter > o si values contiene "<" devuelvo -1
-		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
-			exito = -1;
-		}
-		
-		//si es el caracter > esta todo OK parseo
-		else{
-			std::cout<<"values: "<<values<<endl;
-		}
-	}	
-	else if(tipo.compare("<rectangulo ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser >
-		cadena = values.substr(values.length()-1,values.length());
-		
-		//si no es el caracter > o si values contiene "<" devuelvo -1
-		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
-			exito = -1;
-		}
-		
-		//si es el caracter > esta todo OK parseo
-		else{
-			std::cout<<"values: "<<values<<endl;
-		}
-	}	
-	else if(tipo.compare("<triangulo ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser >
-		cadena = values.substr(values.length()-1,values.length());
-		
-		//si no es el caracter > o si values contiene "<" devuelvo -1
-		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
-			exito = -1;
-		}
-		
-		//si es el caracter > esta todo OK parseo
-		else{
-			std::cout<<"values: "<<values<<endl;
-		}
-	}	
-	else if(tipo.compare("<segmento ")==0){
-		//obtengo el ultimo caracter, se supone que deben ser >
-		cadena = values.substr(values.length()-1,values.length());
-		
-		//si no es el caracter > o si values contiene "<" devuelvo -1
-		if((cadena.compare(">") != 0) || (values.find("<")<values.size())){
-			exito = -1;
-		}
-		
-		//si es el caracter > esta todo OK parseo
-		else{
-			std::cout<<"values: "<<values<<endl;
+			std::cout<<"FIN de segmento"<<endl;		
 		}
 	}
 	return exito;
@@ -620,6 +732,32 @@ Validador::validarAperturaYCierreTags(){
 						std::cout<<"se espera <triangulo> cerrado por </triangulo>"<<endl;
 						//escribo el error en el archivo de errores
 						escribirMensajeLog(log,"se espera <triangulo> cerrado por </triangulo>");
+						
+						//para que salga del while hago lo siguiente
+						exito= -2;
+
+					}
+
+
+			}
+			else if(cadena.compare("<segmento>")==0){
+				//si encuentro <triangulo> verifico que el siguiente sea </triangulo> y los borro, sino error sintaxis
+					iterAux1=iterAux2;
+					iterAux1++;
+					cadena = *iterAux1;
+					if(cadena.compare("</segmento>")==0){
+						iter=iterAux1;
+						iter++;
+						Validador::ListaTagsArchivo.erase(iterAux1);
+						Validador::ListaTagsArchivo.erase(iterAux2);
+						
+						
+					}
+					else{
+						//sino es un error de sintaxis
+						std::cout<<"se espera <segmento> cerrado por </segmento>"<<endl;
+						//escribo el error en el archivo de errores
+						escribirMensajeLog(log,"se espera <segmento> cerrado por </segmento>");
 						
 						//para que salga del while hago lo siguiente
 						exito= -2;
