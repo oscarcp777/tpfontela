@@ -1,6 +1,7 @@
 #include "Triangulo.h"
 #include <string>
 #include <iostream>
+#include "Escenario.h"
 
 Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
 	this->id = id;
@@ -9,8 +10,21 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	this->vertice3 = ver3;
 	
 }
-int Triangulo::dibujar(){
-	std::cout<<"se dibujo un triangulo, id:"<<this->getId()<<"\n";
+int Triangulo::dibujar(SDL_Surface *screen){
+	//std::cout<<"se dibujo un triangulo, id:"<<this->getId()<<"\n";
+	SDL_Surface *imagen;
+	SDL_Rect rect;
+	
+	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
+	imagen = IMG_Load ("triangulo.jpg");
+	
+	rect.x = this->getVertice1()->getX();
+	rect.y = this->getVertice1()->getY();
+	rect.w = imagen->w; //= this->getRadio();
+	rect.h = imagen->h; //= this->getRadio();
+	
+
+	SDL_BlitSurface(imagen, NULL, screen, &rect);
 	return 0;
 }
 

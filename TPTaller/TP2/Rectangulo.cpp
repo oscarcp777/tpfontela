@@ -1,7 +1,7 @@
 #include "Rectangulo.h"
 #include <string>
 #include <iostream>
-
+#include "Escenario.h"
 
 Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	this->id = id;
@@ -10,8 +10,19 @@ Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	this->pos = p;
 	
 }
-int Rectangulo::dibujar(){
-	std::cout<<"se dibujo un rectangulo, id:"<<this->getId()<<"\n";
+int Rectangulo::dibujar(SDL_Surface *screen){
+	SDL_Surface *imagen;
+	SDL_Rect rect;
+	
+	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
+	imagen = IMG_Load ("pocoyo2.jpg");
+	
+	rect.x = this->getPosicion()->getX();
+	rect.y = this->getPosicion()->getY();
+	rect.w = imagen->w = this->getBase();
+	rect.h = imagen->h = this->getAltura();
+	
+	SDL_BlitSurface(imagen, NULL, screen, &rect);
 	return 0;
 }
 int Rectangulo::getAltura(){

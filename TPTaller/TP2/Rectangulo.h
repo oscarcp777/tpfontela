@@ -9,7 +9,7 @@ class Rectangulo: public Figura {
 		Rectangulo(std::string id, int base,int altura, Posicion *pos);
 		int getBase();
 		int getAltura();
-		int dibujar();
+		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
 
 	private:

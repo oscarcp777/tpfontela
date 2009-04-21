@@ -77,13 +77,16 @@ std::string Escenario::obtenerPathTextura(std::string id){
 }
 
 int Escenario::graficar(){
-	/*
-	se grafica asi mismo y despues hace un
-	while donde recorre la listaFiguras y le dice a
-	cada una, figura->dibujar();
-	POLIMORFISMO PUROOOOOOOOOOOOOOOOOOO que diseño PAPA :P
-	*/
-	std::cout<<"SE GRAFICA EL ESCENARIO \n";
+	
+	SDL_Surface *screen;
+	
+	screen = SDL_SetVideoMode(640,480,16, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	if(!screen){
+		printf("No se pudo iniciar la pantalla: %s\n", SDL_GetError());
+		SDL_Quit();
+		exit(-1);
+	}
+
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int i = 1;
@@ -91,10 +94,15 @@ int Escenario::graficar(){
 
 	while(i<=this->sizeListaFiguras()){
 	figura = *iter;
-	figura->dibujar();
+	figura->dibujar(screen);
 	iter++;
 	i++;
 	}
-
+	
+	SDL_Flip (screen);	
+	system("PAUSE");
+	
+	SDL_FreeSurface(screen);
+	SDL_Quit();
 	return 0;
 }

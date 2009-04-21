@@ -54,6 +54,8 @@ int Validador::hidratar(std::string tipo, std::string values){
 	if(tipo.compare("General") == 0){
 	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
+
+
 	else if(tipo.compare("textura") == 0){
 	std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	std::string cadena;
@@ -91,7 +93,6 @@ int Validador::hidratar(std::string tipo, std::string values){
 			posicionPrimeraComilla = values.find_first_of('"');
 			//saco todo hasta la primer " de values
 			values = values.substr(posicionPrimeraComilla+1,values.size());
-			
 			posicionSegundaComilla = values.find_first_of('"');
 			path=values.substr(0,posicionSegundaComilla);
 			std::cout<<"valor path "<<path<<endl;

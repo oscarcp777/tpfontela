@@ -6,7 +6,7 @@ class Segmento:public Figura {
 
 	public:
 			Segmento(std::string id,Posicion *inicio, Posicion* fin);
-			int dibujar();
+			int dibujar(SDL_Surface *screen);
 			Posicion* getInicio();
 			Posicion* getFin();
 	private:

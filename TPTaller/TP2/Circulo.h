@@ -7,7 +7,7 @@ class Circulo: public Figura{
 	public: 
 		Circulo(std::string id,int radio,Posicion *pos);
 		int getRadio();
-		int dibujar();
+		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
 	private:
 		int radio;

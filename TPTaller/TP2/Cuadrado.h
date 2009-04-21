@@ -7,7 +7,7 @@ class Cuadrado: public Figura{
 	public: 
 		Cuadrado(std::string id,int lado,Posicion *pos);
 		int getLado();
-		int dibujar();
+		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
 
 	private:

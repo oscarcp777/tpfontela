@@ -10,16 +10,20 @@
 #include "Validador.h"
 #include "Textura.h"
 #include "logfinal.h"
-
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <SDL_main.h>
 
 using namespace std;
 
 
-int main()
+int SDL_main(int argc, char* argv[])
 {
 
-    
-	int exito;
+	/*
+	int exito = 0;
 	std::string nombreArchivoXML;
 	//en las siguientes tres lineas, se crean el log lo inicializa y ecribe un titulo en el archivo "errores.err"
 	Log log;
@@ -52,103 +56,37 @@ int main()
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	
-
-
-
-	std::cout<<endl;
-	std::cout<<endl;
-	std::cout<<endl;
-	std::cout<<"LAS SIGUIENTES SON PRUEBAS (para figura,posicion, textura y escenario)"<<endl;
-	
-	Posicion *posicion1 = new Posicion(20,500);
-	/*std::cout<<"posicion x "<<posicion1->getX()<<endl;
-	std::cout<<"posicion y "<<posicion1->getY()<<endl;
 	*/
 
+	Posicion *posicion1 = new Posicion(0,0);
+	Textura *textura = new Textura("foto","C:\Users\Richy\Desktop\TP2\pocoyo.jpg");
+	Cuadrado *cuadrado = new Cuadrado("cuadrado1",250,posicion1);
 	
-	Circulo *circulo = new Circulo("circulo1",50,posicion1);	
-	/*
-	std::cout<<"id circulo "<<circulo->getId()<<endl;
-	std::cout<<"radio circulo "<<circulo->getRadio()<<endl;
-	std::cout<<"posicion x del circulo "<<circulo->getPosicion()->getX()<<endl;
-	std::cout<<"posicion y del circulo "<<circulo->getPosicion()->getY()<<endl;
-	circulo->setIdTextura("otraTextura");
-	std::cout<<"id textura circulo "<<circulo->getIdTextura()<<endl;
-	*/
+	Posicion *posicion2 = new Posicion(200,200);
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",200,400,posicion2);
+	
 
-	Cuadrado *cuadrado = new Cuadrado("cuadrado1",2,posicion1);
-	/*
-	std::cout<<"id cuadrado "<<cuadrado->getId()<<endl;
-	std::cout<<"lado cuadrado "<<cuadrado->getLado()<<endl;
-	std::cout<<"posicion x del cuadrado "<<cuadrado->getPosicion()->getX()<<endl;
-	std::cout<<"posicion y del cuadrado "<<cuadrado->getPosicion()->getY()<<endl;
-	*/
-
+	Posicion *posicion3 = new Posicion(250,0);
+	Circulo *circulo = new Circulo("circulo1",1000,posicion3);
 	
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",3,9,posicion1);
-	/*
-	std::cout<<"id rectangulo "<<rectangulo->getId()<<endl;
-	std::cout<<"base rectangulo "<<rectangulo->getBase()<<endl;
-	std::cout<<"altura rectangulo "<<rectangulo->getAltura()<<endl;
-	std::cout<<"posicion x del cuadrado "<<rectangulo->getPosicion()->getX()<<endl;
-	std::cout<<"posicion y del cuadrado "<<rectangulo->getPosicion()->getY()<<endl;
-	*/
-	
-	
-	Posicion *inicio = new Posicion(0,0);
-	Posicion *fin = new Posicion(15,0);
-	Segmento *segmento = new Segmento("segmento1",inicio,fin);
-	/*
-	std::cout<<"id segmento "<<segmento->getId()<<endl;
-	std::cout<<"inicioX segmento  "<<segmento->getInicio()->getX()<<endl;
-	std::cout<<"inicioY segmento  "<<segmento->getInicio()->getY()<<endl;
-	std::cout<<"finX segmento "<<segmento->getFin()->getX()<<endl;
-	std::cout<<"finY segmento "<<segmento->getFin()->getY()<<endl;
-	*/
-	
-	
-	Posicion *ver1 = new Posicion(0,0);
-	Posicion *ver2 = new Posicion(15,0);
-	Posicion *ver3 = new Posicion(20,10);
+	Posicion *ver1 = new Posicion(0,300);
+	Posicion *ver2 = new Posicion(100,100);
+	Posicion *ver3 = new Posicion(0,0);
 	Triangulo *triangulo = new Triangulo("triangulo1",ver1,ver2,ver3);
-	/*
-	std::cout<<"id triangulo "<<triangulo->getId()<<endl;	
-	std::cout<<"ver1 X segmento  "<<triangulo->getVertice1()->getX()<<endl;
-	std::cout<<"ver1 Y segmento  "<<triangulo->getVertice1()->getY()<<endl;
-	std::cout<<"ver2 X segmento  "<<triangulo->getVertice2()->getX()<<endl;
-	std::cout<<"ver2 Y segmento  "<<triangulo->getVertice2()->getY()<<endl;
-	std::cout<<"ver3 X segmento  "<<triangulo->getVertice3()->getX()<<endl;
-	std::cout<<"ver3 Y segmento  "<<triangulo->getVertice3()->getY()<<endl;
-	*/
-	Textura *textura = new Textura("foto1","C:/Archivos de Programa/fotos");
-	/*
-	std::cout<<"textura id=  "<<textura->getId()<<endl;
-	std::cout<<"textura path  "<<textura->getPath()<<endl;
-	*/
-	Textura *textura2 = new Textura("foto2","C:/Archivos de Programa/fotos");
-	Textura *textura3 = new Textura("foto3","C:/Archivos de Programa/fotos");
-
-	
-	Escenario *escenario = Escenario::obtenerInstancia();
-	escenario->addFigura(circulo);
-	escenario->addFigura(cuadrado);
-	escenario->addFigura(rectangulo);
-	escenario->addFigura(segmento);
-	escenario->addFigura(triangulo);
-	//grafico todo
-	escenario->graficar();
-	
-	
-	std::cout<<"cantidad texturas "<<escenario->sizeListaTexturas()<<endl;	
-	std::cout<<"path textura1 = "<<escenario->obtenerPathTextura("textura1")<<endl;	
-	std::cout<<"path textura2 = "<<escenario->obtenerPathTextura("textura2")<<endl;	
-	std::cout<<"path textura3= "<<escenario->obtenerPathTextura("textura3")<<endl;
-	std::cout<<"path textura4 = "<<escenario->obtenerPathTextura("textura4")<<endl;
-
 	
 
+	cuadrado->setIdTextura("foto");
+	rectangulo->setIdTextura("foto");
+	circulo->setIdTextura("foto");
+	triangulo->setIdTextura("foto");
+	Escenario::obtenerInstancia()->addFigura(cuadrado);
+	Escenario::obtenerInstancia()->addFigura(rectangulo);
+	Escenario::obtenerInstancia()->addFigura(circulo);
+	Escenario::obtenerInstancia()->addFigura(triangulo);
+	Escenario::obtenerInstancia()->addTextura(textura);
+	Escenario::obtenerInstancia()->graficar();
 	
-	system("PAUSE");
+	
    
 	return 0;
 }

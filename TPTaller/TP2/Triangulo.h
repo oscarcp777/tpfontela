@@ -10,7 +10,7 @@ class Triangulo: public Figura {
 		Posicion* getVertice1();
 		Posicion* getVertice2();
 		Posicion* getVertice3();
-		int dibujar();
+		int dibujar(SDL_Surface *screen);
 
 	private:
 		Posicion *vertice1;
