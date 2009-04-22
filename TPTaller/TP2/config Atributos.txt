@@ -5,7 +5,7 @@ texturaFig
 colorLinea
 colorFondoEsc
 texturaEsc
--texturas
+-textura
 id
 path
 -cuadrado
