@@ -10,11 +10,11 @@
 #include "Validador.h"
 #include "Textura.h"
 #include "logfinal.h"
-#include <c:\program files\microsoft visual studio\vc98\sdl-1.2.13\include\SDL.h>
-//#include <SDL_image.h>
-//#include <SDL_ttf.h>
-//#include <SDL_mixer.h>
-//#include <SDL_main.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
+#include <SDL_main.h>
 #include<math.h>
 
 using namespace std;
@@ -124,7 +124,7 @@ int SDL_main(int argc, char* argv[])
 	SDL_Color color;
 
 
-	screen = SDL_SetVideoMode(640,480,32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	screen = SDL_SetVideoMode(800,600,32, SDL_SWSURFACE | SDL_DOUBLEBUF );
 	if(!screen){
 		printf("No se pudo iniciar la pantalla: %s\n", SDL_GetError());
 		SDL_Quit();
@@ -153,14 +153,14 @@ int SDL_main(int argc, char* argv[])
 
 	//FIN COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA */
 
-	imagen = IMG_Load ("pocoyo.jpg");
+	imagen = IMG_Load ("Puesta_de_sol.jpg");
 	float ang=0;
-	float radio = 1;
-	float PI =3.14;
+	float radio = 10000;
+	float PI =3.14f;
 	float x= 0;
 	float y= 0;
 	
-	for(ang = 0;ang<=90;ang+=0.2){
+	for(ang = 0;ang<=45;ang+=0.2){
          
   		for(radio = 1;radio<200;radio+=0.477){
 			color = getpixel(imagen,x,y);
@@ -174,9 +174,13 @@ int SDL_main(int argc, char* argv[])
 	
 	if(SDL_MUSTLOCK(screen))
 	SDL_UnlockSurface(screen);
-	SDL_Flip(screen);
-   	system("PAUSE");
+	int i = 0;
+	while (i<1000){
 	
+		i++;
+		SDL_Flip(screen);
+   		
+	}
 	SDL_FreeSurface(screen);
 	SDL_Quit();
 	return 0;
