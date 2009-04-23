@@ -16,7 +16,10 @@
 #include <SDL_mixer.h>
 #include <SDL_main.h>
 #include<math.h>
-
+#include "Dibujar.h"
+#define WALLCOLOR 0x9f1f1f 
+#define AMARRILLO 0xF7FE2E 
+#define AZUL 0x4A09E2
 using namespace std;
 
 void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color)
@@ -119,22 +122,77 @@ int SDL_main(int argc, char* argv[])
 	Escenario::obtenerInstancia()->addTextura(textura);
 	Escenario::obtenerInstancia()->graficar();
 	*/
-	SDL_Surface *screen;
-	SDL_Surface *imagen;
-	SDL_Color color;
+SDL_Event event;
+SDL_Surface *screen;
+SDL_Surface *imagen;
+SDL_Rect rect;
+SDL_Color color;
+int done = 0;
+Escenario *escenario = Escenario::obtenerInstancia();
+std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
+std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
+screen = SDL_SetVideoMode(escenario->getAncho(),escenario->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+if(!screen){
+std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<endl;
+SDL_Quit();
+exit(-1);
+}
 
+//dibujo un rectangulo
+	Posicion *posicion1 = new Posicion(500,220);
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",200,150,posicion1);
 
-	screen = SDL_SetVideoMode(800,600,32, SDL_SWSURFACE | SDL_DOUBLEBUF );
-	if(!screen){
-		printf("No se pudo iniciar la pantalla: %s\n", SDL_GetError());
-		SDL_Quit();
-		exit(-1);
-	}
-
+	//dibujo otro un rectangulo
+	Posicion *posicion2 = new Posicion(100,200);
+	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",200,200,posicion2);
+//dibujo  un circulo
+	Posicion *posicion3 = new Posicion(400,400);
+	Circulo *circulo = new Circulo("circulo1",50,posicion3);
 	
-	if(SDL_MUSTLOCK(screen))
-		SDL_LockSurface(screen);
-	
+Dibujar *dibujar =Dibujar::obtenerInstancia();
+//aca le seteo al dibujar la pantalla donde dibujar
+
+dibujar->pantalla=screen;
+std::cout<<"veo que trae"<<dibujar->pantalla<<endl;
+//pruebo que las funciones dibujan bien
+//dibujar->dibujarCirculo(400,400,50,AMARRILLO);
+//dibujar->dibujarRectangulo(100,200,200,200,AZUL);
+std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
+std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
+
+//llamo al dibujar del rectangulo par que se dibuje
+rectangulo->dibujar(screen);
+circulo->dibujar(screen);
+rectangulo1->dibujar(screen);
+
+
+
+//piso con imagenes las figuras
+  imagen = IMG_Load ("lente.png");
+
+rect.x = 540;
+rect.y = 270;
+rect.w = 200;
+rect.h = 150;
+//rect.w = imagen->w;
+//rect.h = imagen->h;
+SDL_BlitSurface(imagen, NULL, screen, &rect);
+imagen = IMG_Load ("circulo.png");
+
+rect.x = 400;
+rect.y = 400;
+rect.w = imagen->w;
+rect.h = imagen->h;
+SDL_BlitSurface(imagen, NULL, screen, &rect);
+
+imagen = IMG_Load ("triangulo.bmp");
+
+rect.x = 110;
+rect.y = 220;
+rect.w = 200;
+rect.h = 150;
+SDL_BlitSurface(imagen, NULL, screen, &rect);
+
 		
 	/*//COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA
 	imagen = IMG_Load ("pocoyo.jpg");
@@ -153,7 +211,7 @@ int SDL_main(int argc, char* argv[])
 
 	//FIN COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA */
 
-	imagen = IMG_Load ("Puesta_de_sol.jpg");
+	imagen = IMG_Load ("don.png");
 	float ang=0;
 	float radio = 10000;
 	float PI =3.14f;
@@ -171,17 +229,22 @@ int SDL_main(int argc, char* argv[])
 		
 	}
 	
+	while (done == 0) {
+SDL_Flip (screen);
+// Comprobando teclas para opciones
+while (SDL_PollEvent(&event)) {
+// Cerrar la ventana
+if (event.type == SDL_QUIT) { done = 1; }
+// Pulsando una tecla
+if (event.type == SDL_KEYDOWN) {
+done = 1;
+}
+}
+}
+SDL_FreeSurface(imagen);
+SDL_FreeSurface(screen);
+SDL_Quit();
+std::cout<<"\nTodo ha salido bien.\n"<<endl;
 	
-	if(SDL_MUSTLOCK(screen))
-	SDL_UnlockSurface(screen);
-	int i = 0;
-	while (i<1000){
-	
-		i++;
-		SDL_Flip(screen);
-   		
-	}
-	SDL_FreeSurface(screen);
-	SDL_Quit();
 	return 0;
 }

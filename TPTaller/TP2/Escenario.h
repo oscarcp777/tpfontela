@@ -18,6 +18,12 @@ class Escenario {
 			std::list<Textura*>::iterator iteratorListaTexturas();
 			std::string Escenario::obtenerPathTextura(std::string id);
 			//TODO hacer geters y setters atributos
+			void setAncho(int ancho);
+			int getAncho();
+			void setAlto(int alto);
+			int getAlto();
+			void setResolucion(int resolucion);
+			int getResolucion();
 			int graficar();
 			
 	
@@ -25,7 +31,8 @@ class Escenario {
 		Escenario();
 	
 	private:
-		
+		int ancho;
+		int alto;
 		int resolucion;
 		std::string colorFondoFig;
 		std::string texturaFig;

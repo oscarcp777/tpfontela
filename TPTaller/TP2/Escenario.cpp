@@ -2,10 +2,24 @@
 #include <list>
 #include "Escenario.h"
 #include <utility>
+	//pasar estas constantes a Constantes.h
+const int RESOLUCION_640=640;
+const int RESOLUCION_640_ALTO=480;
+const int RESOLUCION_640_ANCHO=640;
+const int RESOLUCION_800=800;
+const int RESOLUCION_800_ALTO=600;
+const int RESOLUCION_800_ANCHO=800;
+const int RESOLUCION_1024=1024;
+const int RESOLUCION_1024_ALTO=768;
+const int RESOLUCION_1024_ANCHO=1024;
+const int RESOLUCION_1280=1280;
+const int RESOLUCION_1280_ALTO=768;
+const int RESOLUCION_1280_ANCHO=1280;
+const int RESOLUCION_BIT=32;
 
 Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
-	this->resolucion = 800;
+	this->setResolucion(800);
 	this->colorFondoFig = "XXXYYYZZZ";
 	this->texturaFig = "id";
 	this->colorLinea = "XXXYYYZZZ";
@@ -24,7 +38,36 @@ Escenario* Escenario::obtenerInstancia(){
 	
 	return Escenario::unicaInstanciaEscenario;
 }
-
+void  Escenario::setAncho(int ancho){
+this->ancho=ancho;
+}
+int   Escenario::getAncho(){
+return	this->ancho;
+}
+void  Escenario::setAlto(int alto){
+	this->alto=alto;
+}
+int   Escenario::getAlto(){
+	return this->alto;
+}
+void  Escenario::setResolucion(int resolucion){
+    if(resolucion==RESOLUCION_640){
+       	this->alto=RESOLUCION_640_ALTO;
+		this->ancho=RESOLUCION_640_ANCHO;
+	}
+	if(resolucion==RESOLUCION_800){
+       	this->alto=RESOLUCION_800_ALTO;
+		this->ancho=RESOLUCION_800_ANCHO;
+	}
+	if(resolucion==RESOLUCION_1024){
+       	this->alto=RESOLUCION_1024_ALTO;
+		this->ancho=RESOLUCION_1024_ANCHO;
+	}
+	if(resolucion==RESOLUCION_1280){
+       	this->alto=RESOLUCION_1280_ALTO;
+		this->ancho=RESOLUCION_1280_ANCHO;
+	}
+}
 void Escenario::addFigura(Figura *figura){
 	this->listaFiguras.push_back(figura);
 }
