@@ -16,3 +16,11 @@ int Posicion::getY(){
 
 	return this->y;
 }
+
+void Posicion::setX(int x){
+	this->x = x;
+	
+}
+void Posicion::setY(int y){
+	this->y = y;
+}

@@ -141,7 +141,7 @@ exit(-1);
 
 //dibujo un rectangulo
 	Posicion *posicion1 = new Posicion(10,10);
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",200,150,posicion1);
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",250,250,posicion1);
 
 	//dibujo otro un rectangulo
 	Posicion *posicion2 = new Posicion(405,400);
@@ -165,6 +165,8 @@ std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
 rectangulo->dibujar(screen);
 circulo->dibujar(screen);
 rectangulo1->dibujar(screen);
+
+
 
 //PONE DENTRO DEL CIRCULO LA TEXTURA
 imagen = IMG_Load ("pocoyo.jpg");
@@ -196,99 +198,38 @@ imagen = IMG_Load ("pocoyo.jpg");
 		
 	}
 //FIN PONE DENTRO DEL CIRCULO LA TEXTURA 
+
+
 /*
-//piso con imagenes las figuras
-  imagen = IMG_Load ("lente.png");
+//PONE DENTRO DEL RECTANGULO LA TEXTURA
+	imagen = IMG_Load ("pocoyo3.jpg");
+	
+	std::cout<<"base "<<rectangulo->getBase()<<endl;
+	std::cout<<"altura "<<rectangulo->getAltura()<<endl;
+	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
+	int x= rectangulo->getPosicion()->getX();
+	int y= rectangulo->getPosicion()->getY();
 
-rect.x = 540;
-rect.y = 270;
-rect.w = 200;
-rect.h = 150;
-//rect.w = imagen->w;
-//rect.h = imagen->h;
-SDL_BlitSurface(imagen, NULL, screen, &rect);
-imagen = IMG_Load ("circulo.png");
-
-rect.x = 400;
-rect.y = 400;
-rect.w = imagen->w;
-rect.h = imagen->h;
-SDL_BlitSurface(imagen, NULL, screen, &rect);
-
-imagen = IMG_Load ("triangulo.bmp");
-
-rect.x = 110;
-rect.y = 220;
-rect.w = 200;
-rect.h = 150;
-SDL_BlitSurface(imagen, NULL, screen, &rect);
-*/
-		
-	/*//COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA
-	imagen = IMG_Load ("pocoyo.jpg");
-	int x,y;
-	x=0;
-	y=0;
-	while(x<imagen->w){
-		y=0;
-		while(y<imagen->h){
+	while(x<=(rectangulo->getBase()+rectangulo->getPosicion()->getX())){
+		//std::cout<<"x "<<x<<endl;
+		y=rectangulo->getPosicion()->getY();
+		while(y<=(rectangulo->getAltura()+rectangulo->getPosicion()->getY())){
+		//	std::cout<<"y "<<y<<endl;
 		color = getpixel(imagen,x,y);
 		putpixel(screen,x,y,color);
 		y++;
 		}
 		x++;
-	}
-
-	//FIN COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA */
-//*************************************************************************
-/*	SDL_Event event;
-	SDL_Surface *screen;
-	SDL_Surface *imagen;
-	SDL_Color color;
-	int done = 0;
-	Escenario *escenario = Escenario::obtenerInstancia();
-	std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
-	std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
-	screen = SDL_SetVideoMode(escenario->getAncho(),escenario->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
-	if(!screen){
-		std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<endl;
-		SDL_Quit();
-		exit(-1);
-	}
-	imagen = IMG_Load ("pocoyo3.jpg");
-	float ang=0;
-	float radio = 90;
-	float PI =3.14f;
-	float x= 200;
-	float y= 400;
-	//Xinicial Yinicial son las posiciones de imagen que determinan el centro del circulo
-	const int Xinicial = 200;
-	const int Yinicial = 150;
-	//posicionXPantalla posicionYPantalla son las posiciones donde grafica el circulo
-	const int posicionXPantalla = 100;
-	const int posicionYPantalla = 95;
-
-
-	for(ang = 0;ang<=360;ang+=0.2){
-         
-  		for(radio = 1;radio<100;radio+=0.477){
-			color = getpixel(imagen,x,y);
-			putpixel(screen,x+posicionXPantalla,y+posicionYPantalla,color);
-            x=Xinicial+radio*cos(PI*ang/180);
-			y=Yinicial+radio*sin(PI*ang/180);		
-			
-		}			
-		
-	}
-
-
-
-//*********************************************************************
-*/
 	
+	}
+
+//FIN PONE DENTRO DEL RECTANGULO LA TEXTURA  
+*/
+
+
 	while (done == 0) {
 		SDL_Flip (screen);
-		// Comprobando teclas para opciones
+	// Comprobando teclas para opciones
 		while (SDL_PollEvent(&event)) {
 			// Cerrar la ventana
 			if (event.type == SDL_QUIT) { done = 1; }
