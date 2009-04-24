@@ -122,6 +122,15 @@ int SDL_main(int argc, char* argv[])
 	Escenario::obtenerInstancia()->addTextura(textura);
 	Escenario::obtenerInstancia()->graficar();
 	*/
+
+
+
+
+
+
+
+
+	/*
 SDL_Event event;
 SDL_Surface *screen;
 SDL_Surface *imagen;
@@ -139,15 +148,15 @@ exit(-1);
 }
 
 //dibujo un rectangulo
-	Posicion *posicion1 = new Posicion(500,220);
+	Posicion *posicion1 = new Posicion(10,10);
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",200,150,posicion1);
 
 	//dibujo otro un rectangulo
-	Posicion *posicion2 = new Posicion(100,200);
-	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",200,200,posicion2);
+	Posicion *posicion2 = new Posicion(400,400);
+	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,400,posicion2);
 //dibujo  un circulo
-	Posicion *posicion3 = new Posicion(400,400);
-	Circulo *circulo = new Circulo("circulo1",50,posicion3);
+	Posicion *posicion3 = new Posicion(500,100);
+	Circulo *circulo = new Circulo("circulo1",100,posicion3);
 	
 Dibujar *dibujar =Dibujar::obtenerInstancia();
 //aca le seteo al dibujar la pantalla donde dibujar
@@ -164,9 +173,9 @@ std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
 rectangulo->dibujar(screen);
 circulo->dibujar(screen);
 rectangulo1->dibujar(screen);
+*/
 
-
-
+/*
 //piso con imagenes las figuras
   imagen = IMG_Load ("lente.png");
 
@@ -192,7 +201,7 @@ rect.y = 220;
 rect.w = 200;
 rect.h = 150;
 SDL_BlitSurface(imagen, NULL, screen, &rect);
-
+*/
 		
 	/*//COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA
 	imagen = IMG_Load ("pocoyo.jpg");
@@ -210,24 +219,51 @@ SDL_BlitSurface(imagen, NULL, screen, &rect);
 	}
 
 	//FIN COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA */
-
-	imagen = IMG_Load ("don.png");
+//*************************************************************************
+	SDL_Event event;
+	SDL_Surface *screen;
+	SDL_Surface *imagen;
+	SDL_Color color;
+	int done = 0;
+	Escenario *escenario = Escenario::obtenerInstancia();
+	std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
+	std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
+	screen = SDL_SetVideoMode(escenario->getAncho(),escenario->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	if(!screen){
+		std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<endl;
+		SDL_Quit();
+		exit(-1);
+	}
+	imagen = IMG_Load ("pocoyo3.jpg");
 	float ang=0;
-	float radio = 10000;
+	float radio = 90;
 	float PI =3.14f;
-	float x= 0;
-	float y= 0;
-	
-	for(ang = 0;ang<=45;ang+=0.2){
+	float x= 200;
+	float y= 400;
+	//Xinicial Yinicial son las posiciones de imagen que determinan el centro del circulo
+	const int Xinicial = 200;
+	const int Yinicial = 150;
+	//posicionXPantalla posicionYPantalla son las posiciones donde grafica el circulo
+	const int posicionXPantalla = 100;
+	const int posicionYPantalla = 95;
+
+
+	for(ang = 0;ang<=360;ang+=0.2){
          
-  		for(radio = 1;radio<200;radio+=0.477){
+  		for(radio = 1;radio<100;radio+=0.477){
 			color = getpixel(imagen,x,y);
-			putpixel(screen,x,y,color);
-            y=radio*sin(PI*ang/180);		
-			x=radio*cos(PI*ang/180);
+			putpixel(screen,x+posicionXPantalla,y+posicionYPantalla,color);
+            x=Xinicial+radio*cos(PI*ang/180);
+			y=Yinicial+radio*sin(PI*ang/180);		
+			
 		}			
 		
 	}
+
+
+
+//*********************************************************************
+
 	
 	while (done == 0) {
 SDL_Flip (screen);

@@ -18,7 +18,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 	SDL_Rect rect;
 	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	imagen = IMG_Load ("circulo.gif");
+	imagen = IMG_Load ("circulo.png");
 	
 	rect.x = this->getPosicion()->getX();
 	rect.y = this->getPosicion()->getY();

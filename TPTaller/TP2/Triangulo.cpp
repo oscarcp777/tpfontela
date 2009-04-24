@@ -16,7 +16,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	SDL_Rect rect;
 	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	imagen = IMG_Load ("triangulo.jpg");
+	imagen = IMG_Load ("pocoyo4.jpg");
 	
 	rect.x = this->getVertice1()->getX();
 	rect.y = this->getVertice1()->getY();
