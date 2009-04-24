@@ -139,17 +139,22 @@ SDL_Quit();
 exit(-1);
 }
 
-//dibujo un rectangulo
-	Posicion *posicion1 = new Posicion(10,10);
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",250,250,posicion1);
 
-	//dibujo otro un rectangulo
+	Posicion *posicion1 = new Posicion(10,10);
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",250,240,posicion1);
+	Textura *textura1 = new Textura("don","C:/Documents and Settings/Richy/Escritorio/TP Taller de Programacion/TP2 Proyecto/don.png");
+
+
 	Posicion *posicion2 = new Posicion(405,400);
 	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,300,posicion2);
-//dibujo  un circulo
-	Posicion *posicion3 = new Posicion(300,300);
+
+	Posicion *posicion3 = new Posicion(500,200);
 	Circulo *circulo = new Circulo("circulo1",150,posicion3);
+	Textura *textura2 = new Textura("pocoyo","C:/Documents and Settings/Richy/Escritorio/TP Taller de Programacion/TP2 Proyecto/pocoyo.jpg");
 	
+	std::cout<<"miCadena = "<<textura1->getPath().begin()<<endl;
+
+
 Dibujar *dibujar =Dibujar::obtenerInstancia();
 //aca le seteo al dibujar la pantalla donde dibujar
 
@@ -169,7 +174,7 @@ rectangulo1->dibujar(screen);
 
 
 //PONE DENTRO DEL CIRCULO LA TEXTURA
-imagen = IMG_Load ("pocoyo.jpg");
+imagen = IMG_Load (textura2->getPath().begin());
 	float ang;
 	float radio;
 	float PI =3.14f;
@@ -177,8 +182,8 @@ imagen = IMG_Load ("pocoyo.jpg");
 	int XiniColor = imagen->w/2;
 	int YiniColor = imagen->h/2;
 	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
-	float x= circulo->getPosicion()->getX();
-	float y= circulo->getPosicion()->getY();
+	float xCirculo= circulo->getPosicion()->getX();
+	float yCirculo= circulo->getPosicion()->getY();
 
 	
 
@@ -186,13 +191,13 @@ imagen = IMG_Load ("pocoyo.jpg");
          
   		for(radio = 1;radio<circulo->getRadio();radio+=0.477){
 			color = getpixel(imagen,XiniColor,YiniColor);
-			putpixel(screen,x,y,color);
+			putpixel(screen,xCirculo,yCirculo,color);
 			
 			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
 			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
             
-			x=circulo->getPosicion()->getX()+radio*cos(PI*ang/180);
-			y=circulo->getPosicion()->getY()+radio*sin(PI*ang/180);		
+			xCirculo=circulo->getPosicion()->getX()+radio*cos(PI*ang/180);
+			yCirculo=circulo->getPosicion()->getY()+radio*sin(PI*ang/180);		
 			
 		}			
 		
@@ -200,9 +205,9 @@ imagen = IMG_Load ("pocoyo.jpg");
 //FIN PONE DENTRO DEL CIRCULO LA TEXTURA 
 
 
-/*
+
 //PONE DENTRO DEL RECTANGULO LA TEXTURA
-	imagen = IMG_Load ("pocoyo3.jpg");
+	imagen = IMG_Load (textura1->getPath().begin());
 	
 	std::cout<<"base "<<rectangulo->getBase()<<endl;
 	std::cout<<"altura "<<rectangulo->getAltura()<<endl;
@@ -224,11 +229,12 @@ imagen = IMG_Load ("pocoyo.jpg");
 	}
 
 //FIN PONE DENTRO DEL RECTANGULO LA TEXTURA  
-*/
+
 
 
 	while (done == 0) {
 		SDL_Flip (screen);
+		
 	// Comprobando teclas para opciones
 		while (SDL_PollEvent(&event)) {
 			// Cerrar la ventana
