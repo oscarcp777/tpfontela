@@ -123,14 +123,6 @@ int SDL_main(int argc, char* argv[])
 	Escenario::obtenerInstancia()->graficar();
 	*/
 
-
-
-
-
-
-
-
-	/*
 SDL_Event event;
 SDL_Surface *screen;
 SDL_Surface *imagen;
@@ -152,11 +144,11 @@ exit(-1);
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",200,150,posicion1);
 
 	//dibujo otro un rectangulo
-	Posicion *posicion2 = new Posicion(400,400);
-	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,400,posicion2);
+	Posicion *posicion2 = new Posicion(405,400);
+	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,300,posicion2);
 //dibujo  un circulo
-	Posicion *posicion3 = new Posicion(500,100);
-	Circulo *circulo = new Circulo("circulo1",100,posicion3);
+	Posicion *posicion3 = new Posicion(300,300);
+	Circulo *circulo = new Circulo("circulo1",150,posicion3);
 	
 Dibujar *dibujar =Dibujar::obtenerInstancia();
 //aca le seteo al dibujar la pantalla donde dibujar
@@ -173,8 +165,37 @@ std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
 rectangulo->dibujar(screen);
 circulo->dibujar(screen);
 rectangulo1->dibujar(screen);
-*/
 
+//PONE DENTRO DEL CIRCULO LA TEXTURA
+imagen = IMG_Load ("pocoyo.jpg");
+	float ang;
+	float radio;
+	float PI =3.14f;
+	//(Xinicial,Yinicial) es la posicion de imagen desde donde copiara el circulo
+	int XiniColor = imagen->w/2;
+	int YiniColor = imagen->h/2;
+	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
+	float x= circulo->getPosicion()->getX();
+	float y= circulo->getPosicion()->getY();
+
+	
+
+	for(ang = 0;ang<=360;ang+=0.2){
+         
+  		for(radio = 1;radio<circulo->getRadio();radio+=0.477){
+			color = getpixel(imagen,XiniColor,YiniColor);
+			putpixel(screen,x,y,color);
+			
+			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
+			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
+            
+			x=circulo->getPosicion()->getX()+radio*cos(PI*ang/180);
+			y=circulo->getPosicion()->getY()+radio*sin(PI*ang/180);		
+			
+		}			
+		
+	}
+//FIN PONE DENTRO DEL CIRCULO LA TEXTURA 
 /*
 //piso con imagenes las figuras
   imagen = IMG_Load ("lente.png");
@@ -220,7 +241,7 @@ SDL_BlitSurface(imagen, NULL, screen, &rect);
 
 	//FIN COPIA UNA IMAGEN PIXEL A PIXEL Y LA CARGA EN PANTALLA */
 //*************************************************************************
-	SDL_Event event;
+/*	SDL_Event event;
 	SDL_Surface *screen;
 	SDL_Surface *imagen;
 	SDL_Color color;
@@ -263,20 +284,20 @@ SDL_BlitSurface(imagen, NULL, screen, &rect);
 
 
 //*********************************************************************
-
+*/
 	
 	while (done == 0) {
-SDL_Flip (screen);
-// Comprobando teclas para opciones
-while (SDL_PollEvent(&event)) {
-// Cerrar la ventana
-if (event.type == SDL_QUIT) { done = 1; }
-// Pulsando una tecla
-if (event.type == SDL_KEYDOWN) {
-done = 1;
-}
-}
-}
+		SDL_Flip (screen);
+		// Comprobando teclas para opciones
+		while (SDL_PollEvent(&event)) {
+			// Cerrar la ventana
+			if (event.type == SDL_QUIT) { done = 1; }
+			// Pulsando una tecla
+			if (event.type == SDL_KEYDOWN) {
+			done = 1;
+			}
+		}
+	}
 SDL_FreeSurface(imagen);
 SDL_FreeSurface(screen);
 SDL_Quit();
