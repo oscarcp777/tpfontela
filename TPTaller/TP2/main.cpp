@@ -54,6 +54,98 @@ SDL_Color getpixel(SDL_Surface *screen, int x, int y)
 	return color;
 }
 
+
+//PARA EXPANDIR Y CONTRAER IMAGENES
+
+Uint32 ReadPixel(SDL_Surface *surface, int x, int y)
+{
+    int bpp = surface->format->BytesPerPixel;
+    //Aqui p es la direccion del pixel que nosotros queremos recuperar
+    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+
+    switch (bpp)
+    {
+    case 1:
+        return *p;
+
+    case 2:
+        return *(Uint16 *)p;
+
+    case 3:
+        if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
+            return p[0] << 16 | p[1] << 8 | p[2];
+        else
+            return p[0] | p[1] << 8 | p[2] << 16;
+
+    case 4:
+        return *(Uint32 *)p;
+
+    default:
+        return 0;       /* por descarte devuelvo 0 */
+    }
+}
+
+void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+{
+    int bpp = surface->format->BytesPerPixel;
+     //Aqui la direccion del pixel que nosotros queremos setear
+    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+
+    switch (bpp)
+    {
+    case 1:
+        *p = pixel;
+        break;
+
+    case 2:
+        *(Uint16 *)p = pixel;
+        break;
+
+    case 3:
+        if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
+        {
+            p[0] = (pixel >> 16) & 0xff;
+            p[1] = (pixel >> 8) & 0xff;
+            p[2] = pixel & 0xff;
+        }
+        else
+        {
+            p[0] = pixel & 0xff;
+            p[1] = (pixel >> 8) & 0xff;
+            p[2] = (pixel >> 16) & 0xff;
+        }
+        break;
+
+    case 4:
+        *(Uint32 *)p = pixel;
+        break;
+    }
+}
+
+//Esta es la funcion que usamos para expandir y contraer una imagen
+//Esta funcion invoca a readPixel y drawPixel
+
+SDL_Surface *ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height)
+{
+    if (!Surface || !Width || !Height)
+        return 0;
+
+    SDL_Surface *_ret = SDL_CreateRGBSurface(Surface->flags, Width, Height, Surface->format->BitsPerPixel,
+                        Surface->format->Rmask, Surface->format->Gmask, Surface->format->Bmask, Surface->format->Amask);
+
+    double  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(Surface->w)),
+                                _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(Surface->h));
+
+    for (Sint32 y = 0; y < Surface->h; y++)
+        for (Sint32 x = 0; x < Surface->w; x++)
+            for (Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
+                for (Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
+                    DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
+                              static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(Surface, x, y));
+
+    return _ret;
+}
+
 int SDL_main(int argc, char* argv[])
 {
 
@@ -141,8 +233,8 @@ exit(-1);
 
 
 	Posicion *posicion1 = new Posicion(10,10);
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",250,240,posicion1);
-	Textura *textura1 = new Textura("don","C:/Documents and Settings/Richy/Escritorio/TP Taller de Programacion/TP2 Proyecto/don.png");
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",350,340,posicion1);
+	Textura *textura1 = new Textura("don","don.png");
 
 
 	Posicion *posicion2 = new Posicion(405,400);
@@ -150,7 +242,7 @@ exit(-1);
 
 	Posicion *posicion3 = new Posicion(500,200);
 	Circulo *circulo = new Circulo("circulo1",150,posicion3);
-	Textura *textura2 = new Textura("pocoyo","C:/Documents and Settings/Richy/Escritorio/TP Taller de Programacion/TP2 Proyecto/pocoyo.jpg");
+	Textura *textura2 = new Textura("don","don.png");
 	
 	std::cout<<"miCadena = "<<textura1->getPath().begin()<<endl;
 
@@ -207,12 +299,18 @@ imagen = IMG_Load (textura2->getPath().begin());
 
 
 //PONE DENTRO DEL RECTANGULO LA TEXTURA
-	imagen = IMG_Load (textura1->getPath().begin());
+	imagen = ScaleSurface(IMG_Load (textura1->getPath().begin()), rectangulo->getBase(), rectangulo->getAltura());
 	
+	rect.x=rectangulo->getPosicion()->getX();
+	rect.y=rectangulo->getPosicion()->getY();
+	rect.h=imagen->h;
+	rect.w=imagen->w;
+
 	std::cout<<"base "<<rectangulo->getBase()<<endl;
 	std::cout<<"altura "<<rectangulo->getAltura()<<endl;
 	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
-	int x= rectangulo->getPosicion()->getX();
+	SDL_BlitSurface(imagen, NULL, screen, &rect);
+/*	int x= rectangulo->getPosicion()->getX();
 	int y= rectangulo->getPosicion()->getY();
 
 	while(x<=(rectangulo->getBase()+rectangulo->getPosicion()->getX())){
@@ -226,7 +324,7 @@ imagen = IMG_Load (textura2->getPath().begin());
 		}
 		x++;
 	
-	}
+	}*/
 
 //FIN PONE DENTRO DEL RECTANGULO LA TEXTURA  
 
