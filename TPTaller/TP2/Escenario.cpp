@@ -19,11 +19,12 @@ const int RESOLUCION_BIT=32;
 
 Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
+	
 	this->setResolucion(RESOLUCION_800);	
 	this->texturaFig = "id";
 	this->colorLinea = new Color(255,0,0);
 	this->colorFondoEsc = "XXXYYYZZZ";
-	this->texturaEsc = "id2";
+	this->texturaEsc = "NULL";
 	this->setColorFondoEscenario(new Color(255,255,255));
 	this->setColorFondoFiguras(new Color( 255, 215 , 0));
 	this->setColorLinea(new Color(0,0,0));
@@ -49,8 +50,8 @@ void  Escenario::setColorFondoFiguras(Color* colorFondoFiguras){
 void  Escenario::setColorLinea(Color* colorLinea){
  this->colorLinea=colorLinea;
 }
-Color* Escenario::getColorFondoEscenario(){
-return	this->colorFondoEscenario;
+SDL_Color Escenario::getColorFondoEscenario(){
+return	this->colorFondoEscenario->getColor();
 }
 SDL_Color Escenario::getColorFondoFiguras(){
 return	this->colorFondoFiguras->getColor();
@@ -115,6 +116,10 @@ std::list<Textura*>::iterator Escenario::iteratorListaTexturas(){
 	return this->listaTexturas.begin();
 }
 
+void Escenario::setIdTextura(std::string idTextura){
+	this->texturaEsc = idTextura;
+}
+
 std::string Escenario::obtenerPathTextura(std::string id){
 	std::list<Textura*>::iterator iter;
 	Textura *textura;
@@ -146,20 +151,20 @@ SDL_Surface* Escenario::getScreen(){
 
 }
 
-/*SDL_Color Escenario::getColorFondoFig(){
-	return this->colorFondoFig;
-}*/
-
 int Escenario::graficar(){
 	
 	int done = 0;
 	SDL_Event event;
+	
 	// Iniciar SDL
      if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
-        exit(1);
+        std::string aux = SDL_GetError();
+		escribirMensajeLog(this->log,"No se pudo iniciar SDL: " + aux );
+		return -1;
 	 }
-  //seteamos el titulo a la barra
+  
+	 //seteamos el titulo a la barra
   SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");  
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
@@ -169,7 +174,23 @@ int Escenario::graficar(){
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
 		return -1;
 	}
+
 	
+	if(this->texturaEsc.compare("NULL")!=0){
+		
+		SDL_Color color = Escenario::obtenerInstancia()->getColorFondoEscenario();
+		std::string path = this->obtenerPathTextura(this->texturaEsc);
+	    
+		SDL_Surface *imagen = IMG_Load (path.begin());
+		imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());		
+		SDL_Rect rect;
+		rect.x =0;
+		rect.y =0;
+		rect.w = this->getAncho();
+		rect.h = this->getAlto();
+		SDL_BlitSurface(imagen, NULL,this->screen, &rect);
+	}
+
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int i = 1;
@@ -200,3 +221,4 @@ int Escenario::graficar(){
 	
 	return 0;
 }
+

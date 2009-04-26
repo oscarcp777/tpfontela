@@ -10,7 +10,7 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 }
 
 int Segmento::dibujar(SDL_Surface *screen){
-	std::cout<<"se dibujo un segmento, id:"<<this->getId()<<"\n";
+	
 	return 0;
 }
 

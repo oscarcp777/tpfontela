@@ -59,16 +59,16 @@ int main(int argc, char* argv[])
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 */	
-
+	
 	Escenario* escenario = Escenario::obtenerInstancia();
 
 	
-	Posicion *posicion1 = new Posicion(0,0);
-	Posicion *posicion2 = new Posicion(500,100);
-	Posicion *posicion3 = new Posicion(400,300);
+	Posicion *posicion1 = new Posicion(50,50);
+	Posicion *posicion2 = new Posicion(570,100);
+	Posicion *posicion3 = new Posicion(580,470);
 	
 	
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",400,400,posicion1);
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",500,300,posicion1);
 	rectangulo->setIdTextura("pocoyo4");
 
 	
@@ -82,7 +82,8 @@ int main(int argc, char* argv[])
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("river","river.jpg");
-
+	Textura *textura4 = new Textura("estrellas","estrellas2.jpg");
+	escenario->setIdTextura("estrellas");
 	
 	
 	escenario->addFigura(cuadrado);
@@ -91,6 +92,7 @@ int main(int argc, char* argv[])
 	escenario->addTextura(textura1);
 	escenario->addTextura(textura2);
 	escenario->addTextura(textura3);
+	escenario->addTextura(textura4);
 
 	escenario->graficar();	
 

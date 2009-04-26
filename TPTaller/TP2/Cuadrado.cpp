@@ -15,7 +15,7 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
 
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	std::cout<<path;
+	
 	this->imagen = IMG_Load (path.begin());
 	this->imagen = ScaleSurface(this->imagen, this->getLado(), this->getLado());		
 	

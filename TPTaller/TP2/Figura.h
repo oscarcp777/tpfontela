@@ -16,6 +16,10 @@ class Figura{
 		 std::string getId();
 		 std::string getIdTextura();
 		 void setIdTextura(std::string idTextura);
+		 static SDL_Surface* ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height);
+		 static void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
+		 static Uint32 ReadPixel(SDL_Surface *surface, int x, int y);
+	
 	protected:
 		std::string id;
 		std::string idTextura;
@@ -25,8 +29,6 @@ class Figura{
 		
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
 		SDL_Color getpixel(SDL_Surface *imagen, int x, int y);
-		SDL_Surface* ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height);
-		void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
-		Uint32 ReadPixel(SDL_Surface *surface, int x, int y);
+	
 };
 #endif

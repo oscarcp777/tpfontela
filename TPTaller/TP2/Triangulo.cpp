@@ -11,7 +11,7 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	
 }
 int Triangulo::dibujar(SDL_Surface *screen){
-	//std::cout<<"se dibujo un triangulo, id:"<<this->getId()<<"\n";
+	
 	SDL_Surface *imagen;
 	SDL_Rect rect;
 	

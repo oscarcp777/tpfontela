@@ -28,12 +28,14 @@ class Escenario {
 			void setResolucion(int resolucion);
 			int getResolucion();
 			int graficar();
-			Color* getColorFondoEscenario();
+			SDL_Color getColorFondoEscenario();
 		    SDL_Color getColorFondoFiguras();
 		    Color* getColorLinea();
 			void  setColorFondoEscenario(Color* colorFondoEscenario);
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
-		    void  setColorLinea(Color* colorLinea);		
+		    void  setColorLinea(Color* colorLinea);	
+			void setIdTextura(std::string idTextura);
+
 			SDL_Surface* getScreen();	
 			
 
