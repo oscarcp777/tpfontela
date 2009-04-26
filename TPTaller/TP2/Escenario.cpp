@@ -28,7 +28,23 @@ Escenario::Escenario(){
 	this->setColorFondoEscenario(new Color(255,255,255));
 	this->setColorFondoFiguras(new Color( 255, 215 , 0));
 	this->setColorLinea(new Color(0,0,0));
+	inicializarLog(this->log, "errores.err");
+	this->validador = new  Validador("config Validador.txt","config Atributos.txt");
+	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
+	this->validador->setLog(&(this->log));
 	
+}
+
+Escenario::~Escenario(){
+	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
+	destruirLog(this->log);
+		
+	
+}
+
+int Escenario::cargarArchivo(std::string nombreArchivo){
+	return this->validador->validarSintaxis(nombreArchivo);
+
 }
 
 Escenario* Escenario::unicaInstanciaEscenario = NULL;
@@ -119,6 +135,11 @@ std::list<Textura*>::iterator Escenario::iteratorListaTexturas(){
 void Escenario::setIdTextura(std::string idTextura){
 	this->texturaEsc = idTextura;
 }
+
+Log* Escenario::getLog(){
+	return &(this->log);
+}
+
 
 void Escenario::pintarPantalla(){
 	std::cout<<"ENTRO AL IF \n";

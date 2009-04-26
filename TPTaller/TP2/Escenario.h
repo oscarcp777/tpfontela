@@ -8,13 +8,16 @@
 #include <map>
 #include "SDL.h"
 #include "Color.h"
-#include "Logfinal.h"
+//#include "Logfinal.h"
+#include "Validador.h"
+
 
 
 // ESCENARIO ES UN SINGLETON 
 class Escenario {
 	
 	public:
+			Escenario::~Escenario();
 			static Escenario* obtenerInstancia();
 			void addFigura(Figura *figura);
 			void addTextura(Textura *textura);
@@ -38,8 +41,10 @@ class Escenario {
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
 		    void  setColorLinea(Color* colorLinea);	
 			void setIdTextura(std::string idTextura);
+			Log* getLog();
 			void pintarPantalla();
 			SDL_Surface* getScreen();	
+			int cargarArchivo(std::string nombreArchivo);
 			
 
 
@@ -64,6 +69,7 @@ class Escenario {
 		Color* colorFondoFiguras;
 		Color* colorLinea;
 		Log log;
+		Validador* validador;
 };
 
 #endif

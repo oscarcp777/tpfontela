@@ -1,3 +1,7 @@
+#ifndef _VALIDADOR_H_
+#define _VALIDADOR_H_
+
+
 #include <iostream>
 #include <iostream.h>
 #include <string>
@@ -15,10 +19,13 @@ private:
 
 	list<std::string> ListaTagsArchivo;
 
+	Log* log;
+
 public:
 	
 	Validador(std::string nombreArchivoTags,std::string nombreArchivoAtributos);
 
+	void setLog(Log* log);
 	
 	int validarValues(std::string tipo,std::string values);
 
@@ -37,4 +44,4 @@ public:
 	int hidratar(std::string tipo, std::string values);
 	
 };
-
+#endif

@@ -1,6 +1,7 @@
 //#include <iostream>
 //#include <list>
 //#include <string>
+
 #include "Validador.h"
 #include "archivoTexto.h" 
 #include "StringUtils.h" 
@@ -46,6 +47,11 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
   
 }
 
+
+void Validador::setLog(Log* log){
+	this->log = log;
+
+}
 
 int Validador::hidratar(std::string tipo, std::string values){
 	int	exito = 0;
@@ -497,8 +503,6 @@ Validador::validarArchivoXML(int i,string cadena){
 	int exitoValues;
 	string subCadena,values;
 	char caracter = NULL;
-	Log log;
-	inicializarLog(log, "errores.err");
 	//std::cout<<"caracter cuando inicia la func "<<caracter<<endl;
 	//std::cout<<"cadena "<<cadena<<endl;	
 	//std::cout<<"valor de i cuando se llama a la fun "<<i<<endl;	
@@ -528,8 +532,8 @@ Validador::validarArchivoXML(int i,string cadena){
 						//si es distinto de 0 es porque no es un tag valido
 						std::cout<<"error de sintaxis, no se esperaba "<<subCadena<<endl;
 						//escribo el error en el archivo de errores					
-						escribirMensajeLog(log,"error de sintaxis, no se esperaba "+subCadena);
-						destruirLog(log);
+						escribirMensajeLog(*this->log,"error de sintaxis, no se esperaba "+subCadena);
+						//destruirLog(log);
 						return -1;
 					}
 					else{
@@ -545,8 +549,8 @@ Validador::validarArchivoXML(int i,string cadena){
 					if(Validador::compararConTagsValidos(subCadena.substr(1,subCadena.length()-2))!=0){
 						std::cout<<"error de sintaxis, no se esperaba "<<subCadena<<endl;
 						//escribo el error en el archivo de errores					
-						escribirMensajeLog(log,"error de sintaxis, no se esperaba "+subCadena);
-						destruirLog(log);
+						escribirMensajeLog(*this->log,"error de sintaxis, no se esperaba "+subCadena);
+						//destruirLog(log);
 						return -1;
 					}
 					else{
@@ -569,8 +573,8 @@ Validador::validarArchivoXML(int i,string cadena){
 			if(Validador::compararConTagsValidos(subCadena.substr(1,posicionEspacio-1))!=0){ 
 				std::cout<<"error de sintaxis, no se esperaba "<<subCadena<<endl;
 				//escribo el error en el archivo de errores					
-				escribirMensajeLog(log,"error de sintaxis, no se esperaba "+subCadena);				
-				destruirLog(log);
+				escribirMensajeLog(*this->log,"error de sintaxis, no se esperaba "+subCadena);				
+				//destruirLog(log);
 				return -1;
 			}			
 			else{
@@ -590,8 +594,8 @@ Validador::validarArchivoXML(int i,string cadena){
 					//si no termina en ">" es un error de sintaxis
 					std::cout<<"error de sintaxis, se esperaba cierre >"<<endl;
 					//escribo el error en el archivo de errores					
-					escribirMensajeLog(log,"error de sintaxis, se esperaba cierre >");
-					destruirLog(log);
+					escribirMensajeLog(*this->log,"error de sintaxis, se esperaba cierre >");
+					//destruirLog(log);
 					return -1;
 				}
 				else{
@@ -600,8 +604,8 @@ Validador::validarArchivoXML(int i,string cadena){
 					exitoValues = Validador::validarValues(subCadena,values);
 					//si exitoValues  es -1 (hay un error en values) imprimo en log y salgo, si es 0 sigue todo como antes
 					if(exitoValues != 0){
-						escribirMensajeLog(log,"error de sintaxis, verifique la linea: "+subCadena+values);
-						destruirLog(log);
+						escribirMensajeLog(*this->log,"error de sintaxis, verifique la linea: "+subCadena+values);
+						//destruirLog(log);
 						return -1;
 					}
 
@@ -617,11 +621,11 @@ Validador::validarArchivoXML(int i,string cadena){
 		else{
 			std::cout<<"error de sintaxis, no comienza con <"<<endl;
 			//escribo el error en el archivo de errores
-			escribirMensajeLog(log,"error de sintaxis, no comienza con <");
-			destruirLog(log);
+			escribirMensajeLog(*this->log,"error de sintaxis, no comienza con <");
+			//destruirLog(log);
 			return -1;
 		}
-	destruirLog(log);
+	//destruirLog(log);
 	return exito;
 }
 
@@ -682,18 +686,16 @@ Validador::validarAperturaYCierreTags(){
 	bool primerIngresoAlIfTexturas = true;
 	bool dentroListaTexturas = false;
 	bool dentroListaElementos = false;
-	Log log;
 	string cadena;
 	list<string>::iterator iterAux1,iterAux2;
 	list<string>::iterator iter = Validador::ListaTagsArchivo.begin();
-	inicializarLog(log, "errores.err");
 	
 	//verifico que el primer elemento sea <escenario> 
 	cadena = *iter;//contiene el primer tag del archivo
 	if(cadena.compare("<escenario>") != 0){
 		std::cout<<"no se esperaba "<<cadena<<"en el comienzo del archivo"<<endl;
 		//escribo el error en el archivo de errores
-		escribirMensajeLog(log,"no se esperaba "+cadena+" en el comienzo del archivo");
+		escribirMensajeLog(*this->log,"no se esperaba "+cadena+" en el comienzo del archivo");
 		exito = -2;
 	}
 
@@ -704,7 +706,7 @@ Validador::validarAperturaYCierreTags(){
 	if(cadena.compare("</escenario>") != 0){
 		std::cout<<"no se esperaba "<<cadena<<" en el fin del archivo"<<endl;
 		//escribo el error en el archivo de errores
-		escribirMensajeLog(log,"no se esperaba "+cadena+" en el fin del archivo");
+		escribirMensajeLog(*this->log,"no se esperaba "+cadena+" en el fin del archivo");
 		exito = -2;
 	
 	}	
@@ -733,7 +735,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"se espera <General> cerrado por </General>"<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"se espera <General> cerrado por </General>");
+				escribirMensajeLog(*this->log,"se espera <General> cerrado por </General>");
 				//para que salga del while hago lo siguiente
 				exito=-2;
 				
@@ -770,7 +772,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <textura> cerrado por </textura>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <textura> cerrado por </textura>");
+						escribirMensajeLog(*this->log,"se espera <textura> cerrado por </textura>");
 						//para que salga del while hago lo siguiente
 						exito=-2;
 
@@ -799,7 +801,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"se espera <ListadoDeTexturas> cerrado por </ListadoDeTexturas>"<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"no se esperaba"+cadena+" en  <ListadoDeTexturas>");
+				escribirMensajeLog(*this->log,"no se esperaba"+cadena+" en  <ListadoDeTexturas>");
 				//para que salga del while hago lo siguiente
 				dentroListaTexturas=false;
 				exito=-2;
@@ -851,7 +853,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <cuadrado> cerrado por </cuadrado>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <cuadrado> cerrado por </cuadrado>");
+						escribirMensajeLog(*this->log,"se espera <cuadrado> cerrado por </cuadrado>");
 						//para que salga del while hago lo siguiente
 						exito=-2;
 
@@ -876,7 +878,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <triangulo> cerrado por </triangulo>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <triangulo> cerrado por </triangulo>");
+						escribirMensajeLog(*this->log,"se espera <triangulo> cerrado por </triangulo>");
 						
 						//para que salga del while hago lo siguiente
 						exito= -2;
@@ -902,7 +904,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <segmento> cerrado por </segmento>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <segmento> cerrado por </segmento>");
+						escribirMensajeLog(*this->log,"se espera <segmento> cerrado por </segmento>");
 						
 						//para que salga del while hago lo siguiente
 						exito= -2;
@@ -928,7 +930,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <rectangulo> cerrado por </rectangulo>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <rectangulo> cerrado por </rectangulo>");
+						escribirMensajeLog(*this->log,"se espera <rectangulo> cerrado por </rectangulo>");
 						//para que salga del while hago lo siguiente
 						exito=-2;
 
@@ -951,7 +953,7 @@ Validador::validarAperturaYCierreTags(){
 						//sino es un error de sintaxis
 						std::cout<<"se espera <circulo> cerrado por </circulo>"<<endl;
 						//escribo el error en el archivo de errores
-						escribirMensajeLog(log,"se espera <circulo> cerrado por </circulo>");
+						escribirMensajeLog(*this->log,"se espera <circulo> cerrado por </circulo>");
 						//para que salga del while hago lo siguiente
 						exito=-2;
 
@@ -963,7 +965,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"no se esperaba"<<cadena<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"no se esperaba "+cadena+" en ListadoElementos");
+				escribirMensajeLog(*this->log,"no se esperaba "+cadena+" en ListadoElementos");
 				//para que salga del while hago lo siguiente
 				dentroListaElementos=false;
 				exito=-2;
@@ -974,7 +976,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"no se esperaba "<<cadena<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"no se esperaba "+cadena);
+				escribirMensajeLog(*this->log,"no se esperaba "+cadena);
 				//para que salga del while hago lo siguiente
 				exito=-2;
 		}
@@ -1004,7 +1006,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"se espera <escenario> cerrado por </escenario>"<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"se espera <escenario> cerrado por </escenario>");
+				escribirMensajeLog(*this->log,"se espera <escenario> cerrado por </escenario>");
 				//para que salga del while hago lo siguiente
 				exito=-2;
 				
@@ -1015,7 +1017,7 @@ Validador::validarAperturaYCierreTags(){
 				//sino es un error de sintaxis
 				std::cout<<"se espera <escenario> cerrado por </escenario>"<<endl;
 				//escribo el error en el archivo de errores
-				escribirMensajeLog(log,"se espera <escenario> cerrado por </escenario>");
+				escribirMensajeLog(*this->log,"se espera <escenario> cerrado por </escenario>");
 				//para que salga del while hago lo siguiente
 				exito=-2;
 				
@@ -1025,7 +1027,6 @@ Validador::validarAperturaYCierreTags(){
 		exito=0;
 	}
 
-	destruirLog(log);
 	return exito;
 }
 
@@ -1035,8 +1036,8 @@ Validador::validarSintaxis(std::string nombreArchivo){
 	string cadena,linea,subCadena,values;
     char caracter;
 	int i,exito;
-	Log log;
-	inicializarLog(log, "errores.err");
+	//Log log;
+	//inicializarLog(log, "errores.err");
 	ArchivoTexto miArchivo(nombreArchivo);
     miArchivo.irAlPrincipio();
 	
@@ -1071,12 +1072,11 @@ Validador::validarSintaxis(std::string nombreArchivo){
 	else{
 		std::cout<<"error de sintaxis, no comienza con <"<<endl;
 		//escribo el error en el archivo de errores
-		escribirMensajeLog(log,"error de sintaxis, no comienza con <");
-		destruirLog(log);
+		escribirMensajeLog(*this->log,"error de sintaxis, no comienza con <");
+		//destruirLog(log);
 		return -1;
 	}
 	
-	destruirLog(log);
 	return exito;
 }
 
