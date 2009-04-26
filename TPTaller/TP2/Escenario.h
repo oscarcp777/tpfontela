@@ -3,6 +3,8 @@
 #include "Textura.h"
 #include <list>
 #include <map>
+#include "SDL.h"
+#include "Color.h"
 
 
 // ESCENARIO ES UN SINGLETON 
@@ -25,6 +27,12 @@ class Escenario {
 			void setResolucion(int resolucion);
 			int getResolucion();
 			int graficar();
+			Color* getColorFondoEscenario();
+		    Color* getColorFondoFiguras();
+		    Color* getColorLinea();
+			void  setColorFondoEscenario(Color* colorFondoEscenario);
+		    void  setColorFondoFiguras(Color* colorFondoFiguras);
+		    void  setColorLinea(Color* colorLinea);		
 			SDL_Surface* getScreen();	
 	
 	protected:
@@ -36,12 +44,15 @@ class Escenario {
 		int resolucion;
 		std::string colorFondoFig;
 		std::string texturaFig;
-		std::string colorLinea;
+		std::string colorLineaString;
 		std::string colorFondoEsc;
 		std::string texturaEsc;
 		static Escenario *unicaInstanciaEscenario;
 		SDL_Surface *screen;
 		std::list<Figura*> listaFiguras;	
 		std::list<Textura*> listaTexturas;	
+		Color* colorFondoEscenario;
+		Color* colorFondoFiguras;
+		Color* colorLinea;
 		
 };

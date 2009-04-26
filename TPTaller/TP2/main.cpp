@@ -17,9 +17,8 @@
 #include <SDL_main.h>
 #include<math.h>
 #include "Dibujar.h"
-#define WALLCOLOR 0x9f1f1f 
-#define AMARRILLO 0xF7FE2E 
-#define AZUL 0x4A09E2
+
+
 using namespace std;
 
 
@@ -188,17 +187,23 @@ int SDL_main(int argc, char* argv[])
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",350,340,posicion1);
 	Textura *textura1 = new Textura("don","don.png");
 	rectangulo->setIdTextura("don");
-/*
+
 	Posicion *posicion2 = new Posicion(405,400);
 	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,300,posicion2);
-*/
-	Posicion *posicion3 = new Posicion(300,200);
+
+	Posicion *posicion3 = new Posicion(500,200);
 	Circulo *circulo = new Circulo("circulo1",150,posicion3);
-	circulo->setIdTextura("pocoyo");
-	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
-	
+	circulo->setIdTextura("circulo");
+	Textura *textura2 = new Textura("circulo","lente.png");
+
+	Posicion *vertice1 = new Posicion(750,50);
+	Posicion *vertice2 = new Posicion(790,200);
+	Posicion *vertice3 = new Posicion(405,400);
+	Triangulo *triangulo = new Triangulo("triangulo",vertice1,vertice2,vertice3);
+
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(circulo);
+	escenario->addFigura(triangulo);
 	escenario->addTextura(textura1);
 	escenario->addTextura(textura2);
 

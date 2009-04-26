@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <list>
 #include "Escenario.h"
+#include "Dibujar.h"
 #include <utility>
 	//pasar estas constantes a Constantes.h
 const int RESOLUCION_640=640;
@@ -22,9 +23,12 @@ Escenario::Escenario(){
 	this->setResolucion(800);
 	this->colorFondoFig = "XXXYYYZZZ";
 	this->texturaFig = "id";
-	this->colorLinea = "XXXYYYZZZ";
+	this->colorLineaString = "XXXYYYZZZ";
 	this->colorFondoEsc = "XXXYYYZZZ";
 	this->texturaEsc = "id2";
+	this->setColorFondoEscenario(new Color(255,255,255));
+	this->setColorFondoFiguras(new Color( 255, 215 , 0));
+	this->setColorLinea(new Color(0,0,0));
 	
 }
 
@@ -37,6 +41,24 @@ Escenario* Escenario::obtenerInstancia(){
 	}
 	
 	return Escenario::unicaInstanciaEscenario;
+}
+void  Escenario::setColorFondoEscenario(Color* colorFondoEscenario){
+  this->colorFondoEscenario=colorFondoEscenario;
+}
+void  Escenario::setColorFondoFiguras(Color* colorFondoFiguras){
+ this->colorFondoFiguras=colorFondoFiguras;
+}
+void  Escenario::setColorLinea(Color* colorLinea){
+ this->colorLinea=colorLinea;
+}
+Color* Escenario::getColorFondoEscenario(){
+return	this->colorFondoEscenario;
+}
+Color* Escenario::getColorFondoFiguras(){
+return	this->colorFondoFiguras;
+}
+Color* Escenario::getColorLinea(){
+return this->colorLinea;
 }
 void  Escenario::setAncho(int ancho){
 this->ancho=ancho;
@@ -128,42 +150,49 @@ SDL_Surface* Escenario::getScreen(){
 
 int Escenario::graficar(){
 	
-	int done = 0; 
+	int done = 0;
 	SDL_Event event;
-	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	SDL_Surface *screen;
+	// Iniciar SDL
+     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
+        exit(1);
+	 }
+  //seteamos el titulo a la barra
+  SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");  
+
+	screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
 	if(!screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<"\n";
-		return -1;
+		SDL_Quit();
+		exit(-1);
 	}
-	
+	Dibujar::pintarPantalla(screen);
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int i = 1;
 	Figura *figura;
 	std::cout<<"sizeFigura"<<sizeListaFiguras();
 	while(i<=this->sizeListaFiguras()){
-		figura = *iter;
-		figura->dibujar(this->screen);
-		iter++;
-		i++;
-	}
 	
+	figura = *iter;
+	figura->dibujar(screen);
+	iter++;
+	i++;
+	}
 	while (done == 0) {
-
-		SDL_Flip (this->screen);
+		SDL_Flip (screen);
 		
 	// Comprobando teclas para opciones
 		while (SDL_PollEvent(&event)) {
 			// Cerrar la ventana
-			if (event.type == SDL_QUIT) {
-				done = 1; 
-			}
+			if (event.type == SDL_QUIT) { done = 1; }
 			// Pulsando una tecla
 			if (event.type == SDL_KEYDOWN) {
 			done = 1;
 			}
 		}
 	}
-	
+	;
 	return 0;
 }

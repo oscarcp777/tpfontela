@@ -9,16 +9,16 @@ Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	this->altura = altura;
 	this->base = base;
 	this->pos = p;
-	
+
 }
 int Rectangulo::dibujar(SDL_Surface *screen){
-		
-	
+
+	Dibujar::dibujarRectangulo(screen,this->pos->getX(),this->pos->getY(),this->base,this->altura);
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 	std::cout<<path;
 	this->imagen = IMG_Load (path.begin());
-		
-	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo	
+
+	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
 	int x= this->getPosicion()->getX();
 	int y= this->getPosicion()->getY();
 	/*color.r=0x0000ff00;
@@ -27,9 +27,9 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 	imagen = NULL;*/
 
 	while(x<=(this->getBase()+this->getPosicion()->getX())){
-		
+
 		y=this->getPosicion()->getY();
-		
+
 		while(y<=(this->getAltura()+this->getPosicion()->getY())){
 		//	std::cout<<"y "<<y<<endl;
 			if(imagen != NULL){
@@ -39,19 +39,19 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 			y++;
 		}
 		x++;
-	
+
 	}
 	return 0;
 }
 int Rectangulo::getAltura(){
 
 	return this->altura;
-	
+
 }
 int Rectangulo::getBase(){
 
 	return this->base;
-	
+
 }
 Posicion* Rectangulo::getPosicion(){
 	return this->pos;
