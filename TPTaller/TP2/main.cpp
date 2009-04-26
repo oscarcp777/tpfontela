@@ -192,7 +192,7 @@ int SDL_main(int argc, char* argv[])
 	Posicion *posicion2 = new Posicion(405,400);
 	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,300,posicion2);
 */
-	Posicion *posicion3 = new Posicion(500,200);
+	Posicion *posicion3 = new Posicion(300,200);
 	Circulo *circulo = new Circulo("circulo1",150,posicion3);
 	circulo->setIdTextura("pocoyo");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");

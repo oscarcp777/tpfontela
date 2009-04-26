@@ -128,14 +128,12 @@ SDL_Surface* Escenario::getScreen(){
 
 int Escenario::graficar(){
 	
-	int done = 0;
+	int done = 0; 
 	SDL_Event event;
-	SDL_Surface *screen;
-	screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
 	if(!screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<"\n";
-		SDL_Quit();
-		exit(-1);
+		return -1;
 	}
 	
 	std::list<Figura*>::iterator iter;
@@ -144,25 +142,28 @@ int Escenario::graficar(){
 	Figura *figura;
 	std::cout<<"sizeFigura"<<sizeListaFiguras();
 	while(i<=this->sizeListaFiguras()){
-	
-	figura = *iter;
-	figura->dibujar(screen);
-	iter++;
-	i++;
+		figura = *iter;
+		figura->dibujar(this->screen);
+		iter++;
+		i++;
 	}
+	
 	while (done == 0) {
-		SDL_Flip (screen);
+
+		SDL_Flip (this->screen);
 		
 	// Comprobando teclas para opciones
 		while (SDL_PollEvent(&event)) {
 			// Cerrar la ventana
-			if (event.type == SDL_QUIT) { done = 1; }
+			if (event.type == SDL_QUIT) {
+				done = 1; 
+			}
 			// Pulsando una tecla
 			if (event.type == SDL_KEYDOWN) {
 			done = 1;
 			}
 		}
 	}
-	;
+	
 	return 0;
 }

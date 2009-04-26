@@ -16,10 +16,9 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 int Circulo::dibujar(SDL_Surface *screen){
 	
 	
-	SDL_Color color;
+	
 	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	std::cout<<path;
 	this->imagen = IMG_Load (path.begin());
 	
 	
@@ -44,11 +43,11 @@ int Circulo::dibujar(SDL_Surface *screen){
   		for(radio = 1;radio<this->getRadio();radio+=0.477){
 			
 			if(imagen!= NULL){
-			color = this->getpixel(imagen,XiniColor,YiniColor);
+			this->color = this->getpixel(imagen,XiniColor,YiniColor);
 			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
 			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
 			}
-			this->putpixel(screen,xCirculo,yCirculo,color);
+			this->putpixel(screen,xCirculo,yCirculo,this->color);
 			
             
 			xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
