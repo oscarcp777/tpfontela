@@ -12,7 +12,7 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 
 int Segmento::dibujar(SDL_Surface *screen){
 	
-	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
+	this->color = Escenario::obtenerInstancia()->getColorLinea();
 
 	this->dibujarLinea(color,screen ,this->getInicio()->getX(),  this->getInicio()->getY(), this->getFin()->getX(), this->getFin()->getY());
 	

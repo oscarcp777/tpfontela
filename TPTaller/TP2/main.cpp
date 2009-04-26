@@ -77,13 +77,14 @@ int main(int argc, char* argv[])
 	circulo->setIdTextura("pocoyo");
 	
 	Triangulo *triangulo = new Triangulo("triangulo",ver1,ver2,ver3);
-
+	triangulo->setIdTextura("river");
 	Segmento *segmento = new Segmento("segmento1",inicio,fin);
 
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","estrellas.jpg");
+	Textura *textura5 = new Textura("river","river.jpg");
 	escenario->setIdTextura("estrellas");
 	
 	
@@ -96,6 +97,7 @@ int main(int argc, char* argv[])
 	escenario->addTextura(textura2);
 	escenario->addTextura(textura3);
 	escenario->addTextura(textura4);
+	escenario->addTextura(textura5);
 
 	escenario->graficar();	
 

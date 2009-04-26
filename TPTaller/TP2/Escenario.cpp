@@ -27,7 +27,7 @@ Escenario::Escenario(){
 	this->texturaEsc = "NULL";
 	this->setColorFondoEscenario(new Color(255,255,255));
 	this->setColorFondoFiguras(new Color( 255, 215 , 0));
-	this->setColorLinea(new Color(0,0,0));
+	this->setColorLinea(new Color(0,255,0));
 	inicializarLog(this->log, "errores.err");
 	this->validador = new  Validador("config Validador.txt","config Atributos.txt");
 	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
@@ -72,8 +72,8 @@ return	this->colorFondoEscenario->getColor();
 SDL_Color Escenario::getColorFondoFiguras(){
 return	this->colorFondoFiguras->getColor();
 }
-Color* Escenario::getColorLinea(){
-return this->colorLinea;
+SDL_Color Escenario::getColorLinea(){
+return this->colorLinea->getColor();
 }
 void  Escenario::setAncho(int ancho){
 this->ancho=ancho;
