@@ -1,6 +1,7 @@
 #include "Segmento.h"
 #include <string>
 #include <iostream>
+#include "Escenario.h"
 
 Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 		this->id = id;
@@ -10,6 +11,10 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 }
 
 int Segmento::dibujar(SDL_Surface *screen){
+	
+	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
+
+	this->dibujarLinea(color,screen ,this->getInicio()->getX(),  this->getInicio()->getY(), this->getFin()->getX(), this->getFin()->getY());
 	
 	return 0;
 }

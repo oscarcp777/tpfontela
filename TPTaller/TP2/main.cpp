@@ -66,9 +66,12 @@ int main(int argc, char* argv[])
 	Posicion *posicion1 = new Posicion(50,50);
 	Posicion *posicion2 = new Posicion(570,100);
 	Posicion *posicion3 = new Posicion(580,470);
-	Posicion *ver1 = new Posicion(500,100);
-	Posicion *ver2 = new Posicion(600,100);
-	Posicion *ver3 = new Posicion(700,200);
+	Posicion *ver1 = new Posicion(100,400);
+	Posicion *ver2 = new Posicion(200,400);
+	Posicion *ver3 = new Posicion(250,500);
+	Posicion *inicio = new Posicion(300,300);
+	Posicion *fin = new Posicion(500,500);
+	
 	
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",500,300,posicion1);
 	rectangulo->setIdTextura("pocoyo4");
@@ -83,6 +86,7 @@ int main(int argc, char* argv[])
 	
 	Triangulo *triangulo = new Triangulo("triangulo",ver1,ver2,ver3);
 
+	Segmento *segmento = new Segmento("segmento1",inicio,fin);
 
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
@@ -95,6 +99,7 @@ int main(int argc, char* argv[])
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(circulo);
 	escenario->addFigura(triangulo);
+	escenario->addFigura(segmento);
 	escenario->addTextura(textura1);
 	escenario->addTextura(textura2);
 	escenario->addTextura(textura3);
