@@ -1,13 +1,11 @@
+#include <iostream>
+#include "Textura.h"
 class Hidratar{
-	
-	public: 
-		
+
+   private:
+	public:
+
 		Hidratar();
-	
-	
-			
-	private:
-	
-
-
+		static void hidratarEscenario(std::string atributos);
+		static Textura* hidratartextura(std::string atributos);
 };
