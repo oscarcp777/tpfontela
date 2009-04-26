@@ -3,7 +3,8 @@
 #include <iostream>
 #include "Escenario.h"
 #include "Dibujar.h"
-#define BLANCO 0xEFFBF5
+#include<math.h>
+
 
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
@@ -13,21 +14,49 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 }
 
 int Circulo::dibujar(SDL_Surface *screen){
-	/*/std::cout<<"se dibujo un circulo, id:"<<this->getId()<<"\n";
-	SDL_Surface *imagen;
-	SDL_Rect rect;
+	
+	
+	SDL_Color color;
 	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	imagen = IMG_Load ("circulo.png");
+	std::cout<<path;
+	this->imagen = IMG_Load (path.begin());
 	
-	rect.x = this->getPosicion()->getX();
-	rect.y = this->getPosicion()->getY();
-	rect.w = /*imagen->w; = this->getRadio();
-	rect.h = /*imagen->h; //= this->getRadio();
 	
-	SDL_BlitSurface(imagen, NULL, screen, &rect);*/
-	Dibujar *dibujar =Dibujar::obtenerInstancia();
-	dibujar->dibujarCirculo(this->getPosicion()->getX(),this->getPosicion()->getY(),this->radio,BLANCO);
+	float ang;
+	float radio;
+	float PI =3.14f;
+	
+	//(Xinicial,Yinicial) es la posicion de imagen desde donde copiara el circulo
+	int XiniColor = imagen->w/2;
+	int YiniColor = imagen->h/2;
+	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
+	float xCirculo= this->getPosicion()->getX();
+	float yCirculo= this->getPosicion()->getY();
+	/*
+	color.r=0x0000ff00;
+	color.g=0x000000ff;
+	color.b=0x00ff0000;;
+	imagen = NULL;
+	*/
+	for(ang = 0;ang<=360;ang+=0.2){
+         
+  		for(radio = 1;radio<this->getRadio();radio+=0.477){
+			
+			if(imagen!= NULL){
+			color = this->getpixel(imagen,XiniColor,YiniColor);
+			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
+			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
+			}
+			this->putpixel(screen,xCirculo,yCirculo,color);
+			
+            
+			xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
+			yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);		
+			
+		}			
+		
+	}
 	return 0;
 
 }

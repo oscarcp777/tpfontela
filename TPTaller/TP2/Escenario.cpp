@@ -119,33 +119,50 @@ std::string Escenario::obtenerPathTextura(std::string id){
 
 }
 
+SDL_Surface* Escenario::getScreen(){
+	return this->screen;
+
+}
+
+
+
 int Escenario::graficar(){
 	
+	int done = 0;
+	SDL_Event event;
 	SDL_Surface *screen;
-	
-	screen = SDL_SetVideoMode(640,480,16, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
 	if(!screen){
-		printf("No se pudo iniciar la pantalla: %s\n", SDL_GetError());
+		std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<"\n";
 		SDL_Quit();
 		exit(-1);
 	}
-
+	
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int i = 1;
 	Figura *figura;
-
+	std::cout<<"sizeFigura"<<sizeListaFiguras();
 	while(i<=this->sizeListaFiguras()){
+	
 	figura = *iter;
 	figura->dibujar(screen);
 	iter++;
 	i++;
 	}
-	
-	SDL_Flip (screen);	
-	system("PAUSE");
-	
-	SDL_FreeSurface(screen);
-	SDL_Quit();
+	while (done == 0) {
+		SDL_Flip (screen);
+		
+	// Comprobando teclas para opciones
+		while (SDL_PollEvent(&event)) {
+			// Cerrar la ventana
+			if (event.type == SDL_QUIT) { done = 1; }
+			// Pulsando una tecla
+			if (event.type == SDL_KEYDOWN) {
+			done = 1;
+			}
+		}
+	}
+	;
 	return 0;
 }

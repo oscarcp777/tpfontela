@@ -12,20 +12,35 @@ Rectangulo::Rectangulo(std::string id,int altura,int base,Posicion *p){
 	
 }
 int Rectangulo::dibujar(SDL_Surface *screen){
-/*	SDL_Surface *imagen;
-	SDL_Rect rect;
-	
+		
+	SDL_Color color;
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-	imagen = IMG_Load ("pocoyo2.jpg");
+	std::cout<<path;
+	this->imagen = IMG_Load (path.begin());
+		
+	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo	
+	int x= this->getPosicion()->getX();
+	int y= this->getPosicion()->getY();
+	/*color.r=0x0000ff00;
+	color.g=0x000000ff;
+	color.b=0x00ff0000;;
+	imagen = NULL;*/
+
+	while(x<=(this->getBase()+this->getPosicion()->getX())){
+		
+		y=this->getPosicion()->getY();
+		
+		while(y<=(this->getAltura()+this->getPosicion()->getY())){
+		//	std::cout<<"y "<<y<<endl;
+			if(imagen != NULL){
+			color = this->getpixel(imagen,x,y);
+			}
+			this->putpixel(screen,x,y,color);
+			y++;
+		}
+		x++;
 	
-	rect.x = this->getPosicion()->getX();
-	rect.y = this->getPosicion()->getY();
-	rect.w = imagen->w = this->getBase();
-	rect.h = imagen->h = this->getAltura();
-	
-	SDL_BlitSurface(imagen, NULL, screen, &rect);*/
-	Dibujar *dibujar =Dibujar::obtenerInstancia();
-	dibujar->dibujarRectangulo(this->pos->getX(),this->pos->getY(),this->base,this->altura,WALLCOLOR);
+	}
 	return 0;
 }
 int Rectangulo::getAltura(){

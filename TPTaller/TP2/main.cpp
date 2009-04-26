@@ -22,38 +22,6 @@
 #define AZUL 0x4A09E2
 using namespace std;
 
-void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color)
-{
-	// Convertimos color
-	Uint32 col=SDL_MapRGB(screen->format, color.r, color.g, color.b);
-	// Determinamos posición de inicio
-	char *buffer=(char*) screen->pixels;
-	// Calculamos offset para y
-	buffer+=screen->pitch*y;
-	// Calculamos offset para x
-	buffer+=screen->format->BytesPerPixel*x;
-	// Copiamos el pixel
-	memcpy(buffer, &col, screen->format->BytesPerPixel);
-}
-
-SDL_Color getpixel(SDL_Surface *screen, int x, int y)
-{
-	SDL_Color color;
-	Uint32 col;
-	// Determinamos posición de inicio
-	char *buffer=(char *) screen->pixels;
-	// Calculamos offset para y
-	buffer+=screen->pitch*y;
-	// Calculamos offset para x
-	buffer+=screen->format->BytesPerPixel*x;
-	// Obtenemos el pixel
-	memcpy(&col, buffer, screen->format->BytesPerPixel);
-	// Descomponemos el color
-	SDL_GetRGB(col, screen->format, &color.r, &color.g, &color.b);
-	// Devolvemos el color
-	return color;
-}
-
 
 //PARA EXPANDIR Y CONTRAER IMAGENES
 
@@ -215,138 +183,31 @@ int SDL_main(int argc, char* argv[])
 	Escenario::obtenerInstancia()->graficar();
 	*/
 
-SDL_Event event;
-SDL_Surface *screen;
-SDL_Surface *imagen;
-SDL_Rect rect;
-SDL_Color color;
-int done = 0;
-Escenario *escenario = Escenario::obtenerInstancia();
-std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
-std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
-screen = SDL_SetVideoMode(escenario->getAncho(),escenario->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
-if(!screen){
-std::cout<<"No se pudo iniciar la pantalla: %s\n"<< SDL_GetError()<<endl;
-SDL_Quit();
-exit(-1);
-}
-
-
+	Escenario* escenario = Escenario::obtenerInstancia();
 	Posicion *posicion1 = new Posicion(10,10);
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",350,340,posicion1);
 	Textura *textura1 = new Textura("don","don.png");
-
-
+	rectangulo->setIdTextura("don");
+/*
 	Posicion *posicion2 = new Posicion(405,400);
 	Rectangulo *rectangulo1 = new Rectangulo("rectangulo1",100,300,posicion2);
-
+*/
 	Posicion *posicion3 = new Posicion(500,200);
 	Circulo *circulo = new Circulo("circulo1",150,posicion3);
-	Textura *textura2 = new Textura("don","don.png");
+	circulo->setIdTextura("pocoyo");
+	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	
-	std::cout<<"miCadena = "<<textura1->getPath().begin()<<endl;
+	escenario->addFigura(rectangulo);
+	escenario->addFigura(circulo);
+	escenario->addTextura(textura1);
+	escenario->addTextura(textura2);
 
-
-Dibujar *dibujar =Dibujar::obtenerInstancia();
-//aca le seteo al dibujar la pantalla donde dibujar
-
-dibujar->pantalla=screen;
-std::cout<<"veo que trae"<<dibujar->pantalla<<endl;
-//pruebo que las funciones dibujan bien
-//dibujar->dibujarCirculo(400,400,50,AMARRILLO);
-//dibujar->dibujarRectangulo(100,200,200,200,AZUL);
-std::cout<<"\nAlto \n"<<escenario->getAlto()<<endl;
-std::cout<<"\n Anchoo \n"<<escenario->getAncho()<<endl;
-
-//llamo al dibujar del rectangulo par que se dibuje
-rectangulo->dibujar(screen);
-circulo->dibujar(screen);
-rectangulo1->dibujar(screen);
+	escenario->graficar();	
 
 
 
-//PONE DENTRO DEL CIRCULO LA TEXTURA
-imagen = IMG_Load (textura2->getPath().begin());
-	float ang;
-	float radio;
-	float PI =3.14f;
-	//(Xinicial,Yinicial) es la posicion de imagen desde donde copiara el circulo
-	int XiniColor = imagen->w/2;
-	int YiniColor = imagen->h/2;
-	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
-	float xCirculo= circulo->getPosicion()->getX();
-	float yCirculo= circulo->getPosicion()->getY();
+	SDL_FreeSurface(escenario->getScreen());
+	SDL_Quit();
 
-	
-
-	for(ang = 0;ang<=360;ang+=0.2){
-         
-  		for(radio = 1;radio<circulo->getRadio();radio+=0.477){
-			color = getpixel(imagen,XiniColor,YiniColor);
-			putpixel(screen,xCirculo,yCirculo,color);
-			
-			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
-			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
-            
-			xCirculo=circulo->getPosicion()->getX()+radio*cos(PI*ang/180);
-			yCirculo=circulo->getPosicion()->getY()+radio*sin(PI*ang/180);		
-			
-		}			
-		
-	}
-//FIN PONE DENTRO DEL CIRCULO LA TEXTURA 
-
-
-
-//PONE DENTRO DEL RECTANGULO LA TEXTURA
-	imagen = ScaleSurface(IMG_Load (textura1->getPath().begin()), rectangulo->getBase(), rectangulo->getAltura());
-	
-	rect.x=rectangulo->getPosicion()->getX();
-	rect.y=rectangulo->getPosicion()->getY();
-	rect.h=imagen->h;
-	rect.w=imagen->w;
-
-	std::cout<<"base "<<rectangulo->getBase()<<endl;
-	std::cout<<"altura "<<rectangulo->getAltura()<<endl;
-	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
-	SDL_BlitSurface(imagen, NULL, screen, &rect);
-/*	int x= rectangulo->getPosicion()->getX();
-	int y= rectangulo->getPosicion()->getY();
-
-	while(x<=(rectangulo->getBase()+rectangulo->getPosicion()->getX())){
-		//std::cout<<"x "<<x<<endl;
-		y=rectangulo->getPosicion()->getY();
-		while(y<=(rectangulo->getAltura()+rectangulo->getPosicion()->getY())){
-		//	std::cout<<"y "<<y<<endl;
-		color = getpixel(imagen,x,y);
-		putpixel(screen,x,y,color);
-		y++;
-		}
-		x++;
-	
-	}*/
-
-//FIN PONE DENTRO DEL RECTANGULO LA TEXTURA  
-
-
-
-	while (done == 0) {
-		SDL_Flip (screen);
-		
-	// Comprobando teclas para opciones
-		while (SDL_PollEvent(&event)) {
-			// Cerrar la ventana
-			if (event.type == SDL_QUIT) { done = 1; }
-			// Pulsando una tecla
-			if (event.type == SDL_KEYDOWN) {
-			done = 1;
-			}
-		}
-	}
-SDL_FreeSurface(imagen);
-SDL_FreeSurface(screen);
-SDL_Quit();
-std::cout<<"\nTodo ha salido bien.\n"<<endl;
-	
 	return 0;
 }

@@ -11,7 +11,7 @@
 class Figura{
 
 	public:
-		 virtual int dibujar(SDL_Surface *screen) = 0; //metodo virtual puro 
+		 virtual int dibujar(SDL_Surface *screen)=0; //metodo virtual puro 
 		 
 		 std::string getId();
 		 std::string getIdTextura();
@@ -19,6 +19,9 @@ class Figura{
 	protected:
 		std::string id;
 		std::string idTextura;
+		SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
+		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
+		SDL_Color getpixel(SDL_Surface *screen, int x, int y);
 
 };
 #endif

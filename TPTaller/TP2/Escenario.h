@@ -25,7 +25,7 @@ class Escenario {
 			void setResolucion(int resolucion);
 			int getResolucion();
 			int graficar();
-			
+			SDL_Surface* getScreen();	
 	
 	protected:
 		Escenario();
@@ -40,7 +40,7 @@ class Escenario {
 		std::string colorFondoEsc;
 		std::string texturaEsc;
 		static Escenario *unicaInstanciaEscenario;
-
+		SDL_Surface *screen;
 		std::list<Figura*> listaFiguras;	
 		std::list<Textura*> listaTexturas;	
 		
