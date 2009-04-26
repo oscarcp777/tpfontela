@@ -134,3 +134,60 @@ SDL_Surface* Figura::ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Hei
 
     return _ret;
 }
+
+
+ void Figura::dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2){
+	
+	this->color = color;
+	bool steep = abs(y2-y1) > abs(x2-x1);
+	if( steep )
+	{
+		int t = x1;
+		x1 = y1;
+		y1 = t;
+		t = x2;
+		x2 = y2;
+		y2 = t;
+	}
+	if( x1 > x2 )
+	{
+		int t = x1;
+		x1 = x2;
+		x2 = t;
+		t = y1;
+		y1 = y2;
+		y2 = t;
+	}
+	int dx = x2 - x1;
+	int dy = abs(y2-y1);
+	int error = 0;
+	int ystep = 0;
+	int y = y1;
+	if( y1 < y2 ) ystep = 1; else ystep = -1;
+	for(int x = x1; x < x2; x++ )
+	{
+		if( steep )
+		{
+			plot(screen, y, x, color );
+		}
+		else
+		{
+			plot( screen, x, y, color );
+		}
+		error = error + dy;
+		if( 2*error >= dx )
+		{
+			y = y + ystep;
+			error = error - dx;
+		}
+	}
+}
+
+void Figura::plot( SDL_Surface* surface, int x, int y, SDL_Color color )
+{
+	if( x >= 0 && x < surface->w && y >= 0 && y < surface->h )
+	{
+		unsigned int* p = (unsigned int*) surface->pixels;
+		p[(y*(surface->pitch/4))+x] = SDL_MapRGB(surface->format, color.r, color.g, color.b);
+	}
+}

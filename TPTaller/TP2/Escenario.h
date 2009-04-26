@@ -1,3 +1,6 @@
+#ifndef _ESCENARIO_H_
+#define _ESCENARIO_H_
+
 #include <iostream>
 #include "Figura.h"
 #include "Textura.h"
@@ -35,7 +38,7 @@ class Escenario {
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
 		    void  setColorLinea(Color* colorLinea);	
 			void setIdTextura(std::string idTextura);
-
+			void pintarPantalla();
 			SDL_Surface* getScreen();	
 			
 
@@ -62,3 +65,5 @@ class Escenario {
 		Color* colorLinea;
 		Log log;
 };
+
+#endif

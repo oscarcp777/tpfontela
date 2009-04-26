@@ -8,6 +8,7 @@
 #include <SDL_mixer.h>
 #include <SDL_main.h>
 
+
 class Figura{
 
 	public:
@@ -29,6 +30,8 @@ class Figura{
 		
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
 		SDL_Color getpixel(SDL_Surface *imagen, int x, int y);
+		void dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2);
+		void plot( SDL_Surface* surface, int x, int y, SDL_Color color);
 	
 };
 #endif

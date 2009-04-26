@@ -120,6 +120,37 @@ void Escenario::setIdTextura(std::string idTextura){
 	this->texturaEsc = idTextura;
 }
 
+void Escenario::pintarPantalla(){
+	std::cout<<"ENTRO AL IF \n";
+	int res = this->texturaEsc.compare("NULL");
+	SDL_Surface *imagen = NULL;
+
+	if( res!=0){
+				
+		std::string path = this->obtenerPathTextura(this->texturaEsc);
+	    
+		imagen = IMG_Load (path.begin());
+		imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());		
+		SDL_Rect rect;
+		rect.x =0;
+		rect.y =0;
+		rect.w = this->getAncho();
+		rect.h = this->getAlto();
+		SDL_BlitSurface(imagen, NULL,this->screen, &rect);
+	}
+	if(!imagen) {
+		
+		SDL_Rect dest;
+		dest.x = 0;
+		dest.y = 0;
+		dest.w = this->screen->w;
+		dest.h = this->screen->h;
+		SDL_Color color = this->getColorFondoEscenario();
+		SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
+	
+	}
+}
+
 std::string Escenario::obtenerPathTextura(std::string id){
 	std::list<Textura*>::iterator iter;
 	Textura *textura;
@@ -174,23 +205,8 @@ int Escenario::graficar(){
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
 		return -1;
 	}
-
 	
-	if(this->texturaEsc.compare("NULL")!=0){
-		//en el constructor se le setea "NULL" por defecto, si no se setea la textura nuevamente grafica con el color por defecto "NEGRO"
-		//si se setea textura, se grafica con la textura si es que encuentra la foto, sino, color por defecto
-		SDL_Color color = Escenario::obtenerInstancia()->getColorFondoEscenario();
-		std::string path = this->obtenerPathTextura(this->texturaEsc);
-	    
-		SDL_Surface *imagen = IMG_Load (path.begin());
-		imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());		
-		SDL_Rect rect;
-		rect.x =0;
-		rect.y =0;
-		rect.w = this->getAncho();
-		rect.h = this->getAlto();
-		SDL_BlitSurface(imagen, NULL,this->screen, &rect);
-	}
+	this->pintarPantalla();
 
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
