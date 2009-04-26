@@ -15,6 +15,16 @@ Dibujar* Dibujar::obtenerInstancia(){
 	return Dibujar::unicaInstanciaDibujar;
 }
 */
+int Dibujar::calcularDistancia(int izqX, int izqY,int derX, int derY){
+	double x,y;
+	int raiz=0;
+	x=(double)derX-izqX;
+	y=(double)derY-izqY;
+	if(x>=0&&y>=0){
+		 raiz=(int)sqrt(pow(x,2)+pow(y,2));
+	}
+	return raiz;
+}
 void Dibujar::dibujarTriangulo(SDL_Surface *screen,int izqX, int izqY,int derX, int derY,int supX, int supY){
 	
 
