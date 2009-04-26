@@ -12,6 +12,7 @@ public:
 	* de una cadena de caracteres
 	*
 	*/
+	std::string getValorTag(std::string nombretag,vector<string>& tokens);
 	string trim(std::string cadena);
 	std::string trimPalabra(std::string cadena);
 	void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );

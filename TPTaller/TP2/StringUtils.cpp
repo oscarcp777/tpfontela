@@ -6,6 +6,28 @@ using namespace std;
  StringUtils::StringUtils(){
 }
 
+ std::string  StringUtils::getValorTag(std::string nombretag,vector<string>& tokens){
+ 	vector<string>::iterator the_iterator;
+ 	string valorTag="error";
+ 	string valor ;
+ 	the_iterator = tokens.begin();
+ 	while( the_iterator != tokens.end() ) {
+ 		valor = *the_iterator;
+ 		valor =trimPalabra(valor);
+ 		int posicionCaracterIgual = valor.find_first_of("=");
+ 		valor= valor.substr(0,posicionCaracterIgual);
+ 		std::cout<<"vector ooooooooooooooooooo \n "<<" "<<valor<<endl;
+ 		if(valor.compare(nombretag)==0){
+ 			++the_iterator;
+ 			valorTag=*the_iterator;
+ 			return valorTag;
+ 		}
+ 		++the_iterator;
+
+
+ 	}
+ 	return valorTag;
+ }
 
 string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
