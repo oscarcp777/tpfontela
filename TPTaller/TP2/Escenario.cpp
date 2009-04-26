@@ -22,7 +22,7 @@ Escenario::Escenario(){
 	this->setResolucion(RESOLUCION_800);
 	
 	this->texturaFig = "id";
-	this->colorLinea = "XXXYYYZZZ";
+	this->colorLinea = new Color(255,0,0);
 	this->colorFondoEsc = "XXXYYYZZZ";
 	this->texturaEsc = "id2";
 	this->setColorFondoEscenario(new Color(255,255,255));
@@ -53,8 +53,8 @@ void  Escenario::setColorLinea(Color* colorLinea){
 Color* Escenario::getColorFondoEscenario(){
 return	this->colorFondoEscenario;
 }
-Color* Escenario::getColorFondoFiguras(){
-return	this->colorFondoFiguras;
+SDL_Color Escenario::getColorFondoFiguras(){
+return	this->colorFondoFiguras->getColor();
 }
 Color* Escenario::getColorLinea(){
 return this->colorLinea;
@@ -147,9 +147,9 @@ SDL_Surface* Escenario::getScreen(){
 
 }
 
-SDL_Color Escenario::getColorFondoFig(){
+/*SDL_Color Escenario::getColorFondoFig(){
 	return this->colorFondoFig;
-}
+}*/
 
 int Escenario::graficar(){
 	
@@ -163,9 +163,9 @@ int Escenario::graficar(){
   //seteamos el titulo a la barra
   SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");  
 
-	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),3200, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
 	if(!screen){
-		cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
+		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
 		return -1;

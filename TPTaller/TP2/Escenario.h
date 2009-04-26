@@ -5,6 +5,7 @@
 #include <map>
 #include "SDL.h"
 #include "Color.h"
+#include "Logfinal.h"
 
 
 // ESCENARIO ES UN SINGLETON 
@@ -28,12 +29,15 @@ class Escenario {
 			int getResolucion();
 			int graficar();
 			Color* getColorFondoEscenario();
-		    Color* getColorFondoFiguras();
+		    SDL_Color getColorFondoFiguras();
 		    Color* getColorLinea();
 			void  setColorFondoEscenario(Color* colorFondoEscenario);
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
 		    void  setColorLinea(Color* colorLinea);		
 			SDL_Surface* getScreen();	
+			
+
+
 	
 	protected:
 		Escenario();
@@ -42,7 +46,7 @@ class Escenario {
 		int ancho;
 		int alto;
 		int resolucion;
-		std::string colorFondoFig;
+		Color* colorFondoFig;
 		std::string texturaFig;
 		std::string colorLineaString;
 		std::string colorFondoEsc;
@@ -54,5 +58,5 @@ class Escenario {
 		Color* colorFondoEscenario;
 		Color* colorFondoFiguras;
 		Color* colorLinea;
-		
+		Log log;
 };
