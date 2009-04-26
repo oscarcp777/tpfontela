@@ -63,29 +63,31 @@ int main(int argc, char* argv[])
 	Escenario* escenario = Escenario::obtenerInstancia();
 
 	
-	Posicion *posicion1 = new Posicion(10,10);
-	Posicion *posicion2 = new Posicion(400,0);
-	Posicion *posicion3 = new Posicion(400,400);
+	Posicion *posicion1 = new Posicion(0,0);
+	Posicion *posicion2 = new Posicion(500,100);
+	Posicion *posicion3 = new Posicion(400,300);
 	
 	
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",350,340,posicion1);
-	rectangulo->setIdTextura("pocoyo3");
+	Rectangulo *rectangulo = new Rectangulo("rectangulo1",400,400,posicion1);
+	rectangulo->setIdTextura("pocoyo4");
 
 	
-	Cuadrado *cuadrado = new Cuadrado("cuadrado",250,posicion2);
+	Cuadrado *cuadrado = new Cuadrado("cuadrado",200,posicion2);
 	cuadrado->setIdTextura("river");
 
 	
 	Circulo *circulo = new Circulo("circulo1",100,posicion3);
 	circulo->setIdTextura("pocoyo");
 	
-	Textura *textura1 = new Textura("pocoyo3","pocoyo3.jpg");
+	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("river","river.jpg");
 
+	
+	
+	escenario->addFigura(cuadrado);
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(circulo);
-	escenario->addFigura(cuadrado);
 	escenario->addTextura(textura1);
 	escenario->addTextura(textura2);
 	escenario->addTextura(textura3);

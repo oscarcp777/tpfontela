@@ -17,27 +17,29 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 	std::cout<<path;
 	this->imagen = IMG_Load (path.begin());
-		
+	this->imagen = ScaleSurface(this->imagen, this->getLado(), this->getLado());		
+	
 	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo	
 	int x= this->getPosicion()->getX();
 	int y= this->getPosicion()->getY();
+	int j = 0;
+	int k = 0;
 	
-	/*
-	imagen = NULL;*/
-
-	while(x<=(this->getLado()+this->getPosicion()->getX())){
+	while(x<this->getLado()+this->getPosicion()->getX()){
 		
 		y=this->getPosicion()->getY();
+		k=0;
+		while(y<=this->getLado()+this->getPosicion()->getY()){
 		
-		while(y<=(this->getLado()+this->getPosicion()->getY())){
-		//	std::cout<<"y "<<y<<endl;
 			if(imagen != NULL){
-				this->color = this->getpixel(imagen,x,y);
+			this->color = this->getpixel(imagen,j,k);
 			}
 			this->putpixel(screen,x,y,this->color);
 			y++;
+			k++;
 		}
 		x++;
+		j++;
 	
 	}
 	return 0;

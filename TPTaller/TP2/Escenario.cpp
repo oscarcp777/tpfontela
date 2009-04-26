@@ -19,8 +19,7 @@ const int RESOLUCION_BIT=32;
 
 Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
-	this->setResolucion(RESOLUCION_800);
-	
+	this->setResolucion(RESOLUCION_800);	
 	this->texturaFig = "id";
 	this->colorLinea = new Color(255,0,0);
 	this->colorFondoEsc = "XXXYYYZZZ";
