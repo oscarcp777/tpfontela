@@ -25,6 +25,8 @@ class Figura{
 		
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
 		SDL_Color getpixel(SDL_Surface *imagen, int x, int y);
-
+		SDL_Surface* ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height);
+		void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
+		Uint32 ReadPixel(SDL_Surface *surface, int x, int y);
 };
 #endif

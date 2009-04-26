@@ -8,7 +8,7 @@
 */
 void inicializarLog (Log& log, string nombreArchivo)
 {
-    log.arch.open(nombreArchivo.c_str(),ios::out | ios::app);
+    log.arch.open(nombreArchivo.c_str(),ios::out | ios::trunc);
     log.contador = 0;
 }
 /*----------------------------------------------------------------------------*/
