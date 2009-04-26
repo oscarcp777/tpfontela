@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 
 	
 	Cuadrado *cuadrado = new Cuadrado("cuadrado",200,posicion2);
-	cuadrado->setIdTextura("river");
+	cuadrado->setIdTextura("don");
 
 	
 	Circulo *circulo = new Circulo("circulo1",100,posicion3);
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 	
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
-	Textura *textura3 = new Textura("river","river.jpg");
+	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","estrellas2.jpg");
 	escenario->setIdTextura("estrellas");
 	

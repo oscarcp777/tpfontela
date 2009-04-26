@@ -177,7 +177,8 @@ int Escenario::graficar(){
 
 	
 	if(this->texturaEsc.compare("NULL")!=0){
-		
+		//en el constructor se le setea "NULL" por defecto, si no se setea la textura nuevamente grafica con el color por defecto "NEGRO"
+		//si se setea textura, se grafica con la textura si es que encuentra la foto, sino, color por defecto
 		SDL_Color color = Escenario::obtenerInstancia()->getColorFondoEscenario();
 		std::string path = this->obtenerPathTextura(this->texturaEsc);
 	    
