@@ -7,8 +7,16 @@
 #include <string>
 static const std::string DELIMITADOR="\"";
 static const std::string ID="id";
+static const std::string RADIO="radio";
+static const std::string LADO="lado";
+static const std::string BASE="base";
+static const std::string ALTURA="ALTURA";
 static const std::string PATH="path";
 static const std::string TEXTURA="textura";
+static const std::string CUADRADO="cuadrado";
+static const std::string RECTANGULO="rectangulo";
+static const std::string TRIANGULO="triangulo";
+static const std::string CIRCULO="circulo";
 
   void cargarListaClaves(list<string> listaClave,vector<string> tokens){
 	  vector<string>::iterator the_iterator;
@@ -30,66 +38,110 @@ static const std::string TEXTURA="textura";
   }
 
 
-Cuadrado* Hidratar::hidratarCuadrado(std::string atributos){
-
+int Hidratar::hidratarCuadrado(std::string atributos){
+	Escenario* escenario=Escenario::obtenerInstancia();
+	list<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	int lado;
-	Cuadrado *cuadrado = new Cuadrado();
-	StringUtils::Tokenize(atributos,vec,"\"");
-    valueId = StringUtils::getValorTag("id",vec);
-	lado = atoi((StringUtils::getValorTag("lado",vec)).c_str());
+	Cuadrado *cuadrado;
+	Validador* validador=escenario->getValidador();
+	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
+	cargarListaClaves(listaClave,vec);
+
+    if(validador->compararConListaAtributosValidos(CUADRADO,listaClave)==0){
+	cuadrado = new Cuadrado();
+	valueId = StringUtils::getValorTag(ID,vec);
+	lado = atoi((StringUtils::getValorTag(LADO,vec)).c_str());
 	cuadrado->setIdTextura(valueId);
 	cuadrado->setLado(lado);
+	escenario->addFigura(cuadrado);
+     	std::cout<<"exito AL CREAR EL CUADRADO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+     	return 0;
+	}else
+		std::cout<<"ERROR AL CREAR EL CUADRADO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		
+	return -1;
 	
-	return cuadrado;
+	
+
 }
 
-Circulo* Hidratar::hidratarCirculo(std::string atributos){
+int Hidratar::hidratarCirculo(std::string atributos){
+	Escenario* escenario=Escenario::obtenerInstancia();
+	list<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	int radio;
-	Circulo *circulo = new Circulo();
+	Circulo *circulo;
+	Validador* validador=escenario->getValidador();
+	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
+	cargarListaClaves(listaClave,vec);
 
-	StringUtils::Tokenize(atributos,vec,"\"");
-	valueId = StringUtils::getValorTag("id",vec);
-	radio = atoi((StringUtils::getValorTag("radio",vec)).c_str());
+    if(validador->compararConListaAtributosValidos(CIRCULO,listaClave)==0){
+	circulo = new Circulo();
+	valueId = StringUtils::getValorTag(ID,vec);
+	radio = atoi((StringUtils::getValorTag(RADIO,vec)).c_str());
 	circulo->setIdTextura(valueId);
 	circulo->setRadio(radio);
-
-	return circulo;
+	escenario->addFigura(circulo);
+     	std::cout<<"exito AL CREAR EL CIRCULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+     	return 0;
+	}else
+		std::cout<<"ERROR AL CREAR EL CIRCULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		
+	return -1;
 }
 
-Rectangulo* Hidratar::hidratarRectangulo(std::string atributos){
+int Hidratar::hidratarRectangulo(std::string atributos){
+	Escenario* escenario=Escenario::obtenerInstancia();
+	list<string> listaClave;
 	vector<string> vec;
 	string valueId;
-	int base, altura;
-	Rectangulo *rectangulo = new Rectangulo();
+	int base,altura;
+	Rectangulo *rectangulo;
+	Validador* validador=escenario->getValidador();
+	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
+	cargarListaClaves(listaClave,vec);
 
-	StringUtils::Tokenize(atributos,vec,"\"");
-	valueId = StringUtils::getValorTag("id",vec);
-	base = atoi((StringUtils::getValorTag("base",vec)).c_str());
-	altura = atoi((StringUtils::getValorTag("altura",vec)).c_str());
+    if(validador->compararConListaAtributosValidos(RECTANGULO,listaClave)==0){
+	rectangulo = new Rectangulo();
+	valueId = StringUtils::getValorTag(ID,vec);
+	base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
+	altura = atoi((StringUtils::getValorTag(ALTURA,vec)).c_str());
 	rectangulo->setIdTextura(valueId);
 	rectangulo->setBase(base);
 	rectangulo->setAltura(altura);
-
-	return rectangulo;
+	escenario->addFigura(rectangulo);
+     	std::cout<<"exito AL CREAR EL RECTANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+     	return 0;
+	}else
+		std::cout<<"ERROR AL CREAR EL RECTANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		
+	return -1;
 }
 
-Triangulo* Hidratar::hidratarTriangulo(std::string atributos){
+int Hidratar::hidratarTriangulo(std::string atributos){
+		Escenario* escenario=Escenario::obtenerInstancia();
+	list<string> listaClave;
 	vector<string> vec;
 	string valueId;
-	
-	Triangulo *triangulo = new Triangulo();
+	Triangulo *triangulo;
+	Validador* validador=escenario->getValidador();
+	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
+	cargarListaClaves(listaClave,vec);
 
-	StringUtils::Tokenize(atributos,vec,"\"");
-	valueId = StringUtils::getValorTag("id",vec);
-
+    if(validador->compararConListaAtributosValidos(TRIANGULO,listaClave)==0){
+	triangulo = new Triangulo();
+	valueId = StringUtils::getValorTag(ID,vec);
 	triangulo->setIdTextura(valueId);
-	
-
-	return triangulo;
+	escenario->addFigura(triangulo);
+     	std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+     	return 0;
+	}else
+		std::cout<<"ERROR AL CREAR EL TRIANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		
+	return -1;
 }
 
 
