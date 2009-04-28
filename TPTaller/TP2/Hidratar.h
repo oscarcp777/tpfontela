@@ -6,6 +6,6 @@ class Hidratar{
 	public:
 
 		Hidratar();
-		static void hidratarEscenario(std::string atributos);
-		static Textura* hidratartextura(std::string atributos);
+		static int hidratarEscenario(std::string atributos);
+		static int hidratartextura(std::string atributos);
 };

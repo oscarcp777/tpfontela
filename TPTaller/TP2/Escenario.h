@@ -13,9 +13,9 @@
 
 
 
-// ESCENARIO ES UN SINGLETON 
+// ESCENARIO ES UN SINGLETON
 class Escenario {
-	
+
 	public:
 			Escenario::~Escenario();
 			static Escenario* obtenerInstancia();
@@ -39,19 +39,19 @@ class Escenario {
 			SDL_Color getColorLinea();
 		    void  setColorFondoEscenario(Color* colorFondoEscenario);
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
-		    void  setColorLinea(Color* colorLinea);	
+		    void  setColorLinea(Color* colorLinea);
 			void setIdTextura(std::string idTextura);
 			Log* getLog();
 			void pintarPantalla();
-			SDL_Surface* getScreen();	
+			SDL_Surface* getScreen();
 			int cargarArchivo(std::string nombreArchivo);
-			
+			Validador* getValidador();
 
 
-	
+
 	protected:
 		Escenario();
-	
+
 	private:
 		int ancho;
 		int alto;
@@ -63,8 +63,8 @@ class Escenario {
 		std::string texturaEsc;
 		static Escenario *unicaInstanciaEscenario;
 		SDL_Surface *screen;
-		std::list<Figura*> listaFiguras;	
-		std::list<Textura*> listaTexturas;	
+		std::list<Figura*> listaFiguras;
+		std::list<Textura*> listaTexturas;
 		Color* colorFondoEscenario;
 		Color* colorFondoFiguras;
 		Color* colorLinea;

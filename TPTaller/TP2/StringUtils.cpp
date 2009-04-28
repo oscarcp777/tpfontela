@@ -16,7 +16,6 @@ using namespace std;
  		valor =trimPalabra(valor);
  		int posicionCaracterIgual = valor.find_first_of("=");
  		valor= valor.substr(0,posicionCaracterIgual);
- 		std::cout<<"vector ooooooooooooooooooo \n "<<" "<<valor<<endl;
  		if(valor.compare(nombretag)==0){
  			++the_iterator;
  			valorTag=*the_iterator;
