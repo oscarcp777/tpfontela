@@ -30,6 +30,68 @@ static const std::string TEXTURA="textura";
   }
 
 
+Cuadrado* Hidratar::hidratarCuadrado(std::string atributos){
+
+	vector<string> vec;
+	string valueId;
+	int lado;
+	Cuadrado *cuadrado = new Cuadrado();
+	StringUtils::Tokenize(atributos,vec,"\"");
+    valueId = StringUtils::getValorTag("id",vec);
+	lado = atoi((StringUtils::getValorTag("lado",vec)).c_str());
+	cuadrado->setIdTextura(valueId);
+	cuadrado->setLado(lado);
+	
+	return cuadrado;
+}
+
+Circulo* Hidratar::hidratarCirculo(std::string atributos){
+	vector<string> vec;
+	string valueId;
+	int radio;
+	Circulo *circulo = new Circulo();
+
+	StringUtils::Tokenize(atributos,vec,"\"");
+	valueId = StringUtils::getValorTag("id",vec);
+	radio = atoi((StringUtils::getValorTag("radio",vec)).c_str());
+	circulo->setIdTextura(valueId);
+	circulo->setRadio(radio);
+
+	return circulo;
+}
+
+Rectangulo* Hidratar::hidratarRectangulo(std::string atributos){
+	vector<string> vec;
+	string valueId;
+	int base, altura;
+	Rectangulo *rectangulo = new Rectangulo();
+
+	StringUtils::Tokenize(atributos,vec,"\"");
+	valueId = StringUtils::getValorTag("id",vec);
+	base = atoi((StringUtils::getValorTag("base",vec)).c_str());
+	altura = atoi((StringUtils::getValorTag("altura",vec)).c_str());
+	rectangulo->setIdTextura(valueId);
+	rectangulo->setBase(base);
+	rectangulo->setAltura(altura);
+
+	return rectangulo;
+}
+
+Triangulo* Hidratar::hidratarTriangulo(std::string atributos){
+	vector<string> vec;
+	string valueId;
+	
+	Triangulo *triangulo = new Triangulo();
+
+	StringUtils::Tokenize(atributos,vec,"\"");
+	valueId = StringUtils::getValorTag("id",vec);
+
+	triangulo->setIdTextura(valueId);
+	
+
+	return triangulo;
+}
+
 
 	int Hidratar::hidratarEscenario(std::string atributos){
 		Escenario* escenario = Escenario::obtenerInstancia();
@@ -57,3 +119,4 @@ static const std::string TEXTURA="textura";
 		return -1;
 	}
 }
+

@@ -3,6 +3,9 @@
 #include <iostream>
 #include "Escenario.h"
 
+Triangulo::Triangulo(){
+}
+
 Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
 	this->id = id;
 	this->vertice1 = ver1;

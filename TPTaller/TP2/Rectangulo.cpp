@@ -4,6 +4,10 @@
 #include "Escenario.h"
 #include "Dibujar.h"
 #define WALLCOLOR 0x9f1f1f
+
+Rectangulo::Rectangulo(){
+}
+
 Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 	this->id = id;
 	this->altura = altura;
@@ -56,6 +60,16 @@ int Rectangulo::getBase(){
 	return this->base;
 	
 }
+
+void Rectangulo::setBase(int base){
+	this->base = base;
+}
+
+
+void Rectangulo::setAltura(int altura){
+	this->altura = altura;
+}
+
 Posicion* Rectangulo::getPosicion(){
 	return this->pos;
 }

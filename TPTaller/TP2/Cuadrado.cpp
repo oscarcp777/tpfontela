@@ -3,6 +3,9 @@
 #include <iostream>
 #include "Escenario.h"
 
+Cuadrado::Cuadrado(){
+}
+
 Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i){
 	this->id = id;
 	this->lado = l;
@@ -50,6 +53,11 @@ int Cuadrado::getLado(){
 	return this->lado;
 	
 }
+
+void Cuadrado::setLado(int lado){
+	this->lado = lado;
+}
+
 Posicion* Cuadrado::getPosicion(){
 	return this->pos;
 }

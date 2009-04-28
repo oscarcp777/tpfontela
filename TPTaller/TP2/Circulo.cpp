@@ -5,6 +5,9 @@
 #include "Dibujar.h"
 #include<math.h>
 
+Circulo::Circulo(void){
+
+}
 
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
@@ -62,8 +65,16 @@ int Circulo::getRadio(){
 	
 }
 
+void Circulo::setRadio(int radio){
+	this->radio=radio;
+}
+
 Posicion* Circulo::getPosicion(){
 	return this->pos;
+}
+
+Circulo::~Circulo(){
+
 }
 
 
