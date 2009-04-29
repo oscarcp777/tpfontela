@@ -20,10 +20,8 @@ using namespace std;
 
 
 
-
 int main(int argc, char* argv[])
 {
-
 
 	Escenario* escenario = Escenario::obtenerInstancia();
 	int exito = 0;
@@ -108,7 +106,25 @@ int main(int argc, char* argv[])
 	SDL_FreeSurface(escenario->getScreen());
 	SDL_Quit();
 
+
+	/**  test de hidratacion de el escenario  **/
+string str=	"General resolucion=\"640\" colorFondoFig=\"255215000\" texturaFig=\"textura1\" colorLinea=\"000255000\" colorFondoEsc=\"255255255\" texturaEsc=\"textura4\">";
+int posicionCaracter = str.find_first_of(" ");
+	str= str.substr(posicionCaracter,str.size());
+	std::cout<<str<<endl;
+Hidratar::hidratarEscenario(str);
+
+escenario = Escenario::obtenerInstancia();
+
+	std::cout<<escenario->getAlto()<<endl;
+	std::cout<<escenario->getAncho()<<endl;
+	std::cout<<escenario->getResolucion()<<endl;
+	std::cout<<escenario->getTexturaEsc()<<endl;
+	std::cout<<escenario->getTexturaFig()<<endl;
 	
-	system("PAUSE");
+
+
+
+    	system("PAUSE");
 	return 0;
 }

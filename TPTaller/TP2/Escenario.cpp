@@ -22,9 +22,8 @@ Escenario::Escenario(){
 
 	this->setResolucion(RESOLUCION_800);
 	this->texturaFig = "id";
+	this->texturaEsc = "id";
 	this->colorLinea = new Color(255,0,0);
-	this->colorFondoEsc = "XXXYYYZZZ";
-	this->texturaEsc = "NULL";
 	this->setColorFondoEscenario(new Color(255,255,255));
 	this->setColorFondoFiguras(new Color( 255, 215 , 0));
 	this->setColorLinea(new Color(0,255,0));
@@ -50,7 +49,18 @@ int Escenario::cargarArchivo(std::string nombreArchivo){
 }
 
 Escenario* Escenario::unicaInstanciaEscenario = NULL;
-
+void Escenario::setTexturaFig(std::string texturaFig){
+    this->texturaFig=texturaFig;
+}
+std::string Escenario::getTexturaFig(){
+	 return this->texturaFig;
+}
+std::string Escenario::getTexturaEsc(){
+	 return this->texturaEsc;
+}
+void Escenario::setTexturaEsc(std::string texturaEsc){
+	 this->texturaEsc=texturaEsc;
+}
 Escenario* Escenario::obtenerInstancia(){
 
 	if(!Escenario::unicaInstanciaEscenario){
@@ -89,7 +99,11 @@ void  Escenario::setAlto(int alto){
 int   Escenario::getAlto(){
 	return this->alto;
 }
+int Escenario::getResolucion(){
+	return this->resolucion;
+}
 void  Escenario::setResolucion(int resolucion){
+	this->resolucion=resolucion;
     if(resolucion==RESOLUCION_640){
        	this->alto=RESOLUCION_640_ALTO;
 		this->ancho=RESOLUCION_640_ANCHO;

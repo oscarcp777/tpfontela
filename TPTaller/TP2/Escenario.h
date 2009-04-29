@@ -46,20 +46,21 @@ class Escenario {
 			SDL_Surface* getScreen();
 			int cargarArchivo(std::string nombreArchivo);
 			Validador* getValidador();
-
+		    void setTexturaFig(std::string texturaFig);
+			std::string getTexturaFig();
+			std::string getTexturaEsc();
+			void setTexturaEsc(std::string texturaEsc);
 
 
 	protected:
 		Escenario();
 
 	private:
+
 		int ancho;
 		int alto;
 		int resolucion;
-		Color* colorFondoFig;
 		std::string texturaFig;
-		std::string colorLineaString;
-		std::string colorFondoEsc;
 		std::string texturaEsc;
 		static Escenario *unicaInstanciaEscenario;
 		SDL_Surface *screen;

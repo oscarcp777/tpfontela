@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 #include <string>
-static const std::string DELIMITADOR="\"";
 static const std::string ID="id";
 static const std::string RADIO="radio";
 static const std::string LADO="lado";
@@ -17,30 +16,90 @@ static const std::string CUADRADO="cuadrado";
 static const std::string RECTANGULO="rectangulo";
 static const std::string TRIANGULO="triangulo";
 static const std::string CIRCULO="circulo";
+static const std::string DELIMITADOR="\"";
+static const std::string GENERAL="General";
+static const std::string TEXTURA_FIG="texturaFig";
+static const std::string TEXTURA_ESC="texturaEsc";
+static const std::string RESOLUCION="resolucion";
+static const std::string COLOR_FONDO_FIG="colorFondoFig";
+static const std::string COLOR_FONDO_ESC="colorFondoEsc";
+static const std::string COLOR_LINEA="colorLinea";
+int obtenerResolucion(string resolucion){
+	int resInt=atoi(resolucion.c_str());
+	if(resInt==640||resInt==800||resInt==1024||resInt==1280){
+		return resInt;
+	}else{
+		return -1;
+	}
+}
+int validarNumeroRGB(string numero){
+static const std::string CUADRADO="cuadrado";
+static const std::string RECTANGULO="rectangulo";
+static const std::string TRIANGULO="triangulo";
+static const std::string CIRCULO="circulo";
 
-  void cargarListaClaves(list<string> listaClave,vector<string> tokens){
-	  vector<string>::iterator the_iterator;
-	  the_iterator = tokens.begin();
-     string valor;
-	      for (int var = 0; var < tokens.size(); ++var) {
-	          if((var%2)==0){
-	          	std::cout<<"par  "<<var<<endl;
-				valor =StringUtils::trimPalabra(*the_iterator);
-	          	int posicionCaracterIgual = valor.find_first_of("=");
-	          	valor= valor.substr(0,posicionCaracterIgual);
-	         	listaClave.push_back(valor);
-	          }/*else{	std::cout<<"impar  "<<var<<endl;
+	 for ( int pos = 0; pos < numero.length(); ++pos )
+		 if(isdigit(numero.at(pos)==0)){
+			 return -1;
+		 }
+
+	if(atoi(numero.c_str())>255){
+
+		return -1;
+	}
+
+	return 0;
+
+}
+int hidratarColor(std::string cadena,Color* color){
+
+	if(cadena.size()!=9){
+
+		return -1;
+	}else{
+
+		string r= cadena.substr(0,3);
+		string g= cadena.substr(3,3);
+		string b= cadena.substr(6,3);
+
+		if(validarNumeroRGB(r)==0&&validarNumeroRGB(g)==0&&validarNumeroRGB(b)==0){
+
+			color=new Color(atoi(r.c_str()),atoi(g.c_str()),atoi(b.c_str()));
+		}else{
+			return -1;
+		}
+	}
+
+	return 0;
+}
+void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::string>& tokens){
+	std::vector<std::string>::iterator the_iterator;
+	the_iterator = tokens.begin();
+	std::string valor;
+	for (int var = 0; var < tokens.size(); ++var) {
+		if((var%2)==0){
+			std::cout<<"par  "<<var<<endl;
+			valor =StringUtils::trimPalabra(*the_iterator);
+			int posicionCaracterIgual = valor.find_first_of("=");
+			if(posicionCaracterIgual!=0){
+			valor= valor.substr(0,posicionCaracterIgual);
+			}
+
+			if(valor.compare(">")!=0){
+			std::cout<<"valor"<<valor<<endl;
+			listaClave.push_back(valor);
+			}
+		}/*else{	std::cout<<"impar  "<<var<<endl;
 	        	listaValor.push_back(*the_iterator);
 	          }*/
-	          the_iterator++;
+		the_iterator++;
 
-	  }
-  }
-
+	}
+}
 
 int Hidratar::hidratarCuadrado(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
-	list<string> listaClave;
+	vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	int lado;
@@ -49,7 +108,7 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConListaAtributosValidos(CUADRADO,listaClave)==0){
+    if(validador->compararConVectorAtributosValidos(CUADRADO,listaClave)==0){
 	cuadrado = new Cuadrado();
 	valueId = StringUtils::getValorTag(ID,vec);
 	lado = atoi((StringUtils::getValorTag(LADO,vec)).c_str());
@@ -60,16 +119,16 @@ int Hidratar::hidratarCuadrado(std::string atributos){
      	return 0;
 	}else
 		std::cout<<"ERROR AL CREAR EL CUADRADO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	return -1;
-	
-	
+
+
 
 }
 
 int Hidratar::hidratarCirculo(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
-	list<string> listaClave;
+	vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	int radio;
@@ -78,7 +137,7 @@ int Hidratar::hidratarCirculo(std::string atributos){
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConListaAtributosValidos(CIRCULO,listaClave)==0){
+    if(validador->compararConVectorAtributosValidos(CIRCULO,listaClave)==0){
 	circulo = new Circulo();
 	valueId = StringUtils::getValorTag(ID,vec);
 	radio = atoi((StringUtils::getValorTag(RADIO,vec)).c_str());
@@ -89,13 +148,13 @@ int Hidratar::hidratarCirculo(std::string atributos){
      	return 0;
 	}else
 		std::cout<<"ERROR AL CREAR EL CIRCULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	return -1;
 }
 
 int Hidratar::hidratarRectangulo(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
-	list<string> listaClave;
+	vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	int base,altura;
@@ -104,7 +163,7 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConListaAtributosValidos(RECTANGULO,listaClave)==0){
+    if(validador->compararConVectorAtributosValidos(RECTANGULO,listaClave)==0){
 	rectangulo = new Rectangulo();
 	valueId = StringUtils::getValorTag(ID,vec);
 	base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
@@ -117,13 +176,13 @@ int Hidratar::hidratarRectangulo(std::string atributos){
      	return 0;
 	}else
 		std::cout<<"ERROR AL CREAR EL RECTANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	return -1;
 }
 
 int Hidratar::hidratarTriangulo(std::string atributos){
 		Escenario* escenario=Escenario::obtenerInstancia();
-	list<string> listaClave;
+		vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
 	Triangulo *triangulo;
@@ -131,7 +190,7 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConListaAtributosValidos(TRIANGULO,listaClave)==0){
+    if(validador->compararConVectorAtributosValidos(TRIANGULO,listaClave)==0){
 	triangulo = new Triangulo();
 	valueId = StringUtils::getValorTag(ID,vec);
 	triangulo->setIdTextura(valueId);
@@ -140,32 +199,128 @@ int Hidratar::hidratarTriangulo(std::string atributos){
      	return 0;
 	}else
 		std::cout<<"ERROR AL CREAR EL TRIANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	return -1;
 }
 
 
-	int Hidratar::hidratarEscenario(std::string atributos){
-		Escenario* escenario = Escenario::obtenerInstancia();
-		//atributos
-     return 0;
-	}
-	int Hidratar::hidratartextura(std::string atributos){
-		Escenario* escenario=Escenario::obtenerInstancia();
-	std::string id;
-	std::string path;
-	list<string> listaClave;
-     vector<string> tokens;
+int Hidratar::hidratarEscenario(std::string atributos){
+	Escenario* escenario = Escenario::obtenerInstancia();
+
+	std::string texturaFig;
+	std::string texturaEsc;
+	int resolucion;
+	Color* colorFondoEscenario = new Color();
+	Color* colorFondoFiguras= new Color();
+	Color* colorLinea= new Color();
+	std::string valorAtributo;
+	std::string valorClave;
+	vector<string> listaClave;
+	vector<string> tokens;
+	std::cout<<"atributos"<<atributos<<endl;
 	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
 	cargarListaClaves(listaClave,tokens);
+	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
+	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
-	if(validador->compararConListaAtributosValidos(TEXTURA,listaClave)==0){
-	id=StringUtils::getValorTag(ID,tokens);
-	path=StringUtils::getValorTag(PATH,tokens);
-	Textura *textura = new Textura(id,path);
-	escenario->addTextura(textura);
-     	std::cout<<"exito AL CREAR LA TEXTURA  SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-     	return 0;
+
+	std::vector<string>::iterator iter;
+	iter = listaClave.begin();
+	std::cout<<"llego aca  "<<" "<<*iter<<endl;
+	while( iter != listaClave.end() ) {
+		std::cout<<"claves de la lista "<<" "<<*iter<<endl;
+		valorClave=*iter;
+		std::cout<<"valor de la clave"<<" "<<valorClave<<endl;
+		std::cout<<"validaddor"<<" "<<(validador->compararConAtributosValidos("General",valorClave))<<endl;
+		if(validador->compararConAtributosValidos(GENERAL,valorClave)==0){
+
+			if(valorClave.compare(TEXTURA_ESC)==0){
+				texturaEsc=StringUtils::getValorTag(TEXTURA_ESC,tokens);
+				escenario->setTexturaEsc(texturaEsc);
+					std::cout<<"valor de la clave"<<" "<<texturaEsc<<endl;
+				std::cout<<"EXITO AL AGREGAR TAG TEXTURA_ESC AL ESCENARIO "<<endl;
+				}
+
+			if(valorClave.compare(TEXTURA_FIG)==0){
+				texturaFig=StringUtils::getValorTag(TEXTURA_FIG,tokens);
+				escenario->setTexturaFig(texturaFig);
+					std::cout<<"valor de la clave"<<" "<<texturaFig<<endl;
+				std::cout<<"EXITO AL AGREGAR TAG TEXTURA_FIG AL ESCENARIO "<<endl;
+				}
+
+			if(valorClave.compare(RESOLUCION)==0){
+				valorAtributo=StringUtils::getValorTag(RESOLUCION,tokens);
+				if(obtenerResolucion(valorAtributo)!=-1&&valorAtributo.compare("error") != 0){
+					escenario->setResolucion(obtenerResolucion(valorAtributo));
+					std::cout<<"valor de la clave"<<" "<<obtenerResolucion(valorAtributo)<<endl;
+					std::cout<<"EXITO AL AGREGAR TAG RESOLUCION AL ESCENARIO "<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR TAG RESOLUCION AL ESCENARIO "<<endl;
+					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG RESOLUCION AL ESCENARIO ");
+				}
+			}
+
+			if(valorClave.compare(COLOR_FONDO_FIG)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_FONDO_FIG,tokens);
+				std::cout<<"valor de la clave COLOR_FONDO_FIG"<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorFondoFiguras)!=-1&&valorAtributo.compare("error") != 0){
+				//	escenario->setColorFondoFiguras(colorFondoFiguras);
+
+					std::cout<<"EXITO AL AGREGAR TAG COLOR_FONDO_FIG AL ESCENARIO "<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR TAG COLOR_FONDO_FIG AL ESCENARIO "<<endl;
+					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorFondoFig AL ESCENARIO ");
+				}
+			}
+
+			if(valorClave.compare(COLOR_FONDO_ESC)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_FONDO_ESC,tokens);
+					std::cout<<"valor de la clave"<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorFondoEscenario)!=-1&&valorAtributo.compare("error") != 0){
+				//	escenario->setColorFondoEscenario(colorFondoEscenario);
+					std::cout<<"EXITO AL AGREGAR TAG COLOR_FONDO_ESC AL ESCENARIO "<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR TAG COLOR_FONDO_ESC AL ESCENARIO "<<endl;
+					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorFondoEsc AL ESCENARIO ");
+				}
+			}
+
+			if(valorClave.compare(COLOR_LINEA)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
+					std::cout<<"valor de la clave"<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
+				//	escenario->setColorLinea(colorLinea);
+					std::cout<<"EXITO AL AGREGAR TAG COLOR_LINEA AL ESCENARIO "<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR TAG COLOR_LINEA AL ESCENARIO "<<endl;
+					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorLinea AL ESCENARIO ");
+				}
+			}
+
+
+		}
+		++iter;
+	}
+	return 0;
+}
+int Hidratar::hidratartextura(std::string atributos){
+	Escenario* escenario=Escenario::obtenerInstancia();
+	std::string id;
+	std::string path;
+	vector<string> listaClave;
+	vector<string> tokens;
+	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
+	cargarListaClaves(listaClave,tokens);
+	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
+	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
+	Validador* validador=escenario->getValidador();
+	if(validador->compararConVectorAtributosValidos(TEXTURA,listaClave)==0){
+		id=StringUtils::getValorTag(ID,tokens);
+		path=StringUtils::getValorTag(PATH,tokens);
+		Textura *textura = new Textura(id,path);
+		escenario->addTextura(textura);
+		std::cout<<"exito AL CREAR LA TEXTURA  SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR LA TEXTURA NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		return -1;

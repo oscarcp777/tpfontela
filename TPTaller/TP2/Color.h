@@ -1,5 +1,7 @@
 #include <SDL.h>
 
+#ifndef _COLOR_H_
+#define _COLOR_H_
 
 class Color{
 	
@@ -11,7 +13,7 @@ class Color{
 		int getColorFondo_G();
 		int getColorFondo_B();
 		SDL_Color getColor();
-			
+		void setColor(SDL_Color color);	
 	private:
 		//int colorFondo_R;
 		//int colorFondo_G;
@@ -20,3 +22,4 @@ class Color{
 
 
 };
+#endif

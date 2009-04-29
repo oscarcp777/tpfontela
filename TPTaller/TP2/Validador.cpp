@@ -59,19 +59,24 @@ int Validador::hidratar(std::string tipo, std::string values){
 
 
 	if(tipo.compare("General") == 0){
-		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
+		std::cout<<"HIDRATAR \n"<<tipo<<" "<<values<<endl;
+		//		borro el nombre del tag
+		std::cout<<"entro al hidratar de general 2 "<<values<<endl;
+    /*	if(Hidratar::hidratarEscenario(values)==0)
+			return 0;
+		else return -1;*/
 	}
 
 
 	else if(tipo.compare("textura") == 0){
 		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;
-//		borro el nombre del tag
-		int posicionCaracterIgual = values.find_first_of(" ");
-		values= values.substr(posicionCaracterIgual,values.size());
+		//		borro el nombre del tag
+	   int posicionCaracter = values.find_first_of(" ");
+	   values= values.substr(posicionCaracter,values.size());
 		if(Hidratar::hidratartextura(values)==0)
 			return 0;
 		else return -1;
-    }
+	}
 	else if(tipo.compare("circulo") == 0){
 		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
 	}
@@ -422,8 +427,8 @@ int Validador::compararConTagsValidos(string cadena){
 
 	return exito;
 }
-int Validador::compararConListaAtributosValidos(string cadenaTag,std::list<string> listaAtributos){
-	std::list<string>::iterator iter;
+int Validador::compararConVectorAtributosValidos(string cadenaTag,std::vector<string> listaAtributos){
+	std::vector<string>::iterator iter;
 	iter = listaAtributos.begin();
 
 	while( iter != listaAtributos.end() ) {

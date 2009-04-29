@@ -1,0 +1,78 @@
+INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)
+XML.xml
+se encontro una apertura <escenario>
+se encontro un espacio luego de la apertura <General
+HIDRATAR
+ General resolucion="640" colorFondoFig="rojo" texturaFig="id"               col
+orLinea="azul" colorFondoEsc="negro" textura="id2">
+se encontro un cierre  </General>
+se encontro una apertura <ListadoDeElementos>
+se encontro un espacio luego de la apertura <cuadrado
+se encontro un espacio luego de la apertura <posicion
+DENTRO de CUADRADO
+HIDRATAR
+ cuadrado id="cuadrado1" lado="5" x="5" y="4"
+FIN de CUADRADO
+se encontro un cierre  </cuadrado>
+se encontro un espacio luego de la apertura <circulo
+se encontro un espacio luego de la apertura <posicion
+DENTRO de Circulo
+HIDRATAR
+ circulo id="circulo1" radio="4" x="5" y="4"
+FIN de CIRCULO
+se encontro un cierre  </circulo>
+se encontro un espacio luego de la apertura <rectangulo
+se encontro un espacio luego de la apertura <posicion
+DENTRO de Rectangulo
+HIDRATAR
+ rectangulo id="rectangulo1" base="5" altura="4" x="5" y="4"
+FIN de Rectangulo
+se encontro un cierre  </rectangulo>
+se encontro un espacio luego de la apertura <triangulo
+se encontro un espacio luego de la apertura <ver1
+DENTRO de triangulo
+FIN de triangulo
+se encontro un espacio luego de la apertura <ver2
+DENTRO de triangulo
+FIN de triangulo
+se encontro un espacio luego de la apertura <ver3
+DENTRO de triangulo
+HIDRATAR
+ triangulo id="triangulo1"  x="4" y="4" x="7" y="5" x="5" y="46"
+FIN de triangulo
+se encontro un cierre  </triangulo>
+se encontro un cierre  </ListadoDeElementos>
+se encontro una apertura <ListadoDeTexturas>
+se encontro un espacio luego de la apertura <textura
+HIDRATAR
+ textura id="textura1" path="C:\texturas\circulo.bmp"
+valor path C:\texturas\circulo.bmp
+valor id textura1
+se encontro un cierre  </textura>
+se encontro un espacio luego de la apertura <textura
+HIDRATAR
+ textura id="textura2" path="C:\texturas\cudrado.bmp"
+valor path C:\texturas\cudrado.bmp
+valor id textura2
+se encontro un cierre  </textura>
+se encontro un espacio luego de la apertura <textura
+HIDRATAR
+ textura id="textura3" path="C:\texturas\rectangulo.bmp"
+valor path C:\texturas\rectangulo.bmp
+valor id textura3
+se encontro un cierre  </textura>
+se encontro un espacio luego de la apertura <textura
+HIDRATAR
+ textura id="textura4" path="C:\texturas\triangulo.bmp"
+valor path C:\texturas\triangulo.bmp
+valor id textura4
+se encontro un cierre  </textura>
+se encontro un cierre  </ListadoDeTexturas>
+se encontro un cierre  </escenario>
+*******************************
+EL ARCHIVO XML NO TIENE ERRORES
+*******************************
+ENTRO AL IF
+id pocoyo4
+path pocoyo4.jpg
+Presione una tecla para continuar . . .

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <iostream.h>
 #include <string>
-#include <list>
+#include <vector>
 #include "Logfinal.h"
 #include "Tag.h"
 using namespace std;
@@ -38,10 +38,9 @@ public:
 	//devuelve 0 si la encuentra o numero distinto de 0 (cualquiera) si no perteneces a los tags validos
 	int compararConTagsValidos(string cadena);
     int compararConAtributosValidos(string cadenaTag,string cadenaAtributo);
-    int compararConListaAtributosValidos(string cadenaTag,std::list<string> listaAtributos);
+    int compararConVectorAtributosValidos(string cadenaTag,std::vector<string> listaAtributos);
 
 	int borrarDeTagsNoNecesariosDeListaTagsArchivo();
-
 	int hidratar(std::string tipo, std::string values);
 
 };

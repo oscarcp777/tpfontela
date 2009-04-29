@@ -5,7 +5,7 @@
 using namespace std;
  StringUtils::StringUtils(){
 }
-
+ 
  std::string  StringUtils::getValorTag(std::string nombretag,vector<string>& tokens){
  	vector<string>::iterator the_iterator;
  	string valorTag="error";

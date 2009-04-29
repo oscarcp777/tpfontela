@@ -1,16 +1,19 @@
 #include "Color.h"
 
 
-Color::Color(){
-}
+
 Color::~Color(){
 	delete this;
+}
+Color::Color(){
 }
 
 SDL_Color Color::getColor(){
 	return this->color;
 }
-
+void Color::setColor(SDL_Color color){
+	 this->color=color;
+}
 Color::Color(int colorFondo_R,int colorFondo_G,int colorFondo_B){
 	this->color.r = colorFondo_R;
 	this->color.g = colorFondo_G;
