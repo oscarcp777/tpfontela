@@ -19,13 +19,13 @@
                        </triangulo>
             </ListadoDeElementos>
             <ListadoDeTexturas>
-   <textura id="textura1" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\pocoyo.jpg">
+   <textura id="textura1" path="C:\0Users\oscar\workspace\TP2_Taller\pocoyo.jpg">
  </textura>
-<textura id="textura2" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\don.png">
+<textura id="textura2" path="C:\Users\oscar\workspace\TP2_Taller\don.png">
                         </textura>
-<textura id="textura3" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\boca.jpg">
+<textura id="textura3" path="C:\Users\oscar\workspace\TP2_Taller\boca.jpg">
                         </textura>
-<textura id="textura4" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\boca_wall.jpg">
+<textura id="textura4" path="C\Users\oscar\workspace\TP2_Taller\boca_wall.jpg">
                         </textura>            
              </ListadoDeTexturas>
 </escenario>
