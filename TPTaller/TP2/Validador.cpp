@@ -114,7 +114,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
-			exito=this->hidratar("textura",values.substr(0,values.size()-1));
+			exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
 		}
 	}
 
@@ -130,7 +130,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
-			exito=this->hidratar("General",values);
+			exito=Hidratar::hidratarEscenario(values);
 		}
 	}
 	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
@@ -170,7 +170,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=this->hidratar("cuadrado",todosLosValues);
+					exito=Hidratar::hidratarCuadrado(todosLosValues);
 					dentroDeCuadrado = false;
 				}
 			}
@@ -216,7 +216,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=this->hidratar("circulo",todosLosValues);
+					exito=Hidratar::hidratarCirculo(todosLosValues);
 					dentroDeCirculo = false;
 				}
 			}
@@ -260,8 +260,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					this->hidratar("rectangulo",todosLosValues);
-					exito=dentroDeRectangulo = false;
+					exito=Hidratar::hidratarRectangulo(todosLosValues);					
+					dentroDeRectangulo = false;
 				}
 			}
 			std::cout<<"FIN de Rectangulo"<<endl;
@@ -334,7 +334,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=this->hidratar("triangulo",todosLosValues);
+					exito=Hidratar::hidratarTriangulo(todosLosValues);
 					//si llega a vertice3 sale
 					dentroDeTriangulo = false;
 				}
@@ -394,7 +394,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=this->hidratar("segmento",todosLosValues);
+					exito=Hidratar::hidratarSegmento(todosLosValues);
 					dentroDeSegmento= false;
 				}
 			}
