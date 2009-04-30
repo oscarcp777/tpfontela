@@ -1,6 +1,6 @@
 <escenario>
-             <General resolucion="640" colorFondoFig="rojo" texturaFig="id" 
-              colorLinea="azul" colorFondoEsc="negro" textura="id2">
+             <General resolucion="640" colorFondoFig="255215000" texturaFig="textura1" 
+              colorLinea="000255000" colorFondoEsc="255255255" texturaEsc="textura4">
              </General>
              <ListadoDeElementos>
                        <cuadrado id="cuadrado1" lado="5">
@@ -19,13 +19,13 @@
                        </triangulo>
             </ListadoDeElementos>
             <ListadoDeTexturas>
-                        <textura id="textura1" path="C:\texturas\circulo.bmp">
+   <textura id="textura1" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\pocoyo.jpg">
+ </textura>
+<textura id="textura2" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\don.png">
                         </textura>
-                        <textura id="textura2" path="C:\texturas\cudrado.bmp">
+<textura id="textura3" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\boca.jpg">
                         </textura>
-                        <textura id="textura3" path="C:\texturas\rectangulo.bmp">
-                        </textura>
-                        <textura id="textura4" path="C:\texturas\triangulo.bmp">
+<textura id="textura4" path="C:\\Users\\oscar\\workspace\\TP2_Taller\\boca_wall.jpg">
                         </textura>            
              </ListadoDeTexturas>
 </escenario>

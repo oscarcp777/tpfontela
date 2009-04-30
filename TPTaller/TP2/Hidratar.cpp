@@ -81,18 +81,19 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 	the_iterator = tokens.begin();
 	std::string valor;
 	for (int var = 0; var < tokens.size(); ++var) {
+         valor =StringUtils::trimPalabra(*the_iterator);
 		if((var%2)==0){
-			std::cout<<"clave del tag  "<<var<<endl;
-			valor =StringUtils::trimPalabra(*the_iterator);
 			int posicionCaracterIgual = valor.find_first_of("=");
 			if(posicionCaracterIgual!=0){
 			valor= valor.substr(0,posicionCaracterIgual);
 			}
 
 			if(valor.compare(">")!=0){
-			std::cout<<"valor"<<valor<<endl;
+			std::cout<<"clave del tag "<<valor<<endl;
 			listaClave.push_back(valor);
 			}
+		}else{
+		std::cout<<"valor del atributo "<<valor<<endl;
 		}
 		the_iterator++;
 
@@ -225,7 +226,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
-
+   	system("PAUSE");
 	std::vector<string>::iterator iter;
 	iter = listaClave.begin();
 	std::cout<<"llego aca  "<<" "<<*iter<<endl;
@@ -303,6 +304,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 		}
 		++iter;
 	}
+	system("PAUSE");
 	return 0;
 }
 int Hidratar::hidratartextura(std::string atributos){

@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 	}
 
 
-
+	system("PAUSE");
 
 
 	Posicion *posicion1 = new Posicion(50,50);
@@ -86,8 +86,9 @@ int main(int argc, char* argv[])
 	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","boca.jpg");
 	Textura *textura5 = new Textura("river","boca.jpg");
+		system("PAUSE");
 	escenario->setIdTextura("estrellas");
-
+	system("PAUSE");
 
 	escenario->addFigura(cuadrado);
 	escenario->addFigura(rectangulo);
@@ -108,7 +109,7 @@ int main(int argc, char* argv[])
 	SDL_Quit();
 
 
-
+/*
  // test de hidratacion de el escenario
 string str=	"General resolucion=\"640\" colorFondoFig=\"255215000\" texturaFig=\"textura1\" colorLinea=\"000255000\" colorFondoEsc=\"255255255\" texturaEsc=\"textura4\">";
 int posicionCaracter = str.find_first_of(" ");
@@ -137,7 +138,7 @@ Hidratar::hidratarEscenario(str);
 			std::cout<<"COLOR LINEA B  :"<<sdlColor.b<<endl;
 
 
-
+*/
 
     	system("PAUSE");
 	return 0;

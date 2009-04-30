@@ -62,9 +62,9 @@ int Validador::hidratar(std::string tipo, std::string values){
 		std::cout<<"HIDRATAR \n"<<tipo<<" "<<values<<endl;
 		//		borro el nombre del tag
 		std::cout<<"entro al hidratar de general 2 "<<values<<endl;
-    /*	if(Hidratar::hidratarEscenario(values)==0)
+    	if(Hidratar::hidratarEscenario(values)==0)
 			return 0;
-		else return -1;*/
+		else return -1;
 	}
 
 
