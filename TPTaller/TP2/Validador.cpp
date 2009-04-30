@@ -54,47 +54,6 @@ void Validador::setLog(Log* log){
 
 }
 
-int Validador::hidratar(std::string tipo, std::string values){
-	int	exito = 0;
-
-
-	if(tipo.compare("General") == 0){
-		std::cout<<"HIDRATAR \n"<<tipo<<" "<<values<<endl;
-		//		borro el nombre del tag
-		std::cout<<"entro al hidratar de general 2 "<<values<<endl;
-    	if(Hidratar::hidratarEscenario(values)==0)
-			return 0;
-		else return -1;
-	}
-
-
-	else if(tipo.compare("textura") == 0){
-		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;
-		//		borro el nombre del tag
-	   int posicionCaracter = values.find_first_of(" ");
-	   values= values.substr(posicionCaracter,values.size());
-		if(Hidratar::hidratartextura(values)==0)
-			return 0;
-		else return -1;
-	}
-	else if(tipo.compare("circulo") == 0){
-		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
-	}
-	else if(tipo.compare("cuadrado") == 0){
-		std::cout<<"HIDRATAR  \n "<<tipo<<" "<<values<<endl;;
-	}
-	else if(tipo.compare("rectangulo") == 0){
-		std::cout<<"HIDRATAR  \n "<<tipo<<" "<<values<<endl;;
-	}
-	else if(tipo.compare("segmento") == 0){
-		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
-	}
-	else if(tipo.compare("triangulo") == 0){
-		std::cout<<"HIDRATAR \n "<<tipo<<" "<<values<<endl;;
-	}
-
-	return exito;
-}
 
 int Validador::validarValues(std::string tipo,std::string values){
 	//el tipo puede ser (<posicion,<textura,<ver1,<ver2,<ver3,<inicio,<fin y cualquier tipo de figura
