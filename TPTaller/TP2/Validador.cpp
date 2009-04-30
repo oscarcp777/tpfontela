@@ -975,9 +975,9 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 	}
 	cadena=stringUtils->trim(cadena);
-	//std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
-	//std::cout<<cadena<<endl;
-	//std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	std::cout<<cadena<<endl;
+	std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
 
 	//obtengo primer caracter de la cadena
 	caracter = cadena.at(0);

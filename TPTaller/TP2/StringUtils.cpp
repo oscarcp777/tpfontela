@@ -44,10 +44,8 @@ using namespace std;
 				It++;
 				}
 				cadenaSinEspacios+=*It;
-				//std::cout<<"despues del while ";
-				//std::cout<<*It<< endl;
 				It++;
-				//system("PAUSE");
+				
 			}
 			else{
 				//si lei un  espacio y el siguiente no es espacio vuelvo al primer espacio
@@ -55,17 +53,11 @@ using namespace std;
 				//si no era otro espacio copio el caracter
 				cadenaSinEspacios+=*It;
 				It++;
-				//std::cout<<"1er else ";
-				//std::cout<<*It<< endl;
-				//system("PAUSE");
-			}
+				}
 		}
 		else{
 			//si no es un espacio directamente se la asigno a la cadena
 			cadenaSinEspacios+=*It;
-			//std::cout<<"2do else ";
-			//std::cout<<*It<< endl;
-			//system("PAUSE");
 			It++;
 		}
 

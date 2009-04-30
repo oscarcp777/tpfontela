@@ -41,7 +41,7 @@ public:
     int compararConVectorAtributosValidos(string cadenaTag,std::vector<string> listaAtributos);
 
 	int borrarDeTagsNoNecesariosDeListaTagsArchivo();
-	int hidratar(std::string tipo, std::string values);
+	//int hidratar(std::string tipo, std::string values);
 
 };
 #endif

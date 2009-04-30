@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","boca.jpg");
-	Textura *textura5 = new Textura("river","boca.jpg");
+	Textura *textura5 = new Textura("river","river.jpg");
 		system("PAUSE");
 	escenario->setIdTextura("estrellas");
 	system("PAUSE");
@@ -137,8 +137,9 @@ Hidratar::hidratarEscenario(str);
 			std::cout<<"COLOR LINEA G  :"<<sdlColor.g<<endl;
 			std::cout<<"COLOR LINEA B  :"<<sdlColor.b<<endl;
 
-
 */
+
+
 
     	system("PAUSE");
 	return 0;
