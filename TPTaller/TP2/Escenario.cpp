@@ -247,6 +247,7 @@ int Escenario::graficar(){
 
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
+
 	int i = 1;
 	Figura *figura;
 

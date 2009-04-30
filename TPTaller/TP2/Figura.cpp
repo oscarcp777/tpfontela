@@ -11,8 +11,24 @@ void Figura::setIdTextura(std::string idTextura){
 std::string Figura::getIdTextura(){
 		return this->idTextura;
 }
+Color* Figura::getColorLinea()
+   {
+       return colorLinea;
+   }
 
+void Figura::setColorLinea(Color *colorLinea)
+   {
+       this->colorLinea = colorLinea;
+   }
+Color* Figura::getColorFigura()
+    {
+        return colorFigura;
+    }
 
+ void Figura::setColorFigura(Color *colorFigura)
+    {
+        this->colorFigura = colorFigura;
+    }
 void Figura::putpixel(SDL_Surface *screen, int x, int y, SDL_Color color)
 {
 	// Convertimos color
@@ -137,7 +153,7 @@ SDL_Surface* Figura::ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Hei
 
 
  void Figura::dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2){
-	
+
 	this->color = color;
 	bool steep = abs(y2-y1) > abs(x2-x1);
 	if( steep )
