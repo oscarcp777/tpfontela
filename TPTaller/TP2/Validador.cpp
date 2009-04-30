@@ -73,7 +73,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
-			exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
+			//exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
+			exito=0;
 		}
 	}
 
@@ -89,7 +90,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
-			exito=Hidratar::hidratarEscenario(values);
+			//exito=Hidratar::hidratarEscenario(values);
+			exito=0;
 		}
 	}
 	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
@@ -129,7 +131,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarCuadrado(todosLosValues);
+					//exito=Hidratar::hidratarCuadrado(todosLosValues);
+					exito=0;
 					dentroDeCuadrado = false;
 				}
 			}
@@ -175,7 +178,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarCirculo(todosLosValues);
+					//exito=Hidratar::hidratarCirculo(todosLosValues);
+					exito=0;
 					dentroDeCirculo = false;
 				}
 			}
@@ -219,7 +223,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarRectangulo(todosLosValues);					
+					//exito=Hidratar::hidratarRectangulo(todosLosValues);					
+					exito=0;
 					dentroDeRectangulo = false;
 				}
 			}
@@ -293,7 +298,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarTriangulo(todosLosValues);
+					//exito=Hidratar::hidratarTriangulo(todosLosValues);
+					exito=0;
 					//si llega a vertice3 sale
 					dentroDeTriangulo = false;
 				}
@@ -353,7 +359,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarSegmento(todosLosValues);
+					//exito=Hidratar::hidratarSegmento(todosLosValues);
+					exito=0;
 					dentroDeSegmento= false;
 				}
 			}
@@ -547,9 +554,9 @@ int Validador::validarArchivoXML(int i,string cadena){
 	}
 	//si no encuentro ni " "(espacio) ni ">" error en sintaxis
 	else{
-		std::cout<<"error de sintaxis, no comienza con <"<<endl;
+		std::cout<<"error de sintaxis, "<<subCadena<<endl;
 		//escribo el error en el archivo de errores
-		escribirMensajeLog(*this->log,"error de sintaxis, no comienza con <");
+		escribirMensajeLog(*this->log,"error de sintaxis,  verifique la linea: "+subCadena);
 		//destruirLog(log);
 		return -1;
 	}
@@ -678,7 +685,7 @@ int Validador::validarAperturaYCierreTags(){
 			iterAux2 = iter;
 			if(primerIngresoAlIfTexturas == true){
 				//lo uso porque si entra por primera vez tengo que incrementar, pero si entra por segunda vez para borrar
-				//alguna figura no se tiene que incrementar
+				//alguna textura no se tiene que incrementar
 				iterAux2++;
 			}
 			primerIngresoAlIfTexturas=false;
@@ -974,10 +981,11 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 		cadena += linea;
 
 	}
+	//
 	cadena=stringUtils->trim(cadena);
-	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
-	std::cout<<cadena<<endl;
-	std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	//std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	//std::cout<<cadena<<endl;
+	//std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
 
 	//obtengo primer caracter de la cadena
 	caracter = cadena.at(0);
@@ -998,7 +1006,7 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 	}
 	//si el primer caracter es DISTINTO de "<" error en sintaxis
 	else{
-		std::cout<<"error de sintaxis, no comienza con <"<<endl;
+		std::cout<<"error de sintaxis, no comienza con < "<<endl;
 		//escribo el error en el archivo de errores
 		escribirMensajeLog(*this->log,"error de sintaxis, no comienza con <");
 		//destruirLog(log);

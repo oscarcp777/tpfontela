@@ -34,16 +34,19 @@ using namespace std;
 
    
 	while ( It != cadena.end() ){
-		if(*It == ' '){
+		if((*It == ' ') || (*It == '\n')){
 			//si el caracter es un espacio leo el siguiente
 			It++;
-			if(*It == ' '){
+			if((*It == ' ') || (*It == '\n')){
 				//si es otro espacio, itero hasta que sea distinto de espacio
 	        	//cadenaSinEspacios+=*It;
-				while(*It == ' '){
+				while((*It == ' ') || (*It == '\n')){
 				It++;
 				}
 				cadenaSinEspacios+=*It;
+				//std::cout<<"despues del while"<<endl;
+				//std::cout<<"caracter "<<*It<<endl;
+				//system("PAUSE");
 				It++;
 				
 			}
@@ -52,16 +55,22 @@ using namespace std;
 				It--;
 				//si no era otro espacio copio el caracter
 				cadenaSinEspacios+=*It;
+				//std::cout<<"1er else"<<endl;
+				//std::cout<<"caracter "<<*It<<endl;
+				//system("PAUSE");
 				It++;
 				}
 		}
 		else{
 			//si no es un espacio directamente se la asigno a la cadena
 			cadenaSinEspacios+=*It;
+			//std::cout<<"2do else"<<endl;
+			//std::cout<<"caracter "<<*It<<endl;
+			//system("PAUSE");
 			It++;
 		}
-
-		
+	//std::cout<<"CADENA TEMPORAL: "<<endl;
+	//std::cout<<cadenaSinEspacios<<endl;	
     }
  	
 	return cadenaSinEspacios;
