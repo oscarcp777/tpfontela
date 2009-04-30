@@ -64,7 +64,11 @@ int hidratarColor(std::string cadena,Color* color){
 
 		if(validarNumeroRGB(r)==0&&validarNumeroRGB(g)==0&&validarNumeroRGB(b)==0){
 
-			color=new Color(atoi(r.c_str()),atoi(g.c_str()),atoi(b.c_str()));
+			 SDL_Color sdlColor;
+			          sdlColor.r=atoi(r.c_str());
+			          sdlColor.g=atoi(g.c_str());
+			          sdlColor.b=atoi(b.c_str());
+						color->setColor(sdlColor);
 		}else{
 			return -1;
 		}
@@ -78,7 +82,7 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 	std::string valor;
 	for (int var = 0; var < tokens.size(); ++var) {
 		if((var%2)==0){
-			std::cout<<"par  "<<var<<endl;
+			std::cout<<"clave del tag  "<<var<<endl;
 			valor =StringUtils::trimPalabra(*the_iterator);
 			int posicionCaracterIgual = valor.find_first_of("=");
 			if(posicionCaracterIgual!=0){
@@ -89,9 +93,7 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 			std::cout<<"valor"<<valor<<endl;
 			listaClave.push_back(valor);
 			}
-		}/*else{	std::cout<<"impar  "<<var<<endl;
-	        	listaValor.push_back(*the_iterator);
-	          }*/
+		}
 		the_iterator++;
 
 	}
@@ -256,7 +258,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 					std::cout<<"EXITO AL AGREGAR TAG RESOLUCION AL ESCENARIO "<<endl;
 				}else{
 					std::cout<<"ERROR AL AGREGAR TAG RESOLUCION AL ESCENARIO "<<endl;
-					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG RESOLUCION AL ESCENARIO ");
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG RESOLUCION AL ESCENARIO ");
 				}
 			}
 
@@ -264,12 +266,12 @@ int Hidratar::hidratarEscenario(std::string atributos){
 				valorAtributo=StringUtils::getValorTag(COLOR_FONDO_FIG,tokens);
 				std::cout<<"valor de la clave COLOR_FONDO_FIG"<<" "<<valorAtributo<<endl;
 				if(hidratarColor(valorAtributo,colorFondoFiguras)!=-1&&valorAtributo.compare("error") != 0){
-				//	escenario->setColorFondoFiguras(colorFondoFiguras);
+					escenario->setColorFondoFiguras(colorFondoFiguras);
 
 					std::cout<<"EXITO AL AGREGAR TAG COLOR_FONDO_FIG AL ESCENARIO "<<endl;
 				}else{
 					std::cout<<"ERROR AL AGREGAR TAG COLOR_FONDO_FIG AL ESCENARIO "<<endl;
-					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorFondoFig AL ESCENARIO ");
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG colorFondoFig AL ESCENARIO ");
 				}
 			}
 
@@ -277,11 +279,11 @@ int Hidratar::hidratarEscenario(std::string atributos){
 				valorAtributo=StringUtils::getValorTag(COLOR_FONDO_ESC,tokens);
 					std::cout<<"valor de la clave"<<" "<<valorAtributo<<endl;
 				if(hidratarColor(valorAtributo,colorFondoEscenario)!=-1&&valorAtributo.compare("error") != 0){
-				//	escenario->setColorFondoEscenario(colorFondoEscenario);
+				escenario->setColorFondoEscenario(colorFondoEscenario);
 					std::cout<<"EXITO AL AGREGAR TAG COLOR_FONDO_ESC AL ESCENARIO "<<endl;
 				}else{
 					std::cout<<"ERROR AL AGREGAR TAG COLOR_FONDO_ESC AL ESCENARIO "<<endl;
-					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorFondoEsc AL ESCENARIO ");
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG colorFondoEsc AL ESCENARIO ");
 				}
 			}
 
@@ -289,11 +291,11 @@ int Hidratar::hidratarEscenario(std::string atributos){
 				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
 					std::cout<<"valor de la clave"<<" "<<valorAtributo<<endl;
 				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
-				//	escenario->setColorLinea(colorLinea);
+					escenario->setColorLinea(colorLinea);
 					std::cout<<"EXITO AL AGREGAR TAG COLOR_LINEA AL ESCENARIO "<<endl;
 				}else{
 					std::cout<<"ERROR AL AGREGAR TAG COLOR_LINEA AL ESCENARIO "<<endl;
-					//escribirMensajeLog(escenario->getLog(),"ERROR AL AGREGAR TAG colorLinea AL ESCENARIO ");
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG colorLinea AL ESCENARIO ");
 				}
 			}
 

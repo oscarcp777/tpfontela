@@ -14,14 +14,37 @@
 #include <SDL_mixer.h>
 #include <SDL_main.h>
 #include<math.h>
-
+#include "Color.h"
 #include "Hidratar.h"
 using namespace std;
 
+int hidratarColor2(std::string cadena,Color* color){
 
+
+		string r= cadena.substr(0,3);
+		string g= cadena.substr(3,3);
+		string b= cadena.substr(6,3);
+
+
+          SDL_Color sdlColor;
+          sdlColor.r=atoi(r.c_str());
+          sdlColor.g=atoi(g.c_str());
+          sdlColor.b=atoi(b.c_str());
+			color->setColor(sdlColor);
+
+
+	return 0;
+}
 
 int main(int argc, char* argv[])
 {
+	Color *color= new Color();
+	hidratarColor2("255255255",color);
+	 SDL_Color sdlColor=color->getColor();
+	 std::cout<<"INGRESE"<<sdlColor.r<<endl;
+	 std::cout<<"INGRESE"<<sdlColor.g<<endl;
+	 std::cout<<"INGRESE"<<sdlColor.b<<endl;
+
 
 	Escenario* escenario = Escenario::obtenerInstancia();
 	int exito = 0;
@@ -107,21 +130,34 @@ int main(int argc, char* argv[])
 	SDL_Quit();
 
 
-	/**  test de hidratacion de el escenario  **/
+
+ // test de hidratacion de el escenario
 string str=	"General resolucion=\"640\" colorFondoFig=\"255215000\" texturaFig=\"textura1\" colorLinea=\"000255000\" colorFondoEsc=\"255255255\" texturaEsc=\"textura4\">";
 int posicionCaracter = str.find_first_of(" ");
 	str= str.substr(posicionCaracter,str.size());
 	std::cout<<str<<endl;
 Hidratar::hidratarEscenario(str);
 
-escenario = Escenario::obtenerInstancia();
+ escenario = Escenario::obtenerInstancia();
 
-	std::cout<<escenario->getAlto()<<endl;
-	std::cout<<escenario->getAncho()<<endl;
-	std::cout<<escenario->getResolucion()<<endl;
-	std::cout<<escenario->getTexturaEsc()<<endl;
-	std::cout<<escenario->getTexturaFig()<<endl;
-	
+	std::cout<<"ALTO : "<<escenario->getAlto()<<endl;
+	std::cout<<"ANCHO : "<<escenario->getAncho()<<endl;
+	std::cout<<"RESOLUCION : "<<escenario->getResolucion()<<endl;
+	std::cout<<"TEXTURA ESCENARIO : "<<escenario->getTexturaEsc()<<endl;
+	std::cout<<"TEXTURA FIGURA : "<<escenario->getTexturaFig()<<endl;
+	SDL_Color sdlColor=escenario->getColorFondoEscenario();
+    std::cout<<"COLOR ESCENARIO R  :"<<sdlColor.r<<endl;
+	std::cout<<"COLOR ESCENARIO G :"<<sdlColor.g<<endl;
+	std::cout<<"COLOR ESCENARIO B :"<<sdlColor.b<<endl;
+	 sdlColor=escenario->getColorFondoFiguras();
+	    std::cout<<"COLOR FIGURA R  :"<<sdlColor.r<<endl;
+		std::cout<<"COLOR FIGURA G  :"<<sdlColor.g<<endl;
+		std::cout<<"COLOR FIGURA B  :"<<sdlColor.b<<endl;
+		 sdlColor=escenario->getColorLinea();
+		    std::cout<<"COLOR LINEA R  :"<<sdlColor.r<<endl;
+			std::cout<<"COLOR LINEA G  :"<<sdlColor.g<<endl;
+			std::cout<<"COLOR LINEA B  :"<<sdlColor.b<<endl;
+
 
 
 
