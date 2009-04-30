@@ -28,28 +28,50 @@ using namespace std;
  	return valorTag;
  }
 
-string StringUtils::trim(std::string cadena){
+ string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
  string cadenaSinEspacios;
- bool isTag=false;
-    while ( It != cadena.end() )
-    {
 
-
-		if(*It == '<'||isTag||*It == '>'){
-				isTag=true;
-		if(*It == '>'){isTag=false;}
-	        	cadenaSinEspacios+=*It;
+   
+	while ( It != cadena.end() ){
+		if(*It == ' '){
+			//si el caracter es un espacio leo el siguiente
+			It++;
+			if(*It == ' '){
+				//si es otro espacio, itero hasta que sea distinto de espacio
+	        	//cadenaSinEspacios+=*It;
+				while(*It == ' '){
 				It++;
+				}
+				cadenaSinEspacios+=*It;
+				//std::cout<<"despues del while ";
+				//std::cout<<*It<< endl;
+				It++;
+				//system("PAUSE");
+			}
+			else{
+				//si lei un  espacio y el siguiente no es espacio vuelvo al primer espacio
+				It--;
+				//si no era otro espacio copio el caracter
+				cadenaSinEspacios+=*It;
+				It++;
+				//std::cout<<"1er else ";
+				//std::cout<<*It<< endl;
+				//system("PAUSE");
+			}
 		}
 		else{
+			//si no es un espacio directamente se la asigno a la cadena
+			cadenaSinEspacios+=*It;
+			//std::cout<<"2do else ";
+			//std::cout<<*It<< endl;
+			//system("PAUSE");
 			It++;
 		}
 
-
+		
     }
-// 	std::cout<<cadenaSinEspacios<< endl;
-
+ 	
 	return cadenaSinEspacios;
 }
 void StringUtils::Tokenize(const string& str, vector<string>& tokens, const string& delimiters ){
