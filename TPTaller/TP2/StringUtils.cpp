@@ -1,8 +1,6 @@
-#include <string>
+
 #include "StringUtils.h"
-#include <iostream>
-#include <list>
-using namespace std;
+
  StringUtils::StringUtils(){
 }
  
@@ -28,7 +26,33 @@ using namespace std;
  	return valorTag;
  }
 
- string StringUtils::trim(std::string cadena){
+string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
+	std::string nueva_cadena;
+
+	 int cant_veces = 0;
+	 int inc = 0;
+
+	 std::ostringstream ostr;
+     	 
+	 while(inc<=cadena.length()){
+		 
+		 if(cadena[inc]==char_reemplazable){
+			 cant_veces++;
+			 ostr << cant_veces<<endl;
+			 ostr.str("");
+			 nueva_cadena+=char_reemplazable;
+			 nueva_cadena+=ostr.str();
+		 }else
+		 
+		  nueva_cadena+=cadena[inc];	
+		  inc++;
+	}
+	
+	 return nueva_cadena;
+
+ }
+
+string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
  string cadenaSinEspacios;
 

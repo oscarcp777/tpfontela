@@ -2,9 +2,11 @@
 #define __STRINGUTILS_H__
 
 #include <string>
-#include <fstream>
-#include <vector>
 #include <iostream>
+#include <sstream>
+#include <list>
+#include <vector>
+
 using namespace std;
 class StringUtils{
 
@@ -18,6 +20,7 @@ public:
     static std::string getValorTag(std::string nombretag,vector<string>& tokens);
 	string trim(std::string cadena);
 	static std::string trimPalabra(std::string cadena);
+	static std::string actualizarCadena(string cadena,char char_reemplazable);
 	static void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );
 
 private:
