@@ -18,32 +18,10 @@
 #include "Hidratar.h"
 using namespace std;
 
-int hidratarColor2(std::string cadena,Color* color){
 
-
-		string r= cadena.substr(0,3);
-		string g= cadena.substr(3,3);
-		string b= cadena.substr(6,3);
-
-
-          SDL_Color sdlColor;
-          sdlColor.r=atoi(r.c_str());
-          sdlColor.g=atoi(g.c_str());
-          sdlColor.b=atoi(b.c_str());
-			color->setColor(sdlColor);
-
-
-	return 0;
-}
 
 int main(int argc, char* argv[])
 {
-	Color *color= new Color();
-	hidratarColor2("255255255",color);
-	 SDL_Color sdlColor=color->getColor();
-	 std::cout<<"INGRESE"<<sdlColor.r<<endl;
-	 std::cout<<"INGRESE"<<sdlColor.g<<endl;
-	 std::cout<<"INGRESE"<<sdlColor.b<<endl;
 
 
 	Escenario* escenario = Escenario::obtenerInstancia();
