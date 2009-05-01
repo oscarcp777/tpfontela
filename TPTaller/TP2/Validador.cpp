@@ -92,8 +92,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 		else{
 			//std::cout<<"values: "<<values<<endl;
 			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
-			//exito=Hidratar::hidratarEscenario(values);
-			exito=0;
+			exito=Hidratar::hidratarEscenario(values);
+			//exito=0;
 		}
 	}
 	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
@@ -361,8 +361,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarSegmento(todosLosValues);
-					//exito=0;
+					exito=Hidratar::hidratarSegmento(todosLosValues);					
 					dentroDeSegmento= false;
 				}
 			}

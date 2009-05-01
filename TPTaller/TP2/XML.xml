@@ -1,6 +1,6 @@
 <escenario>
-            <General resolucion="640" colorFondoFig="255215000" texturaFig="textura1" 
-              colorLinea="000255000" colorFondoEsc="255255255" texturaEsc="textura4">
+            <General resolucion="800" colorFondoFig="255215000" texturaFig="don" 
+              colorLinea="000255000" colorFondoEsc="255255255" texturaEsc="estrellas">
              </General>
              <ListadoDeElementos>
                 <cuadrado id="cuadrado1" lado="5">
@@ -18,8 +18,8 @@
                                   <ver3 x="5" y="46"/>
                        </triangulo>
                        <segmento id="Misegmento">
-                                  <inicio x="100" y="100" />
-                                  <fin x="100" y="500" />
+                                  <inicio x="300" y="200" />
+                                  <fin x="300" y="500" />
                        </segmento>
             </ListadoDeElementos>
             <ListadoDeTexturas>
