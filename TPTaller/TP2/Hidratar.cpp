@@ -257,7 +257,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
-   	system("PAUSE");
+   	
 	 /**################################################################################################*/
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
@@ -343,7 +343,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 		}
 		++iter;
 	}
-	system("PAUSE");
+	
 	return 0;
 }
 int Hidratar::hidratartextura(std::string atributos){

@@ -87,8 +87,6 @@ int main(int argc, char* argv[])
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 
-
-
     	
 	return 0;
 }
