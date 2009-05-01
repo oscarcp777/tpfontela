@@ -17,6 +17,10 @@
                                   <ver2 x="7" y="5"/>
                                   <ver3 x="5" y="46"/>
                        </triangulo>
+                       <segmento id="Misegmento">
+                                  <inicio x="100" y="100" />
+                                  <fin x="100" y="500" />
+                       </segmento>
             </ListadoDeElementos>
             <ListadoDeTexturas>
                  <textura id="pocoyo4" path="pocoyo4.jpg">
