@@ -39,7 +39,7 @@ public:
 	int compararConTagsValidos(string cadena);
     int compararConAtributosValidos(string cadenaTag,string cadenaAtributo);
     int compararConVectorAtributosValidos(string cadenaTag,std::vector<string> listaAtributos);
-
+    int validarNumero(string numero);
 	int borrarDeTagsNoNecesariosDeListaTagsArchivo();
 	//int hidratar(std::string tipo, std::string values);
 

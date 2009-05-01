@@ -27,7 +27,24 @@ static const std::string COLOR_FONDO_ESC="colorFondoEsc";
 static const std::string COLOR_LINEA="colorLinea";
 static const std::string SEGMENTO="segmento";
 static const std::string COLOR_FIGURA="colorFigura";
-static const std::string ID_TEXTURA="id_textura";
+static const std::string ID_TEXTURA="idTextura";
+static const std::string X1="x1";
+static const std::string X2="x2";
+static const std::string Y1="y1";
+static const std::string Y2="y2";
+static const char POSICION_X='x';
+static const char POSICION_Y='y';
+
+int validarNumero(string numero){
+	for ( int pos = 0; pos < numero.length(); ++pos ){
+		 std::cout<<isdigit(numero.at(pos))<<endl;
+			 if(isdigit(numero.at(pos))){
+				 return -1;
+			 }
+	}
+ return 0;
+}
+
 int obtenerResolucion(string resolucion){
 	int resInt=atoi(resolucion.c_str());
 	if(resInt==640||resInt==800||resInt==1024||resInt==1280){
@@ -37,11 +54,6 @@ int obtenerResolucion(string resolucion){
 	}
 }
 int validarNumeroRGB(string numero){
-static const std::string CUADRADO="cuadrado";
-static const std::string RECTANGULO="rectangulo";
-static const std::string TRIANGULO="triangulo";
-static const std::string CIRCULO="circulo";
-
 	 for ( int pos = 0; pos < numero.length(); ++pos )
 		 if(isdigit(numero.at(pos)==0)){
 			 return -1;
@@ -92,8 +104,8 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 			valor= valor.substr(0,posicionCaracterIgual);
 			}
 
-			if(valor.compare(">")!=0){
-			std::cout<<"clave del tag "<<valor<<endl;
+			if(valor.compare(">")!=0&&valor.size()!=0){
+			std::cout<<"clave del tag "<<valor.size()<<endl;
 			listaClave.push_back(valor);
 			}
 		}else{
@@ -309,6 +321,10 @@ int Hidratar::hidratarEscenario(std::string atributos){
 			}
 
 
+		}else{
+			std::cout<<"ERROR AL AGREGAR EL ATRIBUTO "<<valorClave<<" AL ESCENARIO"<<endl;
+			escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG "+valorClave+" AL ESCENARIO" );
+			return -1;
 		}
 		++iter;
 	}
@@ -338,72 +354,114 @@ int Hidratar::hidratartextura(std::string atributos){
 		return -1;
 	}
 }
+/**
+ * este metodo agrega los atributos opcionales a las figuras que son si los encuentra los agrega sino
+ * escribe en el log el error
+ * COLOR_FIGURA
+ * COLOR_LINEA
+ * ID_TEXTURA
+ */
+void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<string>& listaClave){
+	Escenario* escenario=Escenario::obtenerInstancia();
+   	std::string id;
+		id=StringUtils::getValorTag(ID,tokens);
+	Color* colorFigura=new Color();
+		Color* colorLinea=new Color();
+		std::string valorAtributo;
+		std::string valorClave;
+			std::string idtextura;
+	std::vector<string>::iterator iter;
+	iter = listaClave.begin();
+	while( iter != listaClave.end() ) {
+		valorClave=*iter;
+		std::cout<<"valor de la clave \n "<<" "<<valorClave<<endl;
+			if(valorClave.compare(ID_TEXTURA)==0){
+				idtextura=StringUtils::getValorTag(ID_TEXTURA,tokens);
+				figura->setIdTextura(idtextura);
+				std::cout<<"valor de la clave ID_TEXTURA"<<" "<<idtextura<<endl;
+				std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL ID_TEXTURA A LA FIGURA "<<endl;
+			}
+			if(valorClave.compare(COLOR_FIGURA)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_FIGURA,tokens);
+				std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorFigura)!=-1&&valorAtributo.compare("error") != 0){
+					figura->setColorFigura(colorFigura);
+
+					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA"<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "<<endl;
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "+id);
+				}
+			}
+
+			if(valorClave.compare(COLOR_LINEA)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
+				std::cout<<"valor de la clave COLOR_LINEA "<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
+					figura->setColorLinea(colorLinea);
+					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"+id);
+				}
+			}
+
+		++iter;
+	}
+}
+
 int Hidratar::hidratarSegmento(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	Segmento *segmento;
-	Color* colorFigura=new Color();
-	Color* colorLinea=new Color();
-	std::string valorAtributo;
-	std::string valorClave;
+	Posicion *inicio;
+	Posicion* fin;
 	std::string id;
-	std::string idtextura;
+	std::string x1;
+	std::string x2;
+	std::string y1;
+	std::string y2;
+	string atributosModificados=StringUtils::actualizarCadena(StringUtils::actualizarCadena(atributos,POSICION_X),POSICION_Y);
 	vector<string> listaClave;
 	vector<string> tokens;
+	vector<string> tokensModificado;
 	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
 	cargarListaClaves(listaClave,tokens);
 	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
 	if(validador->compararConVectorAtributosValidos(SEGMENTO,listaClave)==0){
+	    StringUtils::Tokenize(atributosModificados, tokensModificado,DELIMITADOR);
+       std::cout<<"atributos modificados "<<atributosModificados<<endl;
 		id=StringUtils::getValorTag(ID,tokens);
-
-
-        /**################################################################################################*/
-		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
-		/**################################################################################################*/
-
-		std::vector<string>::iterator iter;
-		iter = listaClave.begin();
-		while( iter != listaClave.end() ) {
-			valorClave=*iter;
-			std::cout<<"valor de la clave \n "<<" "<<valorClave<<endl;
-				if(valorClave.compare(ID_TEXTURA)==0){
-					idtextura=StringUtils::getValorTag(ID_TEXTURA,tokens);
-					segmento->setIdTextura(idtextura);
-					std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<idtextura<<endl;
-					std::cout<<"EXITO AL AGREGAR TAG ID_TEXTURA AL SEGMENTO "<<endl;
-				}
-				if(valorClave.compare(COLOR_FIGURA)==0){
-					valorAtributo=StringUtils::getValorTag(COLOR_FIGURA,tokens);
-					std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<valorAtributo<<endl;
-					if(hidratarColor(valorAtributo,colorFigura)!=-1&&valorAtributo.compare("error") != 0){
-						segmento->setColorFigura(colorFigura);
-
-						std::cout<<"EXITO AL AGREGAR TAG COLOR_FIGURA AL SEGMENTO "<<endl;
-					}else{
-						std::cout<<"ERROR AL AGREGAR TAG COLOR_FIGURA AL SEGMENTO "<<endl;
-						escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG COLOR_FIGURA AL SEGMENTO "+id);
-					}
-				}
-
-				if(valorClave.compare(COLOR_LINEA)==0){
-					valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
-					std::cout<<"valor de la clave COLOR_LINEA "<<" "<<valorAtributo<<endl;
-					if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
-						segmento->setColorLinea(colorLinea);
-						std::cout<<"EXITO AL AGREGAR TAG COLOR_LINEA AL SEGMENTO "<<endl;
-					}else{
-						std::cout<<"ERROR AL AGREGAR TAG COLOR_LINEA AL SEGMENTO "<<endl;
-						escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG COLOR_LINEA AL SEGMENTO "+id);
-					}
-				}
-
-			++iter;
+		x1=StringUtils::getValorTag(X1,tokensModificado);
+		x2=StringUtils::getValorTag(X2,tokensModificado);
+		y1=StringUtils::getValorTag(Y1,tokensModificado);
+		y2=StringUtils::getValorTag(Y2,tokensModificado);
+            std::cout<<"atributos modificados "<<"("<<x1<<","<<y1<<")"<<"("<<y1<<","<<y2<<")"<<endl;
+		if(validador->validarNumero(x1)==-1||validador->validarNumero(y1)==-1){
+			std::cout<<"ERROR AL AGREGAR TAG INICIO AL SEGMENTO "<<endl;
+			escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG INICIO AL SEGMENTO : "+id);
+			return -1;
 		}
-		std::cout<<"exito AL CREAR EL SEGMENTO  SE LA AGREGO A LA LISTA DE fIGURAS"<<endl;
+		if(validador->validarNumero(x2)==-1||validador->validarNumero(y2)==-1){
+			std::cout<<"ERROR AL AGREGAR TAG FIN AL SEGMENTO "<<endl;
+			escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR TAG INICIO AL SEGMENTO : "+id);
+			return -1;
+		}
+
+       // si no hay errores instancio y agrego le segmento
+		inicio= new Posicion(atoi(x1.c_str()),atoi(y1.c_str()));
+		fin= new Posicion(atoi(x2.c_str()),atoi(y2.c_str()));
+		segmento= new Segmento(id,inicio,fin);
+		escenario->addFigura(segmento);
+        /**################################################################################################*/
+		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
+		/**################################################################################################*/
+		agregarAtributosOpcionales(tokens, segmento, listaClave);
+		std::cout<<"exito AL CREAR EL SEGMENTO  SE LA AGREGO A LA LISTA DE FIGURAS"<<endl;
 		return 0;
 	}else{
-		std::cout<<"ERROR AL CREAR EL SEGMENTO  NO SE LA AGREGO A LA LISTA DE fIGURAS"<<endl;
+		std::cout<<"ERROR AL CREAR EL SEGMENTO  NO SE LA AGREGO A LA LISTA DE FIGURAS"<<endl;
 		return -1;
 	}
 

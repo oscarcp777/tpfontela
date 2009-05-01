@@ -10,8 +10,6 @@
 #include "Textura.h"
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
 #include <SDL_main.h>
 #include<math.h>
 #include "Color.h"
@@ -85,7 +83,7 @@ int main(int argc, char* argv[])
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","boca.jpg");
-	Textura *textura5 = new Textura("river","river.jpg");
+	Textura *textura5 = new Textura("river","wall.jpg");
 		system("PAUSE");
 	escenario->setIdTextura("estrellas");
 	system("PAUSE");
@@ -107,39 +105,6 @@ int main(int argc, char* argv[])
 
 	SDL_FreeSurface(escenario->getScreen());
 	SDL_Quit();
-
-
-/*
- // test de hidratacion de el escenario
-string str=	"General resolucion=\"640\" colorFondoFig=\"255215000\" texturaFig=\"textura1\" colorLinea=\"000255000\" colorFondoEsc=\"255255255\" texturaEsc=\"textura4\">";
-int posicionCaracter = str.find_first_of(" ");
-	str= str.substr(posicionCaracter,str.size());
-	std::cout<<str<<endl;
-Hidratar::hidratarEscenario(str);
-
- escenario = Escenario::obtenerInstancia();
-
-	std::cout<<"ALTO : "<<escenario->getAlto()<<endl;
-	std::cout<<"ANCHO : "<<escenario->getAncho()<<endl;
-	std::cout<<"RESOLUCION : "<<escenario->getResolucion()<<endl;
-	std::cout<<"TEXTURA ESCENARIO : "<<escenario->getTexturaEsc()<<endl;
-	std::cout<<"TEXTURA FIGURA : "<<escenario->getTexturaFig()<<endl;
-	SDL_Color sdlColor=escenario->getColorFondoEscenario();
-    std::cout<<"COLOR ESCENARIO R  :"<<sdlColor.r<<endl;
-	std::cout<<"COLOR ESCENARIO G :"<<sdlColor.g<<endl;
-	std::cout<<"COLOR ESCENARIO B :"<<sdlColor.b<<endl;
-	 sdlColor=escenario->getColorFondoFiguras();
-	    std::cout<<"COLOR FIGURA R  :"<<sdlColor.r<<endl;
-		std::cout<<"COLOR FIGURA G  :"<<sdlColor.g<<endl;
-		std::cout<<"COLOR FIGURA B  :"<<sdlColor.b<<endl;
-		 sdlColor=escenario->getColorLinea();
-		    std::cout<<"COLOR LINEA R  :"<<sdlColor.r<<endl;
-			std::cout<<"COLOR LINEA G  :"<<sdlColor.g<<endl;
-			std::cout<<"COLOR LINEA B  :"<<sdlColor.b<<endl;
-
-*/
-
-
 
     	system("PAUSE");
 	return 0;

@@ -223,7 +223,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarRectangulo(todosLosValues);					
+					//exito=Hidratar::hidratarRectangulo(todosLosValues);
 					exito=0;
 					dentroDeRectangulo = false;
 				}
@@ -1018,8 +1018,7 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 int Validador::validarNumero(std::string numero){
 	for ( int pos = 0; pos < numero.length(); ++pos ){
-		 std::cout<<isdigit(numero.at(pos))<<endl;
-			 if(isdigit(numero.at(pos))){
+			 if(!isdigit(numero.at(pos))){
 				 return -1;
 			 }
 	}
