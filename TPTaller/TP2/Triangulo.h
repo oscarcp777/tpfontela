@@ -20,6 +20,7 @@ class Triangulo: public Figura {
 		Posicion *vertice1;
 		Posicion *vertice2;
 		Posicion *vertice3;
+		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);
 
 
 

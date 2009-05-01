@@ -65,7 +65,7 @@ int hallarDominio(int z1,int z2,int z3){
 		if (abs(z2 - z3)> abs(z1 - z2))
 			mayor = abs(z2 - z3);
 		else
-			mayor = abs(z1 - z3);
+			mayor = abs(z1 - z2);
 	}
 	else{
 		if (abs(z2 - z3)> abs(z1 - z3))
@@ -90,9 +90,46 @@ float calcularOrdenada ( int x, int y, float pend){
 
 }
 
+void hallarVertices(Posicion* ver1, Posicion* ver2, Posicion* ver3, int maxValorX,
+					Posicion* &verticeCentral, Posicion* &verticeInicial, Posicion* &verticeFinal){
+
+	
+	if (ver1->getX()==0 || ver1->getX()==maxValorX){
+			if (ver1->getX()==0)
+				verticeInicial = ver1;
+			else
+				if (ver1->getX()==maxValorX)
+					verticeFinal = ver1;
+	}
+	else
+			verticeCentral = ver1;
+	
+	if (ver2->getX()==0 || ver2->getX()==maxValorX){
+			if (ver2->getX()==0)
+					verticeInicial = ver2;
+			else
+				if (ver2->getX()==maxValorX)
+					verticeFinal = ver2;
+	}
+	else
+		verticeCentral = ver2;
+	
+	if (ver3->getX()==0 || ver3->getX()==maxValorX){
+			if (ver3->getX()==0)
+					verticeInicial = ver3;
+			else
+				if (ver3->getX()==maxValorX)
+					verticeFinal = ver3;
+	}
+	else
+			verticeCentral = ver3;
+
+}
+
+
 bool estaEnRecta (Posicion* pos,float m, float k){
 
-	if ((m*pos->getX())+k - pos->getY() < 0.05)
+	if ( (m*pos->getX()+k - pos->getY() < 0.05) &&  (m*pos->getX()+k - pos->getY() > -0.05) )
 		return true;
 
 	else return false;
@@ -114,6 +151,17 @@ int mayor(int x, int y){
 		return y;
 
 }
+
+void Triangulo::graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas){
+
+	if(this->imagen != NULL)
+			this->color = this->getpixel(this->imagen,i,this->imagen->h - 1 - j);			
+	this->putpixel(screen,i+ejeDeCoordenadas->getX(),ejeDeCoordenadas->getY()-j,this->color);
+
+}
+
+
+
 int Triangulo::dibujar(SDL_Surface *screen){
 	std::cout<<"TRIANGULO "<<endl;
 	std::cout<<"id: "<<this->getId()<<endl;
@@ -130,7 +178,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	this->dibujarLinea(color,screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY()); 
 	this->dibujarLinea(color,screen ,this->getVertice2()->getX(),  this->getVertice2()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
 	
-	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
+	//this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
 
 	Posicion* ejeDeCordenadas;
 	Posicion* ver1;
@@ -172,39 +220,12 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	Posicion* verticeFinal;
 	
 	
+	hallarVertices(ver1, ver2, ver3, maxValorX, verticeCentral, verticeInicial, verticeFinal);
 
-	if (ver1->getX()==0 || ver1->getX()==maxValorX){
-			if (ver1->getX()==0)
-				verticeInicial = ver1;
-			else
-				if (ver1->getX()==maxValorX)
-					verticeFinal = ver1;
-				else
-					verticeCentral = ver1;
-	}
-	if (ver2->getX()==0 || ver2->getX()==maxValorX){
-			if (ver2->getX()==0)
-					verticeInicial = ver2;
-			else
-				if (ver2->getX()==maxValorX)
-					verticeFinal = ver2;
-	}else
-		verticeCentral = ver2;
-	
-	if (ver3->getX()==0 || ver3->getX()==maxValorX){
-			if (ver3->getX()==0)
-					verticeInicial = ver3;
-			else
-				if (ver3->getX()==maxValorX)
-					verticeFinal = ver3;
-				else
-					verticeCentral = ver3;
-	}			
-	
-
-			perteneceAR1 = estaEnRecta (verticeInicial,m1,k1);
-			perteneceAR2 = estaEnRecta (verticeInicial,m2,k2);
-			perteneceAR3 = estaEnRecta (verticeInicial,m3,k3);
+				
+	perteneceAR1 = estaEnRecta (verticeInicial,m1,k1);
+	perteneceAR2 = estaEnRecta (verticeInicial,m2,k2);
+	perteneceAR3 = estaEnRecta (verticeInicial,m3,k3);
 	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 
@@ -222,30 +243,22 @@ int Triangulo::dibujar(SDL_Surface *screen){
 				if(perteneceAR1 && perteneceAR2){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);			
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
-					}
-				
+					if (resComp1*resComp2<=0)
+							graficarPixel(screen, i, j, ejeDeCordenadas);						
 				}
-				else if(perteneceAR1 && perteneceAR3){
-					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
-					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
+				else 
+					if(perteneceAR1 && perteneceAR3){
+						resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
+						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
+							if (resComp1*resComp2<=0)
+								graficarPixel(screen, i, j, ejeDeCordenadas);
 					}
-				
-				}
-				else{
-					resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
-					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
-					}
-					
-				}	
+					else{
+						resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
+						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
+						if (resComp1*resComp2<=0)
+							graficarPixel(screen, i, j, ejeDeCordenadas);
+					}	
 				
 			}else{
 				if(primeraEntrada){					
@@ -257,28 +270,20 @@ int Triangulo::dibujar(SDL_Surface *screen){
 				if(perteneceAR1 && perteneceAR2){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
-					}
-				
+					if (resComp1*resComp2<=0)
+						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 				else if(perteneceAR1 && perteneceAR3){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
-					}
-				
+					if (resComp1*resComp2<=0)
+						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 				else{
 					resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0){
-						this->color = this->getpixel(imagen,i,j);
-						this->putpixel(screen,i+ejeDeCordenadas->getX(),ejeDeCordenadas->getY()-j,this->color);					
-					}
+					if (resComp1*resComp2<=0)
+						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 			}
 
