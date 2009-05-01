@@ -14,6 +14,7 @@ class Figura{
 
 		 std::string getId();
 		 std::string getIdTextura();
+		 void setId(std::string id);
 		 void setIdTextura(std::string idTextura);
 		 static SDL_Surface* ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height);
 		 static void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel);

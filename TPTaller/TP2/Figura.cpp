@@ -4,6 +4,9 @@
 std::string Figura::getId(){
 		return this->id;
 }
+void Figura::setId(std::string id){
+	this->id = id;
+}
 
 void Figura::setIdTextura(std::string idTextura){
 	this->idTextura = idTextura;

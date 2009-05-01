@@ -10,7 +10,7 @@ static const std::string ID="id";
 static const std::string RADIO="radio";
 static const std::string LADO="lado";
 static const std::string BASE="base";
-static const std::string ALTURA="ALTURA";
+static const std::string ALTURA="altura";
 static const std::string PATH="path";
 static const std::string TEXTURA="textura";
 static const std::string CUADRADO="cuadrado";
@@ -120,7 +120,7 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	vector<string> listaClave;
 	vector<string> vec;
-	string valueId;
+	std::string valueId;
 	int lado;
 	Cuadrado *cuadrado;
 	Validador* validador=escenario->getValidador();
@@ -130,8 +130,13 @@ int Hidratar::hidratarCuadrado(std::string atributos){
     if(validador->compararConVectorAtributosValidos(CUADRADO,listaClave)==0){
 	cuadrado = new Cuadrado();
 	valueId = StringUtils::getValorTag(ID,vec);
+	std::cout<<"********************VALOOOOOOOOORRRRRRRRRR valueId: "<<valueId<<endl;
 	lado = atoi((StringUtils::getValorTag(LADO,vec)).c_str());
-	cuadrado->setIdTextura(valueId);
+	
+	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
+	//cuadrado->setIdTextura(valueId);
+	//la que va es:
+	cuadrado->setId(valueId);
 	cuadrado->setLado(lado);
 	escenario->addFigura(cuadrado);
      	std::cout<<"exito AL CREAR EL CUADRADO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
@@ -160,7 +165,11 @@ int Hidratar::hidratarCirculo(std::string atributos){
 	circulo = new Circulo();
 	valueId = StringUtils::getValorTag(ID,vec);
 	radio = atoi((StringUtils::getValorTag(RADIO,vec)).c_str());
-	circulo->setIdTextura(valueId);
+	
+	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
+	//circulo->setIdTextura(valueId);
+	//la que va es:
+	circulo->setId(valueId);
 	circulo->setRadio(radio);
 	escenario->addFigura(circulo);
      	std::cout<<"exito AL CREAR EL CIRCULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
@@ -187,7 +196,10 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	valueId = StringUtils::getValorTag(ID,vec);
 	base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
 	altura = atoi((StringUtils::getValorTag(ALTURA,vec)).c_str());
-	rectangulo->setIdTextura(valueId);
+	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
+	//rectangulo->setIdTextura(valueId);
+	//la que va es:
+	rectangulo->setId(valueId);
 	rectangulo->setBase(base);
 	rectangulo->setAltura(altura);
 	escenario->addFigura(rectangulo);
@@ -212,7 +224,10 @@ int Hidratar::hidratarTriangulo(std::string atributos){
     if(validador->compararConVectorAtributosValidos(TRIANGULO,listaClave)==0){
 	triangulo = new Triangulo();
 	valueId = StringUtils::getValorTag(ID,vec);
-	triangulo->setIdTextura(valueId);
+	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
+	//triangulo->setIdTextura(valueId);
+	//la que va es:
+	triangulo->setId(valueId);
 	escenario->addFigura(triangulo);
      	std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
      	return 0;
