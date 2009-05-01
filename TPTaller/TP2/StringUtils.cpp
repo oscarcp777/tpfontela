@@ -27,15 +27,22 @@
  }
 
 string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
-	std::string nueva_cadena;
+	 //nueva cadena donde se reemplazaran los valores no deseados por los que quiero que contenga la cadena
+	 std::string nueva_cadena;
 
 	 int cant_veces = 0;
 	 int inc = 0;
 
+	 //tipo ostringstream que se utiliza para ingresar un string, char, int para despues poder pasarselo a la nueva_cadena
+	 //sirve mas que nada para que no tome como un ascii al asignarle a nueva_cadena un valor entero.
 	 std::ostringstream ostr;
      	 
 	 while(inc<=cadena.length()){
 		 
+		 //Se obtiene el valor de cada posicion de cadena y se compara en la misma con el caracter que se desea reemplazar
+		 //En caso de que el caracter a reemplazar coincida con el de la posicion inc en la cadena, a nueva_cadena le 
+		 //asigno el caracter_reemplazable mas un entero que diferencia al resto de los caracteres. 
+		 //Ej: x="2" x="3" x="4" se reemplazara por x1="2" x2="3" x3="4" copiando esto en nueva_cadena.
 		 if(cadena[inc]==char_reemplazable){
 			 cant_veces++;
 			 ostr << cant_veces<<endl;
