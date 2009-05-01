@@ -31,30 +31,7 @@ int main(int argc, char* argv[])
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
 
-
-	try{
-		exito = escenario->cargarArchivo(nombreArchivoXML);
-		if(exito == 0){
-			//TODO aca se va a graficar todo en vez de imprimir los siguiente
-			std::cout<<"*******************************"<<endl;
-			std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
-			std::cout<<"*******************************"<<endl;
-		}
-		else{
-			std::cout<<"****************************************"<<endl;
-			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML"<<endl;
-			std::cout<<"****************************************"<<endl;
-		}
-	}
-	catch(std::ios_base::failure){
-		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
-	}
-
-
-	system("PAUSE");
-
-
-	Posicion *posicion1 = new Posicion(50,50);
+		Posicion *posicion1 = new Posicion(50,50);
 	Posicion *posicion2 = new Posicion(570,100);
 	Posicion *posicion3 = new Posicion(580,470);
 	Posicion *ver1 = new Posicion(100,400);
@@ -77,35 +54,58 @@ int main(int argc, char* argv[])
 
 	Triangulo *triangulo = new Triangulo("triangulo",ver1,ver2,ver3);
 	triangulo->setIdTextura("river");
-	Segmento *segmento = new Segmento("segmento1",inicio,fin);
 
+	Segmento *segmento = new Segmento("segmento1",inicio,fin);
+/*
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("don","don.png");
-	Textura *textura4 = new Textura("estrellas","boca.jpg");
-	Textura *textura5 = new Textura("river","wall.jpg");
-		system("PAUSE");
+	Textura *textura4 = new Textura("estrellas","estrellas.jpg");
+	Textura *textura5 = new Textura("river","river.jpg");
+*/
 	escenario->setIdTextura("estrellas");
-	system("PAUSE");
+	
 
 	escenario->addFigura(cuadrado);
 	escenario->addFigura(rectangulo);
 	escenario->addFigura(circulo);
 	escenario->addFigura(triangulo);
 	escenario->addFigura(segmento);
+	/*
 	escenario->addTextura(textura1);
 	escenario->addTextura(textura2);
 	escenario->addTextura(textura3);
 	escenario->addTextura(textura4);
 	escenario->addTextura(textura5);
+	*/
+	try{
+		exito = escenario->cargarArchivo(nombreArchivoXML);
+		if(exito == 0){
+			//TODO aca se va a graficar todo en vez de imprimir los siguiente
+			std::cout<<"*******************************"<<endl;
+			std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
+			std::cout<<"*******************************"<<endl;
 
-	escenario->graficar();
+			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
+			std::cout<<"cantidad texturas en escenario: "<<escenario->sizeListaTexturas()<<endl;
+	
+			escenario->graficar();
+			SDL_FreeSurface(escenario->getScreen());
+			SDL_Quit();
+
+		}
+		else{
+			std::cout<<"**********************************************************************"<<endl;
+			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES ERRORES.ERR"<<endl;
+			std::cout<<"**********************************************************************"<<endl;
+		}
+	}
+	catch(std::ios_base::failure){
+		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
+	}
 
 
 
-	SDL_FreeSurface(escenario->getScreen());
-	SDL_Quit();
-
-    	system("PAUSE");
+    	
 	return 0;
 }

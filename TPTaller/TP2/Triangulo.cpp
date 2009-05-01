@@ -115,7 +115,15 @@ int mayor(int x, int y){
 
 }
 int Triangulo::dibujar(SDL_Surface *screen){
-	
+	std::cout<<"TRIANGULO "<<endl;
+	std::cout<<"id: "<<this->getId()<<endl;
+	std::cout<<"ver1 x: "<<this->getVertice1()->getX()<<endl;
+	std::cout<<"ver1 y: "<<this->getVertice1()->getY()<<endl;
+	std::cout<<"ver2 x: "<<this->getVertice2()->getX()<<endl;
+	std::cout<<"ver2 y: "<<this->getVertice2()->getY()<<endl;
+	std::cout<<"ver3 x: "<<this->getVertice3()->getX()<<endl;
+	std::cout<<"ver4 y: "<<this->getVertice3()->getY()<<endl;
+
 	this->color = Escenario::obtenerInstancia()->getColorLinea();
 	
 	this->dibujarLinea(color,screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice2()->getX(), this->getVertice2()->getY());

@@ -11,7 +11,14 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 }
 
 int Segmento::dibujar(SDL_Surface *screen){
+	std::cout<<"SEGMENTO "<<endl;
+	std::cout<<"id: "<<this->getId()<<endl;
+	std::cout<<"inicio x: "<<this->getInicio()->getX()<<endl;
+	std::cout<<"inicio y: "<<this->getInicio()->getY()<<endl;
+	std::cout<<"fin x: "<<this->getFin()->getX()<<endl;
+	std::cout<<"fin y: "<<this->getFin()->getY()<<endl;
 	
+
 	this->color = Escenario::obtenerInstancia()->getColorLinea();
 
 	this->dibujarLinea(color,screen ,this->getInicio()->getX(),  this->getInicio()->getY(), this->getFin()->getX(), this->getFin()->getY());

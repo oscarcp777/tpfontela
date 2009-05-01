@@ -127,7 +127,7 @@ void Escenario::addFigura(Figura *figura){
 
 void Escenario::addTextura(Textura *textura){
 	this->listaTexturas.push_back(textura);
-
+	
 }
 
 int Escenario::sizeListaFiguras(){

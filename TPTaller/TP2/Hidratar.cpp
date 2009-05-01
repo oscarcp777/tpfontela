@@ -244,7 +244,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	Validador* validador=escenario->getValidador();
    	system("PAUSE");
 	 /**################################################################################################*/
-		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
+		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
 
 	std::vector<string>::iterator iter;

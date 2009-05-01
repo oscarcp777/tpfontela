@@ -73,8 +73,9 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
-			//exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
-			exito=0;
+			//con la siguiente funcion se crea la textura y se agrega al escenario
+			exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
+			
 		}
 	}
 
@@ -90,6 +91,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 		//si es el caracter > esta todo OK parseo
 		else{
 			//std::cout<<"values: "<<values<<endl;
+			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
 			//exito=Hidratar::hidratarEscenario(values);
 			exito=0;
 		}
