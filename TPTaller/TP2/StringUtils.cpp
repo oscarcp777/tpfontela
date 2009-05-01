@@ -44,9 +44,9 @@ string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
 		 //asigno el caracter_reemplazable mas un entero que diferencia al resto de los caracteres. 
 		 //Ej: x="2" x="3" x="4" se reemplazara por x1="2" x2="3" x3="4" copiando esto en nueva_cadena.
 		 if(cadena[inc]==char_reemplazable){
-			 cant_veces++;
-			 ostr << cant_veces<<endl;
+		     cant_veces++;
 			 ostr.str("");
+			 ostr << cant_veces;
 			 nueva_cadena+=char_reemplazable;
 			 nueva_cadena+=ostr.str();
 		 }else
