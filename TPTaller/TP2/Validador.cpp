@@ -361,8 +361,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarSegmento(todosLosValues);
-					exito=0;
+					exito=Hidratar::hidratarSegmento(todosLosValues);
+					//exito=0;
 					dentroDeSegmento= false;
 				}
 			}
