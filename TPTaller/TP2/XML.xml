@@ -27,7 +27,7 @@
                  </textura>
                  <textura id="river" path="river.jpg">
                  </textura>
-	<textura id="estrellas" path="estrellas.jpg">
+                 <textura id="estrellas" path="estrellas.jpg">
                  </textura>
              </ListadoDeTexturas>
 </escenario>
