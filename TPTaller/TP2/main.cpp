@@ -56,13 +56,13 @@ int main(int argc, char* argv[])
 	triangulo->setIdTextura("river");
 
 	Segmento *segmento = new Segmento("segmento1",inicio,fin);
-/*
+	/*
 	Textura *textura1 = new Textura("pocoyo4","pocoyo4.jpg");
 	Textura *textura2 = new Textura("pocoyo","pocoyo.jpg");
 	Textura *textura3 = new Textura("don","don.png");
 	Textura *textura4 = new Textura("estrellas","estrellas.jpg");
 	Textura *textura5 = new Textura("river","river.jpg");
-*/
+	*/
 	escenario->setIdTextura("estrellas");
 	
 
@@ -78,6 +78,7 @@ int main(int argc, char* argv[])
 	escenario->addTextura(textura4);
 	escenario->addTextura(textura5);
 	*/
+
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);
 		if(exito == 0){
