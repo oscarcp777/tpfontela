@@ -474,7 +474,7 @@ int Validador::validarArchivoXML(int i,string cadena){
 			else{
 				std::cout<<"se encontro un cierre  "<<subCadena<<endl;
 				Validador::ListaTagsArchivo.push_back(subCadena);
-				//si es correcta la sintaxis agregar a una lista de tags o algo para comparar
+				//si es correcta la sintaxis agregar a una listahi de tags o algo para comparar
 				//cierres y aperturas correctamente
 			}
 
@@ -1015,6 +1015,17 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 	return exito;
 }
+
+int Validador::validarNumero(std::string numero){
+	for ( int pos = 0; pos < numero.length(); ++pos ){
+		 std::cout<<isdigit(numero.at(pos))<<endl;
+			 if(isdigit(numero.at(pos))){
+				 return -1;
+			 }
+	}
+ return 0;
+}
+
 
 
 
