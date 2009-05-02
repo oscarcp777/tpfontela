@@ -236,6 +236,7 @@ int Escenario::graficar(){
   SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	
 	if(!screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();

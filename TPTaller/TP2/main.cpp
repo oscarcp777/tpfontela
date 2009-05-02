@@ -56,10 +56,10 @@ int main(int argc, char* argv[])
 	triangulo->setIdTextura("river");
 		
 
-	escenario->addFigura(cuadrado);
-	escenario->addFigura(rectangulo);
-	escenario->addFigura(circulo);
-	escenario->addFigura(triangulo);
+	//escenario->addFigura(cuadrado);
+	//escenario->addFigura(rectangulo);
+	//escenario->addFigura(circulo);
+	//escenario->addFigura(triangulo);
 
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);

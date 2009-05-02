@@ -133,8 +133,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarCuadrado(todosLosValues);
-					exito=0;
+					exito=Hidratar::hidratarCuadrado(todosLosValues);
 					dentroDeCuadrado = false;
 				}
 			}
@@ -180,8 +179,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarCirculo(todosLosValues);
-					exito=0;
+					exito=Hidratar::hidratarCirculo(todosLosValues);
 					dentroDeCirculo = false;
 				}
 			}
@@ -225,8 +223,8 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//copio los values "solamente" borro los ultimos caracteres />
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarRectangulo(todosLosValues);
-					exito=0;
+					exito=Hidratar::hidratarRectangulo(todosLosValues);
+					
 					dentroDeRectangulo = false;
 				}
 			}
@@ -300,8 +298,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					//exito=Hidratar::hidratarTriangulo(todosLosValues);
-					exito=0;
+					exito=Hidratar::hidratarTriangulo(todosLosValues);
 					//si llega a vertice3 sale
 					dentroDeTriangulo = false;
 				}
