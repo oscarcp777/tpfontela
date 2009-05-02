@@ -30,13 +30,13 @@ int main(int argc, char* argv[])
 
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
-
+/*
 		Posicion *posicion1 = new Posicion(50,50);
 	Posicion *posicion2 = new Posicion(570,100);
 	Posicion *posicion3 = new Posicion(580,470);
 	Posicion *ver1 = new Posicion(100,400);
-	Posicion *ver2 = new Posicion(200,400);
-	Posicion *ver3 = new Posicion(250,500);
+	Posicion *ver2 = new Posicion(500,400);
+	Posicion *ver3 = new Posicion(10,10);
 	Posicion *inicio = new Posicion(300,300);
 	Posicion *fin = new Posicion(500,500);
 
@@ -56,22 +56,21 @@ int main(int argc, char* argv[])
 	triangulo->setIdTextura("river");
 		
 
-	//escenario->addFigura(cuadrado);
-	//escenario->addFigura(rectangulo);
-	//escenario->addFigura(circulo);
-	//escenario->addFigura(triangulo);
-
+	escenario->addFigura(cuadrado);
+	escenario->addFigura(rectangulo);
+	escenario->addFigura(circulo);
+	escenario->addFigura(triangulo);
+*/
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);
 		if(exito == 0){
-			//TODO aca se va a graficar todo en vez de imprimir los siguiente
 			std::cout<<"*******************************"<<endl;
 			std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
 			std::cout<<"*******************************"<<endl;
 
 			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
 			std::cout<<"cantidad texturas en escenario: "<<escenario->sizeListaTexturas()<<endl;
-	
+			
 			escenario->graficar();
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();
