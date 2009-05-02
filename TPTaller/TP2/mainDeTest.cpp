@@ -12,7 +12,7 @@ using namespace std;
 
 
 //PARA SEGMENTO
-int main(int argc, char* argv[])
+int main_test(int argc, char* argv[])
 //int main(int argc, char* argv[])
 {
 /*	string segmento= "id=\"segmento1\"  x=\"5\" y=\"4\"  x=\"45\" y=\"455\" colorLinea=\"255255255\" colorFigura=\"123123123\" idTextura=\"textura2\"";
