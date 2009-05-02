@@ -9,9 +9,11 @@
                        <circulo id="circulo1" radio="100" idTextura="don"> 
                                    <posicion x="450" y="400" />
                        </circulo>
-                       <rectangulo id="rectangulo1" base="200" altura="100>
+
+                       <rectangulo id="rectangulo1" base="200" altura="100">
                                      <posicion x="250" y="400" />
                        </rectangulo>
+
                        <triangulo id="triangulo1">
                                   <ver1 x="500" y="400"/>
                                   <ver2 x="550" y="420"/>

@@ -172,7 +172,7 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 			}
 
 			if(valor.compare(">")!=0&&valor.size()!=0){
-			std::cout<<"clave del tag "<<valor.size()<<endl;
+			std::cout<<"clave del tag "<<valor<<endl;
 			listaClave.push_back(valor);
 			}
 		}else{
@@ -184,12 +184,12 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 }
 
 void escribirErrorEnLog(Escenario*escenario, int errorPosicion, int propiedad,int errorAtributosValidos,std::string id){
- 
+
 	if(errorPosicion==-1){
 		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error en el tag posicion x o y del: "+id);
-		
+
 	}
-	
+
 	if(errorAtributosValidos==-1)
 		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+id);
 
@@ -220,12 +220,12 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 	errorNumeroPosY = validador->validarNumero(posicionY);
 	errorPropiedad = validador->validarNumero((StringUtils::getValorTag(LADO,vec)).c_str());
 	errorAtributosValidos = validador->compararConVectorAtributosValidos(CUADRADO,listaClave);
-    
+
 	if(errorNumeroPosY==-1 || errorNumeroPosX==-1)
 	errorNumeroPos=-1;
 	else
 		errorNumeroPos = 0;
-    
+
 	if(errorNumeroPos==errorAtributosValidos==errorPropiedad==0){
 	cuadrado = new Cuadrado();
 	posicion = new Posicion(atoi((StringUtils::getValorTag(POS_X,vec)).c_str()),atoi((StringUtils::getValorTag(POS_Y,vec)).c_str()));
@@ -244,7 +244,7 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 	}else{
 		escribirErrorEnLog(escenario, errorNumeroPos, errorPropiedad, errorAtributosValidos,StringUtils::getValorTag(ID,vec));
 		std::cout<<"ERROR AL CREAR EL CUADRADO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	}
 	return -1;
 
@@ -309,9 +309,12 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	Posicion* posicion;
 	Validador* validador=escenario->getValidador();
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
+	std::cout<<"atributos "<<atributos<<endl;
 	cargarListaClaves(listaClave,vec);
 	string posicionX = (StringUtils::getValorTag(POS_X,vec)).c_str();
 	string posicionY = (StringUtils::getValorTag(POS_Y,vec)).c_str();
+	std::cout<<"posicionX "<<posicionX<<endl;
+	std::cout<<"posicionY "<<posicionY<<endl;
 	errorNumeroPosX = validador->validarNumero(posicionX);
 	errorNumeroPosY = validador->validarNumero(posicionY);
 	errorBase = validador->validarNumero((StringUtils::getValorTag(BASE,vec)).c_str());
@@ -400,7 +403,7 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 
 	escenario->addFigura(triangulo);
      	std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-		
+
 	/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
@@ -433,7 +436,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
-   	
+
 	 /**################################################################################################*/
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
@@ -519,7 +522,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 		}
 		++iter;
 	}
-	
+
 	return 0;
 }
 int Hidratar::hidratartextura(std::string atributos){

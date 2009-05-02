@@ -12,17 +12,19 @@ using namespace std;
 
 
 //PARA SEGMENTO
-int main_TEST(int argc, char* argv[])
+int main(int argc, char* argv[])
 //int main(int argc, char* argv[])
 {
 /*	string segmento= "id=\"segmento1\"  x=\"5\" y=\"4\"  x=\"45\" y=\"455\" colorLinea=\"255255255\" colorFigura=\"123123123\" idTextura=\"textura2\"";
 
 	 Hidratar::hidratarSegmento(segmento);
  /**/
+	string rectangulo= " id=\"rectangulo1\" base=\"200\" altura=\"100 x=\"250\" y=\"400\" ";
 
+    Hidratar::hidratarRectangulo(rectangulo);
 //PARA GENERAL
 
-
+/*
 	string general= "\"resolucion=\"640\" colorFondoFig=\"255215000\" texturaFig=\"textura1\" colorLinea=\"000255000\" colorFondoEsc=\"255255255\" texturaEsc=\"textura4\" ";
 	 Hidratar::hidratarEscenario(general);
 	 // test de hidratacion de el escenario
@@ -51,7 +53,7 @@ Escenario* escenario = Escenario::obtenerInstancia();
 		    std::cout<<"COLOR LINEA R  :"<<sdlColor.r<<endl;
 			std::cout<<"COLOR LINEA G  :"<<sdlColor.g<<endl;
 			std::cout<<"COLOR LINEA B  :"<<sdlColor.b<<endl;
-
+*/
 	 system("PAUSE");
 return 0;
  }
