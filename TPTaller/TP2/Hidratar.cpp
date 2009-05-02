@@ -42,6 +42,7 @@ static const std::string X1="x1";
 static const std::string X2="x2";
 static const std::string Y1="y1";
 static const std::string Y2="y2";
+static const std::string ERROR="error";
 
 int validarNumero(string numero){
 	for ( int pos = 0; pos < numero.length(); ++pos ){
@@ -183,6 +184,8 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 	}
 }
 
+
+
 void escribirErrorEnLog(Escenario*escenario, int errorPosicion, int propiedad,int errorAtributosValidos,std::string id){
 
 	if(errorPosicion==-1){
@@ -191,7 +194,7 @@ void escribirErrorEnLog(Escenario*escenario, int errorPosicion, int propiedad,in
 	}
 
 	if(errorAtributosValidos==-1)
-		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+id);
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los valores de los tags del: "+id);
 
 	if(propiedad==-1)
 		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error en el tag de una de las propiedades del: "+id);
@@ -225,6 +228,12 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 	errorNumeroPos=-1;
 	else
 		errorNumeroPos = 0;
+
+	if(StringUtils::getValorTag(ID,vec).compare(ERROR) || StringUtils::getValorTag(POS_X,vec).compare(ERROR)==0 || StringUtils::getValorTag(POS_Y,vec).compare(ERROR)==0 || StringUtils::getValorTag(LADO,vec).compare(ERROR)==0){
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+CUADRADO);
+		return -1;
+	}
+
 
 	if(errorNumeroPos==errorAtributosValidos==errorPropiedad==0){
 	cuadrado = new Cuadrado();
@@ -275,6 +284,11 @@ int Hidratar::hidratarCirculo(std::string atributos){
 		errorNumeroPos=-1;
 	else
 		errorNumeroPos=0;
+
+	if(StringUtils::getValorTag(ID,vec).compare(ERROR) || StringUtils::getValorTag(POS_X,vec).compare(ERROR)==0 || StringUtils::getValorTag(POS_Y,vec).compare(ERROR)==0 || StringUtils::getValorTag(RADIO,vec).compare(ERROR)==0){
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+CIRCULO);
+		return -1;
+	}
 
     if(errorNumeroPos==errorNumeroRadio==errorAtributosValidos==0){
 	circulo = new Circulo();
@@ -330,6 +344,12 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 		errorNumeroPos = -1;
 	else
 		errorNumeroPos = 0;
+
+	
+	if(StringUtils::getValorTag(ID,vec).compare(ERROR) || StringUtils::getValorTag(POS_X,vec).compare(ERROR)==0 || StringUtils::getValorTag(POS_Y,vec).compare(ERROR)==0 || StringUtils::getValorTag(BASE,vec).compare(ERROR)==0 || StringUtils::getValorTag(ALTURA,vec).compare(ERROR)==0){
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+RECTANGULO);
+		return -1;
+	}
 
     if(errorNumeroPos==errorPropiedad==errorAtributosValidos==0){
 	rectangulo = new Rectangulo();
@@ -389,6 +409,11 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 		errorVertice = -1;
 	else
 		errorVertice = 0;
+
+	if(StringUtils::getValorTag(ID,vec).compare(ERROR) || posicionX1.compare(ERROR)==0 || posicionY1.compare(ERROR)==0 || posicionX2.compare(ERROR)==0 || posicionY2.compare(ERROR)==0 || posicionX3.compare(ERROR)==0 || posicionY3.compare(ERROR)==0){
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+TRIANGULO);
+		return -1;
+	}
 
     if(errorVertice==errorAtributosValidos==0){
 	triangulo = new Triangulo();
