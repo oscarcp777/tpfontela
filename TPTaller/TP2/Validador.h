@@ -28,7 +28,7 @@ public:
 	void setLog(Log* log);
 
 	int validarValues(std::string tipo,std::string values);
-
+	
 	int validarSintaxis(std::string nombreArchivo);
 
 	int validarArchivoXML(int i,string cadena);

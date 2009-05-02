@@ -68,3 +68,7 @@ Posicion* Cuadrado::getPosicion(){
 	return this->pos;
 }
 
+void Cuadrado::setPosicion(Posicion*posicion){
+	this->pos = posicion;
+}
+

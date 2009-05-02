@@ -25,6 +25,16 @@ static const std::string RESOLUCION="resolucion";
 static const std::string COLOR_FONDO_FIG="colorFondoFig";
 static const std::string COLOR_FONDO_ESC="colorFondoEsc";
 static const std::string COLOR_LINEA="colorLinea";
+static const std::string POS_X="x";
+static const std::string POS_Y="y";
+static const char POSICION_X='x';
+static const char POSICION_Y='y';
+static const std::string POS_X1="x1";
+static const std::string POS_Y1="y1";
+static const std::string POS_X2="x2";
+static const std::string POS_Y2="y2";
+static const std::string POS_X3="x3";
+static const std::string POS_Y3="y3";
 static const std::string SEGMENTO="segmento";
 static const std::string COLOR_FIGURA="colorFigura";
 static const std::string ID_TEXTURA="idTextura";
@@ -32,8 +42,6 @@ static const std::string X1="x1";
 static const std::string X2="x2";
 static const std::string Y1="y1";
 static const std::string Y2="y2";
-static const char POSICION_X='x';
-static const char POSICION_Y='y';
 
 int validarNumero(string numero){
 	for ( int pos = 0; pos < numero.length(); ++pos ){
@@ -67,6 +75,8 @@ int validarNumeroRGB(string numero){
 	return 0;
 
 }
+
+
 int hidratarColor(std::string cadena,Color* color){
 
 	if(cadena.size()!=9){
@@ -92,6 +102,63 @@ int hidratarColor(std::string cadena,Color* color){
 
 	return 0;
 }
+
+/**
+ * este metodo agrega los atributos opcionales a las figuras que son si los encuentra los agrega sino
+ * escribe en el log el error
+ * COLOR_FIGURA
+ * COLOR_LINEA
+ * ID_TEXTURA
+ */
+void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<string>& listaClave){
+	Escenario* escenario=Escenario::obtenerInstancia();
+   	std::string id;
+		id=StringUtils::getValorTag(ID,tokens);
+	Color* colorFigura=new Color();
+		Color* colorLinea=new Color();
+		std::string valorAtributo;
+		std::string valorClave;
+			std::string idtextura;
+	std::vector<string>::iterator iter;
+	iter = listaClave.begin();
+	while( iter != listaClave.end() ) {
+		valorClave=*iter;
+		std::cout<<"valor de la clave \n "<<" "<<valorClave<<endl;
+			if(valorClave.compare(ID_TEXTURA)==0){
+				idtextura=StringUtils::getValorTag(ID_TEXTURA,tokens);
+				figura->setIdTextura(idtextura);
+				std::cout<<"valor de la clave ID_TEXTURA"<<" "<<idtextura<<endl;
+				std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL ID_TEXTURA A LA FIGURA "<<endl;
+			}
+			if(valorClave.compare(COLOR_FIGURA)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_FIGURA,tokens);
+				std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorFigura)!=-1&&valorAtributo.compare("error") != 0){
+					figura->setColorFigura(colorFigura);
+
+					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA"<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "<<endl;
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "+id);
+				}
+			}
+
+			if(valorClave.compare(COLOR_LINEA)==0){
+				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
+				std::cout<<"valor de la clave COLOR_LINEA "<<" "<<valorAtributo<<endl;
+				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
+					figura->setColorLinea(colorLinea);
+					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
+				}else{
+					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
+					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"+id);
+				}
+			}
+
+		++iter;
+	}
+}
+
 void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::string>& tokens){
 	std::vector<std::string>::iterator the_iterator;
 	the_iterator = tokens.begin();
@@ -116,34 +183,69 @@ void cargarListaClaves(std::vector<std::string>& listaClave,std::vector<std::str
 	}
 }
 
+void escribirErrorEnLog(Escenario*escenario, int errorPosicion, int propiedad,int errorAtributosValidos,std::string id){
+ 
+	if(errorPosicion==-1){
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error en el tag posicion x o y del: "+id);
+		
+	}
+	
+	if(errorAtributosValidos==-1)
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+id);
+
+	if(propiedad==-1)
+		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error en el tag de una de las propiedades del: "+id);
+}
+
 int Hidratar::hidratarCuadrado(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	vector<string> listaClave;
 	vector<string> vec;
-	std::string valueId;
+	string valueId;
 	int lado;
+	int errorNumeroPosX;
+	int errorNumeroPosY;
+	int errorNumeroPos;
+	int errorPropiedad;
+	int errorAtributosValidos;
+	Posicion*posicion;
 	Cuadrado *cuadrado;
 	Validador* validador=escenario->getValidador();
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConVectorAtributosValidos(CUADRADO,listaClave)==0){
+	string posicionX = (StringUtils::getValorTag(POS_X,vec)).c_str();
+	string posicionY = (StringUtils::getValorTag(POS_Y,vec)).c_str();
+	errorNumeroPosX = validador->validarNumero(posicionX);
+	errorNumeroPosY = validador->validarNumero(posicionY);
+	errorPropiedad = validador->validarNumero((StringUtils::getValorTag(LADO,vec)).c_str());
+	errorAtributosValidos = validador->compararConVectorAtributosValidos(CUADRADO,listaClave);
+    
+	if(errorNumeroPosY==-1 || errorNumeroPosX==-1)
+	errorNumeroPos=-1;
+	else
+		errorNumeroPos = 0;
+    
+	if(errorNumeroPos==errorAtributosValidos==errorPropiedad==0){
 	cuadrado = new Cuadrado();
+	posicion = new Posicion(atoi((StringUtils::getValorTag(POS_X,vec)).c_str()),atoi((StringUtils::getValorTag(POS_Y,vec)).c_str()));
 	valueId = StringUtils::getValorTag(ID,vec);
-	std::cout<<"********************VALOOOOOOOOORRRRRRRRRR valueId: "<<valueId<<endl;
 	lado = atoi((StringUtils::getValorTag(LADO,vec)).c_str());
-	
-	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
-	//cuadrado->setIdTextura(valueId);
-	//la que va es:
 	cuadrado->setId(valueId);
 	cuadrado->setLado(lado);
+	cuadrado->setPosicion(posicion);
 	escenario->addFigura(cuadrado);
      	std::cout<<"exito AL CREAR EL CUADRADO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		    /**################################################################################################*/
+		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
+		/**################################################################################################*/
+		agregarAtributosOpcionales(vec, cuadrado, listaClave);
      	return 0;
-	}else
+	}else{
+		escribirErrorEnLog(escenario, errorNumeroPos, errorPropiedad, errorAtributosValidos,StringUtils::getValorTag(ID,vec));
 		std::cout<<"ERROR AL CREAR EL CUADRADO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-
+		
+	}
 	return -1;
 
 
@@ -155,28 +257,44 @@ int Hidratar::hidratarCirculo(std::string atributos){
 	vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
-	int radio;
+	Posicion* posicion;
 	Circulo *circulo;
+	int errorNumeroPosX, errorNumeroPosY, errorNumeroPos, radio, errorAtributosValidos, errorNumeroRadio;
 	Validador* validador=escenario->getValidador();
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConVectorAtributosValidos(CIRCULO,listaClave)==0){
+	string posicionX = (StringUtils::getValorTag(POS_X,vec)).c_str();
+	string posicionY = (StringUtils::getValorTag(POS_Y,vec)).c_str();
+	errorNumeroPosX = validador->validarNumero(posicionX);
+	errorNumeroPosY = validador->validarNumero(posicionY);
+	errorNumeroRadio = validador->validarNumero((StringUtils::getValorTag(RADIO,vec)).c_str());
+	errorAtributosValidos = validador->compararConVectorAtributosValidos(CIRCULO,listaClave);
+
+	if(errorNumeroPosX==-1 || errorNumeroPosY==-1)
+		errorNumeroPos=-1;
+	else
+		errorNumeroPos=0;
+
+    if(errorNumeroPos==errorNumeroRadio==errorAtributosValidos==0){
 	circulo = new Circulo();
+	posicion = new Posicion(atoi(posicionX.c_str()),atoi(posicionY.c_str()));
 	valueId = StringUtils::getValorTag(ID,vec);
 	radio = atoi((StringUtils::getValorTag(RADIO,vec)).c_str());
-	
-	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
-	//circulo->setIdTextura(valueId);
-	//la que va es:
 	circulo->setId(valueId);
 	circulo->setRadio(radio);
+	circulo->setPosicion(posicion);
 	escenario->addFigura(circulo);
      	std::cout<<"exito AL CREAR EL CIRCULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		    /**################################################################################################*/
+		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
+		/**################################################################################################*/
+		agregarAtributosOpcionales(vec, circulo, listaClave);
      	return 0;
-	}else
+	}else{
 		std::cout<<"ERROR AL CREAR EL CIRCULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-
+		escribirErrorEnLog(escenario, errorNumeroPos, errorNumeroRadio, errorAtributosValidos, StringUtils::getValorTag(ID,vec));
+	}
 	return -1;
 }
 
@@ -186,54 +304,112 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	vector<string> vec;
 	string valueId;
 	int base,altura;
+	int errorNumeroPosX,errorNumeroPosY,errorNumeroPos,errorAtributosValidos,errorPropiedad,errorBase,errorAltura;
 	Rectangulo *rectangulo;
+	Posicion* posicion;
 	Validador* validador=escenario->getValidador();
 	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
+	string posicionX = (StringUtils::getValorTag(POS_X,vec)).c_str();
+	string posicionY = (StringUtils::getValorTag(POS_Y,vec)).c_str();
+	errorNumeroPosX = validador->validarNumero(posicionX);
+	errorNumeroPosY = validador->validarNumero(posicionY);
+	errorBase = validador->validarNumero((StringUtils::getValorTag(BASE,vec)).c_str());
+	errorAltura = validador->validarNumero((StringUtils::getValorTag(ALTURA,vec)).c_str());
+	errorAtributosValidos = validador->compararConVectorAtributosValidos(RECTANGULO,listaClave);
 
-    if(validador->compararConVectorAtributosValidos(RECTANGULO,listaClave)==0){
+	if(errorAltura==-1||errorBase==-1)
+		errorPropiedad = -1;
+	else
+		errorPropiedad = 0;
+
+	if(errorNumeroPosX==-1 || errorNumeroPosY==-1)
+		errorNumeroPos = -1;
+	else
+		errorNumeroPos = 0;
+
+    if(errorNumeroPos==errorPropiedad==errorAtributosValidos==0){
 	rectangulo = new Rectangulo();
+	posicion = new Posicion(atoi(posicionX.c_str()),atoi(posicionY.c_str()));
 	valueId = StringUtils::getValorTag(ID,vec);
 	base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
 	altura = atoi((StringUtils::getValorTag(ALTURA,vec)).c_str());
-	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
-	//rectangulo->setIdTextura(valueId);
-	//la que va es:
 	rectangulo->setId(valueId);
 	rectangulo->setBase(base);
 	rectangulo->setAltura(altura);
+	rectangulo->setPosicion(posicion);
 	escenario->addFigura(rectangulo);
      	std::cout<<"exito AL CREAR EL RECTANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		    /**################################################################################################*/
+		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
+		/**################################################################################################*/
+		agregarAtributosOpcionales(vec, rectangulo, listaClave);
      	return 0;
-	}else
+	}else{
 		std::cout<<"ERROR AL CREAR EL RECTANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-
+		escribirErrorEnLog(escenario, errorNumeroPos, errorPropiedad, errorAtributosValidos, StringUtils::getValorTag(ID,vec));
+	}
 	return -1;
 }
 
 int Hidratar::hidratarTriangulo(std::string atributos){
-		Escenario* escenario=Escenario::obtenerInstancia();
-		vector<string> listaClave;
+	Escenario* escenario=Escenario::obtenerInstancia();
+	vector<string> listaClave;
 	vector<string> vec;
 	string valueId;
+	string nueva_cadena;
 	Triangulo *triangulo;
+	int errorVerticePosX1,errorVerticePosY1,errorVerticePosX2,errorVerticePosY2,errorVerticePosX3,errorVerticePosY3, errorVertice, errorAtributosValidos;
+	Posicion* vertice1;
+	Posicion* vertice2;
+	Posicion* vertice3;
 	Validador* validador=escenario->getValidador();
-	StringUtils::Tokenize(atributos,vec,DELIMITADOR);
-	cargarListaClaves(listaClave,vec);
 
-    if(validador->compararConVectorAtributosValidos(TRIANGULO,listaClave)==0){
+	nueva_cadena=StringUtils::actualizarCadena(StringUtils::actualizarCadena(atributos,POSICION_X),POSICION_Y);
+	StringUtils::Tokenize(nueva_cadena,vec,DELIMITADOR);
+	cargarListaClaves(listaClave,vec);
+	string posicionX1 = (StringUtils::getValorTag(POS_X1,vec)).c_str();
+	string posicionY1 = (StringUtils::getValorTag(POS_Y1,vec)).c_str();
+	string posicionX2 = (StringUtils::getValorTag(POS_X2,vec)).c_str();
+	string posicionY2 = (StringUtils::getValorTag(POS_Y2,vec)).c_str();
+	string posicionX3 = (StringUtils::getValorTag(POS_X3,vec)).c_str();
+	string posicionY3 = (StringUtils::getValorTag(POS_Y3,vec)).c_str();
+	errorVerticePosX1 = validador->validarNumero(posicionX1);
+	errorVerticePosX2 = validador->validarNumero(posicionX2);
+	errorVerticePosX3 = validador->validarNumero(posicionX3);
+	errorVerticePosY1 = validador->validarNumero(posicionY1);
+	errorVerticePosY2 = validador->validarNumero(posicionY2);
+	errorVerticePosY3 = validador->validarNumero(posicionY3);
+	errorAtributosValidos = validador->compararConVectorAtributosValidos(TRIANGULO,listaClave);
+
+	if(errorVerticePosX1==-1||errorVerticePosX2==-1||errorVerticePosX3==-1||errorVerticePosY1==-1||errorVerticePosY2==-1||errorVerticePosY3==-1)
+		errorVertice = -1;
+	else
+		errorVertice = 0;
+
+    if(errorVertice==errorAtributosValidos==0){
 	triangulo = new Triangulo();
+	vertice1 = new Posicion(atoi(posicionX1.c_str()),atoi(posicionY1.c_str()));
+	vertice2 = new Posicion(atoi(posicionX2.c_str()),atoi(posicionY2.c_str()));
+	vertice3 = new Posicion(atoi(posicionX3.c_str()),atoi(posicionY3.c_str()));
 	valueId = StringUtils::getValorTag(ID,vec);
-	// LA SIGUIENTE LINEA ESTABA MAL seteaba el id a la textura en vez de al id de la figura
-	//triangulo->setIdTextura(valueId);
-	//la que va es:
 	triangulo->setId(valueId);
+	triangulo->setVertice1(vertice1);
+	triangulo->setVertice2(vertice2);
+	triangulo->setVertice3(vertice3);
+
 	escenario->addFigura(triangulo);
      	std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		
+	/**################################################################################################*/
+		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
+		/**################################################################################################*/
+		agregarAtributosOpcionales(vec, triangulo, listaClave);
      	return 0;
-	}else
+	}else{
 		std::cout<<"ERROR AL CREAR EL TRIANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-
+		escribirErrorEnLog(escenario, errorVertice, 0, errorAtributosValidos,StringUtils::getValorTag(ID,vec)); //en la propiedad le pongo 0 porque no tiene una propiedad definida como rectangulo (base y altura).
+	}
 	return -1;
 }
 
@@ -369,61 +545,8 @@ int Hidratar::hidratartextura(std::string atributos){
 		return -1;
 	}
 }
-/**
- * este metodo agrega los atributos opcionales a las figuras que son si los encuentra los agrega sino
- * escribe en el log el error
- * COLOR_FIGURA
- * COLOR_LINEA
- * ID_TEXTURA
- */
-void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<string>& listaClave){
-	Escenario* escenario=Escenario::obtenerInstancia();
-   	std::string id;
-		id=StringUtils::getValorTag(ID,tokens);
-	Color* colorFigura=new Color();
-		Color* colorLinea=new Color();
-		std::string valorAtributo;
-		std::string valorClave;
-			std::string idtextura;
-	std::vector<string>::iterator iter;
-	iter = listaClave.begin();
-	while( iter != listaClave.end() ) {
-		valorClave=*iter;
-		std::cout<<"valor de la clave \n "<<" "<<valorClave<<endl;
-			if(valorClave.compare(ID_TEXTURA)==0){
-				idtextura=StringUtils::getValorTag(ID_TEXTURA,tokens);
-				figura->setIdTextura(idtextura);
-				std::cout<<"valor de la clave ID_TEXTURA"<<" "<<idtextura<<endl;
-				std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL ID_TEXTURA A LA FIGURA "<<endl;
-			}
-			if(valorClave.compare(COLOR_FIGURA)==0){
-				valorAtributo=StringUtils::getValorTag(COLOR_FIGURA,tokens);
-				std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<valorAtributo<<endl;
-				if(hidratarColor(valorAtributo,colorFigura)!=-1&&valorAtributo.compare("error") != 0){
-					figura->setColorFigura(colorFigura);
 
-					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA"<<endl;
-				}else{
-					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "<<endl;
-					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_FIGURA A LA FIGURA "+id);
-				}
-			}
 
-			if(valorClave.compare(COLOR_LINEA)==0){
-				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
-				std::cout<<"valor de la clave COLOR_LINEA "<<" "<<valorAtributo<<endl;
-				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
-					figura->setColorLinea(colorLinea);
-					std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
-				}else{
-					std::cout<<"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"<<endl;
-					escribirMensajeLog(*(escenario->getLog()),"ERROR AL AGREGAR EL TAG OPCIONAL COLOR_LINEA A LA FIGURA"+id);
-				}
-			}
-
-		++iter;
-	}
-}
 
 int Hidratar::hidratarSegmento(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
@@ -479,30 +602,6 @@ int Hidratar::hidratarSegmento(std::string atributos){
 		std::cout<<"ERROR AL CREAR EL SEGMENTO  NO SE LA AGREGO A LA LISTA DE FIGURAS"<<endl;
 		return -1;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

@@ -14,6 +14,7 @@ class Circulo: public Figura{
 		void setRadio(int radio);
 		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
+		void setPosicion(Posicion * posicion);
 		~Circulo();
 	private:
 		int radio;

@@ -17,6 +17,7 @@ class Rectangulo: public Figura {
 		void setAltura(int altura);
 		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
+		void setPosicion(Posicion *posicion);
 
 	private:
 		int base;

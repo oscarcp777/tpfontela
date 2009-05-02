@@ -12,6 +12,7 @@ class Cuadrado: public Figura{
 		Cuadrado();
 		int getLado();
 		void setLado(int lado);
+		void setPosicion(Posicion * posicion);
 		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
 

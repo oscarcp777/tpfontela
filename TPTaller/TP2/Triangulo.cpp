@@ -312,3 +312,15 @@ Posicion* Triangulo::getVertice3(){
 	return this->vertice3;
 }
 
+void Triangulo::setVertice1(Posicion * posicion){
+	this->vertice1 = posicion;
+}
+
+void Triangulo::setVertice2(Posicion * posicion){
+	this->vertice2 = posicion;
+}
+
+void Triangulo::setVertice3(Posicion * posicion){
+	this->vertice3 = posicion;
+}
+

@@ -80,3 +80,7 @@ void Rectangulo::setAltura(int altura){
 Posicion* Rectangulo::getPosicion(){
 	return this->pos;
 }
+
+void Rectangulo::setPosicion(Posicion *posicion){
+	this->pos = posicion;
+}

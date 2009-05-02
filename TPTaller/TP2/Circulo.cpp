@@ -77,6 +77,10 @@ Posicion* Circulo::getPosicion(){
 	return this->pos;
 }
 
+void Circulo::setPosicion(Posicion*posicion){
+	this->pos = posicion;
+}
+
 Circulo::~Circulo(){
 
 }
