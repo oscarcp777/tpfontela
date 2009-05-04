@@ -46,7 +46,8 @@ int Circulo::dibujar(SDL_Surface *screen){
          
   		for(radio = 0;radio<=this->getRadio();radio+=0.5){
 			
-			if(abs(this->getRadio()-radio) <= 1.5){
+
+			if(this->getRadio()-radio <= 1|| radio > this->getRadio() ){
 				this->putpixel(screen,xCirculo,yCirculo,colorLinea);
 			}
 			else{
