@@ -3,15 +3,15 @@
               colorLinea="000255000" colorFondoEsc="255255255" texturaEsc="estrellas">
              </General>
              <ListadoDeElementos>
-                <cuadrado id="cuadrado1" lado="150">
+                <cuadrado id="cuadrado1" lado="150" idTextura="don">
                              <posicion x="50" y="50" />
                        </cuadrado>
-                       <circulo id="circulo1" radio="100" idTextura="don"> 
-                                   <posicion x="450" y="400" />
+                       <circulo id="circulo1" radio="100" idTextura="pocoyo"> 
+                                   <posicion x="550" y="300" />
                        </circulo>
 
-                       <rectangulo id="rectangulo1" base="200" altura="100">
-                                     <posicion x="250" y="400" />
+                       <rectangulo id="rectangulo1" base="200" altura="250" idTextura="river">
+                                     <posicion x="50" y="300" />
                        </rectangulo>
 
                        <triangulo id="triangulo1">
@@ -20,7 +20,7 @@
                                   <ver3 x="600" y="500"/>
                        </triangulo>
                        <segmento id="Misegmento">
-                                  <inicio x="200" y="100" />
+                                  <inicio x="300" y="100" />
                                   <fin x="600" y="100" />
                        </segmento>
             </ListadoDeElementos>

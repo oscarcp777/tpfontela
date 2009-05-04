@@ -13,15 +13,18 @@ id
 lado
 x
 y
+idTextura
 -circulo
 id
 radio
 x
 y
+idTextura
 -triangulo
 id
 x
 y
+idTextura
 -segmento
 id
 x
@@ -32,3 +35,4 @@ base
 altura
 x
 y
+idTextura
