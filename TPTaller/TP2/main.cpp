@@ -31,16 +31,14 @@ int main(int argc, char* argv[])
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
 /*
-		Posicion *posicion1 = new Posicion(50,50);
+	Posicion *posicion1 = new Posicion(50,50);
 	Posicion *posicion2 = new Posicion(570,100);
 	Posicion *posicion3 = new Posicion(580,470);
-	Posicion *ver1 = new Posicion(100,400);
-	Posicion *ver2 = new Posicion(500,400);
-	Posicion *ver3 = new Posicion(10,10);
+	Posicion *ver1 = new Posicion(0,0);
+	Posicion *ver2 = new Posicion(750,420);
+	Posicion *ver3 = new Posicion(600,500);
 	Posicion *inicio = new Posicion(300,300);
 	Posicion *fin = new Posicion(500,500);
-
-
 	Rectangulo *rectangulo = new Rectangulo("rectangulo1",500,300,posicion1);
 	rectangulo->setIdTextura("pocoyo4");
 
@@ -70,7 +68,7 @@ int main(int argc, char* argv[])
 
 			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
 			std::cout<<"cantidad texturas en escenario: "<<escenario->sizeListaTexturas()<<endl;
-			
+	
 			escenario->graficar();
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();

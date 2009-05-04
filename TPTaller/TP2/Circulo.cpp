@@ -24,7 +24,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 	std::cout<<"y: "<<this->getPosicion()->getY()<<endl;
 	
 	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
-	
+	SDL_Color colorLinea = Escenario::obtenerInstancia()->getColorLinea();
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 
 	this->imagen = IMG_Load (path.begin());
@@ -44,16 +44,19 @@ int Circulo::dibujar(SDL_Surface *screen){
 	
 	for(ang = 0;ang<360;ang+=0.19){
          
-  		for(radio = 0;radio<this->getRadio();radio+=0.4777){
+  		for(radio = 0;radio<=this->getRadio();radio+=0.5){
 			
-			if(imagen!= NULL){
-			this->color = this->getpixel(imagen,XiniColor,YiniColor);
-			XiniColor=imagen->w/2+radio*cos(PI*ang/180);
-			YiniColor=imagen->h/2+radio*sin(PI*ang/180);
+			if(abs(this->getRadio()-radio) <= 1.5){
+				this->putpixel(screen,xCirculo,yCirculo,colorLinea);
 			}
-			this->putpixel(screen,xCirculo,yCirculo,this->color);
-			
-            
+			else{
+				if(imagen!= NULL){
+					this->color = this->getpixel(imagen,XiniColor,YiniColor);
+					XiniColor=imagen->w/2+radio*cos(PI*ang/180);
+					YiniColor=imagen->h/2+radio*sin(PI*ang/180);
+				}
+				this->putpixel(screen,xCirculo,yCirculo,this->color);
+			}            
 			xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
 			yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);		
 			
