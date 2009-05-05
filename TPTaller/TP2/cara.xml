@@ -1,0 +1,53 @@
+<escenario>
+            <General resolucion="800" colorFondoFig="000000000" texturaFig="don" 
+              colorLinea="000000000" colorFondoEsc="255255255" texturaEsc="estrellas">
+             </General>
+             <ListadoDeElementos> 
+                  <circulo id="circulo0" radio="300" idTextura="textura">
+                         <posicion x="400" y="300" />
+                   </circulo>
+                   <circulo id="circulo1" radio="70" idTextura="pocoyo4">
+                         <posicion x="230" y="150" />
+                   </circulo>
+                   <circulo id="circulo2" radio="70" idTextura="pocoyo">
+                        <posicion x="570" y="150" />
+                   </circulo>
+                    <circulo id="circulo3" radio="20">
+                         <posicion x="220" y="140" />
+                   </circulo>
+                    <circulo id="circulo4" radio="20">
+                         <posicion x="560" y="140" />
+                   </circulo>
+                   <triangulo id="triangulo1" idTextura="pocoyo2">
+                                  <ver1 x="370" y="250"/>
+                                  <ver2 x="400" y="320"/>
+                                  <ver3 x="340" y="350"/>
+                       </triangulo>
+                       <rectangulo id="rectangulo1" base="300" altura="40">
+                                     <posicion x="250" y="400" />
+                       </rectangulo>
+                       <cuadrado id="cuadrado1" lado="100" idTextura="river">
+                             <posicion x="400" y="430" />
+                       </cuadrado>
+                       <segmento id="Misegmento">
+                                  <inicio x="450" y="480" />
+                                  <fin x="450" y="520" />
+                       </segmento>
+              </ListadoDeElementos>
+            <ListadoDeTexturas>
+                 <textura id="pocoyo4" path="pocoyo4.jpg">
+                 </textura>
+                 <textura id="pocoyo2" path="pocoyo2.jpg">
+                 </textura>
+                 <textura id="textura" path="textura.jpg">
+                 </textura>
+                 <textura id="don" path="don.png">
+                 </textura>
+                 <textura id="pocoyo" path="pocoyo.jpg">
+                 </textura>
+                 <textura id="river" path="river.jpg">
+                 </textura>
+                 <textura id="estrellas" path="estrellas.jpg">
+                 </textura>
+             </ListadoDeTexturas>
+</escenario>
