@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 		}
 		else{
 			std::cout<<"**********************************************************************"<<endl;
-			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES ERRORES.ERR"<<endl;
+			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES --> ERRORES.ERR"<<endl;
 			std::cout<<"**********************************************************************"<<endl;
 		}
 	}
