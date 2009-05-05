@@ -3,7 +3,7 @@
 
  StringUtils::StringUtils(){
 }
- 
+
  std::string  StringUtils::getValorTag(std::string nombretag,vector<string>& tokens){
  	vector<string>::iterator the_iterator;
  	string valorTag="error";
@@ -36,25 +36,25 @@ string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
 	 //tipo ostringstream que se utiliza para ingresar un string, char, int para despues poder pasarselo a la nueva_cadena
 	 //sirve mas que nada para que no tome como un ascii al asignarle a nueva_cadena un valor entero.
 	 std::ostringstream ostr;
-     	 
+
 	 while(inc<=cadena.length()){
-		 
+
 		 //Se obtiene el valor de cada posicion de cadena y se compara en la misma con el caracter que se desea reemplazar
-		 //En caso de que el caracter a reemplazar coincida con el de la posicion inc en la cadena, a nueva_cadena le 
-		 //asigno el caracter_reemplazable mas un entero que diferencia al resto de los caracteres. 
+		 //En caso de que el caracter a reemplazar coincida con el de la posicion inc en la cadena, a nueva_cadena le
+		 //asigno el caracter_reemplazable mas un entero que diferencia al resto de los caracteres.
 		 //Ej: x="2" x="3" x="4" se reemplazara por x1="2" x2="3" x3="4" copiando esto en nueva_cadena.
-		 if(cadena[inc]==char_reemplazable){
+		 if(cadena[inc]==char_reemplazable&&(cadena[inc+1]==' '||cadena[inc+1]=='=')){
 		     cant_veces++;
 			 ostr.str("");
 			 ostr << cant_veces;
 			 nueva_cadena+=char_reemplazable;
 			 nueva_cadena+=ostr.str();
 		 }else
-		 
-		  nueva_cadena+=cadena[inc];	
+
+		  nueva_cadena+=cadena[inc];
 		  inc++;
 	}
-	
+
 	 return nueva_cadena;
 
  }
@@ -63,7 +63,7 @@ string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
  string cadenaSinEspacios;
 
-   
+
 	while ( It != cadena.end() ){
 		if((*It == ' ') || (*It == '\n')){
 			//si el caracter es un espacio leo el siguiente
@@ -79,7 +79,7 @@ string StringUtils::trim(std::string cadena){
 				//std::cout<<"caracter "<<*It<<endl;
 				//system("PAUSE");
 				It++;
-				
+
 			}
 			else{
 				//si lei un  espacio y el siguiente no es espacio vuelvo al primer espacio
@@ -101,9 +101,9 @@ string StringUtils::trim(std::string cadena){
 			It++;
 		}
 	//std::cout<<"CADENA TEMPORAL: "<<endl;
-	//std::cout<<cadenaSinEspacios<<endl;	
+	//std::cout<<cadenaSinEspacios<<endl;
     }
- 	
+
 	return cadenaSinEspacios;
 }
 void StringUtils::Tokenize(const string& str, vector<string>& tokens, const string& delimiters ){

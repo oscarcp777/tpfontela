@@ -10,11 +10,11 @@
                                    <posicion x="550" y="300" />
                        </circulo>
 
-                       <rectangulo id="rectangulo1" base="200" altura="250" idTextura="river">
+                       <rectangulo id="rectangulo1" base="200" altura="250" idTextura="boca">
                                      <posicion x="50" y="300" />
                        </rectangulo>
 
-                       <triangulo id="triangulo1">
+                       <triangulo id="triangulo1" idTextura="boca">
                                   <ver1 x="500" y="400"/>
                                   <ver2 x="550" y="420"/>
                                   <ver3 x="600" y="500"/>
@@ -31,7 +31,7 @@
                  </textura>
                  <textura id="pocoyo" path="pocoyo.jpg">
                  </textura>
-                 <textura id="river" path="river.jpg">
+                 <textura id="boca" path="boca.jpg">
                  </textura>
                  <textura id="estrellas" path="estrellas.jpg">
                  </textura>
