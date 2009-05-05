@@ -30,35 +30,7 @@ int main(int argc, char* argv[])
 
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
-/*
-	Posicion *posicion1 = new Posicion(50,50);
-	Posicion *posicion2 = new Posicion(570,100);
-	Posicion *posicion3 = new Posicion(580,470);
-	Posicion *ver1 = new Posicion(0,0);
-	Posicion *ver2 = new Posicion(750,420);
-	Posicion *ver3 = new Posicion(600,500);
-	Posicion *inicio = new Posicion(300,300);
-	Posicion *fin = new Posicion(500,500);
-	Rectangulo *rectangulo = new Rectangulo("rectangulo1",500,300,posicion1);
-	rectangulo->setIdTextura("pocoyo4");
 
-
-	Cuadrado *cuadrado = new Cuadrado("cuadrado",200,posicion2);
-	cuadrado->setIdTextura("don");
-
-
-	Circulo *circulo = new Circulo("circulo1",100,posicion3);
-	circulo->setIdTextura("pocoyo");
-
-	Triangulo *triangulo = new Triangulo("triangulo",ver1,ver2,ver3);
-	triangulo->setIdTextura("river");
-		
-
-	escenario->addFigura(cuadrado);
-	escenario->addFigura(rectangulo);
-	escenario->addFigura(circulo);
-	escenario->addFigura(triangulo);
-*/
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);
 		if(exito == 0){
