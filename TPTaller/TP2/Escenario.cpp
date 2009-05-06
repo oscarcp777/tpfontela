@@ -158,49 +158,59 @@ Log* Escenario::getLog(){
 
 
 void Escenario::pintarPantalla(){
-	std::cout<<"ENTRO AL IF \n";
+
 	int res = this->texturaEsc.compare("NULL");
 	SDL_Surface *imagen = NULL;
 
 	if( res!=0){
-
+		//si no tiene NULL en texturaEsc
 		std::string path = this->obtenerPathTextura(this->texturaEsc);
+			
+		if(path.compare("NULL") != 0){
+				//si se encontro el path de la textura
+				imagen = IMG_Load (path.begin());
+				imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
+				SDL_Rect rect;
+				rect.x =0;
+				rect.y =0;
+				rect.w = this->getAncho();
+				rect.h = this->getAlto();
+				SDL_BlitSurface(imagen, NULL,this->screen, &rect);
+		
+			if(!imagen) {
+				//si NO se levanto bien la imagen (este es el caso que esta el id en la lista textura, se obtiene el path pero la imagen no esta en ese directorio
+				escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
+				SDL_Rect dest;
+				dest.x = 0;
+				dest.y = 0;
+				dest.w = this->screen->w;
+				dest.h = this->screen->h;
+				SDL_Color color = this->getColorFondoEscenario();
+				SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
+			}
 
-		imagen = IMG_Load (path.begin());
-		imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
-		SDL_Rect rect;
-		rect.x =0;
-		rect.y =0;
-		rect.w = this->getAncho();
-		rect.h = this->getAlto();
-		SDL_BlitSurface(imagen, NULL,this->screen, &rect);
+		}
+		else{
+			//si NO se encontro el path de la textura, es porque el id no existe en la lista
+			escribirMensajeLog(this->log,"no se encontro el path correspondiente a texturaEsc: "+this->texturaEsc);
+		}
+		
 	}
-	if(!imagen) {
-
-		SDL_Rect dest;
-		dest.x = 0;
-		dest.y = 0;
-		dest.w = this->screen->w;
-		dest.h = this->screen->h;
-		SDL_Color color = this->getColorFondoEscenario();
-		SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
-
-	}
+	
+	
 }
 
 std::string Escenario::obtenerPathTextura(std::string id){
 	std::list<Textura*>::iterator iter;
 	Textura *textura;
-	bool fin = false;
 	iter = this->iteratorListaTexturas();
 	int i=1;
 	std::string idAux = "NULL";
 
-	while(i<=this->sizeListaTexturas() && fin==false){
+	while(i<=this->sizeListaTexturas()){
 	textura = *iter;
 
 	if(textura->getId().compare(id)==0){
-		fin = true;
 		return textura->getPath();
 	}
 

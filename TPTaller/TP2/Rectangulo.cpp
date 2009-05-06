@@ -16,12 +16,6 @@ Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 	
 }
 int Rectangulo::dibujar(SDL_Surface *screen){
-	std::cout<<"RECTANGULO "<<endl;
-	std::cout<<"id: "<<this->getId()<<endl;
-	std::cout<<"base: "<<this->getBase()<<endl;
-	std::cout<<"altura: "<<this->getAltura()<<endl;
-	std::cout<<"x: "<<this->getPosicion()->getX()<<endl;
-	std::cout<<"y: "<<this->getPosicion()->getY()<<endl;
 
 	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
 	SDL_Color colorLinea = Escenario::obtenerInstancia()->getColorLinea();

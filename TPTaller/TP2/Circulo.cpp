@@ -17,12 +17,6 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 }
 
 int Circulo::dibujar(SDL_Surface *screen){
-	std::cout<<"CIRCULO "<<endl;
-	std::cout<<"id: "<<this->getId()<<endl;
-	std::cout<<"radio: "<<this->getRadio()<<endl;
-	std::cout<<"x: "<<this->getPosicion()->getX()<<endl;
-	std::cout<<"y: "<<this->getPosicion()->getY()<<endl;
-	
 	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
 	SDL_Color colorLinea = Escenario::obtenerInstancia()->getColorLinea();
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
