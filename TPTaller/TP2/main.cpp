@@ -25,11 +25,12 @@ int main(int argc, char* argv[])
 	Escenario* escenario = Escenario::obtenerInstancia();
 	int exito = 0;
 	std::string nombreArchivoXML;
-
-
+	char caracter;
 
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
+	
+
 
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);
@@ -55,7 +56,6 @@ int main(int argc, char* argv[])
 	catch(std::ios_base::failure){
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
-
-    	
+	
 	return 0;
 }

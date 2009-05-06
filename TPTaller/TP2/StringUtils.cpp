@@ -62,17 +62,26 @@ string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
 string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
  string cadenaSinEspacios;
-
+string caracter;
 
 	while ( It != cadena.end() ){
-		if((*It == ' ') || (*It == '\n')){
+		
+		caracter = *It;
+		/*
+		std::cout<<"***********************caracter "<<caracter<<"*************"<<endl;
+		std::cout<<"***********************COMPARE "<<caracter.compare("\t")<<endl;
+		system("PAUSE");*/
+
+		if(caracter.compare(" ") == 0){
 			//si el caracter es un espacio leo el siguiente
 			It++;
-			if((*It == ' ') || (*It == '\n')){
+			caracter = *It;
+			if((caracter.compare(" ") == 0) || (caracter.compare("\n") == 0) || (caracter.compare("\t") == 0)){
 				//si es otro espacio, itero hasta que sea distinto de espacio
 	        	//cadenaSinEspacios+=*It;
-				while((*It == ' ') || (*It == '\n')){
+				while((caracter.compare(" ") == 0) || (caracter.compare("\n") == 0) || (caracter.compare("\t") == 0)){
 				It++;
+				caracter = *It;
 				}
 				cadenaSinEspacios+=*It;
 				//std::cout<<"despues del while"<<endl;
@@ -91,9 +100,21 @@ string StringUtils::trim(std::string cadena){
 				//system("PAUSE");
 				It++;
 				}
+				
 		}
+		else if(caracter.compare("\n") == 0){
+			//si es un salto de linea
+			It++;
+			
+		}
+		else if(caracter.compare("\t") == 0){
+			//si es tab
+			It++;
+		
+		}				
+		
 		else{
-			//si no es un espacio directamente se la asigno a la cadena
+			//si no es un espacio ni tab ni enter directamente se la asigno a la cadena
 			cadenaSinEspacios+=*It;
 			//std::cout<<"2do else"<<endl;
 			//std::cout<<"caracter "<<*It<<endl;
@@ -102,6 +123,7 @@ string StringUtils::trim(std::string cadena){
 		}
 	//std::cout<<"CADENA TEMPORAL: "<<endl;
 	//std::cout<<cadenaSinEspacios<<endl;
+	
     }
 
 	return cadenaSinEspacios;
