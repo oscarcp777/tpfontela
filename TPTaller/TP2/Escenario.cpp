@@ -193,6 +193,13 @@ void Escenario::pintarPantalla(){
 		else{
 			//si NO se encontro el path de la textura, es porque el id no existe en la lista
 			escribirMensajeLog(this->log,"no se encontro el path correspondiente a texturaEsc: "+this->texturaEsc);
+			SDL_Rect dest;
+			dest.x = 0;
+			dest.y = 0;
+			dest.w = this->screen->w;
+			dest.h = this->screen->h;
+			SDL_Color color = this->getColorFondoEscenario();
+			SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
 		}
 		
 	}
