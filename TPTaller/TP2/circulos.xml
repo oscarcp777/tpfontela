@@ -1,0 +1,61 @@
+<escenario>
+	<ListadoDeElementos>
+		<circulo id="circulo0" radio="100" idTextura="circulo1">
+                         <posicion x="400" y="150" />
+                   </circulo>
+		<circulo id="circulo1" radio="100" idTextura="circulo2">
+                         <posicion x="200" y="100" />
+                   </circulo>
+		<circulo id="circulo2" radio="200" idTextura="circulo3">
+                         <posicion x="200" y="400" />
+                   </circulo>
+		<circulo id="circulo3" radio="50" idTextura="circulo4">
+                         <posicion x="730" y="300" />
+                   </circulo>
+		<circulo id="circulo4" radio="150" idTextura="circulo5">
+                         <posicion x="500" y="450" />
+                   </circulo>
+		<circulo id="circulo5" radio="50" idTextura="circulo2">
+                         <posicion x="730" y="500" />
+                   </circulo>
+		<circulo id="circulo6" radio="100" idTextura="circulo8">
+                         <posicion x="600" y="190" />
+                   </circulo>
+		<circulo id="circulo7" radio="100" idTextura="circulo6">
+                         <posicion x="300" y="432" />
+                   </circulo>	
+	<circulo id="circulo8" radio="100" idTextura="circulo7">
+                         <posicion x="650" y="120" />
+                   </circulo>
+		<circulo id="circulo9" radio="150" idTextura="circulo9">
+                         <posicion x="444" y="290" />
+                   </circulo>
+		<circulo id="circulo10" radio="100" idTextura="circulo10">
+                         <posicion x="555" y="312" />
+                   </circulo>	
+	</ListadoDeElementos>
+	<ListadoDeTexturas>
+		<textura id="circulo1" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo1.jpg">
+		</textura>
+		<textura id="circulo2" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo2.jpg">
+		</textura>
+		<textura id="circulo3" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo3.png">
+		</textura>
+		<textura id="circulo4" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo4.jpg">
+		</textura>
+		<textura id="circulo5" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo5.jpg">
+		</textura>
+		<textura id="circulo6" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo6.png">
+		</textura>
+		<textura id="circulo7" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo7.jpg">
+		</textura>
+		<textura id="circulo8" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo8.jpg">
+		</textura>
+		<textura id="circulo9" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo9.jpg">
+		</textura>
+		<textura id="circulo10" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\circulo10.jpg">
+		</textura>	
+	</ListadoDeTexturas>
+	<General resolucion="800" colorFondoFig="255215000" texturaFig="don" colorLinea="000255000" colorFondoEsc="000000000">
+	</General>		
+</escenario>
