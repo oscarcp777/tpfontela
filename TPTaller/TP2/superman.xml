@@ -1,0 +1,53 @@
+<escenario>
+            <General resolucion="800" colorFondoFig="255215000" colorLinea="200230150" colorFondoEsc="255255255" texturaEsc="sup2">
+             </General>
+             <ListadoDeElementos>
+                <cuadrado id="cuadrado1" lado="150" idTextura="sup1">
+                             <posicion x="50" y="50" />
+                       </cuadrado>
+	<cuadrado id="cuadrado2" lado="120" idTextura="sup3">
+                             <posicion x="620" y="10" />
+                       </cuadrado>
+                       <circulo id="circulo1" radio="100" idTextura="sup2"> 
+                                   <posicion x="550" y="200" />
+                       </circulo>
+                       <rectangulo id="rectangulo1" base="200" altura="250" idTextura="sup4">
+                                     <posicion x="50" y="300" />
+                       </rectangulo>
+	  <rectangulo id="rectangulo2" base="200" altura="250" idTextura="sup6">
+                                     <posicion x="310" y="300" />
+                       </rectangulo>
+	  <rectangulo id="rectangulo3" base="200" altura="250" idTextura="sup7">
+                                     <posicion x="550" y="300" />
+                       </rectangulo>
+		  <rectangulo id="rectangulo4" base="200" altura="250" idTextura="sup8">
+                                     <posicion x="50" y="0" />
+                       </rectangulo>  
+	<circulo id="circulo2" radio="50" idTextura="sup9"> 
+                                   <posicion x="700" y="250" />
+                       </circulo>
+	<circulo id="circulo3" radio="50" idTextura="sup1"> 
+                                   <posicion x="260" y="80" />
+                       </circulo>                 
+            </ListadoDeElementos>
+            <ListadoDeTexturas>
+                 <textura id="sup1" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup1.jpg">
+                 </textura>
+                 <textura id="sup2" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup2.jpg">
+                 </textura>
+                 <textura id="sup3" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup3.jpg">
+                 </textura>
+                 <textura id="sup4" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup4.jpg">
+                 </textura>
+                 <textura id="sup5" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup5.jpg">
+                 </textura>
+                 <textura id="sup6" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup6.jpg">
+                 </textura>
+ 	   <textura id="sup7" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup7.jpg">
+                 </textura>
+	   <textura id="sup8" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup8.jpg">
+                 </textura>
+	   <textura id="sup9" path="C:\Documents and Settings\Richy\Escritorio\TP Taller de Programacion\TP2 Proyecto\imagenes\sup9.jpg">
+                 </textura>
+             </ListadoDeTexturas>
+</escenario>
