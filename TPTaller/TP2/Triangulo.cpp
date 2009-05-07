@@ -3,6 +3,10 @@
 #include <iostream>
 #include "Escenario.h"
 
+
+#define PENDIENTE_RECTAX 9999
+
+
 Triangulo::Triangulo(){
 }
 
@@ -80,13 +84,19 @@ int hallarDominio(int z1,int z2,int z3){
 
 float calcularPendiente (Posicion* pos1,Posicion* pos2){
 	
-	return ( (float)(pos1->getY()-pos2->getY())/(float)(pos1->getX()-pos2->getX()) );
+	if (pos1->getX()-pos2->getX() == 0)
+		return (float)PENDIENTE_RECTAX;
+	else
+		return ( (float)(pos1->getY()-pos2->getY())/(float)(pos1->getX()-pos2->getX()) );
 
 }
 
 float calcularOrdenada ( int x, int y, float pend){
 
-	return ( y - (pend*x) ); 
+	if (pend == PENDIENTE_RECTAX)
+		return x;
+	else
+		return ( y - (pend*x) ); 
 
 }
 
@@ -182,7 +192,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	float k1,k2,k3; //ordenadas de las tres rectas
 	int i = 0;
 	int j = 0;
-
+	bool rectaEnX = false;
 
 	ejeDeCordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
 	ver1 = cambioCoordenadas(ejeDeCordenadas, this->getVertice1());
@@ -196,6 +206,9 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	m1 = calcularPendiente (ver1,ver2);
 	m2 = calcularPendiente (ver1,ver3);
 	m3 = calcularPendiente (ver2,ver3);
+
+	if (m1 == PENDIENTE_RECTAX || m2 == PENDIENTE_RECTAX || m3 == PENDIENTE_RECTAX)
+		rectaEnX = true;
 	
 	k1 =  calcularOrdenada (ver1->getX(), ver1->getY(), m1) ;
 	k2 =  calcularOrdenada (ver1->getX(), ver1->getY(), m2) ;
@@ -228,27 +241,29 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo
 	for(i = 0;i<maxValorX;i++){
          
-  		for(j = 0; j<maxValorY; j++){
-			
+  	   for(j = 0; j<maxValorY; j++){
+		  
+		   if (!rectaEnX){
+
 			if ( i<verticeCentral->getX() ){
 								
 				if(perteneceAR1 && perteneceAR2){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
-					if (resComp1*resComp2<=0)
+					if (resComp1*resComp2<0)
 							graficarPixel(screen, i, j, ejeDeCordenadas);						
 				}
 				else 
 					if(perteneceAR1 && perteneceAR3){
 						resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-							if (resComp1*resComp2<=0)
+							if (resComp1*resComp2<0)
 								graficarPixel(screen, i, j, ejeDeCordenadas);
 					}
 					else{
 						resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-						if (resComp1*resComp2<=0)
+						if (resComp1*resComp2<0)
 							graficarPixel(screen, i, j, ejeDeCordenadas);
 					}	
 				
@@ -262,24 +277,52 @@ int Triangulo::dibujar(SDL_Surface *screen){
 				if(perteneceAR1 && perteneceAR2){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
-					if (resComp1*resComp2<=0)
+					if (resComp1*resComp2<0)
 						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 				else if(perteneceAR1 && perteneceAR3){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0)
+					if (resComp1*resComp2<0)
 						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 				else{
 					resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
-					if (resComp1*resComp2<=0)
+					if (resComp1*resComp2<0)
 						graficarPixel(screen, i, j, ejeDeCordenadas);
 				}
 			}
+		   }
+		   else
+		   {
+			   if (m1 == PENDIENTE_RECTAX && i!=k1){
+					resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
+					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
+					if (resComp1*resComp2<0)
+							graficarPixel(screen, i, j, ejeDeCordenadas);
+			   }
+			   if (m2 == PENDIENTE_RECTAX && i!=k2){
+					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
+					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
+					if (resComp1*resComp2<0)
+							graficarPixel(screen, i, j, ejeDeCordenadas);
+			   }
+			   if (m3 == PENDIENTE_RECTAX && i!=k3){
+					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
+					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
+					if (resComp1*resComp2<0)
+							graficarPixel(screen, i, j, ejeDeCordenadas);
+			   }
+					
 
-		}			
+
+
+		   }
+			   
+
+
+	   }			
 		
 	}
 
