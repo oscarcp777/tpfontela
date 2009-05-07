@@ -108,9 +108,22 @@ string caracter;
 			
 		}
 		else if(caracter.compare("\t") == 0){
-			//si es tab
+			//si es tab leo el siguiente y analizo lo que viene
 			It++;
-		
+			caracter = *It;
+			if((caracter.compare(" ") == 0) || (caracter.compare("\n") == 0) || (caracter.compare("\t") == 0)){
+				//si es un espacio o tab o enter, itero hasta que sea distinto de esos
+	        	//cadenaSinEspacios+=*It;
+				while((caracter.compare(" ") == 0) || (caracter.compare("\n") == 0) || (caracter.compare("\t") == 0)){
+				It++;
+				caracter = *It;
+				}
+				cadenaSinEspacios+=*It;
+				//std::cout<<"despues del while"<<endl;
+				//std::cout<<"caracter "<<*It<<endl;
+				//system("PAUSE");
+				It++;
+			}
 		}				
 		
 		else{
