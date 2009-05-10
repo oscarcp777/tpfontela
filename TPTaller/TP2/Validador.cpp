@@ -48,7 +48,17 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 
 }
 
+ Validador::~Validador(){
+	 list<Tag*>::iterator iter;
+	 	Tag* nombreTag;
+	 	iter=Validador::ListaTagsValidos.begin();
 
+	 	while(iter != Validador::ListaTagsValidos.end()){
+	 		nombreTag=*iter;
+	 		delete nombreTag;
+	 		iter++;
+	 	}
+}
 void Validador::setLog(Log* log){
 	this->log = log;
 
@@ -75,7 +85,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 			//std::cout<<"values: "<<values<<endl;
 			//con la siguiente funcion se crea la textura y se agrega al escenario
 			exito=Hidratar::hidratartextura(values.substr(0,values.size()-1));
-			
+
 		}
 	}
 
@@ -224,7 +234,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
 					exito=Hidratar::hidratarRectangulo(todosLosValues);
-					
+
 					dentroDeRectangulo = false;
 				}
 			}
@@ -358,7 +368,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 					//std::cout<<"values: "<<values<<endl;
 					todosLosValues += values.substr(0,values.size()-2);
 					//std::cout<<"TODOS LOS VALUESSSs "<<todosLosValues<<endl;
-					exito=Hidratar::hidratarSegmento(todosLosValues);					
+					exito=Hidratar::hidratarSegmento(todosLosValues);
 					dentroDeSegmento= false;
 				}
 			}
@@ -965,7 +975,7 @@ int Validador::validarAperturaYCierreTags(){
 
 
 int Validador::validarSintaxis(std::string nombreArchivo){
-	StringUtils *stringUtils= new StringUtils();
+
 	string cadena,linea,subCadena,values;
 	char caracter;
 	int i,exito;
@@ -980,7 +990,7 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 	}
 	//
-	cadena=stringUtils->trim(cadena);
+	cadena=StringUtils::trim(cadena);
 	//std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
 	//std::cout<<cadena<<endl;
 	//std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;

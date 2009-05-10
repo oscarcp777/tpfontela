@@ -8,8 +8,9 @@
 class Triangulo: public Figura {
 
 
-	public: 
+	public:
 		Triangulo();
+		~Triangulo();
 		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3);
 		void setVertice1(Posicion * posicion);
 		void setVertice2(Posicion * posicion);

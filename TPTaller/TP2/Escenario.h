@@ -17,7 +17,7 @@
 class Escenario {
 
 	public:
-			Escenario::~Escenario();
+			~Escenario();
 			static Escenario* obtenerInstancia();
 			void addFigura(Figura *figura);
 			void addTextura(Textura *textura);

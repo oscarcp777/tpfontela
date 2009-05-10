@@ -4,17 +4,7 @@
 #include <SDL_main.h>
 #define WALLCOLOR 0x9f1f1f
 Dibujar::Dibujar(){
-}/*
-Dibujar* Dibujar::unicaInstanciaDibujar = NULL;
-Dibujar* Dibujar::obtenerInstancia(){
-	
-	if(!Dibujar::unicaInstanciaDibujar){
-		Dibujar::unicaInstanciaDibujar = new Dibujar();
-	}
-	
-	return Dibujar::unicaInstanciaDibujar;
 }
-*/
 int Dibujar::calcularDistancia(int izqX, int izqY,int derX, int derY){
 	double x,y;
 	int raiz=0;
@@ -26,10 +16,10 @@ int Dibujar::calcularDistancia(int izqX, int izqY,int derX, int derY){
 	return raiz;
 }
 void Dibujar::dibujarTriangulo(SDL_Surface *screen,int izqX, int izqY,int derX, int derY,int supX, int supY){
-	
+
 
      Dibujar::dibujarLinea(screen ,izqX,  izqY, derX, derY);
-	 Dibujar::dibujarLinea(screen ,derX, derY, supX,supY); 
+	 Dibujar::dibujarLinea(screen ,derX, derY, supX,supY);
 	 Dibujar::dibujarLinea(screen ,izqX,  izqY, supX,supY);
 
 
@@ -111,7 +101,7 @@ dest.y = posY;
 dest.w = ancho;
 dest.h = alto;
 SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format,escenario->getColorFondoFiguras()->getColorFondo_R(),
-			 escenario->getColorFondoFiguras()->getColorFondo_G(),escenario->getColorFondoFiguras()->getColorFondo_B()));	
+			 escenario->getColorFondoFiguras()->getColorFondo_G(),escenario->getColorFondoFiguras()->getColorFondo_B()));
 
 
 }
@@ -142,8 +132,8 @@ int color=	SDL_MapRGB(screen->format,escenario->getColorFondoFiguras()->getColor
         len -= (xofs + len) - escenario->getAncho();
       }
       int ofs = (posY - radio + i) * PITCH + xofs;
-      
-      // note that len may be 0 at this point, 
+
+      // note that len may be 0 at this point,
       // and no pixels get drawn!
       for (j = 0; j < len; j++)
         ((unsigned int*)(screen)->pixels)[ofs + j] = color;

@@ -7,6 +7,10 @@
 
 Rectangulo::Rectangulo(){
 }
+Rectangulo::~Rectangulo(){
+	delete this->pos;
+	 std::cout << "Destructor de Rectangulo\n";
+}
 
 Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 	this->id = id;

@@ -7,8 +7,9 @@
 
 class Cuadrado: public Figura{
 
-	public: 
+	public:
 		Cuadrado(std::string id,int lado,Posicion *pos);
+		~Cuadrado();
 		Cuadrado();
 		int getLado();
 		void setLado(int lado);

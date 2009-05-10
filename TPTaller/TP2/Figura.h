@@ -11,7 +11,7 @@ class Figura{
 
 	public:
 		 virtual int dibujar(SDL_Surface *screen)=0; //metodo virtual puro
-
+		 virtual ~Figura();
 		 std::string getId();
 		 std::string getIdTextura();
 		 void setId(std::string id);

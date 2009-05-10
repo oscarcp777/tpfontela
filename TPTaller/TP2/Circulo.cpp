@@ -8,12 +8,15 @@
 Circulo::Circulo(void){
 
 }
-
+Circulo::~Circulo(){
+    delete this->pos;
+    std::cout << "Destructor de Circulo\n";
+}
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
 	this->radio = r;
 	this->pos = p;
-	
+
 }
 
 int Circulo::dibujar(SDL_Surface *screen){
@@ -23,23 +26,23 @@ int Circulo::dibujar(SDL_Surface *screen){
 
 	this->imagen = IMG_Load (path.begin());
 	this->imagen = ScaleSurface(this->imagen, this->getRadio()*2, this->getRadio()*2);
-	
+
 	float ang;
 	float radio;
 	float PI =3.141592654;
-	
+
 	//(Xinicial,Yinicial) es la posicion de imagen desde donde copiara el circulo
 	int XiniColor = 0;//imagen->w/2;
 	int YiniColor = 0;//imagen->h/2;
 	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
 	float xCirculo= this->getPosicion()->getX();
 	float yCirculo= this->getPosicion()->getY();
-	
-	
+
+
 	for(ang = 0;ang<360;ang+=0.19){
-         
+
   		for(radio = 0;radio<=this->getRadio();radio+=0.5){
-			
+
 
 			if(this->getRadio()-radio <= 1|| radio > this->getRadio() ){
 				this->putpixel(screen,xCirculo,yCirculo,colorLinea);
@@ -51,20 +54,20 @@ int Circulo::dibujar(SDL_Surface *screen){
 					YiniColor=imagen->h/2+radio*sin(PI*ang/180);
 				}
 				this->putpixel(screen,xCirculo,yCirculo,this->color);
-			}            
+			}
 			xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
-			yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);		
-			
-		}			
-		
+			yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);
+
+		}
+
 	}
 	return 0;
 
 }
 int Circulo::getRadio(){
-		
+
 	return this->radio;
-	
+
 }
 
 void Circulo::setRadio(int radio){
@@ -79,8 +82,6 @@ void Circulo::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }
 
-Circulo::~Circulo(){
 
-}
 
 

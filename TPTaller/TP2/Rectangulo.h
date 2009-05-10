@@ -10,6 +10,7 @@ class Rectangulo: public Figura {
 
 	public: 
 		Rectangulo();
+		~Rectangulo();
 		Rectangulo(std::string id, int base,int altura, Posicion *pos);
 		int getBase();
 		void setBase(int base);

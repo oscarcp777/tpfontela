@@ -115,8 +115,6 @@ void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<str
 	Escenario* escenario=Escenario::obtenerInstancia();
    	std::string id;
 		id=StringUtils::getValorTag(ID,tokens);
-	Color* colorFigura=new Color();
-		Color* colorLinea=new Color();
 		std::string valorAtributo;
 		std::string valorClave;
 			std::string idtextura;
@@ -132,6 +130,7 @@ void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<str
 				std::cout<<"EXITO AL AGREGAR EL TAG OPCIONAL ID_TEXTURA A LA FIGURA "<<endl;
 			}
 			if(valorClave.compare(COLOR_FIGURA)==0){
+				Color* colorFigura=new Color();
 				valorAtributo=StringUtils::getValorTag(COLOR_FIGURA,tokens);
 				std::cout<<"valor de la clave COLOR_FIGURA"<<" "<<valorAtributo<<endl;
 				if(hidratarColor(valorAtributo,colorFigura)!=-1&&valorAtributo.compare("error") != 0){
@@ -146,6 +145,7 @@ void agregarAtributosOpcionales(vector<string>& tokens,Figura* figura,vector<str
 
 			if(valorClave.compare(COLOR_LINEA)==0){
 				valorAtributo=StringUtils::getValorTag(COLOR_LINEA,tokens);
+				Color* colorLinea=new Color();
 				std::cout<<"valor de la clave COLOR_LINEA "<<" "<<valorAtributo<<endl;
 				if(hidratarColor(valorAtributo,colorLinea)!=-1&&valorAtributo.compare("error") != 0){
 					figura->setColorLinea(colorLinea);
@@ -233,7 +233,7 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+CUADRADO);
 		return -1;
 	}
-    
+
 	std::cout<<"Error atributos validos"<<errorAtributosValidos<<endl;
 
 	if(errorNumeroPos==errorAtributosValidos==errorPropiedad==0){
@@ -348,7 +348,7 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	else
 		errorNumeroPos = 0;
 
-	
+
 	if(StringUtils::getValorTag(ID,vec).compare(ERROR)==0 || StringUtils::getValorTag(POS_X,vec).compare(ERROR)==0 || StringUtils::getValorTag(POS_Y,vec).compare(ERROR)==0 || StringUtils::getValorTag(BASE,vec).compare(ERROR)==0 || StringUtils::getValorTag(ALTURA,vec).compare(ERROR)==0){
 		escribirMensajeLog(*(escenario->getLog()),"Se ha producido un error de escritura en uno de los tag del: "+RECTANGULO);
 		return -1;

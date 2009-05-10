@@ -1,9 +1,9 @@
 #include "Color.h"
-
+#include <iostream>
 
 
 Color::~Color(){
-	delete this;
+	std::cout << "Destructor de Color\n";
 }
 Color::Color(){
 }

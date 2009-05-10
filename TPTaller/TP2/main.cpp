@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
 	std::cin>>nombreArchivoXML;
-	
+
 
 
 	try{
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 
 			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
 			std::cout<<"cantidad texturas en escenario: "<<escenario->sizeListaTexturas()<<endl;
-	
+
 			escenario->graficar();
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();
@@ -56,6 +56,8 @@ int main(int argc, char* argv[])
 	catch(std::ios_base::failure){
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
-	
+	delete escenario;
+	system("PAUSE");
 	return 0;
 }
+

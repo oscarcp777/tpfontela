@@ -2,7 +2,7 @@
 #include <list>
 #include "Escenario.h"
 #include <utility>
-	//pasar estas constantes a Constantes.h
+//pasar estas constantes a Constantes.h
 const int RESOLUCION_640=640;
 const int RESOLUCION_640_ALTO=480;
 const int RESOLUCION_640_ANCHO=640;
@@ -23,7 +23,6 @@ Escenario::Escenario(){
 	this->setResolucion(RESOLUCION_800);
 	this->texturaFig = "id";
 	this->texturaEsc = "id";
-	this->colorLinea = new Color(255,0,0);
 	this->setColorFondoEscenario(new Color(255,255,255));
 	this->setColorFondoFiguras(new Color( 255, 215 , 0));
 	this->setColorLinea(new Color(0,255,0));
@@ -39,8 +38,27 @@ Validador*  Escenario::getValidador(){
 Escenario::~Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
 	destruirLog(this->log);
-
-
+	delete this->colorLinea;
+	delete this->colorFondoEscenario;
+	delete this->colorFondoFiguras;
+	this->validador->~Validador();
+	list<Textura*>::iterator iterTextura;
+	Textura* textura;
+	iterTextura=this->listaTexturas.begin();
+	while(iterTextura !=this->listaTexturas.end()){
+		textura=*iterTextura;
+		delete textura;
+		iterTextura++;
+	}
+	list<Figura*>::iterator iterFiguras;
+	Figura* figura;
+		iterFiguras=this->listaFiguras.begin();
+		while(iterFiguras !=this->listaFiguras.end()){
+			figura=*iterFiguras;
+			delete figura;
+			iterFiguras++;
+		}
+	std::cout << "Destructor de Escenario\n";
 }
 
 int Escenario::cargarArchivo(std::string nombreArchivo){
@@ -50,16 +68,16 @@ int Escenario::cargarArchivo(std::string nombreArchivo){
 
 Escenario* Escenario::unicaInstanciaEscenario = NULL;
 void Escenario::setTexturaFig(std::string texturaFig){
-    this->texturaFig=texturaFig;
+	this->texturaFig=texturaFig;
 }
 std::string Escenario::getTexturaFig(){
-	 return this->texturaFig;
+	return this->texturaFig;
 }
 std::string Escenario::getTexturaEsc(){
-	 return this->texturaEsc;
+	return this->texturaEsc;
 }
 void Escenario::setTexturaEsc(std::string texturaEsc){
-	 this->texturaEsc=texturaEsc;
+	this->texturaEsc=texturaEsc;
 }
 Escenario* Escenario::obtenerInstancia(){
 
@@ -70,28 +88,28 @@ Escenario* Escenario::obtenerInstancia(){
 	return Escenario::unicaInstanciaEscenario;
 }
 void  Escenario::setColorFondoEscenario(Color* colorFondoEscenario){
-  this->colorFondoEscenario=colorFondoEscenario;
+	this->colorFondoEscenario=colorFondoEscenario;
 }
 void  Escenario::setColorFondoFiguras(Color* colorFondoFiguras){
- this->colorFondoFiguras=colorFondoFiguras;
+	this->colorFondoFiguras=colorFondoFiguras;
 }
 void  Escenario::setColorLinea(Color* colorLinea){
- this->colorLinea=colorLinea;
+	this->colorLinea=colorLinea;
 }
 SDL_Color Escenario::getColorFondoEscenario(){
-return	this->colorFondoEscenario->getColor();
+	return	this->colorFondoEscenario->getColor();
 }
 SDL_Color Escenario::getColorFondoFiguras(){
-return	this->colorFondoFiguras->getColor();
+	return	this->colorFondoFiguras->getColor();
 }
 SDL_Color Escenario::getColorLinea(){
-return this->colorLinea->getColor();
+	return this->colorLinea->getColor();
 }
 void  Escenario::setAncho(int ancho){
-this->ancho=ancho;
+	this->ancho=ancho;
 }
 int   Escenario::getAncho(){
-return	this->ancho;
+	return	this->ancho;
 }
 void  Escenario::setAlto(int alto){
 	this->alto=alto;
@@ -104,20 +122,20 @@ int Escenario::getResolucion(){
 }
 void  Escenario::setResolucion(int resolucion){
 	this->resolucion=resolucion;
-    if(resolucion==RESOLUCION_640){
-       	this->alto=RESOLUCION_640_ALTO;
+	if(resolucion==RESOLUCION_640){
+		this->alto=RESOLUCION_640_ALTO;
 		this->ancho=RESOLUCION_640_ANCHO;
 	}
 	if(resolucion==RESOLUCION_800){
-       	this->alto=RESOLUCION_800_ALTO;
+		this->alto=RESOLUCION_800_ALTO;
 		this->ancho=RESOLUCION_800_ANCHO;
 	}
 	if(resolucion==RESOLUCION_1024){
-       	this->alto=RESOLUCION_1024_ALTO;
+		this->alto=RESOLUCION_1024_ALTO;
 		this->ancho=RESOLUCION_1024_ANCHO;
 	}
 	if(resolucion==RESOLUCION_1280){
-       	this->alto=RESOLUCION_1280_ALTO;
+		this->alto=RESOLUCION_1280_ALTO;
 		this->ancho=RESOLUCION_1280_ANCHO;
 	}
 }
@@ -127,7 +145,7 @@ void Escenario::addFigura(Figura *figura){
 
 void Escenario::addTextura(Textura *textura){
 	this->listaTexturas.push_back(textura);
-	
+
 }
 
 int Escenario::sizeListaFiguras(){
@@ -165,18 +183,18 @@ void Escenario::pintarPantalla(){
 	if( res!=0){
 		//si no tiene NULL en texturaEsc
 		std::string path = this->obtenerPathTextura(this->texturaEsc);
-			
+
 		if(path.compare("NULL") != 0){
-				//si se encontro el path de la textura
-				imagen = IMG_Load (path.begin());
-				imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
-				SDL_Rect rect;
-				rect.x =0;
-				rect.y =0;
-				rect.w = this->getAncho();
-				rect.h = this->getAlto();
-				SDL_BlitSurface(imagen, NULL,this->screen, &rect);
-		
+			//si se encontro el path de la textura
+			imagen = IMG_Load (path.begin());
+			imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
+			SDL_Rect rect;
+			rect.x =0;
+			rect.y =0;
+			rect.w = this->getAncho();
+			rect.h = this->getAlto();
+			SDL_BlitSurface(imagen, NULL,this->screen, &rect);
+
 			if(!imagen) {
 				//si NO se levanto bien la imagen (este es el caso que esta el id en la lista textura, se obtiene el path pero la imagen no esta en ese directorio
 				escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
@@ -201,10 +219,10 @@ void Escenario::pintarPantalla(){
 			SDL_Color color = this->getColorFondoEscenario();
 			SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
 		}
-		
+
 	}
-	
-	
+
+
 }
 
 std::string Escenario::obtenerPathTextura(std::string id){
@@ -215,16 +233,16 @@ std::string Escenario::obtenerPathTextura(std::string id){
 	std::string idAux = "NULL";
 
 	while(i<=this->sizeListaTexturas()){
-	textura = *iter;
+		textura = *iter;
 
-	if(textura->getId().compare(id)==0){
-		return textura->getPath();
-	}
+		if(textura->getId().compare(id)==0){
+			return textura->getPath();
+		}
 
-	else{
-		i++;
-		iter++;
-	}
+		else{
+			i++;
+			iter++;
+		}
 
 	}
 	return idAux;
@@ -242,18 +260,18 @@ int Escenario::graficar(){
 	SDL_Event event;
 
 	// Iniciar SDL
-     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
-        std::string aux = SDL_GetError();
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
+		std::string aux = SDL_GetError();
 		escribirMensajeLog(this->log,"No se pudo iniciar SDL: " + aux );
 		return -1;
-	 }
+	}
 
-	 //seteamos el titulo a la barra
-  SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");
+	//seteamos el titulo a la barra
+	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
-	
+
 	if(!screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();
@@ -279,7 +297,7 @@ int Escenario::graficar(){
 
 		SDL_Flip (this->screen);
 
-	// Comprobando teclas para opciones
+		// Comprobando teclas para opciones
 		while (SDL_PollEvent(&event)) {
 			// Cerrar la ventana
 			if (event.type == SDL_QUIT) {
@@ -287,7 +305,7 @@ int Escenario::graficar(){
 			}
 			// Pulsando una tecla
 			if (event.type == SDL_KEYDOWN) {
-			done = 1;
+				done = 1;
 			}
 		}
 	}

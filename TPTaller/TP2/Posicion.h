@@ -3,7 +3,8 @@
 
 class Posicion {
 
-	public: 
+	public:
+		~Posicion();
 		Posicion(int posX,int posY);
 		int getX();
 		int getY();
@@ -12,8 +13,8 @@ class Posicion {
 	private:
 		int x;
 		int y;
-		
-		
+
+
 
 };
 

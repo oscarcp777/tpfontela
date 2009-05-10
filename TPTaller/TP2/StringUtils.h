@@ -18,7 +18,7 @@ public:
 	*
 	*/
     static std::string getValorTag(std::string nombretag,vector<string>& tokens);
-	string trim(std::string cadena);
+    static string trim(std::string cadena);
 	static std::string trimPalabra(std::string cadena);
 	static std::string actualizarCadena(string cadena,char char_reemplazable);
 	static void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );

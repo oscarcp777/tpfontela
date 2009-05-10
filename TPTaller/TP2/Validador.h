@@ -16,7 +16,6 @@ class Validador{
 private:
 	list<Tag*> ListaTagsValidos;
 	//list<std::string> ListaTagsValidos;
-
 	list<std::string> ListaTagsArchivo;
 
 	Log* log;
@@ -25,10 +24,11 @@ public:
 
 	Validador(std::string nombreArchivoTags,std::string nombreArchivoAtributos);
 
+	~Validador();
 	void setLog(Log* log);
 
 	int validarValues(std::string tipo,std::string values);
-	
+
 	int validarSintaxis(std::string nombreArchivo);
 
 	int validarArchivoXML(int i,string cadena);
