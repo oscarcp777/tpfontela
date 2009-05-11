@@ -168,11 +168,13 @@ int mayor(int x, int y){
 }
 
 void Triangulo::graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas){
-
+	
 	if(this->imagen != NULL)
 			this->color = this->getpixel(this->imagen,i,this->imagen->h - 1 - j);
-	this->putpixel(screen,i+ejeDeCoordenadas->getX(),ejeDeCoordenadas->getY()-j,this->color);
 
+	if( i+ejeDeCoordenadas->getX()>=0 && i+ejeDeCoordenadas->getX()<= Escenario::obtenerInstancia()->getAncho() && ejeDeCoordenadas->getY()-j>=0 && ejeDeCoordenadas->getY()-j < Escenario::obtenerInstancia()->getAlto() )
+	this->putpixel(screen,i+ejeDeCoordenadas->getX(),ejeDeCoordenadas->getY()-j,this->color);
+	
 }
 
 
