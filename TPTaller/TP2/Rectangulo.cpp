@@ -21,9 +21,8 @@ Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 }
 int Rectangulo::dibujar(SDL_Surface *screen){
 
-	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
-	SDL_Color colorLinea = Escenario::obtenerInstancia()->getColorLinea();
-
+	this->color = getColorFigura()->getColor();
+	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 	
 	this->imagen = IMG_Load (path.begin());
@@ -43,7 +42,7 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 		while(y<=this->getAltura()+this->getPosicion()->getY()){
 		
 			if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){
-				this->putpixel(screen,x,y,colorLinea);
+				this->putpixel(screen,x,y,getColorLinea()->getColor());
 			}
 			else{
 				if(imagen != NULL){

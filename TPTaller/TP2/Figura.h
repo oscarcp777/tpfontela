@@ -7,10 +7,12 @@
 #include <SDL_main.h>
 #include "Color.h"
 
+
 class Figura{
 
 	public:
 		 virtual int dibujar(SDL_Surface *screen)=0; //metodo virtual puro
+		 Figura();
 		 virtual ~Figura();
 		 std::string getId();
 		 std::string getIdTextura();

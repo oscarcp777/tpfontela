@@ -18,8 +18,8 @@ Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i)
 
 int Cuadrado::dibujar(SDL_Surface *screen){
 
-	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
-	SDL_Color colorLinea = Escenario::obtenerInstancia()->getColorLinea();
+	this->color = getColorFigura()->getColor();
+	
 	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 
 	this->imagen = IMG_Load (path.begin());
@@ -38,7 +38,7 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 		while(y<=this->getLado()+this->getPosicion()->getY()){
 
 			if(y==this->getLado()+this->getPosicion()->getY()||x==this->getLado()+this->getPosicion()->getX() || x==this->getPosicion()->getX() || y==this->getPosicion()->getY()){
-				this->putpixel(screen,x,y,colorLinea);
+				this->putpixel(screen,x,y,getColorLinea()->getColor());
 			}
 			else{
 				if(imagen != NULL){

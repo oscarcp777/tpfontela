@@ -99,11 +99,11 @@ void  Escenario::setColorLinea(Color* colorLinea){
 SDL_Color Escenario::getColorFondoEscenario(){
 	return	this->colorFondoEscenario->getColor();
 }
-SDL_Color Escenario::getColorFondoFiguras(){
-	return	this->colorFondoFiguras->getColor();
+Color* Escenario::getColorFondoFiguras(){
+	return	this->colorFondoFiguras;
 }
-SDL_Color Escenario::getColorLinea(){
-	return this->colorLinea->getColor();
+Color* Escenario::getColorLinea(){
+	return this->colorLinea;
 }
 void  Escenario::setAncho(int ancho){
 	this->ancho=ancho;

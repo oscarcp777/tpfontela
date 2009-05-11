@@ -1,4 +1,13 @@
 #include "Figura.h"
+#include "Escenario.h"
+
+Figura::Figura(){
+      this->colorFigura = NULL;
+      this->colorLinea = NULL;
+	  
+}
+
+
 
 Figura::~Figura(){
       delete this->colorFigura;
@@ -19,18 +28,24 @@ std::string Figura::getIdTextura(){
 		return this->idTextura;
 }
 Color* Figura::getColorLinea()
-   {
-       return colorLinea;
-   }
+{
+	if (colorLinea == NULL)
+		return Escenario::obtenerInstancia()->getColorLinea();
+    else   
+		return colorLinea;
+}
 
 void Figura::setColorLinea(Color *colorLinea)
    {
        this->colorLinea = colorLinea;
    }
 Color* Figura::getColorFigura()
-    {
-        return colorFigura;
-    }
+{
+    if (colorFigura == NULL)
+		return Escenario::obtenerInstancia()->getColorFondoFiguras();
+    else   
+		return colorFigura;
+}
 
  void Figura::setColorFigura(Color *colorFigura)
     {

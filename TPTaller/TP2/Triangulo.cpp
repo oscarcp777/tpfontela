@@ -179,13 +179,13 @@ void Triangulo::graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDe
 
 int Triangulo::dibujar(SDL_Surface *screen){
 
-	this->color = Escenario::obtenerInstancia()->getColorLinea();
+	
 
-	this->dibujarLinea(color,screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice2()->getX(), this->getVertice2()->getY());
-	this->dibujarLinea(color,screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
-	this->dibujarLinea(color,screen ,this->getVertice2()->getX(),  this->getVertice2()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
+	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice2()->getX(), this->getVertice2()->getY());
+	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
+	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice2()->getX(),  this->getVertice2()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
 
-	this->color = Escenario::obtenerInstancia()->getColorFondoFiguras();
+	this->color = getColorFigura()->getColor();
 
 	Posicion* ejeDeCordenadas;
 	Posicion* ver1;

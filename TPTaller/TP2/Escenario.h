@@ -35,8 +35,8 @@ class Escenario {
 			int getResolucion();
 			int graficar();
 			SDL_Color getColorFondoEscenario();
-		    SDL_Color getColorFondoFiguras();
-			SDL_Color getColorLinea();
+		    Color* getColorFondoFiguras();
+			Color* getColorLinea();
 		    void  setColorFondoEscenario(Color* colorFondoEscenario);
 		    void  setColorFondoFiguras(Color* colorFondoFiguras);
 		    void  setColorLinea(Color* colorLinea);
