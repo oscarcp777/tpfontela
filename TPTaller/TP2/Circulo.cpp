@@ -40,10 +40,13 @@ int Circulo::dibujar(SDL_Surface *screen){
 	float yCirculo= this->getPosicion()->getY();
 
 
-	for(ang = 0;ang<360;ang+=0.19){
+	for(ang = 0;ang<360;ang+=0.15){
 
-  		for(radio = 0;radio<=this->getRadio();radio+=0.5){
+  		for(radio = 0;radio<=this->getRadio();radio+=0.2){
 
+			
+		   //valido que x e y esten dentro del escenario
+		if(xCirculo>=0 && xCirculo<Escenario::obtenerInstancia()->getAncho() && yCirculo>=0 && yCirculo<Escenario::obtenerInstancia()->getAlto()){	
 
 			if(this->getRadio()-radio <= 1|| radio > this->getRadio() ){
 				this->putpixel(screen,xCirculo,yCirculo,getColorLinea()->getColor());
@@ -56,9 +59,10 @@ int Circulo::dibujar(SDL_Surface *screen){
 				}
 				this->putpixel(screen,xCirculo,yCirculo,this->color);
 			}
-			xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
-			yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);
-
+			
+		}
+		xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
+		yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);
 		}
 
 	}

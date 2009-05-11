@@ -224,7 +224,7 @@ SDL_Surface* Figura::ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Hei
 
 void Figura::plot( SDL_Surface* surface, int x, int y, SDL_Color color )
 {
-	if( x >= 0 && x < surface->w && y >= 0 && y < surface->h )
+	if( x >= 0 && x < surface->w && y >= 0 && y < surface->h )	
 	{
 		unsigned int* p = (unsigned int*) surface->pixels;
 		p[(y*(surface->pitch/4))+x] = SDL_MapRGB(surface->format, color.r, color.g, color.b);
