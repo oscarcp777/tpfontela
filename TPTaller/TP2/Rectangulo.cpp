@@ -37,24 +37,34 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 	
 	while(x<=this->getBase()+this->getPosicion()->getX()){
 		
-		y=this->getPosicion()->getY();
-		k=0;
-		while(y<=this->getAltura()+this->getPosicion()->getY()){
-		
-			if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){
-				this->putpixel(screen,x,y,getColorLinea()->getColor());
-			}
-			else{
-				if(imagen != NULL){
-					this->color = this->getpixel(imagen,j,k);
+		//valido que la x este dentro del escenario
+		if(x>=0 && x<=Escenario::obtenerInstancia()->getAncho()){
+			y=this->getPosicion()->getY();
+			k=0;
+			while(y<=this->getAltura()+this->getPosicion()->getY()){
+			
+			//valido que la y este dentro del escenario
+			
+			if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
+				//std::cout<<"y "<<y<<endl;
+				if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){
+					this->putpixel(screen,x,y,getColorLinea()->getColor());
 				}
-				this->putpixel(screen,x,y,this->color);
+				else{
+					if(imagen != NULL){
+						this->color = this->getpixel(imagen,j,k);
+					}
+					this->putpixel(screen,x,y,this->color);
+				}
 			}
+
+
 			y++;
 			k++;
+			}
 		}
-		x++;
-		j++;
+	x++;
+	j++;
 	
 	}
 	return 0;
