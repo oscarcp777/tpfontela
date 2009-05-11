@@ -28,11 +28,12 @@ std::string Figura::getIdTextura(){
 		return this->idTextura;
 }
 Color* Figura::getColorLinea()
+
 {
-	if (colorLinea == NULL)
+	if (this->colorLinea == NULL)
 		return Escenario::obtenerInstancia()->getColorLinea();
     else   
-		return colorLinea;
+		return this->colorLinea;
 }
 
 void Figura::setColorLinea(Color *colorLinea)
@@ -41,10 +42,10 @@ void Figura::setColorLinea(Color *colorLinea)
    }
 Color* Figura::getColorFigura()
 {
-    if (colorFigura == NULL)
+    if (this->colorFigura == NULL)
 		return Escenario::obtenerInstancia()->getColorFondoFiguras();
     else   
-		return colorFigura;
+		return this->colorFigura;
 }
 
  void Figura::setColorFigura(Color *colorFigura)

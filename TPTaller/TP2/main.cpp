@@ -48,6 +48,12 @@ int main(int argc, char* argv[])
 
 		}
 		else{
+		//por mas que tire errores hago que se grafique igual
+		//por que cuando hidratamos manejamos bien los errores entonces si hay
+		//error no se agrega a escenario y el escenario grafica lo que tiene si no tiene nada lo hace por defauld
+			escenario->graficar();
+						SDL_FreeSurface(escenario->getScreen());
+						SDL_Quit();
 			std::cout<<"**********************************************************************"<<endl;
 			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES --> ERRORES.ERR"<<endl;
 			std::cout<<"**********************************************************************"<<endl;
