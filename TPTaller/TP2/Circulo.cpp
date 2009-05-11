@@ -40,9 +40,9 @@ int Circulo::dibujar(SDL_Surface *screen){
 	float yCirculo= this->getPosicion()->getY();
 
 
-	for(ang = 0;ang<360;ang+=0.15){
+	for(ang = 0;ang<360;ang+=0.2){
 
-  		for(radio = 0;radio<=this->getRadio();radio+=0.2){
+  		for(radio = 0;radio<=this->getRadio();radio+=0.5){
 
 			
 		   //valido que x e y esten dentro del escenario
