@@ -43,8 +43,7 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 			k=0;
 			while(y<=this->getAltura()+this->getPosicion()->getY()){
 			
-			//valido que la y este dentro del escenario
-			
+			//valido que la y este dentro del escenario			
 			if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
 				//std::cout<<"y "<<y<<endl;
 				if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){

@@ -32,11 +32,15 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 	int k = 0;
 
 	while(x<=this->getLado()+this->getPosicion()->getX()){
+		
 
+	//valido que la x este dentro del escenario
+	if(x>=0 && x<=Escenario::obtenerInstancia()->getAncho()){
 		y=this->getPosicion()->getY();
 		k=0;
 		while(y<=this->getLado()+this->getPosicion()->getY()){
-
+		//valido que la y este dentro del escenario			
+		if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
 			if(y==this->getLado()+this->getPosicion()->getY()||x==this->getLado()+this->getPosicion()->getX() || x==this->getPosicion()->getX() || y==this->getPosicion()->getY()){
 				this->putpixel(screen,x,y,getColorLinea()->getColor());
 			}
@@ -46,11 +50,13 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 				}
 				this->putpixel(screen,x,y,this->color);
 			}
-			y++;
-			k++;
 		}
-		x++;
-		j++;
+		 y++;
+		 k++;
+		}
+	}
+	x++;
+	j++;
 
 	}
 	return 0;
