@@ -239,11 +239,37 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	perteneceAR2 = estaEnRecta (verticeInicial,m2,k2);
 	perteneceAR3 = estaEnRecta (verticeInicial,m3,k3);
 
-	std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 
-	this->imagen = IMG_Load (path.begin());
 	int mayorDeXY = mayor(maxValorX, maxValorY);
-	this->imagen = ScaleSurface(this->imagen, mayorDeXY, mayorDeXY);
+
+		//si la textura no es NULL es porque le seteo algun idTextura
+	if(this->getIdTextura().compare("NULL") != 0){
+		//si se le seteo algun idTextura busco el path
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
+		
+		//si el path NO es NULL intento levantar la imagen
+		if(path.compare("NULL") != 0){		
+			this->imagen = IMG_Load (path.begin());
+			
+			//si la imagen no es null (es decir si la levanto bien) la escalo
+			if(this->imagen != NULL){			
+					this->imagen = ScaleSurface(this->imagen, mayorDeXY, mayorDeXY);
+			}
+			//si no la levanto es porque el path no es correcto o la imagen no existe
+			else{
+				escribirMensajeLog(*Escenario::obtenerInstancia()->getLog(),"error al intentar cargar la imagen: "+path);
+			}	
+		
+		
+		}
+		//si el path ES null, tiro error (no existe path para dicho idTextura)
+		else{
+			
+			escribirMensajeLog(*Escenario::obtenerInstancia()->getLog(),"no se encontro el path correspondiente al idTextura: "+this->getIdTextura());
+		}
+
+	}
+
 
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo
 	for(i = 0;i<maxValorX;i++){

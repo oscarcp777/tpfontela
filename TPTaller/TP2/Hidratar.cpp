@@ -257,9 +257,6 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 
 	}
 	return -1;
-
-
-
 }
 
 int Hidratar::hidratarCirculo(std::string atributos){
