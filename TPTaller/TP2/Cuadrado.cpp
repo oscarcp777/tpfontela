@@ -38,6 +38,7 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 	if(x>=0 && x<=Escenario::obtenerInstancia()->getAncho()){
 		y=this->getPosicion()->getY();
 		k=0;
+		
 		while(y<=this->getLado()+this->getPosicion()->getY()){
 		//valido que la y este dentro del escenario			
 		if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
