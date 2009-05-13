@@ -33,10 +33,10 @@ int main(int argc, char* argv[])
 
 
 	try{
-		exito = escenario->cargarArchivo(nombreArchivoXML);
-		if(exito == 0){
+		escenario->cargarArchivo(nombreArchivoXML);
+
 			std::cout<<"*******************************"<<endl;
-			std::cout<<"EL ARCHIVO XML NO TIENE ERRORES"<<endl;
+			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
 
 			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
@@ -46,18 +46,8 @@ int main(int argc, char* argv[])
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();
 
-		}
-		else{
-		//por mas que tire errores hago que se grafique igual
-		//por que cuando hidratamos manejamos bien los errores entonces si hay
-		//error no se agrega a escenario y el escenario grafica lo que tiene si no tiene nada lo hace por defauld
-			escenario->graficar();
-						SDL_FreeSurface(escenario->getScreen());
-						SDL_Quit();
-			std::cout<<"**********************************************************************"<<endl;
-			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES --> ERRORES.ERR"<<endl;
-			std::cout<<"**********************************************************************"<<endl;
-		}
+
+
 	}
 	catch(std::ios_base::failure){
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;

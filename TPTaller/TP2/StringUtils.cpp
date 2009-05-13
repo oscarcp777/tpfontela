@@ -6,7 +6,7 @@
 
  std::string  StringUtils::getValorTag(std::string nombretag,vector<string>& tokens){
  	vector<string>::iterator the_iterator;
- 	string valorTag="error";
+ 	string valorTag="sinValor";
  	string valor ;
  	the_iterator = tokens.begin();
  	while( the_iterator != tokens.end() ) {
