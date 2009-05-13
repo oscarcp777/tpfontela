@@ -483,6 +483,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 		std::cout<<"validaddor"<<" "<<(validador->compararConAtributosValidos("General",valorClave))<<endl;
 		if(validador->compararConAtributosValidos(GENERAL,valorClave)==0){
 
+
 			if(valorClave.compare(TEXTURA_ESC)==0){
 				texturaEsc=StringUtils::getValorTag(TEXTURA_ESC,tokens);
 				escenario->setTexturaEsc(texturaEsc);

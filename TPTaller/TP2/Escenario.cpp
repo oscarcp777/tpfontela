@@ -258,7 +258,7 @@ int Escenario::graficar(){
 
 	int done = 0;
 	SDL_Event event;
-
+	
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());

@@ -4,10 +4,10 @@
 Figura::Figura(){
       this->colorFigura = NULL;
       this->colorLinea = NULL;
+	  this->setIdTextura("NULL");
+	  this->imagen = NULL;
 	  
 }
-
-
 
 Figura::~Figura(){
       delete this->colorFigura;
