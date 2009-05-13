@@ -34,7 +34,7 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 	int y= this->getPosicion()->getY();
 	int j = 0;
 	int k = 0;
-	
+		
 	while(x<=this->getBase()+this->getPosicion()->getX()){
 		
 		//valido que la x este dentro del escenario
