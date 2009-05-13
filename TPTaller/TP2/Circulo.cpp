@@ -51,6 +51,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 		}
 
 	}
+	
 
 	float ang;
 	float radio;

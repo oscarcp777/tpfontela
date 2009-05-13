@@ -2,6 +2,7 @@
 #include <list>
 #include "Escenario.h"
 #include <utility>
+#include "archivoTexto.h"
 //pasar estas constantes a Constantes.h
 const int RESOLUCION_640=640;
 const int RESOLUCION_640_ALTO=480;
@@ -16,22 +17,36 @@ const int RESOLUCION_1280=1280;
 const int RESOLUCION_1280_ALTO=768;
 const int RESOLUCION_1280_ANCHO=1280;
 const int RESOLUCION_BIT=32;
-
+const string configDefaultEscenario = "config Default Escenario.txt"; 
 Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
 
 	this->setResolucion(RESOLUCION_800);
-	this->texturaFig = "id";
-	this->texturaEsc = "id";
-	this->setColorFondoEscenario(new Color(255,255,255));
-	this->setColorFondoFiguras(new Color( 255, 215 , 0));
-	this->setColorLinea(new Color(0,255,0));
+	this->texturaFig = "FigDefault";
+	this->texturaEsc = "EscDefault";
+	this->setColorFondoEscenario(new Color(0,0,0));
+	this->setColorFondoFiguras(new Color(42,0,246));
+	this->setColorLinea(new Color(248,254,66));
 	inicializarLog(this->log, "errores.err");
 	this->validador = new  Validador("config Validador.txt","config Atributos.txt");
 	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
 	this->validador->setLog(&(this->log));
+	
+	//levanto del archivo siguiente las texturas por default para el escenario	
+	ArchivoTexto miArchivoDefault(configDefaultEscenario);
+	string linea;
+	//la primer linea tiene el path de textura figura por default
+	miArchivoDefault.leerLinea(linea);	
+	Textura * texturaFigDefault = new Textura("FigDefault", linea);
+	this->addTextura(texturaFigDefault);
+	//la segunda linea tiene el path de textura escenario por default
+	miArchivoDefault.leerLinea(linea);
+	Textura * texturaEscDefault = new Textura("EscDefault", linea);
+	this->addTextura(texturaEscDefault);
+			
 
 }
+
 Validador*  Escenario::getValidador(){
 	return this->validador;
 }

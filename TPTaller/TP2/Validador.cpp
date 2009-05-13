@@ -45,6 +45,7 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 		}
 		Validador::ListaTagsValidos.push_back(tagActual);
 	}
+	
 
 }
 
