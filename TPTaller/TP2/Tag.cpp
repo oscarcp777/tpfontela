@@ -50,5 +50,5 @@ int Tag::chequearAtributo(std::string nombreAtributo){
 
 }
 Tag::~Tag(){
-	std::cout << "Destructor de Tag\n";
+	
 }

@@ -38,11 +38,12 @@ Escenario::Escenario(){
 	//la primer linea tiene el path de textura figura por default
 	miArchivoDefault.leerLinea(linea);	
 	Textura * texturaFigDefault = new Textura("FigDefault", linea);
-	this->addTextura(texturaFigDefault);
+//	this->addTextura(texturaFigDefault);
 	//la segunda linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
-	Textura * texturaEscDefault = new Textura("EscDefault", linea);
-	this->addTextura(texturaEscDefault);
+//	Textura * texturaEscDefault = new Textura("EscDefault", linea);
+//
+//	this->addTextura(texturaEscDefault);
 			
 
 }
@@ -73,7 +74,7 @@ Escenario::~Escenario(){
 			delete figura;
 			iterFiguras++;
 		}
-	std::cout << "Destructor de Escenario\n";
+	
 }
 
 int Escenario::cargarArchivo(std::string nombreArchivo){
@@ -155,7 +156,14 @@ void  Escenario::setResolucion(int resolucion){
 	}
 }
 void Escenario::addFigura(Figura *figura){
+	//si existe el id de figura tiro error y no lo agrego
+	if(this->existeIdFigura(figura->getId())){
+		escribirMensajeLog(this->log,"error: idFigura duplicado, ya existia una figura con el id: " + figura->getId() );
+	}
+	//sino la agrego
+	else{
 	this->listaFiguras.push_back(figura);
+	}
 }
 
 void Escenario::addTextura(Textura *textura){
@@ -262,6 +270,25 @@ std::string Escenario::obtenerPathTextura(std::string id){
 	}
 	return idAux;
 
+}
+
+bool Escenario::existeIdFigura(std::string idFigura){
+	bool existe = false;
+	std::list<Figura*>::iterator iter;
+	Figura *figura;
+	iter = this->iteratorListaFiguras();
+	int i=1;
+	while(i<=this->sizeListaFiguras()){
+		figura = *iter;
+		if(figura->getId().compare(idFigura) == 0){
+			return true;
+		}
+		else{
+			i++;
+			iter++;
+		}	
+	}
+	return existe;
 }
 
 SDL_Surface* Escenario::getScreen(){

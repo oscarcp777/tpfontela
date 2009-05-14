@@ -12,7 +12,7 @@ Figura::Figura(){
 Figura::~Figura(){
       delete this->colorFigura;
       delete this->colorLinea;
-	  	std::cout << "Destructor de Figura\n";
+	  	
 }
 std::string Figura::getId(){
 		return this->id;

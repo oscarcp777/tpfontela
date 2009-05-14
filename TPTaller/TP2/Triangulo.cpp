@@ -12,7 +12,7 @@ Triangulo::~Triangulo(){
 	delete this->vertice1;
     delete this->vertice2;
     delete this->vertice3;
-	 std::cout << "Destructor de Triangulo\n";
+	 
 }
 
 Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
@@ -242,7 +242,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 	int mayorDeXY = mayor(maxValorX, maxValorY);
 
-		//si la textura no es NULL es porque le seteo algun idTextura
+	//si la textura no es NULL es porque le seteo algun idTextura
 	if(this->getIdTextura().compare("NULL") != 0){
 		//si se le seteo algun idTextura busco el path
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
@@ -269,7 +269,13 @@ int Triangulo::dibujar(SDL_Surface *screen){
 		}
 
 	}
-
+	//si el idTextura es NULL intento levantar la imagen del escenario por default
+	else{
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
+		this->imagen = IMG_Load (path.begin());
+		this->imagen = ScaleSurface(this->imagen, mayorDeXY, mayorDeXY);
+	
+	}
 
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo
 	for(i = 0;i<maxValorX;i++){

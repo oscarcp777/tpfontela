@@ -45,7 +45,7 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 		}
 		Validador::ListaTagsValidos.push_back(tagActual);
 	}
-	
+
 
 }
 
@@ -991,11 +991,20 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 	}
 	//
-	cadena=StringUtils::trim(cadena);
-	//std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
-	//std::cout<<cadena<<endl;
-	//std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	int cant=StringUtils::contadorTag(cadena);
+//	std::cout<<"cantidad de tag <>"<<cant<<endl;
+	if((cant%2)==0){
+		std::cout<<"cantidad de tag numero par <>"<<cant<<endl;
+		cadena=StringUtils::trimPorTag(cadena);
+	}else{
+//		std::cout<<"cantidad de tag numero impar <>"<<cant<<endl;
+		cadena=StringUtils::trim(cadena);
+	}
 
+////	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+//	std::cout<<cadena<<endl;
+//	std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+//    system("PAUSE");
 	//obtengo primer caracter de la cadena
 	caracter = cadena.at(0);
 	//si el primer caracter es "<" sigo

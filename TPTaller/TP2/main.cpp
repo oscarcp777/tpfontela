@@ -33,19 +33,23 @@ int main(int argc, char* argv[])
 
 
 	try{
-		escenario->cargarArchivo(nombreArchivoXML);
+		exito = escenario->cargarArchivo(nombreArchivoXML);
 
+		if(exito == 0){
 			std::cout<<"*******************************"<<endl;
 			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
-
-			std::cout<<"cantidad figuras en escenario: "<<escenario->sizeListaFiguras()<<endl;
-			std::cout<<"cantidad texturas en escenario: "<<escenario->sizeListaTexturas()<<endl;
+		
 
 			escenario->graficar();
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();
-
+		}
+		else{		
+			std::cout<<"**********************************************************************"<<endl;
+			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES EN ERRORES.ERR "<<endl;
+			std::cout<<"**********************************************************************"<<endl;		
+		}
 
 
 	}

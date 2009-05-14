@@ -12,7 +12,7 @@ Segmento::Segmento(std::string id,Posicion *inicio, Posicion *fin){
 Segmento::~Segmento(){
 	delete this->inicio;
 	delete this->fin;
-    std::cout << "Destructor de Segmento\n";
+    
 }
 int Segmento::dibujar(SDL_Surface *screen){
 	this->color = getColorLinea()->getColor();

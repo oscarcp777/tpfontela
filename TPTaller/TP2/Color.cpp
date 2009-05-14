@@ -3,7 +3,7 @@
 
 
 Color::~Color(){
-	std::cout << "Destructor de Color\n";
+	
 }
 Color::Color(){
 }

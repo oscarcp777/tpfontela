@@ -10,7 +10,7 @@ Circulo::Circulo(void){
 }
 Circulo::~Circulo(){
     delete this->pos;
-    std::cout << "Destructor de Circulo\n";
+    
 }
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
@@ -46,10 +46,16 @@ int Circulo::dibujar(SDL_Surface *screen){
 		}
 		//si el path ES null, tiro error (no existe path para dicho idTextura)
 		else{
-			
 			escribirMensajeLog(*Escenario::obtenerInstancia()->getLog(),"no se encontro el path correspondiente al idTextura: "+this->getIdTextura());
 		}
 
+	}
+	//si el idTextura es NULL intento levantar la imagen del escenario por default
+	else{
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
+		this->imagen = IMG_Load (path.begin());
+		this->imagen = ScaleSurface(this->imagen, this->getRadio()*2, this->getRadio()*2);
+	
 	}
 	
 
@@ -67,7 +73,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 
 	for(ang = 0;ang<360;ang+=0.2){
 
-  		for(radio = 0;radio<=this->getRadio();radio+=0.5){
+  		for(radio = 0;radio<=this->getRadio();radio+=0.3){
 
 			
 		   //valido que x e y esten dentro del escenario

@@ -6,7 +6,7 @@ Cuadrado::Cuadrado(){
 }
 Cuadrado::~Cuadrado(){
 	 delete this->pos;
-	  std::cout << "Destructor de Cuadrado\n";
+
 }
 
 Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i){
@@ -47,7 +47,13 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 		}
 
 	}
+	//si el idTextura es NULL levanto la imagen del escenario por default
+	else{
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
+		this->imagen = IMG_Load (path.begin());
+		this->imagen = ScaleSurface(this->imagen, this->getLado(), this->getLado());
 	
+	}
 
 
 

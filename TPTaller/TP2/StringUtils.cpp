@@ -58,14 +58,60 @@ string StringUtils::actualizarCadena(string cadena,char char_reemplazable){
 	 return nueva_cadena;
 
  }
+int StringUtils::contadorTag(std::string cadena){
+ string::iterator It = cadena.begin();
+ string cadenaSinEspacios;
+ int cont=0;
+ bool isTag=false;
+    while ( It != cadena.end() )
+    {
 
+
+		if(*It == '<'||*It == '>'){
+			cont++;
+				It++;
+		}
+		else{
+			It++;
+		}
+
+
+    }
+// 	std::cout<<cadenaSinEspacios<< endl;
+
+	return cont;
+}
+string StringUtils::trimPorTag(std::string cadena){
+ string::iterator It = cadena.begin();
+ string cadenaSinEspacios;
+ bool isTag=false;
+    while ( It != cadena.end() )
+    {
+
+
+		if(*It == '<'||isTag||*It == '>'){
+				isTag=true;
+		if(*It == '>'){isTag=false;}
+	        	cadenaSinEspacios+=*It;
+				It++;
+		}
+		else{
+			It++;
+		}
+
+
+    }
+// 	std::cout<<cadenaSinEspacios<< endl;
+
+	return cadenaSinEspacios;
+}
 string StringUtils::trim(std::string cadena){
  string::iterator It = cadena.begin();
  string cadenaSinEspacios;
 string caracter;
 
 	while ( It != cadena.end() ){
-		
+
 		caracter = *It;
 		/*
 		std::cout<<"***********************caracter "<<caracter<<"*************"<<endl;
@@ -100,12 +146,12 @@ string caracter;
 				//system("PAUSE");
 				It++;
 				}
-				
+
 		}
 		else if(caracter.compare("\n") == 0){
 			//si es un salto de linea
 			It++;
-			
+
 		}
 		else if(caracter.compare("\t") == 0){
 			//si es tab leo el siguiente y analizo lo que viene
@@ -124,8 +170,8 @@ string caracter;
 				//system("PAUSE");
 				It++;
 			}
-		}				
-		
+		}
+
 		else{
 			//si no es un espacio ni tab ni enter directamente se la asigno a la cadena
 			cadenaSinEspacios+=*It;
@@ -136,7 +182,7 @@ string caracter;
 		}
 	//std::cout<<"CADENA TEMPORAL: "<<endl;
 	//std::cout<<cadenaSinEspacios<<endl;
-	
+
     }
 
 	return cadenaSinEspacios;

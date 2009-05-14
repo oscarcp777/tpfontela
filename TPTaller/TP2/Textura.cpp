@@ -13,5 +13,5 @@ std::string Textura::getPath(){
 	return this->path;
 }
 Textura::~Textura(){
-	std::cout << "Destructor de Textura\n";
+	
 }
