@@ -7,7 +7,7 @@ Posicion::Posicion(int posX,int posY){
 	this->y = posY;
 }
 Posicion::~Posicion(){
-	std::cout << "Destructor de Posicion\n";
+	
 }
 int Posicion::getX(){
 

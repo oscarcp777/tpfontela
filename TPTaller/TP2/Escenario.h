@@ -50,6 +50,7 @@ class Escenario {
 			std::string getTexturaFig();
 			std::string getTexturaEsc();
 			void setTexturaEsc(std::string texturaEsc);
+			bool existeIdFigura(std::string idFigura);
 
 
 	protected:

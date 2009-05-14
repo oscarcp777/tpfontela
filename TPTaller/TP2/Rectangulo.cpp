@@ -9,7 +9,7 @@ Rectangulo::Rectangulo(){
 }
 Rectangulo::~Rectangulo(){
 	delete this->pos;
-	 std::cout << "Destructor de Rectangulo\n";
+	
 }
 
 Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
@@ -50,7 +50,13 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 		}
 
 	}
+	//si el idTextura es NULL intento levantar la imagen del escenario por default
+	else{
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
+		this->imagen = IMG_Load (path.begin());
+		this->imagen = ScaleSurface(this->imagen, this->getBase(), this->getAltura());	
 	
+	}
 
 
 	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo	
