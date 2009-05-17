@@ -242,7 +242,7 @@ int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 			         printf("FALLA en connect() \n");
 					 WSACleanup();
 					 free(punteroConexion);
-					 return RES_CONNECT;
+					 return RES_ERROR;
 			}
 		}	
 	}
