@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include "Escenario.h"
-#include "Dibujar.h"
 #include<math.h>
 
 Circulo::Circulo(void){

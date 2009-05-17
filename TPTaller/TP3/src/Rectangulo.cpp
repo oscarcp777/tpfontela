@@ -2,7 +2,6 @@
 #include <string>
 #include <iostream>
 #include "Escenario.h"
-#include "Dibujar.h"
 #define WALLCOLOR 0x9f1f1f
 
 Rectangulo::Rectangulo(){
