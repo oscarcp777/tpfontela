@@ -631,7 +631,7 @@ int Validador::validarAperturaYCierreTags(){
 	bool dentroListaTexturas = false;
 	bool dentroListaElementos = false;
 	string cadena;
-	list<string>::iterator iterAux1,iterAux2;
+	list<string>::iterator iterAux1,iterAux2, iterAux3;
 	list<string>::iterator iter = Validador::ListaTagsArchivo.begin();
 
 	//verifico que el primer elemento sea <escenario>
@@ -785,22 +785,28 @@ int Validador::validarAperturaYCierreTags(){
 				//si encuentro <cuadrado> verifico que el siguiente sea </cuadrado> y los borro, sino error sintaxis
 				iterAux1=iterAux2;
 				iterAux1++;
+				iterAux3 = iterAux1;
 				cadena = *iterAux1;
-				if(cadena.compare("</cuadrado>")==0){
-					iter=iterAux1;
-					iter++;
-					Validador::ListaTagsArchivo.erase(iterAux1);
-					Validador::ListaTagsArchivo.erase(iterAux2);
+				if(cadena.compare("<posicion>") == 0){
+					iterAux3++;
+					cadena = *iterAux3;
+					if(cadena.compare("</cuadrado>")==0){
+						iter=iterAux3;
+						iter++;
+						Validador::ListaTagsArchivo.erase(iterAux1);
+						Validador::ListaTagsArchivo.erase(iterAux2);
+						Validador::ListaTagsArchivo.erase(iterAux3);
 
-				}
-				else{
-					//sino es un error de sintaxis
-					std::cout<<"se espera <cuadrado> cerrado por </cuadrado>"<<endl;
-					//escribo el error en el archivo de errores
-					escribirMensajeLog(*this->log,"se espera <cuadrado> cerrado por </cuadrado>");
-					//para que salga del while hago lo siguiente
-					exito=-2;
+					}
+					else{
+						//sino es un error de sintaxis
+						std::cout<<"verifique los tags de cuadrado"<<endl;
+						//escribo el error en el archivo de errores
+						escribirMensajeLog(*this->log,"error, verifique los tags de cuadrado");
+						//para que salga del while hago lo siguiente
+						exito=-2;
 
+					}
 				}
 
 
@@ -861,23 +867,28 @@ int Validador::validarAperturaYCierreTags(){
 				//si encuentro <rectangulo> verifico que el siguiente sea </rectangulo> y los borro, sino error sintaxis
 				iterAux1=iterAux2;
 				iterAux1++;
+				iterAux3 = iterAux1;
 				cadena = *iterAux1;
-				if(cadena.compare("</rectangulo>")==0){
-					iter=iterAux1;
-					iter++;
-					Validador::ListaTagsArchivo.erase(iterAux1);
-					Validador::ListaTagsArchivo.erase(iterAux2);
+				if(cadena.compare("<posicion>") == 0){
+					iterAux3++;
+					cadena = *iterAux3;
+					if(cadena.compare("</rectangulo>")==0){
+						iter=iterAux3;
+						iter++;
+						Validador::ListaTagsArchivo.erase(iterAux1);
+						Validador::ListaTagsArchivo.erase(iterAux2);
+						Validador::ListaTagsArchivo.erase(iterAux3);
 
+					}
+					else{
+						//sino es un error de sintaxis
+						std::cout<<"verifique los tags de rectangulo"<<endl;
+						//escribo el error en el archivo de errores
+						escribirMensajeLog(*this->log,"error, verifique los tags de rectangulo");
+						//para que salga del while hago lo siguiente
+						exito=-2;
 
-				}
-				else{
-					//sino es un error de sintaxis
-					std::cout<<"se espera <rectangulo> cerrado por </rectangulo>"<<endl;
-					//escribo el error en el archivo de errores
-					escribirMensajeLog(*this->log,"se espera <rectangulo> cerrado por </rectangulo>");
-					//para que salga del while hago lo siguiente
-					exito=-2;
-
+					}
 				}
 			}
 
@@ -885,22 +896,28 @@ int Validador::validarAperturaYCierreTags(){
 				//si encuentro <circulo> verifico que el siguiente sea </circulo> y los borro, sino error sintaxis
 				iterAux1=iterAux2;
 				iterAux1++;
+				iterAux3 = iterAux1;
 				cadena = *iterAux1;
-				if(cadena.compare("</circulo>")==0){
-					iter=iterAux1;
-					iter++;
-					Validador::ListaTagsArchivo.erase(iterAux1);
-					Validador::ListaTagsArchivo.erase(iterAux2);
+				if(cadena.compare("<posicion>") == 0){
+					iterAux3++;
+					cadena = *iterAux3;
+					if(cadena.compare("</circulo>")==0){
+						iter=iterAux3;
+						iter++;
+						Validador::ListaTagsArchivo.erase(iterAux1);
+						Validador::ListaTagsArchivo.erase(iterAux2);
+						Validador::ListaTagsArchivo.erase(iterAux3);
 
-				}
-				else{
-					//sino es un error de sintaxis
-					std::cout<<"se espera <circulo> cerrado por </circulo>"<<endl;
-					//escribo el error en el archivo de errores
-					escribirMensajeLog(*this->log,"se espera <circulo> cerrado por </circulo>");
-					//para que salga del while hago lo siguiente
-					exito=-2;
+					}
+					else{
+						//sino es un error de sintaxis
+						std::cout<<"verifique los tags de circulo"<<endl;
+						//escribo el error en el archivo de errores
+						escribirMensajeLog(*this->log,"error, verifique los tags de circulo");
+						//para que salga del while hago lo siguiente
+						exito=-2;
 
+					}
 				}
 
 
@@ -1016,7 +1033,19 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 		if(exito == 0){
 			//entra a este if si se validaron los tags correctamente del archivo,en las siguientes lineas se verifica si
 			//los tags se abrieron <> y se cerraron </> correctamentes (que no se abra uno antes de cerrar otro
-			Validador::borrarDeTagsNoNecesariosDeListaTagsArchivo();
+			list<string>::iterator iter = Validador::ListaTagsArchivo.begin();
+			std::cout<<"TAGS"<<endl;
+			while(iter != this->ListaTagsArchivo.end()){
+				std::cout<<*iter<<endl;
+				iter++;
+			
+			}
+			std::cout<<"FIN TAGS"<<endl;
+			
+			
+			
+			
+			//Validador::borrarDeTagsNoNecesariosDeListaTagsArchivo();
 			exito = Validador::validarAperturaYCierreTags();
 			//std::cout<<"exito"<<exito<<endl;
 		}
