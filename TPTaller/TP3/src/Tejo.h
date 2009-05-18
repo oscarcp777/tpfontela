@@ -15,6 +15,7 @@ public:
 	Tejo(int radio,Posicion * posicion);
 	virtual ~Tejo();
 	int mover(Posicion* posicion);
+    void dibujar(SDL_Surface *pantalla);
 };
 
 #endif /* TEJO_H_ */

@@ -50,5 +50,11 @@ colorFigura
 -pad
 base
 altura
+idTextura
+colorLinea
+colorFigura
 -tejo
 radio
+idTextura
+colorLinea
+colorFigura

@@ -39,16 +39,17 @@ int main(int argc, char* argv[])
 			std::cout<<"*******************************"<<endl;
 			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
-		
+
 
 			escenario->graficar();
+
 			SDL_FreeSurface(escenario->getScreen());
 			SDL_Quit();
 		}
-		else{		
+		else{
 			std::cout<<"**********************************************************************"<<endl;
 			std::cout<<"SE ENCONTRARON ERRORES EN EL ARCHIVO XML, VER DETALLES EN ERRORES.ERR "<<endl;
-			std::cout<<"**********************************************************************"<<endl;		
+			std::cout<<"**********************************************************************"<<endl;
 		}
 
 

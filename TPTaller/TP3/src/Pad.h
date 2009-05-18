@@ -16,6 +16,7 @@ public:
 	Pad(int base,int altura,Posicion * posicion);
 	virtual ~Pad();
 	int mover(Posicion* posicion);
+	void dibujar(SDL_Surface *pantalla);
 };
 
 #endif /* PAD_H_ */

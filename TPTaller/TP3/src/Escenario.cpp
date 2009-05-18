@@ -4,6 +4,9 @@
 #include <utility>
 #include "archivoTexto.h"
 #include "Posicion.h"
+#include "Teclado.h"
+#include "Pad.h"
+#include "Tejo.h"
 //pasar estas constantes a Constantes.h
 const int RESOLUCION_640=640;
 const int RESOLUCION_640_ALTO=480;
@@ -27,7 +30,7 @@ Escenario::Escenario(){
 	this->texturaEsc = "EscDefault";
 	this->setColorFondoEscenario(new Color(0,0,0));
 	this->setColorFondoFiguras(new Color(42,0,246));
-	this->setColorLinea(new Color(248,254,66));
+	this->setColorLinea(new Color(255,0,0));
 	inicializarLog(this->log, "errores.err");
 	this->validador = new  Validador("config Validador.txt","config Atributos.txt");
 	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
@@ -42,9 +45,9 @@ Escenario::Escenario(){
 //	this->addTextura(texturaFigDefault);
 	//la segunda linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
-//	Textura * texturaEscDefault = new Textura("EscDefault", linea);
+	Textura * texturaEscDefault = new Textura("EscDefault", linea);
 //
-//	this->addTextura(texturaEscDefault);
+	this->addTextura(texturaEscDefault);
 
 
 }
@@ -301,6 +304,12 @@ int Escenario::graficar(){
 
 	int done = 0;
 	SDL_Event event;
+	Pad* padCliente1=this->getPadCliente1();
+	std::cout<< "padv1: "  << endl;
+    Pad* padCliente2=this->getPadCliente2();
+    std::cout<< "padv1: "  << endl;
+	 Tejo* tejo=this->getTejo();
+	 std::cout<< "padv1: " << endl;
 
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -309,7 +318,16 @@ int Escenario::graficar(){
 		escribirMensajeLog(this->log,"No se pudo iniciar SDL: " + aux );
 		return -1;
 	}
+	atexit(SDL_Quit);
 
+	 // Comprobamos que sea compatible el modo de video
+
+	if(SDL_VideoModeOK(this->getAncho(), this->getAlto(), 32, SDL_SWSURFACE|SDL_DOUBLEBUF) == 0) {
+
+	std::cout<< "Modo no soportado: " << SDL_GetError() << endl;
+	 exit(1);
+
+	 }
 	//seteamos el titulo a la barra
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  ","       Taller de Programacion Grupo Nro:3   GRAFICADOR  ");
 
@@ -336,6 +354,86 @@ int Escenario::graficar(){
 		iter++;
 		i++;
 	}
+/*	SDL_Flip(this->getScreen());
+	// Teclado para controlar al personaje
+				 Teclado teclado;
+			// Cargamos un personaje
+			// Lo mostramos por pantalla
+	          padCliente1->dibujar(this->getScreen());
+
+	          padCliente2->dibujar(this->getScreen());
+	          tejo->dibujar(this->getScreen());
+			     SDL_Flip(this->getScreen());
+			 // Variables auxiliares
+			 SDL_Event evento;
+			 bool terminar = false;
+				 int x0, y0;
+
+				 // Game loop
+
+				 while(terminar == false) {
+
+				// Actualizamos el estado del teclado
+
+			 teclado.actualizar();
+
+			// Variables de control para saber si
+				 // tenemos que refrescar la pantalla o no
+
+				 x0 = padCliente1->getPos_x();
+			 y0 = padCliente1->getPos_y();
+
+			// Actualización lógica de la posición
+			 if(teclado.pulso(Teclado::TECLA_SUBIR)) {
+				 padCliente1->subir_y();
+			 }
+
+				 if(teclado.pulso(Teclado::TECLA_BAJAR)) {
+				 padCliente1->bajar_y();
+				 }
+			 if(teclado.pulso(Teclado::TECLA_IZQUIERDA)) {
+			 padCliente1->retrasar_x();
+			 }
+				 if(teclado.pulso(Teclado::TECLA_DERECHA)) {
+
+			 padCliente1->avanzar_x();
+
+			}
+
+
+			 // Si existe modificación dibujamos
+
+			 if(x0 != padCliente1->getPos_x() || y0 != padCliente1->getPos_y()) {
+				 std::cout << "= Posición actual del personaje" << endl;
+				 std::cout << "- X: " << padCliente1->getPos_x() << endl;
+				 std::cout << "- Y: " << padCliente1->getPos_x() << endl;
+
+				 // Dibujamos al personaje en su posición nueva
+
+				 Uint32 negro = SDL_MapRGB(this->getScreen()->format, 0, 0, 0);
+
+				 SDL_FillRect(this->getScreen(), NULL, negro);
+				 padCliente1->dibujar(this->getScreen());
+				 SDL_Flip(this->getScreen());
+				 }
+				135 ;
+
+				 // Control de Eventos
+
+				 while(SDL_PollEvent(&evento)) {
+			 if(evento.type == SDL_KEYDOWN) {
+			 if(evento.key.keysym.sym == SDLK_ESCAPE)
+				 terminar = true;
+				 }
+				 if(evento.type == SDL_QUIT)
+			 terminar = true;
+
+				 }
+
+				 }
+
+				SDL_FreeSurface(this->getScreen());
+				SDL_Quit();*/
 	while (done == 0) {
 
 		SDL_Flip (this->screen);
