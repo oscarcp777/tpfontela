@@ -41,9 +41,9 @@ Escenario::Escenario(){
 //	this->addTextura(texturaFigDefault);
 	//la segunda linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
-//	Textura * texturaEscDefault = new Textura("EscDefault", linea);
+	Textura * texturaEscDefault = new Textura("EscDefault", linea);
 //
-//	this->addTextura(texturaEscDefault);
+	this->addTextura(texturaEscDefault);
 			
 
 }
