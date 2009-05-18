@@ -934,14 +934,12 @@ int Validador::validarAperturaYCierreTags(){
 			}
 		}
 		else{
-
-			iter++;/*
 			//sino es un error de sintaxis
 			std::cout<<"no se esperaba "<<cadena<<endl;
 			//escribo el error en el archivo de errores
 			escribirMensajeLog(*this->log,"no se esperaba "+cadena);
 			//para que salga del while hago lo siguiente
-			exito=-2;*/
+			exito=-2;
 		}
 
 
