@@ -1009,14 +1009,13 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 	}
 	//
 	int cant=StringUtils::contadorTag(cadena);
-//	std::cout<<"cantidad de tag <>"<<cant<<endl;
-	if((cant%2)==0){
-		std::cout<<"cantidad de tag numero par <>"<<cant<<endl;
-		cadena=StringUtils::trimPorTag(cadena);
-	}else{
-//		std::cout<<"cantidad de tag numero impar <>"<<cant<<endl;
+
+	//if((cant%2)==0){
+	//		cadena=StringUtils::trimPorTag(cadena);
+	//}else{
+
 		cadena=StringUtils::trim(cadena);
-	}
+	//}
 
 ////	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
 //	std::cout<<cadena<<endl;
@@ -1034,20 +1033,19 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 			//entra a este if si se validaron los tags correctamente del archivo,en las siguientes lineas se verifica si
 			//los tags se abrieron <> y se cerraron </> correctamentes (que no se abra uno antes de cerrar otro
 			list<string>::iterator iter = Validador::ListaTagsArchivo.begin();
+			
+			
 			std::cout<<"TAGS"<<endl;
 			while(iter != this->ListaTagsArchivo.end()){
 				std::cout<<*iter<<endl;
 				iter++;
 			
 			}
-			std::cout<<"FIN TAGS"<<endl;
-			
-			
-			
+			std::cout<<"FIN TAGS"<<endl;			
 			
 			//Validador::borrarDeTagsNoNecesariosDeListaTagsArchivo();
 			exito = Validador::validarAperturaYCierreTags();
-			//std::cout<<"exito"<<exito<<endl;
+	
 		}
 
 	}
