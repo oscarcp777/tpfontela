@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 	try{
 		exito = escenario->cargarArchivo(nombreArchivoXML);
 
-		if(exito == 0){
+		if(exito == 0 || exito== -2){
 			std::cout<<"*******************************"<<endl;
 			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
