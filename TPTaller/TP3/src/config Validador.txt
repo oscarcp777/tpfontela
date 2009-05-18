@@ -3,6 +3,8 @@ General
 ListadoDeTexturas
 textura
 ListadoDeDispersores
+pad
+tejo
 cuadrado
 circulo
 triangulo

@@ -47,3 +47,8 @@ y
 idTextura
 colorLinea
 colorFigura
+-pad
+base
+altura
+-tejo
+radio
