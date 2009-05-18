@@ -8,7 +8,8 @@
 #include <map>
 #include "SDL.h"
 #include "Color.h"
-//#include "Logfinal.h"
+#include "Pad.h"
+#include "Tejo.h"
 #include "Validador.h"
 
 
@@ -20,6 +21,12 @@ class Escenario {
 			~Escenario();
 			static Escenario* obtenerInstancia();
 			void addFigura(Figura *figura);
+			void setTejo(Tejo *tejo);
+			void setPadCliente1(Pad *padCliente1);
+			Pad* getPadCliente1();
+			Pad* getPadCliente2();
+			Tejo* getTejo();
+			void setPadCliente2(Pad *padCliente2);
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
 			int sizeListaTexturas();
@@ -67,6 +74,9 @@ class Escenario {
 		SDL_Surface *screen;
 		std::list<Figura*> listaFiguras;
 		std::list<Textura*> listaTexturas;
+		Tejo* tejo;
+		Pad* padCliente1;
+		Pad* padCliente2;
 		Color* colorFondoEscenario;
 		Color* colorFondoFiguras;
 		Color* colorLinea;

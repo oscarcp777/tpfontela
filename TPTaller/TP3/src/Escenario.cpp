@@ -42,9 +42,9 @@ Escenario::Escenario(){
 //	this->addTextura(texturaFigDefault);
 	//la segunda linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
-	Textura * texturaEscDefault = new Textura("EscDefault", linea);
+//	Textura * texturaEscDefault = new Textura("EscDefault", linea);
 //
-	this->addTextura(texturaEscDefault);
+//	this->addTextura(texturaEscDefault);
 
 
 }
@@ -356,3 +356,26 @@ int Escenario::graficar(){
 	return 0;
 }
 
+void Escenario::setPadCliente1(Pad *padCliente1){
+	this->padCliente1 = padCliente1;
+}
+
+void Escenario::setPadCliente2(Pad *padCliente2){
+	this->padCliente2 = padCliente2;
+}
+
+void Escenario::setTejo(Tejo *tejo){
+	this->tejo = tejo;
+}
+
+Pad* Escenario::getPadCliente1(){
+	return this->padCliente1;
+}
+
+Pad* Escenario::getPadCliente2(){
+	return this->padCliente2;
+}
+
+Tejo* Escenario::getTejo(){
+	return this->tejo;
+}

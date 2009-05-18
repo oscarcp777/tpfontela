@@ -107,6 +107,43 @@ int Validador::validarValues(std::string tipo,std::string values){
 			//exito=0;
 		}
 	}
+	
+	else if(tipo.compare("<Pad ")==0){
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+
+		//si no es el caracter > devuelvo -1
+		if(cadena.compare(">") != 0){
+			exito = -1;
+		}
+
+		//si es el caracter > esta todo OK parseo
+		else{
+			//std::cout<<"values: "<<values<<endl;
+			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
+			exito=Hidratar::hidratarPads(values);
+			//exito=0;
+		}
+	}
+	
+	else if(tipo.compare("<Tejo ")==0){
+		//obtengo el ultimo caracter, se supone que deben ser >
+		cadena = values.substr(values.length()-1,values.length());
+
+		//si no es el caracter > devuelvo -1
+		if(cadena.compare(">") != 0){
+			exito = -1;
+		}
+
+		//si es el caracter > esta todo OK parseo
+		else{
+			//std::cout<<"values: "<<values<<endl;
+			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
+			exito=Hidratar::hidratarTejo(values);
+			//exito=0;
+		}
+	}
+
 	else if((tipo.compare("<cuadrado ")==0) || (dentroDeCuadrado)){
 
 		if(!dentroDeCuadrado){
@@ -680,6 +717,48 @@ int Validador::validarAperturaYCierreTags(){
 				std::cout<<"se espera <General> cerrado por </General>"<<endl;
 				//escribo el error en el archivo de errores
 				escribirMensajeLog(*this->log,"se espera <General> cerrado por </General>");
+				//para que salga del while hago lo siguiente
+				exito=-2;
+
+			}
+		}else if(cadena.compare("<pad>")==0){
+			//si la cadena es <pad> se supone que la siguiente tiene que ser </pad>, lo verifico
+			iterAux1 =iter;
+			iterAux2 = ++iter;
+			cadena = *iterAux2;
+			if(cadena.compare("</pad>")==0){
+				//si encuentro <pad> seguido de </pad> los borro
+				iter++;
+				Validador::ListaTagsArchivo.erase(iterAux1);
+				Validador::ListaTagsArchivo.erase(iterAux2);
+
+			}
+			else{
+				//sino es un error de sintaxis
+				std::cout<<"se espera <pad> cerrado por </pad>"<<endl;
+				//escribo el error en el archivo de errores
+				escribirMensajeLog(*this->log,"se espera <pad> cerrado por </pad>");
+				//para que salga del while hago lo siguiente
+				exito=-2;
+
+			}
+		}else if(cadena.compare("<tejo>")==0){
+			//si la cadena es <tejo> se supone que la siguiente tiene que ser </tejo>, lo verifico
+			iterAux1 =iter;
+			iterAux2 = ++iter;
+			cadena = *iterAux2;
+			if(cadena.compare("</tejo>")==0){
+				//si encuentro <tejo> seguido de </tejo> los borro
+				iter++;
+				Validador::ListaTagsArchivo.erase(iterAux1);
+				Validador::ListaTagsArchivo.erase(iterAux2);
+
+			}
+			else{
+				//sino es un error de sintaxis
+				std::cout<<"se espera <pad> cerrado por </tejo>"<<endl;
+				//escribo el error en el archivo de errores
+				escribirMensajeLog(*this->log,"se espera <tejo> cerrado por </tejo>");
 				//para que salga del while hago lo siguiente
 				exito=-2;
 
