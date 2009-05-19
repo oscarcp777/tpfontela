@@ -18,7 +18,6 @@ Pad::Pad(Rectangulo* rectangulo){
 	this->imagen=NULL;
 	this->rectangulo=rectangulo;
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
-	 system("PAUSE");
 }
 
 Pad::~Pad() {

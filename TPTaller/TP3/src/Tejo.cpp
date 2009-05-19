@@ -19,7 +19,6 @@ Tejo::Tejo(Circulo* circulo){
 	this->circulo=circulo;
 	std::cout<< "padv1: "  <<this->circulo->getIdTextura()<< endl;
 	this->imagen=NULL;
-	 system("PAUSE");
 }
 int Tejo::getVelocidad()
    {

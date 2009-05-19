@@ -305,7 +305,6 @@ int Escenario::graficar(){
 	int done = 0;
 	SDL_Event event;
 
-    system("PAUSE");
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
@@ -345,12 +344,12 @@ int Escenario::graficar(){
 	Posicion *posicion=  new Posicion(150,150);
 	while(i<=this->sizeListaFiguras()){
 		figura = *iter;
-	//	figura->dibujar(this->screen);
+	figura->dibujar(this->screen);
 		iter++;
 		i++;
 	}
 
-	// Teclado para controlar al personaje
+/*	// Teclado para controlar al personaje
 				 Teclado teclado;
 
 			// Lo mostramos por pantalla
@@ -412,8 +411,8 @@ int Escenario::graficar(){
 				 Uint32 negro = SDL_MapRGB(this->getScreen()->format, 0, 0, 0);
 
 				 SDL_FillRect(this->getScreen(), NULL, negro);
-			//		padCliente1->getFigura()->dibujar(this->screen);
-				 	padCliente1->dibujar(this->screen);
+					padCliente1->getFigura()->dibujar(this->screen);
+			//	 	padCliente1->dibujar(this->screen);
 				 SDL_Flip(this->getScreen());
 				 }
 
@@ -433,8 +432,8 @@ int Escenario::graficar(){
 				 }
 
 				SDL_FreeSurface(this->getScreen());
-				SDL_Quit();
-/*	while (done == 0) {
+				SDL_Quit();*/
+	while (done == 0) {
 
 		SDL_Flip (this->screen);
 
@@ -449,7 +448,7 @@ int Escenario::graficar(){
 				done = 1;
 			}
 		}
-	}*/
+	}
 
 	return 0;
 }

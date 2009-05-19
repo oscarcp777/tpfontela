@@ -51,10 +51,7 @@ colorFigura
 base
 altura
 idTextura
-colorLinea
-colorFigura
 -tejo
 radio
 idTextura
-colorLinea
-colorFigura
+velocidad

@@ -543,7 +543,6 @@ int Hidratar::hidratarPads(std::string atributos){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	vector<string> listaClave;
 	vector<string> vec;
-    system("PAUSE");
 	int errorBase, errorAltura, errorAtributosValidos=0, error;
 	Posicion* posicion;
 
