@@ -4,19 +4,39 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
-#include "Posicion.h"
+#include "Rectangulo.h"
 #ifndef PAD_H_
 #define PAD_H_
-
+#include <SDL.h>
 #include "Figura.h"
 #include "Movible.h"
-class Pad: public Movible{
+class Pad{
 public:
 	Pad();
-	Pad(int base,int altura,Posicion * posicion);
+	Pad(Rectangulo* rectangulo);
 	virtual ~Pad();
-	int mover(Posicion* posicion);
-	void dibujar(SDL_Surface *pantalla);
+    void dibujar(SDL_Surface *pantalla);
+    Rectangulo* getFigura();
+  	 void avanzar_x();
+  	 void retrasar_x();
+
+  	  // Modifica la posición del personaje con respecto al eje Y
+  	 void bajar_y();
+  	 void subir_y();
+  	 // Consultoras
+
+  	  int getX();
+  	  int getY();
+
+
+  	 // Modificadoras
+
+  	  void setX(int x);
+  	  void setY(int y);
+
+  private:
+  	Rectangulo* rectangulo;
+  	SDL_Surface *imagen;
 };
 
 #endif /* PAD_H_ */

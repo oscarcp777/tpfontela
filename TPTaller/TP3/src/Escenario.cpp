@@ -304,13 +304,8 @@ int Escenario::graficar(){
 
 	int done = 0;
 	SDL_Event event;
-	Pad* padCliente1=this->getPadCliente1();
-	std::cout<< "padv1: "  << endl;
-    Pad* padCliente2=this->getPadCliente2();
-    std::cout<< "padv1: "  << endl;
-	 Tejo* tejo=this->getTejo();
-	 std::cout<< "padv1: " << endl;
 
+    system("PAUSE");
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
@@ -354,16 +349,20 @@ int Escenario::graficar(){
 		iter++;
 		i++;
 	}
-/*	SDL_Flip(this->getScreen());
+
 	// Teclado para controlar al personaje
 				 Teclado teclado;
-			// Cargamos un personaje
-			// Lo mostramos por pantalla
-	          padCliente1->dibujar(this->getScreen());
 
-	          padCliente2->dibujar(this->getScreen());
-	          tejo->dibujar(this->getScreen());
-			     SDL_Flip(this->getScreen());
+			// Lo mostramos por pantalla
+				 Pad* padCliente1=this->getPadCliente1();
+				 	padCliente1->getFigura()->dibujar(this->screen);
+				 		std::cout<< "padv1: "  << endl;
+				 	    Pad* padCliente2=this->getPadCliente2();
+				 	    padCliente2->getFigura()->dibujar(this->screen);
+				 	    std::cout<< "padv1: "  << endl;
+				 		 Tejo* tejo=this->getTejo();
+				 		 tejo->getFigura()->dibujar(this->screen);
+				 		 std::cout<< "padv1: " << endl;
 			 // Variables auxiliares
 			 SDL_Event evento;
 			 bool terminar = false;
@@ -374,14 +373,14 @@ int Escenario::graficar(){
 				 while(terminar == false) {
 
 				// Actualizamos el estado del teclado
-
+					 this->pintarPantalla();
 			 teclado.actualizar();
 
 			// Variables de control para saber si
 				 // tenemos que refrescar la pantalla o no
 
-				 x0 = padCliente1->getPos_x();
-			 y0 = padCliente1->getPos_y();
+				 x0 = padCliente1->getX();
+			 y0 = padCliente1->getY();
 
 			// Actualización lógica de la posición
 			 if(teclado.pulso(Teclado::TECLA_SUBIR)) {
@@ -403,20 +402,20 @@ int Escenario::graficar(){
 
 			 // Si existe modificación dibujamos
 
-			 if(x0 != padCliente1->getPos_x() || y0 != padCliente1->getPos_y()) {
+			 if(x0 != padCliente1->getX() || y0 != padCliente1->getY()) {
 				 std::cout << "= Posición actual del personaje" << endl;
-				 std::cout << "- X: " << padCliente1->getPos_x() << endl;
-				 std::cout << "- Y: " << padCliente1->getPos_x() << endl;
+				 std::cout << "- X: " << padCliente1->getX() << endl;
+				 std::cout << "- Y: " << padCliente1->getY() << endl;
 
 				 // Dibujamos al personaje en su posición nueva
 
 				 Uint32 negro = SDL_MapRGB(this->getScreen()->format, 0, 0, 0);
 
 				 SDL_FillRect(this->getScreen(), NULL, negro);
-				 padCliente1->dibujar(this->getScreen());
+					padCliente1->getFigura()->dibujar(this->screen);
 				 SDL_Flip(this->getScreen());
 				 }
-				135 ;
+
 
 				 // Control de Eventos
 
@@ -433,8 +432,8 @@ int Escenario::graficar(){
 				 }
 
 				SDL_FreeSurface(this->getScreen());
-				SDL_Quit();*/
-	while (done == 0) {
+				SDL_Quit();
+/*	while (done == 0) {
 
 		SDL_Flip (this->screen);
 
@@ -449,7 +448,7 @@ int Escenario::graficar(){
 				done = 1;
 			}
 		}
-	}
+	}*/
 
 	return 0;
 }

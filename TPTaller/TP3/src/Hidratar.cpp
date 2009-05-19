@@ -491,34 +491,24 @@ int Hidratar::hidratarTejo(std::string atributos){
     Escenario* escenario=Escenario::obtenerInstancia();
 	vector<string> listaClave;
 	vector<string> vec;
-	string valueId;
-	Tejo *tejo;
 	Circulo *circulo;
-	int errorRadio, errorVelocidad, errorBase, errorAltura, errorAtributosValidos, error;
+	int errorRadio, errorVelocidad, errorAtributosValidos, error;
 	Posicion* posicion;
 
 	Validador* validador=escenario->getValidador();
-	vector<string> tokens;
-	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
+	StringUtils::Tokenize(atributos, vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 	string radio = (StringUtils::getValorTag(RADIO,vec)).c_str();
 	string velocidad = (StringUtils::getValorTag(VELOCIDAD,vec)).c_str();
-	string base = (StringUtils::getValorTag(BASE,vec)).c_str();
-	string altura = (StringUtils::getValorTag(ALTURA,vec)).c_str();
 
 	errorRadio = validador->validarNumero(radio);
 	errorVelocidad = validador->validarNumero(velocidad);
-	errorBase = validador->validarNumero(base);
-	errorAltura = validador->validarNumero(altura);
-
 	errorAtributosValidos = validador->compararConVectorAtributosValidos(TEJO,listaClave);
-	valueId = StringUtils::getValorTag(ID,vec);
-	escribirErrorIDLog("TEJO :"+atributos,valueId);
 
-	if(errorRadio==-1||errorVelocidad==-1||errorBase==-1||errorAltura==-1||errorAtributosValidos==-1){
+	if(errorRadio==-1||errorVelocidad==-1||errorAtributosValidos==-1){
 		error=-1;
-	     std::cout<<"ERROR AL CREAR EL TEJO  "+valueId<<endl;
-		escribirMensajeLog(*(escenario->getLog())," ERROR AL CREAR EL TEJO: "+valueId);
+	     std::cout<<"ERROR AL CREAR EL TEJO  "<<endl;
+		escribirMensajeLog(*(escenario->getLog())," ERROR AL CREAR EL TEJO: ");
 
 	}else
 		error = 0;
@@ -529,52 +519,49 @@ int Hidratar::hidratarTejo(std::string atributos){
 
 	if(error==0&&errorAtributosValidos==0){
 		Posicion *p = new Posicion(POS_TEJO_X_INICIAL,POS_TEJO_Y_INICIAL);
-		tejo = new Tejo(atoi((StringUtils::getValorTag(RADIO,vec)).c_str()),p);
+		circulo= new Circulo("tejo",atoi((StringUtils::getValorTag(RADIO,vec)).c_str()),p);
+
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
-	    agregarAtributosOpcionales(vec, tejo->getFigura(), listaClave);
-
+	    agregarAtributosOpcionales(vec,circulo, listaClave);
+	    Tejo* tejo = new Tejo(circulo);
+	    tejo->setVelocidad(atoi((StringUtils::getValorTag(VELOCIDAD,vec)).c_str()));
 		escenario->setTejo(tejo);
 		std::cout<<"exito AL CREAR EL TEJO SE LO AGREGO AL ESCENARIO"<<endl;
 
 		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR EL TEJO NO SE LO AGREGO AL ESCENARIO"<<endl;
-		escribirMensajeLog(*(escenario->getLog()),"ERROR NO SE PUDO AGREGAR  AL ESCENARIO EL TEJO : "+valueId);
+		escribirMensajeLog(*(escenario->getLog()),"ERROR NO SE PUDO AGREGAR  AL ESCENARIO EL TEJO : ");
 	}
 	return 0;
 }
 
 int Hidratar::hidratarPads(std::string atributos){
+	std::cout<<"veo que trae "<<atributos<<endl;
 	Escenario* escenario=Escenario::obtenerInstancia();
 	vector<string> listaClave;
 	vector<string> vec;
-	string valueId;
-	Pad *cliente1;
-	Pad *cliente2;
-
-	int errorBase, errorAltura, errorAtributosValidos, error;
+    system("PAUSE");
+	int errorBase, errorAltura, errorAtributosValidos=0, error;
 	Posicion* posicion;
 
 	Validador* validador=escenario->getValidador();
-	vector<string> tokens;
-	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
+	StringUtils::Tokenize(atributos, vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
 	string base = (StringUtils::getValorTag(BASE,vec)).c_str();
 	string altura = (StringUtils::getValorTag(ALTURA,vec)).c_str();
-
+	std::cout<<"veo que trae "<<base<<altura<<endl;
 	errorBase = validador->validarNumero(base);
 	errorAltura = validador->validarNumero(altura);
 
 	errorAtributosValidos = validador->compararConVectorAtributosValidos(PAD,listaClave);
-	valueId = StringUtils::getValorTag(ID,vec);
-	escribirErrorIDLog("PAD :"+atributos,valueId);
 
 	if(errorBase==-1||errorAltura==-1||errorAtributosValidos==-1){
 		error=-1;
-	     std::cout<<"ERROR AL CREAR LOS PAD  "+valueId<<endl;
-		escribirMensajeLog(*(escenario->getLog())," ERROR AL CREAR LOS PAD: "+valueId);
+	     std::cout<<"ERROR AL CREAR LOS PAD  "<<endl;
+		escribirMensajeLog(*(escenario->getLog())," ERROR AL CREAR LOS PAD: ");
 
 	}else
 		error = 0;
@@ -586,13 +573,17 @@ int Hidratar::hidratarPads(std::string atributos){
 	if(error==0&&errorAtributosValidos==0){
 		Posicion *posPadInicialCliente1 = new Posicion(POS_PAD1_X_INICIAL,POS_PAD1_Y_INICIAL);
 		Posicion *posPadInicialCliente2 = new Posicion(POS_PAD2_X_INICIAL,POS_PAD2_Y_INICIAL);
-		Pad* padCliente1 = new Pad(atoi((StringUtils::getValorTag(BASE,vec)).c_str()),atoi((StringUtils::getValorTag(ALTURA,vec)).c_str()),posPadInicialCliente1);
-		Pad* padCliente2 = new Pad(atoi((StringUtils::getValorTag(BASE,vec)).c_str()),atoi((StringUtils::getValorTag(ALTURA,vec)).c_str()),posPadInicialCliente2);
+		Rectangulo* rectangulo1 = new Rectangulo("padCliente1",atoi((StringUtils::getValorTag(BASE,vec)).c_str()),atoi((StringUtils::getValorTag(ALTURA,vec)).c_str()),posPadInicialCliente1);
+		Rectangulo* rectangulo2 = new Rectangulo("padCliente2",atoi((StringUtils::getValorTag(BASE,vec)).c_str()),atoi((StringUtils::getValorTag(ALTURA,vec)).c_str()),posPadInicialCliente2);
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
-		agregarAtributosOpcionales(vec, padCliente1->getFigura(), listaClave);
-	    agregarAtributosOpcionales(vec, padCliente2->getFigura(), listaClave);
+				agregarAtributosOpcionales(vec,rectangulo1, listaClave);
+			    agregarAtributosOpcionales(vec,rectangulo2, listaClave);
+
+
+		Pad* padCliente1 = new Pad(rectangulo1);
+		Pad* padCliente2 = new Pad(rectangulo2);
 		escenario->setPadCliente1(padCliente1);
 		escenario->setPadCliente2(padCliente2);
 		std::cout<<"exito AL CREAR LOS PAD SE LO AGREGARON AL ESCENARIO"<<endl;
@@ -600,7 +591,7 @@ int Hidratar::hidratarPads(std::string atributos){
 		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR LOS PAD NO SE AGREGARON AL ESCENARIO"<<endl;
-		escribirMensajeLog(*(escenario->getLog()),"ERROR NO SE PUDO AGREGAR AL ESCENARIO LOS PAD : "+valueId);
+		escribirMensajeLog(*(escenario->getLog()),"ERROR NO SE PUDO AGREGAR AL ESCENARIO LOS PAD : ");
 	}
 	return 0;
 }
