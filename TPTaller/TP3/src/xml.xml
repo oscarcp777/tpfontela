@@ -1,10 +1,6 @@
 <escenario>
             <General resolucion="800">
              </General>
-              <pad resolucion="800" base="20" altura="150" idTextura="triangulo">
-              </pad>
-               <tejo radio="20" idTextura="tejo">
-              </tejo>
              <ListadoDeDispersores> 
                   <circulo id="circulo0" radio="30" idTextura="bola">
                          <posicion x="400" y="300" />
