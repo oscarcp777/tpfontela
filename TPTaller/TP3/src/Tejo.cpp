@@ -32,7 +32,7 @@ int Tejo::getVelocidad()
    }
 void Tejo::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
-	        if(this->imagen=NULL){
+	        if(this->imagen==NULL){
 			std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
 			this->imagen = IMG_Load(path.begin());
 

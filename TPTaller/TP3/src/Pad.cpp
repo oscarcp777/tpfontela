@@ -26,7 +26,7 @@ Pad::~Pad() {
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
-		        if(this->imagen=NULL){
+		        if(this->imagen==NULL){
 				std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
 				this->imagen = IMG_Load(path.begin());
 
@@ -35,9 +35,9 @@ void Pad::dibujar(SDL_Surface *pantalla){
 					exit(1);
 				}
 				// Calculamos el color transparente, en nuestro caso el verde
-				Uint32 colorkey = SDL_MapRGB(imagen->format, 0, 255, 0);
+		//		Uint32 colorkey = SDL_MapRGB(imagen->format, 0, 255, 0);
 				// Lo establecemos como color transparente
-				SDL_SetColorKey(imagen, SDL_SRCCOLORKEY, colorkey);
+		//		SDL_SetColorKey(imagen, SDL_SRCCOLORKEY, colorkey);
 		         }
 		    SDL_Rect rect;
 			rect.x =this->getX();

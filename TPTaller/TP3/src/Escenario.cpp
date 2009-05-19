@@ -345,7 +345,7 @@ int Escenario::graficar(){
 	Posicion *posicion=  new Posicion(150,150);
 	while(i<=this->sizeListaFiguras()){
 		figura = *iter;
-		figura->dibujar(this->screen);
+	//	figura->dibujar(this->screen);
 		iter++;
 		i++;
 	}
@@ -373,7 +373,7 @@ int Escenario::graficar(){
 				 while(terminar == false) {
 
 				// Actualizamos el estado del teclado
-					 this->pintarPantalla();
+				
 			 teclado.actualizar();
 
 			// Variables de control para saber si
@@ -412,7 +412,8 @@ int Escenario::graficar(){
 				 Uint32 negro = SDL_MapRGB(this->getScreen()->format, 0, 0, 0);
 
 				 SDL_FillRect(this->getScreen(), NULL, negro);
-					padCliente1->getFigura()->dibujar(this->screen);
+			//		padCliente1->getFigura()->dibujar(this->screen);
+				 	padCliente1->dibujar(this->screen);
 				 SDL_Flip(this->getScreen());
 				 }
 
