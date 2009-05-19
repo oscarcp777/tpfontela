@@ -48,17 +48,84 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 
 
 }
+int Validador::validarCantidadTag(std::string atributo,vector<string>& listaClave,std::string cadenaTag){
+	vector<string>::iterator the_iterator;
+	string valorTag="sinValor";
+	string valor ;
+	int cont=0;
+	int contTriX=0;
+	int contTriY=0;
+	int contSegX=0;
+	int contSegY=0;
+	std::cout<<"atributo "<<atributo<<"tag :"<<cadenaTag<<endl;
+	the_iterator = listaClave.begin();
+	while( the_iterator != listaClave.end() ) {
+		valor = *the_iterator;
+		valor =StringUtils::trimPalabra(valor);
+		if(atributo.compare("x")==0&&valor.compare(atributo)==0){
+			if(cadenaTag.compare("triangulo")==0){
+				contTriX++;
+				std::cout<<"entro x triangulo"<<atributo<<"tag :"<<contTriX<<endl;
+				if(contTriX==4)
+					return -1;
+			}
+			if(cadenaTag.compare("segmento")==0){
+				contSegX++;
+				std::cout<<"entro x segmento"<<atributo<<"tag :"<<contSegX<<endl;
+				if(contSegX==3)
+					return -1;
+			}
+			if(cadenaTag.compare("segmento")!=0&&cadenaTag.compare("triangulo")!=0){
 
- Validador::~Validador(){
-	 list<Tag*>::iterator iter;
-	 	Tag* nombreTag;
-	 	iter=Validador::ListaTagsValidos.begin();
+				cont++;
+				std::cout<<"otros  x"<<atributo<<"tag :"<<cont<<endl;
+			}
+		}else{
+			if(atributo.compare("y")==0&&valor.compare(atributo)==0){
+				if(cadenaTag.compare("triangulo")==0){
+					contTriY++;
+					std::cout<<"entro y triangulo"<<atributo<<"tag :"<<cadenaTag<<endl;
+					if(contTriY==4)
+						return -1;
+				}
+				if(cadenaTag.compare("segmento")==0){
+					contSegY++;
+					std::cout<<"segmento y "<<atributo<<"tag :"<<cadenaTag<<endl;
+					if(contSegY==3)
+						return -1;
+				}
+				if(cadenaTag.compare("segmento")!=0&&cadenaTag.compare("triangulo")!=0){
+					std::cout<<"otros y"<<atributo<<"tag :"<<cadenaTag<<endl;
+								cont++;
+							}
+			}else{
+				if(valor.compare(atributo)==0){
+					std::cout<<"todos menos x "<<atributo<<"tag :"<<cadenaTag<<endl;
+					cont++;
+				}
 
-	 	while(iter != Validador::ListaTagsValidos.end()){
-	 		nombreTag=*iter;
-	 		delete nombreTag;
-	 		iter++;
-	 	}
+			}
+		}
+
+		++the_iterator;
+
+
+	}
+	if(cont<=1)
+		return 0;
+	else
+		return -1;
+}
+Validador::~Validador(){
+	list<Tag*>::iterator iter;
+	Tag* nombreTag;
+	iter=Validador::ListaTagsValidos.begin();
+
+	while(iter != Validador::ListaTagsValidos.end()){
+		nombreTag=*iter;
+		delete nombreTag;
+		iter++;
+	}
 }
 void Validador::setLog(Log* log){
 	this->log = log;
@@ -404,9 +471,17 @@ int Validador::compararConTagsValidos(string cadena){
 }
 int Validador::compararConVectorAtributosValidos(string cadenaTag,std::vector<string> listaAtributos){
 	std::vector<string>::iterator iter;
+	std::string tagRepetido;
 	iter = listaAtributos.begin();
-
+	std::string mensaje="EN EL TAG "+cadenaTag+" EL SIGUIENTE ATRIBUTO SE ENCUENTRA REPETIDO: ";
+	Escenario* escenario=Escenario::obtenerInstancia();
 	while( iter != listaAtributos.end() ) {
+		std::string tag=*iter;
+		if(validarCantidadTag(*iter,listaAtributos,cadenaTag)==-1&&tagRepetido.compare(tag)!=0){
+			tagRepetido=tag;
+			escribirMensajeLog(*(escenario->getLog()),mensaje+tag);
+		}
+
 		if(Validador::compararConAtributosValidos(cadenaTag,*iter)==-1){
 
 			return -1;
@@ -841,14 +916,14 @@ int Validador::validarAperturaYCierreTags(){
 				//si encuentro <triangulo> verifico que el siguiente sea </triangulo> y los borro, sino error sintaxis
 				iterAux1=iterAux2;
 				iterAux1++;
-				iterAux3 = iterAux1;				
+				iterAux3 = iterAux1;
 				cadena = *iterAux1;
 
 				if(cadena.compare("<inicio>") == 0){
 					iterAux3++;
 					iterAux4 = iterAux3;
 					cadena = *iterAux3;
-					if(cadena.compare("<fin>") == 0){					
+					if(cadena.compare("<fin>") == 0){
 						iterAux4++;
 						cadena = *iterAux4;
 						if(cadena.compare("</segmento>")==0){
@@ -858,7 +933,7 @@ int Validador::validarAperturaYCierreTags(){
 							Validador::ListaTagsArchivo.erase(iterAux2);
 							Validador::ListaTagsArchivo.erase(iterAux3);
 							Validador::ListaTagsArchivo.erase(iterAux4);
-	
+
 						}
 						else{
 							//sino es un error de sintaxis
@@ -1025,13 +1100,13 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 	//		cadena=StringUtils::trimPorTag(cadena);
 	//}else{
 
-		cadena=StringUtils::trim(cadena);
+	cadena=StringUtils::trim(cadena);
 	//}
 
-////	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
-//	std::cout<<cadena<<endl;
-//	std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
-//    system("PAUSE");
+	////	std::cout <<"INICIO CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	//	std::cout<<cadena<<endl;
+	//	std::cout <<"FIN CONTENIDO DE ARCHIVO XML.xml (con espacios y tabs borrados)"<<endl;
+	//    system("PAUSE");
 	//obtengo primer caracter de la cadena
 	caracter = cadena.at(0);
 	//si el primer caracter es "<" sigo
@@ -1044,19 +1119,19 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 			//entra a este if si se validaron los tags correctamente del archivo,en las siguientes lineas se verifica si
 			//los tags se abrieron <> y se cerraron </> correctamentes (que no se abra uno antes de cerrar otro
 			list<string>::iterator iter = Validador::ListaTagsArchivo.begin();
-			
-			
+
+
 			std::cout<<"TAGS"<<endl;
 			while(iter != this->ListaTagsArchivo.end()){
 				std::cout<<*iter<<endl;
 				iter++;
-			
+
 			}
-			std::cout<<"FIN TAGS"<<endl;			
-			
+			std::cout<<"FIN TAGS"<<endl;
+
 			//Validador::borrarDeTagsNoNecesariosDeListaTagsArchivo();
 			exito = Validador::validarAperturaYCierreTags();
-	
+
 		}
 
 	}
@@ -1074,11 +1149,11 @@ int Validador::validarSintaxis(std::string nombreArchivo){
 
 int Validador::validarNumero(std::string numero){
 	for ( int pos = 0; pos < numero.length(); ++pos ){
-			 if(!isdigit(numero.at(pos))){
-				 return -1;
-			 }
+		if(!isdigit(numero.at(pos))){
+			return -1;
+		}
 	}
- return 0;
+	return 0;
 }
 
 

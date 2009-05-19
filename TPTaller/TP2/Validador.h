@@ -42,6 +42,8 @@ public:
     int validarNumero(string numero);
 	int borrarDeTagsNoNecesariosDeListaTagsArchivo();
 	//int hidratar(std::string tipo, std::string values);
+	 int validarCantidadTag(std::string atributo,vector<string>& listaClave,std::string cadenaTag);
+	 int compararConVectorAtributosValidosPosicion(string cadenaTag,std::vector<string> listaAtributos);
 
 };
 #endif
