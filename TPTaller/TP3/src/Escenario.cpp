@@ -349,7 +349,7 @@ int Escenario::graficar(){
 		i++;
 	}
 
-/*	// Teclado para controlar al personaje
+	// Teclado para controlar al personaje
 				 Teclado teclado;
 
 			// Lo mostramos por pantalla
@@ -363,7 +363,7 @@ int Escenario::graficar(){
 				 		 tejo->getFigura()->dibujar(this->screen);
 				 		 std::cout<< "padv1: " << endl;
 			 // Variables auxiliares
-			 SDL_Event evento;
+	/*		 SDL_Event evento;
 			 bool terminar = false;
 				 int x0, y0;
 
