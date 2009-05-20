@@ -1,2 +1,2 @@
-C:\Documents and Settings\ocaceres\Escritorio\tp0\Graficador\imagenes\cancha1.jpg
-C:\Documents and Settings\ocaceres\Escritorio\tp0\Graficador\imagenes\cancha1.jpg
+C:\Users\oscar\workspace\TP3_VS6\imagenes\cancha1.jpg
+C:\Users\oscar\workspace\TP3_VS6\imagenes\cancha1.jpg

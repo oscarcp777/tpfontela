@@ -9,7 +9,7 @@ Circulo::Circulo(void){
 }
 Circulo::~Circulo(){
     delete this->pos;
-    
+
 }
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
@@ -19,29 +19,29 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 }
 
 int Circulo::dibujar(SDL_Surface *screen){
-	
+
 	this->color = getColorFigura()->getColor();
-	
-	
+
+
 	//si la textura no es NULL es porque le seteo algun idTextura
 	if(this->getIdTextura().compare("NULL") != 0){
 		//si se le seteo algun idTextura busco el path
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
-		
+
 		//si el path NO es NULL intento levantar la imagen
-		if(path.compare("NULL") != 0){		
+		if(path.compare("NULL") != 0){
 			this->imagen = IMG_Load (path.begin());
-			
+
 			//si la imagen no es null (es decir si la levanto bien) la escalo
-			if(this->imagen != NULL){			
+			if(this->imagen != NULL){
 				this->imagen = ScaleSurface(this->imagen, this->getRadio()*2, this->getRadio()*2);
 			}
 			//si no la levanto es porque el path no es correcto o la imagen no existe
 			else{
 				escribirMensajeLog(*Escenario::obtenerInstancia()->getLog(),"error al intentar cargar la imagen: "+path);
-			}	
-		
-		
+			}
+
+
 		}
 		//si el path ES null, tiro error (no existe path para dicho idTextura)
 		else{
@@ -54,9 +54,9 @@ int Circulo::dibujar(SDL_Surface *screen){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
 		this->imagen = IMG_Load (path.begin());
 		this->imagen = ScaleSurface(this->imagen, this->getRadio()*2, this->getRadio()*2);
-	
+
 	}
-	
+
 
 	float ang;
 	float radio;
@@ -74,9 +74,9 @@ int Circulo::dibujar(SDL_Surface *screen){
 
   		for(radio = 0;radio<=this->getRadio();radio+=0.3){
 
-			
+
 		   //valido que x e y esten dentro del escenario
-		if(xCirculo>=0 && xCirculo<Escenario::obtenerInstancia()->getAncho() && yCirculo>=0 && yCirculo<Escenario::obtenerInstancia()->getAlto()){	
+		if(xCirculo>=0 && xCirculo<Escenario::obtenerInstancia()->getAncho() && yCirculo>=0 && yCirculo<Escenario::obtenerInstancia()->getAlto()){
 
 			if(this->getRadio()-radio <= 1|| radio > this->getRadio() ){
 				this->putpixel(screen,xCirculo,yCirculo,getColorLinea()->getColor());
@@ -89,7 +89,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 				}
 				this->putpixel(screen,xCirculo,yCirculo,this->color);
 			}
-			
+
 		}
 		xCirculo=this->getPosicion()->getX()+radio*cos(PI*ang/180);
 		yCirculo=this->getPosicion()->getY()+radio*sin(PI*ang/180);

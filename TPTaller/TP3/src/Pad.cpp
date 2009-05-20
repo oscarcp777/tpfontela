@@ -8,6 +8,7 @@
 #include "Pad.h"
 #include "Rectangulo.h"
 #include "Escenario.h"
+const int PIXELES_SALTO=15;
 Pad::Pad() {
 
 }
@@ -18,6 +19,7 @@ Pad::Pad(Rectangulo* rectangulo){
 	this->imagen=NULL;
 	this->rectangulo=rectangulo;
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
+
 }
 
 Pad::~Pad() {
@@ -33,10 +35,14 @@ void Pad::dibujar(SDL_Surface *pantalla){
 					std::cout<< "Error: " << SDL_GetError() << endl;
 					exit(1);
 				}
+				if(this->imagen != NULL){
+				this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getBase(), this->getFigura()->getAltura());
+			    }
+
 				// Calculamos el color transparente, en nuestro caso el verde
-		//		Uint32 colorkey = SDL_MapRGB(imagen->format, 0, 255, 0);
+				Uint32 colorkey = SDL_MapRGB(this->imagen->format, 255, 255, 255);
 				// Lo establecemos como color transparente
-		//		SDL_SetColorKey(imagen, SDL_SRCCOLORKEY, colorkey);
+				SDL_SetColorKey(this->imagen, SDL_SRCCOLORKEY, colorkey);
 		         }
 		    SDL_Rect rect;
 			rect.x =this->getX();
@@ -59,21 +65,21 @@ void Pad::setY(int y){
 // de 4 en 4 píxeles
 void Pad::avanzar_x() {
 	int x =this->getX();
-	x += 4;
+	x += PIXELES_SALTO;
 	this->setX(x);
 }
 void Pad::retrasar_x() {
 	int x =this->getX();
-	x -= 4;
+	x -= PIXELES_SALTO;
 	this->setX(x);
 }
 void Pad::bajar_y() {
 	int y =this->getY();
-	y += 4;
+	y += PIXELES_SALTO;
 	this->setY(y);
 }
 void Pad::subir_y() {
 	int y =this->getY();
-	y -= 4;
+	y -= PIXELES_SALTO;
 	this->setY(y);
 }

@@ -17,7 +17,6 @@
 using namespace std;
 
 
-
 int main(int argc, char* argv[])
 {
 
@@ -40,7 +39,7 @@ int main(int argc, char* argv[])
 			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
             std::string pad1=" base=\"20\" altura=\"150\" idTextura=\"triangulo\"";
-            std::string tejo=" radio=\"20\" idTextura=\"tejo\" velocidad=\"300\"";
+            std::string tejo=" radio=\"20\" idTextura=\"triangulo\" velocidad=\"300\"";
            Hidratar::hidratarPads(pad1);
            Hidratar::hidratarTejo(tejo);
 			escenario->graficar();

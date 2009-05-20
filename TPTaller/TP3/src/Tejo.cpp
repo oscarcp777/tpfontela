@@ -19,6 +19,7 @@ Tejo::Tejo(Circulo* circulo){
 	this->circulo=circulo;
 	std::cout<< "padv1: "  <<this->circulo->getIdTextura()<< endl;
 	this->imagen=NULL;
+
 }
 int Tejo::getVelocidad()
    {
@@ -38,6 +39,10 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 			if(this->imagen == NULL) {
 				std::cout<< "Error: " << SDL_GetError() << endl;
 				exit(1);
+			}
+			//si la imagen no es null (es decir si la levanto bien) la escalo
+			if(this->imagen != NULL){
+		     this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 			}
 			// Calculamos el color transparente, en nuestro caso el verde
 			Uint32 colorkey = SDL_MapRGB(imagen->format, 0, 255, 0);
