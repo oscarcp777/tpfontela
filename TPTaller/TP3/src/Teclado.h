@@ -15,14 +15,16 @@ public:
 	virtual ~Teclado();
 	enum teclas_configuradas {
 		TECLA_SALIR,
-		TECLA_SUBIR,
-		TECLA_BAJAR,
+		//un pad usa una tecla de subir y bajar y el otro usa la a y la z
+		TECLA_SUBIR_PAD1,
+		TECLA_BAJAR_PAD1,
+		TECLA_SUBIR_PAD2,
+		TECLA_BAJAR_PAD2,
 		TECLA_ACEPTAR,
 		TECLA_DISPARAR,
 		TECLA_IZQUIERDA,
 		TECLA_DERECHA,
 		TECLA_SALTAR,
-		TECLA_GUARDAR
 	};
 	void actualizar(void);
     bool pulso(enum teclas_configuradas tecla);

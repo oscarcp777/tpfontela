@@ -11,14 +11,15 @@ Teclado::Teclado() {
 	// Configuramos la teclas que usaremos en la aplicación
 
 	teclas_configuradas[TECLA_SALIR] = SDLK_ESCAPE;
-	teclas_configuradas[TECLA_SUBIR] = SDLK_UP;
-	teclas_configuradas[TECLA_BAJAR] = SDLK_DOWN;
+	teclas_configuradas[TECLA_SUBIR_PAD1] = SDLK_UP;
+	teclas_configuradas[TECLA_BAJAR_PAD1] = SDLK_DOWN;
 	teclas_configuradas[TECLA_ACEPTAR] = SDLK_RETURN;
 	teclas_configuradas[TECLA_DISPARAR] = SDLK_SPACE;
 	teclas_configuradas[TECLA_IZQUIERDA] = SDLK_LEFT;
 	teclas_configuradas[TECLA_DERECHA] = SDLK_RIGHT;
 	teclas_configuradas[TECLA_SALTAR] = SDLK_UP;
-	teclas_configuradas[TECLA_GUARDAR] = SDLK_s;
+	teclas_configuradas[TECLA_SUBIR_PAD2] = SDLK_s;
+	teclas_configuradas[TECLA_BAJAR_PAD2] = SDLK_z;
 
 }
 

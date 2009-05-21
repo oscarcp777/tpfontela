@@ -6,6 +6,15 @@
 #include <vector>
 #include <map>
 #include <string>
+
+static const std::string RADIO__TEJO="radioTejo";
+static const std::string BASE__PAD="basePad";
+static const std::string ALTURA__PAD="alturaPad";
+static const std::string VELOCIDAD__TEJO="velocidadPad";
+static const std::string IDTEXTURA__TEJO="idTexturaTejo";
+static const std::string IDTEXTURA__PAD="idTexturaPad";
+
+
 static const std::string ID="id";
 static const std::string RADIO="radio";
 static const std::string LADO="lado";
@@ -486,6 +495,32 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 	}
 	return 0;
 }
+int hidratarTejo(std::string radio,std::string velocidad,std::string idTextura){
+	Escenario* escenario=Escenario::obtenerInstancia();
+
+	   Posicion *p = new Posicion(POS_TEJO_X_INICIAL,POS_TEJO_Y_INICIAL);
+		Circulo* circulo= new Circulo("tejo",atoi(radio.c_str()),p);
+		circulo->setIdTextura(idTextura);
+		Tejo* tejo = new Tejo(circulo);
+	     tejo->setVelocidad(atoi(velocidad.c_str()));
+		 escenario->setTejo(tejo);
+		 return 0;
+}
+int hidratarPads(std::string altura,std::string base,std::string idTextura){
+		Escenario* escenario=Escenario::obtenerInstancia();
+	Posicion *posPadInicialCliente1 = new Posicion(POS_PAD1_X_INICIAL,POS_PAD1_Y_INICIAL);
+			Posicion *posPadInicialCliente2 = new Posicion(POS_PAD2_X_INICIAL,POS_PAD2_Y_INICIAL);
+			Rectangulo* rectangulo1 = new Rectangulo("padCliente1",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente1);
+			Rectangulo* rectangulo2 = new Rectangulo("padCliente2",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente2);
+			rectangulo1->setIdTextura(idTextura);
+			rectangulo2->setIdTextura(idTextura);
+			Pad* padCliente1 = new Pad(rectangulo1);
+			Pad* padCliente2 = new Pad(rectangulo2);
+			escenario->setPadCliente1(padCliente1);
+			escenario->setPadCliente2(padCliente2);
+			return 0;
+}
+/*
 
 int Hidratar::hidratarTejo(std::string atributos){
     Escenario* escenario=Escenario::obtenerInstancia();
@@ -493,8 +528,6 @@ int Hidratar::hidratarTejo(std::string atributos){
 	vector<string> vec;
 	Circulo *circulo;
 	int errorRadio, errorVelocidad, errorAtributosValidos, error;
-	Posicion* posicion;
-
 	Validador* validador=escenario->getValidador();
 	StringUtils::Tokenize(atributos, vec,DELIMITADOR);
 	cargarListaClaves(listaClave,vec);
@@ -524,7 +557,7 @@ int Hidratar::hidratarTejo(std::string atributos){
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
-	    agregarAtributosOpcionales(vec,circulo, listaClave);
+	/*    agregarAtributosOpcionales(vec,circulo, listaClave);
 	    Tejo* tejo = new Tejo(circulo);
 	    tejo->setVelocidad(atoi((StringUtils::getValorTag(VELOCIDAD,vec)).c_str()));
 		escenario->setTejo(tejo);
@@ -578,7 +611,7 @@ int Hidratar::hidratarPads(std::string atributos){
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
-				agregarAtributosOpcionales(vec,rectangulo1, listaClave);
+	/*			agregarAtributosOpcionales(vec,rectangulo1, listaClave);
 			    agregarAtributosOpcionales(vec,rectangulo2, listaClave);
 
 
@@ -594,14 +627,13 @@ int Hidratar::hidratarPads(std::string atributos){
 		escribirMensajeLog(*(escenario->getLog()),"ERROR NO SE PUDO AGREGAR AL ESCENARIO LOS PAD : ");
 	}
 	return 0;
-}
+}*/
 
 int Hidratar::hidratarEscenario(std::string atributos){
 	Escenario* escenario = Escenario::obtenerInstancia();
 
 	std::string texturaFig;
 	std::string texturaEsc;
-	int resolucion;
 	Color* colorFondoEscenario = new Color();
 	Color* colorFondoFiguras= new Color();
 	Color* colorLinea= new Color();
@@ -610,16 +642,20 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	vector<string> listaClave;
 	vector<string> tokens;
 	std::cout<<"atributos"<<atributos<<endl;
+
 	StringUtils::Tokenize(atributos, tokens,DELIMITADOR);
 	cargarListaClaves(listaClave,tokens);
 	std::cout<<"tamanio del vector"<<tokens.size()<<endl;
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
 
+	//aca hidrato el tejo  y los pads
+
+	hidratarTejo(StringUtils::getValorTag(RADIO__TEJO,tokens),StringUtils::getValorTag(VELOCIDAD__TEJO,tokens),StringUtils::getValorTag(IDTEXTURA__TEJO,tokens));
+    hidratarPads(StringUtils::getValorTag(ALTURA__PAD,tokens),StringUtils::getValorTag(BASE__PAD,tokens),StringUtils::getValorTag(IDTEXTURA__PAD,tokens));
 	/**################################################################################################*/
 	/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 	/**################################################################################################*/
-
 	std::vector<string>::iterator iter;
 	iter = listaClave.begin();
 	std::cout<<"llego aca  "<<" "<<*iter<<endl;

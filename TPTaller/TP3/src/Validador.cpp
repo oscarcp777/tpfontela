@@ -121,7 +121,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 		else{
 			//std::cout<<"values: "<<values<<endl;
 			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
-			exito=Hidratar::hidratarPads(values);
+		//	exito=Hidratar::hidratarPads(values);
 			//exito=0;
 		}
 	}
@@ -139,7 +139,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 		else{
 			//std::cout<<"values: "<<values<<endl;
 			//con la siguiente funcion se setean en escenario todos los atributos que vienen en <General>
-			exito=Hidratar::hidratarTejo(values);
+		//	exito=Hidratar::hidratarTejo(values);
 			//exito=0;
 		}
 	}

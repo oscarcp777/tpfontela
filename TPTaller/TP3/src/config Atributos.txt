@@ -5,6 +5,12 @@ texturaFig
 colorLinea
 colorFondoEsc
 texturaEsc
+alturaPad
+basePad
+idTexturaPad
+idTexturaTejo
+radioTejo
+velocidadTejo
 -textura
 id
 path

@@ -19,7 +19,7 @@ class Hidratar{
 		static int hidratarEscenario(std::string atributos);
 		static int hidratartextura(std::string atributos);
 		static int hidratarSegmento(std::string atributos);
-		static int hidratarTejo(std::string atributos);
-		static int hidratarPads(std::string atributos);
+	//	static int hidratarTejo(std::string atributos);
+	//	static int hidratarPads(std::string atributos);
 
 };
