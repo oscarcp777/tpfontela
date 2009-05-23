@@ -4,8 +4,6 @@
 
 
 typedef struct _CONEXION{
-        WSADATA wsdata;
-        struct hostent* host;
         SOCKADDR_IN conexrem;
         SOCKET locsock;
         SOCKET cliente;

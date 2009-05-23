@@ -7,22 +7,6 @@
 
 
 
-/** esta funcion se espera que un cliente se conecte cuando el cliente 
-     deja de mandar informacion o cierra su ventana
-*/
-
-int reconectarSockets(CONEXION *pConexion){
-    int addrleng;
-    	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
-    		memcpy (punteroConexion, pConexion,sizeof(CONEXION));
-    		addrleng = sizeof(punteroConexion->conexrem);
-						punteroConexion->cliente = accept(punteroConexion->locsock, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
-						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->cliente);
-						punteroConexion->usuario=0;//le asigna un 0 que es servidor
-						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-                        return RES_OK;// cambiar por RES_OK
-     }
-
 int iniciarHilos(CONEXION *conexion){
 	DWORD  threadId;
     HANDLE hThread,hThread1; 	
@@ -39,10 +23,8 @@ int iniciarHilos(CONEXION *conexion){
 	SetThreadPriority(hThread1,1);
 	SetThreadPriority(hThread,2);
 	
-
-
 	// wait for the thread to finish 
-   WaitForSingleObject( hThread1, INFINITE ); 
+    WaitForSingleObject( hThread1, INFINITE ); 
 	
     printf("\n  EL CLIENTE ESTA DESCONECTADO \n \n");
     //clean up resources used by thread 
@@ -51,7 +33,6 @@ int iniciarHilos(CONEXION *conexion){
 
 	return RES_OK;	
         
-
 }
 
 
