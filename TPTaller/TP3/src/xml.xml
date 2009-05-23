@@ -41,5 +41,7 @@
                  </textura>
                  <textura id="triangulo" path="imagenes/cancha2.jpg">
                  </textura>
+                  <textura id="padFondo" path="imagenes/pad.jpg">
+                 </textura>
              </ListadoDeTexturas>
 </escenario>

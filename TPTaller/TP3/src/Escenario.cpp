@@ -39,10 +39,10 @@ Escenario::Escenario(){
 	//levanto del archivo siguiente las texturas por default para el escenario
 	ArchivoTexto miArchivoDefault(configDefaultEscenario);
 	string linea;
-	//la primer linea tiene el path de textura figura por default
+	//la primer linea tiene el path de textura para el fondo del pad
 	miArchivoDefault.leerLinea(linea);
-	Textura * texturaFigDefault = new Textura("FigDefault", linea);
-	//	this->addTextura(texturaFigDefault);
+	//	Textura * fondoPad = new Textura("fondoPad", linea);
+	//	this->addTextura(fondoPad);
 	//la segunda linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
 	Textura * texturaEscDefault = new Textura("EscDefault", linea);
@@ -205,7 +205,7 @@ Log* Escenario::getLog(){
 void Escenario::pintarPantalla(){
 
 
-    	std::list<Figura*>::iterator iter;
+	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int res = this->texturaEsc.compare("NULL");
 	SDL_Surface *imagen = NULL;
@@ -224,14 +224,14 @@ void Escenario::pintarPantalla(){
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
 			SDL_BlitSurface(this->fondoPantalla, NULL,this->screen, &rect);
-				int i = 1;
-					Figura *figura;
+			int i = 1;
+			Figura *figura;
 			while(i<=this->sizeListaFiguras()){
-					figura = *iter;
-				   figura->dibujar(this->screen);
-					iter++;
-					i++;
-				}
+				figura = *iter;
+				figura->dibujar(this->screen);
+				iter++;
+				i++;
+			}
 			if(!imagen) {
 				//si NO se levanto bien la imagen (este es el caso que esta el id en la lista textura, se obtiene el path pero la imagen no esta en ese directorio
 				escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
@@ -344,8 +344,8 @@ int Escenario::graficar(){
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
 		return -1;
 	}
-
-	this->pintarPantalla();
+	std::cout<< "alto de la pantalla" <<this->screen->h << endl;
+		this->pintarPantalla();
 
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
@@ -407,7 +407,7 @@ int Escenario::graficar(){
 		}
 		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD2)) {
 			padCliente2->subir_y();
-				}
+		}
 
 		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD2)) {
 			padCliente2->bajar_y();
@@ -421,29 +421,28 @@ int Escenario::graficar(){
 			std::cout << "- Y: " << padCliente1->getY() << endl;
 			// Dibujamos al personaje en su posición nueva
 
-						Uint32 negro = SDL_MapRGB(this->getScreen()->format,  87,122,18);
-
-						SDL_FillRect(this->getScreen(), NULL, negro);
-						//		padCliente1->getFigura()->dibujar(this->screen);
-						//this->pintarPantalla();
-						padCliente1->dibujar(this->screen);
-						SDL_UpdateRect(this->screen,710,0, 20,600);
-					//	SDL_Flip(this->getScreen());
-					}
-			if(padCliente2->getY()<460&& padCliente2->getY()>0 && y1 != padCliente2->getY()) {
-						std::cout << "= Posición actual del pad 2" << endl;
-						std::cout << "- X: " << padCliente2->getX() << endl;
-						std::cout << "- Y: " << padCliente2->getY() << endl;
-			// Dibujamos al personaje en su posición nueva
-
-			Uint32 negro = SDL_MapRGB(this->getScreen()->format, 242,241, 0);
+			Uint32 negro = SDL_MapRGB(this->getScreen()->format,  87,122,18);
 
 			SDL_FillRect(this->getScreen(), NULL, negro);
 			//		padCliente1->getFigura()->dibujar(this->screen);
-		//	this->pintarPantalla();
+			//this->pintarPantalla();
+			padCliente1->dibujar(this->screen);
+			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
+			//	SDL_Flip(this->getScreen());
+		}
+		if(padCliente2->getY()<460&& padCliente2->getY()>0 && y1 != padCliente2->getY()) {
+			std::cout << "= Posición actual del pad 2" << endl;
+			std::cout << "- X: " << padCliente2->getX() << endl;
+			std::cout << "- Y: " << padCliente2->getY() << endl;
+			// Dibujamos al personaje en su posición nueva
+
+			Uint32 negro = SDL_MapRGB(this->getScreen()->format, 87,122,18);
+			SDL_FillRect(this->getScreen(), NULL, negro);
+			//		padCliente1->getFigura()->dibujar(this->screen);
+			//	this->pintarPantalla();*/
 			padCliente2->dibujar(this->screen);
-			SDL_UpdateRect(this->screen,56,0, 20,600);
-//		SDL_Flip(this->getScreen());
+			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
+			//	         SDL_Flip(this->getScreen());
 		}
 
 

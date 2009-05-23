@@ -61,7 +61,8 @@ static const int POS_PAD1_X_INICIAL = 710;
 static const int POS_PAD1_Y_INICIAL = 240;
 static const int POS_PAD2_X_INICIAL = 56;
 static const int POS_PAD2_Y_INICIAL = 240;
-
+static const double POS_PAD1_Y_PORCENTAJE = 0.88;
+static const double POS_PAD2_Y_PORCENTAJE = 0.08;
 void escribirErrorIDLog(std::string nombreTag,std::string id){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	if(id.compare(SINVALOR)==0){
@@ -508,8 +509,8 @@ int hidratarTejo(std::string radio,std::string velocidad,std::string idTextura){
 }
 int hidratarPads(std::string altura,std::string base,std::string idTextura){
 		Escenario* escenario=Escenario::obtenerInstancia();
-	Posicion *posPadInicialCliente1 = new Posicion(POS_PAD1_X_INICIAL,POS_PAD1_Y_INICIAL);
-			Posicion *posPadInicialCliente2 = new Posicion(POS_PAD2_X_INICIAL,POS_PAD2_Y_INICIAL);
+	Posicion *posPadInicialCliente1 = new Posicion((int)escenario->getAncho()*POS_PAD1_Y_PORCENTAJE,escenario->getAlto()/2);
+			Posicion *posPadInicialCliente2 = new Posicion((int)escenario->getAncho()*POS_PAD2_Y_PORCENTAJE,escenario->getAlto()/2);
 			Rectangulo* rectangulo1 = new Rectangulo("padCliente1",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente1);
 			Rectangulo* rectangulo2 = new Rectangulo("padCliente2",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente2);
 			rectangulo1->setIdTextura(idTextura);
@@ -649,10 +650,6 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	std::cout<<"tamanio de la lista"<<listaClave.size()<<endl;
 	Validador* validador=escenario->getValidador();
 
-	//aca hidrato el tejo  y los pads
-
-	hidratarTejo(StringUtils::getValorTag(RADIO__TEJO,tokens),StringUtils::getValorTag(VELOCIDAD__TEJO,tokens),StringUtils::getValorTag(IDTEXTURA__TEJO,tokens));
-    hidratarPads(StringUtils::getValorTag(ALTURA__PAD,tokens),StringUtils::getValorTag(BASE__PAD,tokens),StringUtils::getValorTag(IDTEXTURA__PAD,tokens));
 	/**################################################################################################*/
 	/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 	/**################################################################################################*/
@@ -737,6 +734,11 @@ int Hidratar::hidratarEscenario(std::string atributos){
 		}
 		++iter;
 	}
+	//aca hidrato el tejo  y los pads
+
+	hidratarTejo(StringUtils::getValorTag(RADIO__TEJO,tokens),StringUtils::getValorTag(VELOCIDAD__TEJO,tokens),StringUtils::getValorTag(IDTEXTURA__TEJO,tokens));
+    hidratarPads(StringUtils::getValorTag(ALTURA__PAD,tokens),StringUtils::getValorTag(BASE__PAD,tokens),StringUtils::getValorTag(IDTEXTURA__PAD,tokens));
+
 
 	return 0;
 }

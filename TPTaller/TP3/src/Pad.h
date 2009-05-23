@@ -37,6 +37,7 @@ public:
   private:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
+  	SDL_Surface* fondoPad;
 };
 
 #endif /* PAD_H_ */
