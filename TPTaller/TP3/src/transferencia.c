@@ -6,6 +6,9 @@
 
 //#define DEBUG                       //Habilitar para debuggear, muestra printfs
 #define PRIMER_ENVIO 15
+#define SERVIDOR 0
+#define CLIENTE 1
+
 #define NUMERO_CLIENTES 2
 
 
@@ -21,304 +24,196 @@ enum tr_tipo_dato convertirDeStringATipoDato(char* cadena){
 
 
 }
-int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *datos){
-
-	int i = 1;
-	int k;
-	double *pDouble;
-	int* pInt;
-	int estadorecv = 0;
 
 
-	
+void mensajeServidorEnEspera(){
 
-	switch(tipo){
-
-	case td_comando:
-
-			
-			if (pConexion->usuario==0)
-				estadorecv=	recv(pConexion->remitente,datos,sizeof(char)*PRIMER_ENVIO,0);
-			else
-				estadorecv=	recv(pConexion->socketCliente[0],datos,sizeof(char)*PRIMER_ENVIO,0);
-
-
-
-			if(estadorecv==0||estadorecv==-1||(strcmp((char*)datos,"QUIT") == 0)){
-   			  if(pConexion->usuario==0){
-
-    			printf(" \n EL CLIENTE SE DESCONECTO :  \n");
-    			printf(" \n EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE \n");
-
-              reconectarSockets(pConexion);
-			  //recv(remitente,datos,sizeof(char)*PRIMER_ENVIO,0);
-			  //recv(pConexion->cliente2,datos,sizeof(char)*PRIMER_ENVIO,0);
-			  //el siguiente RES_OK tiene que devolverse si reconectarSockets tuvo exito, sino no
-              return RES_OK;
-          	  break;
-			 }
-			  else if(pConexion->usuario==1){
-			  //printf("llego el quit cierra conexcion y devuelve RES_QUIT \n");
-              return RES_QUIT;
-          	  break;
-			  }
-
-			}
-		#ifdef DEBUG
-               printf("Primer Recive: %s \n",datos);
-		#endif
-
-		//parserDestruir(&parser);
-
-
-		break;
-
-	case td_int:
-
-		pInt = (int*)datos;
-		#ifdef DEBUG
-               printf("Cantidad de items CASE: %d \n",cantItems);
-		#endif
-
-		while( i<= cantItems){
-
-		       //estadorecv = recv(remitente,pInt,sizeof(int),0);
-			   #ifdef DEBUG
-                      printf("Dato %d: %d \n",i,*pInt);
-               #endif
-               pInt++;
-               i++;
-        }
-
-       	return RES_OK;
-		break;
-
-
-	case (td_char):
-
-		#ifdef DEBUG
-                      printf("Cant Items en td_char %d \n",cantItems);
-        #endif
-
-		memset((char*)datos,'\0',(cantItems+1)*sizeof(char));
+	 printf("============================================================================== \n\n");
+     printf("                     EL SERVIDOR ESTA ESCUCHANDO\n\n");
+	 printf("============================================================================== \n");
 		
-		if (pConexion->usuario==0)
-				estadorecv = recv(pConexion->remitente,(char*)datos,sizeof(char)*cantItems,0);
-		else
-				estadorecv = recv(pConexion->socketCliente[0],(char*)datos,sizeof(char)*cantItems,0);
-		//TODO validar si salio bien
-		return RES_OK;
-
-		break;
-
-
-
-	case (td_double):
-		pDouble = (double*) datos;
-
-		#ifdef DEBUG
-               printf("Cantidad de items CASE: %d \n",cantItems);
-		#endif
-
-		while( i<= cantItems){
-		      // estadorecv = recv(remitente,pDouble,sizeof(double),0);
-			   #ifdef DEBUG
-                      printf("Dato %d %e \n",i,*pDouble);
-               #endif
-               pDouble++;
-               i++;
-        }
-
-       	return RES_OK;
-		break;
-
-
-	}
-
-return RES_OK;
-
 }
 
-int trEscuchar(int Puerto,CONEXION *pConexion){
+void mensajeClienteConectado(){
 
-    //Definición Variables
-    
-	int exito,addrleng;
-	int wasa = 0;
-	int i = 0;
-	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
-	wasa = WSAStartup(MAKEWORD(2,0),&(punteroConexion->wsdata));
-    
-	//--------------
-	
-	while (i<NUMERO_CLIENTES){
-		punteroConexion->socketCliente[i] = -1;
-		i++;
-	}
+	 printf("============================================================================== \n\n");
+     printf("                         EL CLIENTE SE CONECTO\n\n");
+	 printf("============================================================================== \n");
 		
+}
 
 
-	if(wasa == 0){
-
-		punteroConexion->socketServidor = socket(AF_INET, SOCK_STREAM, 0); // socket Stream(TCP)
+void mensajeConexionAceptada(CONEXION *pConexion){
 	
-		if (punteroConexion->socketServidor == INVALID_SOCKET){
+	printf("\n CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",pConexion->cliente);
+	
+}
+
+void mensajeClienteDesconectado(){
+
+	printf(" \n EL CLIENTE SE DESCONECTO :  \n");
+    printf(" \n EL SERVIDOR ESPERA QUE UN CLIENTE SE CONECTE \n");
+		
+}
+
+
+int iniciarSocket(CONEXION* pConexion, int tipo){
+	
+	WSADATA wsdata;
+	
+	pConexion->usuario = tipo ; //0 = servidor, 1 = cliente
+	if(WSAStartup(MAKEWORD(2,0),&wsdata) == RES_OK){
+		if (tipo == SERVIDOR)
+			pConexion->locsock = socket(AF_INET, SOCK_STREAM, 0); // socket Stream(TCP)			
+		else
+			pConexion->cliente = socket(AF_INET, SOCK_STREAM, 0); // socket Stream(TCP)			
+		if (pConexion->locsock == INVALID_SOCKET){
 			printf("FALLA socket() \n");
 			WSACleanup();
-			free(punteroConexion);
 			return RES_INVALID_SOCKET;
 		}
-		else{
-
-		     punteroConexion->host=gethostbyname("localhost");
-             punteroConexion->conexrem.sin_port = htons(Puerto);
-             punteroConexion->conexrem.sin_addr = *((struct in_addr *) punteroConexion->host->h_addr);
-             punteroConexion->conexrem.sin_family = AF_INET;
-             memset(punteroConexion->conexrem.sin_zero,0,8);
-			 
-			 exito = bind(punteroConexion->socketServidor, (SOCKADDR*)&(punteroConexion->conexrem), sizeof(SOCKADDR_IN));
-
-             if(exito == 0){
-				int conexionesAceptadas = 0;
-				while (conexionesAceptadas < NUMERO_CLIENTES){
-			        int escuchaExitosa = listen(punteroConexion->socketServidor,NUMERO_CLIENTES);
-					if(escuchaExitosa != -1){
-						
-  	                    
-						printf("================================================================================ \n\n");
-                       	printf("                     EL SERVIDOR ESTA ESPERANDO AL JUGADOR %d\n\n",conexionesAceptadas+1);
-					    printf("================================================================================ \n");
-						
-						
-						addrleng = sizeof(punteroConexion->conexrem);
-						punteroConexion->socketCliente[conexionesAceptadas] = accept(punteroConexion->socketServidor, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
-						printf("\n CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->socketCliente[conexionesAceptadas]);
-
-						punteroConexion->usuario=0;//le asigna un 0 que es servidor
-						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-						conexionesAceptadas++;
-
-					}
-					else{
-						printf("FALLA listen() \n");
-						WSACleanup();
-						close(punteroConexion->socketServidor);
-						free(punteroConexion);
-						return RES_LISTEN;
-					}
-				}
-				FD_ZERO (&(pConexion->descriptoresLectura));
-				for (i=0; i<NUMERO_CLIENTES; i++){ 
-					FD_SET (punteroConexion->socketCliente[i], &(pConexion->descriptoresLectura) );
-				}
-				FD_SET (punteroConexion->socketServidor, &(pConexion->descriptoresLectura));
-			}
-			else{
-			     	printf("FALLA en bind() \n");
-					WSACleanup();
-					close(punteroConexion->socketServidor);
-					free(punteroConexion);
-					return RES_BIND;
-			}
-		 return RES_OK;
-
-		}
-
 	}
 	else{
 		printf("FALLA EN WSASTARTUP \n");
 		WSACleanup();
-		free(punteroConexion);
-		return RES_WSA_STARTUP;
+		return RES_WSA_STARTUP;	
 	}
+	return RES_OK;
+}
 
+
+int socketEscuchando(int puerto,CONEXION *pConexion){
+	
+	struct hostent* host;
+	SOCKADDR_IN conexrem;
+	int error;
+
+	host = gethostbyname("localhost"); 
+	conexrem.sin_port = htons(puerto); 
+    conexrem.sin_addr = *((struct in_addr *)host->h_addr);
+    conexrem.sin_family = AF_INET; 
+    memset(&conexrem.sin_zero,0,8); 
+	memcpy(&pConexion->conexrem, &conexrem, sizeof(SOCKADDR_IN));
+
+	error = bind(pConexion->locsock, (SOCKADDR*)&conexrem, sizeof(conexrem));
+	if (error != RES_OK){
+		printf("FALLA en bind() \n");
+		closesocket(pConexion->locsock);
+		WSACleanup();
+		return RES_BIND;
+	}
+	
+	if (listen(pConexion->locsock,1) == RES_ERROR){
+		printf("FALLA listen() \n");
+		closesocket(pConexion->locsock);
+		WSACleanup();
+		return RES_LISTEN;
+	}
+	
+	return RES_OK;
+
+	
 
 }
 
-int trConectar(const char *pDireccion, int Puerto, CONEXION *pConexion){
 
-	//Definición Variables
-    int exito;
-	int wasa = 0;
-	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
-    //--------------
-	int i=0;
+
+
+int trEscuchar(int puerto,CONEXION *pConexion){
 	
-    wasa = WSAStartup(MAKEWORD(2,0),&punteroConexion->wsdata);
+    int error;
+	SOCKADDR cliente;
+	int Longitud_Cliente;
+	
+	error = iniciarSocket(pConexion, SERVIDOR);
+	if (error != RES_OK)
+		return error;
+	
+	error = socketEscuchando(puerto,pConexion);	
+	if (error != RES_OK)
+		return error;	
+		
 
-	if(wasa == 0){
-		punteroConexion->socketCliente[i] = socket(AF_INET, SOCK_STREAM, 0); // socket Stream(TCP)
-		if (punteroConexion->socketCliente[i] == INVALID_SOCKET){
-			printf("FALLA socket() \n");
-			WSACleanup();
-			free(punteroConexion);
-			return RES_INVALID_SOCKET;
-		}
-		else{
-            punteroConexion->host=gethostbyname(pDireccion);
-            punteroConexion->conexrem.sin_port = htons(Puerto);
-            punteroConexion->conexrem.sin_addr = *((struct in_addr *) punteroConexion->host->h_addr);
-            punteroConexion->conexrem.sin_family = AF_INET;
-            memset(punteroConexion->conexrem.sin_zero,0,8);
-			
-			exito = connect(punteroConexion->socketCliente[i], (SOCKADDR*)&(punteroConexion->conexrem), sizeof(SOCKADDR_IN));
-		    
-			if(exito == 0){
-                    	printf("============================================================================== \n\n");
-                       	printf("                         EL CLIENTE SE CONECTO\n\n");
-					    printf("============================================================================== \n");
+	mensajeServidorEnEspera();
+	Longitud_Cliente = sizeof(cliente);
+	pConexion->cliente = accept(pConexion->locsock, &cliente, &Longitud_Cliente );
+	
+	mensajeConexionAceptada(pConexion);
+	
+	return RES_OK;
+					
+}
 
-                     punteroConexion->usuario=1;//le asigna  un 1 que es cliente
-			         memcpy (pConexion, punteroConexion,sizeof(CONEXION)); //si se conecto correctamente devuelvo el puntero a la conexion y RES_OK
-					 return RES_OK;// cambiar por RES_OK
-			}
-			else{
-			         printf("FALLA en connect() \n");
-					 WSACleanup();
-					 close(punteroConexion->socketCliente[i]);
-					 free(punteroConexion);
-					 return RES_CONNECT;
-			}
-		}
+
+
+int conectarSocket(const char *pDireccion, int puerto, CONEXION *pConexion){
+
+	struct hostent* host;
+	SOCKADDR_IN conexrem;
+	
+	host=gethostbyname(pDireccion); 
+    conexrem.sin_port = htons(puerto); 
+    conexrem.sin_addr = *((struct in_addr *)host->h_addr);
+    conexrem.sin_family = AF_INET; 
+    memset(&conexrem.sin_zero,0,8); 
+	
+	memcpy(&pConexion->conexrem, &conexrem, sizeof(SOCKADDR_IN));
+	if (connect(pConexion->cliente, (SOCKADDR*)&conexrem, 
+		sizeof(conexrem)) != RES_OK){
+				printf("FALLA en connect() \n");
+				WSACleanup();
+				return RES_ERROR;
 	}
-    else{
-		printf("FALLA EN WSA STARTUP \n");
-		WSACleanup();
-		free(punteroConexion);
-		return RES_WSA_STARTUP;
-	}
+
+	return RES_OK;
+
+}
+
+
+int trConectar(const char *pDireccion, int puerto, CONEXION *pConexion){
+	
+	int error;
+
+	error = iniciarSocket(pConexion, CLIENTE);
+	if (error != RES_OK)
+		return error;
+    
+	error = conectarSocket(pDireccion, puerto, pConexion);
+	if (error != RES_OK)
+		return error;
+	
+	mensajeClienteConectado();
+					
+    return RES_OK;
+				
 }
 
 int trPuerto(CONEXION *pConexion, int *pPuerto){
-
+	
 	if(pConexion != NULL){
-
+		
 		//Con esta funcion guardaremos el puerto al que vamos a conectar mas adelante.
 		//En el protocolo de red los puertos no se expresan igual que los expresamos nosotros
-		unsigned short sinPort = pConexion->conexrem.sin_port;
-
+		 unsigned short sinPort = pConexion->conexrem.sin_port;
+		
 		//obtengo el valor real de puerto
-		unsigned int puerto = ntohs(sinPort);
-
-
-		memcpy(pPuerto, &puerto,sizeof(int));
-
-		//TODO verificar si salio bien el memcpy y despues devolver 0
-		return RES_OK;
+		 unsigned int puerto = ntohs(sinPort);
+		
+	     memcpy(pPuerto, &puerto,sizeof(int));
+		
+		 //TODO verificar si salio bien el memcpy y despues devolver 0
+		 return RES_OK;
 	}
-	else{
-
-	//mensaje de error
-	return RES_PORT;
-
-	}
-
+	else
+		return RES_PORT;
+	
+	
 
 }
 
 
 int trIP(CONEXION *pConexion, char *pIP){
-
+    
     char *paux;
     paux = inet_ntoa(pConexion->conexrem.sin_addr);
     memcpy (pIP, paux,100);
@@ -330,29 +225,20 @@ int trIP(CONEXION *pConexion, char *pIP){
 int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const void *datos){
 
 	int i = 0;
-
-
 	double *pDouble;
-	double *pDoubleAux;
-//	int* puntero;
 	int* pInt;
-	int* pIntAux;
 	char *pChar;
-	int k;
-//	float* pInicialFloat;
-//	double* pInicialDouble;
-
 
 
 	switch(tipo){
-
-	case td_comando:
-		if (pConexion->usuario==0){
-			for (k=0; k<NUMERO_CLIENTES; k++){ 
-				send(pConexion->socketCliente[k],(char*)datos,sizeof(char)*strlen((char*)datos),0);
+	
+		case td_comando:
+			if (pConexion->usuario == SERVIDOR){
+				for (k=0; k<NUMERO_CLIENTES; k++){ 
+					send(pConexion->socketCliente[k],(char*)datos,sizeof(char)*strlen((char*)datos),0);
 				}
-		}else
-			send(pConexion->socketCliente[0],(char*)datos,sizeof(char)*strlen((char*)datos),0);
+			}else
+				send(pConexion->socketCliente[0],(char*)datos,sizeof(char)*strlen((char*)datos),0);
 		break;
 
 
@@ -379,7 +265,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 		break;
 
 
-	case (td_char):
+		case td_char:
 
 		pChar = (char*) datos;
 		if (pConexion->usuario==0){
@@ -394,13 +280,13 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 		break;
 
-	case (td_double):
+		case td_double:
 			pDouble = (double*)datos;
 			pDoubleAux = pDouble;
-		while( i< cantItems){
-		    #ifdef DEBUG
-				printf("send %d  %e \n",i+1,*pDouble);
-			#endif
+			while( i< cantItems){
+		  	  #ifdef DEBUG
+					printf("send %d  %e \n",i+1,*pDouble);
+				#endif	
 			if (pConexion->usuario==0){
 				for (k=0; k<NUMERO_CLIENTES; k++){ 
 					send(pConexion->socketCliente[k],pDouble++,sizeof(double),0);

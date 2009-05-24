@@ -5,8 +5,6 @@
 
 
 typedef struct _CONEXION{
-        WSADATA wsdata;
-        struct hostent* host;
         SOCKADDR_IN conexrem;
 		fd_set descriptoresLectura;
 		int socketServidor;
