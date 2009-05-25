@@ -13,6 +13,7 @@ public:
 	Tejo();
 	Tejo(Circulo *circulo);
 	virtual ~Tejo();
+	void borrarTejo();
       void dibujar(SDL_Surface *pantalla);
          Circulo* getFigura();
     	 void avanzar_x();

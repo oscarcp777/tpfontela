@@ -64,6 +64,7 @@ class Escenario {
 		Escenario();
 
 	private:
+		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
 		int ancho;
 		int alto;
