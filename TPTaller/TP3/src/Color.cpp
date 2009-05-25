@@ -28,3 +28,4 @@ int Color::getColorFondo_G(){
 int  Color::getColorFondo_B(){
 	return this->color.b;
 }
+

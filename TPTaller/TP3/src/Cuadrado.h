@@ -16,6 +16,7 @@ class Cuadrado: public Figura{
 		void setPosicion(Posicion * posicion);
 		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
+	    void calcularRadioDeInfluencia();
 
 	private:
 		int lado;

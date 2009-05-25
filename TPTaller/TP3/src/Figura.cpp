@@ -8,9 +8,54 @@ Figura::Figura(){
 	  this->imagen = NULL;
 
 }
+int Figura::getXInfluencia()
+   {
+       return xInfluencia;
+   }
+
+   void Figura::setXInfluencia(int xInfluencia)
+   {
+       this->xInfluencia = xInfluencia;
+   }
+
+   int Figura::getYInfluencia()
+   {
+       return yInfluencia;
+   }
+
+   void Figura::setYInfluencia(int yInfluencia)
+   {
+       this->yInfluencia = yInfluencia;
+   }
+
+   int Figura::getAnchoInfluencia()
+   {
+       return anchoInfluencia;
+   }
+
+   void Figura::setAnchoInfluencia(int anchoInfluencia)
+   {
+       this->anchoInfluencia = anchoInfluencia;
+   }
+
+   int Figura::getAltoInfluencia()
+   {
+       return altoInfluencia;
+   }
+
+   void Figura::setAltoInfluencia(int altoInfluencia)
+   {
+       this->altoInfluencia = altoInfluencia;
+   }
+
 Posicion* Figura::getPosicion(){
 	return this->pos;
 }
+
+std::vector<Posicion*> Figura::getPuntosDeInfluencia(){
+        return this->puntosDeInfluencia;
+    }
+
 
 void Figura::setPosicion(Posicion*posicion){
 	this->pos = posicion;

@@ -1,10 +1,10 @@
 <escenario>
             <General resolucion="800" alturaPad="150" basePad="20" idTexturaPad="triangulo"
-                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="200">
+                     idTexturaTejo="tejo" radioTejo="100" velocidadTejo="200">
              </General>
              <ListadoDeDispersores> 
                   <circulo id="circulo0" radio="30" idTextura="bola">
-                         <posicion x="400" y="300" />
+                         <posicion x="375" y="275" />
                    </circulo>                
                    <triangulo id="triangulo1" idTextura="triangulo">
                                   <ver1 x="300" y="250"/>
@@ -37,7 +37,7 @@
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.jpg">
                  </textura>
-                  <textura id="tejo" path="imagenes/sup8.jpg">
+                  <textura id="tejo" path="imagenes/tejo.bmp">
                  </textura>
                  <textura id="triangulo" path="imagenes/cancha2.jpg">
                  </textura>

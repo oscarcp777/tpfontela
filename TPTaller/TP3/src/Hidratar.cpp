@@ -326,19 +326,18 @@ int Hidratar::hidratarCirculo(std::string atributos){
 	std::cout<<"Error atributos validos"<<errorAtributosValidos<<endl;
 
 	if(errorNumeroPos==0&&errorNumeroRadio==0&&errorAtributosValidos==0){
-		circulo = new Circulo();
+
 		posicion = new Posicion(atoi(posicionX.c_str()),atoi(posicionY.c_str()));
 
 		radio = atoi((StringUtils::getValorTag(RADIO,vec)).c_str());
-		circulo->setId(valueId);
-		circulo->setRadio(radio);
-		circulo->setPosicion(posicion);
-		escenario->addFigura(circulo);
+		circulo = new Circulo(valueId,radio,posicion);
+
 		std::cout<<"exito AL CREAR EL CIRCULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		/**################################################################################################*/
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
 		agregarAtributosOpcionales(vec, circulo, listaClave);
+		escenario->addFigura(circulo);
 		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR EL CIRCULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
@@ -400,21 +399,19 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 	std::cout<<"Error atributos validos"<<errorAtributosValidos<<endl;
 
 	if(errorNumeroPos==0&&errorPropiedad==0&&errorAtributosValidos==0){
-		rectangulo = new Rectangulo();
+
 		posicion = new Posicion(atoi(posicionX.c_str()),atoi(posicionY.c_str()));
 
 		base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
 		altura = atoi((StringUtils::getValorTag(ALTURA,vec)).c_str());
-		rectangulo->setId(valueId);
-		rectangulo->setBase(base);
-		rectangulo->setAltura(altura);
-		rectangulo->setPosicion(posicion);
-		escenario->addFigura(rectangulo);
+		rectangulo = new Rectangulo(valueId,base,altura,posicion);
+
 		std::cout<<"exito AL CREAR EL RECTANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		/**################################################################################################*/
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
 		agregarAtributosOpcionales(vec, rectangulo, listaClave);
+		escenario->addFigura(rectangulo);
 		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR EL RECTANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
@@ -471,23 +468,19 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 	std::cout<<"Error atributos validos"<<errorAtributosValidos<<endl;
 
 	if(errorVertice==0&&errorAtributosValidos==0){
-		triangulo = new Triangulo();
+
 		vertice1 = new Posicion(atoi(posicionX1.c_str()),atoi(posicionY1.c_str()));
 		vertice2 = new Posicion(atoi(posicionX2.c_str()),atoi(posicionY2.c_str()));
 		vertice3 = new Posicion(atoi(posicionX3.c_str()),atoi(posicionY3.c_str()));
+		triangulo = new Triangulo(valueId,vertice1,vertice2,vertice3);
 
-		triangulo->setId(valueId);
-		triangulo->setVertice1(vertice1);
-		triangulo->setVertice2(vertice2);
-		triangulo->setVertice3(vertice3);
-
-		escenario->addFigura(triangulo);
 		std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
-
+		escenario->addFigura(triangulo);
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
 		agregarAtributosOpcionales(vec, triangulo, listaClave);
+
 		return 0;
 	}else{
 		std::cout<<"ERROR AL CREAR EL TRIANGULO NO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;

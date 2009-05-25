@@ -19,6 +19,7 @@ class Triangulo: public Figura {
 		Posicion* getVertice2();
 		Posicion* getVertice3();
 		int dibujar(SDL_Surface *screen);
+		void calcularRadioDeInfluencia();
 
 	private:
 		Posicion *vertice1;

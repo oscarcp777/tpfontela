@@ -16,6 +16,7 @@ class Circulo: public Figura{
 		Posicion* getPosicion();
 		void setPosicion(Posicion * posicion);
 		~Circulo();
+		 void calcularRadioDeInfluencia();
 	private:
 		int radio;
 		Posicion *pos;

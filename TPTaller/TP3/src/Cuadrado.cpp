@@ -116,3 +116,8 @@ void Cuadrado::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }
 
+
+void Cuadrado::calcularRadioDeInfluencia(){
+
+//TODO
+}

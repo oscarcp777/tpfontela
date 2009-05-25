@@ -29,3 +29,9 @@ Posicion* Segmento::getInicio(){
 Posicion* Segmento::getFin(){
 	return this->fin;
 }
+
+void Segmento::calcularRadioDeInfluencia(){
+
+//TODO
+
+}

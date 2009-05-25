@@ -19,6 +19,7 @@ class Rectangulo: public Figura {
 		int dibujar(SDL_Surface *screen);
 		Posicion* getPosicion();
 		void setPosicion(Posicion *posicion);
+		void calcularRadioDeInfluencia();
 
 	private:
 		int base;

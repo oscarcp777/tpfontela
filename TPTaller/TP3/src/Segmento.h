@@ -10,6 +10,7 @@ class Segmento:public Figura {
 			int dibujar(SDL_Surface *screen);
 			Posicion* getInicio();
 			Posicion* getFin();
+		    void calcularRadioDeInfluencia();
 	private:
 			Posicion *inicio;
 			Posicion *fin;

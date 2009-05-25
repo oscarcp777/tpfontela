@@ -7,6 +7,8 @@
 #include "Teclado.h"
 #include "Pad.h"
 #include "Tejo.h"
+#include "ControladorColisiones.h"
+
 //pasar estas constantes a Constantes.h
 const int RESOLUCION_640=640;
 const int RESOLUCION_640_ALTO=480;
@@ -414,13 +416,13 @@ int Escenario::graficar(){
 		// tenemos que refrescar la pantalla o no
 		x2 = tejo->getX();
 		y2 = tejo->getY();
-		if(direccion_x == true && tejo->getX() >= this->getAncho())
+		if(direccion_x == true && tejo->getX() >= this->getAncho()-tejo->getRadio())
 			direccion_x = false;
-		if(direccion_y == true && tejo->getY() >= this->getAlto())
+		if(direccion_y == true && tejo->getY() >= this->getAlto()-tejo->getRadio())
 			direccion_y= false;
-		if(direccion_x == false && tejo->getX() <= 0)
+		if(direccion_x == false && tejo->getX() <= 0+tejo->getRadio())
 			direccion_x = true;
-		if(direccion_y == false && tejo->getY() <= 0)
+		if(direccion_y == false && tejo->getY() <= 0+tejo->getRadio())
 			direccion_y = true;
 
 		if(direccion_x == true)
@@ -495,19 +497,24 @@ int Escenario::graficar(){
 //			//	         SDL_Flip(this->getScreen());
 //		}
 		if(x2 != tejo->getX() || y2 != tejo->getY()) {
-			std::cout << "= Posición actual del tejo" << endl;
-			std::cout << "- X: " << tejo->getX()<< endl;
-			std::cout<< "- Y: " <<tejo->getY() << endl;
+//			std::cout << "= Posición actual del tejo" << endl;
+//			std::cout << "- X: " << tejo->getX()<< endl;
+//			std::cout<< "- Y: " <<tejo->getY() << endl;
 
 			// Dibujamos al tejo en su posición nueva
 
 					 Uint32 negro = SDL_MapRGB(this->screen->format, 87,122,18);
 
 					 SDL_FillRect(this->screen, NULL, negro);
-		this->pintarPantalla();
+//	     this->pintarPantalla();
 			padCliente1->dibujar(this->screen);
+//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
 			padCliente2->dibujar(this->screen);
+//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
 			tejo->dibujar(this->screen);
+
+			ControladorColisiones::posibilidadDeColisionDispersores();
+
 			SDL_Flip(this->getScreen());
 //			SDL_UpdateRect(this->screen,tejo->getX(),tejo->getY(), tejo->getFigura()->getRadio()*2,tejo->getFigura()->getRadio()*2);
 		}
