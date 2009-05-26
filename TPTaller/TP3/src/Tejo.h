@@ -5,9 +5,11 @@
  *      Author: oscar
  */
 #include "Circulo.h"
+#include "Direccion.h"
 #ifndef TEJO_H_
 #define TEJO_H_
 #include <vector>
+#include <math.h>
 #include "Posicion.h"
 #include <SDL.h>
 class Tejo{
@@ -18,16 +20,17 @@ public:
 	void borrarTejo();
       void dibujar(SDL_Surface *pantalla);
          Circulo* getFigura();
-    	 void avanzar_x();
-    	 void retrasar_x();
+    	 void mover_x();
+    	// void retrasar_x();
 
     	  // Modifica la posición del personaje con respecto al eje Y
-    	 void bajar_y();
-    	 void subir_y();
+    	// void bajar_y();
+    	 void mover_y();
     	 // Consultoras
     	 int getRadio();
     	  int getX();
     	  int getY();
+    	  Direccion* getDireccion();
 
        void cargarPuntos();
     	 // Modificadoras
@@ -42,6 +45,7 @@ public:
 
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
+	Direccion* direccion;
     	int velocidad;
     	Circulo* circulo;
     	SDL_Surface *imagen;

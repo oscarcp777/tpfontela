@@ -10,7 +10,7 @@
 static const std::string RADIO__TEJO="radioTejo";
 static const std::string BASE__PAD="basePad";
 static const std::string ALTURA__PAD="alturaPad";
-static const std::string VELOCIDAD__TEJO="velocidadPad";
+static const std::string VELOCIDAD__TEJO="velocidadTejo";
 static const std::string IDTEXTURA__TEJO="idTexturaTejo";
 static const std::string IDTEXTURA__PAD="idTexturaPad";
 

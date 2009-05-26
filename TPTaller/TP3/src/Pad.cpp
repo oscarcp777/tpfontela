@@ -8,7 +8,7 @@
 #include "Pad.h"
 #include "Rectangulo.h"
 #include "Escenario.h"
-const int PIXELES_SALTO=5;
+const int PIXELES_SALTO=1;
 Pad::Pad() {
 
 }

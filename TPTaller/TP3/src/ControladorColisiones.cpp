@@ -9,6 +9,8 @@
 #include "Tejo.h"
 #include "ControladorColisiones.h"
 
+const double PI=3.14159265;
+
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
 
@@ -38,8 +40,8 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 			y2 = figura->getYInfluencia();
 
 			if( ((x1 + w1) > x2) && ((y1 + h1) > y2) && ((x2 + w2) > x1) && ((y2 + h2) > y1)){
-				std::cout<<"puntos de influencia "<<"("<<x2<<","<<y2<<")"<<"abcho"<<w2<<h2<<endl;
-				system("PAUSE");
+				std::cout<<"choco contra figura: "<<figura->getId()<<endl;
+
 
 			 return true;
 			}
@@ -50,4 +52,37 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 
 
 	return posibilidadColision;
+}
+
+void ControladorColisiones::calcularDireccion(){
+			Escenario* escenario = Escenario::obtenerInstancia();
+			Tejo* tejo = escenario->getTejo();
+
+
+			if(tejo->getY() <= 0  + tejo->getRadio())
+				if (tejo->getDireccion()->getFi()<PI/2)
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(3*PI/2));
+				else
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+
+			if(tejo->getY() >= escenario->getAlto()-tejo->getRadio())
+				if (tejo->getDireccion()->getFi()<3*PI/2)
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+				else
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(3*PI/2));
+
+
+			if(tejo->getX() >= escenario->getAncho()-tejo->getRadio())
+				if (tejo->getDireccion()->getFi()<PI/2)
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+				else
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+
+			if(tejo->getX() <= 0 + tejo->getRadio())
+				if (tejo->getDireccion()->getFi()<PI)
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+				else
+					tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+
+
 }

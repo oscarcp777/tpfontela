@@ -23,6 +23,7 @@ Tejo::Tejo(Circulo* circulo){
 	this->circulo=circulo;
 	std::cout<< "padv1: "  <<this->circulo->getIdTextura()<< endl;
 	this->imagen=NULL;
+	this->direccion = new Direccion();
 
 }
 void Tejo::cargarRadioDeInfluencia(){
@@ -48,8 +49,8 @@ std::vector<Posicion*> Tejo::getPuntosDeInfluencia()
 void Tejo::borrarTejo(){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	SDL_Rect rectangulo;
-	rectangulo.x=this->getX();
-	rectangulo.y=this->getY();
+	rectangulo.x=this->getX()-this->getRadio();
+	rectangulo.y=this->getY()-this->getRadio();
 	rectangulo.w=this->getFigura()->getRadio()*2;
 	rectangulo.h=this->getFigura()->getRadio()*2;
 	SDL_FillRect(escenario->getScreen(),&rectangulo,SDL_MapRGB(escenario->getScreen()->format,87,122,18));
@@ -112,13 +113,15 @@ void Tejo::setY(int y){
 }
 // El movimiento de la imagen se establece
 // de 4 en 4 píxeles
-void Tejo::avanzar_x() {
+void Tejo::mover_x() {
 //	borrarTejo();
 	int x =this->getX();
-	x += PIXELES_SALTO;
+	float res = cos(this->direccion->getFi());
+	x += PIXELES_SALTO*res*this->getRadio();
 	this->setX(x);
+	std::cout<<x<<endl;
 }
-void Tejo::retrasar_x() {
+/*void Tejo::retrasar_x() {
 //	borrarTejo();
 	int x =this->getX();
 	x -= PIXELES_SALTO;
@@ -129,15 +132,21 @@ void Tejo::bajar_y() {
 	int y =this->getY();
 	y += PIXELES_SALTO;
 	this->setY(y);
-}
-void Tejo::subir_y() {
+}*/
+void Tejo::mover_y() {
 //	borrarTejo();
 	int y =this->getY();
-	y -= PIXELES_SALTO;
+	float res = sin(this->direccion->getFi());
+	y-= PIXELES_SALTO*res*this->getRadio();
 	this->setY(y);
+	std::cout<<y<<endl;
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();
+}
+
+Direccion* Tejo::getDireccion(){
+	return this->direccion;
 }
 
 

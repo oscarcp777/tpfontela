@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <list>
+#include <windows.h>
 #include "Escenario.h"
 #include <utility>
 #include "archivoTexto.h"
@@ -405,8 +406,8 @@ int Escenario::graficar(){
 	SDL_Flip(this->getScreen());
 	// Controlará la dirección con
 	// respecto al eje x o y
-	bool direccion_x = true;
-	bool direccion_y = false;
+	int direccion_x = true;
+	int direccion_y = false;
 	// Game loop
 
 	while(terminar == false) {
@@ -414,25 +415,27 @@ int Escenario::graficar(){
 
 		// Variables de control para saber si
 		// tenemos que refrescar la pantalla o no
-		x2 = tejo->getX();
-		y2 = tejo->getY();
-		if(direccion_x == true && tejo->getX() >= this->getAncho()-tejo->getRadio())
-			direccion_x = false;
-		if(direccion_y == true && tejo->getY() >= this->getAlto()-tejo->getRadio())
-			direccion_y= false;
-		if(direccion_x == false && tejo->getX() <= 0+tejo->getRadio())
-			direccion_x = true;
-		if(direccion_y == false && tejo->getY() <= 0+tejo->getRadio())
-			direccion_y = true;
-
-		if(direccion_x == true)
-			tejo->avanzar_x();
-		else
-			tejo->retrasar_x();
-		if(direccion_y == true)
-			tejo->bajar_y();
-		else
-			tejo->subir_y();
+//		x2 = tejo->getX();
+//		y2 = tejo->getY();
+//		if(direccion_x == true && tejo->getX() >= this->getAncho()-tejo->getRadio())
+//			direccion_x = false;
+//		if(direccion_y == true && tejo->getY() >= this->getAlto()-tejo->getRadio())
+//			direccion_y= false;
+//		if(direccion_x == false && tejo->getX() <= 0+tejo->getRadio())
+//			direccion_x = true;
+//		if(direccion_y == false && tejo->getY() <= 0+tejo->getRadio())
+//			direccion_y = true;
+//
+//		if(direccion_x == true)
+			ControladorColisiones::calcularDireccion();
+			tejo->mover_x();
+			tejo->mover_y();
+//		else
+//			tejo->retrasar_x();
+//		if(direccion_y == true)
+//			tejo->bajar_y();
+//		else
+//			tejo->subir_y();
 
 		// Actualizamos el estado del teclado
 
@@ -465,59 +468,25 @@ int Escenario::graficar(){
 				padCliente2->bajar_y();
 		}
 
-		// Si existe modificación dibujamos
-//
-//		if(padCliente1->getY()<450&& padCliente1->getY()>0&& y0 != padCliente1->getY()) {
-//			std::cout << "= Posición actual del pad 1" << endl;
-//			std::cout << "- X: " << padCliente1->getX() << endl;
-//			std::cout << "- Y: " << padCliente1->getY() << endl;
-//			// Dibujamos al personaje en su posición nueva
-//
-//			//			Uint32 negro = SDL_MapRGB(this->getScreen()->format,  87,122,18);
-//			//
-//			//			SDL_FillRect(this->getScreen(), NULL, negro);
-//			//		padCliente1->getFigura()->dibujar(this->screen);
-//			//this->pintarPantalla();
-//			padCliente1->dibujar(this->screen);
-//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
-//			//	SDL_Flip(this->getScreen());
-//		}
-//		if(padCliente2->getY()<450&& padCliente2->getY()>0 && y1 != padCliente2->getY()) {
-//			std::cout << "= Posición actual del pad 2" << endl;
-//			std::cout << "- X: " << padCliente2->getX() << endl;
-//			std::cout << "- Y: " << padCliente2->getY() << endl;
-//			// Dibujamos al personaje en su posición nueva
-//
-//			//			Uint32 negro = SDL_MapRGB(this->getScreen()->format, 87,122,18);
-//			//			SDL_FillRect(this->getScreen(), NULL, negro);
-//			//		padCliente1->getFigura()->dibujar(this->screen);
-//			//	this->pintarPantalla();*/
-//			padCliente2->dibujar(this->screen);
-//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
-//			//	         SDL_Flip(this->getScreen());
-//		}
-		if(x2 != tejo->getX() || y2 != tejo->getY()) {
-//			std::cout << "= Posición actual del tejo" << endl;
-//			std::cout << "- X: " << tejo->getX()<< endl;
-//			std::cout<< "- Y: " <<tejo->getY() << endl;
 
-			// Dibujamos al tejo en su posición nueva
+		if(x2 != tejo->getX() || y2 != tejo->getY()) {
 
 					 Uint32 negro = SDL_MapRGB(this->screen->format, 87,122,18);
 
 					 SDL_FillRect(this->screen, NULL, negro);
 //	     this->pintarPantalla();
 			padCliente1->dibujar(this->screen);
-//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
+			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
 			padCliente2->dibujar(this->screen);
-//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
+			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
 			tejo->dibujar(this->screen);
 
 			ControladorColisiones::posibilidadDeColisionDispersores();
-
-			SDL_Flip(this->getScreen());
-//			SDL_UpdateRect(this->screen,tejo->getX(),tejo->getY(), tejo->getFigura()->getRadio()*2,tejo->getFigura()->getRadio()*2);
+//		SDL_Flip(this->getScreen());
+             Sleep(1000/tejo->getVelocidad());
+			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2,tejo->getFigura()->getRadio()*2);
 		}
+
 
 		// Control de Eventos
 
@@ -532,24 +501,6 @@ int Escenario::graficar(){
 		}
 
 	}
-
-
-//		while (done == 0) {
-//
-//		SDL_Flip (this->screen);
-//
-//		// Comprobando teclas para opciones
-//		while (SDL_PollEvent(&event)) {
-//			// Cerrar la ventana
-//			if (event.type == SDL_QUIT) {
-//				done = 1;
-//			}
-//			// Pulsando una tecla
-//			if (event.type == SDL_KEYDOWN) {
-//				done = 1;
-//			}
-//		}
-//	}
 
 	return 0;
 }
