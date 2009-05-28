@@ -10,7 +10,7 @@
 #include <math.h>
 #include "Escenario.h"
 const int PIXELES_SALTO=1;
-const double PI=3.14159265;
+const double PI=3.14159265358979323846;
 #define NEGRO 0x000000
 Tejo::Tejo() {
 	// TODO Auto-generated constructor stub
@@ -56,7 +56,7 @@ void Tejo::borrarTejo(){
 	rectangulo.h=this->getFigura()->getRadio()*2;
 
 	SDL_FillRect(escenario->getScreen(),&rectangulo,SDL_MapRGB(escenario->getScreen()->format,87,122,18));
-	SDL_UpdateRect(escenario->getScreen(),this->getXAnterior()-this->getRadio(),this->getYAnterior()-this->getRadio(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+//	SDL_UpdateRect(escenario->getScreen(),this->getXAnterior()-this->getRadio(),this->getYAnterior()-this->getRadio(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 }
 
 int Tejo::getVelocidad()
@@ -74,8 +74,8 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 //	 Cargamos la imagen
 	        if(this->imagen==NULL){
 			std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
-//			this->imagen = IMG_Load(path.begin());
-			this->imagen = SDL_LoadBMP(path.begin());
+			this->imagen = IMG_Load(path.begin());
+//			this->imagen = SDL_LoadBMP(path.begin());
 			if(this->imagen == NULL) {
 				std::cout<< "Error: " << SDL_GetError() << endl;
 				exit(1);
@@ -85,15 +85,15 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 		     this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 			}
 //			// Calculamos el color transparente, en nuestro caso el verde
-			SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,44 ,151, 27));
+			SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0 ,255, 0));
 
 	         }
-	        SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,44, 151 ,27));
+	        SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0, 255 ,0));
 
 	    SDL_Rect rect;
 		rect.x =this->getX()-this->getRadio();
 		rect.y = this->getY()-this->getRadio();
-		
+
 		SDL_BlitSurface(this->imagen, NULL, pantalla, &rect);
 
 
@@ -119,10 +119,16 @@ void Tejo::mover_x() {
 //	borrarTejo();
 	int x =this->getX();
 	this->setXAnterior(x);
-	float res = cos(this->direccion->getFi());
-	x += PIXELES_SALTO*res*this->getRadio();
+	double res = cos(this->direccion->getFi());
+	if(res>0.5){
+	x += PIXELES_SALTO;
+	}else{
+		if(res<-0.5){
+		x += PIXELES_SALTO*-1;
+		}
+	}
 	this->setX(x);
-	
+	  std::cout<<"posicion X :"<<x<<endl;
 }
 /*void Tejo::retrasar_x() {
 //	borrarTejo();
@@ -140,10 +146,16 @@ void Tejo::mover_y() {
 //	borrarTejo();
 	int y =this->getY();
 	this->setYAnterior(y);
-	float res = sin(this->direccion->getFi());
-	y-= PIXELES_SALTO*res*this->getRadio();
+	double res =sin(this->direccion->getFi());
+	if(res>0.5){
+		y -= PIXELES_SALTO;
+		}else{
+			if(res<-0.5){
+			y -= PIXELES_SALTO*-1;
+			}
+		}
 	this->setY(y);
-
+   std::cout<<"posicion Y :"<<y<<endl;
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();

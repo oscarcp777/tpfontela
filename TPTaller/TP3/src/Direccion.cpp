@@ -19,11 +19,11 @@ Direccion::~Direccion() {
 }
 
 
-float Direccion::getFi(){
+double Direccion::getFi(){
 	return fi;
 }
 
-void Direccion::setFi(float fi)
+void Direccion::setFi(double fi)
 {
 	this->fi = fi;
 }

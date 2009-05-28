@@ -13,11 +13,11 @@ public:
 	Direccion();
 	virtual ~Direccion();
 
-    float getFi();
-    void setFi(float fi);
+    double getFi();
+    void setFi(double fi);
 
 private:
-		float fi;
+	double fi;
 };
 
 #endif /* DIRECCION_H_ */

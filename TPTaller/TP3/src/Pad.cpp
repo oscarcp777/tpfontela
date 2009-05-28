@@ -89,7 +89,12 @@ void Pad::setY(int y){
 	this->rectangulo->getPosicion()->setY(y);
 }
 
-
+int Pad::getBase(){
+	return this->rectangulo->getBase();
+}
+int Pad::getAltura(){
+	return this->rectangulo->getAltura();
+}
 // El movimiento de la imagen se establece
 // de 4 en 4 píxeles
 void Pad::avanzar_x() {

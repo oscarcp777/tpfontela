@@ -15,6 +15,7 @@ public:
 	virtual ~ControladorColisiones();
 	static bool posibilidadDeColisionDispersores();
 	static void calcularDireccion();
+	static void colisionesPads();
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

@@ -24,7 +24,8 @@ public:
   	 void bajar_y();
   	 void subir_y();
   	 // Consultoras
-
+  	int getBase();
+	int getAltura();
   	  int getX();
   	  int getY();
 

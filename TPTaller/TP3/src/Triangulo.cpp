@@ -191,9 +191,9 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 
 
-	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice2()->getX(), this->getVertice2()->getY());
-	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
-	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice2()->getX(),  this->getVertice2()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
+//	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice2()->getX(), this->getVertice2()->getY());
+//	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice1()->getX(),  this->getVertice1()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
+//	this->dibujarLinea(getColorLinea()->getColor(),screen ,this->getVertice2()->getX(),  this->getVertice2()->getY(), this->getVertice3()->getX(), this->getVertice3()->getY());
 
 	this->color = getColorFigura()->getColor();
 
