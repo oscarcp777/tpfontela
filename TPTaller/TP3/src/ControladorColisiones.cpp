@@ -40,7 +40,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 			y2 = figura->getYInfluencia();
 
 			if( ((x1 + w1) > x2) && ((y1 + h1) > y2) && ((x2 + w2) > x1) && ((y2 + h2) > y1)){
-				std::cout<<"choco contra figura: "<<figura->getId()<<endl;
+				std::cout<<"posibilidad de colision contra la figura: "<<figura->getId()<<endl;
 
 
 			 return true;

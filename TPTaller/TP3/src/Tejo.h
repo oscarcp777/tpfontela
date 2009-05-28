@@ -30,6 +30,8 @@ public:
     	 int getRadio();
     	  int getX();
     	  int getY();
+		  int getXAnterior();
+    	  int getYAnterior();
     	  Direccion* getDireccion();
 
        void cargarPuntos();
@@ -37,6 +39,8 @@ public:
 
     	  void setX(int x);
     	  void setY(int y);
+		  void setXAnterior(int x);
+    	  void setYAnterior(int y);
     int getVelocidad();
     void setVelocidad(int velocidad);
     std::vector<Posicion*> getPuntosDeInfluencia();
@@ -49,6 +53,8 @@ private:
     	int velocidad;
     	Circulo* circulo;
     	SDL_Surface *imagen;
+		int XAnterior;
+		int YAnterior;
 };
 
 #endif /* TEJO_H_ */

@@ -9,7 +9,8 @@ const double PI=3.14159265;
 #include "Direccion.h"
 
 Direccion::Direccion() {
-	fi = 0;
+	fi = PI/4;
+	//fi = 0;
 
 }
 

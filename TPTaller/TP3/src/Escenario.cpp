@@ -412,7 +412,7 @@ int Escenario::graficar(){
 
 	while(terminar == false) {
 
-
+		
 		// Variables de control para saber si
 		// tenemos que refrescar la pantalla o no
 //		x2 = tejo->getX();
@@ -479,12 +479,17 @@ int Escenario::graficar(){
 			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
 			padCliente2->dibujar(this->screen);
 			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
+			
+			
+			tejo->borrarTejo();
 			tejo->dibujar(this->screen);
 
 			ControladorColisiones::posibilidadDeColisionDispersores();
 //		SDL_Flip(this->getScreen());
              Sleep(1000/tejo->getVelocidad());
+			 
 			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2,tejo->getFigura()->getRadio()*2);
+			
 		}
 
 

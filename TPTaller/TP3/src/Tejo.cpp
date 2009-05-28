@@ -19,6 +19,7 @@ Tejo::Tejo() {
 Circulo* Tejo::getFigura(){
 return	this->circulo;
 }
+
 Tejo::Tejo(Circulo* circulo){
 	this->circulo=circulo;
 	std::cout<< "padv1: "  <<this->circulo->getIdTextura()<< endl;
@@ -49,12 +50,13 @@ std::vector<Posicion*> Tejo::getPuntosDeInfluencia()
 void Tejo::borrarTejo(){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	SDL_Rect rectangulo;
-	rectangulo.x=this->getX()-this->getRadio();
-	rectangulo.y=this->getY()-this->getRadio();
+	rectangulo.x=this->getXAnterior()-this->getRadio();
+	rectangulo.y=this->getYAnterior()-this->getRadio();
 	rectangulo.w=this->getFigura()->getRadio()*2;
 	rectangulo.h=this->getFigura()->getRadio()*2;
+
 	SDL_FillRect(escenario->getScreen(),&rectangulo,SDL_MapRGB(escenario->getScreen()->format,87,122,18));
-	SDL_UpdateRect(escenario->getScreen(),this->getX(),this->getY(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+	SDL_UpdateRect(escenario->getScreen(),this->getXAnterior()-this->getRadio(),this->getYAnterior()-this->getRadio(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 }
 
 int Tejo::getVelocidad()
@@ -91,7 +93,7 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 	    SDL_Rect rect;
 		rect.x =this->getX()-this->getRadio();
 		rect.y = this->getY()-this->getRadio();
-
+		
 		SDL_BlitSurface(this->imagen, NULL, pantalla, &rect);
 
 
@@ -116,10 +118,11 @@ void Tejo::setY(int y){
 void Tejo::mover_x() {
 //	borrarTejo();
 	int x =this->getX();
+	this->setXAnterior(x);
 	float res = cos(this->direccion->getFi());
 	x += PIXELES_SALTO*res*this->getRadio();
 	this->setX(x);
-	std::cout<<x<<endl;
+	
 }
 /*void Tejo::retrasar_x() {
 //	borrarTejo();
@@ -136,10 +139,11 @@ void Tejo::bajar_y() {
 void Tejo::mover_y() {
 //	borrarTejo();
 	int y =this->getY();
+	this->setYAnterior(y);
 	float res = sin(this->direccion->getFi());
 	y-= PIXELES_SALTO*res*this->getRadio();
 	this->setY(y);
-	std::cout<<y<<endl;
+
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();
@@ -149,6 +153,17 @@ Direccion* Tejo::getDireccion(){
 	return this->direccion;
 }
 
-
+int Tejo::getXAnterior(){
+	return this->XAnterior;
+}
+int Tejo::getYAnterior(){
+	return this->YAnterior;
+}
+void Tejo::setXAnterior(int x){
+	this->XAnterior = x;
+}
+void Tejo::setYAnterior(int y){
+	this->YAnterior = y;
+}
 
 
