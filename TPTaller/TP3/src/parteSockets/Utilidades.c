@@ -7,17 +7,6 @@
      deja de mandar informacion o cierra su ventana
 */
 
-int reconectarSockets(CONEXION *pConexion){
-    int addrleng;
-    	CONEXION* punteroConexion = (CONEXION*) malloc(sizeof(CONEXION));
-    		memcpy (punteroConexion, pConexion,sizeof(CONEXION));
-    		addrleng = sizeof(punteroConexion->conexrem);
-						punteroConexion->socketCliente[0] = accept(punteroConexion->socketServidor, (SOCKADDR*)&(punteroConexion->conexrem), &addrleng);
-						printf("CONEXION ACEPTADA CON EL CLIENTE Nro:   %d \n",punteroConexion->socketCliente[0]);
-						punteroConexion->usuario=0;//le asigna un 0 que es servidor
-						memcpy (pConexion, punteroConexion,sizeof(CONEXION));
-                        return RES_OK;// cambiar por RES_OK
-     }
 
 
 
@@ -437,15 +426,6 @@ DWORD WINAPI recibir(LPVOID c){
 
 		while (exito != RES_QUIT){
 
-			select (conexion->socketServidor +1, &(conexion->descriptoresLectura), NULL, NULL, NULL);
-
-
-			if (conexion->usuario==0){
-				for (k=0; k<conexion->socketServidor; k++){
-					if ( FD_ISSET (k, &(conexion->descriptoresLectura)) )
-							conexion->remitente = k;
-				}
-			}
 			memset(datos,0,100);
 			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
 			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);

@@ -1,20 +1,21 @@
+#ifdef __cplusplus
+ extern "C" {
+ #endif
+
 #ifndef _TRANSFERENCIA_H_
 #define _TRANSFERENCIA_H_
 //#define VER_COMANDO_ENVIADO
-#define NUMERO_CLIENTES 2
-
+#include <winsock.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "parser.h"
 
 typedef struct _CONEXION{
-        WSADATA wsdata;
-        struct hostent* host;
         SOCKADDR_IN conexrem;
-		fd_set descriptoresLectura;
-		int socketServidor;
-		int socketCliente[NUMERO_CLIENTES];
-		int remitente;
+        SOCKET locsock;
+        //SOCKET cliente;
         //si es 1 es cliente  , si es 0 en servidor
         int usuario;
-		
 }CONEXION;
 
 enum tr_tipo_dato {td_comando, td_int , td_char , td_float, td_double};
@@ -97,4 +98,6 @@ int trPuerto(CONEXION *pConexion, int *pPuerto);
 
 
 #endif
-
+#ifdef __cplusplus
+ }
+ #endif

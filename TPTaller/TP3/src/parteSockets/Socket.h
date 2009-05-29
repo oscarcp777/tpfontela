@@ -8,9 +8,11 @@
 #ifndef SOCKET_H_
 #define SOCKET_H_
 #include <string>
-#include <winsock2.h>
-#include "Transferencia.h"
+#include <winsock.h>
+
 #include "Utilidades.h"
+#include "Transferencia.h"
+
 
 class Socket {
 public:
@@ -19,13 +21,13 @@ public:
 	 	/* Client: Connectarse a un server */
 	 	void connect(const std::string& host, unsigned int port);
 	 	/* Server: Escuchar clientes */
-	 	void listen(unsigned int port);
+	 	Socket* listen(unsigned int port);
 	 	/* Client/Server: Enviar datos */
 	 	void send(const char* stream, unsigned int size);
 	 	/* Client/Server: Recibir datos */
 	 	int receive(char* stream, unsigned int size);
 	 	/* Server: Aceptar coneccion */
-	 	Socket* accept();
+	 	//Socket* accept();
 	 	/* Client/Server: Deshabilita el send/recv */
 	 	void shutdown();
 	 	/* Client/Server: Cierra el socket */

@@ -9,7 +9,8 @@
 
 Juego::Juego() {
 	// TODO Auto-generated constructor stub
-
+	this->juegoArrancado=false;
+	this->juegoCancelado=false;
 }
 
 Juego::~Juego() {

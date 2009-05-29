@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <winsock2.h> // Referencia a la librería
+
 #include "transferencia.h"
 #include "parser.h"
 

@@ -12,7 +12,7 @@ Thread::Thread():engaged(false){}
 int Thread::start(void* args)
 {
     this->args = args;
-    this->hilo = CreateThread(NULL,0,Thread::runProcess,NULL,0,&(this->id));
+    this->hilo = CreateThread(NULL,0,Thread::runProcess,this,0,&(this->id));
     this->engaged = true;
     return 0;
 }

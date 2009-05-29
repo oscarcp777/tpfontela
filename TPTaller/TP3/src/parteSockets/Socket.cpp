@@ -7,7 +7,6 @@
 
 #include "Socket.h"
 
-#include <winsock2.h>
 typedef char raw_type;
 bool Socket::initialized = false;
 
@@ -57,17 +56,17 @@ void Socket::connect(const string& host, unsigned int port)
 //    }
 }
 
-void Socket::listen(unsigned int port)
+Socket* Socket::listen(unsigned int port)
 {
-	int a;
-	a = trEscuchar(port,&(this->conexion));
-
-	if ( a == -1){
+	int clienteDescriptor;
+	clienteDescriptor = trEscuchar(port,&(this->conexion));
+	//Si clienteDescriptor es mayor que 0 devuelve la direccion del cliente aceptado
+	if ( clienteDescriptor < 0){
 	     Sleep(500); // Esperamos 500 Milisegundos y…
 	     Socket::listen(port); // Repetimos proceso
 	}
 	initialized = true;
-
+	return new Socket(clienteDescriptor);
 }
 
 void Socket::send(const char* stream, unsigned int size)
@@ -81,7 +80,7 @@ void Socket::send(const char* stream, unsigned int size)
 int Socket::receive(char* stream, unsigned int size)
 {
     int ret;
-    recibir(&(this->conexion));
+    //recibir(&(this->conexion));
 
 
 //    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
@@ -91,21 +90,21 @@ int Socket::receive(char* stream, unsigned int size)
     return ret;
 }
 
-Socket* Socket::accept()
-{
-    int newSockDesc;
-//    if ((newSockDesc = ::accept(sockDesc, NULL, 0))==-10)
-//    {
-//        throw cSocketException("Error en accept()");
-//    }
-
-    return new Socket(newSockDesc);
-}
+//Socket* Socket::accept()
+//{
+//    int newSockDesc;
+////    if ((newSockDesc = ::accept(sockDesc, NULL, 0))==-10)
+////    {
+////        throw cSocketException("Error en accept()");
+////    }
+//
+//    return new Socket(newSockDesc);
+//}
 
 void Socket::shutdown()
 {
 	#ifdef WIN32
-	::shutdown(sockDesc, SD_BOTH);
+	::shutdown(sockDesc, '0x02');
 	#else
 	::shutdown(sockDesc, SHUT_RDWR);
 	#endif
