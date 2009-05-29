@@ -39,8 +39,11 @@ Socket::Socket(int sockDesc)
     this->sockDesc = sockDesc;
 }
 
-void Socket::connect(const string& host, unsigned int port)
+void Socket::connect(const char& host, unsigned int port)
 {
+	if (trConectar(&host,port,&this->conexion)==-1){
+				std::cout << "ERROR EN CONNECT...\n";
+		    }
 //	try
 //	{
 //		sockaddr_in destAddr = getAddressStruct(host, port);
@@ -60,6 +63,7 @@ Socket* Socket::listen(unsigned int port)
 {
 	int clienteDescriptor;
 	clienteDescriptor = trEscuchar(port,&(this->conexion));
+	this->sockDesc = this->conexion.locsock;
 	//Si clienteDescriptor es mayor que 0 devuelve la direccion del cliente aceptado
 	if ( clienteDescriptor < 0){
 	     Sleep(500); // Esperamos 500 Milisegundos y…

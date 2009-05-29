@@ -19,7 +19,7 @@ public:
 public:
 	 	Socket();
 	 	/* Client: Connectarse a un server */
-	 	void connect(const std::string& host, unsigned int port);
+	 	void connect(const char& host, unsigned int port);
 	 	/* Server: Escuchar clientes */
 	 	Socket* listen(unsigned int port);
 	 	/* Client/Server: Enviar datos */
