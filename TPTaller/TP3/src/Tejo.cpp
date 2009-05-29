@@ -17,7 +17,7 @@ Tejo::Tejo() {
 
 }
 Circulo* Tejo::getFigura(){
-return	this->circulo;
+	return	this->circulo;
 }
 
 Tejo::Tejo(Circulo* circulo){
@@ -30,23 +30,23 @@ Tejo::Tejo(Circulo* circulo){
 void Tejo::cargarRadioDeInfluencia(){
 
 
-  for(int i=0;i<8;i++){
-	  double angulo=i*PI/4;
-	  Posicion* posicion= new Posicion((int)getRadio()*cos(angulo)+getX(),(int)getRadio()*sin(angulo)+getY());
-	  	this->puntosDeInfluencia.push_back(posicion);
-//	  	std::cout<<"puntos de influencia "<<"("<<posicion->getX()<<","<<posicion->getY()<<")"<<"iter"<<angulo<<endl;
-//		system("PAUSE");
-  }
+	for(int i=0;i<8;i++){
+		double angulo=i*PI/4;
+		Posicion* posicion= new Posicion((int)getRadio()*cos(angulo)+getX(),(int)getRadio()*sin(angulo)+getY());
+		this->puntosDeInfluencia.push_back(posicion);
+		//	  	std::cout<<"puntos de influencia "<<"("<<posicion->getX()<<","<<posicion->getY()<<")"<<"iter"<<angulo<<endl;
+		//		system("PAUSE");
+	}
 }
 std::vector<Posicion*> Tejo::getPuntosDeInfluencia()
-    {
-        return puntosDeInfluencia;
-    }
+{
+	return puntosDeInfluencia;
+}
 
-    void Tejo::setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia)
-    {
-        this->puntosDeInfluencia = puntosDeInfluencia;
-    }
+void Tejo::setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia)
+{
+	this->puntosDeInfluencia = puntosDeInfluencia;
+}
 void Tejo::borrarTejo(){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	SDL_Rect rectangulo;
@@ -56,45 +56,45 @@ void Tejo::borrarTejo(){
 	rectangulo.h=this->getFigura()->getRadio()*2;
 
 	SDL_FillRect(escenario->getScreen(),&rectangulo,SDL_MapRGB(escenario->getScreen()->format,87,122,18));
-//	SDL_UpdateRect(escenario->getScreen(),this->getXAnterior()-this->getRadio(),this->getYAnterior()-this->getRadio(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+	//	SDL_UpdateRect(escenario->getScreen(),this->getXAnterior()-this->getRadio(),this->getYAnterior()-this->getRadio(), this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 }
 
 int Tejo::getVelocidad()
-   {
-       return velocidad;
-   }
+{
+	return velocidad;
+}
 
-   void Tejo::setVelocidad(int velocidad)
-   {
-       this->velocidad = velocidad;
-   }
+void Tejo::setVelocidad(int velocidad)
+{
+	this->velocidad = velocidad;
+}
 void Tejo::dibujar(SDL_Surface *pantalla){
 	cargarRadioDeInfluencia();
 
-//	 Cargamos la imagen
-	        if(this->imagen==NULL){
-			std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
-			this->imagen = IMG_Load(path.begin());
-//			this->imagen = SDL_LoadBMP(path.begin());
-			if(this->imagen == NULL) {
-				std::cout<< "Error: " << SDL_GetError() << endl;
-				exit(1);
-			}
-			//si la imagen no es null (es decir si la levanto bien) la escalo
-			if(this->imagen != NULL){
-		     this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
-			}
-//			// Calculamos el color transparente, en nuestro caso el verde
-			SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0 ,255, 0));
+	//	 Cargamos la imagen
+	if(this->imagen==NULL){
+		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
+		this->imagen = IMG_Load(path.begin());
+		//			this->imagen = SDL_LoadBMP(path.begin());
+		if(this->imagen == NULL) {
+			std::cout<< "Error: " << SDL_GetError() << endl;
+			exit(1);
+		}
+		//si la imagen no es null (es decir si la levanto bien) la escalo
+		if(this->imagen != NULL){
+			this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		}
+		//			// Calculamos el color transparente, en nuestro caso el verde
+		SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0 ,255, 0));
 
-	         }
-	        SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0, 255 ,0));
+	}
+	SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0, 255 ,0));
 
-	    SDL_Rect rect;
-		rect.x =this->getX()-this->getRadio();
-		rect.y = this->getY()-this->getRadio();
+	SDL_Rect rect;
+	rect.x =this->getX()-this->getRadio();
+	rect.y = this->getY()-this->getRadio();
 
-		SDL_BlitSurface(this->imagen, NULL, pantalla, &rect);
+	SDL_BlitSurface(this->imagen, NULL, pantalla, &rect);
 
 
 }
@@ -114,21 +114,30 @@ void Tejo::setY(int y){
 	this->circulo->getPosicion()->setY(y);
 }
 // El movimiento de la imagen se establece
-// de 4 en 4 píxeles
+
 void Tejo::mover_x() {
-//	borrarTejo();
+	Escenario* escenario= Escenario::obtenerInstancia();
+	//	borrarTejo();
 	int x =this->getX();
-	this->setXAnterior(x);
-	double res = cos(this->direccion->getFi());
-	if(res>0.5){
-	x += PIXELES_SALTO;
-	}else{
-		if(res<-0.5){
+	if(x>=escenario->getAncho()-this->getRadio()){
 		x += PIXELES_SALTO*-1;
+	}else{
+		if(x<=this->getRadio()){
+			x += PIXELES_SALTO;
+		}else{
+			this->setXAnterior(x);
+			double res = cos(this->direccion->getFi());
+			if(res>0.5){
+				x += PIXELES_SALTO;
+			}else{
+				if(res<-0.5){
+					x += PIXELES_SALTO*-1;
+				}
+			}
 		}
 	}
 	this->setX(x);
-	  std::cout<<"posicion X :"<<x<<endl;
+//	std::cout<<"posicion X :"<<x<<endl;
 }
 /*void Tejo::retrasar_x() {
 //	borrarTejo();
@@ -143,19 +152,30 @@ void Tejo::bajar_y() {
 	this->setY(y);
 }*/
 void Tejo::mover_y() {
-//	borrarTejo();
+	//	borrarTejo();
 	int y =this->getY();
-	this->setYAnterior(y);
-	double res =sin(this->direccion->getFi());
-	if(res>0.5){
-		y -= PIXELES_SALTO;
+	Escenario* escenario= Escenario::obtenerInstancia();
+		//	borrarTejo();
+
+		if(y>=escenario->getAlto()-this->getRadio()){
+			y += PIXELES_SALTO*-1;
 		}else{
-			if(res<-0.5){
-			y -= PIXELES_SALTO*-1;
+			if(y<=this->getRadio()){
+				y += PIXELES_SALTO;
+			}else{
+				this->setYAnterior(y);
+				double res =sin(this->direccion->getFi());
+				if(res>0.5){
+					y -= PIXELES_SALTO;
+				}else{
+					if(res<-0.5){
+						y -= PIXELES_SALTO*-1;
+					}
+				}
 			}
 		}
 	this->setY(y);
-   std::cout<<"posicion Y :"<<y<<endl;
+//	std::cout<<"posicion Y :"<<y<<endl;
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();

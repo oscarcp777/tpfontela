@@ -33,34 +33,39 @@ class Escenario {
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
 			std::string Escenario::obtenerPathTextura(std::string id);
-			//TODO hacer geters y setters atributos
-			void setAncho(int ancho);
-			int getAncho();
-			void setAlto(int alto);
-			int getAlto();
-			void setResolucion(int resolucion);
-			int getResolucion();
-			int graficar();
-			SDL_Color getColorFondoEscenario();
-		    Color* getColorFondoFiguras();
-			Color* getColorLinea();
-		    void  setColorFondoEscenario(Color* colorFondoEscenario);
-		    void  setColorFondoFiguras(Color* colorFondoFiguras);
-		    void  setColorLinea(Color* colorLinea);
-			void setIdTextura(std::string idTextura);
-			Log* getLog();
-			void pintarPantalla();
-			SDL_Surface* getScreen();
-			int cargarArchivo(std::string nombreArchivo);
-			Validador* getValidador();
-		    void setTexturaFig(std::string texturaFig);
-			std::string getTexturaFig();
-			std::string getTexturaEsc();
-			void setTexturaEsc(std::string texturaEsc);
-			bool existeIdFigura(std::string idFigura);
+    void setAncho(int ancho);
+    int getAncho();
+    void setAlto(int alto);
+    int getAlto();
+    void setResolucion(int resolucion);
+    int getResolucion();
+    int graficar();
+    SDL_Color getColorFondoEscenario();
+    Color *getColorFondoFiguras();
+    Color *getColorLinea();
+    void setColorFondoEscenario(Color *colorFondoEscenario);
+    void setColorFondoFiguras(Color *colorFondoFiguras);
+    void setColorLinea(Color *colorLinea);
+    void setIdTextura(std::string idTextura);
+    Log *getLog();
+    void pintarPantalla();
+    SDL_Surface *getScreen();
+    int cargarArchivo(std::string nombreArchivo);
+    Validador *getValidador();
+    void setTexturaFig(std::string texturaFig);
+    std::string getTexturaFig();
+    std::string getTexturaEsc();
+    void setTexturaEsc(std::string texturaEsc);
+    bool existeIdFigura(std::string idFigura);
+    Rectangulo *getArcoDerecha();
+    void setArcoDerecha(Rectangulo *arcoDerecha);
+    Rectangulo *getArcoIzquierda();
+    void setArcoIzquierda(Rectangulo *arcoIzquierda);
+    Posicion *getPosicionInicialTejo();
 
+    void setPosicionInicialTejo(Posicion *posicionInicialTejo);
 
-	protected:
+protected:
 		Escenario();
 
 	private:
@@ -83,6 +88,9 @@ class Escenario {
 		Color* colorLinea;
 		Log log;
 		Validador* validador;
+		Rectangulo* arcoDerecha;
+		Rectangulo* arcoIzquierda;
+		Posicion* posicionInicialTejo;
 };
 
 #endif

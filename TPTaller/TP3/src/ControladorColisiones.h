@@ -16,6 +16,7 @@ public:
 	static bool posibilidadDeColisionDispersores();
 	static void calcularDireccion();
 	static void colisionesPads();
+	static int colisionesArcos();
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

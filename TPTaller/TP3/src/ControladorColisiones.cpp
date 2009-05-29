@@ -7,6 +7,7 @@
 #include "Escenario.h"
 #include "Figura.h"
 #include "Tejo.h"
+#include "Rectangulo.h"
 #include "ControladorColisiones.h"
 
 const double PI=3.14159265358979323846;
@@ -18,32 +19,36 @@ ControladorColisiones::ControladorColisiones() {
 void reboteArriba(Tejo* tejo){
 	if (tejo->getDireccion()->getFi()==PI/2){
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI));
-	}else {if (tejo->getDireccion()->getFi()<PI/2){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(3*PI/2));
-	}else{
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
-	}
+	}else {
+		if (tejo->getDireccion()->getFi()<PI/2&&tejo->getDireccion()->getFi()>=0){
+			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(3*PI/2));
+		}else{
+			if (tejo->getDireccion()->getFi()>PI/2&&tejo->getDireccion()->getFi()<=PI){
+				tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+			}
+		}
 	}
 }
 void reboteAbajo(Tejo* tejo){
 	if (tejo->getDireccion()->getFi()==3*PI/2){
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI));
-	}else if (tejo->getDireccion()->getFi()<3*PI/2){
+	}else if (tejo->getDireccion()->getFi()<3*PI/2&&tejo->getDireccion()->getFi()>=PI){
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
 	}else{
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(3*PI/2));
-	}
+		if (tejo->getDireccion()->getFi()>3*PI/2&&tejo->getDireccion()->getFi()<=2*PI){
+			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(3*PI/2));
+		}}
 }
 void reboteDerecha(Tejo* tejo){
 	if (tejo->getDireccion()->getFi()==0.0){
 
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI));
 	}else {
-		if (tejo->getDireccion()->getFi()<PI/2){
+		if (tejo->getDireccion()->getFi()<PI/2&&tejo->getDireccion()->getFi()>=0.0){
 
 			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
 		}else{
-			if (tejo->getDireccion()->getFi()>3*PI/2){
+			if (tejo->getDireccion()->getFi()>3*PI/2&&tejo->getDireccion()->getFi()<=2*PI){
 				tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
 			}         }
 	}
@@ -52,11 +57,12 @@ void reboteIzquierda(Tejo* tejo){
 
 	if (tejo->getDireccion()->getFi()==PI){
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI));
-	}else if (tejo->getDireccion()->getFi()<PI){
+	}else if (tejo->getDireccion()->getFi()<PI&&tejo->getDireccion()->getFi()>=PI/2){
 		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
 	}else{
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
-	}
+		if (tejo->getDireccion()->getFi()>PI&&tejo->getDireccion()->getFi()<=3*PI/2){
+			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+		}}
 
 }
 ControladorColisiones::~ControladorColisiones() {
@@ -83,22 +89,22 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		y2 = figura->getYInfluencia();
 
 		if( ((x1 + w1) >= x2) && ((y1 + h1) >= y2) && ((x2 + w2) >= x1) && ((y2 + h2) >= y1)){
-			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
+//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-				if(tejo->getX()-tejo->getRadio() ==x2+w2){
-					reboteIzquierda(tejo);
-				}
-				if(tejo->getX()+tejo->getRadio() == x2){
-					reboteDerecha(tejo);
-				}
+			if(tejo->getX()-tejo->getRadio() ==x2+w2){
+				reboteIzquierda(tejo);
+			}
+			if(tejo->getX()+tejo->getRadio() == x2){
+				reboteDerecha(tejo);
+			}
 
-			    if(tejo->getY()- tejo->getRadio()==y2+h2){
+			if(tejo->getY()- tejo->getRadio()==y2+h2){
 
-					reboteArriba(tejo);
-				}
-				if(tejo->getY()+tejo->getRadio() == y2){
-					reboteAbajo(tejo);
-				}
+				reboteArriba(tejo);
+			}
+			if(tejo->getY()+tejo->getRadio() == y2){
+				reboteAbajo(tejo);
+			}
 
 
 			return true;
@@ -137,6 +143,28 @@ void ControladorColisiones::colisionesPads(){
 		}
 	}
 }
+int ControladorColisiones::colisionesArcos(){
+	Escenario* escenario = Escenario::obtenerInstancia();
+	Tejo* tejo = escenario->getTejo();
+	Rectangulo* arcoDerecha = escenario->getArcoDerecha();
+	Rectangulo* arcoIzquierda = escenario->getArcoIzquierda();
+
+	if(arcoIzquierda->getY()+tejo->getRadio()<=tejo->getY()&&arcoIzquierda->getY()+arcoIzquierda->getAltura()-tejo->getRadio()>=tejo->getY()&&
+			tejo->getX()<tejo->getRadio()*4){
+		if(tejo->getX() <=arcoIzquierda->getBase()+ arcoIzquierda->getX()+tejo->getRadio()){
+//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			return 0;
+		}
+	}
+	if(arcoDerecha->getY()+tejo->getRadio()<=tejo->getY()&&arcoDerecha->getY()+arcoDerecha->getAltura()-tejo->getRadio()>=tejo->getY()&&
+			tejo->getX()>escenario->getAncho()-tejo->getRadio()*4){
+		if(tejo->getX() >= arcoDerecha->getX()- tejo->getRadio()){
+//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			return 0;
+		}
+	}
+	return -1;
+}
 void ControladorColisiones::calcularDireccion(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Tejo* tejo = escenario->getTejo();
@@ -144,16 +172,19 @@ void ControladorColisiones::calcularDireccion(){
 
 	if(tejo->getY() <= 0  + tejo->getRadio()){
 		reboteArriba(tejo);
-	}
-	if(tejo->getY() >= escenario->getAlto()-tejo->getRadio()){
-		reboteAbajo( tejo);
-	}
+	}else{
+		if(tejo->getY() >= escenario->getAlto()-tejo->getRadio()){
+			reboteAbajo( tejo);
+		}else{
 
-	if(tejo->getX() >= escenario->getAncho()-tejo->getRadio()){
-		reboteDerecha(tejo);
-	}
-	if(tejo->getX() <= 0 + tejo->getRadio()){
-		reboteIzquierda(tejo);
+			if(tejo->getX() >= escenario->getAncho()-tejo->getRadio()){
+				reboteDerecha(tejo);
+			}else{
+				if(tejo->getX() <= 0 + tejo->getRadio()){
+					reboteIzquierda(tejo);
+				}
+			}
+		}
 	}
 }
 

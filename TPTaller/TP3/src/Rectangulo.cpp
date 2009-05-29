@@ -22,6 +22,12 @@ Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 	this->setXInfluencia(p->getX());
 	this->setYInfluencia(p->getY());
 }
+int Rectangulo::getX(){
+	return this->getPosicion()->getX();
+}
+int Rectangulo::getY(){
+	return this->getPosicion()->getY();
+}
 int Rectangulo::dibujar(SDL_Surface *screen){
 
 	this->color = getColorFigura()->getColor();

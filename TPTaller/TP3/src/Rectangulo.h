@@ -8,7 +8,7 @@
 class Rectangulo: public Figura {
 
 
-	public: 
+	public:
 		Rectangulo();
 		~Rectangulo();
 		Rectangulo(std::string id, int base,int altura, Posicion *pos);
@@ -20,7 +20,8 @@ class Rectangulo: public Figura {
 		Posicion* getPosicion();
 		void setPosicion(Posicion *posicion);
 		void calcularRadioDeInfluencia();
-
+		int getX();
+		int getY();
 	private:
 		int base;
 		int altura;

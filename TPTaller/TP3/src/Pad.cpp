@@ -52,7 +52,7 @@ void Pad::dibujar(SDL_Surface *pantalla){
 		rectFondo.x =this->getX();
 		rectFondo.y =0;
 		SDL_BlitSurface(this->fondoPad, NULL, pantalla, &rectFondo);
-		SDL_UpdateRect(escenario->getScreen(),this->getX(),0, this->getFigura()->getBase(), escenario->getAlto());
+//		SDL_UpdateRect(escenario->getScreen(),this->getX(),0, this->getFigura()->getBase(), escenario->getAlto());
 
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
