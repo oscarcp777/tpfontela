@@ -379,10 +379,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){
 
 //////////////////////FIN AUXILIARES/////////////////////////
 
-DWORD WINAPI recibir(LPVOID c){
-
-
-	CONEXION *conexion = (CONEXION*)c;
+void recibir(CONEXION *conexion){
 
 
 	char msjIngresado[TAM_MSJ];
@@ -508,10 +505,8 @@ DWORD WINAPI recibir(LPVOID c){
 
 }
 
-DWORD WINAPI enviar(LPVOID c){
+void enviar(CONEXION *conexion){
 
-
-		CONEXION *conexion = (CONEXION*)c;
 
 		char msjIngresado[TAM_MSJ];
 		char *pmsjIngresado = msjIngresado;

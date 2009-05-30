@@ -17,7 +17,7 @@ class Cliente {
 public:
         Cliente();
         // Se conecta al servidor y lanza los threads correspondientes
-        void start(std::string host, int port);
+        void start(char*  host, int port);
         // Envia el mensaje al "servidor proxy" (lo encola para enviar)
         void send(std::string msg);
         // Obtiene un mensaje del "servidor proxy" (lo desencola de los recibidos)

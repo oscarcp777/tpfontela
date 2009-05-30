@@ -1,3 +1,7 @@
+#ifdef __cplusplus
+ extern "C" {
+ #endif
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +28,7 @@
 /*        conexion:  apunta a la  conexion.                        */
 /*        DWORD: devuelve el id del hilo que la esta ejecutando	   */
 /*****************************************************************/
-DWORD WINAPI recibir(LPVOID conexion);
+void recibir(CONEXION *conexion);
 /*****************************************************************/
 /*****************************************************************/
 /* recibir: Funcion que ejecuta en un hilo encargada de enviar     */
@@ -32,7 +36,7 @@ DWORD WINAPI recibir(LPVOID conexion);
 /*        conexion:  apunta a la  conexion.                        */
 /*        DWORD: devuelve el id del hilo que la esta ejecutando	   */
 /*****************************************************************/
-DWORD WINAPI enviar(LPVOID conexion);
+void enviar(CONEXION *conexion);
 /*****************************************************************/
 /* reconectarSockets: funcion que acepta cuando  un cliente se    */
 /*                    conecta  cuando el cliente el que estaba    */
@@ -54,3 +58,7 @@ void ingresoMensaje(char *pmsj,char* leyenda);
 /*                   como un tipò de dato definido anteriomente		      */
 /*****************************************************************/
 enum tr_tipo_dato deStringATipoDato(char* cadena);
+
+#ifdef __cplusplus
+ }
+ #endif

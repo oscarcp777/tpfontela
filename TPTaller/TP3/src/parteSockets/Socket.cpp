@@ -42,8 +42,8 @@ Socket::Socket(int sockDesc)
 void Socket::connect(const char& host, unsigned int port)
 {
 	if (trConectar(&host,port,&this->conexion)==-1){
-				std::cout << "ERROR EN CONNECT...\n";
-		    }
+				std::cout<<"ERROR EN CONNECT...\n"<<endl;
+	}
 //	try
 //	{
 //		sockaddr_in destAddr = getAddressStruct(host, port);
@@ -142,4 +142,14 @@ void Socket::cleanUp()
 //	}
 	initialized = false;
 	#endif
+}
+
+CONEXION* Socket::getConexion()
+{
+	return &(conexion);
+}
+
+void Socket::setConexion(CONEXION c)
+{
+	memcpy(&conexion,&c,sizeof(CONEXION));
 }

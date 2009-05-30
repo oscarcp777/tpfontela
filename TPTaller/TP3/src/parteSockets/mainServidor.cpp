@@ -1,14 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include "Servidor.h"
+#include "Utilidades.h"
 
 using namespace std;
 
-void ingresoMensaje(char *pmsj,char* leyenda){
 
-     printf("%s: \n",leyenda);
-	 gets(pmsj);
-}
 
 int main(int argc, char* argv[]){
 	int error = 0;
