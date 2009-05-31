@@ -449,18 +449,18 @@ int Escenario::graficar(){
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
 
-		//		if(ControladorColisiones::colisionesArcos()==0){
-		//			padCliente1->setY(this->getAlto()/2);
-		//			padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
-		//			padCliente2->setY(this->getAlto()/2);
-		//			padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
-		//			tejo->setY(this->getAlto()/2);
-		//			tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
-		//			tejo->getDireccion()->setFi(PI/4);
-		//			gol=true;
-		//
-		//
-		//		}
+				if(ControladorColisiones::colisionesArcos()==0){
+					padCliente1->setY(this->getAlto()/2);
+					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
+					padCliente2->setY(this->getAlto()/2);
+					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
+					tejo->setY(this->getAlto()/2);
+					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
+					tejo->getDireccion()->setFi(PI/4);
+					gol=true;
+
+
+				}
 
 		ControladorColisiones::calcularDireccion();
 
@@ -496,11 +496,11 @@ int Escenario::graficar(){
 		tejo->dibujar(this->screen);
 
 		SDL_Flip(this->getScreen());
-		//			si fue gol espero 2 segundos antes de empezar otra partida
-		//			if(gol){
-		//			 Sleep(2000);
-		//			 gol=false;
-		//			}
+//					si fue gol espero 2 segundos antes de empezar otra partida
+					if(gol){
+					 Sleep(2000);
+					 gol=false;
+					}
 
 		Sleep(1000/tejo->getVelocidad());
 
