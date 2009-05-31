@@ -70,26 +70,25 @@ void Tejo::setVelocidad(int velocidad)
 }
 void Tejo::dibujar(SDL_Surface *pantalla){
 	cargarRadioDeInfluencia();
-
+    SDL_Surface* image;
 	//	 Cargamos la imagen
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
-		this->imagen = IMG_Load(path.begin());
+		image = IMG_Load(path.begin());
 		//			this->imagen = SDL_LoadBMP(path.begin());
-		if(this->imagen == NULL) {
+		if(image == NULL) {
 			std::cout<< "Error: " << SDL_GetError() << endl;
 			exit(1);
 		}
 		//si la imagen no es null (es decir si la levanto bien) la escalo
-		if(this->imagen != NULL){
-			this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		if(image != NULL){
+			image = this->getFigura()->ScaleSurface(image, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 		}
 		//			// Calculamos el color transparente, en nuestro caso el verde
-		SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0 ,255, 0));
-
+		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
+		this->imagen = SDL_DisplayFormat(image);
+		  SDL_FreeSurface(image);
 	}
-	SDL_SetColorKey(this->imagen,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagen->format,0, 255 ,0));
-
 	SDL_Rect rect;
 	rect.x =this->getX()-this->getRadio();
 	rect.y = this->getY()-this->getRadio();

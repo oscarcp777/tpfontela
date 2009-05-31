@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 			std::cout<<"*******************************"<<endl;
 			std::cout<<"SE PARSEO EL ARCHIVO XML "<<endl;
 			std::cout<<"*******************************"<<endl;
-            
+			escenario->iniciarSDL();
 			escenario->graficar();
 
 			SDL_FreeSurface(escenario->getScreen());
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	delete escenario;
-	system("PAUSE");
+
 	return 0;
 }
 

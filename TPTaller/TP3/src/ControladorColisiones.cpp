@@ -87,9 +87,11 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		h2 = figura->getAltoInfluencia();
 		x2 = figura->getXInfluencia();
 		y2 = figura->getYInfluencia();
+         if(figura->getId().compare("circulo")){
 
+         }
 		if( ((x1 + w1) >= x2) && ((y1 + h1) >= y2) && ((x2 + w2) >= x1) && ((y2 + h2) >= y1)){
-//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
+			//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
 			if(tejo->getX()-tejo->getRadio() ==x2+w2){
 				reboteIzquierda(tejo);
@@ -142,6 +144,23 @@ void ControladorColisiones::colisionesPads(){
 			reboteIzquierda(tejo);
 		}
 	}
+	if(padDerecha->getX()-tejo->getRadio()<=tejo->getX()&&padDerecha->getX()+padDerecha->getBase()+tejo->getRadio()>=tejo->getX()){
+		if(tejo->getY() == padDerecha->getY()- tejo->getRadio()){
+			reboteAbajo(tejo);
+		}
+		if(tejo->getY() == padDerecha->getY()+padDerecha->getAltura()+tejo->getRadio()){
+			reboteArriba(tejo);
+		}
+	}
+	if(padIzquierda->getX()-tejo->getRadio()<=tejo->getX()&&padIzquierda->getX()+padIzquierda->getBase()+tejo->getRadio()>=tejo->getX()){
+		if(tejo->getY() == padIzquierda->getY()- tejo->getRadio()){
+			reboteAbajo(tejo);
+		}
+		if(tejo->getY() == padIzquierda->getY()+padIzquierda->getAltura()+tejo->getRadio()){
+			reboteArriba(tejo);
+		}
+	}
+
 }
 int ControladorColisiones::colisionesArcos(){
 	Escenario* escenario = Escenario::obtenerInstancia();
@@ -152,14 +171,14 @@ int ControladorColisiones::colisionesArcos(){
 	if(arcoIzquierda->getY()+tejo->getRadio()<=tejo->getY()&&arcoIzquierda->getY()+arcoIzquierda->getAltura()-tejo->getRadio()>=tejo->getY()&&
 			tejo->getX()<tejo->getRadio()*4){
 		if(tejo->getX() <=arcoIzquierda->getBase()+ arcoIzquierda->getX()+tejo->getRadio()){
-//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			return 0;
 		}
 	}
 	if(arcoDerecha->getY()+tejo->getRadio()<=tejo->getY()&&arcoDerecha->getY()+arcoDerecha->getAltura()-tejo->getRadio()>=tejo->getY()&&
 			tejo->getX()>escenario->getAncho()-tejo->getRadio()*4){
 		if(tejo->getX() >= arcoDerecha->getX()- tejo->getRadio()){
-//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			return 0;
 		}
 	}

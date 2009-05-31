@@ -133,12 +133,12 @@ void Circulo::setPosicion(Posicion*posicion){
 
 void Circulo::calcularRadioDeInfluencia(){
 
-/*
-  for(int i=0;i<8;i++){
-	  double angulo=i*PI/4;
-	  Posicion* posicion= new Posicion((int)getRadio()*cos(angulo)+getX(),(int)getRadio()*sin(angulo)+getY());
-	  	this->puntosDeInfluencia.push_back(posicion);
-  }*/
+
+//  for(int i=0;i<8;i++){
+//	  double angulo=i*PI/4;
+//	  Posicion* posicion= new Posicion((int)getRadio()*cos(angulo)+getX(),(int)getRadio()*sin(angulo)+getY());
+//	  	this->puntosDeInfluencia.push_back(posicion);
+//  }
 
 }
 

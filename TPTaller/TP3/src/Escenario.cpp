@@ -32,6 +32,7 @@ Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
 	this->icono=NULL;
 	this->fondoPantalla=NULL;
+	this->fondo = NULL;
 	this->setResolucion(RESOLUCION_800);
 	this->texturaFig = "FigDefault";
 	this->texturaEsc = "EscDefault";
@@ -278,12 +279,22 @@ void Escenario::pintarPantalla(){
 		if(this->fondoPantalla != NULL){
 
 
+			if(this->fondo == NULL)
+			{
+				this->fondo = SDL_CreateRGBSurface(SDL_HWSURFACE,this->getAncho(), this->getAlto(), 24,0,0,0,0);
+			}
+			this->fondo = SDL_DisplayFormat(screen);
+
+
 			SDL_Rect rect;
 			rect.x =0;
 			rect.y =0;
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
-			SDL_BlitSurface(this->fondoPantalla, NULL,this->screen, &rect);
+			SDL_BlitSurface(this->fondoPantalla, NULL,this->fondo, &rect);
+			SDL_Flip(this->fondo);
+            SDL_BlitSurface(this->fondo,NULL,this->screen,&rect);
+
 			// dibujo los arcos
 			this->arcoDerecha->dibujar(this->screen);
 			this->arcoIzquierda->dibujar(this->screen);
@@ -295,7 +306,10 @@ void Escenario::pintarPantalla(){
 				iter++;
 				i++;
 			}
-
+			tejo->dibujar(this->screen);
+			padCliente1->dibujar(this->screen);
+			padCliente2->dibujar(this->screen);
+			SDL_Flip(this->screen);
 		}
 	}
 
@@ -361,14 +375,14 @@ void Escenario::setPosicionInicialTejo(Posicion *posicionInicialTejo)
 {
 	this->posicionInicialTejo = posicionInicialTejo;
 }
-int Escenario::graficar(){
+int Escenario::iniciarSDL(){
 
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
 		std::string aux = SDL_GetError();
 		escribirMensajeLog(this->log,"No se pudo iniciar SDL: " + aux );
-		return -1;
+		exit(1);
 	}
 	atexit(SDL_Quit);
 
@@ -396,96 +410,101 @@ int Escenario::graficar(){
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  "," Taller de Programacion Grupo Nro:3   GRAFICADOR ");
 	SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
-	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),32, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
 
-	if(!screen){
+	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
-		return -1;
+		exit(1);
 	}
-	// Teclado para controlar al personaje
-	Teclado teclado;
+	return 0;
 
-	// Lo mostramos por pantalla
+}
+int Escenario::graficar(){
+
 	Pad* padCliente1=this->getPadCliente1();
 	Pad* padCliente2=this->getPadCliente2();
 	Tejo* tejo=this->getTejo();
+
 	// Variables auxiliares
 	SDL_Event evento;
 	bool gol = false;
-	bool terminar = false;
+	this->terminar = 0;
+
 	this->pintarPantalla();
 	// Lo mostramos por pantalla
-	tejo->dibujar(this->screen);
-	padCliente1->dibujar(this->screen);
-	padCliente2->dibujar(this->screen);
-	while(terminar == false) {
+
+	Teclado teclado;
+	while(this->terminar==0) {
 
 		// Actualizamos el estado del teclado
-					tejo->mover_x();
-					tejo->mover_y();
-					//me fijo si hay colisiones
+		tejo->mover_x();
+		tejo->mover_y();
+		//me fijo si hay colisiones
 
-					ControladorColisiones::colisionesPads();
-					ControladorColisiones::posibilidadDeColisionDispersores();
+		ControladorColisiones::colisionesPads();
+		ControladorColisiones::posibilidadDeColisionDispersores();
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
-		if(ControladorColisiones::colisionesArcos()==0){
-			padCliente1->setY(this->getAlto()/2);
-			padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
-			padCliente2->setY(this->getAlto()/2);
-			padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
-			tejo->setY(this->getAlto()/2);
-			tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
-			tejo->getDireccion()->setFi(PI/4);
-			gol=true;
 
-
-		}
+		//		if(ControladorColisiones::colisionesArcos()==0){
+		//			padCliente1->setY(this->getAlto()/2);
+		//			padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
+		//			padCliente2->setY(this->getAlto()/2);
+		//			padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
+		//			tejo->setY(this->getAlto()/2);
+		//			tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
+		//			tejo->getDireccion()->setFi(PI/4);
+		//			gol=true;
+		//
+		//
+		//		}
 
 		ControladorColisiones::calcularDireccion();
-			teclado.actualizar();
-			// Actualización lógica de la posición
 
-			if(teclado.pulso(Teclado::TECLA_SUBIR_PAD1)) {
-				if(padCliente1->getY()>=0)
-					padCliente1->subir_y();
-			}
+		teclado.actualizar();
+		// Actualización lógica de la posición
 
-			if(teclado.pulso(Teclado::TECLA_BAJAR_PAD1)) {
-				if(padCliente1->getY()<this->getAlto()-padCliente1->getAltura())
-					padCliente1->bajar_y();
-			}
-			if(teclado.pulso(Teclado::TECLA_SUBIR_PAD2)) {
-				if( padCliente2->getY()>=0)
-					padCliente2->subir_y();
-			}
+		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD1)) {
+			if(padCliente1->getY()>=0)
+				padCliente1->subir_y();
+		}
 
-			if(teclado.pulso(Teclado::TECLA_BAJAR_PAD2)) {
-				if(padCliente2->getY()<this->getAlto()-padCliente1->getAltura())
-					padCliente2->bajar_y();
-			}
+		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD1)) {
+			if(padCliente1->getY()<this->getAlto()-padCliente1->getAltura())
+				padCliente1->bajar_y();
+		}
+		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD2)) {
+			if( padCliente2->getY()>=0)
+				padCliente2->subir_y();
+		}
 
-			padCliente1->dibujar(this->screen);
-			//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
-			padCliente2->dibujar(this->screen);
-			//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
+		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD2)) {
+			if(padCliente2->getY()<this->getAlto()-padCliente1->getAltura())
+				padCliente2->bajar_y();
+		}
+
+		padCliente1->dibujar(this->screen);
+		//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
+		padCliente2->dibujar(this->screen);
+		//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
 
 
-			tejo->borrarTejo();
-			tejo->dibujar(this->screen);
+		tejo->borrarTejo();
+		tejo->dibujar(this->screen);
 
-			SDL_Flip(this->getScreen());
-//			si fue gol espero 2 segundos antes de empezar otra partida
-			if(gol){
-			 Sleep(2000);
-			 gol=false;
-			}
-//			Sleep(1000/tejo->getVelocidad());
+		SDL_Flip(this->getScreen());
+		//			si fue gol espero 2 segundos antes de empezar otra partida
+		//			if(gol){
+		//			 Sleep(2000);
+		//			 gol=false;
+		//			}
 
-			//			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2-2,tejo->getFigura()->getRadio()*2-2);
+		Sleep(1000/tejo->getVelocidad());
+
+		//			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2-2,tejo->getFigura()->getRadio()*2-2);
 
 
 
@@ -495,12 +514,13 @@ int Escenario::graficar(){
 		while (SDL_PollEvent(&evento)) {
 			if(evento.type == SDL_KEYDOWN) {
 				if(evento.key.keysym.sym == SDLK_ESCAPE)
-					terminar = true;
+					terminar = -1;
 			}
 			if(evento.type == SDL_QUIT){
-				terminar = true;
+				terminar = -1;
 			}
 		}
+
 	}
 
 
