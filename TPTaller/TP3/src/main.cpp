@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	delete escenario;
-
+   system("PAUSE");
 	return 0;
 }
 

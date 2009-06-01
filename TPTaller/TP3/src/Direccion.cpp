@@ -4,10 +4,8 @@
  *  Created on: 25/05/2009
  *      Author: oscar
  */
-const double PI=3.14159265;
-
 #include "Direccion.h"
-
+#include "Define.h"
 Direccion::Direccion() {
 	fi = PI/4;
 	//fi = 0;

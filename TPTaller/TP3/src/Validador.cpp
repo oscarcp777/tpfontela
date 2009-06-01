@@ -8,9 +8,9 @@
 #include "Escenario.h"
 #include "Textura.h"
 #include "Hidratar.h"
+#include "Define.h"
 #include "Tag.h"
 using namespace std;
-const char MARCADOR_TAG = '-';
 
 bool dentroDeCuadrado= false;
 bool dentroDeCirculo= false;
@@ -107,7 +107,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 			//exito=0;
 		}
 	}
-	
+
 	else if(tipo.compare("<Pad ")==0){
 		//obtengo el ultimo caracter, se supone que deben ser >
 		cadena = values.substr(values.length()-1,values.length());
@@ -125,7 +125,7 @@ int Validador::validarValues(std::string tipo,std::string values){
 			//exito=0;
 		}
 	}
-	
+
 	else if(tipo.compare("<Tejo ")==0){
 		//obtengo el ultimo caracter, se supone que deben ser >
 		cadena = values.substr(values.length()-1,values.length());

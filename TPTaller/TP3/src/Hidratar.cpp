@@ -3,67 +3,12 @@
 #include "StringUtils.h"
 #include "Validador.h"
 #include "Segmento.h"
+#include "Define.h"
 #include <vector>
 #include <map>
 #include <string>
 
-static const std::string RADIO__TEJO="radioTejo";
-static const std::string BASE__PAD="basePad";
-static const std::string ALTURA__PAD="alturaPad";
-static const std::string VELOCIDAD__TEJO="velocidadTejo";
-static const std::string IDTEXTURA__TEJO="idTexturaTejo";
-static const std::string IDTEXTURA__PAD="idTexturaPad";
-static const int BASE_ARCO=10;
 
-static const std::string ID="id";
-static const std::string RADIO="radio";
-static const std::string LADO="lado";
-static const std::string BASE="base";
-static const std::string ALTURA="altura";
-static const std::string VELOCIDAD="velocidad";
-static const std::string PATH="path";
-static const std::string TEXTURA="textura";
-static const std::string CUADRADO="cuadrado";
-static const std::string RECTANGULO="rectangulo";
-static const std::string TRIANGULO="triangulo";
-static const std::string TEJO="tejo";
-static const std::string PAD="pad";
-static const std::string CIRCULO="circulo";
-static const std::string DELIMITADOR="\"";
-static const std::string GENERAL="General";
-static const std::string TEXTURA_FIG="texturaFig";
-static const std::string TEXTURA_ESC="texturaEsc";
-static const std::string RESOLUCION="resolucion";
-static const std::string COLOR_FONDO_FIG="colorFondoFig";
-static const std::string COLOR_FONDO_ESC="colorFondoEsc";
-static const std::string COLOR_LINEA="colorLinea";
-static const std::string POS_X="x";
-static const std::string POS_Y="y";
-static const char POSICION_X='x';
-static const char POSICION_Y='y';
-static const std::string POS_X1="x1";
-static const std::string POS_Y1="y1";
-static const std::string POS_X2="x2";
-static const std::string POS_Y2="y2";
-static const std::string POS_X3="x3";
-static const std::string POS_Y3="y3";
-static const std::string SEGMENTO="segmento";
-static const std::string COLOR_FIGURA="colorFigura";
-static const std::string ID_TEXTURA="idTextura";
-static const std::string X1="x1";
-static const std::string X2="x2";
-static const std::string Y1="y1";
-static const std::string Y2="y2";
-static const std::string SINVALOR="sinValor";
-static const int POS_TEJO_X_INICIAL = 150;
-static const int POS_TEJO_Y_INICIAL = 300;
-static const int POS_PAD1_X_INICIAL = 710;
-static const int POS_PAD1_Y_INICIAL = 240;
-static const int POS_PAD2_X_INICIAL = 56;
-static const int POS_PAD2_Y_INICIAL = 240;
-static const double POS_PAD1_Y_PORCENTAJE = 0.88;
-static const double POS_PAD2_Y_PORCENTAJE = 0.08;
-static const double PORCENTAJE_ARCO=0.5;
 void escribirErrorIDLog(std::string nombreTag,std::string id){
 	Escenario* escenario=Escenario::obtenerInstancia();
 	if(id.compare(SINVALOR)==0){

@@ -2,12 +2,12 @@
 #define __CIRCULO_H__
 
 #include "Figura.h"
-#include "Posicion.h"
+#include "RectanguloInfluencia.h"
 #include <iostream.h>
 
 class Circulo: public Figura{
-	
-	public: 
+
+	public:
 		Circulo(void);
 		Circulo(std::string id,int radio,Posicion *pos);
 		int getRadio();
@@ -19,7 +19,6 @@ class Circulo: public Figura{
 		 void calcularRadioDeInfluencia();
 	private:
 		int radio;
-		Posicion *pos;
 
 };
 

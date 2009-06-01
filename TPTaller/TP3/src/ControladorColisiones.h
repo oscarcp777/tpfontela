@@ -7,8 +7,10 @@
 
 #ifndef CONTROLADORCOLISIONES_H_
 #define CONTROLADORCOLISIONES_H_
+#include "Tejo.h"
+#include "Figura.h"
 
-static int PUNTAJE_GOL=10;
+
 
 class ControladorColisiones {
 
@@ -19,6 +21,7 @@ public:
 	static void calcularDireccion();
 	static void colisionesPads();
 	static int colisionesArcos();
+	static void colisionCirculo(Tejo* tejo,Figura* figura);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

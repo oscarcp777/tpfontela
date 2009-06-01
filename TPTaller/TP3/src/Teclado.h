@@ -8,7 +8,8 @@
 #ifndef TECLADO_H_
 #define TECLADO_H_
 #include <SDL.h>
-const int NUM_TECLAS = 9;
+#include "Define.h"
+
 class Teclado {
 public:
 	Teclado();

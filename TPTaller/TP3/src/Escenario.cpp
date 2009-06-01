@@ -8,25 +8,10 @@
 #include "Teclado.h"
 #include "Pad.h"
 #include "Tejo.h"
+#include "Define.h"
 #include "ControladorColisiones.h"
 
-//pasar estas constantes a Constantes.h
-const int RESOLUCION_640=640;
-const int RESOLUCION_640_ALTO=480;
-const int RESOLUCION_640_ANCHO=640;
-const int RESOLUCION_800=800;
-const int RESOLUCION_800_ALTO=600;
-const int RESOLUCION_800_ANCHO=800;
-const int RESOLUCION_1024=1024;
-const int RESOLUCION_1024_ALTO=768;
-const int RESOLUCION_1024_ANCHO=1024;
-const int RESOLUCION_1280=1280;
-const int RESOLUCION_1280_ALTO=768;
-const int RESOLUCION_1280_ANCHO=1280;
-const int RESOLUCION_BIT=32;
-static const double POS_PAD1_Y_PORCENTAJE = 0.88;
-static const double POS_PAD2_Y_PORCENTAJE = 0.08;
-const double PI=3.14159265358979323846;
+
 const string configDefaultEscenario = "config Default Escenario.txt";
 Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
@@ -545,18 +530,18 @@ int Escenario::graficar(){
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
 
-				if(ControladorColisiones::colisionesArcos()==0){
-					padCliente1->setY(this->getAlto()/2);
-					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
-					padCliente2->setY(this->getAlto()/2);
-					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
-					tejo->setY(this->getAlto()/2);
-					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
-					tejo->getDireccion()->setFi(PI/4);
-					gol=true;
-
-
-				}
+//				if(ControladorColisiones::colisionesArcos()==0){
+//					padCliente1->setY(this->getAlto()/2);
+//					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
+//					padCliente2->setY(this->getAlto()/2);
+//					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
+//					tejo->setY(this->getAlto()/2);
+//					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
+//					tejo->getDireccion()->setFi(PI/4);
+//					gol=true;
+//
+//
+//				}
 
 		ControladorColisiones::calcularDireccion();
 
@@ -602,7 +587,7 @@ int Escenario::graficar(){
 					gol=false;
 					}
 
-		Sleep(1000/tejo->getVelocidad());
+//		Sleep(1000/tejo->getVelocidad());
 
 		//			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2-2,tejo->getFigura()->getRadio()*2-2);
 

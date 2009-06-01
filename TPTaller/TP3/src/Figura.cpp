@@ -2,71 +2,77 @@
 #include "Escenario.h"
 
 Figura::Figura(){
-      this->colorFigura = NULL;
-      this->colorLinea = NULL;
-	  this->setIdTextura("NULL");
-	  this->imagen = NULL;
+	this->colorFigura = NULL;
+	this->colorLinea = NULL;
+	this->setIdTextura("NULL");
+	this->imagen = NULL;
 
 }
+int Figura::getX(){
+  return this->pos->getX();
+}
+int Figura::getY(){
+	 return this->pos->getY();
+}
 int Figura::getXInfluencia()
-   {
-       return xInfluencia;
-   }
+{
+	return xInfluencia;
+}
 
-   void Figura::setXInfluencia(int xInfluencia)
-   {
-       this->xInfluencia = xInfluencia;
-   }
+void Figura::setXInfluencia(int xInfluencia)
+{
+	this->xInfluencia = xInfluencia;
+}
 
-   int Figura::getYInfluencia()
-   {
-       return yInfluencia;
-   }
+int Figura::getYInfluencia()
+{
+	return yInfluencia;
+}
 
-   void Figura::setYInfluencia(int yInfluencia)
-   {
-       this->yInfluencia = yInfluencia;
-   }
+void Figura::setYInfluencia(int yInfluencia)
+{
+	this->yInfluencia = yInfluencia;
+}
 
-   int Figura::getAnchoInfluencia()
-   {
-       return anchoInfluencia;
-   }
+int Figura::getAnchoInfluencia()
+{
+	return anchoInfluencia;
+}
 
-   void Figura::setAnchoInfluencia(int anchoInfluencia)
-   {
-       this->anchoInfluencia = anchoInfluencia;
-   }
+void Figura::setAnchoInfluencia(int anchoInfluencia)
+{
+	this->anchoInfluencia = anchoInfluencia;
+}
 
-   int Figura::getAltoInfluencia()
-   {
-       return altoInfluencia;
-   }
+int Figura::getAltoInfluencia()
+{
+	return altoInfluencia;
+}
 
-   void Figura::setAltoInfluencia(int altoInfluencia)
-   {
-       this->altoInfluencia = altoInfluencia;
-   }
+void Figura::setAltoInfluencia(int altoInfluencia)
+{
+	this->altoInfluencia = altoInfluencia;
+}
 
 Posicion* Figura::getPosicion(){
 	return this->pos;
 }
 
-std::vector<Posicion*> Figura::getPuntosDeInfluencia(){
-        return this->puntosDeInfluencia;
-    }
+std::vector<RectanguloInfluencia*> Figura::getRectangulosDeInfluencia(){
+	return this->rectangulosDeInfluencia;
+}
 
 
 void Figura::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }
 Figura::~Figura(){
-      delete this->colorFigura;
-      delete this->colorLinea;
+	delete this->colorFigura;
+	delete this->colorLinea;
 
 }
 std::string Figura::getId(){
-		return this->id;
+	return this->id;
 }
 void Figura::setId(std::string id){
 	this->id = id;
@@ -76,33 +82,33 @@ void Figura::setIdTextura(std::string idTextura){
 	this->idTextura = idTextura;
 }
 std::string Figura::getIdTextura(){
-		return this->idTextura;
+	return this->idTextura;
 }
 Color* Figura::getColorLinea()
 
 {
 	if (this->colorLinea == NULL)
 		return Escenario::obtenerInstancia()->getColorLinea();
-    else
+	else
 		return this->colorLinea;
 }
 
 void Figura::setColorLinea(Color *colorLinea)
-   {
-       this->colorLinea = colorLinea;
-   }
+{
+	this->colorLinea = colorLinea;
+}
 Color* Figura::getColorFigura()
 {
-    if (this->colorFigura == NULL)
+	if (this->colorFigura == NULL)
 		return Escenario::obtenerInstancia()->getColorFondoFiguras();
-    else
+	else
 		return this->colorFigura;
 }
 
- void Figura::setColorFigura(Color *colorFigura)
-    {
-        this->colorFigura = colorFigura;
-    }
+void Figura::setColorFigura(Color *colorFigura)
+{
+	this->colorFigura = colorFigura;
+}
 void Figura::putpixel(SDL_Surface *screen, int x, int y, SDL_Color color)
 {
 	// Convertimos color
@@ -138,67 +144,67 @@ SDL_Color Figura::getpixel(SDL_Surface *imagen, int x, int y)
 
 Uint32 Figura::ReadPixel(SDL_Surface *surface, int x, int y)
 {
-    int bpp = surface->format->BytesPerPixel;
-    //Aqui p es la direccion del pixel que nosotros queremos recuperar
-    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+	int bpp = surface->format->BytesPerPixel;
+	//Aqui p es la direccion del pixel que nosotros queremos recuperar
+	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
 
-    switch (bpp)
-    {
-    case 1:
-        return *p;
+	switch (bpp)
+	{
+	case 1:
+		return *p;
 
-    case 2:
-        return *(Uint16 *)p;
+	case 2:
+		return *(Uint16 *)p;
 
-    case 3:
-        if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-            return p[0] << 16 | p[1] << 8 | p[2];
-        else
-            return p[0] | p[1] << 8 | p[2] << 16;
+	case 3:
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
+			return p[0] << 16 | p[1] << 8 | p[2];
+		else
+			return p[0] | p[1] << 8 | p[2] << 16;
 
-    case 4:
-        return *(Uint32 *)p;
+	case 4:
+		return *(Uint32 *)p;
 
-    default:
-        return 0;       /* por descarte devuelvo 0 */
-    }
+	default:
+		return 0;       /* por descarte devuelvo 0 */
+	}
 }
 
 void Figura::DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 {
-    int bpp = surface->format->BytesPerPixel;
-     //Aqui la direccion del pixel que nosotros queremos setear
-    Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+	int bpp = surface->format->BytesPerPixel;
+	//Aqui la direccion del pixel que nosotros queremos setear
+	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
 
-    switch (bpp)
-    {
-    case 1:
-        *p = pixel;
-        break;
+	switch (bpp)
+	{
+	case 1:
+		*p = pixel;
+		break;
 
-    case 2:
-        *(Uint16 *)p = pixel;
-        break;
+	case 2:
+		*(Uint16 *)p = pixel;
+		break;
 
-    case 3:
-        if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-        {
-            p[0] = (pixel >> 16) & 0xff;
-            p[1] = (pixel >> 8) & 0xff;
-            p[2] = pixel & 0xff;
-        }
-        else
-        {
-            p[0] = pixel & 0xff;
-            p[1] = (pixel >> 8) & 0xff;
-            p[2] = (pixel >> 16) & 0xff;
-        }
-        break;
+	case 3:
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
+		{
+			p[0] = (pixel >> 16) & 0xff;
+			p[1] = (pixel >> 8) & 0xff;
+			p[2] = pixel & 0xff;
+		}
+		else
+		{
+			p[0] = pixel & 0xff;
+			p[1] = (pixel >> 8) & 0xff;
+			p[2] = (pixel >> 16) & 0xff;
+		}
+		break;
 
-    case 4:
-        *(Uint32 *)p = pixel;
-        break;
-    }
+	case 4:
+		*(Uint32 *)p = pixel;
+		break;
+	}
 }
 
 //Esta es la funcion que usamos para expandir y contraer una imagen
@@ -206,27 +212,27 @@ void Figura::DrawPixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 
 SDL_Surface* Figura::ScaleSurface(SDL_Surface *Surface, Uint16 Width, Uint16 Height)
 {
-    if (!Surface || !Width || !Height)
-        return 0;
+	if (!Surface || !Width || !Height)
+		return 0;
 
-    SDL_Surface *_ret = SDL_CreateRGBSurface(Surface->flags, Width, Height, Surface->format->BitsPerPixel,
-                        Surface->format->Rmask, Surface->format->Gmask, Surface->format->Bmask, Surface->format->Amask);
+	SDL_Surface *_ret = SDL_CreateRGBSurface(Surface->flags, Width, Height, Surface->format->BitsPerPixel,
+			Surface->format->Rmask, Surface->format->Gmask, Surface->format->Bmask, Surface->format->Amask);
 
-    double  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(Surface->w)),
-                                _stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(Surface->h));
+	double  _stretch_factor_x = (static_cast<double>(Width)  / static_cast<double>(Surface->w)),
+	_stretch_factor_y = (static_cast<double>(Height) / static_cast<double>(Surface->h));
 
-    for (Sint32 y = 0; y < Surface->h; y++)
-        for (Sint32 x = 0; x < Surface->w; x++)
-            for (Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
-                for (Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
-                    DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
-                              static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(Surface, x, y));
+	for (Sint32 y = 0; y < Surface->h; y++)
+		for (Sint32 x = 0; x < Surface->w; x++)
+			for (Sint32 o_y = 0; o_y < _stretch_factor_y; ++o_y)
+				for (Sint32 o_x = 0; o_x < _stretch_factor_x; ++o_x)
+					DrawPixel(_ret, static_cast<Sint32>(_stretch_factor_x * x) + o_x,
+							static_cast<Sint32>(_stretch_factor_y * y) + o_y, ReadPixel(Surface, x, y));
 
-    return _ret;
+	return _ret;
 }
 
 
- void Figura::dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2){
+void Figura::dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2){
 
 	this->color = color;
 	bool steep = abs(y2-y1) > abs(x2-x1);

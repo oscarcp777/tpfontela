@@ -9,9 +9,7 @@
 #include "Circulo.h"
 #include <math.h>
 #include "Escenario.h"
-const int PIXELES_SALTO=1;
-const double PI=3.14159265358979323846;
-#define NEGRO 0x000000
+#include "Define.h"
 Tejo::Tejo() {
 	// TODO Auto-generated constructor stub
 

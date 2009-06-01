@@ -7,10 +7,10 @@
 #include "Escenario.h"
 #include "Figura.h"
 #include "Tejo.h"
+#include "Define.h"
 #include "Rectangulo.h"
 #include "ControladorColisiones.h"
 
-const double PI=3.14159265358979323846;
 
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
@@ -65,8 +65,58 @@ void reboteIzquierda(Tejo* tejo){
 		}}
 
 }
+void decidirDireccion(std::string posicionRectangulo,Tejo* tejo){
+	if(posicionRectangulo.compare(ARRIBA)==0){
+		reboteArriba(tejo);
+	}else{
+		if(posicionRectangulo.compare(ABAJO)==0){
+			reboteAbajo(tejo);
+		}else{
+			if(posicionRectangulo.compare(DERECHA)==0){
+				reboteDerecha(tejo);
+			}else{
+				if(posicionRectangulo.compare(IZQUIERDA)==0){
+					reboteIzquierda(tejo);
+				}
+			}
+		}
+	}
+}
 ControladorColisiones::~ControladorColisiones() {
 	// TODO Auto-generated destructor stub
+}
+void ControladorColisiones::colisionCirculo(Tejo* tejo,Figura* figura){
+	int w1, h1, w2, h2, x1, y1, x2, y2;
+
+	w1 = h1 = tejo->getRadio()*2;
+	x1 = tejo->getX()-tejo->getRadio();
+	y1 = tejo->getY()-tejo->getRadio();
+	RectanguloInfluencia* rectangulo ;
+	vector<RectanguloInfluencia*>::iterator the_iterator;
+	std::cout<<"tamanio"<<figura->getRectangulosDeInfluencia().size()<<endl;
+	system("PAUSE");
+	the_iterator = figura->getRectangulosDeInfluencia().begin();
+	while( the_iterator != figura->getRectangulosDeInfluencia().end() ) {
+		rectangulo = *the_iterator;
+		std::cout<<"tamanio"<<rectangulo->getRectangulo().h<<endl;
+		std::cout<<"tamanio"<<rectangulo->getRectangulo().w<<endl;
+			std::cout<<"tamanio"<<rectangulo->getRectangulo().x<<endl;
+				std::cout<<"tamanio"<<rectangulo->getRectangulo().y<<endl;
+			system("PAUSE");
+		w2 =rectangulo->getRectangulo().w;
+		h2 = rectangulo->getRectangulo().h;
+		x2 = rectangulo->getRectangulo().x ;
+		y2 =rectangulo->getRectangulo().y;
+
+		// Si existe colisión entre alguno de los
+		// rectángulos paramos los bucles
+		if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
+            decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
+		}
+		++the_iterator;
+
+
+	}
 }
 bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	bool posibilidadColision= false;
@@ -87,27 +137,28 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		h2 = figura->getAltoInfluencia();
 		x2 = figura->getXInfluencia();
 		y2 = figura->getYInfluencia();
-         if(figura->getId().compare("circulo")){
 
-         }
 		if( ((x1 + w1) >= x2) && ((y1 + h1) >= y2) && ((x2 + w2) >= x1) && ((y2 + h2) >= y1)){
 			//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-			if(tejo->getX()-tejo->getRadio() ==x2+w2){
-				reboteIzquierda(tejo);
-			}
-			if(tejo->getX()+tejo->getRadio() == x2){
-				reboteDerecha(tejo);
-			}
+//			if(figura->getId().compare(CIRCULO)==0){
+//				colisionCirculo( tejo, figura);
+//			}else{
+				if(tejo->getX()-tejo->getRadio() ==x2+w2){
+					reboteIzquierda(tejo);
+				}
+				if(tejo->getX()+tejo->getRadio() == x2){
+					reboteDerecha(tejo);
+				}
 
-			if(tejo->getY()- tejo->getRadio()==y2+h2){
+				if(tejo->getY()- tejo->getRadio()==y2+h2){
 
-				reboteArriba(tejo);
-			}
-			if(tejo->getY()+tejo->getRadio() == y2){
-				reboteAbajo(tejo);
-			}
-
+					reboteArriba(tejo);
+				}
+				if(tejo->getY()+tejo->getRadio() == y2){
+					reboteAbajo(tejo);
+				}
+//			}
 
 			return true;
 		}
