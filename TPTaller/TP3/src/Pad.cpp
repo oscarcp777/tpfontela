@@ -15,10 +15,11 @@ Pad::Pad() {
 Rectangulo* Pad::getFigura(){
 	return this->rectangulo;
 }
-Pad::Pad(Rectangulo* rectangulo){
+Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->imagen=NULL;
 	this->fondoPad=NULL;
 	this->rectangulo=rectangulo;
+	this->puntaje = puntaje;
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
 
 }
@@ -116,4 +117,8 @@ void Pad::subir_y() {
 	int y =this->getY();
 	y -= PIXELES_SALTO;
 	this->setY(y);
+}
+
+Puntaje* Pad::getPuntaje(){
+	return this->puntaje;
 }

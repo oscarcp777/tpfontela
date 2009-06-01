@@ -165,6 +165,8 @@ void ControladorColisiones::colisionesPads(){
 int ControladorColisiones::colisionesArcos(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Tejo* tejo = escenario->getTejo();
+	Pad* pad1 = escenario->getPadCliente1();
+	Pad* pad2 = escenario->getPadCliente2();
 	Rectangulo* arcoDerecha = escenario->getArcoDerecha();
 	Rectangulo* arcoIzquierda = escenario->getArcoIzquierda();
 
@@ -172,6 +174,7 @@ int ControladorColisiones::colisionesArcos(){
 			tejo->getX()<tejo->getRadio()*4){
 		if(tejo->getX() <=arcoIzquierda->getBase()+ arcoIzquierda->getX()+tejo->getRadio()){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
 			return 0;
 		}
 	}
@@ -179,6 +182,7 @@ int ControladorColisiones::colisionesArcos(){
 			tejo->getX()>escenario->getAncho()-tejo->getRadio()*4){
 		if(tejo->getX() >= arcoDerecha->getX()- tejo->getRadio()){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
 			return 0;
 		}
 	}

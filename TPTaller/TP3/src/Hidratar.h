@@ -7,6 +7,7 @@
 #include "Textura.h"
 #include "Pad.h"
 #include "Tejo.h"
+#include "Puntaje.h"
 
 class Hidratar{
 

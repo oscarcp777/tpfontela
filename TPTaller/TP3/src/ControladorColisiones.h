@@ -8,6 +8,8 @@
 #ifndef CONTROLADORCOLISIONES_H_
 #define CONTROLADORCOLISIONES_H_
 
+static int PUNTAJE_GOL=10;
+
 class ControladorColisiones {
 
 public:

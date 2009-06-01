@@ -7,6 +7,8 @@
 #include <list>
 #include <map>
 #include "SDL.h"
+#include <SDL_IMAGE.h>
+#include <SDL_TTF.h>
 #include "Color.h"
 #include "Pad.h"
 #include "Tejo.h"

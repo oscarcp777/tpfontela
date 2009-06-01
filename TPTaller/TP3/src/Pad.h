@@ -10,13 +10,16 @@
 #include <SDL.h>
 #include "Figura.h"
 #include "Movible.h"
+#include "Puntaje.h"
+
 class Pad{
 public:
 	Pad();
-	Pad(Rectangulo* rectangulo);
+	Pad(Rectangulo* rectangulo,Puntaje* puntaje);
 	virtual ~Pad();
     void dibujar(SDL_Surface *pantalla);
     Rectangulo* getFigura();
+	Puntaje* getPuntaje();
   	 void avanzar_x();
   	 void retrasar_x();
 
@@ -39,6 +42,7 @@ public:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
   	SDL_Surface* fondoPad;
+	Puntaje* puntaje;
 };
 
 #endif /* PAD_H_ */
