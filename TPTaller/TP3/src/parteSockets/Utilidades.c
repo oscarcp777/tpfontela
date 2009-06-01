@@ -521,7 +521,7 @@ void enviar(CONEXION *conexion){
 		int* pPuerto = &puerto;
 		int exito=RES_OK;
 
-		while (exito != RES_QUIT){
+		//while (exito != RES_QUIT){
 			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 			ingresoMensaje(pmsjIngresado,pLeyenda);
 			exito = validarComando(pmsjIngresado,conexion);
@@ -557,7 +557,7 @@ void enviar(CONEXION *conexion){
 			}
 
 
-		}
+		//}
 
 }
 

@@ -33,6 +33,8 @@ int ManejadorClientes :: process(void* arg){
 	std::string bufferStr = "";
 	int bytesRecibidos;
 	std::string buffer;
+	if (this->socketComunicacion == this->socketServidor)
+		enviarAtodos(this->todosLosClientes,"aaa");
 	bytesRecibidos = socketComunicacion->receive((char*)buffer.data(), 258);
 //	while (seguirCiclando == 1){
 //	   /*Crea el buffer para receive una linea del cliente*/
@@ -555,7 +557,8 @@ void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 a ese socket*/
 void ManejadorClientes::enviarMensaje(const std::string& mensaje)
 {
-	socketComunicacion->send((char*)mensaje.data(), mensaje.length());
+	//socketComunicacion->send((char*)mensaje.data(), mensaje.length());
+	enviar(socketComunicacion->getConexion());
 }
 
 /*Acumula en cantListos para saber cuantos clientes enviaron READY al Servidor.

@@ -32,6 +32,7 @@ int cReceiver::process(void* args)
 
 		status = CONNECTED;
 
+		recibir(sock->getConexion());
 
 
 //		int bytesReceived = 0;

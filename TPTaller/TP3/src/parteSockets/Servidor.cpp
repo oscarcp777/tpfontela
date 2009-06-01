@@ -64,14 +64,25 @@ int Servidor :: process(void* arg){
                 enviarles mensajes)*/
                 misClientes.push_back(miCliente);
                 miCliente->start(NULL);
+                if (misClientes.size() == participantesMax){
+                	juegoNuevo->setJuegoArrancado(true);
+
+                }
             }
         }
     }
+    this->sleep(10000);
+		ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
+    			socketServidor, juegoNuevo, misClientes);
+    	servidorSender->start(NULL);
+
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/
-	while (algunClienteCorre(misClientes) == true){
-		this->sleep(100);
-	}
+    while (algunClienteCorre(misClientes) == true){
+
+    	this->sleep(100);
+    
+    }
 
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se
 	auto removieron de la lista misClientes.*/
@@ -84,11 +95,11 @@ o no. A partir de esto el servidor sabe si todavía debe permanecer abierto o no*
 bool Servidor :: algunClienteCorre(std::list<Thread*>& clientes){
 
 	bool unoCorre = false;
-//	for (std::list<cThread*>::iterator it = clientes.begin();
-//	(it != clientes.end())&&(unoCorre == false); ++it){
-//		cThread* clienteActual = *it;
-//		if (clienteActual->running() == true)
-//			unoCorre = true;
-//	}
+	for (std::list<Thread*>::iterator it = clientes.begin();
+	(it != clientes.end())&&(unoCorre == false); ++it){
+		Thread* clienteActual = *it;
+		if (clienteActual->running() == true)
+			unoCorre = true;
+	}
 	return unoCorre;
 }

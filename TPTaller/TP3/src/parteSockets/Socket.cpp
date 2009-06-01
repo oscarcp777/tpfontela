@@ -8,7 +8,7 @@
 #include "Socket.h"
 
 typedef char raw_type;
-bool Socket::initialized = false;
+//bool Socket::initialized = false;
 
 using namespace std;
 
@@ -37,6 +37,7 @@ Socket::Socket()
 Socket::Socket(int sockDesc)
 {
     this->sockDesc = sockDesc;
+    this->initialized = false;
 }
 
 void Socket::connect(const char& host, unsigned int port)
@@ -44,6 +45,7 @@ void Socket::connect(const char& host, unsigned int port)
 	if (trConectar(&host,port,&this->conexion)==-1){
 				std::cout<<"ERROR EN CONNECT...\n"<<endl;
 	}
+	initialized = true;
 //	try
 //	{
 //		sockaddr_in destAddr = getAddressStruct(host, port);
@@ -70,7 +72,9 @@ Socket* Socket::listen(unsigned int port)
 	     Socket::listen(port); // Repetimos proceso
 	}
 	initialized = true;
-	return new Socket(clienteDescriptor);
+	Socket* aux = new Socket(clienteDescriptor);
+	aux->conexion.locsock = clienteDescriptor;
+	return aux;
 }
 
 void Socket::send(const char* stream, unsigned int size)
@@ -84,8 +88,8 @@ void Socket::send(const char* stream, unsigned int size)
 int Socket::receive(char* stream, unsigned int size)
 {
     int ret;
-    //recibir(&(this->conexion));
-
+    recibir(&(this->conexion));
+    initialized = false;
 
 //    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
 //    {
@@ -135,13 +139,13 @@ Socket::~Socket()
 
 void Socket::cleanUp()
 {
-	#ifdef WIN32
+
 //	if (WSACleanup()!=0)
 //	{
 //		throw cSocketException("Error en WSACleanup()");
 //	}
 	initialized = false;
-	#endif
+
 }
 
 CONEXION* Socket::getConexion()
@@ -152,4 +156,9 @@ CONEXION* Socket::getConexion()
 void Socket::setConexion(CONEXION c)
 {
 	memcpy(&conexion,&c,sizeof(CONEXION));
+}
+
+bool Socket::getInitialized()
+{
+	return initialized;
 }

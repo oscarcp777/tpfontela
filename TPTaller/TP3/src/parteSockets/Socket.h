@@ -26,9 +26,11 @@ public:
     void shutdown();
     void close();
     virtual ~Socket();
-    static void cleanUp();
+    void cleanUp();
     CONEXION* getConexion();
     void setConexion(CONEXION conexion);
+    bool getInitialized();
+
 
 protected:
     int sockDesc;
@@ -36,7 +38,7 @@ private:
     Socket(int sockDesc);
     CONEXION conexion;
     sockaddr_in getAddressStruct(const std::string & address, unsigned int port);
-    static bool initialized;
+    bool initialized;
 };
 
 #endif /* SOCKET_H_ */

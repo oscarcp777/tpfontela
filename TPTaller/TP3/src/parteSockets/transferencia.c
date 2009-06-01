@@ -97,7 +97,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 		return RES_BIND;
 	}
 
-	if (listen(pConexion->locsock,1) == RES_ERROR){
+	if (listen(pConexion->locsock,2) == RES_ERROR){
 		printf("FALLA listen() \n");
 		closesocket(pConexion->locsock);
 		WSACleanup();
@@ -120,16 +120,18 @@ int trEscuchar(int puerto,CONEXION *pConexion){
 	int Longitud_Cliente;
 	int clienteDescriptor;
 
-	error = iniciarSocket(pConexion, SERVIDOR);
-	if (error != RES_OK)
-		return error;
+	if (pConexion->usuario != 0){
+		error = iniciarSocket(pConexion, SERVIDOR);
+		if (error != RES_OK)
+			return error;
 
-	error = socketEscuchando(puerto,pConexion);
-	if (error != RES_OK)
-		return error;
+		error = socketEscuchando(puerto,pConexion);
+		if (error != RES_OK)
+			return error;
 
+		mensajeServidorEnEspera();
+	}
 
-	mensajeServidorEnEspera();
 	Longitud_Cliente = sizeof(cliente);
 	clienteDescriptor = accept(pConexion->locsock, &cliente, &Longitud_Cliente );
 

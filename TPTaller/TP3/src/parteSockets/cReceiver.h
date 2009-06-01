@@ -3,6 +3,7 @@
 
 //#include "cMutex.h"
 #include "Thread.h"
+#include "Utilidades.h"
 //#include "cSafeQueue.h"
 #include "Socket.h"
 #include <string>
