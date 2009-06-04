@@ -58,11 +58,16 @@ Posicion* Figura::getPosicion(){
 	return this->pos;
 }
 
-std::vector<RectanguloInfluencia*> Figura::getRectangulosDeInfluencia(){
-	return this->rectangulosDeInfluencia;
+std::list<RectanguloInfluencia*>::iterator Figura::iteratorRectangulosDeInfluencia(){
+	return this->rectangulosDeInfluencia.begin();
 }
+void Figura::addRectanguloInfluencia(RectanguloInfluencia *rectanguloInfluencia){
+	this->rectangulosDeInfluencia.push_back(rectanguloInfluencia);
 
-
+}
+int Figura::sizeListaRectangulos(){
+	return this->rectangulosDeInfluencia.size();
+}
 void Figura::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }

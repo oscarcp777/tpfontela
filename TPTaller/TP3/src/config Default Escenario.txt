@@ -1,3 +1,3 @@
 imagenes/cancha1.jpg
 imagenes/cancha1.jpg
-imagenes/icono2.jpg
+imagenes/icono.jpg

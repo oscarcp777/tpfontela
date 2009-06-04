@@ -67,7 +67,6 @@ void Tejo::setVelocidad(int velocidad)
 	this->velocidad = velocidad;
 }
 void Tejo::dibujar(SDL_Surface *pantalla){
-	cargarRadioDeInfluencia();
     SDL_Surface* image;
 	//	 Cargamos la imagen
 	if(this->imagen==NULL){

@@ -1,41 +1,23 @@
 <escenario>
-            <General resolucion="1024" texturaFig="triangulo" alturaPad="150" basePad="20" idTexturaPad="triangulo"
+            <General resolucion="1024" texturaFig="arco" alturaPad="150" basePad="20" idTexturaPad="arco"
                      idTexturaTejo="tejo" radioTejo="20" velocidadTejo="500">
              </General>
              <ListadoDeDispersores> 
                   <circulo id="circulo0" radio="30" idTextura="bola">
                          <posicion x="400" y="300" />
-                   </circulo>                
-                  <triangulo id="triangulo1" idTextura="triangulo">
+                   </circulo>
+                   <triangulo id="triangulo1" idTextura="triangulo">
                                   <ver1 x="300" y="250"/>
                                   <ver2 x="300" y="350"/>
                                   <ver3 x="250" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo2" idTextura="triangulo">
-                                  <ver1 x="350" y="200"/>
-                                  <ver2 x="450" y="200"/>
-                                  <ver3 x="400" y="150"/>
-                   </triangulo>
-                   <triangulo id="triangulo3" idTextura="triangulo">
-                                  <ver1 x="500" y="250"/>
-                                  <ver2 x="500" y="350"/>
-                                  <ver3 x="550" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo4" idTextura="triangulo">
-                                  <ver1 x="350" y="400"/>
-                                  <ver2 x="450" y="400"/>
-                                  <ver3 x="400" y="450"/>
-                   </triangulo>    
-                                           
-              </ListadoDeDispersores>
+                   </triangulo>          
+               </ListadoDeDispersores>
             <ListadoDeTexturas>
-                 <textura id="bola" path="imagenes/bola_3d.jpg">
+                 <textura id="bola" path="imagenes/bola_3d.png">
                  </textura>
-                  <textura id="tejo" path="imagenes/tejo.jpg">
+                  <textura id="tejo" path="imagenes/tejo6.png">
                  </textura>
                  <textura id="triangulo" path="imagenes/cuadrado.jpg">
-                 </textura>
-                  <textura id="padFondo" path="imagenes/pad.jpg">
                  </textura>
                  <textura id="arco" path="imagenes/cuadrado.jpg">
                  </textura>

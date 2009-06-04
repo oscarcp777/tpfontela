@@ -92,31 +92,31 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Figura* figura){
 	x1 = tejo->getX()-tejo->getRadio();
 	y1 = tejo->getY()-tejo->getRadio();
 	RectanguloInfluencia* rectangulo ;
-	vector<RectanguloInfluencia*>::iterator the_iterator;
-	std::cout<<"tamanio"<<figura->getRectangulosDeInfluencia().size()<<endl;
-	system("PAUSE");
-	the_iterator = figura->getRectangulosDeInfluencia().begin();
-	while( the_iterator != figura->getRectangulosDeInfluencia().end() ) {
-		rectangulo = *the_iterator;
-		std::cout<<"tamanio"<<rectangulo->getRectangulo().h<<endl;
-		std::cout<<"tamanio"<<rectangulo->getRectangulo().w<<endl;
-			std::cout<<"tamanio"<<rectangulo->getRectangulo().x<<endl;
-				std::cout<<"tamanio"<<rectangulo->getRectangulo().y<<endl;
-			system("PAUSE");
-		w2 =rectangulo->getRectangulo().w;
-		h2 = rectangulo->getRectangulo().h;
-		x2 = rectangulo->getRectangulo().x ;
-		y2 =rectangulo->getRectangulo().y;
+	std::list<RectanguloInfluencia*>::iterator iter;
+	iter = figura->iteratorRectangulosDeInfluencia();
+	int i = 1;
 
-		// Si existe colisión entre alguno de los
-		// rectángulos paramos los bucles
-		if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
-            decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
-		}
-		++the_iterator;
+	while(i<=figura->sizeListaRectangulos()){
+		rectangulo = *iter;
 
+	std::cout<<"tamanio"<<rectangulo->getX()<<endl;
+	std::cout<<"tamanio"<<rectangulo->getY()<<endl;
+	std::cout<<"tamanio"<<rectangulo->getH()<<endl;
+	std::cout<<"tamanio"<<rectangulo->getW()<<endl;
 
+	w2 =rectangulo->getW();
+	h2 = rectangulo->getH();
+	x2 = rectangulo->getX() ;
+	y2 =rectangulo->getY();
+
+	// Si existe colisión entre alguno de los
+	// rectángulos paramos los bucles
+	if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
+		decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
 	}
+	iter++;
+			i++;
+		}
 }
 bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	bool posibilidadColision= false;
@@ -141,9 +141,9 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		if( ((x1 + w1) >= x2) && ((y1 + h1) >= y2) && ((x2 + w2) >= x1) && ((y2 + h2) >= y1)){
 			//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-//			if(figura->getId().compare(CIRCULO)==0){
-//				colisionCirculo( tejo, figura);
-//			}else{
+			if(figura->getId().compare(CIRCULO)==0){
+				colisionCirculo( tejo, figura);
+			}else{
 				if(tejo->getX()-tejo->getRadio() ==x2+w2){
 					reboteIzquierda(tejo);
 				}
@@ -158,7 +158,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 				if(tejo->getY()+tejo->getRadio() == y2){
 					reboteAbajo(tejo);
 				}
-//			}
+			}
 
 			return true;
 		}

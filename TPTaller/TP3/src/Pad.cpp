@@ -29,53 +29,49 @@ Pad::~Pad() {
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
+	 SDL_Surface* imageACargar;
+	 SDL_Surface* imageACargar1;
 	Escenario* escenario=Escenario::obtenerInstancia();
-	if(this->fondoPad==NULL){
-
-			std::string pathFondo =escenario->obtenerPathTextura("padFondo");
-			std::cout<< "cargo fondop"<<pathFondo<< endl;
-			this->fondoPad = IMG_Load(pathFondo.begin());
-			if(this->fondoPad == NULL) {
-						std::cout<< "Error: " << SDL_GetError() << endl;
-						exit(1);
-		}
-		if(this->fondoPad != NULL){
-			std::cout<< "modifico image"<<pathFondo<< endl;
-				this->fondoPad = this->getFigura()->ScaleSurface(this->fondoPad,this->getFigura()->getBase(),escenario->getAlto());
-			}
-		// Calculamos el color transparente, en nuestro caso el verde
-//				Uint32 colorkey = SDL_MapRGB(this->fondoPad->format, 255, 255, 255);
-//				// Lo establecemos como color transparente
-//				SDL_SetColorKey(this->fondoPad, SDL_SRCCOLORKEY, colorkey);
+//	if(this->fondoPad==NULL){
+//
+//			std::string pathFondo =escenario->obtenerPathTextura("padFondo");
+//			imageACargar = IMG_Load(pathFondo.begin());
+//			if(imageACargar == NULL) {
+//						std::cout<< "Error: " << SDL_GetError() << endl;
+//						exit(1);
 //		}
-	}
-		SDL_Rect rectFondo;
-		rectFondo.x =this->getX();
-		rectFondo.y =0;
-		SDL_BlitSurface(this->fondoPad, NULL, pantalla, &rectFondo);
-//		SDL_UpdateRect(escenario->getScreen(),this->getX(),0, this->getFigura()->getBase(), escenario->getAlto());
+//		if(imageACargar!= NULL){
+//			std::cout<< "modifico image"<<pathFondo<< endl;
+//			imageACargar = this->getFigura()->ScaleSurface(imageACargar,this->getFigura()->getBase(),escenario->getAlto());
+//			}
+//		SDL_SetColorKey(imageACargar,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(imageACargar->format,255 ,255, 255));
+//     		this->fondoPad = SDL_DisplayFormat(imageACargar);
+//				  SDL_FreeSurface(imageACargar);
+//	}
+//		SDL_Rect rectFondo;
+//		rectFondo.x =this->getX();
+//		rectFondo.y =0;
+//		SDL_BlitSurface(this->fondoPad, NULL, pantalla, &rectFondo);
 
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
-		this->imagen = IMG_Load(path.begin());
-		if(this->imagen == NULL) {
+		imageACargar1 = IMG_Load(path.begin());
+		if(imageACargar1 == NULL) {
 			std::cout<< "Error: " << SDL_GetError() << endl;
 			exit(1);
 		}
-		if(this->imagen != NULL){
+		if(imageACargar1 != NULL){
 			std::cout<< "cargo imagen"<< endl;
-			this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getBase(), this->getFigura()->getAltura());
+			imageACargar1 = this->getFigura()->ScaleSurface(imageACargar1, this->getFigura()->getBase(), this->getFigura()->getAltura());
 		}
-		// Calculamos el color transparente, en nuestro caso el verde
-		Uint32 colorkey = SDL_MapRGB(this->imagen->format, 255, 255, 255);
-		// Lo establecemos como color transparente
-		SDL_SetColorKey(this->imagen, SDL_SRCCOLORKEY, colorkey);
+		this->imagen = SDL_DisplayFormat(imageACargar1);
+	    SDL_FreeSurface(imageACargar1);
 	}
 
 	SDL_Rect rect;
 	rect.x =this->getX();
 	rect.y = this->getY();
-	SDL_BlitSurface(imagen, NULL, pantalla, &rect);
+	SDL_BlitSurface(this->imagen, NULL, pantalla, &rect);
 }
 int Pad::getX(){
 	return this->rectangulo->getPosicion()->getX();

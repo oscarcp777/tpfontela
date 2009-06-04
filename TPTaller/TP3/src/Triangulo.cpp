@@ -249,7 +249,9 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 
 	int mayorDeXY = mayor(maxValorX, maxValorY);
-
+	 SDL_Surface* image;
+		//	 Cargamos la imagen
+		if(this->imagen==NULL){
 	//si la textura no es NULL es porque le seteo algun idTextura
 	if(this->getIdTextura().compare("NULL") != 0){
 		//si se le seteo algun idTextura busco el path
@@ -257,11 +259,11 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 		//si el path NO es NULL intento levantar la imagen
 		if(path.compare("NULL") != 0){
-			this->imagen = IMG_Load (path.begin());
+			image = IMG_Load (path.begin());
 
 			//si la imagen no es null (es decir si la levanto bien) la escalo
-			if(this->imagen != NULL){
-				this->imagen = ScaleSurface(this->imagen, mayorDeXY, mayorDeXY);
+			if(image != NULL){
+				image = ScaleSurface(image, mayorDeXY, mayorDeXY);
 			}
 			//si no la levanto es porque el path no es correcto o la imagen no existe
 			else{
@@ -280,11 +282,16 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	//si el idTextura es NULL intento levantar la imagen del escenario por default
 	else{
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
-		this->imagen = IMG_Load (path.begin());
-		this->imagen = ScaleSurface(this->imagen, mayorDeXY, mayorDeXY);
+		image = IMG_Load (path.begin());
+		if(image != NULL){
+						image = ScaleSurface(image, mayorDeXY, mayorDeXY);
+	  }
 
 	}
-
+	SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
+			this->imagen = SDL_DisplayFormat(image);
+			  SDL_FreeSurface(image);
+		}
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo
 	for(i = 0;i<maxValorX;i++){
 

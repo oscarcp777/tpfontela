@@ -17,7 +17,6 @@ Escenario::Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
 	this->icono=NULL;
 	this->fondoPantalla=NULL;
-	this->fondo = NULL;
 	this->setResolucion(RESOLUCION_800);
 	this->texturaFig = "FigDefault";
 	this->texturaEsc = "EscDefault";
@@ -221,7 +220,7 @@ Log* Escenario::getLog(){
 
 void Escenario::pintarPantalla(){
 
-
+	SDL_Surface *imagen;
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int res = this->texturaEsc.compare("NULL");
@@ -234,8 +233,8 @@ void Escenario::pintarPantalla(){
 
 			if(path.compare("NULL") != 0){
 				//si se encontro el path de la textura
-				this->fondoPantalla = IMG_Load (path.begin());
-				if(this->fondoPantalla == NULL) {
+				imagen = IMG_Load (path.begin());
+				if(imagen == NULL) {
 					escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
 					SDL_Rect dest;
 					dest.x = 0;
@@ -245,8 +244,8 @@ void Escenario::pintarPantalla(){
 					SDL_Color color = this->getColorFondoEscenario();
 					SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
 				}
-				if(this->fondoPantalla != NULL){
-					this->fondoPantalla = Figura::ScaleSurface(this->fondoPantalla, this->getAncho(), this->getAlto());
+				if(imagen != NULL){
+					imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
 				}
 			}
 			else{
@@ -260,25 +259,16 @@ void Escenario::pintarPantalla(){
 				SDL_Color color = this->getColorFondoEscenario();
 				SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
 			}
+			this->fondoPantalla=SDL_DisplayFormat(imagen);
+			 SDL_FreeSurface(imagen);
 		}
 		if(this->fondoPantalla != NULL){
-
-
-			if(this->fondo == NULL)
-			{
-				this->fondo = SDL_CreateRGBSurface(SDL_HWSURFACE,this->getAncho(), this->getAlto(), 24,0,0,0,0);
-			}
-			this->fondo = SDL_DisplayFormat(screen);
-
-
 			SDL_Rect rect;
 			rect.x =0;
 			rect.y =0;
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
-			SDL_BlitSurface(this->fondoPantalla, NULL,this->fondo, &rect);
-			SDL_Flip(this->fondo);
-            SDL_BlitSurface(this->fondo,NULL,this->screen,&rect);
+			SDL_BlitSurface(this->fondoPantalla, NULL,this->screen, &rect);
 
 			// dibujo los arcos
 			this->arcoDerecha->dibujar(this->screen);
@@ -291,10 +281,6 @@ void Escenario::pintarPantalla(){
 				iter++;
 				i++;
 			}
-			tejo->dibujar(this->screen);
-			padCliente1->dibujar(this->screen);
-			padCliente2->dibujar(this->screen);
-			SDL_Flip(this->screen);
 		}
 	}
 
@@ -420,7 +406,7 @@ void IntToString(int i, string & s)
         s += '-';
         i = -i;
     }
-    int count = log10(i);
+    int count = (int)log10(i);
     while (count >= 0)
     {
         s += ('0' + i/pow(10.0, count));
@@ -430,7 +416,7 @@ void IntToString(int i, string & s)
 }
 
 int openFont(TTF_Font* fuente){
-	
+
 	if (TTF_Init() == -1) {
 		printf("Fallo al inicializar SDL_TTF");
 		return -1;
@@ -472,7 +458,7 @@ int graficarPuntaje(int puntajeJugadorIzquierda, int puntajeJugadorDerecha,SDL_S
 	}
 
 	fuente = TTF_OpenFont("arial.ttf", 150);
-	
+
 	TTF_SetFontStyle(fuente, TTF_STYLE_BOLD);
 
 
@@ -490,17 +476,16 @@ int graficarPuntaje(int puntajeJugadorIzquierda, int puntajeJugadorDerecha,SDL_S
        return -1;
 	}
 
-	SDL_BlitSurface(textImg,NULL,screen,&rect);	
+	SDL_BlitSurface(textImg,NULL,screen,&rect);
 
 	SDL_Flip(screen);
 
-	
+
 
 	return 0;
 }
 
 int Escenario::graficar(){
-
 	Pad* padCliente1=this->getPadCliente1();
 	Pad* padCliente2=this->getPadCliente2();
 	Tejo* tejo=this->getTejo();
@@ -513,8 +498,7 @@ int Escenario::graficar(){
 	bool gol = false;
 	this->terminar = 0;
 
-	this->pintarPantalla();
-	// Lo mostramos por pantalla
+
 
 	Teclado teclado;
 	while(this->terminar==0) {
@@ -530,18 +514,18 @@ int Escenario::graficar(){
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
 
-//				if(ControladorColisiones::colisionesArcos()==0){
-//					padCliente1->setY(this->getAlto()/2);
-//					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
-//					padCliente2->setY(this->getAlto()/2);
-//					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
-//					tejo->setY(this->getAlto()/2);
-//					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
-//					tejo->getDireccion()->setFi(PI/4);
-//					gol=true;
-//
-//
-//				}
+				if(ControladorColisiones::colisionesArcos()==0){
+					padCliente1->setY(this->getAlto()/2);
+					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
+					padCliente2->setY(this->getAlto()/2);
+					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
+					tejo->setY(this->getAlto()/2);
+					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
+					tejo->getDireccion()->setFi(PI/4);
+					gol=true;
+
+
+				}
 
 		ControladorColisiones::calcularDireccion();
 
@@ -566,18 +550,16 @@ int Escenario::graficar(){
 			if(padCliente2->getY()<this->getAlto()-padCliente1->getAltura())
 				padCliente2->bajar_y();
 		}
-
+		this->pintarPantalla();
+		//los pinto en cada iteracion
 		padCliente1->dibujar(this->screen);
-		//			SDL_UpdateRect(this->screen,padCliente1->getX(),padCliente1->getY(), padCliente1->getFigura()->getBase(), padCliente1->getFigura()->getAltura());
 		padCliente2->dibujar(this->screen);
-		//			SDL_UpdateRect(this->screen,padCliente2->getX(),padCliente2->getY(), padCliente2->getFigura()->getBase(), padCliente2->getFigura()->getAltura());
-
-
-		tejo->borrarTejo();
 		tejo->dibujar(this->screen);
 
+
+
 		SDL_Flip(this->getScreen());
-//					si fue gol espero 2 segundos antes de empezar otra partida
+////					si fue gol espero 2 segundos antes de empezar otra partida
 					if(gol){
 					/* MUESTRO LOS PUNTAJES DE CADA JUGADOR*/
 					puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
@@ -586,10 +568,9 @@ int Escenario::graficar(){
 				    Sleep(2000);
 					gol=false;
 					}
-
+//      reloj que controla la velocidad
 //		Sleep(1000/tejo->getVelocidad());
 
-		//			SDL_UpdateRect(this->screen,tejo->getX()-tejo->getRadio(),tejo->getY()-tejo->getRadio(), tejo->getFigura()->getRadio()*2-2,tejo->getFigura()->getRadio()*2-2);
 
 
 

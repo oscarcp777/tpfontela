@@ -8,7 +8,7 @@
 #include "Color.h"
 #include "Posicion.h"
 #include "RectanguloInfluencia.h"
-#include <vector>
+#include <list>
 
 class Figura{
 
@@ -29,7 +29,9 @@ class Figura{
           void Figura::setColorFigura(Color *colorFigura);
           Posicion* getPosicion();
           void setPosicion(Posicion * posicion);
-		  std::vector<RectanguloInfluencia*> getRectangulosDeInfluencia();
+          std::list<RectanguloInfluencia*>::iterator iteratorRectangulosDeInfluencia();
+          void addRectanguloInfluencia(RectanguloInfluencia *rectanguloInfluencia);
+          int sizeListaRectangulos();
 		  virtual void calcularRadioDeInfluencia()=0;
 		  int getX();
 	 	  int getY();
@@ -63,7 +65,7 @@ protected:
 		Color* colorLinea;
 		SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
 		Posicion *pos;
-		std::vector<RectanguloInfluencia*> rectangulosDeInfluencia;
+		std::list<RectanguloInfluencia*> rectangulosDeInfluencia;
 
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
 		SDL_Color getpixel(SDL_Surface *imagen, int x, int y);

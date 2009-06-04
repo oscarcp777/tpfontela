@@ -8,18 +8,29 @@
 #ifndef RECTANGULOINFLUENCIA_H_
 #define RECTANGULOINFLUENCIA_H_
 #include <iostream>
-#include <SDL.h>
-#include <SDL_main.h>
 class RectanguloInfluencia {
 public:
-	RectanguloInfluencia( SDL_Rect rectangulo,std::string posicion);
+	RectanguloInfluencia(int x,int y, int w,int h,std::string posicion);
 	 ~RectanguloInfluencia();
-    SDL_Rect getRectangulo();
     std::string getPosicionRectangulo();
+    void setPosicionRectangulo(std::string posicionRectangulo);
 
+    int getX();
+
+    void setX(int x);
+    int getY();
+    void setY(int y);
+    int getW();
+    void setW(int w);
+    int getH();
+
+    void setH(int h);
 private:
 	  std::string posicionRectangulo;
-	  SDL_Rect rectangulo;
+	  int x;
+	  int y;
+	  int w;
+	  int h;
 
 };
 

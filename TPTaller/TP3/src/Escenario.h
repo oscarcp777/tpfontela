@@ -74,7 +74,6 @@ protected:
 		int terminar;
 		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
-		SDL_Surface *fondo;
 		int ancho;
 		int alto;
 		int resolucion;

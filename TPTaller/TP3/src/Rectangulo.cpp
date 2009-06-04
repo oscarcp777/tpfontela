@@ -31,19 +31,20 @@ int Rectangulo::getY(){
 int Rectangulo::dibujar(SDL_Surface *screen){
 
 	this->color = getColorFigura()->getColor();
-
+	 SDL_Surface* image;
+		if(this->imagen==NULL){
 		//si la textura no es NULL es porque le seteo algun idTextura
-	if(this->getIdTextura().compare("NULL") != 0){
+	    if(this->getIdTextura().compare("NULL") != 0){
 		//si se le seteo algun idTextura busco el path
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->getIdTextura());
 
 		//si el path NO es NULL intento levantar la imagen
 		if(path.compare("NULL") != 0){
-			this->imagen = IMG_Load (path.begin());
+			image = IMG_Load (path.begin());
 
 			//si la imagen no es null (es decir si la levanto bien) la escalo
-			if(this->imagen != NULL){
-					this->imagen = ScaleSurface(this->imagen, this->getBase(), this->getAltura());
+			if(image != NULL){
+				image = ScaleSurface(image, this->getBase(), this->getAltura());
 			}
 			//si no la levanto es porque el path no es correcto o la imagen no existe
 			else{
@@ -62,49 +63,59 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 	//si el idTextura es NULL intento levantar la imagen del escenario por default
 	else{
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(Escenario::obtenerInstancia()->getTexturaFig());
-		this->imagen = IMG_Load (path.begin());
-		this->imagen = ScaleSurface(this->imagen, this->getBase(), this->getAltura());
-
-	}
-
-
-	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
-	int x= this->getPosicion()->getX();
-	int y= this->getPosicion()->getY();
-	int j = 0;
-	int k = 0;
-
-	while(x<=this->getBase()+this->getPosicion()->getX()){
-
-		//valido que la x este dentro del escenario
-		if(x>=0 && x<=Escenario::obtenerInstancia()->getAncho()){
-			y=this->getPosicion()->getY();
-			k=0;
-			while(y<=this->getAltura()+this->getPosicion()->getY()){
-
-			//valido que la y este dentro del escenario
-			if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
-				//std::cout<<"y "<<y<<endl;
-				if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){
-					this->putpixel(screen,x,y,getColorLinea()->getColor());
-				}
-				else{
-					if(imagen != NULL){
-						this->color = this->getpixel(imagen,j,k);
+		image = IMG_Load (path.begin());
+		if(image != NULL){
+						image = ScaleSurface(image, this->getBase(), this->getAltura());
 					}
-					this->putpixel(screen,x,y,this->color);
-				}
-			}
-
-
-			y++;
-			k++;
-			}
-		}
-	x++;
-	j++;
-
 	}
+	    SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255,255,255));
+	    		this->imagen=SDL_DisplayFormat(image);
+	    		SDL_FreeSurface(image);
+	    	}
+	if(this->imagen!=NULL){
+		SDL_Rect rect;
+			   		rect.x =this->getPosicion()->getX();
+			   		rect.y = this->getPosicion()->getY();
+			   		SDL_BlitSurface(this->imagen, NULL, screen, &rect);
+		}
+
+//	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
+//	int x= this->getPosicion()->getX();
+//	int y= this->getPosicion()->getY();
+//	int j = 0;
+//	int k = 0;
+//
+//	while(x<=this->getBase()+this->getPosicion()->getX()){
+//
+//		//valido que la x este dentro del escenario
+//		if(x>=0 && x<=Escenario::obtenerInstancia()->getAncho()){
+//			y=this->getPosicion()->getY();
+//			k=0;
+//			while(y<=this->getAltura()+this->getPosicion()->getY()){
+//
+//			//valido que la y este dentro del escenario
+//			if(y>=0 && y<Escenario::obtenerInstancia()->getAlto()){
+//				//std::cout<<"y "<<y<<endl;
+//				if(y==this->getPosicion()->getY()||y==this->getAltura()+this->getPosicion()->getY()||x==this->getBase()+this->getPosicion()->getX()||x==this->getPosicion()->getX()){
+//					this->putpixel(screen,x,y,getColorLinea()->getColor());
+//				}
+//				else{
+//					if(imagen != NULL){
+//						this->color = this->getpixel(imagen,j,k);
+//					}
+//					this->putpixel(screen,x,y,this->color);
+//				}
+//			}
+//
+//
+//			y++;
+//			k++;
+//			}
+//		}
+//	x++;
+//	j++;
+//
+//	}
 	return 0;
 }
 int Rectangulo::getAltura(){
