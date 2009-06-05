@@ -36,7 +36,7 @@ void recibir(CONEXION *conexion);
 /*        conexion:  apunta a la  conexion.                        */
 /*        DWORD: devuelve el id del hilo que la esta ejecutando	   */
 /*****************************************************************/
-void enviar(CONEXION *conexion);
+void enviar(CONEXION *conexion,char* pmsjIngresado);
 /*****************************************************************/
 /* reconectarSockets: funcion que acepta cuando  un cliente se    */
 /*                    conecta  cuando el cliente el que estaba    */

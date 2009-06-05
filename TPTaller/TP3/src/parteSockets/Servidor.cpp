@@ -18,6 +18,14 @@ int Servidor :: process(void* arg){
     bool todoOK = true;//se usa para ver si no hay problemas
     Socket* socketServidor = new Socket();
 
+    try {
+    	socketServidor->listen(puertoConexion);
+    }
+    catch (cSocketException &e){
+    	//O fallo el socket bind, o el listen
+    	std::cout << "ERROR - EL PUERTO NO ESTA DISPONIBLE\n";
+    	todoOK = false;
+    }
 
     bool puedoCiclar = true;
     int cantConecEscuchadas = 0;
@@ -35,7 +43,7 @@ int Servidor :: process(void* arg){
         /*Si el juego no arrancó, entonces llamamos al aceptar una
         nueva conexion*/
         else {
-            Socket* s = socketServidor->listen(puertoConexion);;
+            Socket* s = socketServidor->accept();;
             if (juegoNuevo->cancelado() == true){
                 /*Si el juego fue cancelado, entonces se destrabó el accept a la
                 fuerza, por lo que entra en este scope donde cerramos el socket
@@ -71,7 +79,7 @@ int Servidor :: process(void* arg){
             }
         }
     }
-    this->sleep(10000);
+    this->sleep(5000);
 		ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
     			socketServidor, juegoNuevo, misClientes);
     	servidorSender->start(NULL);
@@ -81,7 +89,7 @@ int Servidor :: process(void* arg){
     while (algunClienteCorre(misClientes) == true){
 
     	this->sleep(100);
-    
+
     }
 
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se

@@ -20,7 +20,7 @@ int cSender::process(void* args)
 		string msg;
 
 		status = CONNECTED;
-		enviar(sock->getConexion());
+		//enviar(sock->getConexion());
 //		while(status==CONNECTED || !toSend.isEmpty())
 //		{
 //			while(!toSend.isEmpty())

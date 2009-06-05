@@ -44,6 +44,15 @@ enum tr_tipo_dato {td_comando, td_int , td_char , td_float, td_double};
 int trEscuchar(int Puerto, CONEXION *pConexion);
 
 /*****************************************************************/
+/* trAceptar:  Acepta conexiones entrantes.    */
+/*             Devuelve la direccion del socket que se conectó*/
+/*             apunta a la nueva conexion.                       */
+/*		  De lo contrario devuelve un codigo de error y     */
+/*             pConexion permanece inalterado.		      */
+/*****************************************************************/
+int trAceptar(CONEXION *pConexion);
+
+/*****************************************************************/
 /* trConectar: Intenta conectarse a una dirección de internet    */
 /*             y a un Puerto de comunicación específico.	      */
 /*		  Si todo sale bien devuelve RES_OK y pConexion     */

@@ -116,9 +116,6 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 int trEscuchar(int puerto,CONEXION *pConexion){
 
     int error;
-	SOCKADDR cliente;
-	int Longitud_Cliente;
-	int clienteDescriptor;
 
 	if (pConexion->usuario != 0){
 		error = iniciarSocket(pConexion, SERVIDOR);
@@ -131,6 +128,16 @@ int trEscuchar(int puerto,CONEXION *pConexion){
 
 		mensajeServidorEnEspera();
 	}
+	return error;
+
+
+}
+
+int trAceptar(CONEXION *pConexion){
+
+	SOCKADDR cliente;
+	int Longitud_Cliente;
+	int clienteDescriptor;
 
 	Longitud_Cliente = sizeof(cliente);
 	clienteDescriptor = accept(pConexion->locsock, &cliente, &Longitud_Cliente );
@@ -139,9 +146,8 @@ int trEscuchar(int puerto,CONEXION *pConexion){
 
 	return clienteDescriptor;
 
+
 }
-
-
 
 int conectarSocket(const char *pDireccion, int puerto, CONEXION *pConexion){
 
@@ -274,7 +280,7 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 
 int reconectarSockets(CONEXION *pConexion, int tipo){
-///	int addrleng;///    addrleng = sizeof(pConexion->conexrem);//////	pConexion->cliente = accept(pConexion->locsock, (SOCKADDR*)&(pConexion->conexrem), &addrleng);///	mensajeConexionAceptada(pConexion);///	pConexion->usuario = SERVIDOR;///	return RES_OK;
+	int addrleng;    addrleng = sizeof(pConexion->conexrem);//////	pConexion->cliente = accept(pConexion->locsock, (SOCKADDR*)&(pConexion->conexrem), &addrleng);///	mensajeConexionAceptada(pConexion);///	pConexion->usuario = SERVIDOR;///	return RES_OK;
 }
 
 

@@ -20,7 +20,8 @@ public:
 public:
 	 	Socket();
     void connect(const char & host, unsigned int port);
-    Socket *listen(unsigned int port);
+    void listen(unsigned int port);
+    Socket* accept();
     void send(const char *stream, unsigned int size);
     int receive(char *stream, unsigned int size);
     void shutdown();

@@ -28,12 +28,12 @@ void Cliente::start(char* host, int port)
 		sock.connect(*host, port);
 
 		status = CONNECTED;
-		while(sock.getInitialized() == true){
-
-		}
+//		while(sock.getInitialized() == true){
+//
+//		}
 
 		//sender.start((void*)&sock);
-		//receiver.start((void*)&sock);
+		receiver.start((void*)&sock);
 	}
 	catch (cSocketException &e)
 	{

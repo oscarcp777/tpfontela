@@ -6,6 +6,7 @@
  */
 
 #include "Socket.h"
+#include "cSocketException.h"
 
 typedef char raw_type;
 //bool Socket::initialized = false;
@@ -45,6 +46,7 @@ void Socket::connect(const char& host, unsigned int port)
 	if (trConectar(&host,port,&this->conexion)==-1){
 				std::cout<<"ERROR EN CONNECT...\n"<<endl;
 	}
+	this->sockDesc = this->conexion.locsock;
 	initialized = true;
 //	try
 //	{
@@ -61,20 +63,17 @@ void Socket::connect(const char& host, unsigned int port)
 //    }
 }
 
-Socket* Socket::listen(unsigned int port)
+void Socket::listen(unsigned int port)
 {
-	int clienteDescriptor;
-	clienteDescriptor = trEscuchar(port,&(this->conexion));
-	this->sockDesc = this->conexion.locsock;
-	//Si clienteDescriptor es mayor que 0 devuelve la direccion del cliente aceptado
-	if ( clienteDescriptor < 0){
-	     Sleep(500); // Esperamos 500 Milisegundos y…
-	     Socket::listen(port); // Repetimos proceso
+	int error;
+	error = trEscuchar(port,&(this->conexion));
+	if (error < RES_OK){
+		throw cSocketException("");
 	}
+	this->sockDesc = this->conexion.locsock;
+
 	initialized = true;
-	Socket* aux = new Socket(clienteDescriptor);
-	aux->conexion.locsock = clienteDescriptor;
-	return aux;
+
 }
 
 void Socket::send(const char* stream, unsigned int size)
@@ -98,35 +97,30 @@ int Socket::receive(char* stream, unsigned int size)
     return ret;
 }
 
-//Socket* Socket::accept()
-//{
-//    int newSockDesc;
-////    if ((newSockDesc = ::accept(sockDesc, NULL, 0))==-10)
-////    {
-////        throw cSocketException("Error en accept()");
-////    }
-//
-//    return new Socket(newSockDesc);
-//}
+Socket* Socket::accept()
+{
+	//Si clienteDescriptor es mayor que 0 devuelve la direccion del cliente aceptado
+
+    int newSockDesc;
+    newSockDesc = trAceptar(&(this->conexion));
+
+    Socket* aux = new Socket(newSockDesc);
+    aux->conexion.locsock = newSockDesc;
+
+    return aux;
+}
 
 void Socket::shutdown()
 {
-	#ifdef WIN32
 	::shutdown(sockDesc, '0x02');
-	#else
-	::shutdown(sockDesc, SHUT_RDWR);
-	#endif
+
 }
 
 void Socket::close()
 {
 	if(sockDesc!=-1)
 	{
-		#ifdef WIN32
 		::closesocket(sockDesc);
-		#else
-		::close(sockDesc);
-		#endif
 		sockDesc = -1;
 	}
 }

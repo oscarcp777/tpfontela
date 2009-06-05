@@ -505,25 +505,23 @@ void recibir(CONEXION *conexion){
 
 }
 
-void enviar(CONEXION *conexion){
 
 
-		char msjIngresado[TAM_MSJ];
-		char *pmsjIngresado = msjIngresado;
+void enviar(CONEXION *conexion, char* pmsjIngresado){
+
+
 
 		char primerEnvio[PRIMER_ENVIO];
 		char *pPrimerEnvio = primerEnvio;
 
-		char leyenda[TAM_MSJ];
-		char * pLeyenda = leyenda;
+
 
 		int puerto;
 		int* pPuerto = &puerto;
 		int exito=RES_OK;
 
 		//while (exito != RES_QUIT){
-			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
-			ingresoMensaje(pmsjIngresado,pLeyenda);
+
 			exito = validarComando(pmsjIngresado,conexion);
 
 			if(exito == RES_QUIT){

@@ -1,4 +1,5 @@
 #include "ManejadorClientes.h"
+#include "cSocketException.h"
 #include "Juego.h"
 #include "Thread.h"
 #include "Socket.h"
