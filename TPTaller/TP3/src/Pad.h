@@ -22,27 +22,24 @@ public:
 	Puntaje* getPuntaje();
   	 void avanzar_x();
   	 void retrasar_x();
+    void bajar_y();
+    void subir_y();
+    int getBase();
+    int getAltura();
+    int getX();
+    int getY();
+    void setX(int x);
+    void setY(int y);
+    int getVelocidad();
 
-  	  // Modifica la posición del personaje con respecto al eje Y
-  	 void bajar_y();
-  	 void subir_y();
-  	 // Consultoras
-  	int getBase();
-	int getAltura();
-  	  int getX();
-  	  int getY();
+    void setVelocidad(int velocidad);
 
-
-  	 // Modificadoras
-
-  	  void setX(int x);
-  	  void setY(int y);
-
-  private:
+private:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
   	SDL_Surface* fondoPad;
 	Puntaje* puntaje;
+	int velocidad;
 };
 
 #endif /* PAD_H_ */

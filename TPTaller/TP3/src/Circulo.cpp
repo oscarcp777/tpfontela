@@ -132,8 +132,8 @@ int Circulo::dibujar(SDL_Surface *screen){
 
 	if(this->imagen!=NULL){
 	   	    SDL_Rect rect;
-	   		rect.x =this->getPosicion()->getX()-this->getRadio();
-	   		rect.y = this->getPosicion()->getY()-this->getRadio();
+	   		rect.x =this->getX()-this->getRadio();
+	   		rect.y = this->getY()-this->getRadio();
 	   		SDL_BlitSurface(this->imagen, NULL, screen, &rect);
 	}
 //	float ang;

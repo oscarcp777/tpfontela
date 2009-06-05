@@ -23,7 +23,15 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
 
 }
+int Pad::getVelocidad()
+    {
+        return velocidad;
+    }
 
+    void Pad::setVelocidad(int velocidad)
+    {
+        this->velocidad = velocidad;
+    }
 Pad::~Pad() {
 	// TODO Auto-generated destructor stub
 }
@@ -96,22 +104,22 @@ int Pad::getAltura(){
 // de 4 en 4 píxeles
 void Pad::avanzar_x() {
 	int x =this->getX();
-	x += PIXELES_SALTO;
+	x += this->velocidad;
 	this->setX(x);
 }
 void Pad::retrasar_x() {
 	int x =this->getX();
-	x -= PIXELES_SALTO;
+	x -= this->velocidad;
 	this->setX(x);
 }
 void Pad::bajar_y() {
 	int y =this->getY();
-	y += PIXELES_SALTO;
+	y += this->velocidad;
 	this->setY(y);
 }
 void Pad::subir_y() {
 	int y =this->getY();
-	y -= PIXELES_SALTO;
+	y -= this->velocidad;
 	this->setY(y);
 }
 

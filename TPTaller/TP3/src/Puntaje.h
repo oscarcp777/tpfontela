@@ -10,8 +10,9 @@
 #endif // _MSC_VER > 1000
 
 static int PUNTAJE_GANADOR_NIVEL = 70;
-
-class Puntaje  
+#include <SDL_TTF.h>
+#include <SDL.h>
+class Puntaje
 {
 public:
 	Puntaje();
@@ -19,10 +20,10 @@ public:
 	void setCantPuntosJugador(int cantPuntos);
 	int Puntaje::getPuntajeTotal();
 	virtual ~Puntaje();
-
+    int graficarPuntaje(int puntajeJugadorIzquierda, int puntajeJugadorDerecha,SDL_Surface*screen,TTF_Font* fuente,bool gol);
 private:
 	int cantPuntosJugador;
-
+	SDL_Surface* textImagen;
 };
 
 #endif // !defined(AFX_PUNTAJE_H__5D003F4C_8244_4124_8453_272C81C02400__INCLUDED_)

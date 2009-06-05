@@ -447,7 +447,7 @@ int hidratarTejo(std::string radio,std::string velocidad,std::string idTextura){
 		 escenario->setTejo(tejo);
 		 return 0;
 }
-int hidratarPads(std::string altura,std::string base,std::string idTextura){
+int hidratarPads(std::string altura,std::string base,std::string idTextura,std::string velocidad){
 		Escenario* escenario=Escenario::obtenerInstancia();
 	Posicion *posPadInicialCliente1 = new Posicion((int)escenario->getAncho()*POS_PAD1_Y_PORCENTAJE,escenario->getAlto()/2);
 			Posicion *posPadInicialCliente2 = new Posicion((int)escenario->getAncho()*POS_PAD2_Y_PORCENTAJE,escenario->getAlto()/2);
@@ -456,7 +456,9 @@ int hidratarPads(std::string altura,std::string base,std::string idTextura){
 			rectangulo1->setIdTextura(idTextura);
 			rectangulo2->setIdTextura(idTextura);
 			Pad* padCliente1 = new Pad(rectangulo1,new Puntaje());
+			padCliente1->setVelocidad(atoi(velocidad.c_str()));
 			Pad* padCliente2 = new Pad(rectangulo2,new Puntaje());
+			padCliente2->setVelocidad(atoi(velocidad.c_str()));
 			escenario->setPadCliente1(padCliente1);
 			escenario->setPadCliente2(padCliente2);
 			return 0;
@@ -684,7 +686,7 @@ int Hidratar::hidratarEscenario(std::string atributos){
 	arcoizquierda->setIdTextura(escenario->getTexturaFig());
 	escenario->setArcoDerecha(arcoDerecha);
 	escenario->setArcoIzquierda(arcoizquierda);
-    hidratarPads(StringUtils::getValorTag(ALTURA__PAD,tokens),StringUtils::getValorTag(BASE__PAD,tokens),StringUtils::getValorTag(IDTEXTURA__PAD,tokens));
+    hidratarPads(StringUtils::getValorTag(ALTURA__PAD,tokens),StringUtils::getValorTag(BASE__PAD,tokens),StringUtils::getValorTag(IDTEXTURA__PAD,tokens),StringUtils::getValorTag(VELOCIDAD__PAD,tokens));
     hidratarTejo(StringUtils::getValorTag(RADIO__TEJO,tokens),StringUtils::getValorTag(VELOCIDAD__TEJO,tokens),StringUtils::getValorTag(IDTEXTURA__TEJO,tokens));
 
 	return 0;

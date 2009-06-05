@@ -11,6 +11,7 @@ idTexturaPad
 idTexturaTejo
 radioTejo
 velocidadTejo
+velocidadPad
 -textura
 id
 path

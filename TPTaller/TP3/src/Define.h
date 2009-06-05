@@ -24,6 +24,7 @@
 #define BASE__PAD "basePad"
 #define ALTURA__PAD "alturaPad"
 #define VELOCIDAD__TEJO  "velocidadTejo"
+#define VELOCIDAD__PAD  "velocidadPad"
 #define IDTEXTURA__TEJO "idTexturaTejo"
 #define IDTEXTURA__PAD "idTexturaPad"
 #define BASE_ARCO 10
@@ -75,9 +76,13 @@
 #define POS_PAD2_X_INICIAL  56
 #define POS_PAD2_Y_INICIAL  240
 #define PORCENTAJE_ARCO 0.5
-#define  PIXELES_SALTO 1
+#define  PIXELES_SALTO 2
 #define  PIXELES_SALTO_TEJO 3
 #define  NUM_TECLAS 9
 #define MARCADOR_TAG  '-'
 #define PUNTAJE_GOL 10
+//tamanio de letra de los puntajes
+#define TAMANIO_LETRA 60
+#define ANCHO_PUNTAJES 100
+#define ALTO_PUNTAJES 100
 #endif

@@ -99,24 +99,24 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Figura* figura){
 	while(i<=figura->sizeListaRectangulos()){
 		rectangulo = *iter;
 
-	std::cout<<"tamanio"<<rectangulo->getX()<<endl;
-	std::cout<<"tamanio"<<rectangulo->getY()<<endl;
-	std::cout<<"tamanio"<<rectangulo->getH()<<endl;
-	std::cout<<"tamanio"<<rectangulo->getW()<<endl;
+		std::cout<<"tamanio"<<rectangulo->getX()<<endl;
+		std::cout<<"tamanio"<<rectangulo->getY()<<endl;
+		std::cout<<"tamanio"<<rectangulo->getH()<<endl;
+		std::cout<<"tamanio"<<rectangulo->getW()<<endl;
 
-	w2 =rectangulo->getW();
-	h2 = rectangulo->getH();
-	x2 = rectangulo->getX() ;
-	y2 =rectangulo->getY();
+		w2 =rectangulo->getW();
+		h2 = rectangulo->getH();
+		x2 = rectangulo->getX() ;
+		y2 =rectangulo->getY();
 
-	// Si existe colisión entre alguno de los
-	// rectángulos paramos los bucles
-	if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
-		decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
-	}
-	iter++;
-			i++;
+		// Si existe colisión entre alguno de los
+		// rectángulos paramos los bucles
+		if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
+			decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
 		}
+		iter++;
+		i++;
+	}
 }
 bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	bool posibilidadColision= false;
@@ -125,40 +125,46 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	std::list<Figura*>::iterator iter;
 	iter = Escenario::obtenerInstancia()->iteratorListaFiguras();
 
-	int w1, h1, w2, h2, x1, y1, x2, y2;
-	w1 = h1 = tejo->getRadio()*2;
-	x1 = tejo->getX()-tejo->getRadio();
-	y1 = tejo->getY()-tejo->getRadio();
+	int wTejo, hTejo, wFigura, hFigura, xTejo, yTejo, xFigura, yFigura,xAnteriorTejo,yAnteriorTejo,radioTejo;
+	wTejo = hTejo = tejo->getRadio()*2;
+	xTejo = tejo->getX()-tejo->getRadio();
+	yTejo = tejo->getY()-tejo->getRadio();
+	xAnteriorTejo=tejo->getXAnterior()-tejo->getRadio();
+	yAnteriorTejo=tejo->getYAnterior()-tejo->getRadio();
+
 	int i=1;
 
 	while(i <= Escenario::obtenerInstancia()->sizeListaFiguras()){
 		figura=*iter;
-		w2 = figura->getAnchoInfluencia();
-		h2 = figura->getAltoInfluencia();
-		x2 = figura->getXInfluencia();
-		y2 = figura->getYInfluencia();
+		wFigura = figura->getAnchoInfluencia();
+		hFigura = figura->getAltoInfluencia();
+		xFigura = figura->getXInfluencia();
+		yFigura = figura->getYInfluencia();
 
-		if( ((x1 + w1) >= x2) && ((y1 + h1) >= y2) && ((x2 + w2) >= x1) && ((y2 + h2) >= y1)){
-			//			std::cout<<"colisiono con : :"<<figura->getId()<<endl;
+		if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
+//					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-			if(figura->getId().compare(CIRCULO)==0){
-				colisionCirculo( tejo, figura);
-			}else{
-				if(tejo->getX()-tejo->getRadio() ==x2+w2){
+//			if(figura->getId().compare(CIRCULO)==0){
+//				colisionCirculo( tejo, figura);
+//			}else{
+			if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
+					reboteDerecha(tejo);
+				}else{
+					if(yAnteriorTejo<=yFigura+hFigura&&xAnteriorTejo+wTejo>xFigura&&xAnteriorTejo<xFigura+wFigura){
+						reboteAbajo(tejo);
+					}else{
+
+						if(yAnteriorTejo>=yFigura+hFigura&&xAnteriorTejo+wTejo>xFigura&&xAnteriorTejo<xFigura+wFigura){
+							reboteArriba(tejo);
+						}
+					}
+
+				}
+				if(xAnteriorTejo>=xFigura+wFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 					reboteIzquierda(tejo);
 				}
-				if(tejo->getX()+tejo->getRadio() == x2){
-					reboteDerecha(tejo);
-				}
 
-				if(tejo->getY()- tejo->getRadio()==y2+h2){
-
-					reboteArriba(tejo);
-				}
-				if(tejo->getY()+tejo->getRadio() == y2){
-					reboteAbajo(tejo);
-				}
-			}
+//			}
 
 			return true;
 		}
@@ -174,44 +180,61 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 void ControladorColisiones::colisionesPads(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Tejo* tejo = escenario->getTejo();
-	Pad* padIzquierda=escenario->getPadCliente1();
-	Pad* padDerecha=escenario->getPadCliente2();
+	int wTejo, hTejo, wPad, hPad, xTejo, yTejo, xPadDer, yPadDer,xPadIzq, yPadIzq,xAnteriorTejo,yAnteriorTejo,radioTejo;
+	wTejo = hTejo = tejo->getRadio()*2;
+	xTejo = tejo->getX()-tejo->getRadio();
+	yTejo= tejo->getY()-tejo->getRadio();
+	radioTejo=tejo->getRadio();
+	xAnteriorTejo=tejo->getXAnterior()-tejo->getRadio();
+	yAnteriorTejo=tejo->getYAnterior()-tejo->getRadio();
+	Pad* padIzquierda=escenario->getPadCliente2();
+	Pad* padDerecha=escenario->getPadCliente1();
+	wPad= padDerecha->getBase();
+	hPad=padDerecha->getAltura();
+	xPadDer= padDerecha->getX();
+	yPadDer= padDerecha->getY();
+	xPadIzq= padIzquierda->getX();
+	yPadIzq= padIzquierda->getY();
 
-	if(padIzquierda->getY()-tejo->getRadio()<=tejo->getY()&&padIzquierda->getY()+padIzquierda->getAltura()+tejo->getRadio()>=tejo->getY()){
-		if(tejo->getX() ==padIzquierda->getBase()+ padIzquierda->getX()+tejo->getRadio()){
+	if( ((xTejo + wTejo) >= xPadDer) && ((yTejo + hTejo) >= yPadDer) && ((xPadDer + wPad) >= xTejo) && ((yPadDer + hPad) >= yTejo)){
 
-			reboteIzquierda(tejo);
-		}
-		if(tejo->getX() == padIzquierda->getX()- tejo->getRadio()){
+		if(xAnteriorTejo<=xPadDer&&yAnteriorTejo<yPadDer+hPad&&yAnteriorTejo>yPadDer-wTejo){
 			reboteDerecha(tejo);
-		}
-	}
-	if(padDerecha->getY()-tejo->getRadio()<=tejo->getY()&&padDerecha->getY()+padDerecha->getAltura()+tejo->getRadio()>=tejo->getY()){
-		if(tejo->getX() == padDerecha->getX()- tejo->getRadio()){
-			reboteDerecha(tejo);
-		}
-		if( tejo->getX() == padDerecha->getX()+padDerecha->getBase()+tejo->getRadio()){
+		}else{
+			if(yAnteriorTejo<=yPadDer&&xAnteriorTejo+wTejo>xPadDer&&xAnteriorTejo<xPadDer+wPad){
+						reboteAbajo(tejo);
+					}else{
 
-			reboteIzquierda(tejo);
+						if(yAnteriorTejo>=yPadDer+hPad&&xPadDer<xAnteriorTejo+wTejo&&xAnteriorTejo<xPadDer+wPad){
+							reboteArriba(tejo);
+						}
 		}
-	}
-	if(padDerecha->getX()-tejo->getRadio()<=tejo->getX()&&padDerecha->getX()+padDerecha->getBase()+tejo->getRadio()>=tejo->getX()){
-		if(tejo->getY() == padDerecha->getY()- tejo->getRadio()){
-			reboteAbajo(tejo);
-		}
-		if(tejo->getY() == padDerecha->getY()+padDerecha->getAltura()+tejo->getRadio()){
-			reboteArriba(tejo);
-		}
-	}
-	if(padIzquierda->getX()-tejo->getRadio()<=tejo->getX()&&padIzquierda->getX()+padIzquierda->getBase()+tejo->getRadio()>=tejo->getX()){
-		if(tejo->getY() == padIzquierda->getY()- tejo->getRadio()){
-			reboteAbajo(tejo);
-		}
-		if(tejo->getY() == padIzquierda->getY()+padIzquierda->getAltura()+tejo->getRadio()){
-			reboteArriba(tejo);
-		}
-	}
 
+		}
+		if(xAnteriorTejo>=xPadDer+wPad){
+					reboteIzquierda(tejo);
+				}
+
+	}
+	if( ((xTejo + wTejo) >= xPadIzq) && ((yTejo + hTejo) >= yPadIzq) && ((xPadIzq + wPad) >= xTejo) && ((yPadIzq + hPad) >= yTejo)){
+		if(xAnteriorTejo<=xPadIzq&&yAnteriorTejo<yPadIzq+hPad&&yAnteriorTejo>yPadIzq-wTejo){
+					reboteDerecha(tejo);
+				}else{
+					if(yAnteriorTejo<=yPadIzq&&xAnteriorTejo+2*radioTejo>xPadIzq&&xAnteriorTejo<xPadIzq+wPad){
+								reboteAbajo(tejo);
+							}else{
+
+								if(yAnteriorTejo>=yPadIzq+hPad&&xAnteriorTejo+wTejo>xPadIzq&&xAnteriorTejo<xPadIzq+wPad){
+									reboteArriba(tejo);
+								}
+				}
+
+				}
+		if(xAnteriorTejo>=xPadIzq+wPad){
+							reboteIzquierda(tejo);
+						}
+
+	}
 }
 int ControladorColisiones::colisionesArcos(){
 	Escenario* escenario = Escenario::obtenerInstancia();

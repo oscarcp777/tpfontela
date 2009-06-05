@@ -393,97 +393,7 @@ int Escenario::iniciarSDL(){
 
 }
 
-void IntToString(int i, string & s)
-{
-    s = "";
-    if (i == 0)
-    {
-        s = "0";
-        return;
-    }
-    if (i < 0)
-    {
-        s += '-';
-        i = -i;
-    }
-    int count = (int)log10(i);
-    while (count >= 0)
-    {
-        s += ('0' + i/pow(10.0, count));
-        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
-        count--;
-    }
-}
 
-int openFont(TTF_Font* fuente){
-
-	if (TTF_Init() == -1) {
-		printf("Fallo al inicializar SDL_TTF");
-		return -1;
-	}
-
-	fuente = TTF_OpenFont("arial.ttf", 150);
-	if(fuente == NULL) {
-	printf("Fallo al abrir la fuente");
-	    return -1;
-	}
-
-	TTF_SetFontStyle(fuente, TTF_STYLE_BOLD);
-
-	return 0;
-
-}
-
-void closeFont(TTF_Font* fuente){
- TTF_CloseFont(fuente);
- TTF_Quit();
-}
-
-int graficarPuntaje(int puntajeJugadorIzquierda, int puntajeJugadorDerecha,SDL_Surface*screen,TTF_Font* fuente){
-
-	//Fuente que se va a utilizar
-	SDL_Surface* textImg;
-	SDL_Rect rect={ 350, 500, 560, 170 };
-	SDL_Color color= {255, 100, 100, 255};
-	std::string puntaje,puntajeJugador;
-    IntToString(puntajeJugadorIzquierda,puntajeJugador);
-	puntaje+=puntajeJugador;
-	IntToString(puntajeJugadorDerecha,puntajeJugador);
-	puntaje+='-';
-	puntaje+=puntajeJugador;
-
-	if (TTF_Init() == -1) {
-		printf("Fallo al inicializar SDL_TTF");
-		return -1;
-	}
-
-	fuente = TTF_OpenFont("arial.ttf", 150);
-
-	TTF_SetFontStyle(fuente, TTF_STYLE_BOLD);
-
-
-	if(fuente == NULL){
-	 printf("fallo la fuente");
-	 return -1;
-	}
-
-	SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,87,122,18));
-	SDL_Flip(screen);
-
-	textImg=TTF_RenderText_Blended(fuente,puntaje.c_str(), color);
-    if(textImg == NULL) {
-     printf("Fallo al renderizar el texto");
-       return -1;
-	}
-
-	SDL_BlitSurface(textImg,NULL,screen,&rect);
-
-	SDL_Flip(screen);
-
-
-
-	return 0;
-}
 
 int Escenario::graficar(){
 	Pad* padCliente1=this->getPadCliente1();
@@ -554,6 +464,9 @@ int Escenario::graficar(){
 		//los pinto en cada iteracion
 		padCliente1->dibujar(this->screen);
 		padCliente2->dibujar(this->screen);
+	    puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
+		puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
+		padCliente2->getPuntaje()->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
 		tejo->dibujar(this->screen);
 
 
@@ -562,14 +475,10 @@ int Escenario::graficar(){
 ////					si fue gol espero 2 segundos antes de empezar otra partida
 					if(gol){
 					/* MUESTRO LOS PUNTAJES DE CADA JUGADOR*/
-					puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
-					puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
-					graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente);
 				    Sleep(2000);
 					gol=false;
 					}
-//      reloj que controla la velocidad
-//		Sleep(1000/tejo->getVelocidad());
+
 
 
 
@@ -589,7 +498,7 @@ int Escenario::graficar(){
 
 	}
 
-	closeFont(fuente);
+
 
 	return 0;
 }

@@ -8,7 +8,6 @@
 #include <map>
 #include "SDL.h"
 #include <SDL_IMAGE.h>
-#include <SDL_TTF.h>
 #include "Color.h"
 #include "Pad.h"
 #include "Tejo.h"
@@ -64,13 +63,13 @@ class Escenario {
     Rectangulo *getArcoIzquierda();
     void setArcoIzquierda(Rectangulo *arcoIzquierda);
     Posicion *getPosicionInicialTejo();
-
     void setPosicionInicialTejo(Posicion *posicionInicialTejo);
     int iniciarSDL();
 protected:
 		Escenario();
 
 	private:
+
 		int terminar;
 		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
