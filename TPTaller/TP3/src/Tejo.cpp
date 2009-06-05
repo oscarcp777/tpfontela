@@ -116,18 +116,18 @@ void Tejo::mover_x() {
 	//	borrarTejo();
 	int x =this->getX();
 	if(x>=escenario->getAncho()-this->getRadio()){
-		x += PIXELES_SALTO*-1;
+		x += PIXELES_SALTO_TEJO*-1;
 	}else{
 		if(x<=this->getRadio()){
-			x += PIXELES_SALTO;
+			x += PIXELES_SALTO_TEJO;
 		}else{
 			this->setXAnterior(x);
 			double res = cos(this->direccion->getFi());
 			if(res>0.5){
-				x += PIXELES_SALTO;
+				x += PIXELES_SALTO_TEJO;
 			}else{
 				if(res<-0.5){
-					x += PIXELES_SALTO*-1;
+					x += PIXELES_SALTO_TEJO*-1;
 				}
 			}
 		}
@@ -154,18 +154,18 @@ void Tejo::mover_y() {
 		//	borrarTejo();
 
 		if(y>=escenario->getAlto()-this->getRadio()){
-			y += PIXELES_SALTO*-1;
+			y += PIXELES_SALTO_TEJO*-1;
 		}else{
 			if(y<=this->getRadio()){
-				y += PIXELES_SALTO;
+				y += PIXELES_SALTO_TEJO;
 			}else{
 				this->setYAnterior(y);
 				double res =sin(this->direccion->getFi());
 				if(res>0.5){
-					y -= PIXELES_SALTO;
+					y -= PIXELES_SALTO_TEJO;
 				}else{
 					if(res<-0.5){
-						y -= PIXELES_SALTO*-1;
+						y -= PIXELES_SALTO_TEJO*-1;
 					}
 				}
 			}

@@ -76,6 +76,7 @@
 #define POS_PAD2_Y_INICIAL  240
 #define PORCENTAJE_ARCO 0.5
 #define  PIXELES_SALTO 1
+#define  PIXELES_SALTO_TEJO 3
 #define  NUM_TECLAS 9
 #define MARCADOR_TAG  '-'
 #define PUNTAJE_GOL 10
