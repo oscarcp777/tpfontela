@@ -12,7 +12,7 @@ Thread::Thread():engaged(false){}
 int Thread::start(void* args)
 {
     this->args = args;
-    this->hilo = CreateThread(NULL,0,Thread::runProcess,this,0,&(this->id));
+    this->hilo = CreateThread(NULL,0,&(Thread::runProcess),this,0,&(this->id));
     this->engaged = true;
     return 0;
 }
@@ -26,7 +26,7 @@ int Thread::join()
 
 /*
 runProcess() tiene que ser del tipo [void* func(void*)] para poder ponerlo como
-parametro en el pthread_create(). Luego, este llamara a Process() que es un metodo
+parametro en el CreateThread(). Luego, este llamara a Process() que es un metodo
 virtual que definiran las clases que hereden Thread.
 */
 DWORD WINAPI Thread::runProcess(LPVOID thread)

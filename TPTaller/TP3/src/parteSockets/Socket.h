@@ -19,7 +19,7 @@ class Socket {
 public:
 public:
 	 	Socket();
-    void connect(const char & host, unsigned int port);
+    void connect(char *host, unsigned int port);
     void listen(unsigned int port);
     Socket* accept();
     void send(const char *stream, unsigned int size);

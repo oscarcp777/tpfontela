@@ -25,7 +25,7 @@ void Cliente::start(char* host, int port)
 
 	try
 	{
-		sock.connect(*host, port);
+		sock.connect(host, port);
 
 		status = CONNECTED;
 //		while(sock.getInitialized() == true){
@@ -33,7 +33,8 @@ void Cliente::start(char* host, int port)
 //		}
 
 		//sender.start((void*)&sock);
-		receiver.start((void*)&sock);
+		cReceiver *preceiver = &(this->receiver);
+		preceiver->start(NULL);
 	}
 	catch (cSocketException &e)
 	{

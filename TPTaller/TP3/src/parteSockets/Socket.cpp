@@ -41,9 +41,9 @@ Socket::Socket(int sockDesc)
     this->initialized = false;
 }
 
-void Socket::connect(const char& host, unsigned int port)
+void Socket::connect(char  *host, unsigned int port)
 {
-	if (trConectar(&host,port,&this->conexion)==-1){
+	if (trConectar(host,port,&this->conexion)==-1){
 				std::cout<<"ERROR EN CONNECT...\n"<<endl;
 	}
 	this->sockDesc = this->conexion.locsock;

@@ -44,7 +44,7 @@ int ManejadorClientes :: process(void* arg){
 		ingresoMensaje(pmsjIngresado,pLeyenda);
 		enviarAtodos(this->todosLosClientes,pmsjIngresado);
 	}
-	bytesRecibidos = socketComunicacion->receive((char*)buffer.data(), 258);
+//	bytesRecibidos = socketComunicacion->receive((char*)buffer.data(), 258);
 //	while (seguirCiclando == 1){
 //	   /*Crea el buffer para receive una linea del cliente*/
 //	   std::string lineaRecibida;

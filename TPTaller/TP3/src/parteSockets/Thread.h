@@ -20,7 +20,7 @@ public:
         virtual ~Thread();
 	static void sleep(unsigned long msecs);
     protected:
-        static DWORD WINAPI runProcess(void*);
+        static DWORD WINAPI runProcess(LPVOID);
         virtual int process(void*) = 0;
 
     private:
