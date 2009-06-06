@@ -18,11 +18,13 @@
 class Socket {
 public:
 public:
-	 	Socket();
+	Socket();
     void connect(char *host, unsigned int port);
     void listen(unsigned int port);
     Socket* accept();
     void send(const char *stream, unsigned int size);
+	int sendFile(const char *path);
+	int receiveFile(const char *path);
     int receive(char *stream, unsigned int size);
     void shutdown();
     void close();

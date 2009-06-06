@@ -7,6 +7,10 @@
 
 #include "Socket.h"
 #include "cSocketException.h"
+#include <iostream> 
+#include <fstream> 
+
+#define BLOCK 1024
 
 typedef char raw_type;
 //bool Socket::initialized = false;
@@ -75,6 +79,72 @@ void Socket::listen(unsigned int port)
 	initialized = true;
 
 }
+
+int Socket::receiveFile(const char *path)
+{
+	
+	#define BLOCK 1024 
+	int size, ofs, nbytes = 0, block = BLOCK; 
+	char pbuf[BLOCK]; 
+
+    std::ofstream os(path, std::ios::binary); 
+
+    recv(sockDesc, reinterpret_cast<char*>(&size), sizeof size, 0); 
+
+    for(ofs = 0; block == BLOCK; ofs += BLOCK) 
+    { 
+
+        if(size - ofs < BLOCK) block = size - ofs; 
+
+        nbytes += recv(sockDesc, pbuf, block, 0); 
+
+        os.write(pbuf, block); 
+    } 
+
+    os.close(); 
+
+	return nbytes; 
+ 
+
+}
+
+int Socket::sendFile(const char *path)
+{
+ 
+	std::ifstream is; 
+	char pbuf[BLOCK]; 
+	int size, ofs, nbytes = 0, block = BLOCK; 
+
+
+    is.open (path, std::ios::binary ); 
+
+    is.seekg (0, std::ios::end); 
+    size = is.tellg(); 
+    is.seekg (0, std::ios::beg); 
+
+    ::send(sockDesc, reinterpret_cast<char*>(&size), sizeof size , 0); 
+
+    for(ofs = 0; block == BLOCK; ofs += BLOCK) 
+    { 
+
+        if(size - ofs < BLOCK) block = size - ofs; 
+
+            is.read(pbuf, block); 
+
+			nbytes += ::send(sockDesc, pbuf, block, 0); 
+
+    } 
+
+    is.close(); 
+
+	return nbytes; 
+} 
+
+	//    if (::send(sockDesc, (raw_type*)stream, size, 0)==-1)
+//    {
+//        throw cSocketException("Error en send()");
+//    }
+//}
 
 void Socket::send(const char* stream, unsigned int size)
 {

@@ -82,7 +82,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	SOCKADDR_IN conexrem;
 	int error;
 
-	host = gethostbyname("localhost");
+	host = gethostbyname("192.168.16.3");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;
@@ -280,7 +280,14 @@ int trEnviar(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, const v
 
 
 int reconectarSockets(CONEXION *pConexion, int tipo){
-	int addrleng;    addrleng = sizeof(pConexion->conexrem);//////	pConexion->cliente = accept(pConexion->locsock, (SOCKADDR*)&(pConexion->conexrem), &addrleng);///	mensajeConexionAceptada(pConexion);///	pConexion->usuario = SERVIDOR;///	return RES_OK;
+
+	int addrleng;
+    addrleng = sizeof(pConexion->conexrem);
+///
+///	pConexion->cliente = accept(pConexion->locsock, (SOCKADDR*)&(pConexion->conexrem), &addrleng);
+///	mensajeConexionAceptada(pConexion);
+///	pConexion->usuario = SERVIDOR;
+///	return RES_OK;
 }
 
 

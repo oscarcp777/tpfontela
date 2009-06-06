@@ -8,6 +8,8 @@
 #include <iostream>				// Para cerr y endl
 #include <string>				// Para el manejo de strings
 #include <fstream>				// Para filemap y filetxt
+#include <iostream> 
+#include <fstream> 
 
 using namespace std;
 
@@ -22,6 +24,9 @@ cReceiver::cReceiver():status(NOT_CONNECTED),filesize(1),downloaded(0)
 	#endif
 }
 
+
+
+
 int cReceiver::process(void* args)
 {
 	Socket* sock = (Socket*) args;
@@ -31,6 +36,9 @@ int cReceiver::process(void* args)
 		string msg;
 
 		status = CONNECTED;
+
+		int nbytes = sock->receiveFile("ClientePrueba.jpg"); 
+		std::cout << "bytes recibidos: " << nbytes << std::endl; 
 
 		recibir(sock->getConexion());
 

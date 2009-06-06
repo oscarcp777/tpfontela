@@ -7,6 +7,7 @@
 
 #include "ManejadorClientes.h"
 
+
 ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
 			std::list<Thread*>& clientes):
 				socketServidor(socketServer), socketComunicacion(s), juegoNuevo(juego),
@@ -28,6 +29,8 @@ ManejadorClientes::~ManejadorClientes(){
 		delete(socketServidor);
 }
 
+
+
 int ManejadorClientes :: process(void* arg){
 	seguirCiclando = 1;
 	std::string bufferStr = "";
@@ -37,6 +40,21 @@ int ManejadorClientes :: process(void* arg){
 	char *pmsjIngresado = msjIngresado;
 	char leyenda[TAM_MSJ];
 	char * pLeyenda = leyenda;
+	int nbytes;
+
+	if(this->socketComunicacion->getConexion()->usuario == 0){
+
+		for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
+			it!= this->todosLosClientes.end(); ++it){
+			if ((*it)->running() == true){
+				nbytes =((ManejadorClientes*)(*it))->socketComunicacion->sendFile("Sup6.jpg"); 
+				printf("Bytes enviados: %d",nbytes); 
+			}
+		}
+		
+		
+	}
+
 
 	while (seguirCiclando == 1){
 		if (this->socketComunicacion == this->socketServidor){

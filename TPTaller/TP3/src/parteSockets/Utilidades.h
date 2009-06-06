@@ -59,6 +59,10 @@ void ingresoMensaje(char *pmsj,char* leyenda);
 /*****************************************************************/
 enum tr_tipo_dato deStringATipoDato(char* cadena);
 
+
+int block_recv(int sock, const char *path);
+
+
 #ifdef __cplusplus
  }
  #endif

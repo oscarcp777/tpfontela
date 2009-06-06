@@ -45,6 +45,9 @@ int iniciarHilos(CONEXION *conexion){
 
 
 
+
+
+
 ////////////////////AUXILIARES/////////////////////////
 
 int validarComando(char* cadenaIngresada,CONEXION *conexion){
