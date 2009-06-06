@@ -1,4 +1,5 @@
 #include "cSender.h"
+#include "Utilidades.h"
 #include "Socket.h"			// Para connect(), send()
 #include "cSocketException.h"	// Para las excepciones de sockets
 //#include "cSafeQueue.h"			// Para el manejo de la cola thread safe
@@ -20,6 +21,20 @@ int cSender::process(void* args)
 		string msg;
 
 		status = CONNECTED;
+
+		int seguirCiclando = 1;
+	
+		char msjIngresado[TAM_MSJ];
+		char *pmsjIngresado = msjIngresado;
+		char leyenda[TAM_MSJ];
+		char * pLeyenda = leyenda;
+
+		while (seguirCiclando == 1){
+				pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
+				ingresoMensaje(pmsjIngresado,pLeyenda);
+				enviar(sock->getConexion(),pmsjIngresado);
+		}
+	
 		//enviar(sock->getConexion());
 //		while(status==CONNECTED || !toSend.isEmpty())
 //		{

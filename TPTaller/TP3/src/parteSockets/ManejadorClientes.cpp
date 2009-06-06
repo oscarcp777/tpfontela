@@ -38,13 +38,15 @@ int ManejadorClientes :: process(void* arg){
 	char leyenda[TAM_MSJ];
 	char * pLeyenda = leyenda;
 
-
-	if (this->socketComunicacion == this->socketServidor){
-		pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
-		ingresoMensaje(pmsjIngresado,pLeyenda);
-		enviarAtodos(this->todosLosClientes,pmsjIngresado);
+	while (seguirCiclando == 1){
+		if (this->socketComunicacion == this->socketServidor){
+			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
+			ingresoMensaje(pmsjIngresado,pLeyenda);
+			enviarAtodos(this->todosLosClientes,pmsjIngresado);
+		}
+		else
+			socketComunicacion->receive((char*)buffer.data(), 258);
 	}
-//	bytesRecibidos = socketComunicacion->receive((char*)buffer.data(), 258);
 //	while (seguirCiclando == 1){
 //	   /*Crea el buffer para receive una linea del cliente*/
 //	   std::string lineaRecibida;

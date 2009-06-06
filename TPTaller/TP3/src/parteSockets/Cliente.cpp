@@ -32,9 +32,11 @@ void Cliente::start(char* host, int port)
 //
 //		}
 
-		//sender.start((void*)&sock);
-		cReceiver *preceiver = &(this->receiver);
-		preceiver->start(NULL);
+		sender.start((void*)&sock);
+		receiver.start((void*)&sock);
+		while (receiver.running() == true){
+			Sleep(100);
+	}
 	}
 	catch (cSocketException &e)
 	{
