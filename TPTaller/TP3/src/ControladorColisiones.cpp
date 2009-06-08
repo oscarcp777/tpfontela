@@ -17,52 +17,56 @@ ControladorColisiones::ControladorColisiones() {
 
 }
 void reboteArriba(Tejo* tejo){
-	if (tejo->getDireccion()->getFi()==PI/2){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI));
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	if (anguloDeltejo==PI/2){
+		tejo->getDireccion()->setFi(anguloDeltejo+(PI));
 	}else {
-		if (tejo->getDireccion()->getFi()<PI/2&&tejo->getDireccion()->getFi()>=0){
-			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(3*PI/2));
+		if (anguloDeltejo<PI/2&&anguloDeltejo>=0){
+			tejo->getDireccion()->setFi((2*PI)-anguloDeltejo);
 		}else{
-			if (tejo->getDireccion()->getFi()>PI/2&&tejo->getDireccion()->getFi()<=PI){
-				tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+			if (anguloDeltejo>PI/2&&anguloDeltejo<PI){
+				tejo->getDireccion()->setFi(anguloDeltejo+2*(PI-anguloDeltejo));
 			}
 		}
 	}
 }
 void reboteAbajo(Tejo* tejo){
-	if (tejo->getDireccion()->getFi()==3*PI/2){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI));
-	}else if (tejo->getDireccion()->getFi()<3*PI/2&&tejo->getDireccion()->getFi()>=PI){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	if (anguloDeltejo==3*PI/2){
+		tejo->getDireccion()->setFi(anguloDeltejo-(PI));
+	}else if (anguloDeltejo<3*PI/2&&anguloDeltejo>=PI){
+		tejo->getDireccion()->setFi(anguloDeltejo-2*(anguloDeltejo-PI));
 	}else{
-		if (tejo->getDireccion()->getFi()>3*PI/2&&tejo->getDireccion()->getFi()<=2*PI){
-			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(3*PI/2));
+		if (anguloDeltejo>3*PI/2&&anguloDeltejo<=2*PI){
+			tejo->getDireccion()->setFi(2*PI-anguloDeltejo);
 		}}
 }
 void reboteDerecha(Tejo* tejo){
-	if (tejo->getDireccion()->getFi()==0.0){
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	if (anguloDeltejo==0.0){
 
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI));
+		tejo->getDireccion()->setFi(anguloDeltejo+(PI));
 	}else {
-		if (tejo->getDireccion()->getFi()<PI/2&&tejo->getDireccion()->getFi()>=0.0){
+		if (anguloDeltejo<PI/2&&anguloDeltejo>=0.0){
 
-			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
+			tejo->getDireccion()->setFi(anguloDeltejo+(PI-2*anguloDeltejo));
 		}else{
-			if (tejo->getDireccion()->getFi()>3*PI/2&&tejo->getDireccion()->getFi()<=2*PI){
-				tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+			if (anguloDeltejo>3*PI/2&&anguloDeltejo<=2*PI){
+				tejo->getDireccion()->setFi(PI+(2*PI-anguloDeltejo));
 			}         }
 	}
 }
 void reboteIzquierda(Tejo* tejo){
-
-	if (tejo->getDireccion()->getFi()==PI){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI));
-	}else if (tejo->getDireccion()->getFi()<PI&&tejo->getDireccion()->getFi()>=PI/2){
-		tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()-(PI/2));
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	if (anguloDeltejo==PI){
+		tejo->getDireccion()->setFi(anguloDeltejo-(PI));
+	}else if (anguloDeltejo<=PI&&anguloDeltejo>PI/2){
+		tejo->getDireccion()->setFi(PI-anguloDeltejo);
 	}else{
-		if (tejo->getDireccion()->getFi()>PI&&tejo->getDireccion()->getFi()<=3*PI/2){
-			tejo->getDireccion()->setFi(tejo->getDireccion()->getFi()+(PI/2));
-		}}
+		if (anguloDeltejo>PI&&anguloDeltejo<=3*PI/2){
+			tejo->getDireccion()->setFi(anguloDeltejo+2*(3*PI/2-anguloDeltejo));
+		}
+		}
 
 }
 void decidirDireccion(std::string posicionRectangulo,Tejo* tejo){
@@ -144,9 +148,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
 //					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-//			if(figura->getId().compare(CIRCULO)==0){
-//				colisionCirculo( tejo, figura);
-//			}else{
+
 			if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 					reboteDerecha(tejo);
 				}else{
@@ -164,7 +166,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 					reboteIzquierda(tejo);
 				}
 
-//			}
+
 
 			return true;
 		}

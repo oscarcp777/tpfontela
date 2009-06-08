@@ -45,7 +45,7 @@ class Figura{
 
 		     int getAnchoInfluencia();
 
-
+              void analizarChoque();
 		     void setAnchoInfluencia(int anchoInfluencia);
 
 		     int getAltoInfluencia();

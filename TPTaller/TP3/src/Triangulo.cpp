@@ -46,7 +46,15 @@ Posicion* hallarEjeDeCordenadas(Posicion* pos1,Posicion* pos2,Posicion* pos3){
 	return ejeCordenadas;
 }
 
+int Triangulo::getLado()
+    {
+        return lado;
+    }
 
+    void Triangulo::setLado(int lado)
+    {
+        this->lado = lado;
+    }
 Posicion* cambioCoordenadas(Posicion* ejeDeCordenadas, Posicion* pto){
 
 	Posicion* pos = new Posicion(0,0);

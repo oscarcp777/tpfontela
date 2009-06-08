@@ -20,11 +20,14 @@ class Triangulo: public Figura {
 		Posicion* getVertice3();
 		int dibujar(SDL_Surface *screen);
 		void calcularRadioDeInfluencia();
+    int getLado();
 
-	private:
+    void setLado(int lado);
+private:
 		Posicion *vertice1;
 		Posicion *vertice2;
 		Posicion *vertice3;
+		int lado;
 		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);
 
 

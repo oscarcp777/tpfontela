@@ -116,22 +116,32 @@ void Tejo::mover_x() {
 	int x =this->getX();
 	this->setXAnterior(x);
 	if(x>=escenario->getAncho()-this->getRadio()){
-		x += this->velocidad*-1;
-	}else{
-		if(x<=this->getRadio()){
-			x += this->velocidad;
+			x += this->velocidad*-1;
 		}else{
-			this->setXAnterior(x);
-			double res = cos(this->direccion->getFi());
-			if(res>0.5){
-				x += this->velocidad;
+			if(x<=this->getRadio()){
+				x += this->velocidad*1;
 			}else{
-				if(res<-0.5){
-					x += this->velocidad*-1;
+				if(this->direccion->getFi()!=PI/2&&this->direccion->getFi()!=3*PI/2){
+				double res = cos(this->direccion->getFi());
+				if(res>=0.5&&res<=1){
+					x += this->velocidad*2;
+				}else{
+					if(res<=-0.5&&res>=-1){
+						x += this->velocidad*-2;
+					}else{
+						if(res>0&&res<0.5){
+							x += this->velocidad*1;
+						}else{
+							if(res<0&&res>-0.5){
+								x += this->velocidad*-1;
+							}
+
+						}
+					}
 				}
 			}
+			}
 		}
-	}
 	this->setX(x);
 //	std::cout<<"posicion X :"<<x<<endl;
 }
@@ -151,26 +161,37 @@ void Tejo::mover_y() {
 	int y =this->getY();
 	Escenario* escenario= Escenario::obtenerInstancia();
 	this->setYAnterior(y);
-
-		if(y>=escenario->getAlto()-this->getRadio()){
-			y += this->velocidad*-1;
-		}else{
-			if(y<=this->getRadio()){
-				y += this->velocidad;
+	if(y>=escenario->getAlto()-this->getRadio()){
+				y += this->velocidad*-1;
 			}else{
-				this->setYAnterior(y);
-				double res =sin(this->direccion->getFi());
-				if(res>0.5){
-					y -= this->velocidad;
+				if(y<=this->getRadio()){
+					y += this->velocidad*1;
 				}else{
-					if(res<-0.5){
-						y -= this->velocidad*-1;
+					if(this->direccion->getFi()!=PI){
+					double res =sin(this->direccion->getFi());
+
+					if(res>=0.5&&res<=1){
+						y -= this->velocidad*2;
+					}else{
+						if(res<=-0.5&&res>=-1){
+							y -= this->velocidad*-2;
+						}else{
+							if(res>0&&res<0.5){
+								y -= this->velocidad*1;
+							}else{
+								if(res>0&&res<0.5){
+									y -= this->velocidad*-1;
+								}
+							}
+						}
 					}
 				}
+				}
 			}
-		}
+
+
 	this->setY(y);
-//	std::cout<<"posicion Y :"<<y<<endl;
+	std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();

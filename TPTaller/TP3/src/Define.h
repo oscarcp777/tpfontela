@@ -1,6 +1,6 @@
 #ifndef _DEFINE_H_
-    #define _DEFINE_H_
-#define PI 3.14159265358979323846
+#define _DEFINE_H_
+#define PI 3.141592653
 #define CIRCULO "circulo"
 #define ARRIBA "arriba"
 #define	ABAJO "abajo"

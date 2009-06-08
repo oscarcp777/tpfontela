@@ -8,7 +8,6 @@
 #include "Define.h"
 Direccion::Direccion() {
 	fi = PI/4;
-	//fi = 0;
 
 }
 
