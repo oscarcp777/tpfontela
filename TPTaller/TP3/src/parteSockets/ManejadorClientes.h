@@ -11,6 +11,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <vector>
 #include "Thread.h"
 #include "Socket.h"
 #include "Juego.h"
@@ -30,6 +31,7 @@ public:
         void enviarMensaje(const std::string& mensaje);
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
+		void loading(std::list<Thread*>& clientes);
 		int obtenerListos(std::list<Thread*>& clientes);
 		void pararTodos(std::list<Thread*>& clientes);
 		void quitarCliente(std::list<Thread*>& clientes);

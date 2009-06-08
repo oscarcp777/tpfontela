@@ -72,7 +72,7 @@ void Socket::listen(unsigned int port)
 	int error;
 	error = trEscuchar(port,&(this->conexion));
 	if (error < RES_OK){
-		throw cSocketException("");
+		throw cSocketException("aaa");
 	}
 	this->sockDesc = this->conexion.locsock;
 
@@ -176,7 +176,7 @@ Socket* Socket::accept()
 
     Socket* aux = new Socket(newSockDesc);
     aux->conexion.locsock = newSockDesc;
-
+	aux->conexion.usuario = 1;
     return aux;
 }
 

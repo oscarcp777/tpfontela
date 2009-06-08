@@ -40,24 +40,14 @@ int ManejadorClientes :: process(void* arg){
 	char *pmsjIngresado = msjIngresado;
 	char leyenda[TAM_MSJ];
 	char * pLeyenda = leyenda;
-	int nbytes;
 
-	if(this->socketComunicacion->getConexion()->usuario == 0){
 
-		for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
-			it!= this->todosLosClientes.end(); ++it){
-			if ((*it)->running() == true){
-				nbytes =((ManejadorClientes*)(*it))->socketComunicacion->sendFile("Sup6.jpg"); 
-				printf("Bytes enviados: %d",nbytes); 
-			}
-		}
-		
-		
-	}
+	if(this->socketComunicacion->getConexion()->usuario == 0)
+			loading(todosLosClientes);
 
 
 	while (seguirCiclando == 1){
-		if (this->socketComunicacion == this->socketServidor){
+		if (this->socketComunicacion->getConexion()->usuario == 0){
 			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 			ingresoMensaje(pmsjIngresado,pLeyenda);
 			enviarAtodos(this->todosLosClientes,pmsjIngresado);
@@ -571,7 +561,29 @@ int ManejadorClientes :: process(void* arg){
 	return 0;
 }
 
-/*Toma la lista de clientes y un string, itera la lista y envia el string*/
+//Envia los recursos necesarios a los clientes
+void ManejadorClientes::loading(std::list<Thread*>& clientes){
+
+	int nbytes;
+	int i = 0;
+	std::vector<std::string> vImagenes;  //todas las imagenes a cargar
+	vImagenes.push_back("Sup6.jpg");
+
+
+	for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
+			it!= this->todosLosClientes.end(); ++it){
+			if ((*it)->running() == true){
+				while (vImagenes.size()> i){
+					nbytes =((ManejadorClientes*)(*it))->socketComunicacion->sendFile("Sup6.jpg");
+					std::cout << "Bytes recibidos: " << nbytes << std::endl;
+					i++;
+				}
+			i = 0;
+			}
+	}
+}
+
+//Toma la lista de clientes y un string, itera la lista y envia el string
 void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje)
 {
