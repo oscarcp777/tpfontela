@@ -46,7 +46,7 @@ public:
     std::vector<Posicion*> getPuntosDeInfluencia();
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
-
+    SDL_Surface *getImagen();
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;

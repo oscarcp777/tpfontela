@@ -25,6 +25,10 @@ Tejo::Tejo(Circulo* circulo){
 	this->direccion = new Direccion();
 
 }
+SDL_Surface* Tejo::getImagen()
+    {
+        return this->imagen;
+    }
 void Tejo::cargarRadioDeInfluencia(){
 
 

@@ -9,6 +9,7 @@
 #include "Pad.h"
 #include "Tejo.h"
 #include "Define.h"
+#include "GraficadorPuntajes.h"
 #include "ControladorColisiones.h"
 
 
@@ -466,7 +467,9 @@ int Escenario::graficar(){
 		padCliente2->dibujar(this->screen);
 	    puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
 		puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
-		padCliente2->getPuntaje()->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
+		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
+		graficadorPuntajes->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
+		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen(),gol);
 		tejo->dibujar(this->screen);
 
 

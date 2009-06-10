@@ -420,8 +420,10 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 		vertice3 = new Posicion(atoi(posicionX3.c_str()),atoi(posicionY3.c_str()));
 		triangulo = new Triangulo(valueId,vertice1,vertice2,vertice3);
 		string lado=StringUtils::getValorTag(LADO,vec);
+		if(lado.compare(SIN_VALOR)!=0){
 		triangulo->setLado(atoi(lado.c_str()));
 		std::cout<<"lado del triangulo "<<triangulo->getLado()<<endl;
+		}
 		std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		escenario->addFigura(triangulo);
 		/**################################################################################################*/

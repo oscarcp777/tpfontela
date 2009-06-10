@@ -1,12 +1,12 @@
 
 #include "StringUtils.h"
-
+#include "Define.h"
  StringUtils::StringUtils(){
 }
 
  std::string  StringUtils::getValorTag(std::string nombretag,vector<string>& tokens){
  	vector<string>::iterator the_iterator;
- 	string valorTag="sinValor";
+ 	string valorTag=SIN_VALOR;
  	string valor ;
  	the_iterator = tokens.begin();
  	while( the_iterator != tokens.end() ) {

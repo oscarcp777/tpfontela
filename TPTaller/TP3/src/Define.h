@@ -1,6 +1,7 @@
 #ifndef _DEFINE_H_
 #define _DEFINE_H_
 #define PI 3.141592653
+#define SIN_VALOR "sinValor"
 #define CIRCULO "circulo"
 #define ARRIBA "arriba"
 #define	ABAJO "abajo"
@@ -76,6 +77,7 @@
 #define POS_PAD2_X_INICIAL  56
 #define POS_PAD2_Y_INICIAL  240
 #define PORCENTAJE_ARCO 0.5
+#define PORCENTAJE_TEJO_PUNTAJES 0.03
 #define  PIXELES_SALTO 2
 #define  PIXELES_SALTO_TEJO 3
 #define  NUM_TECLAS 9
