@@ -24,11 +24,26 @@ cReceiver::cReceiver():status(NOT_CONNECTED),filesize(1),downloaded(0)
 	#endif
 }
 
-void cReceiver::loading(){
+void cReceiver::loading(Socket* s){
+	int i=0;
+	int nbytes;
+	int numImagenes;
+	char nombreImagen[200];
+	char* pNombreImagen = nombreImagen;
 
+	recibir(s->getConexion(), &numImagenes);
+	std::cout << "numImagenes: " << numImagenes << std::endl; 
 	
+	while(i<numImagenes){
+		memset(pNombreImagen,0,sizeof(char)*200);
+		recibir(s->getConexion(), pNombreImagen);
+		std::cout << "NombreImagen: "<< pNombreImagen << std::endl;
+		nbytes = s->receiveFile(pNombreImagen); 
+		std::cout << "nbytes "<< nbytes<< std::endl;
+		i++;
+		
+	}
 	
-
 }
 
 
@@ -42,9 +57,9 @@ int cReceiver::process(void* args)
 
 		status = CONNECTED;
 
-		loading();
+		loading(sock);
 
-	//	int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
+		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
 	//	nbytes += sock->receiveFile("ClientePrueba2.png"); 
 	//	nbytes += sock->receiveFile("ClientePrueba3.png");
 		
@@ -52,7 +67,7 @@ int cReceiver::process(void* args)
 		
 		while(status==CONNECTED){
 			
-			if (recibir(sock->getConexion())<0)
+			if (recibir(sock->getConexion(), NULL)<0)
 				status = NOT_CONNECTED;
 
 		}

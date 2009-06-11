@@ -31,7 +31,7 @@ class cReceiver : public Thread
 
     	cReceiver(const cReceiver&);
     	cReceiver& operator=(const cReceiver&);
-		void loading();
+		void loading(Socket * s);
 };
 
 #endif

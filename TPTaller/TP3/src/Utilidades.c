@@ -382,7 +382,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){
 
 //////////////////////FIN AUXILIARES/////////////////////////
 
-int recibir(CONEXION *conexion){
+int recibir(CONEXION *conexion,void* datoRecibido){
 
 
 	char msjIngresado[TAM_MSJ];
@@ -470,7 +470,8 @@ int recibir(CONEXION *conexion){
 							 datosInt++;
 							 k++;
 						}
-						printf("\n");
+						if (datoRecibido!=NULL)
+								memcpy(datoRecibido,pDatosIntTemporal,sizeof(int)*atoi(pCantidadItems));
 						free(pDatosIntTemporal);
 						break;
 
@@ -480,6 +481,8 @@ int recibir(CONEXION *conexion){
 							trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
 
 							printf("Incoming Message..\n%s \n",datosChar);
+							if (datoRecibido!=NULL)
+								memcpy(datoRecibido,datosChar,sizeof(char)*atoi(pCantidadItems));
 							free(datosChar);
 							break;
 
@@ -496,7 +499,8 @@ int recibir(CONEXION *conexion){
 							 datosDouble++;
 							 k++;
 						}
-						printf("\n");
+						if (datoRecibido!=NULL)
+								memcpy(datoRecibido,pDatosDoubleTemporal,sizeof(double)*atoi(pCantidadItems));
 						free(pDatosDoubleTemporal);
 				break;
 			}

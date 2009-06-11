@@ -28,7 +28,7 @@
 /*        conexion:  apunta a la  conexion.                        */
 /*        DWORD: devuelve el id del hilo que la esta ejecutando	   */
 /*****************************************************************/
-int recibir(CONEXION *conexion);
+int recibir(CONEXION *conexion, void* datoRecibido);
 /*****************************************************************/
 /*****************************************************************/
 /* recibir: Funcion que ejecuta en un hilo encargada de enviar     */

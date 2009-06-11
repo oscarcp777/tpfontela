@@ -42,8 +42,8 @@ int ManejadorClientes :: process(void* arg){
 	char * pLeyenda = leyenda;
 
 
-//	if(this->socketComunicacion->getConexion()->usuario == 0)
-//			loading(todosLosClientes);
+	if(this->socketComunicacion->getConexion()->usuario == 0)
+			loading(todosLosClientes);
 
 
 	while (seguirCiclando == 1){
@@ -566,27 +566,48 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 
 	int nbytes;
 	int i = 0;
+	char aux1[20];
+	char cantImagenes[20];
+	char nombreImagen[200];
+	char *paux1= aux1;
+	char *pCantImagenes= cantImagenes;
+	char *pNombreImagen = nombreImagen;
+	memset(paux1,0,sizeof(char)*20);
+	memset(pCantImagenes,0,sizeof(char)*20);
+	
+	
 	std::list<std::string> vImagenes;  //todas las imagenes a cargar
 	vImagenes.push_back("imagenes/cuadrado.jpg");
 	vImagenes.push_back("imagenes/bola.png");
 	vImagenes.push_back("imagenes/bola_3d.png");
 	std::list<std::string>::iterator iterImagenes = vImagenes.begin();
 	char* cadena;
+	itoa(vImagenes.size(),paux1,10);			
+	strcat(pCantImagenes,"INT ");
+	strcat(pCantImagenes,paux1);
 	for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
 			it!= this->todosLosClientes.end(); ++it){
 			if ((*it)->running() == true){
+			((ManejadorClientes*)(*it))->enviarMensaje(pCantImagenes);
 				while (vImagenes.size()> i){
+					memset(pNombreImagen,0,sizeof(char)*200);
 					cadena = (char*)(*iterImagenes).data();
+					strcat(pNombreImagen,"STRING ");
+					strcat(pNombreImagen,cadena);
+					((ManejadorClientes*)(*it))->enviarMensaje(pNombreImagen);
 					nbytes =((ManejadorClientes*)(*it))->socketComunicacion->sendFile(cadena);
 					std::cout << "Bytes enviados: " << nbytes << std::endl;
 					iterImagenes++;
 					i++;
+					sleep(1000);
+				
 				}
 			i = 0;
 			iterImagenes = vImagenes.begin();
+			
 			}
 	}
-	system("PAUSE");
+	
 }
 
 //Toma la lista de clientes y un string, itera la lista y envia el string
