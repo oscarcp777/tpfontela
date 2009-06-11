@@ -124,3 +124,7 @@ int Juego::getCantGolesJugador2(){
 void Juego::setJuegoCancelado(bool cancelado){
 	this->juegoCancelado = cancelado;
 }
+void Juego::update(){
+
+	this->escenario->graficar();
+}

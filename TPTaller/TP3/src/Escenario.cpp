@@ -405,13 +405,15 @@ int Escenario::graficar(){
 
 	// Variables auxiliares
 	SDL_Event evento;
-	bool gol = false;
+	bool gol;
 	
 
 
 
 	Teclado teclado;
-	while(!juego->cancelado() && !juego->getNivelTerminado()) {
+
+	gol = false;
+//	while(!juego->cancelado() && !juego->getNivelTerminado()) {
 
 		// Actualizamos el estado del teclado
 		tejo->mover_x();
@@ -516,7 +518,7 @@ int Escenario::graficar(){
 			}
 		}
 
-	}
+//	}
 
 
 

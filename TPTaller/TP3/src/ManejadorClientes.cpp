@@ -40,21 +40,42 @@ int ManejadorClientes :: process(void* arg){
 	char *pmsjIngresado = msjIngresado;
 	char leyenda[TAM_MSJ];
 	char * pLeyenda = leyenda;
-
-
-	if(this->socketComunicacion->getConexion()->usuario == 0)
-			loading(todosLosClientes);
+	char envioInt[40];
+	char auxX[20];
+	char auxY[20];
+	char* pEnvioInt = envioInt;
+	char* pauxX = auxX;
+	char* pauxY = auxY;
+//	if(this->socketComunicacion->getConexion()->usuario == 0)
+//			loading(todosLosClientes);
 
 
 	while (seguirCiclando == 1){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
-			pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
-			ingresoMensaje(pmsjIngresado,pLeyenda);
-			enviarAtodos(this->todosLosClientes,pmsjIngresado);
+		//	pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
+		//	ingresoMensaje(pmsjIngresado,pLeyenda);
+			if(!juegoNuevo->cancelado() && !juegoNuevo->getNivelTerminado()) 
+				juegoNuevo->update();
+				
+				//en las siguientes lineas se forma la cadena "INT posX posY" con las posiciones del tejo y se las envia a los clientes
+				memset(pauxX,0,sizeof(char)*20);
+				memset(pauxY,0,sizeof(char)*20);
+				memset(pEnvioInt,0,sizeof(char)*40);
+				strcat(pEnvioInt,"INT ");
+				itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);			
+				itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);			
+				strcat(pEnvioInt,pauxX);
+				strcat(pEnvioInt," ");
+				strcat(pEnvioInt,pauxY);
+
+			enviarAtodos(this->todosLosClientes,pEnvioInt);	
+		//	enviarAtodos(this->todosLosClientes,pmsjIngresado);
 		}
 		else
 			socketComunicacion->receive((char*)buffer.data(), 258);
 	}
+	SDL_FreeSurface(this->juegoNuevo->getEscenario()->getScreen());
+			SDL_Quit();
 //	while (seguirCiclando == 1){
 //	   /*Crea el buffer para receive una linea del cliente*/
 //	   std::string lineaRecibida;

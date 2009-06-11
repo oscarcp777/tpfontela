@@ -57,7 +57,7 @@ int cReceiver::process(void* args)
 
 		status = CONNECTED;
 
-		loading(sock);
+	//	loading(sock);
 
 		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
 	//	nbytes += sock->receiveFile("ClientePrueba2.png"); 

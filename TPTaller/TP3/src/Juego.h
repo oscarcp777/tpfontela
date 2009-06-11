@@ -35,6 +35,7 @@ public:
 	int getCantGolesJugador1();
 	int getCantGolesJugador2();
 	void setJuegoCancelado(bool cancelado);
+	void update();
 
 protected:
 	Juego();
