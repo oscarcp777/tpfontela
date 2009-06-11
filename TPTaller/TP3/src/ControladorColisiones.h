@@ -9,7 +9,7 @@
 #define CONTROLADORCOLISIONES_H_
 #include "Tejo.h"
 #include "Figura.h"
-
+#include "Circulo.h"
 
 
 class ControladorColisiones {
@@ -21,7 +21,7 @@ public:
 	static void calcularDireccion();
 	static void colisionesPads();
 	static int colisionesArcos();
-	static void colisionCirculo(Tejo* tejo,Figura* figura);
+	static void colisionCirculo(Tejo* tejo,Circulo* figura);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

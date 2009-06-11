@@ -52,6 +52,8 @@ class Figura{
 
 
 		     void setAltoInfluencia(int altoInfluencia);
+             std::string getTipo();
+             void setTipo(std::string tipo);
 
 protected:
 	    int xInfluencia;
@@ -60,6 +62,7 @@ protected:
 	    int altoInfluencia;
 		std::string id;
 		std::string idTextura;
+		std::string tipo;
 		SDL_Color color;
 		Color* colorFigura;
 		Color* colorLinea;

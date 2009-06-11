@@ -34,6 +34,7 @@
 #define RADIO "radio"
 #define LADO "lado"
 #define BASE "base"
+#define TIPO "tipo"
 #define ALTURA "altura"
 #define VELOCIDAD "velocidad"
 #define PATH "path"

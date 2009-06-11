@@ -283,6 +283,7 @@ int Hidratar::hidratarCirculo(std::string atributos){
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/
 		/**################################################################################################*/
 		agregarAtributosOpcionales(vec, circulo, listaClave);
+		circulo->setTipo(StringUtils::getValorTag(TIPO,vec));
 		escenario->addFigura(circulo);
 		return 0;
 	}else{
@@ -425,6 +426,7 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 		std::cout<<"lado del triangulo "<<triangulo->getLado()<<endl;
 		}
 		std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
+		triangulo->setTipo(StringUtils::getValorTag(TIPO,vec));
 		escenario->addFigura(triangulo);
 		/**################################################################################################*/
 		/**###############                    ACA AGRAGO LOS TAG OPCIONALES    #################################*/

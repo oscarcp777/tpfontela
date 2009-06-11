@@ -10,12 +10,21 @@
 #include "Define.h"
 #include "Rectangulo.h"
 #include "ControladorColisiones.h"
-
+#include<math.h>
 
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
 
 }
+int calcularDistanciaRadios(int izqX, int izqY,int derX, int derY){
+	int x,y;
+	int raiz=0;
+	x=abs(derX-izqX);
+	y=abs(derY-izqY);
+		raiz=(int)sqrt(pow(x,2)+pow(y,2));
+	return raiz;
+}
+
 void reboteArriba(Tejo* tejo){
 	double anguloDeltejo=tejo->getDireccion()->getFi();
 	if (anguloDeltejo==PI/2){
@@ -89,38 +98,16 @@ void decidirDireccion(std::string posicionRectangulo,Tejo* tejo){
 ControladorColisiones::~ControladorColisiones() {
 	// TODO Auto-generated destructor stub
 }
-void ControladorColisiones::colisionCirculo(Tejo* tejo,Figura* figura){
-	int w1, h1, w2, h2, x1, y1, x2, y2;
+void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
+     int distanciaMinimaEntreRadios=tejo->getRadio()+figura->getRadio();
+     int distanciaEntreRadios=calcularDistanciaRadios(tejo->getX(),tejo->getY(),figura->getX(),figura->getY());
+//     if(distanciaMinimaEntreRadios < sqrt((tejo->getX()-figura->getX())*(tejo->getX()-figura->getX()) + (tejo->getY()-figura->getY())*(tejo->getY()-figura->getY()))){
+     if(distanciaMinimaEntreRadios>distanciaEntreRadios){
 
-	w1 = h1 = tejo->getRadio()*2;
-	x1 = tejo->getX()-tejo->getRadio();
-	y1 = tejo->getY()-tejo->getRadio();
-	RectanguloInfluencia* rectangulo ;
-	std::list<RectanguloInfluencia*>::iterator iter;
-	iter = figura->iteratorRectangulosDeInfluencia();
-	int i = 1;
+    	 
+     }
 
-	while(i<=figura->sizeListaRectangulos()){
-		rectangulo = *iter;
 
-		std::cout<<"tamanio"<<rectangulo->getX()<<endl;
-		std::cout<<"tamanio"<<rectangulo->getY()<<endl;
-		std::cout<<"tamanio"<<rectangulo->getH()<<endl;
-		std::cout<<"tamanio"<<rectangulo->getW()<<endl;
-
-		w2 =rectangulo->getW();
-		h2 = rectangulo->getH();
-		x2 = rectangulo->getX() ;
-		y2 =rectangulo->getY();
-
-		// Si existe colisión entre alguno de los
-		// rectángulos paramos los bucles
-		if( ((x1 + w1) > x2) &&	((y1 + h1) > y2) &&	((x2 + w2) > x1) &&	((y2 + h2) > y1)){
-			decidirDireccion(rectangulo->getPosicionRectangulo(),tejo);
-		}
-		iter++;
-		i++;
-	}
 }
 bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	bool posibilidadColision= false;
@@ -148,7 +135,9 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
 //					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-
+            if(figura->getTipo().compare("circulo")==0){
+            	ControladorColisiones::colisionCirculo( tejo, (Circulo*)figura);
+            }else{
 			if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 					reboteDerecha(tejo);
 				}else{
@@ -166,7 +155,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 					reboteIzquierda(tejo);
 				}
 
-
+            }
 
 			return true;
 		}

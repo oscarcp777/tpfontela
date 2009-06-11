@@ -3,25 +3,25 @@
                      idTexturaTejo="tejo" radioTejo="20" velocidadTejo="2" velocidadPad="1">
              </General>
              <ListadoDeDispersores> 
-                  <circulo id="circulo0" radio="30" idTextura="bola">
+                  <circulo id="circulo0" radio="30" idTextura="bola" tipo"circulo">
                          <posicion x="400" y="300"/>
                   </circulo>
-                    <triangulo id="triangulo1" idTextura="triangulo" lado="200">
+                    <triangulo id="triangulo1" idTextura="triangulo" lado="200" tipo"triangulo">
                                   <ver1 x="300" y="250"/>
                                   <ver2 x="300" y="350"/>
                                   <ver3 x="250" y="300"/>
                    </triangulo>
-                   <triangulo id="triangulo2" idTextura="triangulo" lado="200">
+                   <triangulo id="triangulo2" idTextura="triangulo" lado="200" tipo"triangulo">
                                   <ver1 x="350" y="200"/>
                                   <ver2 x="450" y="200"/>
                                   <ver3 x="400" y="150"/>
                    </triangulo>
-                   <triangulo id="triangulo3" idTextura="triangulo" lado="200">
+                   <triangulo id="triangulo3" idTextura="triangulo" lado="200" tipo"triangulo">
                                   <ver1 x="500" y="250"/>
                                   <ver2 x="500" y="350"/>
                                   <ver3 x="550" y="300"/>
                    </triangulo>
-                   <triangulo id="triangulo4" idTextura="triangulo" lado="200">
+                   <triangulo id="triangulo4" idTextura="triangulo" lado="200" tipo"triangulo">
                                   <ver1 x="350" y="400"/>
                                   <ver2 x="450" y="400"/>
                                   <ver3 x="400" y="450"/>

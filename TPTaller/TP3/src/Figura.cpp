@@ -11,6 +11,15 @@ Figura::Figura(){
 int Figura::getX(){
   return this->pos->getX();
 }
+std::string Figura::getTipo()
+    {
+        return tipo;
+    }
+
+    void Figura::setTipo(std::string tipo)
+    {
+        this->tipo = tipo;
+    }
 int Figura::getY(){
 	 return this->pos->getY();
 }
