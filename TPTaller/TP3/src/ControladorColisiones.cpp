@@ -11,7 +11,7 @@
 #include "Rectangulo.h"
 #include "ControladorColisiones.h"
 #include<math.h>
-
+#include "Juego.h"
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
 
@@ -239,7 +239,9 @@ int ControladorColisiones::colisionesArcos(){
 			tejo->getX()<tejo->getRadio()*4){
 		if(tejo->getX() <=arcoIzquierda->getBase()+ arcoIzquierda->getX()+tejo->getRadio()){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			//se incrementan los puntos del jugador 1 y su cantidad de goles en el nivel
 			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
+			Juego::obtenerInstancia()->incrementarCantGolesJugador1();
 			return 0;
 		}
 	}
@@ -247,7 +249,9 @@ int ControladorColisiones::colisionesArcos(){
 			tejo->getX()>escenario->getAncho()-tejo->getRadio()*4){
 		if(tejo->getX() >= arcoDerecha->getX()- tejo->getRadio()){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
+			//se incrementan los puntos del jugador 2 y su cantidad de goles en el nivel
 			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
+			Juego::obtenerInstancia()->incrementarCantGolesJugador2();
 			return 0;
 		}
 	}

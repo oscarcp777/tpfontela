@@ -21,5 +21,6 @@ int main(int argc, char* argv[]){
 	s->start(NULL);
 	s->join();
 	delete(s);
-
+	
+	return 0;
 }

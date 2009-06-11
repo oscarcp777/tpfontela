@@ -11,7 +11,7 @@
 #include "Define.h"
 #include "GraficadorPuntajes.h"
 #include "ControladorColisiones.h"
-
+#include "Juego.h"
 
 const string configDefaultEscenario = "config Default Escenario.txt";
 Escenario::Escenario(){
@@ -401,18 +401,17 @@ int Escenario::graficar(){
 	Pad* padCliente2=this->getPadCliente2();
 	Tejo* tejo=this->getTejo();
     TTF_Font* fuente;
-	int puntajeIzq = 0;
-	int puntajeDer = 0;
+	Juego* juego = Juego::obtenerInstancia();
 
 	// Variables auxiliares
 	SDL_Event evento;
 	bool gol = false;
-	this->terminar = 0;
+	
 
 
 
 	Teclado teclado;
-	while(this->terminar==0) {
+	while(!juego->cancelado() && !juego->getNivelTerminado()) {
 
 		// Actualizamos el estado del teclado
 		tejo->mover_x();
@@ -465,10 +464,10 @@ int Escenario::graficar(){
 		//los pinto en cada iteracion
 		padCliente1->dibujar(this->screen);
 		padCliente2->dibujar(this->screen);
-	    puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
-		puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
+	    juego->setPuntajeJugador1(padCliente1->getPuntaje()->getCantPuntosJugador());
+		juego->setPuntajeJugador2(padCliente2->getPuntaje()->getCantPuntosJugador());
 		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
-		graficadorPuntajes->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
+		graficadorPuntajes->graficarPuntaje(juego->getPuntajeJugador1(), juego->getPuntajeJugador2(),this->getScreen(),fuente, gol);
 		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen(),gol);
 		tejo->dibujar(this->screen);
 
@@ -477,9 +476,26 @@ int Escenario::graficar(){
 		SDL_Flip(this->getScreen());
 ////					si fue gol espero 2 segundos antes de empezar otra partida
 					if(gol){
-					/* MUESTRO LOS PUNTAJES DE CADA JUGADOR*/
-				    Sleep(2000);
-					gol=false;
+					    Sleep(2000);
+						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
+						juego->decrementarTejosRestantes();
+						if(juego->getTejosRestantes() < 0){
+							//si no quedan tejos por jugar en el nivel, el nivel esta terminado y se pasa al siguiente
+							juego->setNivelTerminado(true);
+							juego->incrementarNivel();
+							//como termina el nivel se incrementan (en 70) los puntos del jugador que gano el nivel (el que hizo mas goles)
+							if(juego->getCantGolesJugador1() > juego->getCantGolesJugador2()){
+								juego->setPuntajeJugador1(juego->getPuntajeJugador1()+70);								
+							}
+							else{
+								juego->setPuntajeJugador2(juego->getPuntajeJugador2()+70);
+							}
+							std::cout<<"FIN DEL NIVEL"<<endl;
+							std::cout<<"PUNTOS JUGADOR 1=  "<<juego->getPuntajeJugador1()<<endl;
+							std::cout<<"PUNTOS JUGADOR 2=  "<<juego->getPuntajeJugador2()<<endl;
+						}
+						gol=false;
+					
 					}
 
 
@@ -492,10 +508,11 @@ int Escenario::graficar(){
 		while (SDL_PollEvent(&evento)) {
 			if(evento.type == SDL_KEYDOWN) {
 				if(evento.key.keysym.sym == SDLK_ESCAPE)
-					terminar = -1;
+					juego->setJuegoCancelado(true);
+					
 			}
 			if(evento.type == SDL_QUIT){
-				terminar = -1;
+				juego->setJuegoCancelado(true);
 			}
 		}
 
