@@ -604,8 +604,8 @@ void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 a ese socket*/
 void ManejadorClientes::enviarMensaje(const std::string& mensaje)
 {
-	//socketComunicacion->send((char*)mensaje.data(), mensaje.length());
-	enviar(socketComunicacion->getConexion(),(char*)mensaje.data());
+	socketComunicacion->send((char*)mensaje.data(), mensaje.length());
+	
 }
 
 /*Acumula en cantListos para saber cuantos clientes enviaron READY al Servidor.

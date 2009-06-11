@@ -146,8 +146,10 @@ int Socket::sendFile(const char *path)
 //    }
 //}
 
-void Socket::send(const char* stream, unsigned int size)
+void Socket::send(char* stream, unsigned int size)
 {
+
+	enviar(&(this->conexion),stream);		
 //    if (::send(sockDesc, (raw_type*)stream, size, 0)==-1)
 //    {
 //        throw cSocketException("Error en send()");
