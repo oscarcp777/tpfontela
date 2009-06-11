@@ -80,7 +80,7 @@ int Servidor :: process(void* arg){
         }
     }
     this->sleep(5000);
-
+		/*
 		//**************************************************************
 		   //TODO hago que corra el juego (es temporal, cambiar) 
 			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
@@ -91,7 +91,7 @@ int Servidor :: process(void* arg){
 			SDL_FreeSurface(this->juegoNuevo->getEscenario()->getScreen());
 			SDL_Quit();
 		//***********************************************************
-
+		*/
 		ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
     			socketServidor, juegoNuevo, misClientes);
     	servidorSender->start(NULL);

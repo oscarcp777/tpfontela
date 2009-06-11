@@ -28,13 +28,14 @@ void iniciarCliente(Cliente *cliente){ // Procedimiento que iniciara el socket s
 
 	pLeyenda = "CONECTAR CON LA IP (EJ: localhost)";
 
-	ingresoMensaje(pIp,pLeyenda);
+	//ingresoMensaje(pIp,pLeyenda);
 
 	pLeyenda="CONECTAR CON EL PUERTO (EJ: 2121)";
 
-	ingresoMensaje(pPuerto,pLeyenda);
+	//ingresoMensaje(pPuerto,pLeyenda);
 
-	cliente->start(pIp, atoi(pPuerto));
+	//cliente->start(pIp, atoi(pPuerto));
+	cliente->start("localhost", 2121);
 
 
 }

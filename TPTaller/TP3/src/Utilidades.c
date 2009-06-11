@@ -382,7 +382,7 @@ void segundoEnvio(CONEXION *c,char *pmsj){
 
 //////////////////////FIN AUXILIARES/////////////////////////
 
-void recibir(CONEXION *conexion){
+int recibir(CONEXION *conexion){
 
 
 	char msjIngresado[TAM_MSJ];
@@ -422,17 +422,16 @@ void recibir(CONEXION *conexion){
 	char *pPrueba = prueba;
 	char direccion[100];
     char *pdir = direccion;
-	int exito;
 
-		while (exito != RES_QUIT){
+	//	while (exito != RES_QUIT){
 
 			memset(datos,0,100);
 			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
 			memset(pTipoDato,0,sizeof(char)*PRIMER_ENVIO);
 
 			if (trRecibir(conexion, td_comando,1, pPrimerRecibo) == RES_QUIT){
-				exito= RES_QUIT;
-			    trCerrarConexion(conexion);
+				trCerrarConexion(conexion);
+				return RES_QUIT;
 
 			}
 			parserCrear(&parser,parchconfig,parchlog);
@@ -502,9 +501,10 @@ void recibir(CONEXION *conexion){
 				break;
 			}
 
-           printf("INGRESE MENSAJE: (para salir QUIT) \n");
-        }
+        printf("INGRESE MENSAJE: (para salir QUIT) \n");
+        
 		parserDestruir(&parser);
+		return RES_OK; 
 
 }
 
