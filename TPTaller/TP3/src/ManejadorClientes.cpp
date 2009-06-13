@@ -72,14 +72,15 @@ int ManejadorClientes :: process(void* arg){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
 		//	pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 		//	ingresoMensaje(pmsjIngresado,pLeyenda);
-			if(!juegoNuevo->cancelado() && !juegoNuevo->getEstado().compare("NIVEL_TERMINADO")){
+			if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
 				sleep(30);
-				if (juegoNuevo->getEstado().compare("CORRIENDO")) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+					std::cout<<"ENVIO: "<<pEnvioInt<<endl;
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
-			
+				}
 			}
 		}
 		else

@@ -85,11 +85,8 @@ int Servidor :: process(void* arg){
 		   //TODO hago que corra el juego (es temporal, cambiar) 
 			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
 			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
-			this->juegoNuevo->getEscenario()->iniciarSDL();
+			//this->juegoNuevo->getEscenario()->iniciarSDL();
 		
-		//	this->juegoNuevo->getEscenario()->graficar();
-		//	SDL_FreeSurface(this->juegoNuevo->getEscenario()->getScreen());
-		//	SDL_Quit();
 		//***********************************************************
 		
 		ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,

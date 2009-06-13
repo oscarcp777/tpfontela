@@ -48,55 +48,18 @@ int limpiacoment (char* s)
 int parserCrear(TDA_Parser* tda,char* arch_conf,char* arch_log)
 {
     char linea[50];    //para guardar la linea tomada de archivo
-    FILE *ar;    //archivo de configuracion
     char* punt;  // para moverse dentro de la linea
     char* encontro;   //para definir escape, coment y sep
     
-     tda->log=fopen(arch_log,"a+");   //creo logfile
-     if(!tda->log) 
-         return 0;
      
-    
-    
-     ar=fopen(arch_conf,"r");      //abro archiv de conf
-     if(!ar) 
-     {
-       fputs("parserCrear: Error <ruta de archivo de configuracion inexistente>\n",tda->log); 
-       return 0;
-     }
-     else    
-     {
-       encontro=NULL;
-       while (!feof(ar))         //cargo datos de archiv de conf en tda
-       {
-             fgets(linea,50,ar);
-             if ((encontro=strstr(linea,"SEPARADOR"))!=NULL)
-                  {
-                       punt=strchr(linea,':');
-                       tda->config[0]=' ';
-                     
-                  }    
-             if ((encontro=strstr(linea,"ESCAPEADOR"))!=NULL)
-                  {
-                       punt=strchr(linea,':');
-                       tda->config[1]=*(++punt);
-                      
-                  }     
-             if ((encontro=strstr(linea,"COMENTARIOS"))!=NULL)
-                  {
-                       punt=strchr(linea,':');
-                       tda->config[2]=*(++punt);
-                      
-                  }    
-       }
-       fputs("parserCrear: Parser creado exitosamente\n",tda->log); 
-	   fclose(ar);
-       tda->linea=NULL;
+	  tda->config[0]=' ';
+      tda->config[1]='@';
+      tda->config[2]='*';
+	  tda->linea=NULL;
        
-       return 1;
+      return 1;
       
        
-      } 
 } 
        
       
@@ -108,8 +71,8 @@ int parserDestruir(TDA_Parser* tda)
            if (tda->linea!=NULL)
            free(tda->linea);
            tda->linea=NULL;
-           fputs("parserDestruir: Parser destruido\n",tda->log); 
-           fclose(tda->log);
+          
+           
            tda->log=NULL;
            return 1;
 }
@@ -122,16 +85,7 @@ int parserCargarLinea(TDA_Parser* tda,char* linea)
       tda->linea=(char*)malloc(sizeof(char)*maxlinea);
       
       memcpy(tda->linea,linea,maxlinea);
-      if (tda->linea==NULL)
-      {
-           fputs("parserSiguiente: Error <No se pudo obetener linea>\n",tda->log);  
-           return 0;
-      }
-      else
-      {
-           fputs("parserSiguiente: Linea leida exitosamente\n",tda->log); 
-           return 1;
-      }     
+      
 }         
          
 int parserCantCampos(TDA_Parser*tda)
@@ -160,7 +114,7 @@ int parserCantCampos(TDA_Parser*tda)
       }
      cant ++;
      tda->ncampos=cant;
-     fprintf(tda->log, "el num de campos es %d \n", cant);
+    
    
    return(cant);  
  }      
@@ -223,7 +177,7 @@ int parserCampo(TDA_Parser* tda, int n, char* valor)
    }
   
   valor=valor2;  
-   fprintf(tda->log,"parserCampo: el Campo %d obtenido exitosamente es =%s\n",n,valor);
+   
   
   
   while ((valor=strchr(valor,c))!=NULL)
