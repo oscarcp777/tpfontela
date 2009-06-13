@@ -46,9 +46,11 @@ int ManejadorClientes :: process(void* arg){
 	char* pEnvioInt = envioInt;
 	char* pauxX = auxX;
 	char* pauxY = auxY;
-//	if(this->socketComunicacion->getConexion()->usuario == 0)
-//			loading(todosLosClientes);
-
+	
+	//if(this->socketComunicacion->getConexion()->usuario == 0)
+	//		loading(todosLosClientes);
+		
+	
 
 	while (seguirCiclando == 1){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
@@ -67,7 +69,7 @@ int ManejadorClientes :: process(void* arg){
 				strcat(pEnvioInt,pauxX);
 				strcat(pEnvioInt," ");
 				strcat(pEnvioInt,pauxY);
-
+			sleep(30);
 			enviarAtodos(this->todosLosClientes,pEnvioInt);	
 		//	enviarAtodos(this->todosLosClientes,pmsjIngresado);
 		}
@@ -620,7 +622,7 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 					std::cout << "Bytes enviados: " << nbytes << std::endl;
 					iterImagenes++;
 					i++;
-					sleep(1000);
+					sleep(3000);
 				
 				}
 			i = 0;
@@ -628,6 +630,11 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 			
 			}
 	}
+			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
+			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
+			this->juegoNuevo->getEscenario()->iniciarSDL();
+			this->juegoNuevo->setJuegoArrancado(true);
+		
 	
 }
 

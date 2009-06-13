@@ -126,3 +126,13 @@ void Pad::subir_y() {
 Puntaje* Pad::getPuntaje(){
 	return this->puntaje;
 }
+
+int Pad::getCantGoles()
+{
+	return cantGoles;
+}
+
+void Pad::setCantGoles(int cantGoles)
+{
+	this->cantGoles = cantGoles;
+}

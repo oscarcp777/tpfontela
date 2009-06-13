@@ -15,15 +15,20 @@ public:
 
 	static GraficadorPuntajes* obtenerInstancia();
 	virtual ~GraficadorPuntajes();
-	  void graficarCantidadDeTejos(SDL_Surface*screen,bool gol);
-	 int graficarPuntaje(int puntajeJugadorIzquierda, int puntajeJugadorDerecha,SDL_Surface*screen,TTF_Font* fuente,bool gol);
+	void graficarCantidadDeTejos(SDL_Surface*screen);
+	int graficarPuntaje(SDL_Surface*screen);
+	int inicializarFuente(int puntajeJugadorIzquierda, int puntajeJugadorDerecha);
+	void decrementarCantidadTejos();
+
 protected:
 	      GraficadorPuntajes();
+
 private:
 	    int contadorDeTejos;
-	     static GraficadorPuntajes *unicaInstancia;
+	    static GraficadorPuntajes *unicaInstancia;
 		SDL_Surface* textImagen;
 		SDL_Surface *imagenTejo;
+		TTF_Font* fuente;
 };
 
 #endif /* GRAFICADORPUNTAJES_H_ */

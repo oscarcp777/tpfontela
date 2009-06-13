@@ -47,8 +47,8 @@ void cReceiver::loading(Socket* s){
 }
 
 
-int cReceiver::process(void* args)
-{
+int cReceiver::process(void* args){
+
 	Socket* sock = (Socket*) args;
 
 	try

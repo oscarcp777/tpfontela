@@ -31,14 +31,16 @@ public:
     void setX(int x);
     void setY(int y);
     int getVelocidad();
-
     void setVelocidad(int velocidad);
+	int getCantGoles();
+    void setCantGoles(int cantGoles);
 
 private:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
   	SDL_Surface* fondoPad;
 	Puntaje* puntaje;
+	int cantGoles;
 	int velocidad;
 };
 
