@@ -6,12 +6,9 @@
  */
 
 #include "Recta.h"
-#include<math.h>
+
 Recta::Recta(){
 
-}
-void Recta::toString(){
-std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<std::endl;
 }
 Recta::Recta(int x1,int x2,int y1,int y2){
 	if ((y2 - y1) != 0){
@@ -49,7 +46,7 @@ Posicion* Recta::getInterseccion(Recta* recta){
 Recta* Recta::getRectaPerpendicular(int x,int y){
 	Recta* rectaPerpependicular = new Recta();
 //	la pendiente de una recta perpendicular es la inversa de la otra m1=-1/m2
-	float m=-1*(1/this->pendiente);
+	float m=(-1/this->pendiente);
     float b=y - m*x;
     rectaPerpependicular->setPendiente(m);
     rectaPerpependicular->setOrdenada(b);
@@ -60,10 +57,6 @@ int Recta::getValor(int x){
 	return (int)valor;
 
 }
-int Recta::getCortaX(){
-	float cortaX=((-1*this->ordenada)/this->pendiente);
-	return (int)cortaX;
-}
 Recta::~Recta() {
 	// TODO Auto-generated destructor stub
 }
@@ -71,12 +64,7 @@ float Recta::getPendiente()
  {
      return pendiente;
  }
-double Recta::getAnguloConAbcisa(){
-	int cortaY=abs(this->getValor(0));
-	    int cortaX=abs(this->getCortaX());
-	    double div=(double)cortaY/(double)cortaX;
-	    return atan(div);
-}
+
  void Recta::setPendiente(float pendiente)
  {
      this->pendiente = pendiente;

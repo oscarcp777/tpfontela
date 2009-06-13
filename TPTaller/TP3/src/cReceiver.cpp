@@ -1,6 +1,15 @@
 #include "cReceiver.h"
-#include "Escenario.h"
-
+#include "Socket.h"			// Para connect(), send()
+#include "cSocketException.h"	// Para las excepciones de sockets
+//#include "cSafeQueue.h"			// Para el manejo de la cola thread safe
+//#include "cMutex.h"				// Para el mutex de downloaded y filesize
+//#include "cLockableGuard.h"		// Para la guarda del mutex
+#include "Defines.h"				// Para las constantes CONNECTED etc
+#include <iostream>				// Para cerr y endl
+#include <string>				// Para el manejo de strings
+#include <fstream>				// Para filemap y filetxt
+#include <iostream> 
+#include <fstream> 
 
 using namespace std;
 
@@ -40,22 +49,14 @@ void cReceiver::loading(Socket* s){
 
 int cReceiver::process(void* args){
 
-	char mensRecive[140];
-	char* pmensRecive;
-	char posicion[140];
-	char* pPosicion;
-	TDA_Parser parserPrueba;
-	
 	Socket* sock = (Socket*) args;
-	pmensRecive = mensRecive;
-	pPosicion = posicion;
 
 	try
 	{
 		string msg;
 
 		status = CONNECTED;
-		Escenario* escenario = Escenario::obtenerInstancia();
+
 	//	loading(sock);
 
 		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
@@ -65,22 +66,9 @@ int cReceiver::process(void* args){
 	//	std::cout << "bytes recibidos: " << nbytes << std::endl; 
 		
 		while(status==CONNECTED){
-			memset(pmensRecive,0,sizeof(char)*140);
 			
-			escenario->graficar();
-
-			if (recibir(sock->getConexion(), pmensRecive)<0)
+			if (recibir(sock->getConexion(), NULL)<0)
 				status = NOT_CONNECTED;
-			
-			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
-			parserCrear(&parserPrueba,"config.txt","log.txt");
-			parserCargarLinea(&parserPrueba,pmensRecive);
-			parserCampo(&parserPrueba,1,pPosicion);
-			escenario->getTejo()->setX(atoi(pPosicion));
-			memset(pPosicion,0,sizeof(char)*40);
-			parserCampo(&parserPrueba,2,pPosicion);
-			escenario->getTejo()->setY(atoi(pPosicion));
-		
 
 		}
 //		int bytesReceived = 0;
@@ -172,9 +160,9 @@ int cReceiver::process(void* args){
 //			memset(buffer, 0, BUFFERSIZE);
 //		}
 	}
-	catch (cSocketException &eE)
+	catch (cSocketException &e)
 	{
-		std::cerr << eE.what() << endl;
+		cerr << e.what() << endl;
 		status = NO_HOST;
 	}
 

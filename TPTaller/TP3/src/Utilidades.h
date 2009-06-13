@@ -2,9 +2,6 @@
  extern "C" {
  #endif
 
-#ifndef UTILIDADES_H_
-#define UTILIDADES_H_
-
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,8 +62,6 @@ enum tr_tipo_dato deStringATipoDato(char* cadena);
 
 int block_recv(int sock, const char *path);
 
-
-#endif
 
 #ifdef __cplusplus
  }

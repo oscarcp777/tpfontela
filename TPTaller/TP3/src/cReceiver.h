@@ -1,21 +1,12 @@
 #ifndef cReceiverH
 #define cReceiverH
 
-
-//#include "cSafeQueue.h"
 //#include "cMutex.h"
-//#include "cLockableGuard.h"		// Para la guarda del mutex
 #include "Thread.h"
 #include "Utilidades.h"
+//#include "cSafeQueue.h"
 #include "Socket.h"
-#include "cSocketException.h"	// Para las excepciones de sockets
-#include "Defines.h"				// Para las constantes CONNECTED etc
-#include <string>				// Para el manejo de strings
-#include <fstream>				// Para filemap y filetxt
-#include <iostream>
-
-
-
+#include <string>
 
 class cReceiver : public Thread
 {

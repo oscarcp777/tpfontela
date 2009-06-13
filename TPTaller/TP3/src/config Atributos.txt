@@ -26,7 +26,6 @@ colorFigura
 -circulo
 id
 radio
-tipo
 x
 y
 idTextura
@@ -36,8 +35,6 @@ colorFigura
 id
 x
 y
-tipo
-lado
 idTextura
 colorLinea
 colorFigura

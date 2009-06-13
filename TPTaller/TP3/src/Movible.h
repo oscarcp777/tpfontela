@@ -4,12 +4,10 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
-
-#ifndef MOVIBLE_H_
-#define MOVIBLE_H_
-
 #include "Posicion.h"
 #include "Figura.h"
+#ifndef MOVIBLE_H_
+#define MOVIBLE_H_
 #include <SDL.h>
 class Movible {
 public:

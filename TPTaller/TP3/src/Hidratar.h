@@ -1,7 +1,3 @@
-#ifndef __HIDRATAR_H__
-#define __HIDRATAR_H__
-
-
 #include "Cuadrado.h"
 #include "Circulo.h"
 #include "Rectangulo.h"
@@ -28,5 +24,3 @@ class Hidratar{
 	//	static int hidratarPads(std::string atributos);
 
 };
-
-#endif

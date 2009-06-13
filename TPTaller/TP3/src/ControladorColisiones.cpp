@@ -10,12 +10,19 @@
 #include "Define.h"
 #include "Rectangulo.h"
 #include "ControladorColisiones.h"
-#include "CalculosMatematicos.h"
 #include<math.h>
 #include "Juego.h"
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
 
+}
+int calcularDistanciaRadios(int izqX, int izqY,int derX, int derY){
+	int x,y;
+	int raiz=0;
+	x=abs(derX-izqX);
+	y=abs(derY-izqY);
+		raiz=(int)sqrt(pow(x,2)+pow(y,2));
+	return raiz;
 }
 
 void reboteArriba(Tejo* tejo){
@@ -71,37 +78,33 @@ void reboteIzquierda(Tejo* tejo){
 		}
 
 }
-void ControladorColisiones::decidirDireccion(Recta* rectaPerpendicular,Tejo* tejo){
-	 double anguloDeltejo=tejo->getDireccion()->getFi();
-	 double anguloConAbcisa= rectaPerpendicular->getAnguloConAbcisa();
-	 double nuevaDireccion;
-	 if (anguloDeltejo<=2*PI&&anguloDeltejo>3*PI/2){
-		 nuevaDireccion=2*PI-((anguloDeltejo-2*PI)+anguloConAbcisa);
-		tejo->getDireccion()->setFi(PI-anguloDeltejo);
+void decidirDireccion(std::string posicionRectangulo,Tejo* tejo){
+	if(posicionRectangulo.compare(ARRIBA)==0){
+		reboteArriba(tejo);
+	}else{
+		if(posicionRectangulo.compare(ABAJO)==0){
+			reboteAbajo(tejo);
+		}else{
+			if(posicionRectangulo.compare(DERECHA)==0){
+				reboteDerecha(tejo);
+			}else{
+				if(posicionRectangulo.compare(IZQUIERDA)==0){
+					reboteIzquierda(tejo);
+				}
+			}
+		}
 	}
 }
 ControladorColisiones::~ControladorColisiones() {
 	// TODO Auto-generated destructor stub
 }
-void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* circulo){
-	 int xTejo,yTejo,xCirculo,yCirculo,radioTejo,radioCirculo;
-	 Recta* recta;
-	 Recta* rectaPerpendicular;
-	 Posicion* pos;
-	xTejo=tejo->getX();
-	yTejo=tejo->getY();
-	xCirculo=circulo->getX();
-	yCirculo=circulo->getY();
-	radioTejo=tejo->getRadio();
-	radioCirculo=circulo->getRadio();
-	int distanciaMinimaEntreRadios=tejo->getRadio()+circulo->getRadio();
-	int distanciaEntreRadios=CalculosMatematicos::calcularDistancia(tejo->getX(),tejo->getY(),circulo->getX(),circulo->getY());
-	if(distanciaMinimaEntreRadios>distanciaEntreRadios){
-		 recta= new Recta(xTejo,xCirculo,yTejo,yCirculo);//recta entre los centros de las esferas
-         pos = CalculosMatematicos::getInterseccionEsferas(tejo,circulo);//punto de interseccion entre esferas
-         rectaPerpendicular=recta->getRectaPerpendicular(pos->getX(),pos->getY());//recta perpendicular en punto de interseccion
+void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
+     int distanciaMinimaEntreRadios=tejo->getRadio()+figura->getRadio();
+     int distanciaEntreRadios=calcularDistanciaRadios(tejo->getX(),tejo->getY(),figura->getX(),figura->getY());
+//     if(distanciaMinimaEntreRadios < sqrt((tejo->getX()-figura->getX())*(tejo->getX()-figura->getX()) + (tejo->getY()-figura->getY())*(tejo->getY()-figura->getY()))){
+     if(distanciaMinimaEntreRadios>distanciaEntreRadios){
 
-
+    	 
      }
 
 
@@ -238,7 +241,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 1 y su cantidad de goles en el nivel
 			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-
+			
 			return 0;
 		}
 	}
@@ -248,7 +251,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 2 y su cantidad de goles en el nivel
 			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-
+			
 			return 0;
 		}
 	}

@@ -9,7 +9,6 @@
 #define CONTROLADORCOLISIONES_H_
 #include "Tejo.h"
 #include "Figura.h"
-#include "Recta.h"
 #include "Circulo.h"
 
 
@@ -22,7 +21,6 @@ public:
 	static void calcularDireccion();
 	static void colisionesPads();
 	static int colisionesArcos();
-	static void decidirDireccion(Recta* rectaPerpendicular,Tejo* tejo);
 	static void colisionCirculo(Tejo* tejo,Circulo* figura);
 };
 

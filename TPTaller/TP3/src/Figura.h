@@ -1,7 +1,7 @@
 #ifndef _FIGURA_H_
 #define _FIGURA_H_
 
-//#include <iostream>
+#include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_main.h>

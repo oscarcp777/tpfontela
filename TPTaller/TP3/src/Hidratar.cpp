@@ -5,6 +5,7 @@
 #include "Segmento.h"
 #include "Define.h"
 #include <vector>
+#include <map>
 #include <string>
 
 

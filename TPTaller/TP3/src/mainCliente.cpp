@@ -10,7 +10,6 @@
 #include <winsock.h>                 // Referencia a la librería
 #include <windows.h>
 #include "transferencia.h"
-#include "Escenario.h"
 #include "parser.h"
 #include "Utilidades.h"
 #include "Cliente.h"
@@ -53,12 +52,9 @@ void iniciarCliente(Cliente *cliente){ // Procedimiento que iniciara el socket s
 
 int main(int argc, char *argv[])
 {
-	Escenario* escenario = Escenario::obtenerInstancia();
-	escenario->cargarArchivo("xml.xml");
-	escenario->iniciarSDL();
-    
-	Cliente cliente;
+
+    Cliente cliente;
     iniciarCliente(&cliente); // Iniciamos el Socket
 
-	return 0;
+
 }
