@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-static int PUNTAJE_GANADOR_NIVEL = 70;
+
 class Puntaje
 {
 public:

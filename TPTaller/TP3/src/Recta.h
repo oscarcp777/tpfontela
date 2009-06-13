@@ -7,6 +7,7 @@
 
 #ifndef RECTA_H_
 #define RECTA_H_
+#include <iostream>
 #include "Posicion.h"
 class Recta {
 public:
@@ -28,9 +29,11 @@ public:
      */
     Posicion* getInterseccion(Recta* recta);
     void setPendiente(float pendiente);
-
+    double getAnguloConAbcisa();
     float getOrdenada();
+    int getCortaX();
     void setOrdenada(float ordenada);
+   void toString();
 
 private:
 	float pendiente;
