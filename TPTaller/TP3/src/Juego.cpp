@@ -13,10 +13,9 @@ Juego::Juego() {
 	this->juegoCancelado=false;
 	this->numeroNivel = 1;
 	this->tejosRestantes = 7;
-	this->nivelTerminado = false;
-	this->gol = false;
-	
-	
+	this->estado = "CORRIENDO";
+
+
 }
 
 Juego::~Juego() {
@@ -52,27 +51,21 @@ void Juego::setJuegoArrancado(bool juegoArrancado)
 Escenario* Juego::getEscenario(){
 
 	return this->escenario;
-	
+
 }
 void Juego::setEscenario(Escenario* escenario){
 	this->escenario = escenario;
-	
+
 }
 
-bool Juego::getNivelTerminado(){
-	return this->nivelTerminado;	
-}
-void Juego::setNivelTerminado(bool nivelTerminado){
-	this->nivelTerminado = nivelTerminado;
-}
 
-int Juego::getNumeroNivel(){	
-	
+int Juego::getNumeroNivel(){
+
 	return this->numeroNivel;
 }
 
 void Juego::incrementarNivel(){
-	
+
 	this->numeroNivel++;
 }
 
@@ -87,7 +80,13 @@ void Juego::decrementarTejosRestantes(){
 void Juego::setJuegoCancelado(bool cancelado){
 	this->juegoCancelado = cancelado;
 }
-void Juego::update(){	
+
+std::string Juego::getEstado()
+{
+	return estado;
+}
+
+void Juego::update(){
 
 
 		SDL_Event evento;
@@ -102,7 +101,7 @@ void Juego::update(){
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
-				
+
 				if(ControladorColisiones::colisionesArcos()==0){
 					this->escenario->getPadCliente1()->setY(this->escenario->getAlto()/2);
 					this->escenario->getPadCliente1()->setX((int)this->escenario->getAncho()*POS_PAD1_Y_PORCENTAJE);
@@ -111,10 +110,10 @@ void Juego::update(){
 					this->escenario->getTejo()->setY(this->escenario->getAlto()/2);
 					this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
 					this->escenario->getTejo()->getDireccion()->setFi(PI/4);
-					this->gol=true;
+					this->estado="GOL";
 					GraficadorPuntajes::obtenerInstancia()->inicializarFuente(this->escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),this->escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador());
 					GraficadorPuntajes::obtenerInstancia()->decrementarCantidadTejos();
-    
+
 
 				}
 
@@ -122,13 +121,13 @@ void Juego::update(){
 
 
 		//si fue gol espero 2 segundos antes de empezar otra partida
-					if(this->gol){
-					    Sleep(2000);
+					if(this->estado.compare("GOL")==0){
+					    //Sleep(2000);
 						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
 						this->decrementarTejosRestantes();
 						if(this->getTejosRestantes() < 0){
 							//si no quedan tejos por jugar en el nivel, el nivel esta terminado y se pasa al siguiente
-							this->setNivelTerminado(true);
+							this->estado="NIVEL_TERMINADO";
 							this->incrementarNivel();
 							//como termina el nivel se incrementan (en 70) los puntos del jugador que gano el nivel (el que hizo mas goles)
 							if(this->escenario->getPadCliente1()->getCantGoles()  >  this->escenario->getPadCliente2()->getCantGoles()){
@@ -137,21 +136,19 @@ void Juego::update(){
 							else{
 								this->escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(this->escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador()+70);
 							}
-							std::cout<<"FIN DEL NIVEL"<<endl;
-							std::cout<<"PUNTOS JUGADOR 1=  "<<this->escenario->getPadCliente1()->getPuntaje()<<endl;
-							std::cout<<"PUNTOS JUGADOR 2=  "<<this->escenario->getPadCliente2()->getPuntaje()<<endl;
+
 						}
-						this->gol=false;
-					
+						this->estado="CORRIENDO";
+
 					}
-	
+
 	// Control de Eventos
 
 		while (SDL_PollEvent(&evento)) {
 			if(evento.type == SDL_KEYDOWN) {
 				if(evento.key.keysym.sym == SDLK_ESCAPE)
 					this->setJuegoCancelado(true);
-					
+
 			}
 			if(evento.type == SDL_QUIT){
 				this->setJuegoCancelado(true);

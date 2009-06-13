@@ -86,7 +86,7 @@ int Servidor :: process(void* arg){
 			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
 			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
 			this->juegoNuevo->getEscenario()->iniciarSDL();
-			this->juegoNuevo->setJuegoArrancado(true);
+		
 		//	this->juegoNuevo->getEscenario()->graficar();
 		//	SDL_FreeSurface(this->juegoNuevo->getEscenario()->getScreen());
 		//	SDL_Quit();

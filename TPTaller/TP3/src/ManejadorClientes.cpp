@@ -29,6 +29,25 @@ ManejadorClientes::~ManejadorClientes(){
 		delete(socketServidor);
 }
 
+void ManejadorClientes ::posicionTejo(char* pEnvioInt){
+
+	char auxX[20];
+	char auxY[20];
+	char* pauxX = auxX;
+	char* pauxY = auxY;
+
+
+	memset(pauxX,0,sizeof(char)*20);
+	memset(pauxY,0,sizeof(char)*20);
+	memset(pEnvioInt,0,sizeof(char)*40);
+	strcat(pEnvioInt,"INT ");
+	itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
+	itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
+	strcat(pEnvioInt,pauxX);
+	strcat(pEnvioInt," ");
+	strcat(pEnvioInt,pauxY);
+
+}
 
 
 int ManejadorClientes :: process(void* arg){
@@ -41,37 +60,27 @@ int ManejadorClientes :: process(void* arg){
 	char leyenda[TAM_MSJ];
 	char * pLeyenda = leyenda;
 	char envioInt[40];
-	char auxX[20];
-	char auxY[20];
 	char* pEnvioInt = envioInt;
-	char* pauxX = auxX;
-	char* pauxY = auxY;
-	
+
+
 	//if(this->socketComunicacion->getConexion()->usuario == 0)
 	//		loading(todosLosClientes);
-		
-	
+
+
 
 	while (seguirCiclando == 1){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
 		//	pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 		//	ingresoMensaje(pmsjIngresado,pLeyenda);
-			if(!juegoNuevo->cancelado() && !juegoNuevo->getNivelTerminado()) 
+			if(!juegoNuevo->cancelado() && !juegoNuevo->getEstado().compare("NIVEL_TERMINADO")){
 				juegoNuevo->update();
-				
-				//en las siguientes lineas se forma la cadena "INT posX posY" con las posiciones del tejo y se las envia a los clientes
-				memset(pauxX,0,sizeof(char)*20);
-				memset(pauxY,0,sizeof(char)*20);
-				memset(pEnvioInt,0,sizeof(char)*40);
-				strcat(pEnvioInt,"INT ");
-				itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);			
-				itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);			
-				strcat(pEnvioInt,pauxX);
-				strcat(pEnvioInt," ");
-				strcat(pEnvioInt,pauxY);
-			sleep(30);
-			enviarAtodos(this->todosLosClientes,pEnvioInt);	
-		//	enviarAtodos(this->todosLosClientes,pmsjIngresado);
+
+				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
+				sleep(30);
+				if (juegoNuevo->getEstado().compare("CORRIENDO")) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+					enviarAtodos(this->todosLosClientes,pEnvioInt);
+			
+			}
 		}
 		else
 			socketComunicacion->receive((char*)buffer.data(), 258);
@@ -597,15 +606,15 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 	char *pNombreImagen = nombreImagen;
 	memset(paux1,0,sizeof(char)*20);
 	memset(pCantImagenes,0,sizeof(char)*20);
-	
-	
+
+
 	std::list<std::string> vImagenes;  //todas las imagenes a cargar
 	vImagenes.push_back("imagenes/cuadrado.jpg");
 	vImagenes.push_back("imagenes/bola.png");
 	vImagenes.push_back("imagenes/bola_3d.png");
 	std::list<std::string>::iterator iterImagenes = vImagenes.begin();
 	char* cadena;
-	itoa(vImagenes.size(),paux1,10);			
+	itoa(vImagenes.size(),paux1,10);
 	strcat(pCantImagenes,"INT ");
 	strcat(pCantImagenes,paux1);
 	for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
@@ -623,19 +632,19 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 					iterImagenes++;
 					i++;
 					sleep(3000);
-				
+
 				}
 			i = 0;
 			iterImagenes = vImagenes.begin();
-			
+
 			}
 	}
-			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
+			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
 			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
 			this->juegoNuevo->getEscenario()->iniciarSDL();
 			this->juegoNuevo->setJuegoArrancado(true);
-		
-	
+
+
 }
 
 //Toma la lista de clientes y un string, itera la lista y envia el string
@@ -654,7 +663,7 @@ a ese socket*/
 void ManejadorClientes::enviarMensaje(const std::string& mensaje)
 {
 	socketComunicacion->send((char*)mensaje.data(), mensaje.length());
-	
+
 }
 
 /*Acumula en cantListos para saber cuantos clientes enviaron READY al Servidor.

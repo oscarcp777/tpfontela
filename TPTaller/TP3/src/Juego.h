@@ -16,7 +16,7 @@
 
 class Juego {
 public:
-	
+
 	virtual ~Juego();
 	static Juego* obtenerInstancia();
 	bool arrancado();
@@ -24,14 +24,13 @@ public:
     void setJuegoArrancado(bool juegoArrancado);
 	Escenario* getEscenario();
 	void setEscenario(Escenario* escenario);
-	bool getNivelTerminado();
-	void setNivelTerminado(bool nivelTerminado);
 	int getNumeroNivel();
 	void incrementarNivel();
 	int getTejosRestantes();
 	void decrementarTejosRestantes();
 	void setJuegoCancelado(bool cancelado);
 	void update();
+    std::string getEstado();
 
 protected:
 	Juego();
@@ -39,11 +38,10 @@ protected:
 private:
     bool juegoArrancado;
     bool juegoCancelado;
-	bool gol;
+	std::string estado;
 	Escenario* escenario;
 	int numeroNivel;
 	int tejosRestantes;
-	bool nivelTerminado;
 	static Juego *unicaInstanciaJuego;
 
 
