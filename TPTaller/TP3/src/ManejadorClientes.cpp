@@ -40,7 +40,7 @@ void ManejadorClientes ::posicionTejo(char* pEnvioInt){
 	memset(pauxX,0,sizeof(char)*20);
 	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioInt,0,sizeof(char)*40);
-	strcat(pEnvioInt,"INT ");
+	strcat(pEnvioInt,"STRING ");
 	itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
 	itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
 	strcat(pEnvioInt,pauxX);

@@ -4,9 +4,12 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
-#include "Rectangulo.h"
+
 #ifndef PAD_H_
 #define PAD_H_
+
+
+#include "Rectangulo.h"
 #include <SDL.h>
 #include "Figura.h"
 #include "Movible.h"

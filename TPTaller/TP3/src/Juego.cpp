@@ -156,5 +156,5 @@ void Juego::update(){
 		}
 
 
-		this->escenario->graficar();
+	//	this->escenario->graficar();
 }

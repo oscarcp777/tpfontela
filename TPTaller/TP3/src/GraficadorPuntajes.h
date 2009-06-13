@@ -7,6 +7,8 @@
 
 #ifndef GRAFICADORPUNTAJES_H_
 #define GRAFICADORPUNTAJES_H_
+
+
 #include <SDL_TTF.h>
 #include <SDL.h>
 #include <SDL_image.h>

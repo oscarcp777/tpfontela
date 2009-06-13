@@ -4,10 +4,12 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
-#include "Posicion.h"
-#include "Figura.h"
+
 #ifndef DISPERSOR_H_
 #define DISPERSOR_H_
+
+#include "Posicion.h"
+#include "Figura.h"
 
 
 class Dispersor {

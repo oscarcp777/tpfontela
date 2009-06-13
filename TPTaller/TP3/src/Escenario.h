@@ -1,11 +1,10 @@
 #ifndef _ESCENARIO_H_
 #define _ESCENARIO_H_
 
-#include <iostream>
+//#include <iostream>
 #include "Figura.h"
 #include "Textura.h"
 #include <list>
-#include <map>
 #include "SDL.h"
 #include <SDL_IMAGE.h>
 #include "Color.h"

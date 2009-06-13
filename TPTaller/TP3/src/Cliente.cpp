@@ -6,9 +6,6 @@
  */
 
 #include "Cliente.h"
-#include "Socket.h"			// Para connect(), send()
-#include "cSender.h"			// Para el thread que envia al server
-#include "cReceiver.h"			// Para el thread que recibe del server
 //#include "cInstruction.h"		// Para parsear las instrucciones
 #include "Defines.h"				// Para las constantes CONNECTED, etc
 #include "cSocketException.h"	// Para las excepciones de sockets
@@ -32,7 +29,7 @@ void Cliente::start(char* host, int port)
 //
 //		}
 
-		sender.start((void*)&sock);
+	//	sender.start((void*)&sock);
 		receiver.start((void*)&sock);
 		while (receiver.running() == true){
 			Sleep(100);

@@ -1,3 +1,6 @@
+#ifndef SEGMENTO_H_
+#define SEGMENTO_H_
+
 #include "Figura.h"
 #include "Posicion.h"
 #include <iostream.h>
@@ -16,3 +19,5 @@ class Segmento:public Figura {
 			Posicion *fin;
 
 };
+
+#endif
