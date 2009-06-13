@@ -464,7 +464,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 						pDatosIntTemporal = datosInt;
 						trRecibir(conexion, td_int ,atoi(pCantidadItems), datosInt);
 						k=1;
-						printf("Incoming Message..\n");
+						//printf("Incoming Message..\n");
 						while (k <= atoi(pCantidadItems)){
 							 printf("%d \n",*datosInt);
 							 datosInt++;
@@ -480,7 +480,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 							datosChar = (char*) malloc((atoi(pCantidadItems)+1)*sizeof(char));
 							trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
 
-							printf("Incoming Message..\n%s \n",datosChar);
+							//printf("Incoming Message..\n%s \n",datosChar);
 							if (datoRecibido!=NULL)
 								memcpy(datoRecibido,datosChar,sizeof(char)*atoi(pCantidadItems));
 							free(datosChar);
@@ -493,7 +493,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 						pDatosDoubleTemporal = datosDouble;
 						trRecibir(conexion, td_double ,atoi(pCantidadItems), datosDouble);
 						k=1;
-						printf("Incoming Message..\n");
+						//printf("Incoming Message..\n");
 						while (k <= atoi(pCantidadItems)){
 							 printf("%e \n",*datosDouble);
 							 datosDouble++;
@@ -505,7 +505,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 				break;
 			}
 
-        printf("INGRESE MENSAJE: (para salir QUIT) \n");
+        //printf("INGRESE MENSAJE: (para salir QUIT) \n");
         
 		parserDestruir(&parser);
 		return RES_OK; 
