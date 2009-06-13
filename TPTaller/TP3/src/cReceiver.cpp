@@ -65,11 +65,11 @@ int cReceiver::process(void* args){
 		string msg;
 
 		status = CONNECTED;
-	/*	Escenario* escenario = Escenario::obtenerInstancia();
+		Escenario* escenario = Escenario::obtenerInstancia();
 		parserCrear(&parserPrueba,"config.txt","log.txt");
 		escenario->cargarArchivo("xml.xml");
 		escenario->iniciarSDL();
-    */
+    
 	//	loading(sock);
 
 		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
@@ -81,23 +81,23 @@ int cReceiver::process(void* args){
 		while(status==CONNECTED){
 			
 			
-		/*	if (escenario->graficar()<0)
+			if (escenario->graficar()<0)
 				this->stop();
-		*/	
+			
 			memset(pmensRecive,0,sizeof(char)*140);
 			
 			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
 			
 			std::cout<<"pmensRecive: "<<pmensRecive<<endl;		
-		/*	
+			
 			parserCargarLinea(&parserPrueba,pmensRecive);
 			parserCampo(&parserPrueba,1,pPosicion);
 			escenario->getTejo()->setX(atoi(pPosicion));
 			memset(pPosicion,0,sizeof(char)*140);
 			parserCampo(&parserPrueba,2,pPosicion);
 			escenario->getTejo()->setY(atoi(pPosicion));
-		*/
+		
 
 		}
 		parserDestruir(&parserPrueba);
