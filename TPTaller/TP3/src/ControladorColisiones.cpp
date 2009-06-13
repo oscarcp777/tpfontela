@@ -83,8 +83,8 @@ void ControladorColisiones::decidirDireccion(Recta* rectaPerpendicular,Tejo* tej
 ControladorColisiones::~ControladorColisiones() {
 	// TODO Auto-generated destructor stub
 }
-void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
-	 int xTejo,yTejo,xCirculo,yCirculo;
+void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* circulo){
+	 int xTejo,yTejo,xCirculo,yCirculo,radioTejo,radioCirculo;
 	 Recta* recta;
 	 Recta* rectaPerpendicular;
 	 Posicion* pos;
@@ -94,14 +94,14 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
 	yCirculo=circulo->getY();
 	radioTejo=tejo->getRadio();
 	radioCirculo=circulo->getRadio();
-	int distanciaMinimaEntreRadios=tejo->getRadio()+figura->getRadio();
-	int distanciaEntreRadios=CalculosMatematicos::calcularDistanciaRadios(tejo->getX(),tejo->getY(),figura->getX(),figura->getY());
+	int distanciaMinimaEntreRadios=tejo->getRadio()+circulo->getRadio();
+	int distanciaEntreRadios=CalculosMatematicos::calcularDistancia(tejo->getX(),tejo->getY(),circulo->getX(),circulo->getY());
 	if(distanciaMinimaEntreRadios>distanciaEntreRadios){
 		 recta= new Recta(xTejo,xCirculo,yTejo,yCirculo);//recta entre los centros de las esferas
-         pos = CalculosMatematicos::getInterseccionEsferas(tejo,figura);//punto de interseccion entre esferas
+         pos = CalculosMatematicos::getInterseccionEsferas(tejo,circulo);//punto de interseccion entre esferas
          rectaPerpendicular=recta->getRectaPerpendicular(pos->getX(),pos->getY());//recta perpendicular en punto de interseccion
 
-    	 
+
      }
 
 
@@ -238,7 +238,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 1 y su cantidad de goles en el nivel
 			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-			
+
 			return 0;
 		}
 	}
@@ -248,7 +248,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 2 y su cantidad de goles en el nivel
 			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-			
+
 			return 0;
 		}
 	}

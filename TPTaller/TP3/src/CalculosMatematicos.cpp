@@ -24,7 +24,7 @@ int CalculosMatematicos::calcularDistancia(int izqX, int izqY,int derX, int derY
 	return raiz;
 }
 Posicion* CalculosMatematicos::getInterseccionEsferas(Tejo* tejo,Circulo* circulo){
-     int xTejo,yTejo,xCirculo,yCirculo,xInicial,yInicial,radio,factorX=1,factorY=1;
+     int xTejo,yTejo,xCirculo,yCirculo,xInicial,yInicial,radioTejo,radioCirculo,radio,factorX=1,factorY=1;
      xTejo=tejo->getX();
      yTejo=tejo->getY();
      xCirculo=circulo->getX();

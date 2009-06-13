@@ -6,7 +6,7 @@
  */
 
 #include "Recta.h"
-
+#include<math.h>
 Recta::Recta(){
 
 }

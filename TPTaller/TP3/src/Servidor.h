@@ -3,7 +3,6 @@
 #include "Juego.h"
 #include "Thread.h"
 #include "Socket.h"
-#include "cSender.h"
 #include <iostream>
 #include <fstream>
 
@@ -21,5 +20,4 @@ class Servidor : public Thread
 		unsigned int participantesMax;
 		int puertoConexion;
 		Juego* juegoNuevo;
-		cSender sender;
 };
