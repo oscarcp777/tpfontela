@@ -37,7 +37,7 @@ void iniciarCliente(Cliente *cliente){ // Procedimiento que iniciara el socket s
 
 	//cliente->start(pIp, atoi(pPuerto));
 	cliente->start("localhost", 2121);
-
+	
 
 }
 
@@ -53,12 +53,17 @@ void iniciarCliente(Cliente *cliente){ // Procedimiento que iniciara el socket s
 
 int main(int argc, char *argv[])
 {
-	Escenario* escenario = Escenario::obtenerInstancia();
+	/*Escenario* escenario = Escenario::obtenerInstancia();
 	escenario->cargarArchivo("xml.xml");
 	escenario->iniciarSDL();
-    
+    */
 	Cliente cliente;
     iniciarCliente(&cliente); // Iniciamos el Socket
-
+/*
+	SDL_FreeSurface(escenario->getScreen());
+	SDL_Quit();
+	std::cout<<"SALIO BIEN"<<endl;
+	system("PAUSE");
+*/
 	return 0;
 }

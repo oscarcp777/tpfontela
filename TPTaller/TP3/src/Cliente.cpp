@@ -36,7 +36,9 @@ void Cliente::start(char* host, int port)
 		receiver.start((void*)&sock);
 		while (receiver.running() == true){
 			Sleep(100);
-	}
+		}
+		
+	
 	}
 	catch (cSocketException &e)
 	{

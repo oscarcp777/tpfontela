@@ -434,8 +434,11 @@ int Escenario::graficar(){
 		SDL_Flip(this->getScreen());
 
 
-
-
+		while (SDL_PollEvent(&evento)) {
+			if(evento.type == SDL_QUIT)
+				return -1;
+			
+		}
 	return 0;
 }
 

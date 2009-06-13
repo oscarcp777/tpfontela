@@ -84,7 +84,7 @@ int parserCargarLinea(TDA_Parser* tda,char* linea)
       
       tda->linea=(char*)malloc(sizeof(char)*maxlinea);
       
-      memcpy(tda->linea,linea,maxlinea);
+      memcpy(tda->linea,linea,sizeof(char)*maxlinea);
       
 }         
          
@@ -97,7 +97,7 @@ int parserCantCampos(TDA_Parser*tda)
       
       
       llimpia=lineaaux;
-      memcpy(lineaaux,tda->linea,maxlinea);
+      memcpy(lineaaux,tda->linea,sizeof(char)*maxlinea);
       limpiaescape(llimpia);
       limpiacoment(llimpia);
       llimpia=lineaaux;
@@ -139,7 +139,7 @@ int parserCampo(TDA_Parser* tda, int n, char* valor)
     valor2=valor;
        
    
-    memcpy(cadenaaux,tda->linea,maxlinea);
+    memcpy(cadenaaux,tda->linea,sizeof(char)*maxlinea);
     p=cadenaaux;
     cant=0;
     limpiaescape(p);

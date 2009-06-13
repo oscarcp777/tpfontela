@@ -70,7 +70,6 @@ protected:
 
 	private:
 
-		int terminar;
 		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
 		int ancho;

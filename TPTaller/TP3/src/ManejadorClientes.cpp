@@ -76,7 +76,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(15);
+				sleep(30);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 				

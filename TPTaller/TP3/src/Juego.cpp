@@ -122,7 +122,7 @@ void Juego::update(){
 
 		//si fue gol espero 2 segundos antes de empezar otra partida
 					if(this->estado.compare("GOL")==0){
-					    //Sleep(2000);
+					    Sleep(1000);
 						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
 						this->decrementarTejosRestantes();
 						if(this->getTejosRestantes() < 0){
@@ -141,20 +141,6 @@ void Juego::update(){
 						this->estado="CORRIENDO";
 
 					}
-
-	// Control de Eventos
-
-		while (SDL_PollEvent(&evento)) {
-			if(evento.type == SDL_KEYDOWN) {
-				if(evento.key.keysym.sym == SDLK_ESCAPE)
-					this->setJuegoCancelado(true);
-
-			}
-			if(evento.type == SDL_QUIT){
-				this->setJuegoCancelado(true);
-			}
-		}
-
 
 	//	this->escenario->graficar();
 }
