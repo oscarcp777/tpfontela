@@ -547,6 +547,7 @@ void enviar(CONEXION *conexion, char* pmsjIngresado){
 					printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
 				#endif
 				trEnviar(conexion,td_comando,1,pPrimerEnvio);
+				
 				segundoEnvio(conexion,pmsjIngresado);
 				}
 

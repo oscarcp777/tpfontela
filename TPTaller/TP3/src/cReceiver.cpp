@@ -85,7 +85,7 @@ int cReceiver::process(void* args){
 				this->stop();
 			
 			memset(pmensRecive,0,sizeof(char)*140);
-
+			
 			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
 			
