@@ -466,7 +466,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 						k=1;
 						//printf("Incoming Message..\n");
 						while (k <= atoi(pCantidadItems)){
-							 printf("%d \n",*datosInt);
+							// printf("%d \n",*datosInt);
 							 datosInt++;
 							 k++;
 						}

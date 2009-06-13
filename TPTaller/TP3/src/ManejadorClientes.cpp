@@ -40,7 +40,7 @@ void ManejadorClientes ::posicionTejo(char* pEnvioInt){
 	memset(pauxX,0,sizeof(char)*20);
 	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioInt,0,sizeof(char)*40);
-	strcat(pEnvioInt,"INT ");
+	strcat(pEnvioInt,"STRING ");
 	itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
 	itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
 	strcat(pEnvioInt,pauxX);
@@ -85,8 +85,7 @@ int ManejadorClientes :: process(void* arg){
 		else
 			socketComunicacion->receive((char*)buffer.data(), 258);
 	}
-	SDL_FreeSurface(this->juegoNuevo->getEscenario()->getScreen());
-			SDL_Quit();
+
 //	while (seguirCiclando == 1){
 //	   /*Crea el buffer para receive una linea del cliente*/
 //	   std::string lineaRecibida;
@@ -639,10 +638,9 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 
 			}
 	}
-			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
-			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
-			this->juegoNuevo->getEscenario()->iniciarSDL();
-			this->juegoNuevo->setJuegoArrancado(true);
+			//this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
+			//this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
+			//this->juegoNuevo->setJuegoArrancado(true);
 
 
 }

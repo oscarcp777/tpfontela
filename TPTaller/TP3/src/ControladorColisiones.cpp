@@ -135,9 +135,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
 //					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-            if(figura->getTipo().compare("circulo")==0){
-            	ControladorColisiones::colisionCirculo( tejo, (Circulo*)figura);
-            }else{
+            
 			if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 					reboteDerecha(tejo);
 				}else{
@@ -155,7 +153,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 					reboteIzquierda(tejo);
 				}
 
-            }
+           
 
 			return true;
 		}

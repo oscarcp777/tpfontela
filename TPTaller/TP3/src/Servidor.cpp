@@ -72,7 +72,7 @@ int Servidor :: process(void* arg){
                 enviarles mensajes)*/
                 misClientes.push_back(miCliente);
                 miCliente->start(NULL);
-                if (misClientes.size() == participantesMax){
+                if (misClientes.size() == participantesMax-1){
                 	juegoNuevo->setJuegoArrancado(true);
 
                 }
@@ -82,10 +82,10 @@ int Servidor :: process(void* arg){
     this->sleep(5000);
 		
 		//**************************************************************
-		   //TODO hago que corra el juego (es temporal, cambiar) 
-			this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());	
+		   this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
 			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
-			this->juegoNuevo->getEscenario()->iniciarSDL();
+			this->juegoNuevo->setJuegoArrancado(true);
+
 		
 		//***********************************************************
 		

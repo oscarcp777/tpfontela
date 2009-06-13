@@ -10,6 +10,7 @@
 #include <fstream>				// Para filemap y filetxt
 #include <iostream> 
 #include <fstream> 
+#include "Escenario.h"
 
 using namespace std;
 
@@ -49,14 +50,23 @@ void cReceiver::loading(Socket* s){
 
 int cReceiver::process(void* args){
 
+	char mensRecive[140];
+	char* pmensRecive;
+	char posicion[140];
+	char* pPosicion;
+	TDA_Parser parserPrueba;
+	
 	Socket* sock = (Socket*) args;
-
+	pmensRecive = mensRecive;
+	pPosicion = posicion;
+	
 	try
 	{
 		string msg;
 
 		status = CONNECTED;
-
+		Escenario* escenario = Escenario::obtenerInstancia();
+		parserCrear(&parserPrueba,"config.txt","log.txt");
 	//	loading(sock);
 
 		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
@@ -67,10 +77,26 @@ int cReceiver::process(void* args){
 		
 		while(status==CONNECTED){
 			
-			if (recibir(sock->getConexion(), NULL)<0)
+			
+			escenario->graficar();
+			memset(pmensRecive,0,sizeof(char)*140);
+
+			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
+			
+			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+		
+			
+			parserCargarLinea(&parserPrueba,pmensRecive);
+			parserCampo(&parserPrueba,1,pPosicion);
+			escenario->getTejo()->setX(atoi(pPosicion));
+			memset(pPosicion,0,sizeof(char)*140);
+			parserCampo(&parserPrueba,2,pPosicion);
+			escenario->getTejo()->setY(atoi(pPosicion));
+		
 
 		}
+		parserDestruir(&parserPrueba);
 //		int bytesReceived = 0;
 //		char buffer[BUFFERSIZE];
 //		memset(buffer, 0, BUFFERSIZE);
@@ -162,7 +188,7 @@ int cReceiver::process(void* args){
 	}
 	catch (cSocketException &e)
 	{
-		cerr << e.what() << endl;
+		std::cerr << e.what() << endl;
 		status = NO_HOST;
 	}
 
