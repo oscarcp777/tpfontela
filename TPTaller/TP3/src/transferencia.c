@@ -82,7 +82,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	SOCKADDR_IN conexrem;
 	int error;
 	//"192.168.16.40"
-	host = gethostbyname("192.168.16.40");
+	host = gethostbyname("localhost");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;
