@@ -7,10 +7,28 @@
 #include <iostream>				// Para cerr y endl
 #include <string>				// Para el manejo de strings
 #include <windows.h>			// Para el Sleep()
+#include "Escenario.h"
 
 using namespace std;
 
 cSender::cSender():status(NOT_CONNECTED){}
+
+void cSender::posicionPad(char* pEnvioString){
+	Escenario* escenario = Escenario::obtenerInstancia();
+	char auxX[20];
+	char auxY[20];
+	char* pauxX = auxX;
+	char* pauxY = auxY;
+	memset(pauxX,0,sizeof(char)*20);
+	memset(pauxY,0,sizeof(char)*20);
+	memset(pEnvioString,0,sizeof(char)*40);
+	strcat(pEnvioString,"STRING ");
+	itoa(escenario->getPadCliente1()->getX(),pauxX,10);
+	itoa(escenario->getPadCliente1()->getY(),pauxY,10);
+	strcat(pEnvioString,pauxX);
+	strcat(pEnvioString," ");
+	strcat(pEnvioString,pauxY);
+}
 
 int cSender::process(void* args)
 {
@@ -22,18 +40,17 @@ int cSender::process(void* args)
 
 		status = CONNECTED;
 
-		int seguirCiclando = 1;
-	
-		char msjIngresado[TAM_MSJ];
-		char *pmsjIngresado = msjIngresado;
-		char leyenda[TAM_MSJ];
-		char * pLeyenda = leyenda;
+		int seguirCiclando = 1;		
+		char envioString[40];
+		char *pEnvioString = envioString;
+		
 
 		while (seguirCiclando == 1){
-			
-				pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
-				ingresoMensaje(pmsjIngresado,pLeyenda);
-				enviar(sock->getConexion(),pmsjIngresado);
+				
+				Sleep(50);
+				this->posicionPad(pEnvioString);
+				//std::cout<<pEnvioString<<endl;
+				enviar(sock->getConexion(),pEnvioString);
 			
 		}
 	
@@ -50,7 +67,7 @@ int cSender::process(void* args)
 	}
 	catch (cSocketException &e)
 	{
-		cerr << e.what() << endl;
+		std::cerr << e.what() << endl;
 		status = NO_HOST;
 	}
 

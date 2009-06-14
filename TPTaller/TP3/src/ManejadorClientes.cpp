@@ -62,6 +62,8 @@ int ManejadorClientes :: process(void* arg){
 	char * pLeyenda = leyenda;
 	char envioInt[40];
 	char* pEnvioInt = envioInt;
+	char datosRecividos[1000];
+	char* pDatosRecividos = datosRecividos;
 
 
 	//if(this->socketComunicacion->getConexion()->usuario == 0)
@@ -77,14 +79,17 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(20);
+				sleep(30);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 				
 			}
 		}
-		else
-			socketComunicacion->receive((char*)buffer.data(), 258);
+		else{
+			
+			socketComunicacion->receive(pDatosRecividos, 258);
+			std::cout<<"POSICION PAD: "<<pDatosRecividos<<endl;
+		}
 	}
 
 //	while (seguirCiclando == 1){

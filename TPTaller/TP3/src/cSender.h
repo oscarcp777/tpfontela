@@ -14,6 +14,7 @@ class cSender : public Thread
         virtual int process(void*);
         void enqueue(std::string msg);
         void stop();
+		void posicionPad(char* pEnvioString);
 
     private:
     	int status;

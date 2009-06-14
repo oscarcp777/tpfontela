@@ -159,10 +159,16 @@ void Socket::send(char* stream, unsigned int size)
 int Socket::receive(char* stream, unsigned int size)
 {
     int ret;
-    if (recibir(&(this->conexion), NULL)<0)
+	char mensaje[1000];
+	char* pMensaje = mensaje;
+	memset(pMensaje,0,sizeof(char)*1000);
+	
+    if (recibir(&(this->conexion), pMensaje)<0)
 		throw cSocketException("Error en recv()");
     initialized = false;
+		
 
+	memcpy(stream,pMensaje,sizeof(char)*1000);
 //    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
 //    {
 //        throw cSocketException("Error en recv()");
