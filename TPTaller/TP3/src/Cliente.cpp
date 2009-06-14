@@ -40,13 +40,12 @@ void Cliente::start(char* host, int port)
 		//sender.start((void*)&sock);
 		receiver.start((void*)&sock);
 		while (receiver.running() == true){
-			Sleep(100);
-			escenario->graficar();
+			//Sleep(100);
+			if(escenario->graficar()<0)
+				this->stop();
 			
-		}
+		}		
 		
-		SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
-		SDL_Quit();
 	
 	}
 	catch (cSocketException &e)
@@ -125,8 +124,10 @@ void Cliente::clearDownloaded()
 
 void Cliente::stop()
 {
+	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
+	SDL_Quit();
 	sender.stop();
-	receiver.stop();
+	//receiver.stop();	
 	sock.shutdown();
 	sock.close();
 	status = NOT_CONNECTED;

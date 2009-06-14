@@ -30,9 +30,11 @@ int cSender::process(void* args)
 		char * pLeyenda = leyenda;
 
 		while (seguirCiclando == 1){
+			
 				pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 				ingresoMensaje(pmsjIngresado,pLeyenda);
 				enviar(sock->getConexion(),pmsjIngresado);
+			
 		}
 	
 		//enviar(sock->getConexion());

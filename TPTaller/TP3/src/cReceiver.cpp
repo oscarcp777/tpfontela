@@ -79,11 +79,7 @@ int cReceiver::process(void* args){
 	//	std::cout << "bytes recibidos: " << nbytes << std::endl; 
 		
 		while(status==CONNECTED){
-			
-			
-			/*if (escenario->graficar()<0)
-				this->stop();
-			*/
+					
 			memset(pmensRecive,0,sizeof(char)*10000);
 			
 			if (recibir(sock->getConexion(), pmensRecive)<0)
@@ -234,8 +230,6 @@ void cReceiver::stop()
 	if(status==CONNECTED)
 	{
 		this->status = NOT_CONNECTED;
-		//SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
-		//SDL_Quit();
 		this->join();
 	}
 }
