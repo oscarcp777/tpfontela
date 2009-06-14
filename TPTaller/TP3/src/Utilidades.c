@@ -514,19 +514,21 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 
 
 
-void enviar(CONEXION *conexion, char* pmsjIngresado){
+void enviar(CONEXION *conexion, char* pmsjIngresado1){
 
 
 
 		char primerEnvio[PRIMER_ENVIO];
 		char *pPrimerEnvio = primerEnvio;
-
+		char msjIngresado[TAM_MSJ];
 
 
 		int puerto;
 		int* pPuerto = &puerto;
 		int exito=RES_OK;
+		char *pmsjIngresado= msjIngresado;
 
+		memcpy(pmsjIngresado,pmsjIngresado1,strlen(pmsjIngresado1)+1);
 		//while (exito != RES_QUIT){
 
 			exito = validarComando(pmsjIngresado,conexion);
