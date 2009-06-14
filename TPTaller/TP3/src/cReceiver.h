@@ -4,7 +4,7 @@
 //#include "cMutex.h"
 #include "Thread.h"
 #include "Utilidades.h"
-//#include "cSafeQueue.h"
+#include "ColaEsperaSegura.h"
 #include "Socket.h"
 #include <string>
 
@@ -24,7 +24,7 @@ class cReceiver : public Thread
     private:
 		int status;
 		//cMutex mFile, mDown;
-    	//cSafeQueue received;
+    	ColaEsperaSegura received;
     	unsigned int filesize;
     	unsigned int downloaded;
     	static const unsigned int BUFFERSIZE;

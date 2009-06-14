@@ -23,30 +23,50 @@ Cliente::Cliente():status(NOT_CONNECTED){}
 void Cliente::start(char* host, int port)
 {
 
+
+	char mensRecive[10000];
+	char* pmensRecive;
+	char posicion[100000];
+	char* pPosicion;
+	TDA_Parser parser;
+	std::string msj;
+
 	try
 	{
 		sock.connect(host, port);
 
 		status = CONNECTED;
-		
-		Escenario* escenario = Escenario::obtenerInstancia();		
+
+		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->cargarArchivo("xml.xml");
 		escenario->iniciarSDL();
-
-//		while(sock.getInitialized() == true){
-//
-//		}
+	
 
 		//sender.start((void*)&sock);
 		receiver.start((void*)&sock);
 		while (receiver.running() == true){
 			//Sleep(100);
+
+			while (receiver.isEmpty()){
+				Sleep(20);
+			}
+			msj= this->get();
+			if(msj.find(" "))
+			{
+				string pPosicion = msj.substr(0, msj.find(" "));
+				escenario->getTejo()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+				escenario->getTejo()->setY(atoi(pPosicion.c_str()));
+			}
+
+
+
 			if(escenario->graficar()<0)
 				this->stop();
 			
-		}		
-		
-	
+		}
+
+
 	}
 	catch (cSocketException &e)
 	{
@@ -86,6 +106,12 @@ void Cliente::clearDownloaded()
 	receiver.clearDownloaded();
 }
 
+
+
+std::string Cliente::get()
+{
+	return receiver.dequeue();
+}
 //cInstruction Cliente::get()
 //{
 //	cInstruction instruction;
@@ -127,7 +153,7 @@ void Cliente::stop()
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
 	sender.stop();
-	//receiver.stop();	
+	//receiver.stop();
 	sock.shutdown();
 	sock.close();
 	status = NOT_CONNECTED;

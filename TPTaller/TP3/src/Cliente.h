@@ -21,7 +21,7 @@ public:
         // Envia el mensaje al "servidor proxy" (lo encola para enviar)
         void send(std::string msg);
         // Obtiene un mensaje del "servidor proxy" (lo desencola de los recibidos)
-     //cInstruction get();
+		std::string get();
         // Chequea si hay instrucciones encoladas
         bool haveInstructions();
         // Chequea el estado del servidor (conectado, no conectado, etc)

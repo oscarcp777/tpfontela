@@ -8,8 +8,8 @@
 #include <iostream>				// Para cerr y endl
 #include <string>				// Para el manejo de strings
 #include <fstream>				// Para filemap y filetxt
-#include <iostream> 
-#include <fstream> 
+#include <iostream>
+#include <fstream>
 #include "Escenario.h"
 
 using namespace std;
@@ -33,18 +33,18 @@ void cReceiver::loading(Socket* s){
 	char* pNombreImagen = nombreImagen;
 
 	recibir(s->getConexion(), &numImagenes);
-	std::cout << "numImagenes: " << numImagenes << std::endl; 
-	
+	std::cout << "numImagenes: " << numImagenes << std::endl;
+
 	while(i<numImagenes){
 		memset(pNombreImagen,0,sizeof(char)*200);
 		recibir(s->getConexion(), pNombreImagen);
 		std::cout << "NombreImagen: "<< pNombreImagen << std::endl;
-		nbytes = s->receiveFile(pNombreImagen); 
+		nbytes = s->receiveFile(pNombreImagen);
 		std::cout << "nbytes "<< nbytes<< std::endl;
 		i++;
-		
+
 	}
-	
+
 }
 
 
@@ -55,49 +55,39 @@ int cReceiver::process(void* args){
 	char posicion[100000];
 	char* pPosicion;
 	TDA_Parser parserPrueba;
-	
+
 	Socket* sock = (Socket*) args;
 	pmensRecive = mensRecive;
 	pPosicion = posicion;
-	
+
 	try
 	{
 		string msg;
 
 		status = CONNECTED;
-		
-		Escenario* escenario = Escenario::obtenerInstancia();
-		parserCrear(&parserPrueba,"config.txt","log.txt");
-		
-    
-	//	loading(sock);
 
-		//int nbytes = sock->receiveFile("ClientePrueba1.jpg"); 
-	//	nbytes += sock->receiveFile("ClientePrueba2.png"); 
+		Escenario* escenario = Escenario::obtenerInstancia();
+
+
+	//	loading(sock);
 	//	nbytes += sock->receiveFile("ClientePrueba3.png");
-		
-	//	std::cout << "bytes recibidos: " << nbytes << std::endl; 
-		
+
 		while(status==CONNECTED){
-					
+
 			memset(pmensRecive,0,sizeof(char)*10000);
-			
+
 			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
-			
-			std::cout<<"pmensRecive: "<<pmensRecive<<endl;		
-		
-			parserCargarLinea(&parserPrueba,pmensRecive);
-			parserCampo(&parserPrueba,1,pPosicion);
-			escenario->getTejo()->setX(atoi(pPosicion));
-			memset(pPosicion,0,sizeof(char)*10000);
-			parserCampo(&parserPrueba,2,pPosicion);
-			escenario->getTejo()->setY(atoi(pPosicion));
-		
+
+			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+			msg = pmensRecive;
+			received.push(msg);
 
 		}
-		parserDestruir(&parserPrueba);
 		this->stop();
+
+		
+		
 //		int bytesReceived = 0;
 //		char buffer[BUFFERSIZE];
 //		memset(buffer, 0, BUFFERSIZE);
@@ -198,12 +188,12 @@ int cReceiver::process(void* args){
 
 bool cReceiver::isEmpty()
 {
-	return false;// received.isEmpty();
+	return received.isEmpty();
 }
 
 string cReceiver::dequeue()
 {
-	return false;//received.pop();
+	return received.pop();
 }
 
 int cReceiver::getFileSize()
