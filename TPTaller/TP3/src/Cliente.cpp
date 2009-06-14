@@ -12,7 +12,7 @@
 //#include "cInstruction.h"		// Para parsear las instrucciones
 #include "Defines.h"				// Para las constantes CONNECTED, etc
 #include "cSocketException.h"	// Para las excepciones de sockets
-
+#include "Escenario.h"
 #include <iostream>				// Para cerr y endl
 #include <string>
 
@@ -28,6 +28,11 @@ void Cliente::start(char* host, int port)
 		sock.connect(host, port);
 
 		status = CONNECTED;
+		
+		Escenario* escenario = Escenario::obtenerInstancia();		
+		escenario->cargarArchivo("xml.xml");
+		escenario->iniciarSDL();
+
 //		while(sock.getInitialized() == true){
 //
 //		}
@@ -36,13 +41,17 @@ void Cliente::start(char* host, int port)
 		receiver.start((void*)&sock);
 		while (receiver.running() == true){
 			Sleep(100);
+			escenario->graficar();
+			
 		}
 		
+		SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
+		SDL_Quit();
 	
 	}
 	catch (cSocketException &e)
 	{
-		cerr << e.what() << endl;
+		std::cerr << e.what() << endl;
 		status = NO_HOST;
 	}
 }

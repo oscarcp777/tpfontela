@@ -50,9 +50,9 @@ void cReceiver::loading(Socket* s){
 
 int cReceiver::process(void* args){
 
-	char mensRecive[140];
+	char mensRecive[10000];
 	char* pmensRecive;
-	char posicion[140];
+	char posicion[100000];
 	char* pPosicion;
 	TDA_Parser parserPrueba;
 	
@@ -65,10 +65,10 @@ int cReceiver::process(void* args){
 		string msg;
 
 		status = CONNECTED;
+		
 		Escenario* escenario = Escenario::obtenerInstancia();
 		parserCrear(&parserPrueba,"config.txt","log.txt");
-		escenario->cargarArchivo("xml.xml");
-		escenario->iniciarSDL();
+		
     
 	//	loading(sock);
 
@@ -81,20 +81,20 @@ int cReceiver::process(void* args){
 		while(status==CONNECTED){
 			
 			
-			if (escenario->graficar()<0)
+			/*if (escenario->graficar()<0)
 				this->stop();
-			
-			memset(pmensRecive,0,sizeof(char)*140);
+			*/
+			memset(pmensRecive,0,sizeof(char)*10000);
 			
 			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
 			
 			std::cout<<"pmensRecive: "<<pmensRecive<<endl;		
-			
+		
 			parserCargarLinea(&parserPrueba,pmensRecive);
 			parserCampo(&parserPrueba,1,pPosicion);
 			escenario->getTejo()->setX(atoi(pPosicion));
-			memset(pPosicion,0,sizeof(char)*140);
+			memset(pPosicion,0,sizeof(char)*10000);
 			parserCampo(&parserPrueba,2,pPosicion);
 			escenario->getTejo()->setY(atoi(pPosicion));
 		
@@ -234,8 +234,8 @@ void cReceiver::stop()
 	if(status==CONNECTED)
 	{
 		this->status = NOT_CONNECTED;
-		SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
-		SDL_Quit();
+		//SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
+		//SDL_Quit();
 		this->join();
 	}
 }
