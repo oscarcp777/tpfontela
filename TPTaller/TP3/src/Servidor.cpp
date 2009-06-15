@@ -1,4 +1,5 @@
 #include "Servidor.h"
+#include "Utilidades.h"
 
 Servidor :: Servidor(int puerto, int cantParticipantes):
 			participantesMax(cantParticipantes),
@@ -43,7 +44,9 @@ int Servidor :: process(void* arg){
         /*Si el juego no arrancó, entonces llamamos al aceptar una
         nueva conexion*/
         else {
-            Socket* s = socketServidor->accept();;
+			std::string numJugador;
+            Socket* s = socketServidor->accept();
+			
             if (juegoNuevo->cancelado() == true){
                 /*Si el juego fue cancelado, entonces se destrabó el accept a la
                 fuerza, por lo que entra en este scope donde cerramos el socket
@@ -65,14 +68,15 @@ int Servidor :: process(void* arg){
                 entonces crea el ClientHandler que escuchará y enviará peticiones
                 desde y hacia el cliente*/
                 ++cantConecEscuchadas;
-                ManejadorClientes* miCliente =
-                new ManejadorClientes(socketServidor, cantConecEscuchadas,
-                s, juegoNuevo, misClientes);
+				
+                ManejadorClientes* miCliente =	new ManejadorClientes(socketServidor, cantConecEscuchadas,s, juegoNuevo, misClientes);
+
                 /*Manda el cliente a la lista de clientes (se usa para que el juego pueda
                 enviarles mensajes)*/
                 misClientes.push_back(miCliente);
-                miCliente->start(NULL);
-                if (misClientes.size() == participantesMax-1){
+	             miCliente->start(NULL);
+
+                if (misClientes.size() == participantesMax){
                 	juegoNuevo->setJuegoArrancado(true);
 
                 }

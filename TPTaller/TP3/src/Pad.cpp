@@ -136,3 +136,4 @@ void Pad::setCantGoles(int cantGoles)
 {
 	this->cantGoles = cantGoles;
 }
+

@@ -65,6 +65,10 @@ class Escenario {
     Posicion *getPosicionInicialTejo();
     void setPosicionInicialTejo(Posicion *posicionInicialTejo);
     int iniciarSDL();
+	//void setNumJugador(int num);
+	//int getNumJugador();
+	Pad* getPadJugador();
+	void setPadJugador(int jugador);
 protected:
 		Escenario();
 
@@ -92,6 +96,8 @@ protected:
 		Rectangulo* arcoDerecha;
 		Rectangulo* arcoIzquierda;
 		Posicion* posicionInicialTejo;
+		int numJugador;
+		Pad* padJugador;
 };
 
 #endif

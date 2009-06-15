@@ -54,12 +54,15 @@ int cReceiver::process(void* args){
 	char* pmensRecive;
 	char posicion[100000];
 	char* pPosicion;
+	char numJugador[400];
+	char* pNumJugador = numJugador;
 	TDA_Parser parserPrueba;
+	int jugador;
 
 	Socket* sock = (Socket*) args;
 	pmensRecive = mensRecive;
 	pPosicion = posicion;
-
+	
 	try
 	{
 		string msg;
@@ -67,6 +70,17 @@ int cReceiver::process(void* args){
 		status = CONNECTED;
 
 		Escenario* escenario = Escenario::obtenerInstancia();
+		
+		//recibo numero de jugador
+		memset(pNumJugador,0,sizeof(char)*400);
+		recibir(sock->getConexion(), pNumJugador);
+		
+		std::cout<<"NUMERO DE JUGADOR "<<pNumJugador<<endl;		
+		
+		int jugador = atoi(pNumJugador);
+		escenario->setPadJugador(jugador);
+		
+		
 
 
 	//	loading(sock);
@@ -79,7 +93,7 @@ int cReceiver::process(void* args){
 			if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;
 
-			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
 			msg = pmensRecive;
 			received.push(msg);
 

@@ -396,28 +396,21 @@ int Escenario::graficar(){
 	
 		SDL_Event evento;
 		Teclado teclado;
-
+		Pad* pad;
 
 		teclado.actualizar();
 		// Actualización lógica de la posición
+		pad = this->getPadJugador();	
 
-		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD1)) {
-			if(this->getPadCliente1()->getY()>=0)
-				this->getPadCliente1()->subir_y();
+
+		if(teclado.pulso(Teclado::TECLA_SUBIR)) {
+			if(pad->getY()>0)
+				pad->subir_y();
 		}
 
-		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD1)) {
-			if(this->getPadCliente1()->getY()<this->getAlto()-padCliente1->getAltura())
-				this->getPadCliente1()->bajar_y();
-		}
-		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD2)) {
-			if( this->getPadCliente2()->getY()>=0)
-				this->getPadCliente2()->subir_y();
-		}
-
-		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD2)) {
-			if(this->getPadCliente2()->getY()<this->getAlto()-padCliente1->getAltura())
-				this->getPadCliente2()->bajar_y();
+		if(teclado.pulso(Teclado::TECLA_BAJAR)) {
+			if(pad->getY()<this->getAlto() - pad->getAltura())
+				pad->bajar_y();
 		}
 
 		this->pintarPantalla();
@@ -464,4 +457,23 @@ Pad* Escenario::getPadCliente2(){
 
 Tejo* Escenario::getTejo(){
 	return this->tejo;
+}
+/*void Escenario::setNumJugador(int num){
+	this->numJugador = num;
+}
+
+int Escenario::getNumJugador(){
+	return this->numJugador;
+}*/
+
+Pad* Escenario::getPadJugador(){
+		return this->padJugador;
+}
+
+void Escenario::setPadJugador(int jugador){
+
+	if (jugador == 1)
+			this->padJugador = this->getPadCliente1();
+	else
+			this->padJugador = this->getPadCliente2();
 }

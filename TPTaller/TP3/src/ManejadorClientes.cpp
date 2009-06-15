@@ -69,7 +69,8 @@ int ManejadorClientes :: process(void* arg){
 	//if(this->socketComunicacion->getConexion()->usuario == 0)
 	//		loading(todosLosClientes);
 
-
+	if (this->socketComunicacion->getConexion()->usuario == 0)
+		asignarNumeroClientes(this->todosLosClientes);
 
 	while (seguirCiclando == 1){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
@@ -672,6 +673,24 @@ void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 		it!= clientes.end(); ++it){
 		if ((*it)->running() == true)
 			((ManejadorClientes*)(*it))->enviarMensaje(mensaje);
+	}
+}
+
+void ManejadorClientes::asignarNumeroClientes(std::list<Thread*>& clientes){
+	std::string numeroCliente1 = "STRING 1";
+	std::string numeroCliente2 = "STRING 2";
+	int i=1;
+	for (std::list<Thread*>::iterator it = clientes.begin();
+		it!= clientes.end(); ++it){
+			if(i == 1){
+				if ((*it)->running() == true)
+				((ManejadorClientes*)(*it))->enviarMensaje(numeroCliente1);
+				i++;
+			}
+			else{
+				if ((*it)->running() == true)
+				((ManejadorClientes*)(*it))->enviarMensaje(numeroCliente2);
+			}
 	}
 }
 

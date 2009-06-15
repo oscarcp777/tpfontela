@@ -153,7 +153,7 @@ void Cliente::stop()
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
 	sender.stop();
-	//receiver.stop();
+	receiver.stop();
 	sock.shutdown();
 	sock.close();
 	status = NOT_CONNECTED;

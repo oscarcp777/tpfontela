@@ -34,6 +34,7 @@ public:
     void setVelocidad(int velocidad);
 	int getCantGoles();
     void setCantGoles(int cantGoles);
+	
 
 private:
   	Rectangulo* rectangulo;
@@ -42,6 +43,7 @@ private:
 	Puntaje* puntaje;
 	int cantGoles;
 	int velocidad;
+	
 };
 
 #endif /* PAD_H_ */

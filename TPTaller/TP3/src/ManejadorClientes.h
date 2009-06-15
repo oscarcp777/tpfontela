@@ -23,12 +23,12 @@ public:
 		ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
 				std::list<Thread*>& clientes);
 		~ManejadorClientes();
-
+		void enviarMensaje(const std::string& mensaje);
 		int seguirCiclando;
 	protected:
 		virtual int process(void*);
 	private:
-        void enviarMensaje(const std::string& mensaje);
+        void asignarNumeroClientes(std::list<Thread*>& clientes);
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
 		void loading(std::list<Thread*>& clientes);
