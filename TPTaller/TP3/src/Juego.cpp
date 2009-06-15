@@ -102,7 +102,7 @@ void Juego::update(){
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
 
-				if(ControladorColisiones::colisionesArcos()==0){
+	/*				if(ControladorColisiones::colisionesArcos()==0){
 					this->escenario->getPadCliente1()->setY(this->escenario->getAlto()/2);
 					this->escenario->getPadCliente1()->setX((int)this->escenario->getAncho()*POS_PAD1_Y_PORCENTAJE);
 					this->escenario->getPadCliente2()->setY(this->escenario->getAlto()/2);
@@ -115,7 +115,7 @@ void Juego::update(){
 					GraficadorPuntajes::obtenerInstancia()->decrementarCantidadTejos();
 
 
-				}
+				}*/
 
 		ControladorColisiones::calcularDireccion();
 

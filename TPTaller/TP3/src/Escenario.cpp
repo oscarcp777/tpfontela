@@ -27,6 +27,7 @@ Escenario::Escenario(){
 	this->validador = new  Validador("config Validador.txt","config Atributos.txt");
 	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
 	this->validador->setLog(&(this->log));
+	this->padJugador = NULL;
 
 	//levanto del archivo siguiente las texturas por default para el escenario
 	ArchivoTexto miArchivoDefault(configDefaultEscenario);

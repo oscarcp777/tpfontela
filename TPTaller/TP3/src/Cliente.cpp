@@ -42,8 +42,9 @@ void Cliente::start(char* host, int port)
 		escenario->iniciarSDL();
 	
 
-		sender.start((void*)&sock);
+	
 		receiver.start((void*)&sock);
+		sender.start((void*)&sock);
 		while (receiver.running() == true){
 			
 

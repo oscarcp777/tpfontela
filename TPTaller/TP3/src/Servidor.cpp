@@ -86,7 +86,7 @@ int Servidor :: process(void* arg){
     this->sleep(5000);
 		
 		//**************************************************************
-		   this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
+		    this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
 			this->juegoNuevo->getEscenario()->cargarArchivo("xml.xml");
 			this->juegoNuevo->setJuegoArrancado(true);
 

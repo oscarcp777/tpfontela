@@ -33,7 +33,7 @@ void cSender::posicionPad(char* pEnvioString){
 int cSender::process(void* args)
 {
 	Socket* sock = (Socket*) args;
-
+	Escenario* escenario = Escenario::obtenerInstancia();
 	try
 	{
 		string msg;
@@ -43,21 +43,21 @@ int cSender::process(void* args)
 		int seguirCiclando = 1;		
 		char envioString[40];
 		char *pEnvioString = envioString;
-		bool iniciado=false;
+		int posPad_Y_actual;
+		
+		while (escenario->getPadJugador()==NULL){
+			sleep(10);
+		}
+		posPad_Y_actual = escenario->getPadJugador()->getY();
 
 		while (seguirCiclando == 1){
-			
-			if(!iniciado){
-				Sleep(7000);
-				iniciado = true;
-			}
-				
-			else{
-				Sleep(300);
+			if (posPad_Y_actual != escenario->getPadJugador()->getY()){ // si la pos del pad varia envio al servidor
+				posPad_Y_actual = escenario->getPadJugador()->getY();
 				this->posicionPad(pEnvioString);
 				std::cout<<pEnvioString<<endl;
 				enviar(sock->getConexion(),pEnvioString);
 			}
+			
 			
 		}
 	
