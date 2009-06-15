@@ -23,8 +23,8 @@ void cSender::posicionPad(char* pEnvioString){
 	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioString,0,sizeof(char)*40);
 	strcat(pEnvioString,"STRING ");
-	itoa(escenario->getPadCliente1()->getX(),pauxX,10);
-	itoa(escenario->getPadCliente1()->getY(),pauxY,10);
+	itoa(escenario->getPadJugador()->getX(),pauxX,10);
+	itoa(escenario->getPadJugador()->getY(),pauxY,10);
 	strcat(pEnvioString,pauxX);
 	strcat(pEnvioString," ");
 	strcat(pEnvioString,pauxY);
@@ -55,7 +55,7 @@ int cSender::process(void* args)
 			else{
 				Sleep(300);
 				this->posicionPad(pEnvioString);
-				//std::cout<<pEnvioString<<endl;
+				std::cout<<pEnvioString<<endl;
 				enviar(sock->getConexion(),pEnvioString);
 			}
 			
