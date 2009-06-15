@@ -9,7 +9,6 @@
 #define PAD_H_
 #include <SDL.h>
 #include "Figura.h"
-#include "Movible.h"
 #include "Puntaje.h"
 
 class Pad{

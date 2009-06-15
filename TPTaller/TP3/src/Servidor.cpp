@@ -76,7 +76,7 @@ int Servidor :: process(void* arg){
                 misClientes.push_back(miCliente);
 	             miCliente->start(NULL);
 
-                if (misClientes.size() == participantesMax){
+                if (misClientes.size() == participantesMax-1){
                 	juegoNuevo->setJuegoArrancado(true);
 
                 }

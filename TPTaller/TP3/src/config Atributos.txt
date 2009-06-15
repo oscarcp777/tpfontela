@@ -20,15 +20,16 @@ id
 lado
 x
 y
+tipo
 idTextura
 colorLinea
 colorFigura
 -circulo
 id
 radio
+tipo
 x
 y
-tipo
 idTextura
 colorLinea
 colorFigura
@@ -36,8 +37,8 @@ colorFigura
 id
 x
 y
-tipo
 lado
+tipo
 idTextura
 colorLinea
 colorFigura
@@ -52,6 +53,7 @@ colorFigura
 id
 base
 altura
+tipo
 x
 y
 idTextura

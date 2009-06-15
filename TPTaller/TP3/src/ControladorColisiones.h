@@ -10,6 +10,11 @@
 #include "Tejo.h"
 #include "Figura.h"
 #include "Circulo.h"
+#include "Triangulo.h"
+#include "Cuadrado.h"
+#include "Rectangulo.h"
+#include "Recta.h"
+#include "Pad.h"
 
 
 class ControladorColisiones {
@@ -22,6 +27,13 @@ public:
 	static void colisionesPads();
 	static int colisionesArcos();
 	static void colisionCirculo(Tejo* tejo,Circulo* figura);
+	static void decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo);
+	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo);
+	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo);
+	static void decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo);
+	static void colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo);
+	static void colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo);
+	static void colisionTriangulo(Triangulo* Triangulo,Tejo* tejo);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

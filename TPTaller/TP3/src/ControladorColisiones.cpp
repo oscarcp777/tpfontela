@@ -10,19 +10,11 @@
 #include "Define.h"
 #include "Rectangulo.h"
 #include "ControladorColisiones.h"
+#include "CalculosMatematicos.h"
 #include<math.h>
-#include "Juego.h"
 ControladorColisiones::ControladorColisiones() {
 	// TODO Auto-generated constructor stub
 
-}
-int calcularDistanciaRadios(int izqX, int izqY,int derX, int derY){
-	int x,y;
-	int raiz=0;
-	x=abs(derX-izqX);
-	y=abs(derY-izqY);
-		raiz=(int)sqrt(pow(x,2)+pow(y,2));
-	return raiz;
 }
 
 void reboteArriba(Tejo* tejo){
@@ -30,10 +22,10 @@ void reboteArriba(Tejo* tejo){
 	if (anguloDeltejo==PI/2){
 		tejo->getDireccion()->setFi(anguloDeltejo+(PI));
 	}else {
-		if (anguloDeltejo<PI/2&&anguloDeltejo>=0){
+		if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
 			tejo->getDireccion()->setFi((2*PI)-anguloDeltejo);
 		}else{
-			if (anguloDeltejo>PI/2&&anguloDeltejo<PI){
+			if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
 				tejo->getDireccion()->setFi(anguloDeltejo+2*(PI-anguloDeltejo));
 			}
 		}
@@ -43,10 +35,10 @@ void reboteAbajo(Tejo* tejo){
 	double anguloDeltejo=tejo->getDireccion()->getFi();
 	if (anguloDeltejo==3*PI/2){
 		tejo->getDireccion()->setFi(anguloDeltejo-(PI));
-	}else if (anguloDeltejo<3*PI/2&&anguloDeltejo>=PI){
+	}else if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
 		tejo->getDireccion()->setFi(anguloDeltejo-2*(anguloDeltejo-PI));
 	}else{
-		if (anguloDeltejo>3*PI/2&&anguloDeltejo<=2*PI){
+		if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
 			tejo->getDireccion()->setFi(2*PI-anguloDeltejo);
 		}}
 }
@@ -56,11 +48,11 @@ void reboteDerecha(Tejo* tejo){
 
 		tejo->getDireccion()->setFi(anguloDeltejo+(PI));
 	}else {
-		if (anguloDeltejo<PI/2&&anguloDeltejo>=0.0){
+		if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
 
 			tejo->getDireccion()->setFi(anguloDeltejo+(PI-2*anguloDeltejo));
 		}else{
-			if (anguloDeltejo>3*PI/2&&anguloDeltejo<=2*PI){
+			if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
 				tejo->getDireccion()->setFi(PI+(2*PI-anguloDeltejo));
 			}         }
 	}
@@ -69,45 +61,172 @@ void reboteIzquierda(Tejo* tejo){
 	double anguloDeltejo=tejo->getDireccion()->getFi();
 	if (anguloDeltejo==PI){
 		tejo->getDireccion()->setFi(anguloDeltejo-(PI));
-	}else if (anguloDeltejo<=PI&&anguloDeltejo>PI/2){
+	}else if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
 		tejo->getDireccion()->setFi(PI-anguloDeltejo);
 	}else{
-		if (anguloDeltejo>PI&&anguloDeltejo<=3*PI/2){
+		if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
 			tejo->getDireccion()->setFi(anguloDeltejo+2*(3*PI/2-anguloDeltejo));
 		}
-		}
+	}
 
 }
-void decidirDireccion(std::string posicionRectangulo,Tejo* tejo){
-	if(posicionRectangulo.compare(ARRIBA)==0){
-		reboteArriba(tejo);
+void ControladorColisiones::decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo){
+
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	int xTejo=tejo->getX(),yTejo=tejo->getY(),radioTejo=tejo->getRadio();
+	Recta*  rectaDireccionTejo= new Recta(xTejo,(int)(radioTejo*cos(anguloDeltejo)),yTejo,(int)(radioTejo*sin(anguloDeltejo)));
+	double anguloConAbcisa=rectaDeColision->getAnguloConAbcisa();
+	//	verifico si la recta con la que choca es perpendicular
+	if(CalculosMatematicos::verificarPerpendicularidad(rectaDeColision,rectaDireccionTejo)){
+		tejo->getDireccion()->setFi(anguloDeltejo-PI);
 	}else{
-		if(posicionRectangulo.compare(ABAJO)==0){
-			reboteAbajo(tejo);
+
+		if(rectaDeColision->getPendiente()<0){
+
+			double nuevaDireccion=((PI/2-anguloDeltejo)+(PI/2-anguloConAbcisa));
+			nuevaDireccion=(anguloDeltejo+2*nuevaDireccion);
+			std::cout<<"anguloConAbcisa "<<anguloConAbcisa<<"nuevaDireccion "<<nuevaDireccion<<endl;
+
+			tejo->getDireccion()->setFi(nuevaDireccion);
+
 		}else{
-			if(posicionRectangulo.compare(DERECHA)==0){
-				reboteDerecha(tejo);
-			}else{
-				if(posicionRectangulo.compare(IZQUIERDA)==0){
-					reboteIzquierda(tejo);
+
+				double nuevaDireccion=PI-((PI-anguloDeltejo)+anguloConAbcisa);
+				nuevaDireccion=(anguloDeltejo-2*nuevaDireccion);
+				if(nuevaDireccion>=2*PI){
+					nuevaDireccion=nuevaDireccion-2*PI;
 				}
-			}
+				tejo->getDireccion()->setFi(nuevaDireccion);
+
 		}
 	}
+	//		 delete rectaDireccionTejo;
+
+}
+void ControladorColisiones::decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo){
+
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	int xTejo=tejo->getX(),yTejo=tejo->getY(),radioTejo=tejo->getRadio();
+	Recta*  rectaDireccionTejo= new Recta(xTejo,(int)(radioTejo*cos(anguloDeltejo)),yTejo,(int)(radioTejo*sin(anguloDeltejo)));
+	double anguloConAbcisa=rectaDeColision->getAnguloConAbcisa();
+	//	verifico si la recta con la que choca es perpendicular
+	if(CalculosMatematicos::verificarPerpendicularidad(rectaDeColision,rectaDireccionTejo)){
+		tejo->getDireccion()->setFi(anguloDeltejo-PI);
+	}else{
+
+		if(rectaDeColision->getPendiente()<0){
+			double nuevaDireccion=PI-((anguloDeltejo-PI)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo+2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+
+		}else{
+			double nuevaDireccion=PI-((2*PI-anguloDeltejo)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo-2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+		}
+	}
+	//		 delete rectaDireccionTejo;
+
+}
+void ControladorColisiones::decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo){
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	int xTejo=tejo->getX(),yTejo=tejo->getY(),radioTejo=tejo->getRadio();
+	Recta*  rectaDireccionTejo= new Recta(xTejo,(int)(radioTejo*cos(anguloDeltejo)),yTejo,(int)(radioTejo*sin(anguloDeltejo)));
+	double anguloConAbcisa=rectaDeColision->getAnguloConAbcisa();
+	//	verifico si la recta con la que choca es perpendicular
+	if(CalculosMatematicos::verificarPerpendicularidad(rectaDeColision,rectaDireccionTejo)){
+		tejo->getDireccion()->setFi(anguloDeltejo-PI);
+	}else{
+
+		if(rectaDeColision->getPendiente()<0){
+			double nuevaDireccion=PI-((anguloDeltejo-PI)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo+2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+
+		}else{
+			double nuevaDireccion=PI-((2*PI-anguloDeltejo)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo-2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+		}
+	}
+	//		 delete rectaDireccionTejo;
+}
+void ControladorColisiones::decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo){
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	int xTejo=tejo->getX(),yTejo=tejo->getY(),radioTejo=tejo->getRadio();
+	Recta*  rectaDireccionTejo= new Recta(xTejo,(int)(radioTejo*cos(anguloDeltejo)),yTejo,(int)(radioTejo*sin(anguloDeltejo)));
+	double anguloConAbcisa=rectaDeColision->getAnguloConAbcisa();
+	//	verifico si la recta con la que choca es perpendicular
+	if(CalculosMatematicos::verificarPerpendicularidad(rectaDeColision,rectaDireccionTejo)){
+		tejo->getDireccion()->setFi(anguloDeltejo-PI);
+	}else{
+
+		if(rectaDeColision->getPendiente()<0){
+			double nuevaDireccion=PI-((anguloDeltejo-PI)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo+2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+
+		}else{
+			double nuevaDireccion=PI-((2*PI-anguloDeltejo)+anguloConAbcisa);
+			nuevaDireccion=(anguloDeltejo-2*nuevaDireccion);
+			if(nuevaDireccion>=2*PI){
+				nuevaDireccion=nuevaDireccion-2*PI;
+			}
+			tejo->getDireccion()->setFi(nuevaDireccion);
+		}
+	}
+	//		 delete rectaDireccionTejo;
 }
 ControladorColisiones::~ControladorColisiones() {
 	// TODO Auto-generated destructor stub
 }
+
 void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
-     int distanciaMinimaEntreRadios=tejo->getRadio()+figura->getRadio();
-     int distanciaEntreRadios=calcularDistanciaRadios(tejo->getX(),tejo->getY(),figura->getX(),figura->getY());
-//     if(distanciaMinimaEntreRadios < sqrt((tejo->getX()-figura->getX())*(tejo->getX()-figura->getX()) + (tejo->getY()-figura->getY())*(tejo->getY()-figura->getY()))){
-     if(distanciaMinimaEntreRadios>distanciaEntreRadios){
+	int xTejo=tejo->getX(),yTejo=tejo->getY(),xCirculo=figura->getX(),yCirculo=figura->getY();
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	Recta* rectaEntreRadios;
+	Recta* rectaDeColision;
+	Posicion* pos;
 
-    	 
-     }
+	int distanciaMinimaEntreRadios=tejo->getRadio()+figura->getRadio();
+	int distanciaEntreRadios=CalculosMatematicos::calcularDistancia(tejo->getX(),tejo->getY(),figura->getX(),figura->getY());
+	if(distanciaMinimaEntreRadios>distanciaEntreRadios){
+		rectaEntreRadios= new Recta(xTejo,xCirculo,yTejo,yCirculo);//recta entre los centros de las esferas
+		pos = CalculosMatematicos::getInterseccionEsferas(tejo,figura);//punto de interseccion entre esferas
+		rectaDeColision=rectaEntreRadios->getRectaPerpendicular(pos->getX(),pos->getY());//recta perpendicular en punto de interseccion
 
+		if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+			decidirDireccionCuartoCuadrante(rectaDeColision,tejo);
 
+		}
+		if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+			decidirDireccionTercerCuadrante(rectaDeColision,tejo);
+		}
+		if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
+			decidirDireccionSegundoCuadrante(rectaDeColision,tejo);
+		}
+		if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
+			decidirDireccionPrimerCuadrante(rectaDeColision,tejo);
+		}
+	}
+
+	//delete rectaEntreRadios;
+	//delete rectaPerpendicular;
 }
 bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	bool posibilidadColision= false;
@@ -116,7 +235,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	std::list<Figura*>::iterator iter;
 	iter = Escenario::obtenerInstancia()->iteratorListaFiguras();
 
-	int wTejo, hTejo, wFigura, hFigura, xTejo, yTejo, xFigura, yFigura,xAnteriorTejo,yAnteriorTejo,radioTejo;
+	int wTejo, hTejo, wFigura, hFigura, xTejo, yTejo, xFigura, yFigura,xAnteriorTejo,yAnteriorTejo;
 	wTejo = hTejo = tejo->getRadio()*2;
 	xTejo = tejo->getX()-tejo->getRadio();
 	yTejo = tejo->getY()-tejo->getRadio();
@@ -133,10 +252,20 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 		yFigura = figura->getYInfluencia();
 
 		if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-//					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
+			//					std::cout<<"colisiono con : :"<<figura->getId()<<endl;
 
-            
-			if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
+			if(figura->getTipo().compare(CIRCULO)==0){
+				ControladorColisiones::colisionCirculo( tejo, (Circulo*)figura);
+			}
+			if(figura->getTipo().compare(RECTANGULO)==0){
+				ControladorColisiones::colisionRectangulo(  (Rectangulo*)figura,tejo);
+			}
+			if(figura->getTipo().compare(CUADRADO)==0){
+				ControladorColisiones::colisionCuadrado(  (Cuadrado*)figura,tejo);
+			}
+			if(figura->getTipo().compare(TRIANGULO)==0){
+				//	ControladorColisiones::colisionTriangulo(  (Triangulo*)figura,tejo);
+				if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 					reboteDerecha(tejo);
 				}else{
 					if(yAnteriorTejo<=yFigura+hFigura&&xAnteriorTejo+wTejo>xFigura&&xAnteriorTejo<xFigura+wFigura){
@@ -153,8 +282,8 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 					reboteIzquierda(tejo);
 				}
 
-           
 
+			}
 			return true;
 		}
 		i++;
@@ -165,65 +294,182 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 
 	return posibilidadColision;
 }
+void ControladorColisiones::colisionTriangulo(Triangulo* Triangulo,Tejo* tejo){
 
-void ControladorColisiones::colisionesPads(){
-	Escenario* escenario = Escenario::obtenerInstancia();
-	Tejo* tejo = escenario->getTejo();
-	int wTejo, hTejo, wPad, hPad, xTejo, yTejo, xPadDer, yPadDer,xPadIzq, yPadIzq,xAnteriorTejo,yAnteriorTejo,radioTejo;
+}
+void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
+	int wTejo, hTejo, wFigura, hFigura, xTejo, yTejo, xFigura, yFigura,xAnteriorTejo,yAnteriorTejo,radioTejo;
+	wTejo = hTejo = tejo->getRadio()*2;
+	xTejo = tejo->getX()-tejo->getRadio();
+	yTejo= tejo->getY()-tejo->getRadio();
+	double anguloDeltejo=tejo->getDireccion()->getFi();
+	radioTejo=tejo->getRadio();
+	xAnteriorTejo=tejo->getXAnterior()-tejo->getRadio();
+	yAnteriorTejo=tejo->getYAnterior()-tejo->getRadio();
+	wFigura= cuadrado->getLado();
+	hFigura=cuadrado->getLado();
+	xFigura= cuadrado->getX();
+	yFigura= cuadrado->getY();
+	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
+
+		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
+			if(yTejo>yFigura+hFigura){
+
+				if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(5*PI/4);
+				}else{
+					tejo->getDireccion()->setFi(3*PI/4);
+				}
+
+			}else{
+				if(yTejo<yFigura-radioTejo){
+
+					if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+						tejo->getDireccion()->setFi(5*PI/4);
+					}else{
+						tejo->getDireccion()->setFi(3*PI/4);
+					}
+
+				}else{
+
+					reboteDerecha(tejo);
+				}
+			}
+
+
+		}else{
+
+			if(yAnteriorTejo<=yFigura&&xAnteriorTejo+wTejo>xFigura&&xAnteriorTejo<xFigura+wFigura){
+				reboteAbajo(tejo);
+			}else{
+
+				if(yAnteriorTejo>=yFigura+hFigura&&xFigura<xAnteriorTejo+wTejo&&xAnteriorTejo<xFigura+wFigura){
+					reboteArriba(tejo);
+				}
+			}
+
+		}
+
+		if(xAnteriorTejo>=xFigura+wFigura&&yAnteriorTejo<yFigura+hFigura+hTejo&&yAnteriorTejo>yFigura-hTejo){
+			if(yTejo<yFigura-radioTejo){
+
+				if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(PI/4);
+				}else{
+					tejo->getDireccion()->setFi(3*PI/4);
+				}
+			}else{
+
+				if(yTejo>yFigura+hFigura+radioTejo){
+					if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+						tejo->getDireccion()->setFi(PI/4);
+					}else{
+						tejo->getDireccion()->setFi(5*PI/4);
+					}
+
+				}else{
+
+					reboteIzquierda(tejo);
+				}
+			}
+
+
+
+		}
+
+	}
+}
+void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo){
+	int wTejo, hTejo, wFigura, hFigura, xTejo, yTejo, xFigura, yFigura,xAnteriorTejo,yAnteriorTejo,radioTejo;
 	wTejo = hTejo = tejo->getRadio()*2;
 	xTejo = tejo->getX()-tejo->getRadio();
 	yTejo= tejo->getY()-tejo->getRadio();
 	radioTejo=tejo->getRadio();
+	double anguloDeltejo=tejo->getDireccion()->getFi();
 	xAnteriorTejo=tejo->getXAnterior()-tejo->getRadio();
 	yAnteriorTejo=tejo->getYAnterior()-tejo->getRadio();
-	Pad* padIzquierda=escenario->getPadCliente2();
-	Pad* padDerecha=escenario->getPadCliente1();
-	wPad= padDerecha->getBase();
-	hPad=padDerecha->getAltura();
-	xPadDer= padDerecha->getX();
-	yPadDer= padDerecha->getY();
-	xPadIzq= padIzquierda->getX();
-	yPadIzq= padIzquierda->getY();
+	wFigura= rectangulo->getBase();
+	hFigura=rectangulo->getAltura();
+	xFigura= rectangulo->getX();
+	yFigura= rectangulo->getY();
+	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
 
-	if( ((xTejo + wTejo) >= xPadDer) && ((yTejo + hTejo) >= yPadDer) && ((xPadDer + wPad) >= xTejo) && ((yPadDer + hPad) >= yTejo)){
+		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
+			if(yTejo>yFigura+hFigura){
 
-		if(xAnteriorTejo<=xPadDer&&yAnteriorTejo<yPadDer+hPad&&yAnteriorTejo>yPadDer-wTejo){
-			reboteDerecha(tejo);
-		}else{
-			if(yAnteriorTejo<=yPadDer&&xAnteriorTejo+wTejo>xPadDer&&xAnteriorTejo<xPadDer+wPad){
-						reboteAbajo(tejo);
+				if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(5*PI/4);
+				}else{
+					tejo->getDireccion()->setFi(3*PI/4);
+				}
+
+			}else{
+				if(yTejo<yFigura-radioTejo){
+
+					if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+						tejo->getDireccion()->setFi(5*PI/4);
 					}else{
+						tejo->getDireccion()->setFi(3*PI/4);
+					}
 
-						if(yAnteriorTejo>=yPadDer+hPad&&xPadDer<xAnteriorTejo+wTejo&&xAnteriorTejo<xPadDer+wPad){
-							reboteArriba(tejo);
-						}
+				}else{
+
+					reboteDerecha(tejo);
+				}
+			}
+
+
+		}else{
+
+			if(yAnteriorTejo<=yFigura&&xAnteriorTejo+wTejo>xFigura&&xAnteriorTejo<xFigura+wFigura){
+				reboteAbajo(tejo);
+			}else{
+
+				if(yAnteriorTejo>=yFigura+hFigura&&xFigura<xAnteriorTejo+wTejo&&xAnteriorTejo<xFigura+wFigura){
+					reboteArriba(tejo);
+				}
+			}
+
 		}
 
-		}
-		if(xAnteriorTejo>=xPadDer+wPad){
+		if(xAnteriorTejo>=xFigura+wFigura&&yAnteriorTejo<yFigura+hFigura+hTejo&&yAnteriorTejo>yFigura-hTejo){
+			if(yTejo<yFigura-radioTejo){
+
+				if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(PI/4);
+				}else{
+					tejo->getDireccion()->setFi(3*PI/4);
+				}
+			}else{
+
+				if(yTejo>yFigura+hFigura+radioTejo){
+					if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+						tejo->getDireccion()->setFi(PI/4);
+					}else{
+						tejo->getDireccion()->setFi(5*PI/4);
+					}
+
+				}else{
+
 					reboteIzquierda(tejo);
 				}
+			}
+
+
+
+		}
 
 	}
-	if( ((xTejo + wTejo) >= xPadIzq) && ((yTejo + hTejo) >= yPadIzq) && ((xPadIzq + wPad) >= xTejo) && ((yPadIzq + hPad) >= yTejo)){
-		if(xAnteriorTejo<=xPadIzq&&yAnteriorTejo<yPadIzq+hPad&&yAnteriorTejo>yPadIzq-wTejo){
-					reboteDerecha(tejo);
-				}else{
-					if(yAnteriorTejo<=yPadIzq&&xAnteriorTejo+2*radioTejo>xPadIzq&&xAnteriorTejo<xPadIzq+wPad){
-								reboteAbajo(tejo);
-							}else{
+}
+void ControladorColisiones::colisionesPads(){
+	Escenario* escenario = Escenario::obtenerInstancia();
+	Tejo* tejo = escenario->getTejo();
+	Pad* padIzquierda=escenario->getPadCliente2();
+	Pad* padDerecha=escenario->getPadCliente1();
 
-								if(yAnteriorTejo>=yPadIzq+hPad&&xAnteriorTejo+wTejo>xPadIzq&&xAnteriorTejo<xPadIzq+wPad){
-									reboteArriba(tejo);
-								}
-				}
 
-				}
-		if(xAnteriorTejo>=xPadIzq+wPad){
-							reboteIzquierda(tejo);
-						}
-
-	}
+	ControladorColisiones::colisionRectangulo(padIzquierda->getFigura(),tejo);
+	ControladorColisiones::colisionRectangulo(padDerecha->getFigura(),tejo);
 }
 int ControladorColisiones::colisionesArcos(){
 	Escenario* escenario = Escenario::obtenerInstancia();
@@ -239,7 +485,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 1 y su cantidad de goles en el nivel
 			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-			
+
 			return 0;
 		}
 	}
@@ -249,7 +495,7 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 2 y su cantidad de goles en el nivel
 			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-			
+
 			return 0;
 		}
 	}

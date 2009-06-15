@@ -221,6 +221,7 @@ int Hidratar::hidratarCuadrado(std::string atributos){
 		cuadrado->setId(valueId);
 		cuadrado->setLado(lado);
 		cuadrado->setPosicion(posicion);
+		cuadrado->setTipo(StringUtils::getValorTag(TIPO,vec));
 		escenario->addFigura(cuadrado);
 		std::cout<<"exito AL CREAR EL CUADRADO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		/**################################################################################################*/
@@ -352,7 +353,7 @@ int Hidratar::hidratarRectangulo(std::string atributos){
 		base = atoi((StringUtils::getValorTag(BASE,vec)).c_str());
 		altura = atoi((StringUtils::getValorTag(ALTURA,vec)).c_str());
 		rectangulo = new Rectangulo(valueId,base,altura,posicion);
-
+		rectangulo->setTipo(StringUtils::getValorTag(TIPO,vec));
 		std::cout<<"exito AL CREAR EL RECTANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		/**################################################################################################*/
 		/**###############                    ACA AGREGO LOS TAG OPCIONALES    #################################*/

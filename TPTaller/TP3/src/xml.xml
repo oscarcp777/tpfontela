@@ -1,11 +1,8 @@
 <escenario>
             <General resolucion="800" texturaFig="triangulo" alturaPad="150" basePad="20" idTexturaPad="triangulo"
-                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="10" velocidadPad="5">
+                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="5" velocidadPad="3">
              </General>
              <ListadoDeDispersores> 
-                  <circulo id="circulo0" radio="30" idTextura="bola" tipo"circulo">
-                         <posicion x="400" y="300"/>
-                  </circulo>
                     <triangulo id="triangulo1" idTextura="triangulo" lado="200" tipo"triangulo">
                                   <ver1 x="300" y="250"/>
                                   <ver2 x="300" y="350"/>
