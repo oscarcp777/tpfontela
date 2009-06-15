@@ -64,7 +64,7 @@ int ManejadorClientes :: process(void* arg){
 	char* pEnvioInt = envioInt;
 	char datosRecividos[1000];
 	char* pDatosRecividos = datosRecividos;
-
+	std::string msj;
 
 	//if(this->socketComunicacion->getConexion()->usuario == 0)
 	//		loading(todosLosClientes);
@@ -88,7 +88,20 @@ int ManejadorClientes :: process(void* arg){
 		else{
 			
 			socketComunicacion->receive(pDatosRecividos, 258);
-			std::cout<<"POSICION PAD: "<<pDatosRecividos<<endl;
+			msj = pDatosRecividos;
+			std::cout<<"POSICION PAD: "<<msj<<endl;
+			
+			if(msj.find(" "))
+			{
+				string pPosicion = msj.substr(0, msj.find(" "));
+				juegoNuevo->getEscenario()->getPadCliente1()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+				juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+			}
+			
+
+
+
 		}
 	}
 

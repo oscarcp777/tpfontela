@@ -43,14 +43,21 @@ int cSender::process(void* args)
 		int seguirCiclando = 1;		
 		char envioString[40];
 		char *pEnvioString = envioString;
-		
+		bool iniciado=false;
 
 		while (seguirCiclando == 1){
+			
+			if(!iniciado){
+				Sleep(7000);
+				iniciado = true;
+			}
 				
-				Sleep(50);
+			else{
+				Sleep(300);
 				this->posicionPad(pEnvioString);
 				//std::cout<<pEnvioString<<endl;
 				enviar(sock->getConexion(),pEnvioString);
+			}
 			
 		}
 	
