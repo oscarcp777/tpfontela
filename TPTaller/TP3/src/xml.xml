@@ -1,6 +1,6 @@
 <escenario>
             <General resolucion="800" texturaFig="triangulo" alturaPad="150" basePad="20" idTexturaPad="triangulo"
-                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="2" velocidadPad="1">
+                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="10" velocidadPad="5">
              </General>
              <ListadoDeDispersores> 
                   <circulo id="circulo0" radio="30" idTextura="bola" tipo"circulo">
