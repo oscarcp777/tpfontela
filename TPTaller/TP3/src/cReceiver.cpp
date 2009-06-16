@@ -50,7 +50,7 @@ void cReceiver::loading(Socket* s){
 
 int cReceiver::process(void* args){
 
-	char mensRecive[10000];
+	char mensRecive[1000];
 	char* pmensRecive;
 	char posicion[100000];
 	char* pPosicion;
@@ -73,7 +73,8 @@ int cReceiver::process(void* args){
 		
 		//recibo numero de jugador
 		memset(pNumJugador,0,sizeof(char)*400);
-		recibir(sock->getConexion(), pNumJugador);
+		sock->receive(pNumJugador);
+		//recibir(sock->getConexion(), pNumJugador);
 		
 		std::cout<<"NUMERO DE JUGADOR "<<pNumJugador<<endl;		
 		
@@ -88,17 +89,23 @@ int cReceiver::process(void* args){
 
 		while(status==CONNECTED){
 
-			memset(pmensRecive,0,sizeof(char)*10000);
+			memset(pmensRecive,0,sizeof(char)*1000);
 
-			if (recibir(sock->getConexion(), pmensRecive)<0)
-				status = NOT_CONNECTED;
-
-			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+			/*if (recibir(sock->getConexion(), pmensRecive)<0)
+				status = NOT_CONNECTED;*/
+			try{
+			sock->receive(pmensRecive);
+			}catch (cSocketException &e)
+			{
+				std::cerr << e.what() << endl;
+			}
+			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
 			msg = pmensRecive;
 			received.push(msg);
 
 		}
-		this->stop();
+		//this->stop();
+		delete(this);
 
 		
 		
@@ -234,7 +241,8 @@ void cReceiver::stop()
 	if(status==CONNECTED)
 	{
 		this->status = NOT_CONNECTED;
-		this->join();
+		//this->join();
+		
 	}
 }
 

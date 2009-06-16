@@ -146,29 +146,28 @@ int Socket::sendFile(const char *path)
 //    }
 //}
 
-void Socket::send(char* stream, unsigned int size)
+void Socket::send(char* stream)
 {
 
-	enviar(&(this->conexion),stream);		
-//    if (::send(sockDesc, (raw_type*)stream, size, 0)==-1)
-//    {
-//        throw cSocketException("Error en send()");
-//    }
+	if (enviar(&(this->conexion),stream)<0)
+	{
+		 throw cSocketException("Error en send()");
+	}
 }
 
-int Socket::receive(char* stream, unsigned int size)
+int Socket::receive(void* dato)
 {
     int ret;
-	char mensaje[1000];
-	char* pMensaje = mensaje;
-	memset(pMensaje,0,sizeof(char)*1000);
-	
-    if (recibir(&(this->conexion), pMensaje)<0)
+	//char mensaje[1000];
+	//char* pMensaje = mensaje;
+	//memset(pMensaje,0,sizeof(char)*1000);
+	ret = recibir(&(this->conexion), dato);
+    if (ret < 0)
 		throw cSocketException("Error en recv()");
     initialized = false;
 		
 
-	memcpy(stream,pMensaje,sizeof(char)*1000);
+	//memcpy(stream,dato,strlen((char*)dato)+1);
 //    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
 //    {
 //        throw cSocketException("Error en recv()");
@@ -199,7 +198,7 @@ void Socket::close()
 {
 	if(sockDesc!=-1)
 	{
-		::closesocket(sockDesc);
+		trCerrarConexion(&(this->conexion));
 		sockDesc = -1;
 	}
 }

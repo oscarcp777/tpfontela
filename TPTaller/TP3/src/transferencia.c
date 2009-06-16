@@ -82,7 +82,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	SOCKADDR_IN conexrem;
 	int error;
 	//"192.168.16.4"
-	host = gethostbyname("192.168.16.4");
+	host = gethostbyname("localhost");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;
@@ -311,7 +311,7 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
                     mensajeClienteDesconectado();
     				//reconectarSockets(pConexion, SERVIDOR);
 					//recv(pConexion->cliente,datos,sizeof(char)*PRIMER_ENVIO,0);
-					return RES_OK;
+					return RES_QUIT;
           	   }
 				else return RES_QUIT;
 
@@ -344,8 +344,8 @@ int trRecibir(CONEXION *pConexion, enum tr_tipo_dato tipo, int cantItems, void *
                       printf("Cant Items en td_char %d \n",cantItems);
 			#endif
 			memset((char*)datos,'\0',(cantItems+1)*sizeof(char));
-			recv(pConexion->locsock,(char*)datos,sizeof(char)*cantItems,0);
-			return RES_OK;
+			return recv(pConexion->locsock,(char*)datos,sizeof(char)*cantItems,0);
+			//return RES_OK;
 
 		break;
 		case td_double:

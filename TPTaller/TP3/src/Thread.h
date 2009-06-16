@@ -16,7 +16,7 @@ public:
         Thread();
         int start(void* args);
         int join();
-	bool running();
+		bool running();
         virtual ~Thread();
 	static void sleep(unsigned long msecs);
     protected:

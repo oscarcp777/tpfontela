@@ -60,7 +60,7 @@ int Servidor :: process(void* arg){
                 clientes = al maximo, enviamos CANT_JOIN al cliente y cerramos ese socket*/
                 std::string lineaError = "CANT_JOIN";
                 lineaError += "\r\n";
-                s->send((char*)lineaError.data(), lineaError.length());
+                s->send((char*)lineaError.data());
                 delete(s);
             }
             else{

@@ -80,20 +80,28 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(100);
+				sleep(150);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 				
 			}
+			else
+				seguirCiclando = 0;
 		}
 		else{
-			
-			socketComunicacion->receive(pDatosRecividos, 258);
+			memset(pDatosRecividos,0,sizeof(char)*1000);
+			socketComunicacion->receive(pDatosRecividos);
 			msj = pDatosRecividos;
 			
 			//TODO hacer que si llega "cliente 1" setee x e y en el pad1 lo mismo para el dos,
 			//hay que cambiar en el sender de cliente.
-			if(msj.find(" "))
+			if(msj.find("QUIT")==0){
+				quitarCliente(todosLosClientes);
+				juegoNuevo->setJuegoCancelado(true);
+				enviarAtodos(this->todosLosClientes,"STRING FINJUEGO");
+				seguirCiclando = 0;
+			}
+			if(msj.find(" ")==0)
 			{
 				string pPosicion = msj.substr(0, msj.find(" "));
 				juegoNuevo->getEscenario()->getPadCliente1()->setX(atoi(pPosicion.c_str()));
@@ -102,6 +110,8 @@ int ManejadorClientes :: process(void* arg){
 			}
 			msj = "PAD "+ msj;
 			std::cout<<msj<<endl;
+
+			
 
 			//enviarAtodos(this->todosLosClientes,pEnvioInt);
 
@@ -611,7 +621,6 @@ int ManejadorClientes :: process(void* arg){
     en ese caso, pide join() (para que el Servidor sepa que este cliente no corre mas),
     y luego el delete(this) que causa que el socket (y el de accept del Servidor si este cliente
     es el que inició el servidor) se liberen*/
-	this->join();
 	delete(this);
 	return 0;
 }
@@ -702,7 +711,7 @@ void ManejadorClientes::asignarNumeroClientes(std::list<Thread*>& clientes){
 a ese socket*/
 void ManejadorClientes::enviarMensaje(const std::string& mensaje)
 {
-	socketComunicacion->send((char*)mensaje.data(), mensaje.length());
+	socketComunicacion->send((char*)mensaje.data());
 
 }
 

@@ -22,10 +22,10 @@ public:
     void connect(char *host, unsigned int port);
     void listen(unsigned int port);
     Socket* accept();
-    void send(char *stream, unsigned int size);
+    void send(char *stream);
 	int sendFile(const char *path);
 	int receiveFile(const char *path);
-    int receive(char *stream, unsigned int size);
+    int receive(void* dato);
     void shutdown();
     void close();
     virtual ~Socket();

@@ -3,7 +3,6 @@
 
 //#include "cMutex.h"
 #include "Thread.h"
-#include "Utilidades.h"
 #include "ColaEsperaSegura.h"
 #include "Socket.h"
 #include <string>

@@ -3,51 +3,6 @@
 
 
 
-/** esta funcion se espera que un cliente se conecte cuando el cliente
-     deja de mandar informacion o cierra su ventana
-*/
-
-
-
-
-/*
-int iniciarHilos(CONEXION *conexion){
-	DWORD  threadId;
-    HANDLE hThread,hThread1;
-    hThread = CreateThread( NULL, 0, enviar, conexion, 0, &threadId );
-
-	hThread1 = CreateThread( NULL, 0, recibir, conexion, 0, &threadId );
-
-	if(hThread==NULL)
-	return RES_THREAD;
-
-	if(hThread1==NULL)
-	return RES_THREAD;
-
-	SetThreadPriority(hThread1,1);
-	SetThreadPriority(hThread,2);
-
-
-
-	// wait for the thread to finish
-   WaitForSingleObject( hThread1, INFINITE );
-
-    printf("\n  EL CLIENTE ESTA DESCONECTADO \n \n");
-    //clean up resources used by thread
-    CloseHandle( hThread );
-    CloseHandle( hThread1 );
-
-	return RES_OK;
-
-
-}
-*/
-
-
-
-
-
-
 ////////////////////AUXILIARES/////////////////////////
 
 int validarComando(char* cadenaIngresada,CONEXION *conexion){
@@ -396,6 +351,7 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 	int i = 0;
 	int k = 1;
 	int datos[100];
+	int bytesRecibidos = 0;
 	int* pdatos = datos;
 
 	TDA_Parser parser;
@@ -417,13 +373,11 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 	double *datosDouble;
 	double *pDatosDoubleTemporal;
 
-//	int aux;
 	char prueba[TAM_MSJ];
 	char *pPrueba = prueba;
 	char direccion[100];
     char *pdir = direccion;
 
-	//	while (exito != RES_QUIT){
 
 			memset(datos,0,100);
 			memset(pPrimerRecibo,0,sizeof(char)*PRIMER_ENVIO);
@@ -464,9 +418,13 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 						pDatosIntTemporal = datosInt;
 						trRecibir(conexion, td_int ,atoi(pCantidadItems), datosInt);
 						k=1;
-						//printf("Incoming Message..\n");
+						#ifdef DEBUG
+							printf("Incoming Message..\n");
+						#endif
 						while (k <= atoi(pCantidadItems)){
-							// printf("%d \n",*datosInt);
+							#ifdef DEBUG
+								printf("%d \n",*datosInt);
+							#endif
 							 datosInt++;
 							 k++;
 						}
@@ -478,9 +436,11 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 				case td_char:
 
 							datosChar = (char*) malloc((atoi(pCantidadItems)+1)*sizeof(char));
-							trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
+							bytesRecibidos = trRecibir(conexion, td_char ,atoi(pCantidadItems), datosChar);
+							#ifdef DEBUG
+								printf("Incoming Message..\n%s \n",datosChar);
+							#endif
 
-							//printf("Incoming Message..\n%s \n",datosChar);
 							if (datoRecibido!=NULL)
 								memcpy(datoRecibido,datosChar,sizeof(char)*atoi(pCantidadItems));
 							free(datosChar);
@@ -493,9 +453,13 @@ int recibir(CONEXION *conexion,void* datoRecibido){
 						pDatosDoubleTemporal = datosDouble;
 						trRecibir(conexion, td_double ,atoi(pCantidadItems), datosDouble);
 						k=1;
-						//printf("Incoming Message..\n");
+						#ifdef DEBUG
+							printf("Incoming Message..\n");
+						#endif
 						while (k <= atoi(pCantidadItems)){
-							 printf("%e \n",*datosDouble);
+							 #ifdef DEBUG
+								printf("%e \n",*datosDouble);
+							 #endif
 							 datosDouble++;
 							 k++;
 						}
@@ -508,13 +472,13 @@ int recibir(CONEXION *conexion,void* datoRecibido){
         //printf("INGRESE MENSAJE: (para salir QUIT) \n");
         
 		parserDestruir(&parser);
-		return RES_OK; 
+		return bytesRecibidos; 
 
 }
 
 
 
-void enviar(CONEXION *conexion, char* pmsjIngresado1){
+int enviar(CONEXION *conexion, char* pmsjIngresado1){
 
 
 
@@ -529,13 +493,13 @@ void enviar(CONEXION *conexion, char* pmsjIngresado1){
 		char *pmsjIngresado= msjIngresado;
 
 		memcpy(pmsjIngresado,pmsjIngresado1,strlen(pmsjIngresado1)+1);
-		//while (exito != RES_QUIT){
-
+		
 			exito = validarComando(pmsjIngresado,conexion);
 
 			if(exito == RES_QUIT){
 				if(conexion->usuario==1){
 				trCerrarConexion(conexion);
+				return RES_QUIT;
 
 				}
 			}
@@ -543,20 +507,18 @@ void enviar(CONEXION *conexion, char* pmsjIngresado1){
 
 				if(strcmp(pmsjIngresado,"QUIT") !=0){
 
-				//si el mensaje no es QUIT que lo parseem sino que lo envie directamente
-				parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
-				#ifdef DEBUG
-					printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
-				#endif
-				trEnviar(conexion,td_comando,1,pPrimerEnvio);
-				
-				segundoEnvio(conexion,pmsjIngresado);
+					//si el mensaje no es QUIT que lo parseem sino que lo envie directamente
+					parsearPrimerEnvio(pmsjIngresado,pPrimerEnvio);
+					#ifdef DEBUG
+						printf("PRIMER ENVIO: %s \n",pPrimerEnvio);
+					#endif
+					trEnviar(conexion,td_comando,1,pPrimerEnvio);
+					segundoEnvio(conexion,pmsjIngresado);
 				}
-
 				else{
 					trEnviar(conexion,td_comando,1,pmsjIngresado);
-
 				}
+				return RES_OK;
 
 
 			 }

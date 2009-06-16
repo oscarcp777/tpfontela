@@ -17,11 +17,14 @@ int Thread::start(void* args)
     return 0;
 }
 
+//To terminate a particular thread without terminating the entire process, use the API
+//VOID ExitThread(DWORD ExitCode);
 int Thread::join()
 {
     this->engaged = false;
-    ExitThread(this->id);
-    return 0;
+	//CloseHandle(this->hilo);
+    ExitThread(0);
+	return 0;
 }
 
 /*
@@ -41,7 +44,11 @@ DWORD WINAPI Thread::runProcess(LPVOID thread)
 
 Thread::~Thread()
 {
-    if(this->engaged) Thread::join();
+    if(this->engaged){
+		this->engaged = false;
+		TerminateThread(this->hilo,0);
+	}
+	
 }
 
 bool Thread::running()

@@ -33,7 +33,7 @@ void Cliente::start(char* host, int port)
 
 	try
 	{
-		sock.connect(host, port);
+		this->sock.connect(host, port);
 
 		status = CONNECTED;
 
@@ -68,11 +68,14 @@ void Cliente::start(char* host, int port)
 					escenario->getTejo()->setY(atoi(pPosicion.c_str()));
 				}
 
-
-
-			if(escenario->graficar()<0)
-				this->stop();
 			
+
+
+
+			if(escenario->graficar()<0 || msj.find("FINJUEGO")==0){
+				this->sock.send("STRING QUIT");	
+				this->stop();
+			}
 		}
 
 
@@ -159,13 +162,15 @@ std::string Cliente::get()
 
 void Cliente::stop()
 {
-	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
-	SDL_Quit();
 	sender.stop();
 	receiver.stop();
+	Sleep(1000);
 	sock.shutdown();
 	sock.close();
 	status = NOT_CONNECTED;
+	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
+	SDL_Quit();
+
 }
 
 Cliente::~Cliente()
