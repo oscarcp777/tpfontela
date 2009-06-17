@@ -142,5 +142,4 @@ void Juego::update(){
 
 					}
 
-	//	this->escenario->graficar();
 }

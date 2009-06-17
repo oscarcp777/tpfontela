@@ -52,12 +52,22 @@ void Cliente::start(char* host, int port)
 				Sleep(20);
 			}
 			msj= this->get();
-			if(msj.find("PAD")==0)
+			if(msj.find("PAD1")==0)
 			{
-				string posXPad = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				string posYPad = msj.substr(msj.find_last_of(" ")+1,msj.size());
-				std::cout<< "PosXPad: " << posXPad << " PosYPad: " << posYPad << endl; 
-
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+				
+			}
+			else if(msj.find("PAD2")==0)
+			{
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+				
+				
 			}
 			else
 				if(msj.find(" "))

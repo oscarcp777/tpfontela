@@ -80,7 +80,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(150);
+				sleep(200);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 				
@@ -92,24 +92,32 @@ int ManejadorClientes :: process(void* arg){
 			memset(pDatosRecividos,0,sizeof(char)*1000);
 			socketComunicacion->receive(pDatosRecividos);
 			msj = pDatosRecividos;
-			
-			//TODO hacer que si llega "cliente 1" setee x e y en el pad1 lo mismo para el dos,
-			//hay que cambiar en el sender de cliente.
+								
 			if(msj.find("QUIT")==0){
 				quitarCliente(todosLosClientes);
 				juegoNuevo->setJuegoCancelado(true);
 				enviarAtodos(this->todosLosClientes,"STRING FINJUEGO");
 				seguirCiclando = 0;
 			}
-			if(msj.find(" ")==0)
+			else if(msj.find("PAD1")==0)
 			{
-				string pPosicion = msj.substr(0, msj.find(" "));
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				juegoNuevo->getEscenario()->getPadCliente1()->setX(atoi(pPosicion.c_str()));
-				pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+				enviarAtodos(this->todosLosClientes,"STRING "+msj);
 			}
-			msj = "PAD "+ msj;
-			std::cout<<msj<<endl;
+			else if(msj.find("PAD2")==0)
+			{
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				juegoNuevo->getEscenario()->getPadCliente2()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+				enviarAtodos(this->todosLosClientes,"STRING "+msj);
+				
+			}
+			
+			
 
 			
 

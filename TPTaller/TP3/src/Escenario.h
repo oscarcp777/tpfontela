@@ -66,7 +66,7 @@ class Escenario {
     void setPosicionInicialTejo(Posicion *posicionInicialTejo);
     int iniciarSDL();
 	//void setNumJugador(int num);
-	//int getNumJugador();
+	int getNumJugador();
 	Pad* getPadJugador();
 	void setPadJugador(int jugador);
 protected:

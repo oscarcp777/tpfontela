@@ -462,10 +462,10 @@ Tejo* Escenario::getTejo(){
 /*void Escenario::setNumJugador(int num){
 	this->numJugador = num;
 }
-
+*/
 int Escenario::getNumJugador(){
 	return this->numJugador;
-}*/
+}
 
 Pad* Escenario::getPadJugador(){
 		return this->padJugador;
@@ -473,8 +473,13 @@ Pad* Escenario::getPadJugador(){
 
 void Escenario::setPadJugador(int jugador){
 
-	if (jugador == 1)
+	if (jugador == 1){
 			this->padJugador = this->getPadCliente1();
-	else
+			this->numJugador=1;
+	}
+	else{
 			this->padJugador = this->getPadCliente2();
+			this->numJugador=2;
+
+	}
 }

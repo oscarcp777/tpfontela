@@ -36,7 +36,7 @@ void iniciarCliente(Cliente *cliente){ // Procedimiento que iniciara el socket s
 	//ingresoMensaje(pPuerto,pLeyenda);
 
 	//cliente->start(pIp, atoi(pPuerto));
-	cliente->start("localhost", 2121);
+	cliente->start("localhost", 1050);
 	
 
 }
