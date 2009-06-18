@@ -49,7 +49,7 @@ int cSender::process(void* args)
 		int posPad_Y_actual;
 		
 		while (escenario->getPadJugador()==NULL){
-			sleep(10);
+			sleep(3000);
 		}
 		posPad_Y_actual = escenario->getPadJugador()->getY();
 

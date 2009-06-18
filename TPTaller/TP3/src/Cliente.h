@@ -34,6 +34,8 @@ public:
         void clearDownloaded();
         // Detiene la ejecucion del "server proxy" (cierra el socket y joinea los threads)
         void stop();
+		void Cliente::loading(Socket* s);
+
         ~Cliente();
 
     private:

@@ -363,7 +363,7 @@ int Escenario::iniciarSDL(){
 		exit(1);
 
 	}
-	if(this->icono==NULL){
+	/*if(this->icono==NULL){
 		std::string pathIcono =this->obtenerPathTextura("icono");
 		std::cout<< "path  " << pathIcono << endl;
 		this->icono = IMG_Load(pathIcono.begin());
@@ -374,10 +374,10 @@ int Escenario::iniciarSDL(){
 		if(this->icono != NULL){
 			this->icono = Figura::ScaleSurface(this->icono,40,40);
 		}
-	}
+	}*/
 	//seteamos el titulo a la barra
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  "," Taller de Programacion Grupo Nro:3   GRAFICADOR ");
-	SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
+	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
 

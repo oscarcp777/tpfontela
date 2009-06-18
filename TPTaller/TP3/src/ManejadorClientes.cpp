@@ -69,10 +69,15 @@ int ManejadorClientes :: process(void* arg){
 	//if(this->socketComunicacion->getConexion()->usuario == 0)
 	//		loading(todosLosClientes);
 
-	if (this->socketComunicacion->getConexion()->usuario == 0)
-		asignarNumeroClientes(this->todosLosClientes);
-
+	if (this->socketComunicacion->getConexion()->usuario == 0){
+		loading(todosLosClientes);
+		sleep(3000);
+		asignarNumeroClientes(this->todosLosClientes);		
+	
+		
+	}
 	while (seguirCiclando == 1){
+		
 		if (this->socketComunicacion->getConexion()->usuario == 0){
 		//	pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 		//	ingresoMensaje(pmsjIngresado,pLeyenda);
@@ -117,13 +122,6 @@ int ManejadorClientes :: process(void* arg){
 				
 			}
 			
-			
-
-			
-
-			//enviarAtodos(this->todosLosClientes,pEnvioInt);
-
-
 
 		}
 	}
@@ -649,9 +647,16 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 
 
 	std::list<std::string> vImagenes;  //todas las imagenes a cargar
+	
+	//TODO hacer .txt por niveles, que tengan los pads de las imagenes a enviar y un metodo dodne se carguen
+	// a la lista vImagenes en la siguiente linea, en vez del harcodeo horrible este
+	vImagenes.push_back("imagenes/icono.jpg");
+	vImagenes.push_back("imagenes/bola_3d.png");
 	vImagenes.push_back("imagenes/cuadrado.jpg");
 	vImagenes.push_back("imagenes/bola.png");
-	vImagenes.push_back("imagenes/bola_3d.png");
+	vImagenes.push_back("imagenes/cancha1.jpg");	
+	
+
 	std::list<std::string>::iterator iterImagenes = vImagenes.begin();
 	char* cadena;
 	itoa(vImagenes.size(),paux1,10);
@@ -662,16 +667,18 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 			if ((*it)->running() == true){
 			((ManejadorClientes*)(*it))->enviarMensaje(pCantImagenes);
 				while (vImagenes.size()> i){
+					sleep(2000);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 					memset(pNombreImagen,0,sizeof(char)*200);
 					cadena = (char*)(*iterImagenes).data();
+					//std::cout << "cadena: " << cadena<< std::endl;
 					strcat(pNombreImagen,"STRING ");
 					strcat(pNombreImagen,cadena);
 					((ManejadorClientes*)(*it))->enviarMensaje(pNombreImagen);
+					std::cout << "pNombreImagen " << pNombreImagen<< std::endl;
 					nbytes =((ManejadorClientes*)(*it))->socketComunicacion->sendFile(cadena);
 					std::cout << "Bytes enviados: " << nbytes << std::endl;
 					iterImagenes++;
-					i++;
-					sleep(3000);
+					i++;				
 
 				}
 			i = 0;

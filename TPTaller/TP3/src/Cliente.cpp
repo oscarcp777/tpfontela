@@ -36,17 +36,20 @@ void Cliente::start(char* host, int port)
 		this->sock.connect(host, port);
 
 		status = CONNECTED;
+		
+		loading(&sock);
 
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->cargarArchivo("xml.xml");
 		escenario->iniciarSDL();
-	
-
-	
+		
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
+		
+	
+	
 		while (receiver.running() == true){
-			
+	
 
 			while (receiver.isEmpty()){
 				Sleep(20);
@@ -76,9 +79,7 @@ void Cliente::start(char* host, int port)
 					escenario->getTejo()->setX(atoi(pPosicion.c_str()));
 					pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					escenario->getTejo()->setY(atoi(pPosicion.c_str()));
-				}
-
-			
+				}		
 
 
 
@@ -180,6 +181,28 @@ void Cliente::stop()
 	status = NOT_CONNECTED;
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
+
+}
+
+void Cliente::loading(Socket* s){
+	int i=0;
+	int nbytes;
+	int numImagenes;
+	char nombreImagen[200];
+	char* pNombreImagen = nombreImagen;
+
+	recibir(s->getConexion(), &numImagenes);
+	std::cout << "numImagenes: " << numImagenes << std::endl;
+
+	while(i<numImagenes){
+		memset(pNombreImagen,0,sizeof(char)*200);
+		recibir(s->getConexion(), pNombreImagen);
+		std::cout << "NombreImagen: "<< pNombreImagen << std::endl;
+		nbytes = s->receiveFile(pNombreImagen);
+		std::cout << "nbytes "<< nbytes<< std::endl;
+		i++;
+
+	}
 
 }
 
