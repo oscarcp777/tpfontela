@@ -128,10 +128,17 @@ void Juego::update(){
 					    Sleep(1000);
 						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
 						this->decrementarTejosRestantes();
-						if(this->getTejosRestantes() < 0){
+						if(this->getTejosRestantes() == 0){
 							//si no quedan tejos por jugar en el nivel, el nivel esta terminado y se pasa al siguiente
 							this->estado="NIVEL_TERMINADO";
 							this->incrementarNivel();
+							
+							/*
+							if(this->numeroNivel == CANT_NIVELES){
+								//aca se setea en estado= JUEGO_TERMINADO cuando se terminaron todos los niveles, por ahora el juego termina con NIVEL_TERMINADO
+							}
+							*/
+
 							//como termina el nivel se incrementan (en 70) los puntos del jugador que gano el nivel (el que hizo mas goles)
 							if(this->escenario->getPadCliente1()->getCantGoles()  >  this->escenario->getPadCliente2()->getCantGoles()){
 								this->escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(this->escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador()+70);

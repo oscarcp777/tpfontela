@@ -59,7 +59,7 @@ void ManejadorClientes::puntajes(char* pPuntajes){
 
 
 	memset(paux1,0,sizeof(char)*20);
-	memset(paux1,0,sizeof(char)*20);
+	memset(paux2,0,sizeof(char)*20);
 	memset(pPuntajes,0,sizeof(char)*40);
 	strcat(pPuntajes,"STRING PUNTAJE ");
 	itoa(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),paux1,10);
@@ -69,6 +69,23 @@ void ManejadorClientes::puntajes(char* pPuntajes){
 	strcat(pPuntajes,paux2);
 
 
+}
+
+void ManejadorClientes::ganador(char* pGanador){
+
+	char aux1[20];
+	char* paux1 = aux1;
+
+	memset(paux1,0,sizeof(char)*20);
+	memset(pGanador,0,sizeof(char)*40);
+	strcat(pGanador,"STRING GANADOR ");
+	//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
+	if(juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles() > juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles())
+		itoa(1,paux1,10);
+	else //sino concatena STRING GANADOR 2
+		itoa(2,paux1,10);
+	
+	strcat(pGanador,paux1);
 }
 
 
@@ -85,6 +102,8 @@ int ManejadorClientes :: process(void* arg){
 	char* pEnvioInt = envioInt;
 	char puntajes[40];
 	char* pPuntajes = puntajes;
+	char ganador[40];
+	char* pGanador = ganador;
 	char datosRecividos[1000];
 	char* pDatosRecividos = datosRecividos;
 	std::string msj;
@@ -113,20 +132,19 @@ int ManejadorClientes :: process(void* arg){
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 
 				if(juegoNuevo->getEstado().compare("GOL")== 0){
-					/*
-					std::cout<<"GOOOL  cantidadTejosRestantes "<< juegoNuevo->getTejosRestantes()<<endl;
-					std::cout<<"puntos jug1: "<< juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador()<<endl;
-					std::cout<<"puntos jug2: "<< juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador()<<endl;
-					std::cout<<"goles jug1: "<< juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles()<<endl;
-					std::cout<<"goles jug2: "<< juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles()<<endl;
-					*/
-					this->puntajes(pPuntajes);
+					this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2" 
 					enviarAtodos(this->todosLosClientes,pPuntajes);
+					//el estado del juego vuelve a ser "CORRIENDO"
 					juegoNuevo->setEstado("CORRIENDO");
 				}
 			}
-			else
+			else{
+				//TODO Se termino el nivel, mando un string con el ganador del juego a los clientes (porque por ahora el juego tiene un nivel)
+				this->ganador(pGanador);
+				std::cout<<pGanador<<endl;
+				enviarAtodos(this->todosLosClientes,pGanador);
 				seguirCiclando = 0;
+			}
 		}
 		else{
 			memset(pDatosRecividos,0,sizeof(char)*1000);

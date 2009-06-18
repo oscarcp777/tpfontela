@@ -85,10 +85,13 @@ void Cliente::start(char* host, int port)
 				escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
 				escenario->decrementarTejosRestantes();
 				
-				//std::cout<<"puntaje1: "<<escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador()<<endl;
-				//std::cout<<"puntaje1: "<<escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador()<<endl;
 				
-				
+			}
+			else if(msj.find("GANADOR")==0)
+			{					
+				std::cout<<msj<<endl;
+				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
+				msj = "FINJUEGO";
 			}
 
 			else if(msj.find(" "))

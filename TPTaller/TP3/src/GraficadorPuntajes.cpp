@@ -56,7 +56,7 @@ SDL_Surface* image;
 		this->imagenTejo = SDL_DisplayFormat(image);
 		  SDL_FreeSurface(image);
 	}
-	for(int i=0;i<=escenario->getTejosRestantes();i++){
+	for(int i=1;i<=escenario->getTejosRestantes()-1;i++){
 	SDL_Rect rect;
 	rect.x =i*ladoTejoPuntajes;
 	rect.y =8;
@@ -175,7 +175,7 @@ int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
 			printf("Fallo al renderizar el texto");
 			return -1;
 		}
-
+		
 		SDL_Rect rect1={ (int)(escenario->getAncho()/2)-(int)(ANCHO_PUNTAJES/2), 0, ANCHO_PUNTAJES, ALTO_PUNTAJES };
 		SDL_BlitSurface(this->textImagen,NULL,screen,&rect1);
 	
