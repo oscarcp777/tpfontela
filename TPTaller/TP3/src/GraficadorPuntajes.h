@@ -9,6 +9,7 @@
 #define GRAFICADORPUNTAJES_H_
 #include <SDL_TTF.h>
 #include <SDL.h>
+#include <string>
 #include <SDL_image.h>
 class GraficadorPuntajes {
 public:
@@ -19,6 +20,7 @@ public:
 	int graficarPuntaje(SDL_Surface*screen);
 	int inicializarFuente(int puntajeJugadorIzquierda, int puntajeJugadorDerecha);
 	void decrementarCantidadTejos();
+	int graficarString(SDL_Surface*screen, std::string mensaje);
 
 protected:
 	      GraficadorPuntajes();

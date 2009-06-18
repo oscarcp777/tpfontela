@@ -15,6 +15,7 @@
 #include "Escenario.h"
 #include <iostream>				// Para cerr y endl
 #include <string>
+#include "GraficadorPuntajes.h"
 
 using namespace std;
 
@@ -90,7 +91,15 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("GANADOR")==0)
 			{					
 				std::cout<<msj<<endl;
-				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
+				string cadena;
+				if(msj.find("1")==0)
+					cadena = "GANO EL JUGADOR 1";
+				else
+					cadena = "GANO EL JUGADOR 2";
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena);
+				SDL_Flip(escenario->getScreen());
+				Sleep(3000);
+				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO 
 				msj = "FINJUEGO";
 			}
 

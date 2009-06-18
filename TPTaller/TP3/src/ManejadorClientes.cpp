@@ -134,7 +134,19 @@ int ManejadorClientes :: process(void* arg){
 				if(juegoNuevo->getEstado().compare("GOL")== 0){
 					this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2" 
 					enviarAtodos(this->todosLosClientes,pPuntajes);
-					//el estado del juego vuelve a ser "CORRIENDO"
+					
+				
+					if(juegoNuevo->getTejosRestantes() == 0){
+					//si no quedan tejos por jugar en el nivel, el nivel esta terminado y se pasa al siguiente
+						juegoNuevo->setEstado("NIVEL_TERMINADO");
+						juegoNuevo->incrementarNivel();
+							/*
+							if(this->numeroNivel == CANT_NIVELES){
+								//aca se setea en estado= JUEGO_TERMINADO cuando se terminaron todos los niveles, por ahora el juego termina con NIVEL_TERMINADO
+							}
+							*/
+					}		
+					else //si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
 					juegoNuevo->setEstado("CORRIENDO");
 				}
 			}
