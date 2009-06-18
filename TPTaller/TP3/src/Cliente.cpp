@@ -187,18 +187,18 @@ void Cliente::stop()
 void Cliente::loading(Socket* s){
 	int i=0;
 	int nbytes;
-	int numImagenes;
-	char nombreImagen[200];
-	char* pNombreImagen = nombreImagen;
+	int numArchivos;
+	char nombreArchivo[200];
+	char* pNombreArchivo = nombreArchivo;
 
-	recibir(s->getConexion(), &numImagenes);
-	std::cout << "numImagenes: " << numImagenes << std::endl;
+	recibir(s->getConexion(), &numArchivos);
+	std::cout << "numArchivos: " << numArchivos << std::endl;
 
-	while(i<numImagenes){
-		memset(pNombreImagen,0,sizeof(char)*200);
-		recibir(s->getConexion(), pNombreImagen);
-		std::cout << "NombreImagen: "<< pNombreImagen << std::endl;
-		nbytes = s->receiveFile(pNombreImagen);
+	while(i<numArchivos){
+		memset(pNombreArchivo,0,sizeof(char)*200);
+		recibir(s->getConexion(), pNombreArchivo);
+		std::cout << "NombreArchivo: "<< pNombreArchivo << std::endl;
+		nbytes = s->receiveFile(pNombreArchivo);
 		std::cout << "nbytes "<< nbytes<< std::endl;
 		i++;
 
