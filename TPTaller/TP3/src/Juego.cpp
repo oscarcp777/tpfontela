@@ -58,7 +58,6 @@ void Juego::setEscenario(Escenario* escenario){
 
 }
 
-
 int Juego::getNumeroNivel(){
 
 	return this->numeroNivel;
