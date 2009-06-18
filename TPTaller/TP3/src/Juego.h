@@ -31,6 +31,7 @@ public:
 	void setJuegoCancelado(bool cancelado);
 	void update();
     std::string getEstado();
+	void setEstado(std::string estado);
 
 protected:
 	Juego();

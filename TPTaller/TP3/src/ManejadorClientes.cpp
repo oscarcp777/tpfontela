@@ -88,7 +88,14 @@ int ManejadorClientes :: process(void* arg){
 				sleep(200);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
-				
+
+				if(juegoNuevo->getEstado().compare("GOL")== 0){
+					std::cout<<"GOOOL  cantidadTejosRestantes "<< juegoNuevo->getTejosRestantes()<<endl;
+					std::cout<<"puntos jug1: "<< juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador()<<endl;
+					std::cout<<"puntos jug2: "<< juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador()<<endl;
+					//TODO envio puntajes a los clientes, envio cantidad tejos restantes
+					juegoNuevo->setEstado("CORRIENDO");
+				}
 			}
 			else
 				seguirCiclando = 0;

@@ -22,6 +22,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->puntaje = puntaje;
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
 
+
 }
 int Pad::getVelocidad()
     {

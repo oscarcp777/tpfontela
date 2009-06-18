@@ -16,7 +16,6 @@ public:
 	Puntaje();
 	int getCantPuntosJugador();
 	void setCantPuntosJugador(int cantPuntos);
-	int Puntaje::getPuntajeTotal();
 	virtual ~Puntaje();
 private:
 	int cantPuntosJugador;

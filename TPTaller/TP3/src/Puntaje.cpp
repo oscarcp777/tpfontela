@@ -11,6 +11,7 @@
 Puntaje::Puntaje()
 {
 	this->cantPuntosJugador=0;
+
 }
 
 int Puntaje::getCantPuntosJugador(){
@@ -21,9 +22,6 @@ void Puntaje::setCantPuntosJugador(int cantPuntos){
 	this->cantPuntosJugador=cantPuntos;
 }
 
-int Puntaje::getPuntajeTotal(){
-	return this->cantPuntosJugador + PUNTAJE_GANADOR_NIVEL;
-}
 
 Puntaje::~Puntaje()
 {
