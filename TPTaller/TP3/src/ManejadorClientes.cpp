@@ -50,6 +50,27 @@ void ManejadorClientes ::posicionTejo(char* pEnvioInt){
 
 }
 
+void ManejadorClientes::puntajes(char* pPuntajes){
+
+	char aux1[20];
+	char aux2[20];
+	char* paux1 = aux1;
+	char* paux2 = aux2;
+
+
+	memset(paux1,0,sizeof(char)*20);
+	memset(paux1,0,sizeof(char)*20);
+	memset(pPuntajes,0,sizeof(char)*40);
+	strcat(pPuntajes,"STRING PUNTAJE ");
+	itoa(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),paux1,10);
+	itoa(juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),paux2,10);
+	strcat(pPuntajes,paux1);
+	strcat(pPuntajes," ");
+	strcat(pPuntajes,paux2);
+
+
+}
+
 
 int ManejadorClientes :: process(void* arg){
 	seguirCiclando = 1;
@@ -62,6 +83,8 @@ int ManejadorClientes :: process(void* arg){
 	char * pLeyenda = leyenda;
 	char envioInt[40];
 	char* pEnvioInt = envioInt;
+	char puntajes[40];
+	char* pPuntajes = puntajes;
 	char datosRecividos[1000];
 	char* pDatosRecividos = datosRecividos;
 	std::string msj;
@@ -90,10 +113,15 @@ int ManejadorClientes :: process(void* arg){
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 
 				if(juegoNuevo->getEstado().compare("GOL")== 0){
+					/*
 					std::cout<<"GOOOL  cantidadTejosRestantes "<< juegoNuevo->getTejosRestantes()<<endl;
 					std::cout<<"puntos jug1: "<< juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador()<<endl;
 					std::cout<<"puntos jug2: "<< juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador()<<endl;
-					//TODO envio puntajes a los clientes, envio cantidad tejos restantes
+					std::cout<<"goles jug1: "<< juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles()<<endl;
+					std::cout<<"goles jug2: "<< juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles()<<endl;
+					*/
+					this->puntajes(pPuntajes);
+					enviarAtodos(this->todosLosClientes,pPuntajes);
 					juegoNuevo->setEstado("CORRIENDO");
 				}
 			}

@@ -55,6 +55,7 @@ void Cliente::start(char* host, int port)
 				Sleep(20);
 			}
 			msj= this->get();
+
 			if(msj.find("PAD1")==0)
 			{
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -72,8 +73,25 @@ void Cliente::start(char* host, int port)
 				
 				
 			}
-			else
-				if(msj.find(" "))
+			else if(msj.find("PUNTAJE")==0)
+			{	
+				//el cliente no se entera quien hizo el gol, cuando recibe puntajes es porque hubo un gol
+				//se setean los puntajes nuevos y se decrementa la cantidad de tejos restantes (esto es solo para graficar los "tejitos" en pantalla
+				string cadena,puntaje;
+				cadena = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				puntaje = cadena.substr(0,cadena.find_last_of(" "));
+				escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));				
+				puntaje = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
+				escenario->decrementarTejosRestantes();
+				
+				//std::cout<<"puntaje1: "<<escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador()<<endl;
+				//std::cout<<"puntaje1: "<<escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador()<<endl;
+				
+				
+			}
+
+			else if(msj.find(" "))
 				{
 					string pPosicion = msj.substr(0, msj.find(" "));
 					escenario->getTejo()->setX(atoi(pPosicion.c_str()));

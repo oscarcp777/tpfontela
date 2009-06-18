@@ -13,8 +13,7 @@ GraficadorPuntajes* GraficadorPuntajes::unicaInstancia = NULL;
 
 GraficadorPuntajes::GraficadorPuntajes() {
 	this->imagenTejo=NULL;
-	this->textImagen=NULL;
-	this->contadorDeTejos=7;
+	this->textImagen=NULL;	
 	
 }
 GraficadorPuntajes* GraficadorPuntajes::obtenerInstancia(){
@@ -57,10 +56,7 @@ SDL_Surface* image;
 		this->imagenTejo = SDL_DisplayFormat(image);
 		  SDL_FreeSurface(image);
 	}
-	if(this->contadorDeTejos==-1){
-		this->contadorDeTejos=7;
-	}
-	for(int i=0;i<=this->contadorDeTejos;i++){
+	for(int i=0;i<=escenario->getTejosRestantes();i++){
 	SDL_Rect rect;
 	rect.x =i*ladoTejoPuntajes;
 	rect.y =8;
@@ -162,20 +158,20 @@ int GraficadorPuntajes::inicializarFuente(int puntajeJugadorIzquierda, int punta
 
 int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
 		
-		SDL_Surface* textImg;
+		
 		Escenario* escenario = Escenario::obtenerInstancia();
 		SDL_Color color= {0, 0, 0, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
 
 		std::string puntaje,puntajeJugador;
-		IntToString(escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
-		puntaje+=puntajeJugador;
 		IntToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
+		puntaje+=puntajeJugador;
+		IntToString(escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
 		puntaje+='-';
 		puntaje+=puntajeJugador;
-
-		textImg=TTF_RenderText_Blended(this->fuente,puntaje.c_str(), color);
 		
-		if(textImg == NULL) {
+		this->textImagen=TTF_RenderText_Blended(this->fuente,puntaje.c_str(), color);
+		
+		if(this->textImagen == NULL) {
 			printf("Fallo al renderizar el texto");
 			return -1;
 		}
@@ -187,7 +183,3 @@ int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
 	return 0;
 }
 
-void GraficadorPuntajes::decrementarCantidadTejos(){
-	this->contadorDeTejos--;
-
-}

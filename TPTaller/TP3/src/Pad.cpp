@@ -20,6 +20,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->fondoPad=NULL;
 	this->rectangulo=rectangulo;
 	this->puntaje = puntaje;
+	this->cantGoles = 0;
 	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
 
 

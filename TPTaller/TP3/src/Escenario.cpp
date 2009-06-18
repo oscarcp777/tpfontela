@@ -45,6 +45,7 @@ Escenario::Escenario(){
 	Textura* icono = new Textura("icono", linea);
 	//
 	this->addTextura(icono);
+	this->tejosRestantes = 7;
 }
 
 Validador*  Escenario::getValidador(){
@@ -482,4 +483,12 @@ void Escenario::setPadJugador(int jugador){
 			this->numJugador=2;
 
 	}
+}
+
+int Escenario::getTejosRestantes(){
+	return this->tejosRestantes;
+}
+
+void Escenario::decrementarTejosRestantes(){
+	this->tejosRestantes--;
 }

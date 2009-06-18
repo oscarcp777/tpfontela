@@ -24,7 +24,7 @@ protected:
 	      GraficadorPuntajes();
 
 private:
-	    int contadorDeTejos;
+	    
 	    static GraficadorPuntajes *unicaInstancia;
 		SDL_Surface* textImagen;
 		SDL_Surface *imagenTejo;

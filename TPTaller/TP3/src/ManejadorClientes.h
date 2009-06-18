@@ -36,6 +36,7 @@ public:
 		void pararTodos(std::list<Thread*>& clientes);
 		void quitarCliente(std::list<Thread*>& clientes);
 		void posicionTejo(char* pEnvioInt);
+		void puntajes(char* pPuntajes);
 
         Socket* socketServidor;
 		Socket* socketComunicacion;

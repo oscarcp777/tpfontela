@@ -69,6 +69,8 @@ class Escenario {
 	int getNumJugador();
 	Pad* getPadJugador();
 	void setPadJugador(int jugador);
+	int getTejosRestantes();
+	void decrementarTejosRestantes();
 protected:
 		Escenario();
 
@@ -98,6 +100,7 @@ protected:
 		Posicion* posicionInicialTejo;
 		int numJugador;
 		Pad* padJugador;
+		int tejosRestantes;
 };
 
 #endif
