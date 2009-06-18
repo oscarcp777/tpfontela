@@ -419,7 +419,7 @@ int Escenario::graficar(){
 		this->getPadCliente1()->dibujar(this->screen);
 		this->getPadCliente2()->dibujar(this->screen);	    
 		
-		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
+		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();		
 		graficadorPuntajes->graficarPuntaje(this->getScreen());
 		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen());
 		

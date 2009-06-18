@@ -110,8 +110,7 @@ void Juego::update(){
 					this->escenario->getTejo()->setY(this->escenario->getAlto()/2);
 					this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
 					this->escenario->getTejo()->getDireccion()->setFi(PI/4);
-					this->estado="GOL";
-					GraficadorPuntajes::obtenerInstancia()->inicializarFuente(this->escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),this->escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador());
+					this->estado="GOL";					
 					GraficadorPuntajes::obtenerInstancia()->decrementarCantidadTejos();
 
 

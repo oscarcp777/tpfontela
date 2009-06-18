@@ -21,6 +21,7 @@ GraficadorPuntajes* GraficadorPuntajes::obtenerInstancia(){
 
 	if(!GraficadorPuntajes::unicaInstancia){
 		GraficadorPuntajes::unicaInstancia = new GraficadorPuntajes();
+		unicaInstancia->inicializarFuente(0,0);
 	}
 
 	return GraficadorPuntajes::unicaInstancia;
@@ -160,9 +161,25 @@ int GraficadorPuntajes::inicializarFuente(int puntajeJugadorIzquierda, int punta
 }
 
 int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
-	
-		Escenario* escenario = Escenario::obtenerInstancia();	
-	
+		
+		SDL_Surface* textImg;
+		Escenario* escenario = Escenario::obtenerInstancia();
+		SDL_Color color= {0, 0, 0, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
+
+		std::string puntaje,puntajeJugador;
+		IntToString(escenario->getPadCliente1()->getPuntaje()->getPuntajeTotal(),puntajeJugador);
+		puntaje+=puntajeJugador;
+		IntToString(escenario->getPadCliente2()->getPuntaje()->getPuntajeTotal(),puntajeJugador);
+		puntaje+='-';
+		puntaje+=puntajeJugador;
+
+		textImg=TTF_RenderText_Blended(this->fuente,puntaje.c_str(), color);
+		
+		if(textImg == NULL) {
+			printf("Fallo al renderizar el texto");
+			return -1;
+		}
+
 		SDL_Rect rect1={ (int)(escenario->getAncho()/2)-(int)(ANCHO_PUNTAJES/2), 0, ANCHO_PUNTAJES, ALTO_PUNTAJES };
 		SDL_BlitSurface(this->textImagen,NULL,screen,&rect1);
 	
