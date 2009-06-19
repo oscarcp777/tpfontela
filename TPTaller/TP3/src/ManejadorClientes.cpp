@@ -6,7 +6,7 @@
  */
 
 #include "ManejadorClientes.h"
-
+#include "archivoTexto.h"
 
 ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
 			std::list<Thread*>& clientes):
@@ -112,7 +112,9 @@ int ManejadorClientes :: process(void* arg){
 	//		loading(todosLosClientes);
 
 	if (this->socketComunicacion->getConexion()->usuario == 0){
-		//loading(todosLosClientes);
+
+		loading(todosLosClientes, juegoNuevo->getNumeroNivel());
+		
 		sleep(3000);
 		asignarNumeroClientes(this->todosLosClientes);		
 	
@@ -123,13 +125,16 @@ int ManejadorClientes :: process(void* arg){
 		if (this->socketComunicacion->getConexion()->usuario == 0){
 		//	pLeyenda = "INGRESE MENSAJE: (para salir QUIT)";
 		//	ingresoMensaje(pmsjIngresado,pLeyenda);
+			
 			if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0){
 				juegoNuevo->update();
 
-				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(500);
-				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+				 //se forma la cadena "INT posX posY" con las posiciones del tejo
+				sleep(40);
+				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+					this->posicionTejo(pEnvioInt);
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
+				}
 
 				else if(juegoNuevo->getEstado().compare("GOL")== 0){
 					this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2" 
@@ -696,7 +701,7 @@ int ManejadorClientes :: process(void* arg){
 }
 
 //Envia los recursos necesarios a los clientes
-void ManejadorClientes::loading(std::list<Thread*>& clientes){
+void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
 
 	int nbytes;
 	int i = 0;
@@ -708,25 +713,49 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 	char *pNombreArchivo = nombreArchivo;
 	memset(paux1,0,sizeof(char)*20);
 	memset(pCantArchivos,0,sizeof(char)*20);
-
+	
 
 	std::list<std::string> listaArchivos;  //todas las imagenes a cargar
+	string linea = " ";
+	string nivel;
+
+	
+	char num[20];
+	char* pNum = num;
+	
+	memset(pNum,0,sizeof(char)*20);	
+	nivel = "Nivel 1.txt";
+	/*
+	itoa(numeroNivel,pNum,10);
+	strcat((char*)nivel.c_str(),pNum);
+	
+	std::cout<<nivel<<endl;
+
+	*/
+	ArchivoTexto archivoNivel(nivel);	
+	archivoNivel.leerLinea(linea);
+
+	while(linea.compare("FIN") != 0){
+		std::cout<<linea<<endl;
+		listaArchivos.push_back(linea);
+		archivoNivel.leerLinea(linea);
+	}	
+
 	
 	//TODO hacer .txt por niveles, que tengan los pads de las imagenes a enviar y un metodo dodne se carguen
 	// a la lista vImagenes en la siguiente linea, en vez del harcodeo horrible este
-	listaArchivos.push_back("xml.xml");
-	listaArchivos.push_back("imagenes/icono.jpg");
-	listaArchivos.push_back("imagenes/bola_3d.png");
-	listaArchivos.push_back("imagenes/cuadrado.jpg");
-	listaArchivos.push_back("imagenes/bola.png");
-	listaArchivos.push_back("imagenes/cancha1.jpg");	
+//	listaArchivos.push_back("xml.xml");
+//	listaArchivos.push_back("imagenes/icono.jpg");
+//	listaArchivos.push_back("imagenes/bola_3d.png");
+//	listaArchivos.push_back("imagenes/cuadrado.jpg");
+//	listaArchivos.push_back("imagenes/bola.png");
+//	listaArchivos.push_back("imagenes/cancha1.jpg");	
 	
 
 	std::list<std::string>::iterator iterArchivos = listaArchivos.begin();
 
 	char* cadena;
 	itoa(listaArchivos.size(),paux1,10);
-	strcat(pCantArchivos,"INT ");
 	strcat(pCantArchivos,paux1);
 	for (std::list<Thread*>::iterator it = this->todosLosClientes.begin();
 			it!= this->todosLosClientes.end(); ++it){
