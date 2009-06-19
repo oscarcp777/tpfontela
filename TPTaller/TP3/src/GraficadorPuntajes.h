@@ -20,7 +20,7 @@ public:
 	int graficarPuntaje(SDL_Surface*screen);
 	int inicializarFuente(int puntajeJugadorIzquierda, int puntajeJugadorDerecha);
 	void decrementarCantidadTejos();
-	int graficarString(SDL_Surface*screen, std::string mensaje);
+	int graficarString(SDL_Surface*screen, std::string mensaje,int posX, int posY);
 
 protected:
 	      GraficadorPuntajes();

@@ -38,11 +38,16 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 		
+		Escenario* escenario = Escenario::obtenerInstancia();
+		escenario->iniciarSDL();
+		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
+		SDL_Flip(escenario->getScreen());
+
 		loading(&sock);
 
-		Escenario* escenario = Escenario::obtenerInstancia();
+	
 		escenario->cargarArchivo("xml.xml");
-		escenario->iniciarSDL();
+	
 		
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
@@ -90,13 +95,12 @@ void Cliente::start(char* host, int port)
 			}
 			else if(msj.find("GANADOR")==0)
 			{					
-				std::cout<<msj<<endl;
 				string cadena;
 				if(msj.find("1")==0)
 					cadena = "GANO EL JUGADOR 1";
 				else
 					cadena = "GANO EL JUGADOR 2";
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena);
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,50,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO 

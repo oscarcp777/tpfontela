@@ -127,7 +127,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(200);
+				sleep(300);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 
@@ -153,7 +153,6 @@ int ManejadorClientes :: process(void* arg){
 			else{
 				//TODO Se termino el nivel, mando un string con el ganador del juego a los clientes (porque por ahora el juego tiene un nivel)
 				this->ganador(pGanador);
-				std::cout<<pGanador<<endl;
 				enviarAtodos(this->todosLosClientes,pGanador);
 				seguirCiclando = 0;
 			}

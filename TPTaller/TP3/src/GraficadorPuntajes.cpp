@@ -183,10 +183,10 @@ int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
 	return 0;
 }
 
-int GraficadorPuntajes::graficarString(SDL_Surface*screen, std::string mensaje){
+int GraficadorPuntajes::graficarString(SDL_Surface*screen, std::string mensaje, int posX, int posY){
 		
 		Escenario* escenario = Escenario::obtenerInstancia();
-		SDL_Color color= {0, 0, 0, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
+		SDL_Color color= {0, 100, 155, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
 		SDL_Surface* textImg;
 		textImg=TTF_RenderText_Blended(this->fuente,mensaje.c_str(), color);
 		
@@ -196,8 +196,8 @@ int GraficadorPuntajes::graficarString(SDL_Surface*screen, std::string mensaje){
 		}
 		
 		SDL_Rect rect;
-		rect.x = 50;
-		rect.y = (int)escenario->getAlto()/3;		
+		rect.x = posX;
+		rect.y = posY;
 		SDL_BlitSurface(textImg,NULL,screen,&rect);
 	
 

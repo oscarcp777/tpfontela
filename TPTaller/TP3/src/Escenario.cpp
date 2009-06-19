@@ -381,7 +381,7 @@ int Escenario::iniciarSDL(){
 	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
-
+	
 	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();
