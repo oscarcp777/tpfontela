@@ -10,12 +10,12 @@
 #include "cSender.h"			// Para el thread que envia al server
 #include "cReceiver.h"			// Para el thread que recibe del server
 //#include "cInstruction.h"		// Para parsear las instrucciones
-#include "Defines.h"				// Para las constantes CONNECTED, etc
 #include "cSocketException.h"	// Para las excepciones de sockets
 #include "Escenario.h"
 #include <iostream>				// Para cerr y endl
 #include <string>
 #include "GraficadorPuntajes.h"
+#include "Define.h"
 
 using namespace std;
 

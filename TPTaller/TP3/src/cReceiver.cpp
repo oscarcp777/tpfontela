@@ -4,7 +4,7 @@
 //#include "cSafeQueue.h"			// Para el manejo de la cola thread safe
 //#include "cMutex.h"				// Para el mutex de downloaded y filesize
 //#include "cLockableGuard.h"		// Para la guarda del mutex
-#include "Defines.h"				// Para las constantes CONNECTED etc
+#include "Define.h"				// Para las constantes CONNECTED etc
 #include <iostream>				// Para cerr y endl
 #include <string>				// Para el manejo de strings
 #include <fstream>				// Para filemap y filetxt

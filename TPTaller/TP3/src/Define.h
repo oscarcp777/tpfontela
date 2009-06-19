@@ -1,5 +1,12 @@
 #ifndef _DEFINE_H_
 #define _DEFINE_H_
+
+
+#define NOT_CONNECTED 0
+#define CONNECTED 1
+#define NO_HOST 2
+
+
 #define PI 3.141592653
 #define NUMERO_PEQUENIO 0.0000001
 #define SIN_VALOR "sinValor"

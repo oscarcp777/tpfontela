@@ -1,7 +1,7 @@
 #include "cSender.h"
 #include "Socket.h"		
 #include "cSocketException.h"	
-#include "Defines.h"			
+#include "Define.h"			
 #include <iostream>				
 #include <string>				
 #include <windows.h>			

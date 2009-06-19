@@ -7,6 +7,7 @@
 
 #include "Recta.h"
 #include<math.h>
+#include "Define.h"
 Recta::Recta(){
 
 }
