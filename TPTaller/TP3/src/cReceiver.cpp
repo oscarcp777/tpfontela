@@ -72,7 +72,7 @@ int cReceiver::process(void* args){
 			{
 				std::cerr << e.what() << endl;
 			}
-			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
 			msg = pmensRecive;
 			received.push(msg);
 

@@ -107,8 +107,7 @@ void Cliente::start(char* host, int port)
 				msj = "FINJUEGO";
 			}
 
-			else if(msj.find(" "))
-				{
+			else{
 					string pPosicion = msj.substr(0, msj.find(" "));
 					escenario->getTejo()->setX(atoi(pPosicion.c_str()));
 					pPosicion = msj.substr(msj.find(" ")+1,msj.size());

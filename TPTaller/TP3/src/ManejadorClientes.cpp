@@ -127,11 +127,11 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				posicionTejo(pEnvioInt); //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(300);
+				sleep(500);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0) //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
 
-				if(juegoNuevo->getEstado().compare("GOL")== 0){
+				else if(juegoNuevo->getEstado().compare("GOL")== 0){
 					this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2" 
 					enviarAtodos(this->todosLosClientes,pPuntajes);
 					
@@ -733,7 +733,7 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 			if ((*it)->running() == true){
 			((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
 				while (listaArchivos.size()> i){
-					sleep(500);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+					sleep(400);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 					memset(pNombreArchivo,0,sizeof(char)*200);
 					cadena = (char*)(*iterArchivos).data();
 					//std::cout << "cadena: " << cadena<< std::endl;
