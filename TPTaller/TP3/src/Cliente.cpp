@@ -46,7 +46,7 @@ void Cliente::start(char* host, int port)
 		loading(&sock);
 
 
-		escenario->cargarArchivo("xml.xml");
+		escenario->cargarArchivo("nivel1.xml");
 
 
 		receiver.start((void*)&sock);

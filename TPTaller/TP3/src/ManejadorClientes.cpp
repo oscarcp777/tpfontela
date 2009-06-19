@@ -719,19 +719,14 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
 	string linea = " ";
 	string nivel;
 
-	
-	char num[20];
-	char* pNum = num;
-	
-	memset(pNum,0,sizeof(char)*20);	
-	nivel = "Nivel 1.txt";
-	/*
-	itoa(numeroNivel,pNum,10);
-	strcat((char*)nivel.c_str(),pNum);
-	
-	std::cout<<nivel<<endl;
 
-	*/
+	if(numeroNivel == 1)
+		nivel = "Nivel 1.txt";
+	else if(numeroNivel == 2)
+		nivel = "Nivel 2.txt";
+	else if(numeroNivel == 3)
+		nivel = "Nivel 3.txt";
+    
 	ArchivoTexto archivoNivel(nivel);	
 	archivoNivel.leerLinea(linea);
 
@@ -740,16 +735,6 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
 		listaArchivos.push_back(linea);
 		archivoNivel.leerLinea(linea);
 	}	
-
-	
-	//TODO hacer .txt por niveles, que tengan los pads de las imagenes a enviar y un metodo dodne se carguen
-	// a la lista vImagenes en la siguiente linea, en vez del harcodeo horrible este
-//	listaArchivos.push_back("xml.xml");
-//	listaArchivos.push_back("imagenes/icono.jpg");
-//	listaArchivos.push_back("imagenes/bola_3d.png");
-//	listaArchivos.push_back("imagenes/cuadrado.jpg");
-//	listaArchivos.push_back("imagenes/bola.png");
-//	listaArchivos.push_back("imagenes/cancha1.jpg");	
 	
 
 	std::list<std::string>::iterator iterArchivos = listaArchivos.begin();
