@@ -202,7 +202,7 @@ void Tejo::mover_y() {
 
 
 	this->setY(y);
-	std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
+	//std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
 }
 int Tejo::getRadio(){
 	return this->circulo->getRadio();

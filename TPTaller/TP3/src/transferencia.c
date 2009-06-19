@@ -2,7 +2,7 @@
 
 #include "transferencia.h"
 
-//#define DEBUG                       //Habilitar para debuggear, muestra printfs
+#define DEBUG                       //Habilitar para debuggear, muestra printfs
 #define PRIMER_ENVIO 15
 #define SERVIDOR 0
 #define CLIENTE 1
@@ -83,7 +83,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	int error;
 	//"192.168.16.3"
 	//"localhost"
-	host = gethostbyname("192.168.16.3");
+	host = gethostbyname("localhost");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;

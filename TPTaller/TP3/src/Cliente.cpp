@@ -43,7 +43,7 @@ void Cliente::start(char* host, int port)
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 
 
 		escenario->cargarArchivo("xml.xml");
@@ -221,16 +221,18 @@ void Cliente::stop()
 void Cliente::loading(Socket* s){
 	int i=0;
 	int nbytes;
-	int numArchivos;
+	char numArch[5];
+	char* auxNumArch = numArch;
+	string numArchivos;
 	char nombreArchivo[200];
 	char* pNombreArchivo = nombreArchivo;
 
-	recibir(s->getConexion(), &numArchivos);
-	std::cout << "numArchivos: " << numArchivos << std::endl;
+	memset(auxNumArch,0,sizeof(char)*5);
+	s->receive(auxNumArch);
 
-	while(i<numArchivos){
+	while(i<atoi(auxNumArch)){
 		memset(pNombreArchivo,0,sizeof(char)*200);
-		recibir(s->getConexion(), pNombreArchivo);
+		s->receive(pNombreArchivo);
 		std::cout << "NombreArchivo: "<< pNombreArchivo << std::endl;
 		nbytes = s->receiveFile(pNombreArchivo);
 		std::cout << "nbytes "<< nbytes<< std::endl;
