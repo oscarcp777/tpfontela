@@ -72,6 +72,7 @@ int cReceiver::process(void* args){
 			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
 			msg = pmensRecive;
 			bufferStr += msg;
+
 			while((i=bufferStr.find("\n")) != -1){
 				msg = bufferStr.substr(0,i);
 				//std::cout<<"msg: "<<msg<<endl;
