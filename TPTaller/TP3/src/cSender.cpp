@@ -22,7 +22,7 @@ void cSender::posicionPad(char* pEnvioString){
 	memset(pauxX,0,sizeof(char)*20);
 	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioString,0,sizeof(char)*40);
-	strcat(pEnvioString,"STRING PAD");
+	strcat(pEnvioString,"PAD");
 	itoa(escenario->getNumJugador(),pauxNumJugador,10);
 	strcat(pEnvioString,pauxNumJugador);
 	itoa(escenario->getPadJugador()->getX(),pauxX,10);

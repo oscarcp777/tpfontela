@@ -40,7 +40,7 @@ void ManejadorClientes ::posicionTejo(char* pEnvioInt){
 	memset(pauxX,0,sizeof(char)*20);
 	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioInt,0,sizeof(char)*40);
-	strcat(pEnvioInt,"STRING ");
+	//strcat(pEnvioInt,"STRING ");
 	itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
 	itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
 	strcat(pEnvioInt,pauxX);
@@ -61,7 +61,7 @@ void ManejadorClientes::puntajes(char* pPuntajes){
 	memset(paux1,0,sizeof(char)*20);
 	memset(paux2,0,sizeof(char)*20);
 	memset(pPuntajes,0,sizeof(char)*40);
-	strcat(pPuntajes,"STRING PUNTAJE ");
+	strcat(pPuntajes,"PUNTAJE ");
 	itoa(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),paux1,10);
 	itoa(juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),paux2,10);
 	strcat(pPuntajes,paux1);
@@ -78,7 +78,7 @@ void ManejadorClientes::ganador(char* pGanador){
 
 	memset(paux1,0,sizeof(char)*20);
 	memset(pGanador,0,sizeof(char)*40);
-	strcat(pGanador,"STRING GANADOR ");
+	strcat(pGanador,"GANADOR ");
 	//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
 	if(juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles() > juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles())
 		itoa(1,paux1,10);
@@ -112,7 +112,7 @@ int ManejadorClientes :: process(void* arg){
 	//		loading(todosLosClientes);
 
 	if (this->socketComunicacion->getConexion()->usuario == 0){
-		loading(todosLosClientes);
+		//loading(todosLosClientes);
 		sleep(3000);
 		asignarNumeroClientes(this->todosLosClientes);		
 	
@@ -165,7 +165,7 @@ int ManejadorClientes :: process(void* arg){
 			if(msj.find("QUIT")==0){
 				quitarCliente(todosLosClientes);
 				juegoNuevo->setJuegoCancelado(true);
-				enviarAtodos(this->todosLosClientes,"STRING FINJUEGO");
+				enviarAtodos(this->todosLosClientes,"FINJUEGO");
 				seguirCiclando = 0;
 			}
 			else if(msj.find("PAD1")==0)
@@ -174,7 +174,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->getEscenario()->getPadCliente1()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-				enviarAtodos(this->todosLosClientes,"STRING "+msj);
+				enviarAtodos(this->todosLosClientes,msj);
 			}
 			else if(msj.find("PAD2")==0)
 			{
@@ -182,7 +182,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->getEscenario()->getPadCliente2()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-				enviarAtodos(this->todosLosClientes,"STRING "+msj);
+				enviarAtodos(this->todosLosClientes,msj);
 				
 			}
 			
@@ -737,7 +737,7 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes){
 					memset(pNombreArchivo,0,sizeof(char)*200);
 					cadena = (char*)(*iterArchivos).data();
 					//std::cout << "cadena: " << cadena<< std::endl;
-					strcat(pNombreArchivo,"STRING ");
+					//strcat(pNombreArchivo,"STRING ");
 					strcat(pNombreArchivo,cadena);
 					((ManejadorClientes*)(*it))->enviarMensaje(pNombreArchivo);
 					std::cout << "Nombre Archivo " << pNombreArchivo<< std::endl;
@@ -771,8 +771,8 @@ void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 }
 
 void ManejadorClientes::asignarNumeroClientes(std::list<Thread*>& clientes){
-	std::string numeroCliente1 = "STRING 1";
-	std::string numeroCliente2 = "STRING 2";
+	std::string numeroCliente1 = "1";
+	std::string numeroCliente2 = "2";
 	int i=1;
 	for (std::list<Thread*>::iterator it = clientes.begin();
 		it!= clientes.end(); ++it){

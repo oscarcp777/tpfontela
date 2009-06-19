@@ -37,25 +37,25 @@ void Cliente::start(char* host, int port)
 		this->sock.connect(host, port);
 
 		status = CONNECTED;
-		
+
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+		//loading(&sock);
 
-	
+
 		escenario->cargarArchivo("xml.xml");
-	
-		
+
+
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
-		
-	
-	
+
+
+
 		while (receiver.running() == true){
-	
+
 
 			while (receiver.isEmpty()){
 				Sleep(20);
@@ -68,7 +68,7 @@ void Cliente::start(char* host, int port)
 				escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-				
+
 			}
 			else if(msj.find("PAD2")==0)
 			{
@@ -76,25 +76,25 @@ void Cliente::start(char* host, int port)
 				escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-				
-				
+
+
 			}
 			else if(msj.find("PUNTAJE")==0)
-			{	
+			{
 				//el cliente no se entera quien hizo el gol, cuando recibe puntajes es porque hubo un gol
 				//se setean los puntajes nuevos y se decrementa la cantidad de tejos restantes (esto es solo para graficar los "tejitos" en pantalla
 				string cadena,puntaje;
 				cadena = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				puntaje = cadena.substr(0,cadena.find_last_of(" "));
-				escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));				
+				escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
 				puntaje = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
 				escenario->decrementarTejosRestantes();
-				
-				
+
+
 			}
 			else if(msj.find("GANADOR")==0)
-			{					
+			{
 				string cadena;
 				if(msj.find("1")==0)
 					cadena = "GANO EL JUGADOR 1";
@@ -103,21 +103,22 @@ void Cliente::start(char* host, int port)
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,50,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
-				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO 
+				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
+
 
 			else{
 					string pPosicion = msj.substr(0, msj.find(" "));
 					escenario->getTejo()->setX(atoi(pPosicion.c_str()));
 					pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					escenario->getTejo()->setY(atoi(pPosicion.c_str()));
-				}		
+				}
 
 
 
 			if(escenario->graficar()<0 || msj.find("FINJUEGO")==0){
-				this->sock.send("STRING QUIT");	
+				this->sock.send("STRING QUIT");
 				this->stop();
 			}
 		}

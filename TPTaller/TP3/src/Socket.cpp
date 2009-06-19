@@ -7,8 +7,8 @@
 
 #include "Socket.h"
 #include "cSocketException.h"
-#include <iostream> 
-#include <fstream> 
+#include <iostream>
+#include <fstream>
 
 #define BLOCK 1024
 
@@ -82,63 +82,63 @@ void Socket::listen(unsigned int port)
 
 int Socket::receiveFile(const char *path)
 {
-	
-	#define BLOCK 1024 
-	int size, ofs, nbytes = 0, block = BLOCK; 
-	char pbuf[BLOCK]; 
 
-    std::ofstream os(path, std::ios::binary); 
+	#define BLOCK 1024
+	int size, ofs, nbytes = 0, block = BLOCK;
+	char pbuf[BLOCK];
 
-    recv(sockDesc, reinterpret_cast<char*>(&size), sizeof size, 0); 
+    std::ofstream os(path, std::ios::binary);
 
-    for(ofs = 0; block == BLOCK; ofs += BLOCK) 
-    { 
+    recv(sockDesc, reinterpret_cast<char*>(&size), sizeof size, 0);
 
-        if(size - ofs < BLOCK) block = size - ofs; 
+    for(ofs = 0; block == BLOCK; ofs += BLOCK)
+    {
 
-        nbytes += recv(sockDesc, pbuf, block, 0); 
+        if(size - ofs < BLOCK) block = size - ofs;
 
-        os.write(pbuf, block); 
-    } 
+        nbytes += recv(sockDesc, pbuf, block, 0);
 
-    os.close(); 
+        os.write(pbuf, block);
+    }
 
-	return nbytes; 
- 
+    os.close();
+
+	return nbytes;
+
 
 }
 
 int Socket::sendFile(const char *path)
 {
- 
-	std::ifstream is; 
-	char pbuf[BLOCK]; 
-	int size, ofs, nbytes = 0, block = BLOCK; 
+
+	std::ifstream is;
+	char pbuf[BLOCK];
+	int size, ofs, nbytes = 0, block = BLOCK;
 
 
-    is.open (path, std::ios::binary ); 
+    is.open (path, std::ios::binary );
 
-    is.seekg (0, std::ios::end); 
-    size = is.tellg(); 
-    is.seekg (0, std::ios::beg); 
+    is.seekg (0, std::ios::end);
+    size = is.tellg();
+    is.seekg (0, std::ios::beg);
 
-    ::send(sockDesc, reinterpret_cast<char*>(&size), sizeof size , 0); 
+    ::send(sockDesc, reinterpret_cast<char*>(&size), sizeof size , 0);
 
-    for(ofs = 0; block == BLOCK; ofs += BLOCK) 
-    { 
+    for(ofs = 0; block == BLOCK; ofs += BLOCK)
+    {
 
-        if(size - ofs < BLOCK) block = size - ofs; 
+        if(size - ofs < BLOCK) block = size - ofs;
 
-            is.read(pbuf, block); 
+            is.read(pbuf, block);
 
-			nbytes += ::send(sockDesc, pbuf, block, 0); 
+			nbytes += ::send(sockDesc, pbuf, block, 0);
 
-    } 
+    }
 
-    is.close(); 
+    is.close();
 
-	return nbytes; 
-} 
+	return nbytes;
+}
 
 	//    if (::send(sockDesc, (raw_type*)stream, size, 0)==-1)
 //    {
@@ -148,11 +148,11 @@ int Socket::sendFile(const char *path)
 
 void Socket::send(char* stream)
 {
-
-	if (enviar(&(this->conexion),stream)<0)
+	::send(this->sockDesc,stream,sizeof(char)*strlen((char*)stream),0);
+	/*if (enviar(&(this->conexion),stream)<0)
 	{
 		 throw cSocketException("Error en send()");
-	}
+	}*/
 }
 
 int Socket::receive(void* dato)
@@ -161,11 +161,12 @@ int Socket::receive(void* dato)
 	//char mensaje[1000];
 	//char* pMensaje = mensaje;
 	//memset(pMensaje,0,sizeof(char)*1000);
-	ret = recibir(&(this->conexion), dato);
+    ret = ::recv(this->sockDesc,(char*)dato,sizeof(char)*100,0);
+	//ret = recibir(&(this->conexion), dato);
     if (ret < 0)
 		throw cSocketException("Error en recv()");
     initialized = false;
-		
+
 
 	//memcpy(stream,dato,strlen((char*)dato)+1);
 //    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
