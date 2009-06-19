@@ -25,7 +25,7 @@ public:
     void send(char *stream);
 	int sendFile(const char *path);
 	int receiveFile(const char *path);
-    int receive(void* dato);
+    int receive(void* dato,int size);
     void shutdown();
     void close();
     virtual ~Socket();

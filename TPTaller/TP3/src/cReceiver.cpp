@@ -28,7 +28,7 @@ cReceiver::cReceiver():status(NOT_CONNECTED),filesize(1),downloaded(0)
 
 int cReceiver::process(void* args){
 
-	char mensRecive[1000];
+	char mensRecive[30];
 	char* pmensRecive;
 	char posicion[100000];
 	char* pPosicion;
@@ -51,7 +51,7 @@ int cReceiver::process(void* args){
 		
 		//recibo numero de jugador
 		memset(pNumJugador,0,sizeof(char)*400);
-		sock->receive(pNumJugador);
+		sock->receive(pNumJugador,400);
 		//recibir(sock->getConexion(), pNumJugador);
 		
 		std::cout<<"NUMERO DE JUGADOR "<<pNumJugador<<endl;		
@@ -62,12 +62,12 @@ int cReceiver::process(void* args){
 	
 		while(status==CONNECTED){
 
-			memset(pmensRecive,0,sizeof(char)*1000);
+			memset(pmensRecive,0,sizeof(char)*30);
 
 			/*if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;*/
 			try{
-			sock->receive(pmensRecive);
+			sock->receive(pmensRecive,30);
 			}catch (cSocketException &e)
 			{
 				std::cerr << e.what() << endl;

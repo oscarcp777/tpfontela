@@ -104,7 +104,7 @@ int ManejadorClientes :: process(void* arg){
 	char* pPuntajes = puntajes;
 	char ganador[40];
 	char* pGanador = ganador;
-	char datosRecividos[1000];
+	char datosRecividos[30];
 	char* pDatosRecividos = datosRecividos;
 	std::string msj;
 
@@ -115,7 +115,7 @@ int ManejadorClientes :: process(void* arg){
 
 		loading(todosLosClientes, juegoNuevo->getNumeroNivel());
 		
-		sleep(3000);
+		sleep(4000);
 		asignarNumeroClientes(this->todosLosClientes);		
 	
 		
@@ -130,7 +130,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				 //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(40);
+				sleep(300);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					this->posicionTejo(pEnvioInt);
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
@@ -163,8 +163,8 @@ int ManejadorClientes :: process(void* arg){
 			}
 		}
 		else{
-			memset(pDatosRecividos,0,sizeof(char)*1000);
-			socketComunicacion->receive(pDatosRecividos);
+			memset(pDatosRecividos,0,sizeof(char)*30);
+			socketComunicacion->receive(pDatosRecividos,30);
 			msj = pDatosRecividos;
 								
 			if(msj.find("QUIT")==0){
@@ -735,7 +735,6 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
 		listaArchivos.push_back(linea);
 		archivoNivel.leerLinea(linea);
 	}	
-	
 
 	std::list<std::string>::iterator iterArchivos = listaArchivos.begin();
 
@@ -747,11 +746,10 @@ void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
 			if ((*it)->running() == true){
 			((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
 				while (listaArchivos.size()> i){
-					sleep(400);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+					sleep(2000);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 					memset(pNombreArchivo,0,sizeof(char)*200);
 					cadena = (char*)(*iterArchivos).data();
-					//std::cout << "cadena: " << cadena<< std::endl;
-					//strcat(pNombreArchivo,"STRING ");
+					std::cout << "cadena: " << cadena<< std::endl;
 					strcat(pNombreArchivo,cadena);
 					((ManejadorClientes*)(*it))->enviarMensaje(pNombreArchivo);
 					std::cout << "Nombre Archivo " << pNombreArchivo<< std::endl;

@@ -118,7 +118,7 @@ void Cliente::start(char* host, int port)
 
 
 			if(escenario->graficar()<0 || msj.find("FINJUEGO")==0){
-				this->sock.send("STRING QUIT");
+				this->sock.send("QUIT");
 				this->stop();
 			}
 		}
@@ -228,11 +228,11 @@ void Cliente::loading(Socket* s){
 	char* pNombreArchivo = nombreArchivo;
 
 	memset(auxNumArch,0,sizeof(char)*5);
-	s->receive(auxNumArch);
+	s->receive(auxNumArch,5);
 
 	while(i<atoi(auxNumArch)){
 		memset(pNombreArchivo,0,sizeof(char)*200);
-		s->receive(pNombreArchivo);
+		s->receive(pNombreArchivo,200);
 		std::cout << "NombreArchivo: "<< pNombreArchivo << std::endl;
 		nbytes = s->receiveFile(pNombreArchivo);
 		std::cout << "nbytes "<< nbytes<< std::endl;

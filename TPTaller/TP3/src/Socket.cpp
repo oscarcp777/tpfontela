@@ -155,13 +155,13 @@ void Socket::send(char* stream)
 	}*/
 }
 
-int Socket::receive(void* dato)
+int Socket::receive(void* dato, int size)
 {
     int ret;
 	//char mensaje[1000];
 	//char* pMensaje = mensaje;
 	//memset(pMensaje,0,sizeof(char)*1000);
-    ret = ::recv(this->sockDesc,(char*)dato,sizeof(char)*100,0);
+    ret = ::recv(this->sockDesc,(char*)dato,sizeof(char)*size,0);
 	//ret = recibir(&(this->conexion), dato);
     if (ret < 0)
 		throw cSocketException("Error en recv()");
