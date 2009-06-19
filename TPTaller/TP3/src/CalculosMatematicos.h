@@ -20,6 +20,8 @@ public:
 	static bool isSegundoCuadrante(double direccion);
 	static bool isTercerCuadrante(double direccion);
 	static bool isCuartoCuadrante(double direccion);
+	static int verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo);
+	static int verificarDireccionRectasNegativas(Recta* rectaDeChoque,Recta* rectaTejo);
 };
 
 #endif /* CALCULOSMATEMATICOS_H_ */

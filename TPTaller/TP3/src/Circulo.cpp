@@ -36,57 +36,7 @@ int calcularDistancia(int izqX, int izqY,int derX, int derY){
 }
 
 
-void Circulo::calcularRadioDeInfluencia(){
-	/*####################################################################################*/
-	//calculo ancho de triangulo intermedios del circulo y los agrego a lista en los angulos calculados
-
-	/*####################################################################################*/
-
-	int anchoTipo1=calcularDistancia((int)(getRadio()*cos(55*PI/180))+getX(),(int)(getRadio()*sin(55*PI/180))+getY(),
-			(int)(getRadio()*cos(125*PI/180))+getX(), (int)(getRadio()*sin(125*PI/180))+getY());
-	int altoTipo1=20;
-	RectanguloInfluencia* rectanguloInfluencia= new RectanguloInfluencia(abs((int)(getRadio()*cos(55*PI/180)))+getX()
-			,abs((int)(getRadio()*sin(55*PI/180)))+getY(),anchoTipo1,altoTipo1,ARRIBA);
-	this->addRectanguloInfluencia(rectanguloInfluencia);
-
-	RectanguloInfluencia* rectanguloInfluencia1= new RectanguloInfluencia(abs((int)(getRadio()*cos(145*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(145*PI/180)))+getY(),anchoTipo1,altoTipo1,DERECHA);
-	this->addRectanguloInfluencia(rectanguloInfluencia1);
-	RectanguloInfluencia* rectanguloInfluencia2= new RectanguloInfluencia(abs((int)(getRadio()*cos(235*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(235*PI/180))+getY()),anchoTipo1,altoTipo1,ABAJO);
-	this->addRectanguloInfluencia(rectanguloInfluencia2);
-
-	RectanguloInfluencia* rectanguloInfluencia3= new RectanguloInfluencia(abs((int)(getRadio()*cos(325*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(325*PI/180)))+getY(),anchoTipo1,altoTipo1,IZQUIERDA);
-	this->addRectanguloInfluencia(rectanguloInfluencia3);
-
-
-	/*####################################################################################*/
-	//calculo ancho de triangulo pequenios del circulo y los agrego a lista en los angulos calculados
-
-	/*####################################################################################*/
-	int anchoTipo2=calcularDistancia((int)getRadio()*cos(70*PI/180)+getX(),(int)(getRadio()*sin(70*PI/180))+getY(),
-		(int)(getRadio()*cos(110*PI/180))+getX(), (int)(getRadio()*sin(100*PI/180))+getY());
-	int altoTipo2=10;
-
-
-	RectanguloInfluencia* rectanguloInfluencia4= new RectanguloInfluencia(abs((int)(getRadio()*cos(70*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(70*PI/180)))+getY(),anchoTipo2,altoTipo2,ARRIBA);
-	this->addRectanguloInfluencia(rectanguloInfluencia4);
-
-	RectanguloInfluencia* rectanguloInfluencia5= new RectanguloInfluencia(abs((int)(getRadio()*cos(160*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(160*PI/180)))+getY(),anchoTipo2,altoTipo2,DERECHA);
-	this->addRectanguloInfluencia(rectanguloInfluencia5);
-
-	RectanguloInfluencia* rectanguloInfluencia6= new RectanguloInfluencia(abs((int)(getRadio()*cos(250*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(250*PI/180)))+getY(),anchoTipo2,altoTipo2,ABAJO);
-	this->addRectanguloInfluencia(rectanguloInfluencia6);
-
-	RectanguloInfluencia* rectanguloInfluencia7= new RectanguloInfluencia(abs((int)(getRadio()*cos(340*PI/180)))+getX(),
-			abs((int)(getRadio()*sin(340*PI/180)))+getY(),anchoTipo2,altoTipo2,IZQUIERDA);
-	this->addRectanguloInfluencia(rectanguloInfluencia7);
-
-}
+void Circulo::calcularRadioDeInfluencia(){}
 int Circulo::dibujar(SDL_Surface *screen){
 	this->color = getColorFigura()->getColor();
 	 SDL_Surface* image;

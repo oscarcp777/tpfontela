@@ -1,6 +1,7 @@
 #ifndef _DEFINE_H_
 #define _DEFINE_H_
 #define PI 3.141592653
+#define NUMERO_PEQUENIO 0.0000001
 #define SIN_VALOR "sinValor"
 #define CIRCULO "circulo"
 #define ARRIBA "arriba"

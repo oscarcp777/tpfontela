@@ -47,6 +47,8 @@ public:
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
     SDL_Surface *getImagen();
+    bool getChoco();
+    void setChoco(bool choco);
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;
@@ -55,6 +57,7 @@ private:
     	SDL_Surface *imagen;
 		int XAnterior;
 		int YAnterior;
+		bool choco;
 };
 
 #endif /* TEJO_H_ */

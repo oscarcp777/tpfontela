@@ -12,7 +12,28 @@ CalculosMatematicos::CalculosMatematicos() {
 	// TODO Auto-generated constructor stub
 
 }
-
+int CalculosMatematicos::verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo){
+	Posicion* pos=rectaTejo->getInterseccion(rectaDeChoque);
+	int valorTejoY=rectaTejo->getValor(pos->getX()+30);
+	int valorChoqueY=rectaDeChoque->getValor(pos->getX()+30);
+	int valorChoqueX=rectaDeChoque->getValorInverso(valorTejoY);
+	if(valorChoqueX>=pos->getX()){
+     return 1;
+	}else{
+		  return -1;
+	}
+}
+int CalculosMatematicos::verificarDireccionRectasNegativas(Recta* rectaDeChoque,Recta* rectaTejo){
+	Posicion* pos=rectaTejo->getInterseccion(rectaDeChoque);
+	int valorTejoX=rectaTejo->getValorInverso(pos->getY()-30);
+	int valorChoqueX=rectaDeChoque->getValorInverso(pos->getY()-30);
+	int valorChoqueY=rectaDeChoque->getValor(valorTejoX);
+	if(valorChoqueY>=pos->getY()){
+     return 1;
+	}else{
+		  return -1;
+	}
+}
 CalculosMatematicos::~CalculosMatematicos() {
 	// TODO Auto-generated destructor stub
 }

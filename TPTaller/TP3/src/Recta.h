@@ -34,10 +34,13 @@ public:
     int getCortaX();
     void setOrdenada(float ordenada);
    void toString();
-
+    int getInfinito();
+    void setInfinito(int infinito);
+    int getValorInverso(int y);
 private:
 	float pendiente;
 	float ordenada;
+	int infinito;
 };
 
 #endif /* RECTA_H_ */

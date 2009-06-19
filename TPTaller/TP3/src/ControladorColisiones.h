@@ -27,13 +27,14 @@ public:
 	static void colisionesPads();
 	static int colisionesArcos();
 	static void colisionCirculo(Tejo* tejo,Circulo* figura);
-	static void decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo);
-	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo);
-	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo);
-	static void decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo);
+	static void decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
+	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
+	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
+	static void decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo);
 	static void colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo);
 	static void colisionTriangulo(Triangulo* Triangulo,Tejo* tejo);
+	static bool verificarExcepciones(Recta* rectaEntreRadios,Tejo* tejo,Circulo* figura);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */
