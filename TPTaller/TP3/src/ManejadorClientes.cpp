@@ -108,12 +108,10 @@ int ManejadorClientes :: process(void* arg){
 	char* pDatosRecividos = datosRecividos;
 	std::string msj;
 
-	//if(this->socketComunicacion->getConexion()->usuario == 0)
-	//		loading(todosLosClientes);
-
+	
 	if (this->socketComunicacion->getConexion()->usuario == 0){
 
-		loading(todosLosClientes, juegoNuevo->getNumeroNivel());
+		//loading(todosLosClientes, juegoNuevo->getNumeroNivel());
 		
 		sleep(4000);
 		asignarNumeroClientes(this->todosLosClientes);		
@@ -130,7 +128,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				 //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(300);
+				sleep(30);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					this->posicionTejo(pEnvioInt);
 					enviarAtodos(this->todosLosClientes,pEnvioInt);

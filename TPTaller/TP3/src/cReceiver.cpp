@@ -28,7 +28,7 @@ cReceiver::cReceiver():status(NOT_CONNECTED),filesize(1),downloaded(0)
 
 int cReceiver::process(void* args){
 
-	char mensRecive[30];
+	char mensRecive[20];
 	char* pmensRecive;
 	char posicion[100000];
 	char* pPosicion;
@@ -62,19 +62,24 @@ int cReceiver::process(void* args){
 	
 		while(status==CONNECTED){
 
-			memset(pmensRecive,0,sizeof(char)*30);
+			memset(pmensRecive,0,sizeof(char)*20);
 
 			/*if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;*/
 			try{
-			sock->receive(pmensRecive,30);
+			sock->receive(pmensRecive,20);
+			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
+			msg = pmensRecive;
+			received.push(msg);
+			
+			
+			
+			
 			}catch (cSocketException &e)
 			{
 				std::cerr << e.what() << endl;
 			}
-			std::cout<<"pmensRecive: "<<pmensRecive<<endl;
-			msg = pmensRecive;
-			received.push(msg);
+			
 
 		}
 		//this->stop();
@@ -193,7 +198,7 @@ string cReceiver::dequeue()
 int cReceiver::getFileSize()
 {
 	//cLockableGuard<cMutex,int,int> safeMu(mFile,&cMutex::Lock,&cMutex::Unlock);
-	return this->filesize;
+	return received.size();
 }
 
 int cReceiver::getDownloaded()

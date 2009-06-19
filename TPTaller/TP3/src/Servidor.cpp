@@ -101,7 +101,7 @@ int Servidor :: process(void* arg){
     hayan dejado de correr*/
     while (algunClienteCorre(misClientes) == true){
 
-    	this->sleep(100);
+    	this->sleep(10000);
 
     }
 

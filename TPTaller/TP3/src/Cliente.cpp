@@ -43,7 +43,7 @@ void Cliente::start(char* host, int port)
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+		//loading(&sock);
 
 
 		escenario->cargarArchivo("nivel1.xml");
@@ -60,6 +60,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(20);
 			}
+			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("PAD1")==0)

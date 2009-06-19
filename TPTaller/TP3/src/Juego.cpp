@@ -98,14 +98,14 @@ void Juego::update(){
 		this->escenario->getTejo()->mover_x();
 		this->escenario->getTejo()->mover_y();
 		//me fijo si hay colisiones
-
+	/*
 		ControladorColisiones::colisionesPads();
-		ControladorColisiones::posibilidadDeColisionDispersores();
+		ControladorColisiones::posibilidadDeColisionDispersores();*/
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
 
-					if(ControladorColisiones::colisionesArcos()==0){
+	/*				if(ControladorColisiones::colisionesArcos()==0){
 					//TODO comentos estas lineas para que no vuelva el pad al centro cuando hay gol, 
 					//this->escenario->getPadCliente1()->setY(this->escenario->getAlto()/2);
 					//this->escenario->getPadCliente1()->setX((int)this->escenario->getAncho()*POS_PAD1_Y_PORCENTAJE);
@@ -117,10 +117,10 @@ void Juego::update(){
 					this->escenario->getTejo()->getDireccion()->setFi(PI/4);
 					this->estado="GOL";				
 
-				}
+				}*/
 
 		ControladorColisiones::calcularDireccion();
-
+	
 
 		//si fue gol espero 2 segundos antes de empezar otra partida
 					if(this->estado.compare("GOL")==0){
