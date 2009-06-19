@@ -60,7 +60,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(20);
 			}
-			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("PAD1")==0)

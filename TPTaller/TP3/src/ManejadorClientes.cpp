@@ -46,6 +46,7 @@ void ManejadorClientes ::posicionTejo(char* pEnvioInt){
 	strcat(pEnvioInt,pauxX);
 	strcat(pEnvioInt," ");
 	strcat(pEnvioInt,pauxY);
+	strcat(pEnvioInt,"\n");
 
 
 }
@@ -67,6 +68,7 @@ void ManejadorClientes::puntajes(char* pPuntajes){
 	strcat(pPuntajes,paux1);
 	strcat(pPuntajes," ");
 	strcat(pPuntajes,paux2);
+	strcat(pPuntajes,"\n");
 
 
 }
@@ -86,6 +88,7 @@ void ManejadorClientes::ganador(char* pGanador){
 		itoa(2,paux1,10);
 	
 	strcat(pGanador,paux1);
+	strcat(pGanador,"\n");
 }
 
 
@@ -128,7 +131,7 @@ int ManejadorClientes :: process(void* arg){
 				juegoNuevo->update();
 
 				 //se forma la cadena "INT posX posY" con las posiciones del tejo
-				sleep(10);
+				//sleep(30);
 				if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 					this->posicionTejo(pEnvioInt);
 					enviarAtodos(this->todosLosClientes,pEnvioInt);
