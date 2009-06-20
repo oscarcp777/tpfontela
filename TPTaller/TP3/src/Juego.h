@@ -27,6 +27,7 @@ public:
 	int getNumeroNivel();
 	void incrementarNivel();
 	int getTejosRestantes();
+	void setTejosRestantes(int cantTejos);
 	void decrementarTejosRestantes();
 	void setJuegoCancelado(bool cancelado);
 	void update();

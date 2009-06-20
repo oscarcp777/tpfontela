@@ -63,28 +63,28 @@ int cReceiver::process(void* args){
 	
 		while(status==CONNECTED){
 
-			memset(pmensRecive,0,sizeof(char)*1000);
+			
 
 			/*if (recibir(sock->getConexion(), pmensRecive)<0)
 				status = NOT_CONNECTED;*/
 			try{
-			sock->receive(pmensRecive,1000);
-			//std::cout<<"pmensRecive: "<<pmensRecive<<endl;
-			msg = pmensRecive;
-			bufferStr += msg;
+				if(escenario->getCorriendo()==true){
 
-			while((i=bufferStr.find("\n")) != -1){
-				msg = bufferStr.substr(0,i);
-				//std::cout<<"msg: "<<msg<<endl;
-				received.push(msg);
-				bufferStr = bufferStr.substr(i+1);
+					memset(pmensRecive,0,sizeof(char)*1000);
+					sock->receive(pmensRecive,1000);
+					msg = pmensRecive;
+					bufferStr += msg;
+
+					while((i=bufferStr.find("\n")) != -1){
+						msg = bufferStr.substr(0,i);
+						//std::cout<<"msg "<<msg<<endl;
+						received.push(msg);
+						bufferStr = bufferStr.substr(i+1);
 			
-			}
-			//std::cout<<"msg: "<<msg<<endl;
+					}			
 					
-			
-			}catch (cSocketException &e)
-			{
+				}
+			}catch (cSocketException &e){
 				std::cerr << e.what() << endl;
 			}
 			

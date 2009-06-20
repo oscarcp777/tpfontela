@@ -51,7 +51,11 @@ Escenario::Escenario(){
 //	this->inicializarListaBonus();
 
 	this->tejosRestantes = 7;
+<<<<<<< .mine
+	this->numeroNivel = 1;
+=======
 
+>>>>>>> .r467
 }
 
 /*void Escenario::inicializarListaBonus(){
@@ -652,4 +656,34 @@ int Escenario::getTejosRestantes(){
 
 void Escenario::decrementarTejosRestantes(){
 	this->tejosRestantes--;
+}
+bool Escenario::getCorriendo(){
+	return this->corriendo;
+}
+void Escenario::setCorriendo(bool corriendo){
+	this->corriendo = corriendo;
+}
+void Escenario::setTejosRestantes(int cantTejos){
+	this->tejosRestantes = cantTejos;
+}
+int Escenario::getNumeroNivel(){
+	return this->numeroNivel;
+}
+
+void Escenario::incrementarNivel(){
+	this->numeroNivel++;
+}
+std::string Escenario::getNumeroNivelEnString(){
+		std::string cadena;
+		char num[10];
+		char* pNum = num;
+		char aux1[5];
+		char* paux1 = aux1;
+		memset(paux1,0,sizeof(char)*5);
+		memset(pNum,0,sizeof(char)*10);
+		itoa(this->numeroNivel,paux1,10);
+		strcat(pNum,paux1);
+		cadena = pNum;
+		return cadena;
+
 }

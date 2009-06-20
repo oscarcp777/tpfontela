@@ -54,7 +54,7 @@ int cSender::process(void* args)
 		posPad_Y_actual = escenario->getPadJugador()->getY();
 
 		while(status==CONNECTED){
-			Sleep(100);
+			Sleep(50);
 			if (posPad_Y_actual != escenario->getPadJugador()->getY()){ // si la pos del pad varia envio al servidor
 				posPad_Y_actual = escenario->getPadJugador()->getY();
 				this->posicionPad(pEnvioString);

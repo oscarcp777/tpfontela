@@ -56,7 +56,9 @@ void Juego::setEscenario(Escenario* escenario){
 	this->escenario = escenario;
 
 }
-
+void Juego::setTejosRestantes(int cantTejos){
+	this->tejosRestantes = cantTejos;
+}
 int Juego::getNumeroNivel(){
 
 	return this->numeroNivel;

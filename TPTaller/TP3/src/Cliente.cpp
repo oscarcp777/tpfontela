@@ -43,17 +43,20 @@ void Cliente::start(char* host, int port)
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 
-
-		escenario->cargarArchivo("nivel1.xml");
-
+		
+		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
+		escenario->setCorriendo(true);
+		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
+		SDL_Flip(escenario->getScreen());
+		Sleep(3000);
 
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
 
 
-
+		
 		while (receiver.running() == true){
 
 
@@ -62,7 +65,7 @@ void Cliente::start(char* host, int port)
 			}
 			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
-
+			
 			if(msj.find("PAD1")==0)
 			{
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -94,8 +97,21 @@ void Cliente::start(char* host, int port)
 
 
 			}
-			else if(msj.find("GANADOR")==0)
-			{
+			else if(msj.find("NIVEL_TERMINADO")==0){
+				escenario->setCorriendo(false);
+				//loading(&sock);				
+				escenario->setTejosRestantes(7);
+				escenario->incrementarNivel();
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
+				SDL_Flip(escenario->getScreen());
+				Sleep(3000);
+				/*
+				escenario->cargarArchivo(""nivel"+escenario->getNumeroNivelEnString()+".xml"");				
+				*/
+				escenario->setCorriendo(true);
+
+			}
+			else if(msj.find("GANADOR")==0){
 				string cadena;
 				if(msj.find("1")==0)
 					cadena = "GANO EL JUGADOR 1";
@@ -117,10 +133,15 @@ void Cliente::start(char* host, int port)
 				}
 
 
-
-			if(escenario->graficar()<0 || msj.find("FINJUEGO")==0){
+			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
+			}
+			else{
+				if(escenario->graficar()<0){
+				this->sock.send("QUIT");
+				this->stop();
+				}
 			}
 		}
 
@@ -220,6 +241,7 @@ void Cliente::stop()
 }
 
 void Cliente::loading(Socket* s){
+	std::cout<<"ENTRO A LOADING CLIENTE"<<endl;
 	int i=0;
 	int nbytes;
 	char numArch[5];
@@ -230,7 +252,8 @@ void Cliente::loading(Socket* s){
 
 	memset(auxNumArch,0,sizeof(char)*5);
 	s->receive(auxNumArch,5);
-
+	std::cout<<"auxNumArch "<<auxNumArch<<endl;
+	
 	while(i<atoi(auxNumArch)){
 		memset(pNombreArchivo,0,sizeof(char)*200);
 		s->receive(pNombreArchivo,200);

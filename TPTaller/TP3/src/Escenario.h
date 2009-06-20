@@ -80,7 +80,14 @@ class Escenario {
 	Pad* getPadJugador();
 	void setPadJugador(int jugador);
 	int getTejosRestantes();
+	void setTejosRestantes(int cantTejos);
 	void decrementarTejosRestantes();
+	bool getCorriendo();
+	void setCorriendo(bool corriendo);
+	int getNumeroNivel();
+	void incrementarNivel();
+	std::string getNumeroNivelEnString();
+
 protected:
 		Escenario();
 
@@ -112,6 +119,8 @@ protected:
 		int numJugador;
 		Pad* padJugador;
 		int tejosRestantes;
+		bool corriendo;
+		int numeroNivel;
 };
 
 #endif
