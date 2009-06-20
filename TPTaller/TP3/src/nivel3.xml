@@ -1,6 +1,6 @@
 <escenario>
              <ListadoDeDispersores> 
-	  <circulo id="circulo1" radio="200" idTextura="tejo"> 
+	  <circulo id="circulo1" radio="150" idTextura="tejo"> 
                                    <posicion x="400" y="300" />
                        </circulo>       
             </ListadoDeDispersores>

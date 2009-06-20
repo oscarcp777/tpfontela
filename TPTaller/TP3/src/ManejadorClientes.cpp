@@ -111,7 +111,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			char datosRecividos[30];
 			char* pDatosRecividos = datosRecividos;
 			std::string msj;
-
+			int puntosPad1, puntosPad2;
 
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
@@ -169,9 +169,15 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
 							juegoNuevo->setTejosRestantes(7);
+							//guardo los puntos y los seteo luego de cargarArchivo a escenario, poruqe este metodo los borra
+							puntosPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
+							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
+							
 							Sleep(2000);
 							//this->loading(todosLosClientes, juegoNuevo->getNumeroNivel());
-							//this->juegoNuevo->getEscenario()->cargarArchivo("nivel2.xml");
+							this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getEscenario()->getNumeroNivelEnString()+".xml");
+							juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
+							juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
 							juegoNuevo->setEstado("CORRIENDO");
 						}
 
