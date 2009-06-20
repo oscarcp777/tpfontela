@@ -1,5 +1,5 @@
-#ifndef _FIGURA_H_
-#define _FIGURA_H_
+#ifndef __FIGURA_H__
+#define __FIGURA_H__
 
 #include <iostream>
 #include <SDL.h>
@@ -36,6 +36,7 @@ class Figura{
 		  int getX();
 	 	  int getY();
 		  int getXInfluencia();
+		  
 
 		     void setXInfluencia(int xInfluencia);
 
@@ -68,6 +69,7 @@ protected:
 		Color* colorLinea;
 		SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
 		Posicion *pos;
+		//Bonus *bonus;
 		std::list<RectanguloInfluencia*> rectangulosDeInfluencia;
 
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);

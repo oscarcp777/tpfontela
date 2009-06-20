@@ -102,6 +102,9 @@ int Pad::getBase(){
 int Pad::getAltura(){
 	return this->rectangulo->getAltura();
 }
+void Pad::setAltura(int altura){
+	this->rectangulo->setAltura(altura);
+}
 // El movimiento de la imagen se establece
 // de 4 en 4 píxeles
 void Pad::avanzar_x() {
@@ -138,4 +141,5 @@ void Pad::setCantGoles(int cantGoles)
 {
 	this->cantGoles = cantGoles;
 }
+
 

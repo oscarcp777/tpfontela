@@ -6,8 +6,8 @@
  */
 #include "Circulo.h"
 #include "Direccion.h"
-#ifndef TEJO_H_
-#define TEJO_H_
+#ifndef __TEJO_H__
+#define __TEJO_H__
 #include <vector>
 #include <math.h>
 #include "Posicion.h"
@@ -28,6 +28,7 @@ public:
     	 void mover_y();
     	 // Consultoras
     	 int getRadio();
+		 void setRadio(int radio);
     	  int getX();
     	  int getY();
 		  int getXAnterior();
@@ -47,8 +48,15 @@ public:
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
     SDL_Surface *getImagen();
+
+	std::string obtenerUltimaColisionPad();
+	void setMover(int mover);
+	int getMover();
+
+
     bool getChoco();
     void setChoco(bool choco);
+
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;
@@ -57,7 +65,11 @@ private:
     	SDL_Surface *imagen;
 		int XAnterior;
 		int YAnterior;
+
+		int mover;
+
 		bool choco;
+
 };
 
 #endif /* TEJO_H_ */

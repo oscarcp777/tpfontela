@@ -5,8 +5,8 @@
  *      Author: oscar
  */
 #include "Rectangulo.h"
-#ifndef PAD_H_
-#define PAD_H_
+#ifndef __PAD_H__
+#define __PAD_H__
 #include <SDL.h>
 #include "Figura.h"
 #include "Puntaje.h"
@@ -25,14 +25,14 @@ public:
     void subir_y();
     int getBase();
     int getAltura();
+	void setAltura(int altura);
     int getX();
     int getY();
     void setX(int x);
     void setY(int y);
     int getVelocidad();
+
     void setVelocidad(int velocidad);
-	int getCantGoles();
-    void setCantGoles(int cantGoles);
 	
 
 private:
@@ -40,7 +40,6 @@ private:
   	SDL_Surface *imagen;
   	SDL_Surface* fondoPad;
 	Puntaje* puntaje;
-	int cantGoles;
 	int velocidad;
 	
 };

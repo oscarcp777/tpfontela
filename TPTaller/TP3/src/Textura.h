@@ -1,5 +1,5 @@
-#ifndef _TEXTURA_H_
-#define _TEXTURA_H_
+#ifndef __TEXTURA_H__
+#define __TEXTURA_H__
 
 #include <iostream>
 

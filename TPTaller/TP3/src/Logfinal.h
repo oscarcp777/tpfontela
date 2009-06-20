@@ -1,5 +1,5 @@
-#ifndef __logfinal_h__
-#define __logfinal_h__
+#ifndef __LOGFINAL_h__
+#define __LOGFINAL_h__
 
 #include <string>
 #include <iostream>

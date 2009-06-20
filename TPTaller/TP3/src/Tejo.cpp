@@ -154,7 +154,9 @@ void Tejo::mover_x() {
 
 				}
 			}
-		}}
+		}
+}
+
 	this->setX(x);
 //	std::cout<<"posicion X :"<<x<<endl;
 }
@@ -202,8 +204,12 @@ void Tejo::mover_y() {
 
 
 	this->setY(y);
-	//std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
+	std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
 }
+void Tejo::setRadio(int radio){
+	this->circulo->setRadio(radio);
+}
+
 int Tejo::getRadio(){
 	return this->circulo->getRadio();
 }
@@ -223,6 +229,18 @@ void Tejo::setXAnterior(int x){
 }
 void Tejo::setYAnterior(int y){
 	this->YAnterior = y;
+}
+
+void Tejo::setMover(int mover){
+	this->mover = mover;
+}
+
+int Tejo::getMover(){
+	return this->mover;
+}
+
+std::string Tejo::obtenerUltimaColisionPad(){
+	return "PADCLIENTE1";
 }
 
 

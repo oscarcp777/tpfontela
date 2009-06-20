@@ -22,6 +22,9 @@ int main(int argc, char* argv[])
 
 
 	Escenario* escenario = Escenario::obtenerInstancia();
+//	escenario->inicializarListaBonus();
+//	escenario->shuffleListBonus();
+	
 	int exito = 0;
 	std::string nombreArchivoXML;
 	char caracter;

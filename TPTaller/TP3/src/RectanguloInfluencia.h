@@ -5,8 +5,8 @@
  *      Author: oscar
  */
 
-#ifndef RECTANGULOINFLUENCIA_H_
-#define RECTANGULOINFLUENCIA_H_
+#ifndef __RECTANGULOINFLUENCIA_H__
+#define __RECTANGULOINFLUENCIA_H__
 #include <iostream>
 class RectanguloInfluencia {
 public:

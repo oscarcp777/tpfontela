@@ -5,8 +5,8 @@
  *      Author: oscar
  */
 
-#ifndef TECLADO_H_
-#define TECLADO_H_
+#ifndef __TECLADO_H__
+#define __TECLADO_H__
 #include <SDL.h>
 #include "Define.h"
 

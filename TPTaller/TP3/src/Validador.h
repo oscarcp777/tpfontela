@@ -1,5 +1,5 @@
-#ifndef _VALIDADOR_H_
-#define _VALIDADOR_H_
+#ifndef __VALIDADOR_H__
+#define __VALIDADOR_H__
 
 
 #include <iostream>

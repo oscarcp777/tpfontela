@@ -1,5 +1,5 @@
-#ifndef _DEFINE_H_
-#define _DEFINE_H_
+#ifndef __DEFINE_H__
+#define __DEFINE_H__
 
 
 #define NOT_CONNECTED 0
@@ -52,6 +52,8 @@
 #define TRIANGULO "triangulo"
 #define TEJO "tejo"
 #define PAD "pad"
+#define PAD_CLIENTE1 "padCliente1"
+#define PAD_CLIENTE2 "padCliente2"
 #define CIRCULO "circulo"
 #define DELIMITADOR "\""
 #define GENERAL "General"
@@ -97,4 +99,8 @@
 #define ANCHO_PUNTAJES 100
 #define ALTO_PUNTAJES 100
 #define PUNTAJE_GANADOR_NIVEL 70
+#define BASE_TRIANGULO_DERECHA "DERECHA"
+#define BASE_TRIANGULO_IZQUIERDA "IZQUIERDA"
+#define BASE_TRIANGULO_ABAJO "ABAJO"
+#define BASE_TRIANGULO_ARRIBA "ARRIBA"
 #endif

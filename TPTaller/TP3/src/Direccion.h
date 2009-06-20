@@ -5,8 +5,8 @@
  *      Author: oscar
  */
 
-#ifndef DIRECCION_H_
-#define DIRECCION_H_
+#ifndef __DIRECCION_H__
+#define __DIRECCION_H__
 
 class Direccion {
 public:

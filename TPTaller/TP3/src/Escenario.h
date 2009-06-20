@@ -1,5 +1,5 @@
-#ifndef _ESCENARIO_H_
-#define _ESCENARIO_H_
+#ifndef __ESCENARIO_H__
+#define __ESCENARIO_H__
 
 #include <iostream>
 #include "Figura.h"
@@ -12,9 +12,17 @@
 #include "Pad.h"
 #include "Tejo.h"
 #include "Validador.h"
-
-
-
+/*#include "DecLongPad.h"
+#include "DecLongPadVs.h"
+#include "DecRadioTejo.h"
+#include "IncLongPad.h"
+#include "IncLongPadVs.h"
+#include "IncRadioTejo.h"
+#include "IncVelocidadTejo.h"
+#include "PegamentoTejo.h"
+#include "FrenoTejo.h"
+#include "Bonus.h"*/
+		
 // ESCENARIO ES UN SINGLETON
 class Escenario {
 
@@ -64,6 +72,8 @@ class Escenario {
     void setArcoIzquierda(Rectangulo *arcoIzquierda);
     Posicion *getPosicionInicialTejo();
     void setPosicionInicialTejo(Posicion *posicionInicialTejo);
+	//void inicializarListaBonus();
+	//void shuffleListBonus();
     int iniciarSDL();
 	//void setNumJugador(int num);
 	int getNumJugador();
@@ -87,6 +97,7 @@ protected:
 		SDL_Surface *screen;
 		std::list<Figura*> listaFiguras;
 		std::list<Textura*> listaTexturas;
+		//std::list<Bonus*> listaBonus;
 		Tejo* tejo;
 		Pad* padCliente1;
 		Pad* padCliente2;
