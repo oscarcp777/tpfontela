@@ -172,7 +172,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							//guardo los puntos y los seteo luego de cargarArchivo, poruqe este metodo los borra
 							puntosPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
 							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
-							
+							this->juegoNuevo->getEscenario()->borrarListaFiguras();
 							Sleep(2000);
 							//this->loading(todosLosClientes, juegoNuevo->getNumeroNivel());
 							this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getEscenario()->getNumeroNivelEnString()+".xml");
