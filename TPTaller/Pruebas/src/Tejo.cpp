@@ -128,7 +128,6 @@ void Tejo::setY(int y){
 void Tejo::mover_x() {
 	Escenario* escenario= Escenario::obtenerInstancia();
 	int x =this->getX();
-	double resX,res;
 	this->setXAnterior(x);
 	if(x>=escenario->getAncho()-this->getRadio()){
 			x += this->velocidad*-2;

@@ -33,7 +33,10 @@ public:
     int getVelocidad();
 
     void setVelocidad(int velocidad);
-	
+int getCantGoles();
+
+void setCantGoles(int cantGoles);
+
 
 private:
   	Rectangulo* rectangulo;
@@ -41,7 +44,8 @@ private:
   	SDL_Surface* fondoPad;
 	Puntaje* puntaje;
 	int velocidad;
-	
+	int cantGoles;
+
 };
 
 #endif /* PAD_H_ */

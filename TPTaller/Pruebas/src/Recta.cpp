@@ -20,7 +20,7 @@ std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<std::endl;
 Recta::Recta(int x1,int x2,int y1,int y2){
 	int equis=(x2 - x1);
 	if ( equis== 0){
-		 this->pendiente=0.0000000000000001;
+		 this->pendiente=NUMERO_PEQUENIO;
 		 this->ordenada= y1;
 		 this->infinito=-1;
 	}else{
