@@ -115,7 +115,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				loading(todosLosClientes, juegoNuevo->getNumeroNivel());
+				loading(todosLosClientes);
 
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
@@ -174,7 +174,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
 							this->juegoNuevo->getEscenario()->borrarListaFiguras();
 							Sleep(2000);
-							//this->loading(todosLosClientes, juegoNuevo->getNumeroNivel());
+							
 							this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getEscenario()->getNumeroNivelEnString()+".xml");
 							juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
@@ -724,7 +724,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		}
 
 		//Envia los recursos necesarios a los clientes
-		void ManejadorClientes::loading(std::list<Thread*>& clientes, int numeroNivel){
+		void ManejadorClientes::loading(std::list<Thread*>& clientes){
 			std::cout<<"ENTRO A LOADING SERVIDOR"<<endl;
 			int nbytes;
 			int i = 0;
@@ -740,19 +740,9 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			std::list<std::string> listaArchivos;  //todas las imagenes a cargar
 			string linea = " ";
-			string nivel;
+			
 
-
-			if(numeroNivel == 1)
-				nivel = "Nivel 1.txt";
-
-			else if(numeroNivel == 2)
-				nivel = "Nivel 2.txt";
-
-			else if(numeroNivel == 3)
-				nivel = "Nivel 3.txt";
-
-			ArchivoTexto archivoNivel(nivel);
+			ArchivoTexto archivoNivel("loading.txt");
 			archivoNivel.leerLinea(linea);
 
 			while(linea.compare("FIN") != 0){

@@ -38,12 +38,14 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
+		loading(&sock);
+
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+		
 
 		
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
@@ -83,7 +85,6 @@ void Cliente::start(char* host, int port)
 			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);
-				//loading(&sock);				
 				escenario->setTejosRestantes(7);
 				escenario->incrementarNivel();				
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
