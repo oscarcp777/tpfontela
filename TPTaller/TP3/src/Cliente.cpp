@@ -66,24 +66,8 @@ void Cliente::start(char* host, int port)
 			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 			
-			if(msj.find("PAD1")==0)
-			{
-				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
-				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-
-			}
-			else if(msj.find("PAD2")==0)
-			{
-				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
-				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-
-
-			}
-			else if(msj.find("PUNTAJE")==0)
+			
+			if(msj.find("PUNTAJE")==0)
 			{
 				//el cliente no se entera quien hizo el gol, cuando recibe puntajes es porque hubo un gol
 				//se setean los puntajes nuevos y se decrementa la cantidad de tejos restantes (esto es solo para graficar los "tejitos" en pantalla
