@@ -1,0 +1,19 @@
+<escenario>
+             <ListadoDeDispersores> 
+	  <circulo id="circulo1" radio="200" idTextura="tejo"> 
+                                   <posicion x="400" y="300" />
+                       </circulo>       
+            </ListadoDeDispersores>
+            <ListadoDeTexturas>
+                 <textura id="bola" path="imagenes/bola_3d.png">
+                 </textura>
+                  <textura id="tejo" path="imagenes/bola_3d.png">
+                 </textura>
+                 <textura id="triangulo" path="imagenes/sup1.jpg">
+                 </textura>
+                 <textura id="arco" path="imagenes/sup1.jpg">
+                 </textura>
+	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
+                 </textura>
+             </ListadoDeTexturas>
+</escenario>
