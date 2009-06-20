@@ -43,7 +43,7 @@ void Cliente::start(char* host, int port)
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",250,250);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 
 		
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
