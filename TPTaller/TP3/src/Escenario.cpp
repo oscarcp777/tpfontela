@@ -10,8 +10,6 @@
 #include "Tejo.h"
 #include "Define.h"
 #include "GraficadorPuntajes.h"
-#include "ControladorColisiones.h"
-#include "stdlib.h"
 
 
 const string configDefaultEscenario = "config Default Escenario.txt";
@@ -47,56 +45,11 @@ Escenario::Escenario(){
 	Textura* icono = new Textura("icono", linea);
 	//
 	this->addTextura(icono);
-
-//	this->inicializarListaBonus();
-
 	this->tejosRestantes = 7;
-<<<<<<< .mine
 	this->numeroNivel = 1;
-=======
 
->>>>>>> .r467
 }
 
-/*void Escenario::inicializarListaBonus(){
-	DecLongPad* decLongPad = new DecLongPad();
-	this->listaBonus.push_back(decLongPad);
-	DecLongPadVs* decLongPadVs = new DecLongPadVs();
-	this->listaBonus.push_back(decLongPadVs);
-	DecRadioTejo* decRadioTejo = new DecRadioTejo();
-	this->listaBonus.push_back(decRadioTejo);
-	IncLongPad* incLongPad = new IncLongPad();
-	this->listaBonus.push_back(incLongPad);
-	IncLongPadVs* incLongPadVs = new IncLongPadVs();
-	this->listaBonus.push_back(incLongPadVs);
-	IncRadioTejo* incRadioTejo = new IncRadioTejo();
-	this->listaBonus.push_back(incRadioTejo);
-	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
-	this->listaBonus.push_back(incVelocidadTejo);
-	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
-	this->listaBonus.push_back(pegamentoTejo);
-	FrenoTejo* frenoTejo = new FrenoTejo();
-	this->listaBonus.push_back(frenoTejo);
-}
-
-
-
-
-
-void Escenario::shuffleListBonus(){
-	list<Bonus*>::iterator begin = this->listaBonus.begin(); 
-	list<Bonus*>::iterator end = this->listaBonus.end(); 
-	list<Bonus*>::iterator p = begin; 
-
-	for (int i = this->listaBonus.size(); i > 0; --i) { 
-	for (int r = rand(); r > 0; --r) { 
-	if (++p == end) 
-	p = begin; 
-	} 
-	swap<Bonus*>(*begin, *p); 
-	} 
-}
-*/
 Validador*  Escenario::getValidador(){
 	return this->validador;
 }
@@ -119,7 +72,6 @@ void Escenario::setArcoIzquierda(Rectangulo *arcoIzquierda)
 {
 	this->arcoIzquierda = arcoIzquierda;
 }
-
 Escenario::~Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
 	destruirLog(this->log);
@@ -143,14 +95,6 @@ Escenario::~Escenario(){
 		delete figura;
 		iterFiguras++;
 	}
-/*	list<Bonus*>::iterator iterBonus;
-	Bonus* bonus;
-	iterBonus=this->listaBonus.begin();
-	while(iterBonus !=this->listaBonus.end()){
-		bonus=*iterBonus;
-		delete bonus;
-		iterBonus++;
-	}*/
 
 }
 
@@ -446,7 +390,6 @@ int Escenario::iniciarSDL(){
 		escribirMensajeLog(this->log,"No se pudo iniciar la pantalla: " + aux );
 		exit(1);
 	}
-
 	return 0;
 
 }
@@ -454,106 +397,27 @@ int Escenario::iniciarSDL(){
 
 
 int Escenario::graficar(){
-	Pad* padCliente1=this->getPadCliente1();
-	Pad* padCliente2=this->getPadCliente2();
-	Tejo* tejo=this->getTejo();
-    TTF_Font* fuente;
-	int puntajeIzq = 0;
-	int puntajeDer = 0;
+	
+		SDL_Event evento;
+		Teclado teclado;
 		Pad* pad;
-
-
-	// Variables auxiliares
-	SDL_Event evento;
-	bool gol = false;
-	this->terminar = 0;
-
-
-
-
-
-	Teclado teclado;
-	while(this->terminar==0) {
-
-		// Actualizamos el estado del teclado
-		tejo->mover_x();
-		tejo->mover_y();
-		//me fijo si hay colisiones
-
-		ControladorColisiones::colisionesPads();
-
-		ControladorColisiones::posibilidadDeColisionDispersores();
-		/*############################################################################################################################*/
-		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
-		/*############################################################################################################################*/
-
-//				if(ControladorColisiones::colisionesArcos()==0){
-//					padCliente1->setY(this->getAlto()/2);
-//					padCliente1->setX((int)this->getAncho()*POS_PAD1_Y_PORCENTAJE);
-//					padCliente2->setY(this->getAlto()/2);
-//					padCliente2->setX((int)this->getAncho()*POS_PAD2_Y_PORCENTAJE);
-//					tejo->setY(this->getAlto()/2);
-//					tejo->setX(padCliente2->getX()+padCliente2->getBase()+tejo->getRadio());
-//					tejo->getDireccion()->setFi(PI/4);
-//					gol=true;
-//
-//
-//				}
-
-		ControladorColisiones::calcularDireccion();
 
 		teclado.actualizar();
 		// Actualización lógica de la posición
 		pad = this->getPadJugador();	
 
 
-		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD1)) {
-			if(padCliente1->getY()>0)
-				padCliente1->subir_y();
-		}
-
-
-
-
-		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD1)) {
-			if(padCliente1->getY()<this->getAlto()-padCliente1->getAltura())
-				padCliente1->bajar_y();
-
 		if(teclado.pulso(Teclado::TECLA_SUBIR)) {
 			if(pad->getY()>0)
 				pad->subir_y();
-
 		}
-
-		if(teclado.pulso(Teclado::TECLA_SUBIR_PAD2)) {
-			if( padCliente2->getY()>0)
-				padCliente2->subir_y();
-		}
-
-
-
-
-		if(teclado.pulso(Teclado::TECLA_BAJAR_PAD2)) {
-			if(padCliente2->getY()<this->getAlto()-padCliente1->getAltura())
-				padCliente2->bajar_y();
 
 		if(teclado.pulso(Teclado::TECLA_BAJAR)) {
 			if(pad->getY()<this->getAlto() - pad->getAltura())
 				pad->bajar_y();
-
 		}
+
 		this->pintarPantalla();
-
-		//los pinto en cada iteracion
-		padCliente1->dibujar(this->screen);
-		padCliente2->dibujar(this->screen);
-//	    puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
-//		puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
-//		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
-//		graficadorPuntajes->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
-//		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen(),gol);
-		tejo->dibujar(this->screen);
-
 		
 		this->getPadCliente1()->dibujar(this->screen);
 		this->getPadCliente2()->dibujar(this->screen);	    
@@ -564,16 +428,7 @@ int Escenario::graficar(){
 		
 		this->getTejo()->dibujar(this->screen);
 
-
-
-
 		SDL_Flip(this->getScreen());
-////					si fue gol espero 2 segundos antes de empezar otra partida
-//					if(gol){
-//					/* MUESTRO LOS PUNTAJES DE CADA JUGADOR*/
-//				    Sleep(2000);
-//					gol=false;
-//					}
 
 
 		while (SDL_PollEvent(&evento)) {
@@ -581,24 +436,6 @@ int Escenario::graficar(){
 				return -1;
 			
 		}
-
-
-		// Control de Eventos
-
-		while (SDL_PollEvent(&evento)) {
-			if(evento.type == SDL_KEYDOWN) {
-				if(evento.key.keysym.sym == SDLK_ESCAPE)
-					terminar = -1;
-			}
-			if(evento.type == SDL_QUIT){
-				terminar = -1;
-			}
-		}
-
-	}
-
-
-
 	return 0;
 }
 
@@ -685,5 +522,24 @@ std::string Escenario::getNumeroNivelEnString(){
 		strcat(pNum,paux1);
 		cadena = pNum;
 		return cadena;
+
+}
+void Escenario::borrarListaFiguras(){
+	this->listaFiguras.clear();
+}
+
+void Escenario::borrarListaTexturas(){
+	this->listaTexturas.clear();
+	
+}
+
+void Escenario::setearImagenesEnNull(){
+		this->fondoPantalla = NULL;
+		this->tejo->setImagen(NULL);
+		this->padCliente1->setImagen(NULL);
+		this->padCliente2->setImagen(NULL);
+		this->arcoDerecha->setImagen(NULL);
+		this->arcoIzquierda->setImagen(NULL);
+		GraficadorPuntajes::obtenerInstancia()->setImagen(NULL);
 
 }
