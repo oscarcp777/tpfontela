@@ -43,9 +43,49 @@ Escenario::Escenario(){
 	this->addTextura(texturaEscDefault);
 	miArchivoDefault.leerLinea(linea);
 	Textura* icono = new Textura("icono", linea);
-	//
+	this->inicializarListaBonus();
 	this->addTextura(icono);
 }
+
+void Escenario::inicializarListaBonus(){
+	DecLongPad* decLongPad = new DecLongPad();
+	this->listaBonus.push_back(decLongPad);
+	DecLongPadVs* decLongPadVs = new DecLongPadVs();
+	this->listaBonus.push_back(decLongPadVs);
+	DecRadioTejo* decRadioTejo = new DecRadioTejo();
+	this->listaBonus.push_back(decRadioTejo);
+	IncLongPad* incLongPad = new IncLongPad();
+	this->listaBonus.push_back(incLongPad);
+	IncLongPadVs* incLongPadVs = new IncLongPadVs();
+	this->listaBonus.push_back(incLongPadVs);
+	IncRadioTejo* incRadioTejo = new IncRadioTejo();
+	this->listaBonus.push_back(incRadioTejo);
+	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
+	this->listaBonus.push_back(incVelocidadTejo);
+	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
+	this->listaBonus.push_back(pegamentoTejo);
+	FrenoTejo* frenoTejo = new FrenoTejo();
+	this->listaBonus.push_back(frenoTejo);
+}
+
+
+
+
+
+void Escenario::shuffleListBonus(){
+	list<Bonus*>::iterator begin = this->listaBonus.begin(); 
+	list<Bonus*>::iterator end = this->listaBonus.end(); 
+	list<Bonus*>::iterator p = begin; 
+
+	for (int i = this->listaBonus.size(); i > 0; --i) { 
+	for (int r = rand(); r > 0; --r) { 
+	if (++p == end) 
+	p = begin; 
+	} 
+	swap<Bonus*>(*begin, *p); 
+	} 
+}
+
 
 Validador*  Escenario::getValidador(){
 	return this->validador;
@@ -91,6 +131,14 @@ Escenario::~Escenario(){
 		figura=*iterFiguras;
 		delete figura;
 		iterFiguras++;
+	}
+	list<Bonus*>::iterator iterBonus;
+	Bonus* bonus;
+	iterBonus=this->listaBonus.begin();
+	while(iterBonus !=this->listaBonus.end()){
+		bonus=*iterBonus;
+		delete bonus;
+		iterBonus++;
 	}
 
 }
