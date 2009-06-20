@@ -23,6 +23,7 @@ class Triangulo: public Figura {
 		Recta* getRecta1();
 		Recta* getRecta2();
 		Recta* getRecta3();
+
 		int dibujar(SDL_Surface *screen);
 		void calcularRadioDeInfluencia();
 		Recta* obtenerRectaTriangulo(Posicion*posicion,Posicion*otraPosicion);
