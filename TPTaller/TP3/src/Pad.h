@@ -34,6 +34,8 @@ public:
 	int getCantGoles();
     void setCantGoles(int cantGoles);
 	void setImagen(SDL_Surface *imagen);
+	int calcularProximaPosicionAlSubir();
+	int calcularProximaPosicionAlBajar();
 
 private:
   	Rectangulo* rectangulo;

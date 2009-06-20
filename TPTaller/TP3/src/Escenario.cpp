@@ -409,12 +409,12 @@ int Escenario::graficar(){
 
 		if(teclado.pulso(Teclado::TECLA_SUBIR)) {
 			if(pad->getY()>0)
-				pad->subir_y();
+				this->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
 		}
 
 		if(teclado.pulso(Teclado::TECLA_BAJAR)) {
 			if(pad->getY()<this->getAlto() - pad->getAltura())
-				pad->bajar_y();
+				this->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
 		}
 
 		this->pintarPantalla();
@@ -541,5 +541,12 @@ void Escenario::setearImagenesEnNull(){
 		this->arcoDerecha->setImagen(NULL);
 		this->arcoIzquierda->setImagen(NULL);
 		GraficadorPuntajes::obtenerInstancia()->setImagen(NULL);
+
+}
+int Escenario::getPosicionYPad(){
+	return this->posicionYPad;
+}
+void Escenario::setPosicionYPad(int pos){
+	this->posicionYPad = pos;
 
 }

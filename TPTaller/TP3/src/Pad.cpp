@@ -124,6 +124,17 @@ void Pad::subir_y() {
 	y -= this->velocidad;
 	this->setY(y);
 }
+int Pad::calcularProximaPosicionAlSubir(){
+		int y =this->getY();
+		y -= this->velocidad;
+		return y;
+	}
+
+int Pad::calcularProximaPosicionAlBajar(){
+	int y =this->getY();
+	y += this->velocidad;
+	return y;
+	}
 
 Puntaje* Pad::getPuntaje(){
 	return this->puntaje;

@@ -80,6 +80,8 @@ class Escenario {
 	void borrarListaFiguras();
 	void borrarListaTexturas();
 	void setearImagenesEnNull();
+	int getPosicionYPad();
+	void setPosicionYPad(int pos);
 
 protected:
 		Escenario();
@@ -113,6 +115,8 @@ protected:
 		int tejosRestantes;
 		bool corriendo;
 		int numeroNivel;
+		int posicionYPad;
+
 };
 
 #endif

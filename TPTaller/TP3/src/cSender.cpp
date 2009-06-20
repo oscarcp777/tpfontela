@@ -26,7 +26,7 @@ void cSender::posicionPad(char* pEnvioString){
 	itoa(escenario->getNumJugador(),pauxNumJugador,10);
 	strcat(pEnvioString,pauxNumJugador);
 	itoa(escenario->getPadJugador()->getX(),pauxX,10);
-	itoa(escenario->getPadJugador()->getY(),pauxY,10);
+	itoa(escenario->getPosicionYPad(),pauxY,10);
 	strcat(pEnvioString," ");
 	strcat(pEnvioString,pauxX);
 	strcat(pEnvioString," ");
@@ -51,12 +51,12 @@ int cSender::process(void* args)
 		while (escenario->getPadJugador()==NULL){
 			sleep(3000);
 		}
-		posPad_Y_actual = escenario->getPadJugador()->getY();
+		posPad_Y_actual = escenario->getPosicionYPad();
 
 		while(status==CONNECTED){
-			Sleep(500);
-			if (posPad_Y_actual != escenario->getPadJugador()->getY()){ // si la pos del pad varia envio al servidor
-				posPad_Y_actual = escenario->getPadJugador()->getY();
+			Sleep(30);
+			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
+				posPad_Y_actual = escenario->getPosicionYPad();
 				this->posicionPad(pEnvioString);
 				//std::cout<<pEnvioString<<endl;
 				sock->send(pEnvioString);
