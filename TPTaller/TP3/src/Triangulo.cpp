@@ -18,6 +18,7 @@ Triangulo::~Triangulo(){
 
 
 }
+
 Posicion* hallarEjeDeCordenadas(Posicion* pos1,Posicion* pos2,Posicion* pos3){
 
 	Posicion* ejeCordenadas = new Posicion (0,0);
