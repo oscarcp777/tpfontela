@@ -1,10 +1,11 @@
-// Bonus.cpp: implementation of the Bonus class.
-//
-//////////////////////////////////////////////////////////////////////
+/*
+ * Bonus2.cpp
+ *
+ *  Created on: 20-jun-2009
+ *      Author: pablosivori
+ */
 
 #include "Bonus.h"
-
-using namespace std;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -26,7 +27,7 @@ int Bonus::getActivo(){
 void Bonus::setActivo(int activo){
 	this->activo = activo;
 }
-	
+
 void Bonus::setVelocidadAnterior(int velocidadAnterior){
 	this->velocidadAnterior = velocidadAnterior;
 }
@@ -50,5 +51,3 @@ void Bonus::setRadioAnterior(int radioAnterior){
 int Bonus::getRadioAnterior(){
 	return this->radioAnterior;
 }
-
-

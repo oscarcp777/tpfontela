@@ -1,21 +1,18 @@
-// Bonus.h: interface for the Bonus class.
-//
-//////////////////////////////////////////////////////////////////////
+/*
+ * Bonus2.h
+ *
+ *  Created on: 20-jun-2009
+ *      Author: pablosivori
+ */
 
-#ifndef __BONUS_H__
-#define __BONUS_H__
+#ifndef BONUS_H_
+#define BONUS_H_
 
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
-#include "Escenario.h"
-#include "Define.h"
-
-class Bonus  
-{
+class Bonus {
 public:
+	Bonus();
+
 	virtual int aplicar()=0;
 	int getActivo();
 	/* 0  si esta activo
@@ -31,7 +28,6 @@ public:
 	int getAlturaAnterior();
 	void setRadioAnterior(int radioAnterior);
 	int getRadioAnterior();
-	Bonus();
 	virtual ~Bonus();
 
 private:
@@ -39,7 +35,7 @@ private:
 	int velocidadAnterior;
 	int alturaAnterior;
 	int radioAnterior;
-	
+
 };
 
-#endif // !defined(AFX_BONUS_H__FE1BDB9A_EE48_46F7_B182_55414A9B1645__INCLUDED_)
+#endif /* BONUS2_H_ */

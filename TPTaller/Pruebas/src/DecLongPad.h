@@ -11,7 +11,7 @@
 
 #include "Bonus.h"
 
-class DecLongPad: public Bonus{
+class DecLongPad : public Bonus{
 
 public:
 	DecLongPad();
@@ -20,4 +20,4 @@ public:
 
 };
 
-#endif // !defined(AFX_DECLONGPAD_H__6C65F54D_51E3_4CA9_8C41_B20D6D4039BC__INCLUDED_)
+#endif

@@ -487,49 +487,61 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 	Recta* recta1=triangulo->getRecta1();
 	Recta* recta2=triangulo->getRecta2();
 	Recta* recta3=triangulo->getRecta3();
-	Recta* recta;
+	recta3->toString();
+	recta2->toString();
+	recta1->toString();
+	rectaDireccionTejo->toString();
+	Recta* recta=NULL;
 
 	Posicion* posicion1 = rectaDireccionTejo->getInterseccion(recta1);
 	Posicion* posicion2 = rectaDireccionTejo->getInterseccion(recta2);
 	Posicion* posicion3 = rectaDireccionTejo->getInterseccion(recta3);
 
-	int d1=0,d2=0,d3=0;
+	Escenario*escenario = Escenario::obtenerInstancia();
 
-	if(posicion1->getX()!=-1)
+	int d1=0,d2=0,d3=0,d=0;
+
+	if((posicion1->getX()>=0 && posicion1->getY()>=0) && (posicion1->getX()<=escenario->getAncho() && posicion1->getY()<=escenario->getAlto()))
 		d1=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion1->getX(),posicion1->getY());
-	if(posicion2->getX()!=-1)
+	if((posicion2->getX()>=0 && posicion2->getY()>=0) && (posicion2->getX()<=escenario->getAncho() && posicion2->getY()<=escenario->getAlto()))
 		d2=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion2->getX(),posicion2->getY());
-	if(posicion3->getX()!=-1)
+	if((posicion3->getX()>=0 && posicion3->getY()>=0) && (posicion3->getX()<=escenario->getAncho() && posicion3->getY()<=escenario->getAlto()))
 		d3=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion3->getX(),posicion3->getY());
 
 	if(d1!=0 && d2!=0){
 		if(d1<d2){
 			recta = recta1;
+			d=d1;
 			std::cout<<"posicion (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
 		}else{
 			recta = recta2;
+			d=d2;
 			std::cout<<"posicion (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
 		}
 		}else if(d1!=0 && d3!=0){
 		if(d1<d3){
 			recta = recta1;
+			d=d1;
 			std::cout<<"posicion (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
 		}else{
 			recta = recta3;
+			d=d3;
 			std::cout<<"posicion (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
 		}
 	}else if(d2!=0 && d3!=0){
 		if(d2<d3){
 			recta = recta2;
+			d=d2;
 			std::cout<<"posicion (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
 		}else{
 			recta = recta3;
+			d=d3;
 			std::cout<<"posicion (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
 		}
 	}
 
 
-	if(triangulo->isBase(recta)==0){
+	if(recta!=NULL && triangulo->isBase(recta)==0 && d<=radioTejo){
 		if(triangulo->getBase().compare(BASE_TRIANGULO_ARRIBA)==0){
 			reboteAbajo(tejo); //tomando como referencia el tejo debe rebotar abajo
 			std::cout<<"ARRIBA"<<endl;
@@ -543,7 +555,7 @@ bool ControladorColisiones::posibilidadDeColisionDispersores(){
 			reboteDerecha(tejo); //tomando como referencia el tejo debe rebotar derecha
 			std::cout<<"IZQUIERDA"<<endl;
 		}
-	}else{
+	}else if(recta!=NULL && d<=radioTejo){
 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
         	 decidirDireccionCuartoCuadrante(recta,tejo,0);
          }
