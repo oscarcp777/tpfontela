@@ -130,7 +130,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						juegoNuevo->update();
 
 						//se forma la cadena "INT posX posY" con las posiciones del tejo
-						sleep(20);
+						sleep(30);
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
@@ -169,7 +169,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
 							juegoNuevo->setTejosRestantes(7);
-							//guardo los puntos y los seteo luego de cargarArchivo a escenario, poruqe este metodo los borra
+							//guardo los puntos y los seteo luego de cargarArchivo, poruqe este metodo los borra
 							puntosPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
 							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
 							
@@ -772,7 +772,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				if ((*it)->running() == true){
 					((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
 					while (listaArchivos.size()> i){
-						sleep(3000);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+						sleep(700);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 						memset(pNombreArchivo,0,sizeof(char)*200);
 						cadena = (char*)(*iterArchivos).data();
 						std::cout << "cadena: " << cadena<< std::endl;

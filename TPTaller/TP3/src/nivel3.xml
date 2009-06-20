@@ -1,19 +1,34 @@
 <escenario>
-             <ListadoDeDispersores> 
-	  <circulo id="circulo1" radio="150" idTextura="tejo"> 
-                                   <posicion x="400" y="300" />
-                       </circulo>       
-            </ListadoDeDispersores>
+           <ListadoDeDispersores>        
+ 	<triangulo id="triangulo1" idTextura="triangulo" lado="200" tipo"triangulo">
+                                  <ver1 x="300" y="250"/>
+                                  <ver2 x="300" y="350"/>
+                                  <ver3 x="250" y="300"/>
+                   </triangulo>
+                   <triangulo id="triangulo2" idTextura="triangulo" lado="200" tipo"triangulo">
+                                  <ver1 x="350" y="200"/>
+                                  <ver2 x="450" y="200"/>
+                                  <ver3 x="400" y="150"/>
+                   </triangulo>
+                   <triangulo id="triangulo3" idTextura="triangulo" lado="200" tipo"triangulo">
+                                  <ver1 x="500" y="250"/>
+                                  <ver2 x="500" y="350"/>
+                                  <ver3 x="550" y="300"/>
+                   </triangulo>
+                   <triangulo id="triangulo4" idTextura="triangulo" lado="200" tipo"triangulo">
+                                  <ver1 x="350" y="400"/>
+                                  <ver2 x="450" y="400"/>
+                                  <ver3 x="400" y="450"/>
+                   </triangulo>           
+                    </ListadoDeDispersores>
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.png">
                  </textura>
-                  <textura id="tejo" path="imagenes/bola_3d.png">
+                  <textura id="tejo" path="imagenes/bola.png">
                  </textura>
-                 <textura id="triangulo" path="imagenes/sup1.jpg">
+                 <textura id="triangulo" path="imagenes/cuadrado.jpg">
                  </textura>
-                 <textura id="arco" path="imagenes/sup1.jpg">
-                 </textura>
-	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
+                 <textura id="arco" path="imagenes/cuadrado.jpg">
                  </textura>
              </ListadoDeTexturas>
 </escenario>
