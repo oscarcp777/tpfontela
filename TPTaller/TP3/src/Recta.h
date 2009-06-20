@@ -36,11 +36,22 @@ public:
    void toString();
     int getInfinito();
     void setInfinito(int infinito);
+	int getX1();
+	int getX2();
+	int getY1();
+	int getY2();
     int getValorInverso(int y);
+
 private:
 	float pendiente;
 	float ordenada;
+
 	int infinito;
+	int x1;
+	int x2;
+	int y1;
+	int y2;
+
 };
 
 #endif /* RECTA_H_ */

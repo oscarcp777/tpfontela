@@ -6,8 +6,10 @@
  */
 
 #include "Recta.h"
+
 #include<math.h>
 #include "Define.h"
+
 Recta::Recta(){
 
 }
@@ -18,7 +20,7 @@ std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<std::endl;
 Recta::Recta(int x1,int x2,int y1,int y2){
 	int equis=(x2 - x1);
 	if ( equis== 0){
-		 this->pendiente=0.0000000000000001;
+		 this->pendiente=NUMERO_PEQUENIO;
 		 this->ordenada= y1;
 		 this->infinito=-1;
 	}else{
@@ -46,7 +48,7 @@ Posicion* Recta::getInterseccion(Recta* recta){
 	  // son o no la misma devuleve una interseccion furea dela pantalla
 
 	  if (recta->getPendiente() == this->pendiente||this->infinito==-1){
-	      return new Posicion(0,0);
+	      return new Posicion(-1,-1);
 	  }else{
 		  if(this->infinito==0){
      float b1,b2,m1,m2;
@@ -105,10 +107,12 @@ int Recta::getValorInverso(int y){
 
 }
 int Recta::getCortaX(){
+
+	float cortaX=((-1*this->ordenada)/	this->pendiente);
 	 if(this->pendiente==0){
 		 this->pendiente= NUMERO_PEQUENIO;
 	 }
-	float cortaX=((-1*this->ordenada)/	this->pendiente);
+
 	return (int)cortaX;
 }
 Recta::~Recta() {
@@ -116,8 +120,20 @@ Recta::~Recta() {
 }
 float Recta::getPendiente()
  {
-     return pendiente;
+    return pendiente;
  }
+int Recta::getX1(){
+	return x1;
+}
+int Recta::getX2(){
+	return x2;
+}
+int Recta::getY1(){
+	return y1;
+}
+int Recta::getY2(){
+	return y1;
+}
 double Recta::getAnguloConAbcisa(){
 	int cortaY=abs(this->getValor(0));
 	    int cortaX=abs(this->getCortaX());
