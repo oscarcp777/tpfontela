@@ -114,10 +114,21 @@ void Juego::update(){
 					//this->escenario->getPadCliente2()->setY(this->escenario->getAlto()/2);
 					//this->escenario->getPadCliente2()->setX((int)this->escenario->getAncho()*POS_PAD2_Y_PORCENTAJE);
 					//DESPUES DEL GOL EL TEJO SE GRAFICA EN LA POSICION DEL PAD2 (este donde este en la pantalla)
-					this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
-					this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
-					this->escenario->getTejo()->getDireccion()->setFi(PI/4);
-					this->estado="GOL";				
+						if(this->escenario->getGolDe().compare("PAD1")== 0){
+							this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
+							this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
+							this->escenario->getTejo()->getDireccion()->setFi(PI/4);
+							
+						}
+						else if(this->escenario->getGolDe().compare("PAD2")== 0){
+							this->escenario->getTejo()->setY(this->escenario->getPadCliente1()->getY()+this->escenario->getPadCliente1()->getAltura()/2);
+							this->escenario->getTejo()->setX(this->escenario->getPadCliente1()->getX()-this->escenario->getTejo()->getRadio());
+							this->escenario->getTejo()->getDireccion()->setFi(3*PI/4);
+								
+
+						}
+						this->estado="GOL";
+								
 
 				}
 

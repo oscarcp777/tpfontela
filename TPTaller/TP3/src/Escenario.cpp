@@ -551,3 +551,9 @@ void Escenario::setPosicionYPad(int pos){
 	this->posicionYPad = pos;
 
 }
+void Escenario::setGolDe(std::string pad){
+	this->golDe = pad;
+}
+std::string Escenario::getGolDe(){
+	return this->golDe;
+}

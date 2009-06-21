@@ -82,6 +82,8 @@ class Escenario {
 	void setearImagenesEnNull();
 	int getPosicionYPad();
 	void setPosicionYPad(int pos);
+	void setGolDe(std::string pad);
+	std::string getGolDe();
 
 protected:
 		Escenario();
@@ -116,6 +118,7 @@ protected:
 		bool corriendo;
 		int numeroNivel;
 		int posicionYPad;
+		std::string golDe;
 
 };
 

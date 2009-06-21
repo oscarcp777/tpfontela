@@ -133,7 +133,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						juegoNuevo->update();
 
 						//se forma la cadena "INT posX posY" con las posiciones del tejo
-						sleep(30);
+						sleep(40);
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
