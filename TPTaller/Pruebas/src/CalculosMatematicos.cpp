@@ -12,6 +12,16 @@ CalculosMatematicos::CalculosMatematicos() {
 	// TODO Auto-generated constructor stub
 
 }
+double CalculosMatematicos::getAnguloValido(double direcion){
+	double devolver=direcion;
+	if(direcion>=2*PI){
+		devolver=direcion-2*PI;
+	}
+	if(direcion<0){
+		devolver=2*PI-direcion;
+	}
+	return devolver;
+}
 int CalculosMatematicos::verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo){
 	Posicion* pos=rectaTejo->getInterseccion(rectaDeChoque);
 	int valorTejoY=rectaTejo->getValor(pos->getX()+30);

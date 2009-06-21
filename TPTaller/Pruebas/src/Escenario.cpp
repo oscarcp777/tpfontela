@@ -522,6 +522,7 @@ int Escenario::graficar(){
 
 
 		SDL_Flip(this->getScreen());
+		SDL_Delay(VELOCIDAD_DE_FRAMES_POR_SEGUNDO);
 ////					si fue gol espero 2 segundos antes de empezar otra partida
 //					if(gol){
 //					/* MUESTRO LOS PUNTAJES DE CADA JUGADOR*/

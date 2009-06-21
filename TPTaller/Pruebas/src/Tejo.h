@@ -34,7 +34,9 @@ public:
 		  int getXAnterior();
     	  int getYAnterior();
     	  Direccion* getDireccion();
-
+          void moverTejo
+			  
+			  ();
        void cargarPuntos();
     	 // Modificadoras
 
