@@ -25,6 +25,7 @@ public:
     void subir_y();
     int getBase();
     int getAltura();
+	void setAltura(int altura);
     int getX();
     int getY();
     void setX(int x);

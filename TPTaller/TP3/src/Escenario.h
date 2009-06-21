@@ -12,6 +12,16 @@
 #include "Pad.h"
 #include "Tejo.h"
 #include "Validador.h"
+#include "DecLongPad.h"
+#include "DecLongPadVs.h"
+#include "DecRadioTejo.h"
+#include "IncLongPad.h"
+#include "IncLongPadVs.h"
+#include "IncRadioTejo.h"
+#include "IncVelocidadTejo.h"
+#include "PegamentoTejo.h"
+#include "FrenoTejo.h"
+#include "Bonus.h"
 
 
 
@@ -31,6 +41,8 @@ class Escenario {
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
 			int sizeListaTexturas();
+			void inicializarListaBonus();
+			void shuffleListBonus();
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
 			std::string Escenario::obtenerPathTextura(std::string id);
@@ -101,6 +113,7 @@ protected:
 		SDL_Surface *screen;
 		std::list<Figura*> listaFiguras;
 		std::list<Textura*> listaTexturas;
+		std::list<Bonus*> listaBonus;
 		Tejo* tejo;
 		Pad* padCliente1;
 		Pad* padCliente2;
