@@ -511,6 +511,9 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	int xTejo=tejo->getX();
 	int yTejo=tejo->getY();
 	Recta*  rectaDireccionTejo= new Recta(xTejo,(int)(radioTejo*cos(anguloDeltejo)),yTejo,(int)(radioTejo*sin(anguloDeltejo)));
+//Recta* rectaDireccionTejoArriba= new Recta(xTejo,(int)(radioTejo*cos(anguloDelTejo));
+//	Recta* rectaDireccionTejoAbajo = rectaDireccionTejo->getRectaPerpendicular(xTejo,yTejo);
+
 	Recta* recta1=triangulo->getRecta1();
 	Recta* recta2=triangulo->getRecta2();
 	Recta* recta3=triangulo->getRecta3();
@@ -539,36 +542,43 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		if(d1<d2){
 			recta = recta1;
 			d=d1;
-			std::cout<<"posicion (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
+			std::cout<<"posicion recta1 (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
+			system("PAUSE");
 		}else{
 			recta = recta2;
 			d=d2;
-			std::cout<<"posicion (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
+			std::cout<<"posicion recta2 (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
+			system("PAUSE");
 		}
-		}else if(d1!=0 && d3!=0){
+	}else if(d1!=0 && d3!=0){
 		if(d1<d3){
 			recta = recta1;
 			d=d1;
-			std::cout<<"posicion (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
+			std::cout<<"posicion recta1 (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
+			system("PAUSE");
 		}else{
 			recta = recta3;
 			d=d3;
-			std::cout<<"posicion (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
+			std::cout<<"posicion recta3 (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
+			system("PAUSE");
 		}
 	}else if(d2!=0 && d3!=0){
 		if(d2<d3){
 			recta = recta2;
 			d=d2;
-			std::cout<<"posicion (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
+			std::cout<<"posicion recta2 (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
+			system("PAUSE");
 		}else{
 			recta = recta3;
 			d=d3;
-			std::cout<<"posicion (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
+			std::cout<<"posicion recta 3 (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
+			system("PAUSE");
 		}
 	}
 
-
+ 
 	if(recta!=NULL && triangulo->isBase(recta)==0 && d<=radioTejo){
+		system("PAUSE");
 		if(triangulo->getBase().compare(BASE_TRIANGULO_ARRIBA)==0){
 			reboteAbajo(tejo); //tomando como referencia el tejo debe rebotar abajo
 			std::cout<<"ARRIBA"<<endl;
@@ -578,9 +588,11 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		}else if(triangulo->getBase().compare(BASE_TRIANGULO_DERECHA)==0){
 			reboteIzquierda(tejo); //tomando como referencia el tejo debe rebotar izquierda
 			std::cout<<"DERECHA"<<endl;
+			system("PAUSE");
 		}else if(triangulo->getBase().compare(BASE_TRIANGULO_IZQUIERDA)==0){
 			reboteDerecha(tejo); //tomando como referencia el tejo debe rebotar derecha
 			std::cout<<"IZQUIERDA"<<endl;
+			system("PAUSE");
 		}
 	}else if(recta!=NULL && d<=radioTejo){
 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
@@ -597,6 +609,9 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		 }
 
 	}
+
+	delete rectaDireccionTejo;
+	
 
 }
 void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){

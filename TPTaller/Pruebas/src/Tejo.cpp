@@ -14,6 +14,7 @@ Tejo::Tejo() {
 	// TODO Auto-generated constructor stub
 
 }
+
 Circulo* Tejo::getFigura(){
 	return	this->circulo;
 }
