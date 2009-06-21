@@ -762,7 +762,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				if ((*it)->running() == true){
 					((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
 					while (listaArchivos.size()> i){
-						sleep(1000);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+						sleep(500);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 						memset(pNombreArchivo,0,sizeof(char)*200);
 						cadena = (char*)(*iterArchivos).data();
 						std::cout << "cadena: " << cadena<< std::endl;

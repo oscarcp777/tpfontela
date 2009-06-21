@@ -12,6 +12,7 @@
 #include "cReceiver.h"
 #include "Socket.h"
 #include <string>
+#include "Escenario.h"
 
 class Cliente {
 public:
@@ -34,8 +35,8 @@ public:
         void clearDownloaded();
         // Detiene la ejecucion del "server proxy" (cierra el socket y joinea los threads)
         void stop();
-		void Cliente::loading(Socket* s);
-
+		void loading(Socket* s);
+		int iniciarPantallaLoafing(SDL_Surface *screen);
         ~Cliente();
 
     private:
@@ -46,6 +47,7 @@ public:
     	Cliente(const Cliente&);
     	Cliente& operator=(const Cliente&);
     	CONEXION conexion;
+		bool finLoading;
 };
 
 #endif /* CLIENTE_H_ */
