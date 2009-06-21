@@ -111,7 +111,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			char datosRecividos[30];
 			char* pDatosRecividos = datosRecividos;
 			std::string msj;
-			int puntosPad1, puntosPad2;
+			int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
 
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
@@ -172,15 +172,26 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
 							juegoNuevo->setTejosRestantes(7);
-							//guardo los puntos y los seteo luego de cargarArchivo, poruqe este metodo los borra
+							//guardo los puntos y las posiciones. los seteo luego de cargarArchivo, poruqe este metodo los borra
 							puntosPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
 							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
+							posXPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getX();
+							posYPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getY();
+							posXPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getX();
+							posYPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getY();
 							this->juegoNuevo->getEscenario()->borrarListaFiguras();
 							Sleep(2000);
 							
 							this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getEscenario()->getNumeroNivelEnString()+".xml");
 							juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
+							juegoNuevo->getEscenario()->getPadCliente1()->setX(posXPad1);
+							juegoNuevo->getEscenario()->getPadCliente1()->setY(posYPad1);
+							juegoNuevo->getEscenario()->getPadCliente2()->setX(posXPad2);
+							juegoNuevo->getEscenario()->getPadCliente2()->setY(posYPad2);
+							juegoNuevo->getEscenario()->getTejo()->setY(juegoNuevo->getEscenario()->getPadCliente2()->getY()+juegoNuevo->getEscenario()->getPadCliente2()->getAltura()/2);
+							juegoNuevo->getEscenario()->getTejo()->setX(juegoNuevo->getEscenario()->getPadCliente2()->getX()+juegoNuevo->getEscenario()->getPadCliente2()->getBase()+juegoNuevo->getEscenario()->getTejo()->getRadio());
+							juegoNuevo->getEscenario()->getTejo()->getDireccion()->setFi(PI/4);
 							juegoNuevo->setEstado("CORRIENDO");
 						}
 
