@@ -41,7 +41,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			memset(pauxX,0,sizeof(char)*20);
 			memset(pauxY,0,sizeof(char)*20);
 			memset(pEnvioInt,0,sizeof(char)*40);
-			//strcat(pEnvioInt,"STRING ");
+			strcat(pEnvioInt,"TEJO ");
 			itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
 			itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
 			strcat(pEnvioInt,pauxX);
@@ -115,12 +115,15 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				loading(todosLosClientes);
-
+				loading(todosLosClientes,"loading1.txt");
+				
+				
+				loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
 
-
+				enviarAtodos(this->todosLosClientes,"INICIADO\n");
+				
 			}
 			while (seguirCiclando == 1){
 
@@ -130,7 +133,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						juegoNuevo->update();
 
 						//se forma la cadena "INT posX posY" con las posiciones del tejo
-						sleep(30);
+						sleep(20);
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
@@ -724,7 +727,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		}
 
 		//Envia los recursos necesarios a los clientes
-		void ManejadorClientes::loading(std::list<Thread*>& clientes){
+		void ManejadorClientes::loading(std::list<Thread*>& clientes, std::string archivo){
 			std::cout<<"ENTRO A LOADING SERVIDOR"<<endl;
 			int nbytes;
 			int i = 0;
@@ -742,7 +745,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			string linea = " ";
 			
 
-			ArchivoTexto archivoNivel("loading.txt");
+			ArchivoTexto archivoNivel(archivo);
 			archivoNivel.leerLinea(linea);
 
 			while(linea.compare("FIN") != 0){

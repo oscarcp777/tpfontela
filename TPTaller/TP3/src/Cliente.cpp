@@ -40,36 +40,59 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 		
-		this->iniciarPantallaLoafing(screen);
-		loading(&sock);		
-		SDL_Quit();
-		
+		loading(&sock);	
 		Escenario* escenario = Escenario::obtenerInstancia();
-		escenario->iniciarSDL();		
-
+		escenario->iniciarSDL();
+		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,escenario->getAlto()/3);
+		SDL_Flip(escenario->getScreen());	
 		
+		loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->setCorriendo(true);
-		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
-		SDL_Flip(escenario->getScreen());
-		Sleep(3000);
-
+		
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
-
-
 		
+		while (receiver.isEmpty()){
+				Sleep(20);
+			}
+		msj= this->get();
+		
+		if(msj.find("INICIAR")==0){			
+			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
+			SDL_Flip(escenario->getScreen());
+			Sleep(3000);
+		}
 		while (receiver.running() == true){
 
 
 			while (receiver.isEmpty()){
 				Sleep(20);
 			}
-			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 			
 			
-			if(msj.find("PUNTAJE")==0)
+			if(msj.find("TEJO")==0){
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				escenario->getTejo()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getTejo()->setY(atoi(pPosicion.c_str()));
+				}
+			else if(msj.find("PAD1")==0){
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+
+			}
+			else if(msj.find("PAD2")==0){
+				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
+				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+			}
+			else if(msj.find("PUNTAJE")==0)
 			{
 				//el cliente no se entera quien hizo el gol, cuando recibe puntajes es porque hubo un gol
 				//se setean los puntajes nuevos y se decrementa la cantidad de tejos restantes (esto es solo para graficar los "tejitos" en pantalla
@@ -111,14 +134,6 @@ void Cliente::start(char* host, int port)
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
-
-
-			else{
-					string pPosicion = msj.substr(0, msj.find(" "));
-					escenario->getTejo()->setX(atoi(pPosicion.c_str()));
-					pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-					escenario->getTejo()->setY(atoi(pPosicion.c_str()));
-				}
 
 
 			if(msj.find("FINJUEGO")==0){

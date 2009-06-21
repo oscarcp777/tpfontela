@@ -31,7 +31,7 @@ public:
         void asignarNumeroClientes(std::list<Thread*>& clientes);
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
-		void loading(std::list<Thread*>& clientes);
+		void loading(std::list<Thread*>& clientes,std::string archivo);
 		int obtenerListos(std::list<Thread*>& clientes);
 		void pararTodos(std::list<Thread*>& clientes);
 		void quitarCliente(std::list<Thread*>& clientes);

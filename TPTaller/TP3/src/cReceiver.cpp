@@ -78,7 +78,7 @@ int cReceiver::process(void* args){
 					while((i=bufferStr.find("\n")) != -1){
 						msg = bufferStr.substr(0,i);
 						//std::cout<<"msg "<<msg<<endl;
-	
+						/*
 						if(msg.find("PAD1")==0){
 							string pPosicion = msg.substr(msg.find(" ")+1,msg.find_last_of(" "));
 							escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
@@ -92,9 +92,9 @@ int cReceiver::process(void* args){
 							pPosicion = msg.substr(msg.find_last_of(" ")+1,msg.size());
 							escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
 						}
-						else{
+						else{*/
 							received.push(msg);
-						}
+						//}
 					
 						bufferStr = bufferStr.substr(i+1);
 			
