@@ -11,10 +11,14 @@
 #include <vector>
 #include <math.h>
 #include "Posicion.h"
+#include "Recta.h"
 #include <SDL.h>
 class Tejo{
 public:
 	Tejo();
+	Recta* getRectaDireccion();
+	int getYSiguiente(int y);
+	int getXSiguiente(int x);
 	Tejo(Circulo *circulo);
 	virtual ~Tejo();
 	void borrarTejo();
@@ -35,7 +39,7 @@ public:
     	  int getYAnterior();
     	  Direccion* getDireccion();
           void moverTejo
-			  
+
 			  ();
        void cargarPuntos();
     	 // Modificadoras
