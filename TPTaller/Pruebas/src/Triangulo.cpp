@@ -15,6 +15,10 @@ Triangulo::~Triangulo(){
 	delete this->recta1;
 	delete this->recta2;
 	delete this->recta3;
+	delete this->x1;
+	delete this->x2;
+	delete this->y1;
+	delete this->y2;
 
 
 }
@@ -146,18 +150,25 @@ void Triangulo::setBase(std::string base){
 }
 
 int Triangulo::isBase(Recta*recta){
-	if((recta->getX1()==this->x1) && (recta->getX2()==this->x2) && (recta->getY1()==this->y1) && (recta->getY2()==this->y2))
+//	system("PAUSE");
+//	std::cout<<"recta->x1=="<<recta->getX1()<<" vert->x1=="<<*this->x1<<endl;
+//	std::cout<<"recta->x2=="<<recta->getX2()<<" vert->x2=="<<*this->x2<<endl;
+//	std::cout<<"recta->y1=="<<recta->getY1()<<" vert->y1=="<<*this->y1<<endl;
+//	std::cout<<"recta->y2=="<<recta->getY2()<<" vert->y2=="<<*this->y2<<endl;
+//	system("PAUSE");
+	if((recta->getX1()==*this->x1) && (recta->getX2()==*this->x2) && (recta->getY1()==*this->y1) && (recta->getY2()==*this->y2))
 		return 0; //es base
 	else return -1; //no es base
 }
 
 void Triangulo::asignarPuntosRectaBase(Recta*recta){
-	this->x1 = recta->getX1();
-	this->x2 = recta->getX2();
-	this->y1 = recta->getY1();
-	this->y2 = recta->getY2();
+	*this->x1 = recta->getX1();
+	*this->x2 = recta->getX2();
+	*this->y1 = recta->getY1();
+	*this->y2 = recta->getY2();
 }
 
+//posicion1, posicion2 y posicion3 se corresponden a los vertices vert1, vert2 y vert3 del triangulo
 void Triangulo::darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Posicion*posicion3){
 
 	int vert12Yvariando=verificarCondicionVertices(posicion1,posicion2,0);
@@ -169,31 +180,42 @@ void Triangulo::darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Pos
 	int vert13Xvariando=verificarCondicionVertices(posicion1,posicion3,1);
 
 	//Hasta aca tengo las 3 rectas del triangulo, solo me falta ver cual es cual
-
+    
 	if(recta1->getInfinito()==-1 || recta2->getInfinito()==-1 || recta3->getInfinito()==-1){ //alguna de las 3 rectas es vertical
-
+	
 		if(vert12Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion3); //podria haber sido con 2 y 3 dado que el vert 1 y 2 tienen la misma coordenada x
-			if(diferenciaPosX==1)
+			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
-			else if(diferenciaPosX==-1)
+			asignarPuntosRectaBase(recta1);
+	
+			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
-		}
-
-		if(vert23Yvariando==0){
+				asignarPuntosRectaBase(recta1);
+	
+			}
+		}else if(vert23Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion3); //podria haber sido con 1 y 2 dado que el vert 2 y 3 tienen la misma coordenada x
-			if(diferenciaPosX==1)
+			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
-			else if(diferenciaPosX==-1)
+			asignarPuntosRectaBase(recta2);
+	
+			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
-		}
-
-		if(vert13Yvariando==0){
+				asignarPuntosRectaBase(recta2);
+	
+			}
+		}else if(vert13Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion2); //podria haber sido con 3 y 2 dado que el vert 1 y 3 tienen la misma coordenada x
-			if(diferenciaPosX==1)
+			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
-			else if(diferenciaPosX==-1)
+			asignarPuntosRectaBase(recta3);
+	
+			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
+				asignarPuntosRectaBase(recta3);
+	
+			}
 		}
 	}else{ //ninguna de las 3 rectas es vertical, por lo que el triangulo esta mirando con la punta hacia abajo o hacia arriba
 
@@ -202,33 +224,35 @@ void Triangulo::darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Pos
 			if(diferenciaPosY==1){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta1);
+				
 			}
 			else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
-				asignarPuntosRectaBase(recta3);
+				asignarPuntosRectaBase(recta1);
+				
 			}
-		}
-
-		if(vert23Xvariando==0){
+		}else if(vert23Xvariando==0){
 			int diferenciaPosY = diferenciaEnY(posicion1,posicion3); //podria haber sido con 1 y 2 dado que el vert 2 y 3 tienen la misma coordenada y
 			if(diferenciaPosY==1){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta2);
+				
 			}else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
 				asignarPuntosRectaBase(recta2);
+				
 			}
-		}
-
-		if(vert13Xvariando==0){
+		}else if(vert13Xvariando==0){
 			int diferenciaPosY = diferenciaEnY(posicion1,posicion2); //podria haber sido con 3 y 2 dado que el vert 1 y 3 tienen la misma coordenada y
 			if(diferenciaPosY==0){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta3);
+				
 			}
 			else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
 				asignarPuntosRectaBase(recta3);
+				
 			}
 		}
 
@@ -248,12 +272,16 @@ Recta* Triangulo::getRecta3(){
 	return this->recta3;
 }
 
-
 Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
 	this->id = id;
 	this->vertice1 = ver1;
 	this->vertice2 = ver2;
 	this->vertice3 = ver3;
+
+	this->x1 = new int(0);
+	this->x2 = new int(0);
+	this->y1 = new int(0);
+	this->y2 = new int(0);
 
 	this->recta1 = new Recta(ver1->getX(),ver2->getX(),ver1->getY(),ver2->getY());
 	this->recta2 = new Recta(ver1->getX(),ver3->getX(),ver1->getY(),ver3->getY());

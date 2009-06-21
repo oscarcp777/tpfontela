@@ -41,10 +41,10 @@ class Triangulo: public Figura {
 		Recta *recta1;
 		Recta *recta2;
 		Recta *recta3;
-		int x1; //posiciones de la base del triangulo
-		int y1;
-		int x2;
-		int y2;
+		int *x1; //posiciones de la base del triangulo
+		int *y1;
+		int *x2;
+		int *y2;
 		int lado;
 		std::string base; //me dice donde esta la base del triangulo, abajo, arriba, derecha, izquierda
 		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);
