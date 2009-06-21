@@ -28,12 +28,13 @@ public:
     	 void mover_y();
     	 // Consultoras
     	 int getRadio();
+		 void setRadio(int radio);
     	  int getX();
     	  int getY();
 		  int getXAnterior();
     	  int getYAnterior();
     	  Direccion* getDireccion();
-
+          void moverTejo();
        void cargarPuntos();
     	 // Modificadoras
 
@@ -47,6 +48,12 @@ public:
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
     SDL_Surface *getImagen();
+
+	std::string obtenerUltimaColisionPad();
+	void setMover(int mover);
+	int getMover();
+
+
     bool getChoco();
     void setChoco(bool choco);
 	void setImagen(SDL_Surface *imagen);
@@ -59,7 +66,11 @@ private:
     	SDL_Surface *imagen;
 		int XAnterior;
 		int YAnterior;
+
+		int mover;
+
 		bool choco;
+
 };
 
 #endif /* TEJO_H_ */

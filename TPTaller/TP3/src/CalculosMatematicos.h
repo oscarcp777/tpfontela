@@ -23,7 +23,7 @@ public:
 	static bool isCuartoCuadrante(double direccion);
 	static int verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo);
 	static int verificarDireccionRectasNegativas(Recta* rectaDeChoque,Recta* rectaTejo);
-
+	static double getAnguloValido(double direcion);
 };
 
 #endif /* CALCULOSMATEMATICOS_H_ */

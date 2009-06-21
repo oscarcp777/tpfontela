@@ -134,7 +134,6 @@ void Tejo::setY(int y){
 void Tejo::mover_x() {
 	Escenario* escenario= Escenario::obtenerInstancia();
 	int x =this->getX();
-	double resX,res;
 	this->setXAnterior(x);
 	if(x>=escenario->getAncho()-this->getRadio()){
 			x += this->velocidad*-2;
@@ -147,10 +146,10 @@ void Tejo::mover_x() {
 			if(res<=-0.5&&res>=-1){
 				x += this->velocidad*-2;
 			}else{
-				if(res>0&&res<0.5){
+				if(res>0.05&&res<0.5){
 					x += this->velocidad*1;
 				}else{
-					if(res<0&&res>-0.5){
+					if(res<-0.05&&res>-0.5){
 						x += this->velocidad*-1;
 					}else{
 						if(res==1){
@@ -160,7 +159,9 @@ void Tejo::mover_x() {
 
 				}
 			}
-		}}
+		}
+}
+
 	this->setX(x);
 //	std::cout<<"posicion X :"<<x<<endl;
 }
@@ -176,6 +177,10 @@ void Tejo::bajar_y() {
 	y += PIXELES_SALTO;
 	this->setY(y);
 }*/
+void Tejo::moverTejo(){
+	this->mover_x();
+	this->mover_y();
+}
 void Tejo::mover_y() {
 	int y =this->getY();
 	double resY,res;
@@ -192,10 +197,10 @@ void Tejo::mover_y() {
 		if(res<=-0.5&&res>=-1){
 			y -= this->velocidad*-2;
 		}else{
-			if(res>0&&res<0.5){
+			if(res>0.05&&res<0.5){
 				y -= this->velocidad*1;
 			}else{
-				if(res<0&&res>-0.5){
+				if(res<-0.05&&res>-0.5){
 					y -= this->velocidad*-1;
 				}else{
 					if(res==0.0){
@@ -208,8 +213,14 @@ void Tejo::mover_y() {
 
 
 	this->setY(y);
-	//std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
+	if(DEBUG==1){
+	std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
+	}
 }
+void Tejo::setRadio(int radio){
+	this->circulo->setRadio(radio);
+}
+
 int Tejo::getRadio(){
 	return this->circulo->getRadio();
 }
@@ -229,6 +240,18 @@ void Tejo::setXAnterior(int x){
 }
 void Tejo::setYAnterior(int y){
 	this->YAnterior = y;
+}
+
+void Tejo::setMover(int mover){
+	this->mover = mover;
+}
+
+int Tejo::getMover(){
+	return this->mover;
+}
+
+std::string Tejo::obtenerUltimaColisionPad(){
+	return "PADCLIENTE1";
 }
 
 
