@@ -60,7 +60,7 @@ int cSender::process(void* args)
 				this->posicionPad(pEnvioString);
 				//std::cout<<pEnvioString<<endl;
 				sock->send(pEnvioString);
-				//enviar(sock->getConexion(),pEnvioString);
+				
 			}
 			
 			

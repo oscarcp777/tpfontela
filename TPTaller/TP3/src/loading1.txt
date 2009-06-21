@@ -1,0 +1,5 @@
+config Atributos.txt
+config Default Escenario.txt
+config Validador.txt
+arial.ttf
+FIN

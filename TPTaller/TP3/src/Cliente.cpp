@@ -16,6 +16,7 @@
 #include <string>
 #include "GraficadorPuntajes.h"
 #include "Define.h"
+#include <time.h>
 
 using namespace std;
 
@@ -33,6 +34,8 @@ void Cliente::start(char* host, int port)
 	std::string msj;
 	this->finLoading=false;
 	SDL_Surface *screen;
+	
+
 
 	try
 	{
@@ -40,13 +43,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 		
-		loading(&sock);	
+		//loading(&sock);	
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,escenario->getAlto()/3);
 		SDL_Flip(escenario->getScreen());	
 		
-		loading(&sock);
+		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->setCorriendo(true);
 		
@@ -54,8 +57,10 @@ void Cliente::start(char* host, int port)
 		sender.start((void*)&sock);
 		
 		while (receiver.isEmpty()){
-				Sleep(20);
+				Sleep(2);
 			}
+		
+
 		msj= this->get();
 		
 		if(msj.find("INICIAR")==0){			
@@ -63,11 +68,13 @@ void Cliente::start(char* host, int port)
 			SDL_Flip(escenario->getScreen());
 			Sleep(3000);
 		}
+
 		while (receiver.running() == true){
 
-
+		//	comienzo = clock() - comienzo;
+		//	std::cout<<"Tiempo: " << comienzo<<endl;
 			while (receiver.isEmpty()){
-				Sleep(20);
+				Sleep(1);
 			}
 			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();

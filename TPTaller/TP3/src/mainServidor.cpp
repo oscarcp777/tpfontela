@@ -15,9 +15,9 @@ int main(int argc, char* argv[]){
 	char puerto[50];
 	pLeyenda = "PUERTO DE CONEXION (EJ: 2121)";
 
-	ingresoMensaje(puerto,pLeyenda);
+	//ingresoMensaje(puerto,pLeyenda);
 
-	Servidor* s = new Servidor(atoi(puerto), 2);
+	Servidor* s = new Servidor(1050, 2);
 	s->start(NULL);
 	s->join();
 	delete(s);

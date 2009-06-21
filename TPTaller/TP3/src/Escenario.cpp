@@ -428,6 +428,7 @@ int Escenario::graficar(){
 		
 		this->getTejo()->dibujar(this->screen);
 
+		
 		SDL_Flip(this->getScreen());
 
 

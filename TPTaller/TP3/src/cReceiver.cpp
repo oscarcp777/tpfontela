@@ -28,7 +28,7 @@ cReceiver::cReceiver():status(NOT_CONNECTED),filesize(1),downloaded(0)
 
 int cReceiver::process(void* args){
 
-	char mensRecive[1000];
+	char mensRecive[150];
 	char* pmensRecive;
 	char posicion[100000];
 	char* pPosicion;
@@ -70,8 +70,8 @@ int cReceiver::process(void* args){
 			try{
 				if(escenario->getCorriendo()==true){
 
-					memset(pmensRecive,0,sizeof(char)*1000);
-					sock->receive(pmensRecive,1000);
+					memset(pmensRecive,0,sizeof(char)*150);
+					sock->receive(pmensRecive,150);
 					msg = pmensRecive;
 					bufferStr += msg;
 
