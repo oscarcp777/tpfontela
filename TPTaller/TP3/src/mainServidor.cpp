@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
 
 	//ingresoMensaje(puerto,pLeyenda);
 
-	Servidor* s = new Servidor(1050, 2);
+	Servidor* s = new Servidor(2121, 2);
 	s->start(NULL);
 	s->join();
 	delete(s);
