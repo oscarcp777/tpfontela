@@ -11,10 +11,15 @@
 #include <vector>
 #include <math.h>
 #include "Posicion.h"
+#include "Recta.h"
 #include <SDL.h>
 class Tejo{
 public:
 	Tejo();
+	void cargarPixelesAMover();
+	Recta* getRectaDireccion();
+	int getYSiguiente(int y);
+	int getXSiguiente(int x);
 	Tejo(Circulo *circulo);
 	virtual ~Tejo();
 	void borrarTejo();
@@ -66,9 +71,9 @@ private:
     	SDL_Surface *imagen;
 		int XAnterior;
 		int YAnterior;
-
-		int mover;
-
+        int moverMayor;
+		int  moverMenor;
+		int  mover;
 		bool choco;
 
 };

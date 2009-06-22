@@ -97,10 +97,9 @@ void Juego::update(){
 		SDL_Event evento;
 
 		// Actualizamos el estado del teclado
-		this->escenario->getTejo()->mover_x();
-		this->escenario->getTejo()->mover_y();
+		this->escenario->getTejo()->moverTejo();
 		//me fijo si hay colisiones
-	
+
 		ControladorColisiones::colisionesPads();
 		ControladorColisiones::posibilidadDeColisionDispersores();
 		/*############################################################################################################################*/
@@ -108,7 +107,7 @@ void Juego::update(){
 		/*############################################################################################################################*/
 
 					if(ControladorColisiones::colisionesArcos()==0){
-					//TODO comentos estas lineas para que no vuelva el pad al centro cuando hay gol, 
+					//TODO comentos estas lineas para que no vuelva el pad al centro cuando hay gol,
 					//this->escenario->getPadCliente1()->setY(this->escenario->getAlto()/2);
 					//this->escenario->getPadCliente1()->setX((int)this->escenario->getAncho()*POS_PAD1_Y_PORCENTAJE);
 					//this->escenario->getPadCliente2()->setY(this->escenario->getAlto()/2);
@@ -118,22 +117,22 @@ void Juego::update(){
 							this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
 							this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
 							this->escenario->getTejo()->getDireccion()->setFi(PI/4);
-							
+
 						}
 						else if(this->escenario->getGolDe().compare("PAD2")== 0){
 							this->escenario->getTejo()->setY(this->escenario->getPadCliente1()->getY()+this->escenario->getPadCliente1()->getAltura()/2);
 							this->escenario->getTejo()->setX(this->escenario->getPadCliente1()->getX()-this->escenario->getTejo()->getRadio());
 							this->escenario->getTejo()->getDireccion()->setFi(3*PI/4);
-								
+
 
 						}
 						this->estado="GOL";
-								
+
 
 				}
 
 		ControladorColisiones::calcularDireccion();
-	
+
 
 		//si fue gol espero 2 segundos antes de empezar otra partida
 					if(this->estado.compare("GOL")==0){
@@ -141,7 +140,7 @@ void Juego::update(){
 						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
 						this->decrementarTejosRestantes();
 						if(this->getTejosRestantes() == 0){
-							
+
 							//como termina el nivel se incrementan (en 70) los puntos del jugador que gano el nivel (el que hizo mas goles)
 							if(this->escenario->getPadCliente1()->getCantGoles()  >  this->escenario->getPadCliente2()->getCantGoles()){
 								this->escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(this->escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador()+70);
@@ -150,7 +149,7 @@ void Juego::update(){
 								this->escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(this->escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador()+70);
 							}
 
-						}					
+						}
 
 					}
 

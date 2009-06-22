@@ -14,6 +14,13 @@ Tejo::Tejo() {
 	// TODO Auto-generated constructor stub
 
 }
+Recta* Tejo::getRectaDireccion(){
+
+	return new Recta(this->getX(),this->getXSiguiente(this->getX()),this->getY(),this->getYSiguiente(this->getY()));
+
+}
+
+
 Circulo* Tejo::getFigura(){
 	return	this->circulo;
 }
@@ -132,28 +139,32 @@ void Tejo::setY(int y){
 // El movimiento de la imagen se establece
 
 void Tejo::mover_x() {
-	Escenario* escenario= Escenario::obtenerInstancia();
 	int x =this->getX();
 	this->setXAnterior(x);
+	this->setX(this->getXSiguiente(x));
+//	std::cout<<"posicion X :"<<x<<endl;
+}
+int Tejo::getXSiguiente(int x) {
+	Escenario* escenario= Escenario::obtenerInstancia();
 	if(x>=escenario->getAncho()-this->getRadio()){
-			x += this->velocidad*-2;
+			x += this->moverMayor*-1;
 		}else{
 
 		double res = cos(this->direccion->getFi());
 		if(res>=0.5&&res<1){
-			x += this->velocidad*2;
+			x += this->moverMayor;
 		}else{
 			if(res<=-0.5&&res>=-1){
-				x += this->velocidad*-2;
+				x += this->moverMayor*-1;
 			}else{
 				if(res>0.05&&res<0.5){
-					x += this->velocidad*1;
+					x += this->moverMenor;
 				}else{
 					if(res<-0.05&&res>-0.5){
-						x += this->velocidad*-1;
+						x += this->moverMenor*-1;
 					}else{
 						if(res==1){
-					     x += this->velocidad*1;
+					     x += this->moverMenor;
 						}
 					}
 
@@ -161,61 +172,113 @@ void Tejo::mover_x() {
 			}
 		}
 }
+return x;
+}
 
-	this->setX(x);
-//	std::cout<<"posicion X :"<<x<<endl;
-}
-/*void Tejo::retrasar_x() {
-//	borrarTejo();
-	int x =this->getX();
-	x -= PIXELES_SALTO;
-	this->setX(x);
-}
-void Tejo::bajar_y() {
-//	borrarTejo();
-	int y =this->getY();
-	y += PIXELES_SALTO;
-	this->setY(y);
-}*/
 void Tejo::moverTejo(){
+	this->cargarPixelesAMover();
 	this->mover_x();
 	this->mover_y();
 }
-void Tejo::mover_y() {
+void Tejo::mover_y(){
 	int y =this->getY();
-	double resY,res;
-	Escenario* escenario= Escenario::obtenerInstancia();
 	this->setYAnterior(y);
+	this->setY(this->getYSiguiente(y));
+	if(DEBUG==1){
+		std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
+		std::cout<<"posision X : "<<this->getX()<<endl;
+		std::cout<<"posision Y :   "<<this->getY()<<endl;
+	}
+}
+void  Tejo::cargarPixelesAMover() {
+	switch (this->velocidad) {
+	case 1:
+		this->moverMayor=2;
+		this->moverMenor=1;
+		if(DEBUG==1){
+		std::cout << "velocidad 1 " << endl;
+		}
+		break;
+	case 2:
+		this->moverMayor=3;
+		this->moverMenor=2;
+		if(DEBUG==1){
+		std::cout << "velocidad 2 " << endl;
+		}
+		break;
+	case 3:              // L-16:
+		this->moverMayor=4;
+		this->moverMenor=2;
+		if(DEBUG==1){
+		std::cout << "velocidad 3 " << endl;
+		}
+		break;
+	case 4:              // L-16:
+		this->moverMayor=5;
+		this->moverMenor=3;
+		if(DEBUG==1){
+		std::cout << "velocidad 4 " << endl;
+		}
+		break;
+	case 5:              // L-16:
+		this->moverMayor=6;
+		this->moverMenor=3;
+		if(DEBUG==1){
+		std::cout << "velocidad 5 " << endl;
+		}
+		break;
+	case 6:              // L-16:
+		this->moverMayor=7;
+		this->moverMenor=4;
+		if(DEBUG==1){
+		std::cout << "velocidad 6 " << endl;
+		}
+		break;
+	case 7:              // L-16:
+		this->moverMayor=8;
+		this->moverMenor=4;
+		if(DEBUG==1){
+		std::cout << "velocidad 7 " << endl;
+		}
+		break;
+	default:             // L-20:
+		this->moverMayor=9;
+		this->moverMenor=5;
+		if(DEBUG==1){
+		std::cout << "velocidad 9 pixeles  o mas esta es la maxima" << endl;
+		}
+	}
+}
+int Tejo::getYSiguiente(int y) {
+	Escenario* escenario= Escenario::obtenerInstancia();
 	if(y>=escenario->getAlto()-this->getRadio()){
-		y += this->velocidad*-2;
+		y += this->moverMayor*-1;
 	}else{
 
-	double res =sin(this->direccion->getFi());
-	if(res>=0.5&&res<1){
-		y -= this->velocidad*2;
-	}else{
-		if(res<=-0.5&&res>=-1){
-			y -= this->velocidad*-2;
+		double res =sin(this->direccion->getFi());
+		if(res>=0.5&&res<1){
+			y -= this->moverMayor;
 		}else{
-			if(res>0.05&&res<0.5){
-				y -= this->velocidad*1;
+			if(res<=-0.5&&res>=-1){
+				y -= this->moverMayor*-1;
 			}else{
-				if(res<-0.05&&res>-0.5){
-					y -= this->velocidad*-1;
+				if(res>0.05&&res<0.5){
+					y -= this->moverMenor;
 				}else{
-					if(res==0.0){
-				    y -= this->velocidad*1;
+					if(res<-0.05&&res>-0.5){
+						y -= this->moverMenor*-1;
+					}else{
+						if(res==0.0){
+							y -= this->moverMenor;
+						}
 					}
 				}
 			}
 		}
-	}}
+		}
 
 
-	this->setY(y);
-	if(DEBUG==1){
-	std::cout<<"direccion  :"<<(this->direccion->getFi()*180)/PI<<endl;
-	}
+	return y;
 }
 void Tejo::setRadio(int radio){
 	this->circulo->setRadio(radio);
