@@ -37,7 +37,8 @@ public:
 	void setImagen(SDL_Surface *imagen);
 	int calcularProximaPosicionAlSubir();
 	int calcularProximaPosicionAlBajar();
-
+    bool getModificar();
+    void setModificar(bool modificar);
 private:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
@@ -45,7 +46,7 @@ private:
 	Puntaje* puntaje;
 	int cantGoles;
 	int velocidad;
-
+    bool modificar;
 };
 
 #endif /* PAD_H_ */

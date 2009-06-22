@@ -21,7 +21,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->rectangulo=rectangulo;
 	this->puntaje = puntaje;
 	this->cantGoles = 0;
-	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
+	this->modificar=false;
 
 
 }
@@ -39,29 +39,8 @@ Pad::~Pad() {
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
-	 SDL_Surface* imageACargar;
 	 SDL_Surface* imageACargar1;
 	Escenario* escenario=Escenario::obtenerInstancia();
-//	if(this->fondoPad==NULL){
-//
-//			std::string pathFondo =escenario->obtenerPathTextura("padFondo");
-//			imageACargar = IMG_Load(pathFondo.begin());
-//			if(imageACargar == NULL) {
-//						std::cout<< "Error: " << SDL_GetError() << endl;
-//						exit(1);
-//		}
-//		if(imageACargar!= NULL){
-//			std::cout<< "modifico image"<<pathFondo<< endl;
-//			imageACargar = this->getFigura()->ScaleSurface(imageACargar,this->getFigura()->getBase(),escenario->getAlto());
-//			}
-//		SDL_SetColorKey(imageACargar,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(imageACargar->format,255 ,255, 255));
-//     		this->fondoPad = SDL_DisplayFormat(imageACargar);
-//				  SDL_FreeSurface(imageACargar);
-//	}
-//		SDL_Rect rectFondo;
-//		rectFondo.x =this->getX();
-//		rectFondo.y =0;
-//		SDL_BlitSurface(this->fondoPad, NULL, pantalla, &rectFondo);
 
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
@@ -77,7 +56,9 @@ void Pad::dibujar(SDL_Surface *pantalla){
 		this->imagen = SDL_DisplayFormat(imageACargar1);
 	    SDL_FreeSurface(imageACargar1);
 	}
-
+	if(this->modificar){
+			this->imagen = this->getFigura()->ScaleSurface(this->imagen,  this->getFigura()->getBase(), this->getFigura()->getAltura());
+		}
 	SDL_Rect rect;
 	rect.x =this->getX();
 	rect.y = this->getY();
@@ -89,6 +70,16 @@ int Pad::getX(){
 int Pad::getY(){
 	return this->rectangulo->getPosicion()->getY();
 }
+bool Pad::getModificar()
+    {
+        return modificar;
+    }
+
+    void Pad::setModificar(bool modificar)
+    {
+        this->modificar = modificar;
+    }
+
 void Pad::setX(int x){
 	this->rectangulo->getPosicion()->setX(x);
 }

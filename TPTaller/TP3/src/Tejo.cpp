@@ -40,6 +40,7 @@ Tejo::Tejo(Circulo* circulo){
 	this->imagen=NULL;
 	this->choco=false;
 	this->direccion = new Direccion();
+	this->modificarRadio=false;
 
 }
 SDL_Surface* Tejo::getImagen()
@@ -112,6 +113,9 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 		this->imagen = SDL_DisplayFormat(image);
 		  SDL_FreeSurface(image);
+	}
+	if(this->modificarRadio){
+		this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
 	}
 	SDL_Rect rect;
 	rect.x =this->getX()-this->getRadio();
@@ -321,3 +325,12 @@ void Tejo::setUltimaColisionPad(std::string ultimoPad){
 	this->ultimaColisionPad = ultimoPad;
 
 }
+bool Tejo::getModificarRadio()
+   {
+       return modificarRadio;
+   }
+
+   void Tejo::setModificarRadio(bool modificarRadio)
+   {
+       this->modificarRadio = modificarRadio;
+   }

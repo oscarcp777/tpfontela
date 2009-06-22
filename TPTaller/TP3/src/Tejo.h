@@ -64,8 +64,9 @@ public:
     bool getChoco();
     void setChoco(bool choco);
 	void setImagen(SDL_Surface *imagen);
-	
+    bool getModificarRadio();
 
+    void setModificarRadio(bool modificarRadio);
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;
@@ -78,6 +79,7 @@ private:
 		int  moverMenor;
 		int  mover;
 		bool choco;
+		bool modificarRadio;
 		std::string ultimaColisionPad;
 
 };
