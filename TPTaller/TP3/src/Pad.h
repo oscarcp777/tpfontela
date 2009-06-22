@@ -45,7 +45,7 @@ private:
 	Puntaje* puntaje;
 	int cantGoles;
 	int velocidad;
-	
+
 };
 
 #endif /* PAD_H_ */
