@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 #include <SDL_main.h>
 #include "Color.h"
+#include "Bonus.h"
 #include "Posicion.h"
 #include "RectanguloInfluencia.h"
 #include <list>
@@ -37,22 +38,17 @@ class Figura{
 	 	  int getY();
 		  int getXInfluencia();
 		  void setXInfluencia(int xInfluencia);
-			void setImagen(SDL_Surface *imagen);
-		     int getYInfluencia();
-
-		     void setYInfluencia(int yInfluencia);
-
-		     int getAnchoInfluencia();
-
-              void analizarChoque();
-		     void setAnchoInfluencia(int anchoInfluencia);
-
-		     int getAltoInfluencia();
-
-
-		     void setAltoInfluencia(int altoInfluencia);
-             std::string getTipo();
-             void setTipo(std::string tipo);
+		  void setImagen(SDL_Surface *imagen);
+		  int getYInfluencia();
+          void setYInfluencia(int yInfluencia);
+          int getAnchoInfluencia();
+          void analizarChoque();
+          void setAnchoInfluencia(int anchoInfluencia);
+          int getAltoInfluencia();
+          void setAltoInfluencia(int altoInfluencia);
+          std::string getTipo();
+          void setTipo(std::string tipo);
+		  void setBonus(Bonus* bonus);
 
 protected:
 	    int xInfluencia;
@@ -67,6 +63,7 @@ protected:
 		Color* colorLinea;
 		SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
 		Posicion *pos;
+		Bonus* bonus;
 		std::list<RectanguloInfluencia*> rectangulosDeInfluencia;
 
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);

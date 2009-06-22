@@ -47,10 +47,11 @@ Escenario::Escenario(){
 	this->addTextura(icono);
 	this->tejosRestantes = 7;
 	this->numeroNivel = 1;
+	this->inicializarListaBonus();
 
 }
 
-/*void Escenario::inicializarListaBonus(){
+void Escenario::inicializarListaBonus(){
 	DecLongPad* decLongPad = new DecLongPad();
 	this->listaBonus.push_back(decLongPad);
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
@@ -71,10 +72,6 @@ Escenario::Escenario(){
 	this->listaBonus.push_back(frenoTejo);
 }
 
-
-
-
-
 void Escenario::shuffleListBonus(){
 	list<Bonus*>::iterator begin = this->listaBonus.begin(); 
 	list<Bonus*>::iterator end = this->listaBonus.end(); 
@@ -88,7 +85,7 @@ void Escenario::shuffleListBonus(){
 	swap<Bonus*>(*begin, *p); 
 	} 
 }
-*/
+
 
 Validador*  Escenario::getValidador(){
 	return this->validador;

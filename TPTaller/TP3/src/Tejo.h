@@ -23,9 +23,9 @@ public:
 	Tejo(Circulo *circulo);
 	virtual ~Tejo();
 	void borrarTejo();
-      void dibujar(SDL_Surface *pantalla);
-         Circulo* getFigura();
-    	 void mover_x();
+    void dibujar(SDL_Surface *pantalla);
+    Circulo* getFigura();
+    void mover_x();
     	// void retrasar_x();
 
     	  // Modifica la posición del personaje con respecto al eje Y
@@ -55,6 +55,7 @@ public:
     SDL_Surface *getImagen();
 
 	std::string obtenerUltimaColisionPad();
+	void setUltimaColisionPad(std::string ultimoPad);
 	void setMover(int mover);
 	int getMover();
 
@@ -62,6 +63,7 @@ public:
     bool getChoco();
     void setChoco(bool choco);
 	void setImagen(SDL_Surface *imagen);
+	
 
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
@@ -75,6 +77,7 @@ private:
 		int  moverMenor;
 		int  mover;
 		bool choco;
+		std::string ultimaColisionPad;
 
 };
 

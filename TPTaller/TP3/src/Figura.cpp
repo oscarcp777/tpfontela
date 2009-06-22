@@ -116,6 +116,9 @@ void Figura::setImagen(SDL_Surface *imagen){
 
 	this->imagen = imagen;
 }
+void Figura::setBonus(Bonus* bonus){
+	this->bonus = bonus;
+}
 
 Color* Figura::getColorFigura()
 {

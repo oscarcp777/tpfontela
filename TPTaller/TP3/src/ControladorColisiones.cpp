@@ -872,6 +872,7 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 
 	}
 }
+
 void ControladorColisiones::colisionesPads(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Tejo* tejo = escenario->getTejo();

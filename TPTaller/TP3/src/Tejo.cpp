@@ -314,7 +314,10 @@ int Tejo::getMover(){
 }
 
 std::string Tejo::obtenerUltimaColisionPad(){
-	return "PADCLIENTE1";
+	return this->ultimaColisionPad;
 }
 
+void setUltimaColisionPad(std::string ultimoPad){
+	this->ultimaColisionPad = ultimoPad;
 
+}
