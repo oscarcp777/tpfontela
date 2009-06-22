@@ -33,6 +33,7 @@ public:
 	void update();
     std::string getEstado();
 	void setEstado(std::string estado);
+	Bonus* getNuevoBonusRandom();
 
 protected:
 	Juego();

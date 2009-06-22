@@ -113,6 +113,13 @@ void Cliente::start(char* host, int port)
 
 
 			}
+			else if(msj.find("BONUS")==0){
+				string tipoBonus;
+				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
+				Figura* figura= (*escenario->iteratorListaFiguras());
+				figura->setBonus(*escenario->iteratorListaBonus());
+
+			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);
 				escenario->setTejosRestantes(7);

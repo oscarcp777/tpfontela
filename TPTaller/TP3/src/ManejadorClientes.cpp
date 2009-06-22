@@ -91,7 +91,22 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			strcat(pGanador,paux1);
 			strcat(pGanador,"\n");
 		}
+		
+		void ManejadorClientes::bonus(char* pMensBonus,int tipoBonus){
 
+			char aux1[20];
+			char* paux1 = aux1;
+
+			memset(paux1,0,sizeof(char)*20);
+			memset(pMensBonus,0,sizeof(char)*40);
+			strcat(pMensBonus,"BONUS ");
+			itoa(tipoBonus,paux1,10);
+		
+			strcat(pMensBonus,paux1);
+			strcat(pMensBonus," ");
+			//TODO aca concatenar la figura que va a tener el bonus
+			strcat(pMensBonus,"\n");
+		}
 
 		int ManejadorClientes :: process(void* arg){
 			seguirCiclando = 1;
@@ -109,10 +124,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			char ganador[40];
 			char* pGanador = ganador;
 			char datosRecividos[30];
+			char mensBonus[40];
+			char* pMensBonus = mensBonus;
 			char* pDatosRecividos = datosRecividos;
 			std::string msj;
 			int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
-
+			int tipoBonus;
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
 				loading(todosLosClientes,"loading1.txt");
@@ -142,7 +159,14 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("GOL")== 0){
 							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
 							enviarAtodos(this->todosLosClientes,pPuntajes);
-							juegoNuevo->getEscenario()->shuffleListBonus();
+							
+							//*******************************************************
+							//TODO si hay gol aplico el bonus y mando un comando a los clientes para que apliquen bonus
+							 tipoBonus = juegoNuevo->getNuevoBonusRandom()->getTipoBonus();
+							 this->bonus(pMensBonus,tipoBonus);
+
+							 enviarAtodos(this->todosLosClientes,pMensBonus);
+							//******************************************************
 							
 
 							if(juegoNuevo->getTejosRestantes() == 0){

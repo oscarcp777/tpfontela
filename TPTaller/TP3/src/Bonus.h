@@ -24,7 +24,7 @@ public:
 	/*
 	 * Metodos para guardar el estado anterior del tejo y de los pad
 	 */
-    void cargarImagen(std::string pathTextura);
+    void cargarImagen(std::string idTextura);
 	void setVelocidadAnterior(int velocidadAnterior);
 	int getVelocidadAnterior();
 	void setAlturaAnterior(int alturaAnterior);
@@ -42,7 +42,7 @@ private:
 	int alturaAnterior;
 	int radioAnterior;
 	SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
-
+	int tipoBonus;
 };
 
 #endif /* BONUS2_H_ */

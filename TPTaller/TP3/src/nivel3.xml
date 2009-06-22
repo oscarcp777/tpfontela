@@ -30,5 +30,25 @@
                  </textura>
                  <textura id="arco" path="imagenes/cuadrado.jpg">
                  </textura>
+	<textura id="EscDefault" path="imagenes/cuadrado.jpg">
+	</textura>
+	<textura id="decLongPad" path="imagenes/don.png">
+                 </textura>
+	<textura id="decLongPadVs" path="imagenes/don.png">
+                 </textura>
+	<textura id="decRadioTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="incLongPad" path="imagenes/don.png">
+                 </textura>
+	<textura id="incLongPadVs" path="imagenes/don.png">
+                 </textura>
+	<textura id="incRadioTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="incVelocidadTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="pegamentoTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="frenoTejo" path="imagenes/don.png">
+                 </textura>
              </ListadoDeTexturas>
 </escenario>

@@ -45,6 +45,7 @@ class Escenario {
 			void shuffleListBonus();
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
+			std::list<Bonus*>::iterator iteratorListaBonus();
 			std::string Escenario::obtenerPathTextura(std::string id);
     void setAncho(int ancho);
     int getAncho();

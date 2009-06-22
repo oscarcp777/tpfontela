@@ -14,11 +14,11 @@ Bonus::Bonus() {
 this->imagen=NULL;
 
 }
-void Bonus::cargarImagen(std::string pathTextura){
+void Bonus::cargarImagen(std::string idTextura){
 	SDL_Surface* image;
 		//	 Cargamos la imagen
 		if(this->imagen==NULL){
-			std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(pathTextura);
+			std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(idTextura);
 			image = IMG_Load(path.begin());
 			//			this->imagen = SDL_LoadBMP(path.begin());
 			if(image == NULL) {

@@ -31,6 +31,13 @@ Juego* Juego::obtenerInstancia(){
 
 	return Juego::unicaInstanciaJuego;
 }
+Bonus* Juego::getNuevoBonusRandom(){
+	this->getEscenario()->shuffleListBonus();
+	Bonus* bonus;
+	bonus = *(this->getEscenario()->iteratorListaBonus());
+	return bonus;
+
+}
 
 bool Juego::arrancado()
 {

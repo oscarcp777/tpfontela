@@ -10,4 +10,6 @@ imagenes/cancha2.jpg
 imagenes/bola.png
 imagenes/cuadrado2.jpg
 imagenes/tejo6.png
+imagenes/padNegro.png
+imagenes/don.png
 FIN

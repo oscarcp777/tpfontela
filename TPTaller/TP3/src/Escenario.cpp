@@ -54,30 +54,47 @@ Escenario::Escenario(){
 void Escenario::inicializarListaBonus(){
 	DecLongPad* decLongPad = new DecLongPad();
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
+	decLongPad->cargarImagen("decLongPad");
 	this->listaBonus.push_back(decLongPad);
+	
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
-	decLongPad->setTipoBonus(DEC_LONG_PAD_VS);
+	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
+	decLongPadVs->cargarImagen("decLongPadVs");
 	this->listaBonus.push_back(decLongPadVs);
+	
 	DecRadioTejo* decRadioTejo = new DecRadioTejo();
-	decLongPad->setTipoBonus(DEC_RADIO_TEJO);
+	decRadioTejo->setTipoBonus(DEC_RADIO_TEJO);
+	decRadioTejo->cargarImagen("decRadioTejo");
 	this->listaBonus.push_back(decRadioTejo);
+	
 	IncLongPad* incLongPad = new IncLongPad();
-	decLongPad->setTipoBonus(INC_LONG_PAD);
+	incLongPad->setTipoBonus(INC_LONG_PAD);
+	incLongPad->cargarImagen("incLongPad");
 	this->listaBonus.push_back(incLongPad);
+
 	IncLongPadVs* incLongPadVs = new IncLongPadVs();
-	decLongPad->setTipoBonus(INC_LONG_PAD_VS);
+	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
+	incLongPadVs->cargarImagen("incLongPadVs");
 	this->listaBonus.push_back(incLongPadVs);
+	
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
-	decLongPad->setTipoBonus(INC_RADIO_TEJO);
+	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
+	incRadioTejo->cargarImagen("incRadioTejo");
 	this->listaBonus.push_back(incRadioTejo);
+	
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
-	decLongPad->setTipoBonus(INC_VELOCIDAD_TEJO);
+	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
+	incVelocidadTejo->cargarImagen("incVelocidadTejo");
 	this->listaBonus.push_back(incVelocidadTejo);
+	
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
-	decLongPad->setTipoBonus(PEGAMENTO_TEJO);
+	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
+	pegamentoTejo->cargarImagen("pegamentoTejo");
 	this->listaBonus.push_back(pegamentoTejo);
+	
 	FrenoTejo* frenoTejo = new FrenoTejo();
-	decLongPad->setTipoBonus(FRENO_TEJO);
+	frenoTejo->setTipoBonus(FRENO_TEJO);
+	frenoTejo->cargarImagen("frenoTejo");
 	this->listaBonus.push_back(frenoTejo);
 }
 
@@ -258,7 +275,9 @@ int Escenario::sizeListaTexturas(){
 std::list<Figura*>::iterator Escenario::iteratorListaFiguras(){
 	return this->listaFiguras.begin();
 }
-
+std::list<Bonus*>::iterator Escenario::iteratorListaBonus(){
+	return this->listaBonus.begin();
+}
 
 std::list<Textura*>::iterator Escenario::iteratorListaTexturas(){
 	return this->listaTexturas.begin();

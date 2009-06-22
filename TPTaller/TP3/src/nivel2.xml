@@ -1,6 +1,8 @@
 <escenario>
              <ListadoDeDispersores>        
- 	
+ 	<circulo id="circulo1" radio="100" tipo="circulo"> 
+                                   <posicion x="400" y="300" />
+                       </circulo>
                     </ListadoDeDispersores>
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.png">
@@ -12,6 +14,24 @@
                  <textura id="arco" path="imagenes/cuadrado2.jpg">
                  </textura>
 	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
+                 </textura>
+	<textura id="decLongPad" path="imagenes/don.png">
+                 </textura>
+	<textura id="decLongPadVs" path="imagenes/don.png">
+                 </textura>
+	<textura id="decRadioTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="incLongPad" path="imagenes/don.png">
+                 </textura>
+	<textura id="incLongPadVs" path="imagenes/don.png">
+                 </textura>
+	<textura id="incRadioTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="incVelocidadTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="pegamentoTejo" path="imagenes/don.png">
+                 </textura>
+	<textura id="frenoTejo" path="imagenes/don.png">
                  </textura>
              </ListadoDeTexturas>
 </escenario>
