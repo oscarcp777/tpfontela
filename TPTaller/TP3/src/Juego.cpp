@@ -127,12 +127,12 @@ void Juego::update(){
 
 						}
 						this->estado="GOL";
-
+						
 
 				}
 
 		ControladorColisiones::calcularDireccion();
-
+		
 
 		//si fue gol espero 2 segundos antes de empezar otra partida
 					if(this->estado.compare("GOL")==0){

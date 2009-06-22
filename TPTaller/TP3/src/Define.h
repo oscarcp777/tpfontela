@@ -55,8 +55,8 @@
 #define TRIANGULO "triangulo"
 #define TEJO "tejo"
 #define PAD "pad"
-#define PAD_CLIENTE1 "padCliente1"
-#define PAD_CLIENTE2 "padCliente2"
+#define PAD_CLIENTE1 "PAD1"
+#define PAD_CLIENTE2 "PAD2"
 #define CIRCULO "circulo"
 #define DELIMITADOR "\""
 #define GENERAL "General"
@@ -107,4 +107,14 @@
 #define BASE_TRIANGULO_ABAJO "ABAJO"
 #define BASE_TRIANGULO_ARRIBA "ARRIBA"
 #define CANT_NIVELES 3
+
+#define DEC_LONG_PAD 0
+#define DEC_LONG_PAD_VS 1
+#define DEC_RADIO_TEJO 2
+#define INC_LONG_PAD 3
+#define INC_LONG_PAD_VS 4
+#define INC_RADIO_TEJO 5
+#define INC_VELOCIDAD_TEJO 6
+#define PEGAMENTO_TEJO 7
+#define FRENO_TEJO 8
 #endif

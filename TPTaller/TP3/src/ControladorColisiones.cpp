@@ -866,14 +866,12 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 				}
 			}
 
-
-
 		}
 		if(rectangulo->getTipo().compare(PAD_DERECHA)==0){
-           tejo->setUltimaColisionPad(PAD_DERECHA);
+           tejo->setUltimaColisionPad(PAD_CLIENTE1);
 				}
 		if(rectangulo->getTipo().compare(PAD_IZQUIERDA)==0){
-			 tejo->setUltimaColisionPad(PAD_IZQUIERDA);
+			 tejo->setUltimaColisionPad(PAD_CLIENTE2);
 						}
 
 	}

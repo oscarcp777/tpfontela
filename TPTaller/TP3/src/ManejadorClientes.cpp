@@ -142,7 +142,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("GOL")== 0){
 							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
 							enviarAtodos(this->todosLosClientes,pPuntajes);
-
+							juegoNuevo->getEscenario()->shuffleListBonus();
+							
 
 							if(juegoNuevo->getTejosRestantes() == 0){
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel

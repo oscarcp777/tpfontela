@@ -17,6 +17,7 @@ public:
 	DecLongPadVs();
 	int aplicar();
 	~DecLongPadVs();
+	
 
 };
 

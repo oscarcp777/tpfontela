@@ -51,3 +51,10 @@ void Bonus::setRadioAnterior(int radioAnterior){
 int Bonus::getRadioAnterior(){
 	return this->radioAnterior;
 }
+
+int Bonus::getTipoBonus(){
+	return this->tipoBonus;
+}
+int Bonus::setTipoBonus(int tipoBonus){
+	return this->tipoBonus =tipoBonus;
+}

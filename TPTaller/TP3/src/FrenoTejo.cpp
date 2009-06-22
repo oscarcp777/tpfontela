@@ -4,6 +4,7 @@
 
 #include "FrenoTejo.h"
 #include "Escenario.h"
+#include "Define.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -12,7 +13,9 @@ FrenoTejo::FrenoTejo()
 {
 
 }
-
+int getTipoBonus(){
+	return 	FRENO_TEJO;
+}
 int FrenoTejo::aplicar(){
 	Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
 	int decUnTercioVelocidad=tejo->getVelocidad()-this->getVelocidadAnterior()/3;

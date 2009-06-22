@@ -53,22 +53,31 @@ Escenario::Escenario(){
 
 void Escenario::inicializarListaBonus(){
 	DecLongPad* decLongPad = new DecLongPad();
+	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	this->listaBonus.push_back(decLongPad);
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
+	decLongPad->setTipoBonus(DEC_LONG_PAD_VS);
 	this->listaBonus.push_back(decLongPadVs);
 	DecRadioTejo* decRadioTejo = new DecRadioTejo();
+	decLongPad->setTipoBonus(DEC_RADIO_TEJO);
 	this->listaBonus.push_back(decRadioTejo);
 	IncLongPad* incLongPad = new IncLongPad();
+	decLongPad->setTipoBonus(INC_LONG_PAD);
 	this->listaBonus.push_back(incLongPad);
 	IncLongPadVs* incLongPadVs = new IncLongPadVs();
+	decLongPad->setTipoBonus(INC_LONG_PAD_VS);
 	this->listaBonus.push_back(incLongPadVs);
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
+	decLongPad->setTipoBonus(INC_RADIO_TEJO);
 	this->listaBonus.push_back(incRadioTejo);
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
+	decLongPad->setTipoBonus(INC_VELOCIDAD_TEJO);
 	this->listaBonus.push_back(incVelocidadTejo);
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
+	decLongPad->setTipoBonus(PEGAMENTO_TEJO);
 	this->listaBonus.push_back(pegamentoTejo);
 	FrenoTejo* frenoTejo = new FrenoTejo();
+	decLongPad->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
 }
 

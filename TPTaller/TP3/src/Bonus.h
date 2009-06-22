@@ -28,6 +28,8 @@ public:
 	int getAlturaAnterior();
 	void setRadioAnterior(int radioAnterior);
 	int getRadioAnterior();
+	int getTipoBonus();
+	int setTipoBonus(int tipoBonus);
 	virtual ~Bonus();
 
 private:
@@ -35,6 +37,7 @@ private:
 	int velocidadAnterior;
 	int alturaAnterior;
 	int radioAnterior;
+	int tipoBonus;
 
 };
 

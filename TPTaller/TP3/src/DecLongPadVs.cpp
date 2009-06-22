@@ -14,6 +14,7 @@ DecLongPadVs::DecLongPadVs()
 
 }
 
+
 int DecLongPadVs::aplicar(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Pad*pad=NULL;

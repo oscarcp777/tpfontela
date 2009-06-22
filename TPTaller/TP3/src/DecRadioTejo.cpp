@@ -14,6 +14,7 @@ DecRadioTejo::DecRadioTejo()
 
 }
 
+
 int DecRadioTejo::aplicar(){
 	Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
 	int decUnTercioDeRadio=tejo->getRadio()-this->getRadioAnterior()/3;

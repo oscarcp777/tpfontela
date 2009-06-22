@@ -317,7 +317,7 @@ std::string Tejo::obtenerUltimaColisionPad(){
 	return this->ultimaColisionPad;
 }
 
-void setUltimaColisionPad(std::string ultimoPad){
+void Tejo::setUltimaColisionPad(std::string ultimoPad){
 	this->ultimaColisionPad = ultimoPad;
 
 }

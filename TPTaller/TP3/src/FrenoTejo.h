@@ -16,6 +16,7 @@ public:
 	FrenoTejo();
 	int aplicar();
 	virtual ~FrenoTejo();
+	int getTipoBonus();
 
 };
 
