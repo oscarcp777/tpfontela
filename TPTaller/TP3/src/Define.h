@@ -11,6 +11,8 @@
 #define PI 3.141592653
 #define NUMERO_PEQUENIO 0.0000001
 #define SIN_VALOR "sinValor"
+#define PAD_DERECHA "padDerecha"
+#define PAD_IZQUIERDA "padIzquierda"
 #define CIRCULO "circulo"
 #define ARRIBA "arriba"
 #define	ABAJO "abajo"
