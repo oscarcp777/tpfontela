@@ -572,10 +572,12 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	Recta* recta1=triangulo->getRecta1();
 	Recta* recta2=triangulo->getRecta2();
 	Recta* recta3=triangulo->getRecta3();
+	if(DEBUG==1){
 	recta3->toString();
 	recta2->toString();
-	recta1->toString();
+	recta1->toString();		
 	rectaDireccionTejo->toString();
+	}
 	Recta* recta=NULL; //Recta con la que estoy mas cerca
 
 	//Hallo las distancias de la posicion del tejo con respecto a las rectas del triangulo
@@ -890,7 +892,8 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 1 y su cantidad de goles en el nivel
 			pad1->getPuntaje()->setCantPuntosJugador(pad1->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-
+			escenario->getPadCliente1()->setCantGoles(escenario->getPadCliente1()->getCantGoles()+1);
+			escenario->setGolDe("PAD1");
 			return 0;
 		}
 	}
@@ -900,8 +903,8 @@ int ControladorColisiones::colisionesArcos(){
 			//			std::cout<<"  GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"<<endl;
 			//se incrementan los puntos del jugador 2 y su cantidad de goles en el nivel
 			pad2->getPuntaje()->setCantPuntosJugador(pad2->getPuntaje()->getCantPuntosJugador()+PUNTAJE_GOL);
-
-
+			escenario->getPadCliente2()->setCantGoles(escenario->getPadCliente2()->getCantGoles()+1);
+			escenario->setGolDe("PAD2");
 			return 0;
 		}
 	}

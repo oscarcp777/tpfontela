@@ -8,6 +8,7 @@
 #include "ManejadorClientes.h"
 #include "archivoTexto.h"
 #include "Define.h"
+#include "CalculosMatematicos.h"
 
 ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
 		std::list<Thread*>& clientes):
@@ -96,15 +97,19 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			char aux1[20];
 			char* paux1 = aux1;
+			char aux2[20];
+			char* paux2 = aux2;
 
 			memset(paux1,0,sizeof(char)*20);
+			memset(paux2,0,sizeof(char)*20);
 			memset(pMensBonus,0,sizeof(char)*40);
 			strcat(pMensBonus,"BONUS ");
 			itoa(tipoBonus,paux1,10);
+			itoa(2,paux2,10);//TODO ese 2 hardcodeado no va, va el numero de figura o id
 		
 			strcat(pMensBonus,paux1);
 			strcat(pMensBonus," ");
-			//TODO aca concatenar la figura que va a tener el bonus
+			strcat(pMensBonus,paux2);//TODO aca concatenar la figura que va a tener el bonus
 			strcat(pMensBonus,"\n");
 		}
 
@@ -154,12 +159,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
-						}
-
-						else if(juegoNuevo->getEstado().compare("GOL")== 0){
-							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
-							enviarAtodos(this->todosLosClientes,pPuntajes);
 							
+							if(CalculosMatematicos::ramdom(100) <10){
 							//*******************************************************
 							//TODO si hay gol aplico el bonus y mando un comando a los clientes para que apliquen bonus
 							 tipoBonus = juegoNuevo->getNuevoBonusRandom()->getTipoBonus();
@@ -167,7 +168,13 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
-							
+							}
+						}
+
+						else if(juegoNuevo->getEstado().compare("GOL")== 0){
+							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
+							enviarAtodos(this->todosLosClientes,pPuntajes);
+													
 
 							if(juegoNuevo->getTejosRestantes() == 0){
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
