@@ -27,6 +27,7 @@ public:
 	static void colisionesPads();
 	static int colisionesArcos();
 	static void colisionCirculo(Tejo* tejo,Circulo* figura);
+	static double hallarDistancia(Recta* recta, int x, int y);
 	static void decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
