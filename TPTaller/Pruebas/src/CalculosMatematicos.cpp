@@ -14,12 +14,13 @@ CalculosMatematicos::CalculosMatematicos() {
 }
 double CalculosMatematicos::getAnguloValido(double direcion){
 	double devolver=direcion;
+	if(direcion<0){
+			devolver=2*PI+direcion;
+		}
 	if(direcion>=2*PI){
 		devolver=direcion-2*PI;
 	}
-	if(direcion<0){
-		devolver=2*PI-direcion;
-	}
+
 	return devolver;
 }
 int CalculosMatematicos::verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo){
@@ -63,13 +64,16 @@ bool  CalculosMatematicos::verificarPerpendicularidad(Recta* recta1,Recta* recta
   return (recta1->getPendiente()*recta2->getPendiente()==-1);
 }
 int CalculosMatematicos::calcularDistancia(int izqX, int izqY,int derX, int derY){
-	int x,y;
+	int  x,y;
 	int raiz=0;
-	x=abs(derX-izqX);
-	y=abs(derY-izqY);
+	x=derX-izqX;
+	y=derY-izqY;
+	if(x<0)x=x*-1;
+	if(y<0)y=y*-1;
 		raiz=(int)sqrt(pow(x,2)+pow(y,2));
 	return raiz;
 }
+
 Posicion* CalculosMatematicos::getInterseccionEsferas(Tejo* tejo,Circulo* circulo){
      int xTejo,yTejo,xCirculo,yCirculo,xInicial,yInicial,radioTejo,radioCirculo,radio,factorX=1,factorY=1;
      xTejo=tejo->getX();

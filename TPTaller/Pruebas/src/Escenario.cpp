@@ -461,8 +461,7 @@ int Escenario::graficar(){
 	while(this->terminar==0) {
 
 		// Actualizamos el estado del teclado
-		tejo->mover_x();
-		tejo->mover_y();
+		tejo->moverTejo();
 		//me fijo si hay colisiones
 
 		ControladorColisiones::colisionesPads();

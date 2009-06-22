@@ -16,6 +16,7 @@
 class Tejo{
 public:
 	Tejo();
+	void cargarPixelesAMover();
 	Recta* getRectaDireccion();
 	int getYSiguiente(int y);
 	int getXSiguiente(int x);
@@ -71,9 +72,9 @@ private:
     	SDL_Surface *imagen;
 		int XAnterior;
 		int YAnterior;
-
-		int mover;
-
+        int moverMayor;
+		int  moverMenor;
+		int  mover;
 		bool choco;
 
 };
