@@ -17,9 +17,8 @@ int Figura::getX(){
 	 */
 void Figura::verificarBonusActivo(int base,int altura){
 	if(this->bonus!=NULL){
-	if(this->bonus->getActivo()==ACTIVADO){
 		this->imagen=ScaleSurface(this->bonus->getImagen(), base, altura);
-	}
+
 	}
 }
 std::string Figura::getTipo()
