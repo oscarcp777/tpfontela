@@ -547,6 +547,8 @@ double ControladorColisiones::hallarDistancia(Recta* recta, int x, int y){
 
 	double rectaEvaluada;
 
+	if (recta->getInfinito() == -1)
+		return (abs(recta->getOrdenada()-x));
 	rectaEvaluada = abs(recta->getPendiente()*x + recta->getOrdenada() - y);
 	return (rectaEvaluada /sqrt(pow(recta->getPendiente(),2)+1));
 
@@ -561,6 +563,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	int xTejo=tejo->getX();
 	int yTejo=tejo->getY();
 	bool fueraDeZonaInfluencia = false;
+	bool colisionVertice = false;
 	Recta*  rectaDireccionTejo=tejo->getRectaDireccion();
 
 	//Recta* rectaDireccionTejoArriba= new Recta(xTejo,(int)(radioTejo*cos(anguloDelTejo));
@@ -581,129 +584,115 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	double d_r3 = hallarDistancia(recta3, tejo->getX(),tejo->getY());
 	double dMenor;
 
-	if (d_r1 < d_r2){
-		if (d_r1 < d_r3){
-				recta = recta1;
-				dMenor = d_r1;
-		}
-		else{
-				recta = recta3;
-				dMenor = d_r3;
-		}
+	if (d_r1 < radioTejo && d_r2 < radioTejo && d_r1 < d_r3){
+		colisionVertice = true;
+		dMenor = d_r1;
 	}
 	else{
-		if (d_r2 < d_r3){
-			recta = recta2;
-			dMenor = d_r2;
+		if(d_r1 < radioTejo && d_r3 < radioTejo && d_r1 < d_r2){
+			colisionVertice = true;
+			dMenor = d_r1;
 		}
 		else{
-			recta = recta3;
-			dMenor = d_r3;
+			if (d_r2 < radioTejo && d_r3 < radioTejo && d_r2 < d_r1){
+				colisionVertice = true;
+				dMenor = d_r2;
+			}
+			else{
+				if (d_r1 < d_r2){
+					if (d_r1 < d_r3){
+						recta = recta1;
+						dMenor = d_r1;
+					}
+					else{
+						recta = recta3;
+						dMenor = d_r3;
+					}
+				}
+				else{
+					if (d_r2 < d_r3){
+						recta = recta2;
+						dMenor = d_r2;
+					}
+					else{
+						recta = recta3;
+						dMenor = d_r3;
+					}
+				}
+			}
 		}
 	}
 
-	//rectaDireccionTejo->toString();
 
 
-//	Posicion* posicion = rectaDireccionTejo->getInterseccion(recta);
-//
-//	if (posicion->getX()+ tejo->getRadio()< triangulo->getXInfluencia()
-//			&& posicion->getY()+tejo->getRadio()< triangulo->getYInfluencia()
-//			|| posicion->getX()-tejo->getRadio()>(triangulo->getXInfluencia()+triangulo->getAnchoInfluencia())
-//			|| posicion->getY()-tejo->getRadio()>(triangulo->getYInfluencia()+triangulo->getAltoInfluencia()))
-//		fueraDeZonaInfluencia = true; //aun no anda
-
-	//std::cout<< "fuera zona influencia: "<<fueraDeZonaInfluencia<<endl;
-
-//	Posicion* posicion2 = rectaDireccionTejo->getInterseccion(recta2);
-//	Posicion* posicion3 = rectaDireccionTejo->getInterseccion(recta3);
-//
-//	Escenario*escenario = Escenario::obtenerInstancia();
-//
-//	int d1=0,d2=0,d3=0,d=0;
-//
-//	if((posicion1->getX()>=0 && posicion1->getY()>=0) && (posicion1->getX()<=escenario->getAncho() && posicion1->getY()<=escenario->getAlto()))
-//		d1=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion1->getX(),posicion1->getY());
-//	if((posicion2->getX()>=0 && posicion2->getY()>=0) && (posicion2->getX()<=escenario->getAncho() && posicion2->getY()<=escenario->getAlto()))
-//		d2=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion2->getX(),posicion2->getY());
-//	if((posicion3->getX()>=0 && posicion3->getY()>=0) && (posicion3->getX()<=escenario->getAncho() && posicion3->getY()<=escenario->getAlto()))
-//		d3=CalculosMatematicos::calcularDistancia(xTejo,yTejo,posicion3->getX(),posicion3->getY());
-//
-//	if(d1!=0 && d2!=0){
-//		if(d1<d2){
-//			recta = recta1;
-//			d=d1;
-//		//	std::cout<<"posicion recta1 (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
-//		//	system("PAUSE");
-//		}else{
-//			recta = recta2;
-//			d=d2;
-//		//	std::cout<<"posicion recta2 (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
-//		//	system("PAUSE");
-//		}
-//	}else if(d1!=0 && d3!=0){
-//		if(d1<d3){
-//			recta = recta1;
-//			d=d1;
-//	//		std::cout<<"posicion recta1 (x,y): "<<posicion1->getX()<<","<<posicion1->getY()<<endl;
-//	//		system("PAUSE");
-//		}else{
-//			recta = recta3;
-//			d=d3;
-//		//	std::cout<<"posicion recta3 (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
-//	//		system("PAUSE");
-//		}
-//	}else if(d2!=0 && d3!=0){
-//		if(d2<d3){
-//			recta = recta2;
-//			d=d2;
-//	//		std::cout<<"posicion recta2 (x,y): "<<posicion2->getX()<<","<<posicion2->getY()<<endl;
-//	//		system("PAUSE");
-//		}else{
-//			recta = recta3;
-//			d=d3;
-//		//	std::cout<<"posicion recta 3 (x,y): "<<posicion3->getX()<<","<<posicion3->getY()<<endl;
-//	//	system("PAUSE");
-//		}
-//	}
-//
-//
-////	std::cout<<"recta is base: "<<triangulo->isBase(recta)<<endl;
-////	system("PAUSE");
-//
-	if(recta!=NULL && triangulo->isBase(recta)==0 && dMenor<=radioTejo /*&& !fueraDeZonaInfluencia*/){
-//	//	system("PAUSE");
-		if(triangulo->getBase().compare(BASE_TRIANGULO_ARRIBA)==0){
-			reboteAbajo(tejo); //tomando como referencia el tejo debe rebotar abajo
-			std::cout<<"ARRIBA"<<endl;
-		}else if(triangulo->getBase().compare(BASE_TRIANGULO_ABAJO)==0){
-			reboteArriba(tejo); //tomando como referencia el tejo debe rebotar arriba
-			std::cout<<"ABAJO"<<endl;
-		}else if(triangulo->getBase().compare(BASE_TRIANGULO_DERECHA)==0){
-			reboteIzquierda(tejo); //tomando como referencia el tejo debe rebotar izquierda
-			std::cout<<"DERECHA"<<endl;
-		//	system("PAUSE");
-		}else if(triangulo->getBase().compare(BASE_TRIANGULO_IZQUIERDA)==0){
-			reboteDerecha(tejo); //tomando como referencia el tejo debe rebotar derecha
-			std::cout<<"IZQUIERDA"<<endl;
-		//	system("PAUSE");
+	if(dMenor<=radioTejo){
+		//analisis colision con vertices, totalmente arbitrario el angulo de salida
+		if (colisionVertice){
+		 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(anguloDeltejo-PI);
+			}else
+				if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+					tejo->getDireccion()->setFi(anguloDeltejo-PI);
+				}else
+					if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
+						tejo->getDireccion()->setFi(anguloDeltejo+PI);
+					}else
+						if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
+							tejo->getDireccion()->setFi(anguloDeltejo+PI);
+						}
 		}
-	}else if(recta!=NULL && dMenor<=radioTejo /*&& !fueraDeZonaInfluencia*/){
-		if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
-			decidirDireccionCuartoCuadrante(recta,tejo,0);
+		else{
+			//analisis con recta paralela al eje Y
+			if (recta->getInfinito() == -1){
+				if (tejo->getY()>=triangulo->getYInfluencia()&&
+						tejo->getY()<=(triangulo->getYInfluencia()+triangulo->getAltoInfluencia())){
+					if (recta->getOrdenada() > tejo->getX()){
+						reboteDerecha(tejo);
+						std::cout<<"DERECHA"<<endl;
+					}
+					else{
+						reboteIzquierda(tejo);
+						std::cout<<"IZQUIERDA"<<endl;
+					}
+				}
+			}
+			else{
+				//analisis resto de las rectas posibles
+				Posicion* posicion = rectaDireccionTejo->getInterseccion(recta);
+				if (posicion->getX()< triangulo->getXInfluencia()
+						|| posicion->getY()< triangulo->getYInfluencia()
+						|| posicion->getX()>(triangulo->getXInfluencia()+triangulo->getAnchoInfluencia())
+						|| posicion->getY()>(triangulo->getYInfluencia()+triangulo->getAltoInfluencia()))
+					fueraDeZonaInfluencia = true; //si la colision se da fuera de la zona de infl. no se evalua
+				if (!fueraDeZonaInfluencia){
+					if (recta->getPendiente() == 0){
+						if (recta->getOrdenada() > tejo->getY()){
+							reboteAbajo(tejo);
+							std::cout<<"ABAJO"<<endl;
+						}
+						else{
+							reboteArriba(tejo);
+							std::cout<<"ARRIBA"<<endl;
+						}
+					}
+					else{
+						if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+							decidirDireccionCuartoCuadrante(recta,tejo,0);
+						}else
+							if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
+								decidirDireccionTercerCuadrante(recta,tejo,0);
+							}else
+								if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
+									decidirDireccionSegundoCuadrante(recta,tejo,0);
+								}else
+									if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
+										decidirDireccionPrimerCuadrante(recta,tejo,0);
+									}
+					}
+				}
+			}
 		}
-		if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
-			decidirDireccionTercerCuadrante(recta,tejo,0);
-		}
-		if (CalculosMatematicos::isSegundoCuadrante(anguloDeltejo)){
-			decidirDireccionSegundoCuadrante(recta,tejo,0);
-		}
-		if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
-			decidirDireccionPrimerCuadrante(recta,tejo,0);
-		}
-
 	}
-
 	delete rectaDireccionTejo;
 
 

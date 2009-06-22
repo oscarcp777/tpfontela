@@ -21,7 +21,7 @@ Recta::Recta(int x1,int x2,int y1,int y2){
 	int equis=(x2 - x1);
 	if ( equis== 0){
 		 this->pendiente=NUMERO_PEQUENIO;
-		 this->ordenada= y1;
+		 this->ordenada= x1; //aca dejo el valor de x por donde pasa la recta
 		 this->infinito=-1;
 	}else{
 	    // como la ecuacion de la recta es y = mx +b, necesito los valores de m y b
