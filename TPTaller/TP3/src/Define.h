@@ -3,6 +3,7 @@
 
 
 #define NOT_CONNECTED 0
+#define ACTIVADO 0
 #define CONNECTED 1
 #define NO_HOST 2
 #define DEBUG 0

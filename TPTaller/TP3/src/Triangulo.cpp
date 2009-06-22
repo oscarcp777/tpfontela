@@ -475,6 +475,10 @@ int Triangulo::dibujar(SDL_Surface *screen){
 			this->imagen = SDL_DisplayFormat(image);
 			  SDL_FreeSurface(image);
 		}
+		//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
+	       verificarBonusActivo( mayorDeXY, mayorDeXY);
+
+
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo
 	for(i = 0;i<maxValorX;i++){
 

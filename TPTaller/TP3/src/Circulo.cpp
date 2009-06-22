@@ -79,6 +79,8 @@ int Circulo::dibujar(SDL_Surface *screen){
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
+	//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
+       verificarBonusActivo(this->getRadio()*2, this->getRadio()*2);
 
 	if(this->imagen!=NULL){
 	   	    SDL_Rect rect;

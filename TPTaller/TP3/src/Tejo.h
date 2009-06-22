@@ -4,10 +4,11 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
-#include "Circulo.h"
-#include "Direccion.h"
+
 #ifndef TEJO_H_
 #define TEJO_H_
+#include "Circulo.h"
+#include "Direccion.h"
 #include <vector>
 #include <math.h>
 #include "Posicion.h"

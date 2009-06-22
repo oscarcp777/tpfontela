@@ -7,8 +7,10 @@
 
 #ifndef BONUS_H_
 #define BONUS_H_
-
-
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_main.h>
+#include <iostream>
 class Bonus {
 public:
 	Bonus();
@@ -22,6 +24,7 @@ public:
 	/*
 	 * Metodos para guardar el estado anterior del tejo y de los pad
 	 */
+    void cargarImagen(std::string pathTextura);
 	void setVelocidadAnterior(int velocidadAnterior);
 	int getVelocidadAnterior();
 	void setAlturaAnterior(int alturaAnterior);
@@ -31,13 +34,14 @@ public:
 	int getTipoBonus();
 	int setTipoBonus(int tipoBonus);
 	virtual ~Bonus();
-
+    SDL_Surface* getImagen();
+    void setImagen(SDL_Surface *imagen);
 private:
 	int activo;
 	int velocidadAnterior;
 	int alturaAnterior;
 	int radioAnterior;
-	int tipoBonus;
+	SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
 
 };
 

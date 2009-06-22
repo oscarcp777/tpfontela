@@ -49,6 +49,7 @@ class Figura{
           std::string getTipo();
           void setTipo(std::string tipo);
 		  void setBonus(Bonus* bonus);
+		  void verificarBonusActivo(int base,int altura);
 
 protected:
 	    int xInfluencia;

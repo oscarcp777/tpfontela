@@ -1,15 +1,26 @@
 #include "Figura.h"
 #include "Escenario.h"
-
+#include "Define.h"
 Figura::Figura(){
 	this->colorFigura = NULL;
 	this->colorLinea = NULL;
 	this->setIdTextura("NULL");
 	this->imagen = NULL;
+	this->bonus = NULL;
 
 }
 int Figura::getX(){
   return this->pos->getX();
+}
+/**
+	 * si el bonus esta activo le seteo la imagendel bonus al dispersor
+	 */
+void Figura::verificarBonusActivo(int base,int altura){
+	if(this->bonus!=NULL){
+	if(this->bonus->getActivo()==ACTIVADO){
+		this->imagen=ScaleSurface(this->bonus->getImagen(), base, altura);
+	}
+	}
 }
 std::string Figura::getTipo()
     {
