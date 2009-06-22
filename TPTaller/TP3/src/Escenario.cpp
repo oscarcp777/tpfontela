@@ -47,16 +47,57 @@ Escenario::Escenario(){
 	this->addTextura(icono);
 	this->tejosRestantes = 7;
 	this->numeroNivel = 1;
-	this->inicializarListaBonus();
+	
 
 }
 
-void Escenario::inicializarListaBonus(){
+void Escenario::servidorInicializarListaBonus(){
+	DecLongPad* decLongPad = new DecLongPad();
+	decLongPad->setTipoBonus(DEC_LONG_PAD);
+	this->listaBonus.push_back(decLongPad);
+
+
+	DecLongPadVs* decLongPadVs = new DecLongPadVs();
+	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
+	this->listaBonus.push_back(decLongPadVs);
+	
+	DecRadioTejo* decRadioTejo = new DecRadioTejo();
+	decRadioTejo->setTipoBonus(DEC_RADIO_TEJO);
+	this->listaBonus.push_back(decRadioTejo);
+	
+	IncLongPad* incLongPad = new IncLongPad();
+	incLongPad->setTipoBonus(INC_LONG_PAD);
+	this->listaBonus.push_back(incLongPad);
+
+	IncLongPadVs* incLongPadVs = new IncLongPadVs();
+	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
+	this->listaBonus.push_back(incLongPadVs);
+	
+	IncRadioTejo* incRadioTejo = new IncRadioTejo();
+	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
+	this->listaBonus.push_back(incRadioTejo);
+	
+	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
+	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
+	this->listaBonus.push_back(incVelocidadTejo);
+	
+	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
+	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
+	this->listaBonus.push_back(pegamentoTejo);
+	
+	FrenoTejo* frenoTejo = new FrenoTejo();
+	frenoTejo->setTipoBonus(FRENO_TEJO);
+	this->listaBonus.push_back(frenoTejo);
+}
+
+
+void Escenario::clienteInicializarListaBonus(){
 	DecLongPad* decLongPad = new DecLongPad();
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	decLongPad->cargarImagen("decLongPad");
 	this->listaBonus.push_back(decLongPad);
-	
+	std::cout<<"putos enla lista"<<endl;
+
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
 	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
 	decLongPadVs->cargarImagen("decLongPadVs");

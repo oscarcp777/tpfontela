@@ -138,7 +138,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
-
+				juegoNuevo->getEscenario()->servidorInicializarListaBonus();
 				enviarAtodos(this->todosLosClientes,"INICIADO\n");
 				
 			}

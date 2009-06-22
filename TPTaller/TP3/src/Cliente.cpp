@@ -51,6 +51,7 @@ void Cliente::start(char* host, int port)
 		
 		loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
+		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
 		
 		receiver.start((void*)&sock);

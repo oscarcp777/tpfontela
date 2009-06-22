@@ -41,7 +41,8 @@ class Escenario {
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
 			int sizeListaTexturas();
-			void inicializarListaBonus();
+			void servidorInicializarListaBonus();			
+			void clienteInicializarListaBonus();
 			void shuffleListBonus();
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
