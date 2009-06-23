@@ -54,7 +54,6 @@ public:
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
     SDL_Surface *getImagen();
-
 	std::string obtenerUltimaColisionPad();
 	void setUltimaColisionPad(std::string ultimoPad);
 	void setMover(int mover);
@@ -67,6 +66,8 @@ public:
     bool getModificarRadio();
 
     void setModificarRadio(bool modificarRadio);
+    bool getChocoFiguraConBonus();
+    void setChocoFiguraConBonus(bool chocoFiguraConBonus);
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;
@@ -81,6 +82,7 @@ private:
 		bool choco;
 		bool modificarRadio;
 		std::string ultimaColisionPad;
+		bool chocoFiguraConBonus;
 
 };
 

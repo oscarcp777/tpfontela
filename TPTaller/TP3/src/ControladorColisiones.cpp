@@ -460,7 +460,9 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
 		std::cout<<"distanciaEntreRadios  :"<<distanciaEntreRadios<<"  -- "<<endl;
 	}
 	if(distanciaMinimaEntreRadios>=distanciaEntreRadios){
-
+		if(figura->getImagenBonus()!=NULL){
+			tejo->setChocoFiguraConBonus(true);
+		}
 		if(!verificarExcepciones(rectaEntreRadios,tejo,figura)){
 			if(DEBUG==1){
 				std::cout<<"rectaEntreRadios";
@@ -575,7 +577,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	if(DEBUG==1){
 	recta3->toString();
 	recta2->toString();
-	recta1->toString();		
+	recta1->toString();
 	rectaDireccionTejo->toString();
 	}
 	Recta* recta=NULL; //Recta con la que estoy mas cerca
@@ -630,6 +632,9 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	if(dMenor<=radioTejo){
 		//analisis colision con vertices, totalmente arbitrario el angulo de salida
 		if (colisionVertice){
+			if(figura->getImagenBonus()!=NULL){
+						tejo->setChocoFiguraConBonus(true);
+					}
 		 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
 					tejo->getDireccion()->setFi(anguloDeltejo-PI);
 			}else
@@ -678,6 +683,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 						}
 					}
 					else{
+
 						if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
 							decidirDireccionCuartoCuadrante(recta,tejo,0);
 						}else
@@ -690,6 +696,9 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 									if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
 										decidirDireccionPrimerCuadrante(recta,tejo,0);
 									}
+					}
+					if(figura->getImagenBonus()!=NULL){
+						tejo->setChocoFiguraConBonus(true);
 					}
 				}
 			}
@@ -795,7 +804,9 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 	xFigura= rectangulo->getX();
 	yFigura= rectangulo->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-
+		if(figura->getImagenBonus()!=NULL){
+			tejo->setChocoFiguraConBonus(true);
+		}
 		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 			if(yTejo>yFigura+hFigura){
 

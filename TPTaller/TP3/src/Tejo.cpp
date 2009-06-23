@@ -20,7 +20,15 @@ Recta* Tejo::getRectaDireccion(){
 
 }
 
+bool Tejo::getChocoFiguraConBonus()
+   {
+       return chocoFiguraConBonus;
+   }
 
+void Tejo::setChocoFiguraConBonus(bool chocoFiguraConBonus)
+   {
+       this->chocoFiguraConBonus = chocoFiguraConBonus;
+   }
 Circulo* Tejo::getFigura(){
 	return	this->circulo;
 }
