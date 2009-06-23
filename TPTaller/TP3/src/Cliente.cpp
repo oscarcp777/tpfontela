@@ -126,14 +126,13 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
-				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);
 				escenario->setFiguraConBonus(NULL);
 				//TODO desaplicar bonus anterior etc, "pensar eso"
-				int resultado = escenario->getBonusActual()->aplicar();
-				std::cout<<"salio de getBonusActual resultado= "<<resultado<<endl;
+				escenario->getBonusActual()->aplicar();
+				
 				
 			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
