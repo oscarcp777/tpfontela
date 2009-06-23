@@ -5,6 +5,13 @@ imagenes/icono.jpg
 imagenes/cancha1.jpg
 imagenes/bola_3d.png
 imagenes/sup1.jpg
+imagenes/sup2.jpg
+imagenes/sup3.jpg
+imagenes/sup4.jpg
+imagenes/sup5.jpg
+imagenes/sup6.jpg
+imagenes/sup7.jpg
+imagenes/sup8.jpg
 imagenes/cuadrado.jpg
 imagenes/cancha2.jpg
 imagenes/bola.png

@@ -126,6 +126,7 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
+				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);

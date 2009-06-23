@@ -3,21 +3,9 @@
                      idTexturaTejo="tejo" radioTejo="20" velocidadTejo="4" velocidadPad="4">
              </General>
              <ListadoDeDispersores> 
-	       <triangulo id="triangulo1" idTextura="triangulo" lado="200" tipo="triangulo">
-                                  <ver1 x="300" y="250"/>
-                                  <ver2 x="300" y="350"/>
-                                  <ver3 x="250" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo2" idTextura="triangulo" lado="200" tipo="triangulo">
-                                  <ver1 x="350" y="200"/>
-                                  <ver2 x="450" y="200"/>
-                                  <ver3 x="400" y="150"/>
-                   </triangulo>
-                   <triangulo id="triangulo3" idTextura="triangulo" lado="200" tipo="triangulo">
-                                  <ver1 x="500" y="250"/>
-                                  <ver2 x="500" y="350"/>
-                                  <ver3 x="550" y="300"/>
-                   </triangulo>
+	<circulo id="circulo3" radio="100" idTextura="bola" tipo="circulo"> 
+                                   <posicion x="400" y="40" />
+                       </circulo>   	       
             </ListadoDeDispersores>
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.png">
@@ -32,21 +20,21 @@
                  </textura>
 	<textura id="decLongPad" path="imagenes/don.png">
                  </textura>
-	<textura id="decLongPadVs" path="imagenes/don.png">
+	<textura id="decLongPadVs" path="imagenes/sup2.jpg">
                  </textura>
-	<textura id="decRadioTejo" path="imagenes/don.png">
+	<textura id="decRadioTejo" path="imagenes/sup3.jpg">
                  </textura>
-	<textura id="incLongPad" path="imagenes/don.png">
+	<textura id="incLongPad" path="imagenes/sup4.jpg">
                  </textura>
-	<textura id="incLongPadVs" path="imagenes/don.png">
+	<textura id="incLongPadVs" path="imagenes/sup5.jpg">
                  </textura>
-	<textura id="incRadioTejo" path="imagenes/don.png">
+	<textura id="incRadioTejo" path="imagenes/sup6.jpg">
                  </textura>
-	<textura id="incVelocidadTejo" path="imagenes/don.png">
+	<textura id="incVelocidadTejo" path="imagenes/sup7.jpg">
                  </textura>
-	<textura id="pegamentoTejo" path="imagenes/don.png">
+	<textura id="pegamentoTejo" path="imagenes/sup8.jpg">
                  </textura>
-	<textura id="frenoTejo" path="imagenes/don.png">
+	<textura id="frenoTejo" path="imagenes/sup1.jpg">
                  </textura>
              </ListadoDeTexturas>
 </escenario>
