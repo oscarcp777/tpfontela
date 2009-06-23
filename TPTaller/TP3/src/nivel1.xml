@@ -3,9 +3,15 @@
                      idTexturaTejo="tejo" radioTejo="20" velocidadTejo="4" velocidadPad="4">
              </General>
              <ListadoDeDispersores> 
-	<circulo id="circulo3" radio="100" idTextura="bola" tipo="circulo"> 
+	<circulo id="circulo1" radio="100" idTextura="bola" tipo="circulo"> 
                                    <posicion x="400" y="40" />
-                       </circulo>   	       
+                       </circulo> 
+	<circulo id="circulo2" radio="70" idTextura="bola" tipo="circulo"> 
+                                   <posicion x="400" y="300" />
+                       </circulo>     	       
+	<circulo id="circulo3" radio="40" idTextura="bola" tipo="circulo"> 
+                                   <posicion x="500" y="450" />
+                       </circulo>   
             </ListadoDeDispersores>
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.png">
