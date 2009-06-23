@@ -19,6 +19,7 @@ class Circulo: public Figura{
 		 void calcularRadioDeInfluencia();
 	private:
 		int radio;
+		SDL_Surface *imagenAuxiliar;
 
 };
 

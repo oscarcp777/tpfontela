@@ -69,12 +69,12 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 				image = ScaleSurface(image, this->getBase(), this->getAltura());
 			}
 		}
-		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255,255,255));
+//		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255,255,255));
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
-	
-       
+
+
 		if(this->imagenBonus!=NULL && !this->getEscalada()){
 			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getBase(), this->getAltura());
 			this->setEscalada(true);
@@ -86,7 +86,7 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 			rect.y = this->getPosicion()->getY();
 	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
 		}
-	
+
 		if(this->imagen!=NULL){
 			SDL_Rect rect;
 			rect.x =this->getPosicion()->getX();

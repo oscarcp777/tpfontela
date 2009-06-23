@@ -472,7 +472,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	  }
 
 	}
-	SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
+//	SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 			this->imagen = SDL_DisplayFormat(image);
 			  SDL_FreeSurface(image);
 		}

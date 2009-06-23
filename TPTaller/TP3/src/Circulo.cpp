@@ -18,6 +18,7 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->radio = r;
 	this->pos = p;
 	this->imagen=NULL;
+	this->imagenAuxiliar=NULL;
 	this->setAltoInfluencia(this->radio*2);
 	this->setAnchoInfluencia(this->radio*2);
 	this->setXInfluencia(p->getX()-this->radio);
@@ -82,17 +83,19 @@ int Circulo::dibujar(SDL_Surface *screen){
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
-	
-	   	if(this->imagenBonus!=NULL && !this->getEscalada()){
-			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getRadio()*2, this->getRadio()*2);
-			this->setEscalada(true);
-		}
-		
+
+	if(this->imagenBonus!=NULL && !this->getEscalada()){
+		this->imagenBonus=ScaleSurface(this->imagenBonus,this->getRadio()*2, this->getRadio()*2);
+		SDL_SetColorKey(this->imagenBonus,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenBonus->format,255 ,255, 255));
+		this->imagenAuxiliar = SDL_DisplayFormat(this->imagenBonus);
+		this->setEscalada(true);
+	}
+
 		if(this->imagenBonus!=NULL){
 			SDL_Rect rect;
 	   		rect.x =this->getX()-this->getRadio();
 	   		rect.y = this->getY()-this->getRadio();
-	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+	   		SDL_BlitSurface(this->imagenAuxiliar, NULL, screen, &rect);
 		}
 		else if(this->imagen!=NULL){
 	   		SDL_Rect rect;
