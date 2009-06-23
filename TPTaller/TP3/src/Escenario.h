@@ -115,6 +115,7 @@ protected:
 
 		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
+		SDL_Surface *buffer;
 		int ancho;
 		int alto;
 		int resolucion;

@@ -73,17 +73,17 @@ void Escenario::inicializarListaBonus(){
 
 
 void Escenario::shuffleListBonus(){
-	list<Bonus*>::iterator begin = this->listaBonus.begin(); 
-	list<Bonus*>::iterator end = this->listaBonus.end(); 
-	list<Bonus*>::iterator p = begin; 
+	list<Bonus*>::iterator begin = this->listaBonus.begin();
+	list<Bonus*>::iterator end = this->listaBonus.end();
+	list<Bonus*>::iterator p = begin;
 
-	for (int i = this->listaBonus.size(); i > 0; --i) { 
-	for (int r = rand(); r > 0; --r) { 
-	if (++p == end) 
-	p = begin; 
-	} 
-	swap<Bonus*>(*begin, *p); 
-	} 
+	for (int i = this->listaBonus.size(); i > 0; --i) {
+	for (int r = rand(); r > 0; --r) {
+	if (++p == end)
+	p = begin;
+	}
+	swap<Bonus*>(*begin, *p);
+	}
 }
 
 
@@ -266,64 +266,31 @@ Log* Escenario::getLog(){
 
 void Escenario::pintarPantalla(){
 
-	SDL_Surface *imagen;
+
 	std::list<Figura*>::iterator iter;
 	iter = this->iteratorListaFiguras();
 	int res = this->texturaEsc.compare("NULL");
 
 	if( res!=0){
 
-		if(this->fondoPantalla==NULL){
-			//si no tiene NULL en texturaEsc
-			std::string path = this->obtenerPathTextura(this->texturaEsc);
 
-			if(path.compare("NULL") != 0){
-				//si se encontro el path de la textura
-				imagen = IMG_Load (path.begin());
-				if(imagen == NULL) {
-					escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
-					SDL_Rect dest;
-					dest.x = 0;
-					dest.y = 0;
-					dest.w = this->screen->w;
-					dest.h = this->screen->h;
-					SDL_Color color = this->getColorFondoEscenario();
-					SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
-				}
-				if(imagen != NULL){
-					imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
-				}
-			}
-			else{
-				//si NO se encontro el path de la textura, es porque el id no existe en la lista
-				escribirMensajeLog(this->log,"no se encontro el path correspondiente a texturaEsc: "+this->texturaEsc);
-				SDL_Rect dest;
-				dest.x = 0;
-				dest.y = 0;
-				dest.w = this->screen->w;
-				dest.h = this->screen->h;
-				SDL_Color color = this->getColorFondoEscenario();
-				SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
-			}
-			this->fondoPantalla=SDL_DisplayFormat(imagen);
-			 SDL_FreeSurface(imagen);
-		}
 		if(this->fondoPantalla != NULL){
 			SDL_Rect rect;
 			rect.x =0;
 			rect.y =0;
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
-			SDL_BlitSurface(this->fondoPantalla, NULL,this->screen, &rect);
+
+			SDL_BlitSurface(this->fondoPantalla, NULL,this->buffer, &rect);
 
 			// dibujo los arcos
-			this->arcoDerecha->dibujar(this->screen);
-			this->arcoIzquierda->dibujar(this->screen);
+			this->arcoDerecha->dibujar(this->buffer);
+			this->arcoIzquierda->dibujar(this->buffer);
 			int i = 1;
 			Figura *figura;
 			while(i<=this->sizeListaFiguras()){
 				figura = *iter;
-				figura->dibujar(this->screen);
+				figura->dibujar(this->buffer);
 				iter++;
 				i++;
 			}
@@ -394,6 +361,7 @@ void Escenario::setPosicionInicialTejo(Posicion *posicionInicialTejo)
 }
 int Escenario::iniciarSDL(){
 
+	SDL_Surface *imagen;
 	// Iniciar SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
@@ -427,7 +395,7 @@ int Escenario::iniciarSDL(){
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  "," Taller de Programacion Grupo Nro:3   GRAFICADOR ");
 	SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
-	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),16, SDL_SWSURFACE | SDL_DOUBLEBUF );
 
 	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
@@ -436,12 +404,49 @@ int Escenario::iniciarSDL(){
 		exit(1);
 	}
 
+	if(this->fondoPantalla==NULL){
+		//si no tiene NULL en texturaEsc
+		std::string path = this->obtenerPathTextura(this->texturaEsc);
+
+		if(path.compare("NULL") != 0){
+			//si se encontro el path de la textura
+			imagen = IMG_Load (path.begin());
+			if(imagen == NULL) {
+				escribirMensajeLog(this->log,"error al intentar cargar la imagen: "+path);
+				SDL_Rect dest;
+				dest.x = 0;
+				dest.y = 0;
+				dest.w = this->screen->w;
+				dest.h = this->screen->h;
+				SDL_Color color = this->getColorFondoEscenario();
+				SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
+			}
+			if(imagen != NULL){
+				imagen = Figura::ScaleSurface(imagen, this->getAncho(), this->getAlto());
+			}
+		}
+		else{
+			//si NO se encontro el path de la textura, es porque el id no existe en la lista
+			escribirMensajeLog(this->log,"no se encontro el path correspondiente a texturaEsc: "+this->texturaEsc);
+			SDL_Rect dest;
+			dest.x = 0;
+			dest.y = 0;
+			dest.w = this->screen->w;
+			dest.h = this->screen->h;
+			SDL_Color color = this->getColorFondoEscenario();
+			SDL_FillRect(screen,&dest,SDL_MapRGB(screen->format, color.r,color.g,color.b));
+		}
+		this->fondoPantalla=SDL_DisplayFormat(imagen);
+		SDL_FreeSurface(imagen);
+	}
+
+
 	return 0;
 
 }
 
 
-
+static bool primerPintada = false;
 int Escenario::graficar(){
 	Pad* padCliente1=this->getPadCliente1();
 	Pad* padCliente2=this->getPadCliente2();
@@ -449,12 +454,22 @@ int Escenario::graficar(){
     TTF_Font* fuente;
 	int puntajeIzq = 0;
 	int puntajeDer = 0;
+	SDL_Rect rect;
+			rect.x =0;
+			rect.y =0;
+			rect.w = this->getAncho();
+			rect.h = this->getAlto();
+	SDL_Surface * bufferAux;
 
 	// Variables auxiliares
 	SDL_Event evento;
 	bool gol = false;
 	this->terminar = 0;
 
+	this->buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, this->getAncho(), this->getAlto(), 16,
+					     0,0,0,0);
+	bufferAux = SDL_CreateRGBSurface(SDL_SWSURFACE, this->getAncho(), this->getAlto(), 16,
+					     0,0,0,0);
 
 
 	Teclado teclado;
@@ -507,20 +522,31 @@ int Escenario::graficar(){
 			if(padCliente2->getY()<this->getAlto()-padCliente1->getAltura())
 				padCliente2->bajar_y();
 		}
-		this->pintarPantalla();
+
+
 		//los pinto en cada iteracion
-		padCliente1->dibujar(this->screen);
-		padCliente2->dibujar(this->screen);
+
 //	    puntajeDer = padCliente1->getPuntaje()->getCantPuntosJugador();
 //		puntajeIzq = padCliente2->getPuntaje()->getCantPuntosJugador();
 //		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
 //		graficadorPuntajes->graficarPuntaje(puntajeIzq, puntajeDer,this->getScreen(),fuente, gol);
 //		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen(),gol);
+
+		if (!primerPintada){
+			this->pintarPantalla();
+			primerPintada = true;
+			
+		}
+		SDL_BlitSurface(this->buffer, NULL,this->screen, &rect);
+
+
 		tejo->dibujar(this->screen);
+		padCliente1->dibujar(this->screen);
+		padCliente2->dibujar(this->screen);
 
-
-
-		SDL_Flip(this->getScreen());
+		
+		SDL_Flip(this->screen);
+		SDL_FreeSurface(this->screen);
 		SDL_Delay(VELOCIDAD_DE_FRAMES_POR_SEGUNDO);
 ////					si fue gol espero 2 segundos antes de empezar otra partida
 //					if(gol){

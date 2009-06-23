@@ -407,16 +407,16 @@ void Escenario::pintarPantalla(){
 			rect.y =0;
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
-			SDL_BlitSurface(this->fondoPantalla, NULL,this->screen, &rect);
+			SDL_BlitSurface(this->fondoPantalla, NULL,this->buffer, &rect);
 
 			// dibujo los arcos
-			this->arcoDerecha->dibujar(this->screen);
-			this->arcoIzquierda->dibujar(this->screen);
+			this->arcoDerecha->dibujar(this->buffer);
+			this->arcoIzquierda->dibujar(this->buffer);
 			int i = 1;
 			Figura *figura;
 			while(i<=this->sizeListaFiguras()){
 				figura = *iter;
-				figura->dibujar(this->screen);
+				figura->dibujar(this->buffer);
 				iter++;
 				i++;
 			}
@@ -564,7 +564,7 @@ int Escenario::iniciarSDL(){
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  "," Taller de Programacion Grupo Nro:3   GRAFICADOR ");
 	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
-	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),16, SDL_SWSURFACE | SDL_DOUBLEBUF );
 
 	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
@@ -577,10 +577,17 @@ int Escenario::iniciarSDL(){
 }
 
 
-
+static bool primerPintada = false;
 int Escenario::graficar(){
+	SDL_Rect rect;
+			rect.x =0;
+			rect.y =0;
+			rect.w = this->getAncho();
+			rect.h = this->getAlto();
 
 		SDL_Event evento;
+	this->buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, this->getAncho(), this->getAlto(), 16,
+					     0,0,0,0);
 		Teclado teclado;
 		Pad* pad;
 
@@ -599,7 +606,11 @@ int Escenario::graficar(){
 				this->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
 		}
 
+		if (!primerPintada){
 		this->pintarPantalla();
+			primerPintada = true;
+		}
+		SDL_BlitSurface(this->buffer, NULL,this->screen, &rect);
 
 		this->getPadCliente1()->dibujar(this->screen);
 		this->getPadCliente2()->dibujar(this->screen);
@@ -612,6 +623,7 @@ int Escenario::graficar(){
 
 
 		SDL_Flip(this->getScreen());
+		SDL_FreeSurface(this->screen);
 
 
 		while (SDL_PollEvent(&evento)) {
