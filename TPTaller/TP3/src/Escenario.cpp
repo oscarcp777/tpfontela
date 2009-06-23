@@ -48,7 +48,7 @@ Escenario::Escenario(){
 	this->addTextura(icono);
 	this->tejosRestantes = 7;
 	this->numeroNivel = 1;
-	
+
 
 }
 
@@ -61,11 +61,11 @@ void Escenario::servidorInicializarListaBonus(){
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
 	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
 	this->listaBonus.push_back(decLongPadVs);
-	
+
 	DecRadioTejo* decRadioTejo = new DecRadioTejo();
 	decRadioTejo->setTipoBonus(DEC_RADIO_TEJO);
 	this->listaBonus.push_back(decRadioTejo);
-	
+
 	IncLongPad* incLongPad = new IncLongPad();
 	incLongPad->setTipoBonus(INC_LONG_PAD);
 	this->listaBonus.push_back(incLongPad);
@@ -73,19 +73,19 @@ void Escenario::servidorInicializarListaBonus(){
 	IncLongPadVs* incLongPadVs = new IncLongPadVs();
 	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
 	this->listaBonus.push_back(incLongPadVs);
-	
+
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
 	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
 	this->listaBonus.push_back(incRadioTejo);
-	
+
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	this->listaBonus.push_back(incVelocidadTejo);
-	
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	this->listaBonus.push_back(pegamentoTejo);
-	
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
@@ -97,18 +97,17 @@ void Escenario::clienteInicializarListaBonus(){
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	decLongPad->cargarImagen("decLongPad");
 	this->listaBonus.push_back(decLongPad);
-	std::cout<<"putos enla lista"<<endl;
 
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
 	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
 	decLongPadVs->cargarImagen("decLongPadVs");
 	this->listaBonus.push_back(decLongPadVs);
-	
+
 	DecRadioTejo* decRadioTejo = new DecRadioTejo();
 	decRadioTejo->setTipoBonus(DEC_RADIO_TEJO);
 	decRadioTejo->cargarImagen("decRadioTejo");
 	this->listaBonus.push_back(decRadioTejo);
-	
+
 	IncLongPad* incLongPad = new IncLongPad();
 	incLongPad->setTipoBonus(INC_LONG_PAD);
 	incLongPad->cargarImagen("incLongPad");
@@ -118,22 +117,22 @@ void Escenario::clienteInicializarListaBonus(){
 	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
 	incLongPadVs->cargarImagen("incLongPadVs");
 	this->listaBonus.push_back(incLongPadVs);
-	
+
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
 	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
 	incRadioTejo->cargarImagen("incRadioTejo");
 	this->listaBonus.push_back(incRadioTejo);
-	
+
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	incVelocidadTejo->cargarImagen("incVelocidadTejo");
 	this->listaBonus.push_back(incVelocidadTejo);
-	
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	pegamentoTejo->cargarImagen("pegamentoTejo");
 	this->listaBonus.push_back(pegamentoTejo);
-	
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	frenoTejo->cargarImagen("frenoTejo");
@@ -141,17 +140,17 @@ void Escenario::clienteInicializarListaBonus(){
 }
 
 void Escenario::shuffleListBonus(){
-	list<Bonus*>::iterator begin = this->listaBonus.begin(); 
-	list<Bonus*>::iterator end = this->listaBonus.end(); 
-	list<Bonus*>::iterator p = begin; 
+	list<Bonus*>::iterator begin = this->listaBonus.begin();
+	list<Bonus*>::iterator end = this->listaBonus.end();
+	list<Bonus*>::iterator p = begin;
 
-	for (int i = this->listaBonus.size(); i > 0; --i) { 
-	for (int r = rand(); r > 0; --r) { 
-	if (++p == end) 
-	p = begin; 
-	} 
-	swap<Bonus*>(*begin, *p); 
-	} 
+	for (int i = this->listaBonus.size(); i > 0; --i) {
+	for (int r = rand(); r > 0; --r) {
+	if (++p == end)
+	p = begin;
+	}
+	swap<Bonus*>(*begin, *p);
+	}
 }
 
 
@@ -452,7 +451,7 @@ bool Escenario::existeIdFigura(std::string idFigura){
 	return existe;
 }
 Bonus* Escenario::obtenerBonusPorTipo(int tipo){
-	
+
 	std::list<Bonus*>::iterator iter;
 	Bonus *bonus;
 	iter = this->iteratorListaBonus();
@@ -467,7 +466,7 @@ Bonus* Escenario::obtenerBonusPorTipo(int tipo){
 			iter++;
 		}
 	}
-	
+
 	return bonus;
 
 
@@ -522,7 +521,7 @@ int Escenario::iniciarSDL(){
 	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),24, SDL_SWSURFACE | SDL_DOUBLEBUF );
-	
+
 	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		std::string aux = SDL_GetError();
@@ -536,14 +535,14 @@ int Escenario::iniciarSDL(){
 
 
 int Escenario::graficar(){
-	
+
 		SDL_Event evento;
 		Teclado teclado;
 		Pad* pad;
 
 		teclado.actualizar();
 		// Actualización lógica de la posición
-		pad = this->getPadJugador();	
+		pad = this->getPadJugador();
 
 
 		if(teclado.pulso(Teclado::TECLA_SUBIR)) {
@@ -557,24 +556,24 @@ int Escenario::graficar(){
 		}
 
 		this->pintarPantalla();
-		
+
 		this->getPadCliente1()->dibujar(this->screen);
-		this->getPadCliente2()->dibujar(this->screen);	    
-		
-		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();		
+		this->getPadCliente2()->dibujar(this->screen);
+
+		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
 		graficadorPuntajes->graficarPuntaje(this->getScreen());
 		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen());
-		
+
 		this->getTejo()->dibujar(this->screen);
 
-		
+
 		SDL_Flip(this->getScreen());
 
 
 		while (SDL_PollEvent(&evento)) {
 			if(evento.type == SDL_QUIT)
 				return -1;
-			
+
 		}
 	return 0;
 }
@@ -670,7 +669,7 @@ void Escenario::borrarListaFiguras(){
 
 void Escenario::borrarListaTexturas(){
 	this->listaTexturas.clear();
-	
+
 }
 
 void Escenario::setearImagenesEnNull(){
