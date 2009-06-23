@@ -22,6 +22,7 @@ Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->setAnchoInfluencia(this->radio*2);
 	this->setXInfluencia(p->getX()-this->radio);
 	this->setYInfluencia(p->getY()-this->radio);
+	this->escalada = false;
 
 }
 int calcularDistancia(int izqX, int izqY,int derX, int derY){
@@ -79,10 +80,19 @@ int Circulo::dibujar(SDL_Surface *screen){
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
-	//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
-       verificarBonusActivo(this->getRadio()*2, this->getRadio()*2);
+	
+	   	if(this->imagenBonus!=NULL && !this->getEscalada()){
+			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getRadio()*2, this->getRadio()*2);
+			this->setEscalada(true);
+		}
 
-	if(this->imagen!=NULL){
+		if(this->imagenBonus!=NULL){
+			SDL_Rect rect;
+	   		rect.x =this->getX()-this->getRadio();
+	   		rect.y = this->getY()-this->getRadio();
+	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+		}
+		else if(this->imagen!=NULL){
 	   	    SDL_Rect rect;
 	   		rect.x =this->getX()-this->getRadio();
 	   		rect.y = this->getY()-this->getRadio();

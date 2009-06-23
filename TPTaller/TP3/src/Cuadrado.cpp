@@ -13,6 +13,7 @@ Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i)
 	this->id = id;
 	this->lado = l;
 	this->pos = p;
+	this->escalada = false;
 
 }
 
@@ -60,15 +61,25 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
-	//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
-       verificarBonusActivo( this->getLado(),this->getLado());
-
-	if(this->imagen!=NULL){
-		SDL_Rect rect;
-		rect.x =this->getX();
-		rect.y = this->getY();
-		SDL_BlitSurface(this->imagen, NULL, screen, &rect);
-	}
+	
+       
+		if(this->imagenBonus!=NULL && !this->getEscalada()){
+			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getLado(), this->getLado());
+			this->setEscalada(true);
+		}
+	
+		if(this->imagenBonus!=NULL){
+			SDL_Rect rect;
+			rect.x =this->getX();
+			rect.y = this->getY();
+			SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+		}	
+		else if(this->imagen!=NULL){
+			SDL_Rect rect;
+			rect.x =this->getX();
+			rect.y = this->getY();
+			SDL_BlitSurface(this->imagen, NULL, screen, &rect);
+		}
 
 	//	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
 	//	int x= this->getPosicion()->getX();

@@ -21,6 +21,7 @@ Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){
 	this->setAnchoInfluencia(base);
 	this->setXInfluencia(p->getX());
 	this->setYInfluencia(p->getY());
+	this->escalada = false;
 }
 int Rectangulo::getX(){
 	return this->getPosicion()->getX();
@@ -72,15 +73,26 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
-	//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
-       verificarBonusActivo( this->getBase(), this->getAltura());
+	
+       
+		if(this->imagenBonus!=NULL && !this->getEscalada()){
+			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getBase(), this->getAltura());
+			this->setEscalada(true);
+		}
 
-	if(this->imagen!=NULL){
-		SDL_Rect rect;
-		rect.x =this->getPosicion()->getX();
-		rect.y = this->getPosicion()->getY();
-		SDL_BlitSurface(this->imagen, NULL, screen, &rect);
-	}
+		if(this->imagenBonus!=NULL){
+			SDL_Rect rect;
+	   		rect.x =this->getPosicion()->getX();
+			rect.y = this->getPosicion()->getY();
+	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+		}
+	
+		if(this->imagen!=NULL){
+			SDL_Rect rect;
+			rect.x =this->getPosicion()->getX();
+			rect.y = this->getPosicion()->getY();
+			SDL_BlitSurface(this->imagen, NULL, screen, &rect);
+		}
 
 	//	//x e y van guardando las posiciones mientras se recorre la circunferencia y se grafica el cirulo
 	//	int x= this->getPosicion()->getX();

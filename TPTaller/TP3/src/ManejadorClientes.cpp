@@ -162,13 +162,14 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
 							
-							if((CalculosMatematicos::ramdom(100)) <90 && juegoNuevo->getEscenario()->getBonusActual()==NULL){
+							if((CalculosMatematicos::ramdom(100)) <10 && juegoNuevo->getEscenario()->getBonusActual()==NULL){
 							//Hago un random entre 0 y 100 si el numero es menor a 10 aparece bonus
 							 Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
 							 tipoBonus = bonus->getTipoBonus();
 							 juegoNuevo->getEscenario()->setBonusActual(bonus);
 							 Figura* figura= *(juegoNuevo->getEscenario()->iteratorListaFiguras());
 							 figura->setTieneBonus(true);
+							 juegoNuevo->getEscenario()->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus);
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
@@ -197,11 +198,13 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						}
 						
 						if(juegoNuevo->getEscenario()->getTejo()->getChocoFiguraConBonus()){
-							std::cout<<"ENTRO A APLICAR "<<endl;
-							system("PAUSE");
 							juegoNuevo->getEscenario()->getBonusActual()->aplicar();
 							juegoNuevo->getEscenario()->setBonusActual(NULL);
-							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");							
+							juegoNuevo->getEscenario()->getFiguraConBonus()->setTieneBonus(false);
+							juegoNuevo->getEscenario()->setFiguraConBonus(NULL);
+							juegoNuevo->getEscenario()->getTejo()->setChocoFiguraConBonus(false);
+							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");	
+							juegoNuevo->setEstado("CORRIENDO");
 						}	
 						
 

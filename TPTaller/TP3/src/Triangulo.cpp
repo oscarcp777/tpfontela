@@ -7,6 +7,7 @@
 #define PENDIENTE_RECTAX 9999
 
 Triangulo::Triangulo(){
+	this->escalada = false;
 }
 Triangulo::~Triangulo(){
 	delete this->vertice1;

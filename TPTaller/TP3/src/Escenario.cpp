@@ -73,7 +73,7 @@ void Escenario::servidorInicializarListaBonus(){
 	IncLongPadVs* incLongPadVs = new IncLongPadVs();
 	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
 	this->listaBonus.push_back(incLongPadVs);
-
+/*
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
 	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
 	this->listaBonus.push_back(incRadioTejo);
@@ -89,6 +89,7 @@ void Escenario::servidorInicializarListaBonus(){
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
+	*/
 }
 
 
@@ -117,7 +118,7 @@ void Escenario::clienteInicializarListaBonus(){
 	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
 	incLongPadVs->cargarImagen("incLongPadVs");
 	this->listaBonus.push_back(incLongPadVs);
-
+/*
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
 	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
 	incRadioTejo->cargarImagen("incRadioTejo");
@@ -137,6 +138,7 @@ void Escenario::clienteInicializarListaBonus(){
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	frenoTejo->cargarImagen("frenoTejo");
 	this->listaBonus.push_back(frenoTejo);
+	*/
 }
 
 void Escenario::shuffleListBonus(){

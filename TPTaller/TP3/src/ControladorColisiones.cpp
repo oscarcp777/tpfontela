@@ -727,8 +727,7 @@ void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
 	xFigura= cuadrado->getX();
 	yFigura= cuadrado->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-		if(cuadrado->getTieneBonus()){
-			std::cout<<"entro al if choco con circulo con bonus"<<endl;
+		if(cuadrado->getTieneBonus()){			
 			tejo->setChocoFiguraConBonus(true);
 		}
 		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){

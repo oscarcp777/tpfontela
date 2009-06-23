@@ -27,7 +27,7 @@ int Figura::getX(){
 	 */
 void Figura::verificarBonusActivo(int base,int altura){
 	if(this->imagenBonus!=NULL){
-		this->imagen=ScaleSurface(this->imagenBonus, base, altura);
+		this->imagenBonus=ScaleSurface(this->imagenBonus, base, altura);
 
 	}
 }
@@ -98,6 +98,12 @@ std::list<RectanguloInfluencia*>::iterator Figura::iteratorRectangulosDeInfluenc
 void Figura::addRectanguloInfluencia(RectanguloInfluencia *rectanguloInfluencia){
 	this->rectangulosDeInfluencia.push_back(rectanguloInfluencia);
 
+}
+void Figura::setEscalada(bool escalada){
+	this->escalada = escalada;
+}
+bool Figura::getEscalada(){
+	return this->escalada;
 }
 int Figura::sizeListaRectangulos(){
 	return this->rectangulosDeInfluencia.size();

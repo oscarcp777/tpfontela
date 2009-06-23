@@ -29,6 +29,8 @@ class Figura{
           void Figura::setColorFigura(Color *colorFigura);
           Posicion* getPosicion();
           void setPosicion(Posicion * posicion);
+		  void setEscalada(bool escalada);
+	      bool getEscalada();
           std::list<RectanguloInfluencia*>::iterator iteratorRectangulosDeInfluencia();
           void addRectanguloInfluencia(RectanguloInfluencia *rectanguloInfluencia);
           int sizeListaRectangulos();
@@ -62,6 +64,7 @@ protected:
 		std::string idTextura;
 		std::string tipo;
 		SDL_Color color;
+		bool escalada;
 		Color* colorFigura;
 		Color* colorLinea;
 		SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
