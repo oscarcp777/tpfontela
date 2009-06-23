@@ -461,7 +461,7 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
 	}
 	if(distanciaMinimaEntreRadios>=distanciaEntreRadios){
 
-		if(figura->getImagenBonus()!=NULL){
+		if(figura->getTieneBonus()){
 			std::cout<<"entro al if choco con circulo con bonus"<<endl;
 			tejo->setChocoFiguraConBonus(true);
 		}
@@ -577,10 +577,10 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	Recta* recta2=triangulo->getRecta2();
 	Recta* recta3=triangulo->getRecta3();
 	if(DEBUG==1){
-	recta3->toString();
-	recta2->toString();
-	recta1->toString();
-	rectaDireccionTejo->toString();
+		recta3->toString();
+		recta2->toString();
+		recta1->toString();
+		rectaDireccionTejo->toString();
 	}
 	Recta* recta=NULL; //Recta con la que estoy mas cerca
 
@@ -634,11 +634,12 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	if(dMenor<=radioTejo){
 		//analisis colision con vertices, totalmente arbitrario el angulo de salida
 		if (colisionVertice){
-			if(triangulo->getImagenBonus()!=NULL){
-							tejo->setChocoFiguraConBonus(true);
-					}
-		 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
-					tejo->getDireccion()->setFi(anguloDeltejo-PI);
+			if(figura->getTieneBonus()){
+				std::cout<<"entro al if choco con circulo con bonus"<<endl;
+				tejo->setChocoFiguraConBonus(true);
+			}
+			if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
+				tejo->getDireccion()->setFi(anguloDeltejo-PI);
 			}else
 				if (CalculosMatematicos::isTercerCuadrante(anguloDeltejo)){
 					tejo->getDireccion()->setFi(anguloDeltejo-PI);
@@ -698,9 +699,11 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 									if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
 										decidirDireccionPrimerCuadrante(recta,tejo,0);
 									}
-					}
-					if(triangulo->getImagenBonus()!=NULL){
-						tejo->setChocoFiguraConBonus(true);
+						if(figura->getTieneBonus()){
+							std::cout<<"entro al if choco con circulo con bonus"<<endl;
+							tejo->setChocoFiguraConBonus(true);
+						}
+
 					}
 				}
 			}
@@ -715,8 +718,8 @@ void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
 	wTejo = hTejo = tejo->getRadio()*2;
 	xTejo = tejo->getX()-tejo->getRadio();
 	yTejo= tejo->getY()-tejo->getRadio();
-	double anguloDeltejo=tejo->getDireccion()->getFi();
 	radioTejo=tejo->getRadio();
+	double anguloDeltejo=tejo->getDireccion()->getFi();
 	xAnteriorTejo=tejo->getXAnterior()-tejo->getRadio();
 	yAnteriorTejo=tejo->getYAnterior()-tejo->getRadio();
 	wFigura= cuadrado->getLado();
@@ -724,7 +727,10 @@ void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
 	xFigura= cuadrado->getX();
 	yFigura= cuadrado->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-
+		if(figura->getTieneBonus()){
+			std::cout<<"entro al if choco con circulo con bonus"<<endl;
+			tejo->setChocoFiguraConBonus(true);
+		}
 		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
 			if(yTejo>yFigura+hFigura){
 
@@ -786,9 +792,8 @@ void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
 				}
 			}
 
-
-
 		}
+
 
 	}
 }
@@ -806,7 +811,8 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 	xFigura= rectangulo->getX();
 	yFigura= rectangulo->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-		if(rectangulo->getImagenBonus()!=NULL){
+		if(figura->getTieneBonus()){
+			std::cout<<"entro al if choco con circulo con bonus"<<endl;
 			tejo->setChocoFiguraConBonus(true);
 		}
 		if(xAnteriorTejo<=xFigura&&yAnteriorTejo<yFigura+hFigura&&yAnteriorTejo>yFigura-wTejo){
@@ -872,11 +878,11 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 
 		}
 		if(rectangulo->getTipo().compare(PAD_DERECHA)==0){
-           tejo->setUltimaColisionPad(PAD_CLIENTE1);
-				}
+			tejo->setUltimaColisionPad(PAD_CLIENTE1);
+		}
 		if(rectangulo->getTipo().compare(PAD_IZQUIERDA)==0){
-			 tejo->setUltimaColisionPad(PAD_CLIENTE2);
-						}
+			tejo->setUltimaColisionPad(PAD_CLIENTE2);
+		}
 
 	}
 }
