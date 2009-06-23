@@ -67,7 +67,12 @@ int Figura::getAnchoInfluencia()
 {
 	return anchoInfluencia;
 }
-
+void Figura::setTieneBonus(bool tiene){
+	this->tieneBonus = tiene;	
+}
+bool Figura::getTieneBonus(){
+	return this->tieneBonus;	
+}
 void Figura::setAnchoInfluencia(int anchoInfluencia)
 {
 	this->anchoInfluencia = anchoInfluencia;

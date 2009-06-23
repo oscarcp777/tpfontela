@@ -141,8 +141,7 @@ void Juego::update(){
 		ControladorColisiones::calcularDireccion();
 		
 
-		//si fue gol espero 2 segundos antes de empezar otra partida
-					if(this->estado.compare("GOL")==0){
+				if(this->estado.compare("GOL")==0){
 					    Sleep(1000);
 						//tejosRestantes se inicializa en 7 en el constructor de Juego, cuando se hace un gol se decrementa
 						this->decrementarTejosRestantes();

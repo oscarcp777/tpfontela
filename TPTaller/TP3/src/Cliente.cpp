@@ -77,9 +77,8 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
-			msj= this->get();
-			
+			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			msj= this->get();			
 			
 			if(msj.find("TEJO")==0){
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -117,15 +116,18 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("BONUS")==0){
 				string tipoBonus;
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				Figura* figura= (*escenario->iteratorListaFiguras());//TODO tiene que ser la figura que le pasan el id el mensaje es BONUS tipoBonus idFigura
+				Figura* figura= (*escenario->iteratorListaFiguras());//TODO tiene que ser la figura que le pasan el id el mensaje es BONUS tipoBonus idFigura				
 				Bonus* bonus = escenario->obtenerBonusPorTipo(atoi(tipoBonus.c_str()));
 				figura->setImagenBonus(bonus->getImagen());
 				escenario->setBonusActual(bonus);
+				escenario->setFiguraConBonus(figura);
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
-				escenario->getBonusActual()->aplicar();
+				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				//TODO desaplicar bonus anterior etc, "pensar eso"
+				escenario->getBonusActual()->aplicar();
+				
 			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);
@@ -155,8 +157,12 @@ void Cliente::start(char* host, int port)
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
-
-
+			
+			if(escenario->graficar()<0){
+				this->sock.send("QUIT");
+				this->stop();
+			}
+			/*
 			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
@@ -167,6 +173,7 @@ void Cliente::start(char* host, int port)
 				this->stop();
 				}
 			}
+			*/
 		}
 
 

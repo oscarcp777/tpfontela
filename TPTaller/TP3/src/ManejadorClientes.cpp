@@ -152,21 +152,23 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				if (this->socketComunicacion->getConexion()->usuario == 0){
 
 					if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
+						Sleep(30);
 						juegoNuevo->update();
-
-						if(juegoNuevo->getEstado().compare("APLICAR_BONUS")== 0){
-							juegoNuevo->getEscenario()->getBonusActual()->aplicar();
-						}	
 						
+					
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+							
 							//se forma la cadena "INT posX posY" con las posiciones del tejo
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
 							
-							if((CalculosMatematicos::ramdom(100)) <10){
+							if((CalculosMatematicos::ramdom(100)) <90 && juegoNuevo->getEscenario()->getBonusActual()==NULL){
 							//Hago un random entre 0 y 100 si el numero es menor a 10 aparece bonus
-							 tipoBonus = juegoNuevo->getNuevoBonusRandom()->getTipoBonus();
-							 juegoNuevo->getEscenario()->setBonusActual(juegoNuevo->getEscenario()->obtenerBonusPorTipo(tipoBonus));
+							 Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
+							 tipoBonus = bonus->getTipoBonus();
+							 juegoNuevo->getEscenario()->setBonusActual(bonus);
+							 Figura* figura= *(juegoNuevo->getEscenario()->iteratorListaFiguras());
+							 figura->setTieneBonus(true);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus);
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
@@ -178,7 +180,6 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
 							enviarAtodos(this->todosLosClientes,pPuntajes);
 													
-
 							if(juegoNuevo->getTejosRestantes() == 0){
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
 								juegoNuevo->setEstado("NIVEL_TERMINADO");								
@@ -192,19 +193,30 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							else {//si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
 								juegoNuevo->setEstado("CORRIENDO");
 							}
+							
 						}
+						
+						if(juegoNuevo->getEscenario()->getTejo()->getChocoFiguraConBonus()){
+							std::cout<<"ENTRO A APLICAR "<<endl;
+							system("PAUSE");
+							juegoNuevo->getEscenario()->getBonusActual()->aplicar();
+							juegoNuevo->getEscenario()->setBonusActual(NULL);
+							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");							
+						}	
+						
+
 					}
 					else{//entra a este else si el juego esta en estado=JUEGO_TERMINADO o NIVEL_TERMINADO (es decir NO esta CORRIENDO)
 
 						//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
 						if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
-
 							this->ganador(pGanador);
 							enviarAtodos(this->todosLosClientes,pGanador);
 							seguirCiclando = 0;
 						}
 						//si termino el nivel envio las imagenes y archivos a los clientes y vuelvo el estado del juego a CORRIENDO
 						else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
+							std::cout<<"ENTRO A NIVEL_TERMINADO"<<endl;
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
 							juegoNuevo->setTejosRestantes(7);
 							//guardo los puntos y las posiciones. los seteo luego de cargarArchivo, poruqe este metodo los borra

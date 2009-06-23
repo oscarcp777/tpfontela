@@ -102,6 +102,8 @@ class Escenario {
 	Bonus* obtenerBonusPorTipo(int tipo);
 	void setBonusActual(Bonus* bonus);
 	Bonus* getBonusActual();
+	void setFiguraConBonus(Figura*  figura);
+	Figura* getFiguraConBonus();
 	
 
 protected:
@@ -140,6 +142,8 @@ protected:
 		int posicionYPad;
 		std::string golDe;
 		Bonus* bonusActual;
+		Figura* figuraConBonus;
+
 };
 
 #endif

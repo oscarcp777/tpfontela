@@ -460,7 +460,9 @@ void ControladorColisiones::colisionCirculo(Tejo* tejo,Circulo* figura){
 		std::cout<<"distanciaEntreRadios  :"<<distanciaEntreRadios<<"  -- "<<endl;
 	}
 	if(distanciaMinimaEntreRadios>=distanciaEntreRadios){
+
 		if(figura->getImagenBonus()!=NULL){
+			std::cout<<"entro al if choco con circulo con bonus"<<endl;
 			tejo->setChocoFiguraConBonus(true);
 		}
 		if(!verificarExcepciones(rectaEntreRadios,tejo,figura)){
@@ -633,7 +635,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		//analisis colision con vertices, totalmente arbitrario el angulo de salida
 		if (colisionVertice){
 			if(triangulo->getImagenBonus()!=NULL){
-						tejo->setChocoFiguraConBonus(true);
+							tejo->setChocoFiguraConBonus(true);
 					}
 		 	if (CalculosMatematicos::isCuartoCuadrante(anguloDeltejo)){
 					tejo->getDireccion()->setFi(anguloDeltejo-PI);

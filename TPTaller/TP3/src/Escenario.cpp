@@ -702,3 +702,9 @@ void Escenario::setBonusActual(Bonus* bonus){
 Bonus* Escenario::getBonusActual(){
 	return this->bonusActual;
 }
+void Escenario::setFiguraConBonus(Figura*  figura){
+	this->figuraConBonus = figura;
+}
+Figura* Escenario::getFiguraConBonus(){
+	return this->figuraConBonus;
+}

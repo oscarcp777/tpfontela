@@ -50,6 +50,8 @@ class Figura{
 		  void verificarBonusActivo(int base,int altura);
 		  SDL_Surface *getImagenBonus();
 		  void setImagenBonus(SDL_Surface *imagenBonus);
+		  void setTieneBonus(bool tiene);
+		  bool getTieneBonus();
 
 protected:
 	    int xInfluencia;
@@ -66,7 +68,7 @@ protected:
 		Posicion *pos;
 		SDL_Surface* imagenBonus;
 		std::list<RectanguloInfluencia*> rectangulosDeInfluencia;
-
+		bool tieneBonus;
 		void putpixel(SDL_Surface *screen, int x, int y, SDL_Color color);
 		SDL_Color getpixel(SDL_Surface *imagen, int x, int y);
 		void dibujarLinea(SDL_Color color,SDL_Surface *screen ,int x1, int y1, int x2, int y2);
