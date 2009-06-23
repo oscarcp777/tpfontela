@@ -163,7 +163,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
 
-							if((CalculosMatematicos::ramdom(100)) <15 && escenario->getBonusActual()==NULL){
+							if((CalculosMatematicos::ramdom(100)) <10 && escenario->getBonusActual()==NULL){
 							//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
 							 Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
 							 escenario->shuffleListFiguras();
@@ -175,7 +175,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							 escenario->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus,idFigura);
-							 std::cout<<"pMensBonus "<<pMensBonus<<endl;
+							 std::cout<<"*******************pMensBonus "<<pMensBonus<<endl;
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
 							}
@@ -202,13 +202,14 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						}
 
 						if(escenario->getTejo()->getChocoFiguraConBonus()){
+							std::cout<<"*********dio true choco con figura bonus"<<endl;
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
 							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS "+escenario->getTejo()->obtenerUltimaColisionPad()+"\n");
-
+							std::cout<<"******despues de enviar APLICAR_BONUS"<<endl;
 						}
 
 					}
@@ -233,9 +234,16 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posXPad2 = escenario->getPadCliente2()->getX();
 							posYPad2 = escenario->getPadCliente2()->getY();
 							escenario->borrarListaFiguras();
+							std::cout<<"sizeListaFiguras ANTES DE CARGAR ARCHIVO NUEVO"<<escenario->sizeListaFiguras()<<endl;
+							escenario->setBonusActual(NULL);
+							escenario->getFiguraConBonus()->setTieneBonus(false);
+							escenario->setFiguraConBonus(NULL);
+							escenario->getTejo()->setChocoFiguraConBonus(false);
+
 							Sleep(3000);
 
 							escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
+							std::cout<<"sizeListaFiguras DESPUES "<<escenario->sizeListaFiguras()<<endl;
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
 							escenario->getPadCliente1()->setX(posXPad1);

@@ -143,11 +143,12 @@ void Cliente::start(char* host, int port)
 				escenario->incrementarNivel();				
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
-				Sleep(3000);
+				//Sleep(3000);
 				escenario->borrarListaFiguras();
 				escenario->borrarListaTexturas();
 				escenario->setearImagenesEnNull();
-				
+				escenario->setFiguraConBonus(NULL);
+
 				escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");				
 				escenario->setPrimerPintada(false);
 				escenario->setCorriendo(true);
