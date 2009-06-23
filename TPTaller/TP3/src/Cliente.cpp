@@ -43,13 +43,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 		
-		loading(&sock);	
+		//loading(&sock);	
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,escenario->getAlto()/3);
 		SDL_Flip(escenario->getScreen());	
 		
-		loading(&sock);
+		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -149,7 +149,7 @@ void Cliente::start(char* host, int port)
 				escenario->setearImagenesEnNull();
 				
 				escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");				
-				
+				escenario->setPrimerPintada(false);
 				escenario->setCorriendo(true);
 
 			}

@@ -138,10 +138,10 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			int tipoBonus;
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				loading(todosLosClientes,"loading1.txt");
+				//loading(todosLosClientes,"loading1.txt");
 
 
-				loading(todosLosClientes,"loading2.txt");
+				//loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
 				escenario->servidorInicializarListaBonus();
@@ -153,7 +153,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				if (this->socketComunicacion->getConexion()->usuario == 0){
 
 					if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-						Sleep(20);
+						Sleep(15);
 						juegoNuevo->update();
 
 
@@ -233,7 +233,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posXPad2 = escenario->getPadCliente2()->getX();
 							posYPad2 = escenario->getPadCliente2()->getY();
 							escenario->borrarListaFiguras();
-							Sleep(2000);
+							Sleep(3000);
 
 							escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);

@@ -112,7 +112,7 @@ void Juego::update(){
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
-					/*
+					
 					if(ControladorColisiones::colisionesArcos()==0){
 						if(this->escenario->getGolDe().compare("PAD1")== 0){
 							this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
@@ -131,7 +131,7 @@ void Juego::update(){
 						
 				}
 				
-					*/
+					
 		ControladorColisiones::calcularDireccion();
 		
 
