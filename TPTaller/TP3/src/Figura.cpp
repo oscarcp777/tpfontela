@@ -9,6 +9,15 @@ Figura::Figura(){
 	this->bonus = NULL;
 
 }
+SDL_Surface* Figura::getImagenBonus()
+   {
+       return imagenBonus;
+   }
+
+void Figura::setImagenBonus(SDL_Surface *imagenBonus)
+   {
+       this->imagenBonus = imagenBonus;
+   }
 int Figura::getX(){
   return this->pos->getX();
 }
@@ -16,8 +25,8 @@ int Figura::getX(){
 	 * si el bonus esta activo le seteo la imagendel bonus al dispersor
 	 */
 void Figura::verificarBonusActivo(int base,int altura){
-	if(this->bonus!=NULL){
-		this->imagen=ScaleSurface(this->bonus->getImagen(), base, altura);
+	if(this->imagenBonus!=NULL){
+		this->imagen=ScaleSurface(this->imagenBonus, base, altura);
 
 	}
 }
@@ -126,9 +135,7 @@ void Figura::setImagen(SDL_Surface *imagen){
 
 	this->imagen = imagen;
 }
-void Figura::setBonus(Bonus* bonus){
-	this->bonus = bonus;
-}
+
 
 Color* Figura::getColorFigura()
 {

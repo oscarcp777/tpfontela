@@ -58,7 +58,8 @@ void Pad::dibujar(SDL_Surface *pantalla){
 	}
 	if(this->modificar){
 			this->imagen = this->getFigura()->ScaleSurface(this->imagen,  this->getFigura()->getBase(), this->getFigura()->getAltura());
-		}
+		    this->modificar=false;
+	}
 	SDL_Rect rect;
 	rect.x =this->getX();
 	rect.y = this->getY();

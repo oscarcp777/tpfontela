@@ -116,6 +116,7 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 	}
 	if(this->modificarRadio){
 		this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		this->modificarRadio=false;
 	}
 	SDL_Rect rect;
 	rect.x =this->getX()-this->getRadio();
