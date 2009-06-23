@@ -85,15 +85,17 @@ int Circulo::dibujar(SDL_Surface *screen){
 			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getRadio()*2, this->getRadio()*2);
 			this->setEscalada(true);
 		}
-
+		std::cout<<"antes de this->imagenBonus!=NULL"<<endl;
 		if(this->imagenBonus!=NULL){
+			std::cout<<"entrooooooooooooooooooooooo"<<endl;
 			SDL_Rect rect;
 	   		rect.x =this->getX()-this->getRadio();
 	   		rect.y = this->getY()-this->getRadio();
 	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
 		}
 		else if(this->imagen!=NULL){
-	   	    SDL_Rect rect;
+	   		std::cout<<"entro al else"<<endl;
+			SDL_Rect rect;
 	   		rect.x =this->getX()-this->getRadio();
 	   		rect.y = this->getY()-this->getRadio();
 	   		SDL_BlitSurface(this->imagen, NULL, screen, &rect);

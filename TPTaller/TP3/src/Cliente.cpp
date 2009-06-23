@@ -43,13 +43,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 		
-		loading(&sock);	
+		//loading(&sock);	
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,escenario->getAlto()/3);
 		SDL_Flip(escenario->getScreen());	
 		
-		loading(&sock);
+		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -124,6 +124,7 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
+				std::cout<<"msj "<<msj<<endl;
 				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);

@@ -58,9 +58,10 @@ public:
     SDL_Surface *getImagen();
 	std::string obtenerUltimaColisionPad();
 	void setUltimaColisionPad(std::string ultimoPad);
-	void setMover(int mover);
-	int getMover();
-
+	void setMover(bool mover);
+	bool getMover();
+	void setPegajoso(bool pegajoso);
+	bool getPegajoso();
 
     bool getChoco();
     void setChoco(bool choco);
@@ -84,13 +85,14 @@ private:
 		int YAnterior;
         int moverMayor;
 		int  moverMenor;
-		int  mover;
+		bool mover;
 		bool choco;
 		bool modificarRadio;
 		std::string ultimaColisionPad;
 		bool chocoFiguraConBonus;
 		int velocidadDefault;
 		int radioDefault;
+		bool pegajoso;
 
 };
 

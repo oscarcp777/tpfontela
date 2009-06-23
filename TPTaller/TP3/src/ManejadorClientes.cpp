@@ -138,10 +138,10 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			int tipoBonus;
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				loading(todosLosClientes,"loading1.txt");
+				//loading(todosLosClientes,"loading1.txt");
 
 
-				loading(todosLosClientes,"loading2.txt");
+				//loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
 				escenario->servidorInicializarListaBonus();
@@ -153,7 +153,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				if (this->socketComunicacion->getConexion()->usuario == 0){
 
 					if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-						Sleep(30);
+						Sleep(20);
 						juegoNuevo->update();
 
 
@@ -175,7 +175,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							 escenario->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus,idFigura);
-							 //std::cout<<"pMensBonus "<<pMensBonus<<endl;
+							 std::cout<<"pMensBonus "<<pMensBonus<<endl;
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
 							}

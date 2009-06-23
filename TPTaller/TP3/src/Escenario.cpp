@@ -53,7 +53,7 @@ Escenario::Escenario(){
 }
 
 void Escenario::servidorInicializarListaBonus(){
-/*
+
 	DecLongPad* decLongPad = new DecLongPad();
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	this->listaBonus.push_back(decLongPad);
@@ -82,22 +82,21 @@ void Escenario::servidorInicializarListaBonus(){
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	this->listaBonus.push_back(incVelocidadTejo);
-*/
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	this->listaBonus.push_back(pegamentoTejo);
-/*
 
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
-*/
-	
+
+ 
 }
 
 
 void Escenario::clienteInicializarListaBonus(){
-/*
+
 	DecLongPad* decLongPad = new DecLongPad();
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	decLongPad->cargarImagen("decLongPad");
@@ -133,17 +132,17 @@ void Escenario::clienteInicializarListaBonus(){
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	incVelocidadTejo->cargarImagen("incVelocidadTejo");
 	this->listaBonus.push_back(incVelocidadTejo);
-*/
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	pegamentoTejo->cargarImagen("pegamentoTejo");
 	this->listaBonus.push_back(pegamentoTejo);
-/*
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	frenoTejo->cargarImagen("frenoTejo");
 	this->listaBonus.push_back(frenoTejo);
-*/
+
 	
 }
 
@@ -220,14 +219,14 @@ Escenario::~Escenario(){
 		delete figura;
 		iterFiguras++;
 	}
-	/*	list<Bonus*>::iterator iterBonus;
+	list<Bonus*>::iterator iterBonus;
 	Bonus* bonus;
 	iterBonus=this->listaBonus.begin();
 	while(iterBonus !=this->listaBonus.end()){
 		bonus=*iterBonus;
 		delete bonus;
 		iterBonus++;
-	}*/
+	}
 
 }
 

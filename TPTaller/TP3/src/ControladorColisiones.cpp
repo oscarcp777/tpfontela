@@ -878,10 +878,15 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 		}
 		if(rectangulo->getTipo().compare(PAD_DERECHA)==0){
 			tejo->setUltimaColisionPad(PAD_CLIENTE1);
+			if(tejo->getPegajoso()){
+				tejo->setMover(false);
+				//SETEAR POSICION PAD AL TEJO
+			}
 		}
 		if(rectangulo->getTipo().compare(PAD_IZQUIERDA)==0){
 			tejo->setUltimaColisionPad(PAD_CLIENTE2);
 		}
+	
 
 	}
 }

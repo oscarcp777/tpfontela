@@ -51,6 +51,8 @@ Tejo::Tejo(Circulo* circulo){
 	this->direccion = new Direccion();
 	this->modificarRadio=false;
 	this->ultimaColisionPad = PAD_CLIENTE2;
+	this->mover= true;
+	this->pegajoso=false;
 
 }
 SDL_Surface* Tejo::getImagen()
@@ -207,9 +209,11 @@ return x;
 }
 
 void Tejo::moverTejo(){
+	if(this->mover){
 	this->cargarPixelesAMover();
 	this->mover_x();
 	this->mover_y();
+	}
 }
 void Tejo::mover_y(){
 	int y =this->getY();
@@ -222,6 +226,7 @@ void Tejo::mover_y(){
 	}
 }
 void  Tejo::cargarPixelesAMover() {
+	
 	switch (this->velocidad) {
 	case 1:
 		this->moverMayor=2;
@@ -336,14 +341,21 @@ void Tejo::setYAnterior(int y){
 	this->YAnterior = y;
 }
 
-void Tejo::setMover(int mover){
+void Tejo::setMover(bool mover){
 	this->mover = mover;
 }
 
-int Tejo::getMover(){
+bool Tejo::getMover(){
 	return this->mover;
 }
 
+void Tejo::setPegajoso(bool pegajoso){
+	this->pegajoso = pegajoso;
+}
+
+bool Tejo::getPegajoso(){
+	return this->pegajoso;
+}
 std::string Tejo::obtenerUltimaColisionPad(){
 	return this->ultimaColisionPad;
 }
