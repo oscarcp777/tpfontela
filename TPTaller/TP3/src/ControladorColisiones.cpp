@@ -634,7 +634,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	if(dMenor<=radioTejo){
 		//analisis colision con vertices, totalmente arbitrario el angulo de salida
 		if (colisionVertice){
-			if(figura->getTieneBonus()){
+			if(triangulo->getTieneBonus()){
 				std::cout<<"entro al if choco con circulo con bonus"<<endl;
 				tejo->setChocoFiguraConBonus(true);
 			}
@@ -699,7 +699,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 									if (CalculosMatematicos::isPrimerCuadrante(anguloDeltejo)){
 										decidirDireccionPrimerCuadrante(recta,tejo,0);
 									}
-						if(figura->getTieneBonus()){
+						if(triangulo->getTieneBonus()){
 							std::cout<<"entro al if choco con circulo con bonus"<<endl;
 							tejo->setChocoFiguraConBonus(true);
 						}
@@ -727,7 +727,7 @@ void ControladorColisiones::colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo){
 	xFigura= cuadrado->getX();
 	yFigura= cuadrado->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-		if(figura->getTieneBonus()){
+		if(cuadrado->getTieneBonus()){
 			std::cout<<"entro al if choco con circulo con bonus"<<endl;
 			tejo->setChocoFiguraConBonus(true);
 		}
@@ -811,7 +811,7 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 	xFigura= rectangulo->getX();
 	yFigura= rectangulo->getY();
 	if( ((xTejo + wTejo) >= xFigura) && ((yTejo + hTejo) >= yFigura) && ((xFigura + wFigura) >= xTejo) && ((yFigura + hFigura) >= yTejo)){
-		if(figura->getTieneBonus()){
+		if(rectangulo->getTieneBonus()){
 			std::cout<<"entro al if choco con circulo con bonus"<<endl;
 			tejo->setChocoFiguraConBonus(true);
 		}
