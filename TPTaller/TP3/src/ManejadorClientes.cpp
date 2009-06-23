@@ -136,6 +136,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			std::string msj;
 			int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
 			int tipoBonus;
+		
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
 				//loading(todosLosClientes,"loading1.txt");
@@ -189,7 +190,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
 								juegoNuevo->setEstado("NIVEL_TERMINADO");
 								juegoNuevo->incrementarNivel();
-								escenario->incrementarNivel();
+								
 								if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1){
 									juegoNuevo->setEstado("JUEGO_TERMINADO");
 								}
@@ -233,16 +234,15 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posXPad2 = escenario->getPadCliente2()->getX();
 							posYPad2 = escenario->getPadCliente2()->getY();
 							escenario->borrarListaFiguras();
-							std::cout<<"sizeListaFiguras ANTES DE CARGAR ARCHIVO NUEVO"<<escenario->sizeListaFiguras()<<endl;
+							
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
 
-							//Sleep(3000);
-							std::cout<<"escenario->getNumeroNivelEnString()"<<escenario->getNumeroNivelEnString()<<endl;
-							escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
-							std::cout<<"sizeListaFiguras DESPUES "<<escenario->sizeListaFiguras()<<endl;
+							Sleep(3000);
+							
+							escenario->cargarArchivo("nivel"+juegoNuevo->getNumeroNivelEnString()+".xml");
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
 							escenario->getPadCliente1()->setX(posXPad1);

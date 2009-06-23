@@ -76,6 +76,21 @@ void Juego::incrementarNivel(){
 	this->numeroNivel++;
 }
 
+std::string Juego::getNumeroNivelEnString(){
+		std::string cadena;
+		char num[10];
+		char* pNum = num;
+		char aux1[5];
+		char* paux1 = aux1;
+		memset(paux1,0,sizeof(char)*5);
+		memset(pNum,0,sizeof(char)*10);
+		itoa(this->numeroNivel,paux1,10);
+		strcat(pNum,paux1);
+		cadena = pNum;
+		return cadena;
+
+}
+
 int Juego::getTejosRestantes(){
 	return this->tejosRestantes;
 }

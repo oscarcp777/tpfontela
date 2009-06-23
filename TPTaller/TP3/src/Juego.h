@@ -34,6 +34,7 @@ public:
     std::string getEstado();
 	void setEstado(std::string estado);
 	Bonus* getNuevoBonusRandom();
+	std::string getNumeroNivelEnString();
 
 protected:
 	Juego();
