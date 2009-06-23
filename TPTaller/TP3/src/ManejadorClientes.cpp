@@ -189,7 +189,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
 								juegoNuevo->setEstado("NIVEL_TERMINADO");
 								juegoNuevo->incrementarNivel();
-
+								escenario->incrementarNivel();
 								if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1){
 									juegoNuevo->setEstado("JUEGO_TERMINADO");
 								}
@@ -202,14 +202,13 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						}
 
 						if(escenario->getTejo()->getChocoFiguraConBonus()){
-							std::cout<<"*********dio true choco con figura bonus"<<endl;
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
 							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS "+escenario->getTejo()->obtenerUltimaColisionPad()+"\n");
-							std::cout<<"******despues de enviar APLICAR_BONUS"<<endl;
+							
 						}
 
 					}
@@ -240,8 +239,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
 
-							Sleep(3000);
-
+							//Sleep(3000);
+							std::cout<<"escenario->getNumeroNivelEnString()"<<escenario->getNumeroNivelEnString()<<endl;
 							escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 							std::cout<<"sizeListaFiguras DESPUES "<<escenario->sizeListaFiguras()<<endl;
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
