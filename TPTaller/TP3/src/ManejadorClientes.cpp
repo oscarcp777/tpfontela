@@ -276,21 +276,17 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					}
 					else if(msj.find("PAD1")==0)
 					{
-						string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-						escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
-						pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-						escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+						juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
 						msj += msj+"\n";
-						enviarAtodos(this->todosLosClientes,msj);
+						enviarAtodos(this->todosLosClientes,msj);						
 					}
 					else if(msj.find("PAD2")==0)
 					{
-						string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-						escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
-						pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-						escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+						juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
 						msj += msj+"\n";
-						enviarAtodos(this->todosLosClientes,msj);
+						enviarAtodos(this->todosLosClientes,msj);						
 
 					}
 
