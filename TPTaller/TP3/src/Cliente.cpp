@@ -121,6 +121,7 @@ void Cliente::start(char* host, int port)
 				figura->setImagenBonus(bonus->getImagen());
 				escenario->setBonusActual(bonus);
 				escenario->setFiguraConBonus(figura);
+				escenario->setPrimerPintada(false);
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
@@ -130,6 +131,7 @@ void Cliente::start(char* host, int port)
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);
 				escenario->setFiguraConBonus(NULL);
+				escenario->setPrimerPintada(false);
 				//TODO desaplicar bonus anterior etc, "pensar eso"
 				escenario->getBonusActual()->aplicar();
 				

@@ -51,6 +51,7 @@ class Escenario {
 			std::list<Bonus*>::iterator iteratorListaBonus();
 			std::string Escenario::obtenerPathTextura(std::string id);
 			Figura* getFiguraPorId(std::string idFigura);
+			void setPrimerPintada(bool primerPintada);
     void setAncho(int ancho);
     int getAncho();
     void setAlto(int alto);
@@ -146,6 +147,7 @@ protected:
 		std::string golDe;
 		Bonus* bonusActual;
 		Figura* figuraConBonus;
+		bool primerPintada;
 
 };
 

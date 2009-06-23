@@ -38,6 +38,8 @@ int calcularDistancia(int izqX, int izqY,int derX, int derY){
 
 
 void Circulo::calcularRadioDeInfluencia(){}
+
+
 int Circulo::dibujar(SDL_Surface *screen){
 	this->color = getColorFigura()->getColor();
 	 SDL_Surface* image;

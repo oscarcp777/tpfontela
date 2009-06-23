@@ -48,6 +48,7 @@ Escenario::Escenario(){
 	this->addTextura(icono);
 	this->tejosRestantes = 7;
 	this->numeroNivel = 1;
+	this->primerPintada = false;
 
 
 }
@@ -578,7 +579,7 @@ int Escenario::iniciarSDL(){
 }
 
 
-static bool primerPintada = false;
+
 int Escenario::graficar(){
 	SDL_Rect rect;
 			rect.x =0;
@@ -609,6 +610,7 @@ int Escenario::graficar(){
 		this->pintarPantalla();
 			primerPintada = true;
 		}
+
 		SDL_BlitSurface(this->buffer, NULL,this->screen, &rect);
 
 		this->getPadCliente1()->dibujar(this->screen);
@@ -761,4 +763,8 @@ void Escenario::setFiguraConBonus(Figura*  figura){
 }
 Figura* Escenario::getFiguraConBonus(){
 	return this->figuraConBonus;
+}
+void Escenario::setPrimerPintada(bool primerPintada){
+	this->primerPintada = primerPintada;
+
 }
