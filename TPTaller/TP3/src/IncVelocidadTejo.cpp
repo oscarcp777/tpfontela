@@ -16,8 +16,8 @@ IncVelocidadTejo::IncVelocidadTejo()
 
 int IncVelocidadTejo::aplicar(){
 	Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
-	int incUnTercioDeVelocidad=tejo->getVelocidad()+this->getVelocidadAnterior()/3;
-	int incMax = this->getVelocidadAnterior() + (5/3)*this->getVelocidadAnterior();
+	int incUnTercioDeVelocidad=tejo->getVelocidad()+ tejo->getVelocidadDefault()/3;
+	int incMax = 5*(tejo->getVelocidadDefault()/3);
     	
 
 

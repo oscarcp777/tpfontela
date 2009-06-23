@@ -27,6 +27,8 @@ public:
     void dibujar(SDL_Surface *pantalla);
     Circulo* getFigura();
     void mover_x();
+	int getVelocidadDefault();
+	void setVelocidadDefault(int velocidad);
     	// void retrasar_x();
 
     	  // Modifica la posición del personaje con respecto al eje Y
@@ -68,12 +70,16 @@ public:
     void setModificarRadio(bool modificarRadio);
     bool getChocoFiguraConBonus();
     void setChocoFiguraConBonus(bool chocoFiguraConBonus);
+	void setRadioDefault(int radioDefault);
+	int getRadioDefault();
+
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
 	Direccion* direccion;
     	int velocidad;
     	Circulo* circulo;
     	SDL_Surface *imagen;
+		SDL_Surface *imagenAuxiliar;
 		int XAnterior;
 		int YAnterior;
         int moverMayor;
@@ -83,6 +89,8 @@ private:
 		bool modificarRadio;
 		std::string ultimaColisionPad;
 		bool chocoFiguraConBonus;
+		int velocidadDefault;
+		int radioDefault;
 
 };
 

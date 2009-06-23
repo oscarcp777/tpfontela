@@ -18,20 +18,23 @@ int IncLongPad::aplicar(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Pad*pad=NULL;
 	int incUnTercioDeAltura=0;
-	int incMax = this->getAlturaAnterior() + (5/3)*this->getAlturaAnterior();
+	
     std::string padUltimaColision = escenario->getTejo()->obtenerUltimaColisionPad();
 
 		if(padUltimaColision.compare(PAD_CLIENTE1)==0)
 			pad = escenario->getPadCliente1();
 		else if(padUltimaColision.compare(PAD_CLIENTE2)==0)
 			pad = escenario->getPadCliente2();
-
-		if((pad==NULL)||(pad->getAltura()<incMax)) //si ya se aplico, no se puede volver a aplicar el bonus
+	
+		int incMax = pad->getAlturaDefault()+ 5*(pad->getAlturaDefault()/3);
+		if(pad==NULL) 
 		return -1;
-
-		incUnTercioDeAltura=pad->getAltura()+this->getAlturaAnterior()/3;
+		
+		
+		incUnTercioDeAltura = pad->getAltura() + pad->getAlturaDefault()/3;
 		if(incUnTercioDeAltura>incMax)
 			return -1;
+
 	    pad->setModificar(true);
 		pad->setAltura(incUnTercioDeAltura);
 

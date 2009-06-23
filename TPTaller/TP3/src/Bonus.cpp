@@ -42,38 +42,6 @@ SDL_Surface* Bonus::getImagen()
         this->imagen = imagen;
     }
 
-int Bonus::getActivo(){
-	return this->activo;
-}
-
-void Bonus::setActivo(int activo){
-	this->activo = activo;
-}
-
-void Bonus::setVelocidadAnterior(int velocidadAnterior){
-	this->velocidadAnterior = velocidadAnterior;
-}
-
-int Bonus::getVelocidadAnterior(){
-	return this->velocidadAnterior;
-}
-
-void Bonus::setAlturaAnterior(int alturaAnterior){
-	this->alturaAnterior = alturaAnterior;
-}
-
-int Bonus::getAlturaAnterior(){
-	return this->alturaAnterior;
-}
-
-void Bonus::setRadioAnterior(int radioAnterior){
-	this->radioAnterior = radioAnterior;
-}
-
-int Bonus::getRadioAnterior(){
-	return this->radioAnterior;
-}
-
 int Bonus::getTipoBonus(){
 	return this->tipoBonus;
 }

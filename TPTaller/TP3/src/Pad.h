@@ -39,6 +39,10 @@ public:
 	int calcularProximaPosicionAlBajar();
     bool getModificar();
     void setModificar(bool modificar);
+	int getAlturaDefault();
+	void setAlturaDefault(int altura);
+
+
 private:
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
@@ -47,6 +51,7 @@ private:
 	int cantGoles;
 	int velocidad;
     bool modificar;
+	int alturaDefault;
 };
 
 #endif /* PAD_H_ */

@@ -46,6 +46,7 @@ Tejo::Tejo(Circulo* circulo){
 	this->circulo=circulo;
 	std::cout<< "padv1: "  <<this->circulo->getIdTextura()<< endl;
 	this->imagen=NULL;
+	this->imagenAuxiliar=NULL;
 	this->choco=false;
 	this->direccion = new Direccion();
 	this->modificarRadio=false;
@@ -61,6 +62,14 @@ void Tejo::setImagen(SDL_Surface *imagen){
 	this->imagen = imagen;
 }
 
+
+void Tejo::setRadioDefault(int radioDefault){
+	this->radioDefault = radioDefault;
+}
+
+int Tejo::getRadioDefault(){
+	return this->radioDefault;
+}
 
 void Tejo::cargarRadioDeInfluencia(){
 
@@ -105,10 +114,12 @@ void Tejo::setVelocidad(int velocidad)
 }
 void Tejo::dibujar(SDL_Surface *pantalla){
     SDL_Surface* image;
+
 	//	 Cargamos la imagen
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
 		image = IMG_Load(path.begin());
+		this->imagenAuxiliar = IMG_Load(path.begin());
 		//			this->imagen = SDL_LoadBMP(path.begin());
 		if(image == NULL) {
 			std::cout<< "Error: " << SDL_GetError() << endl;
@@ -117,14 +128,20 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 		//si la imagen no es null (es decir si la levanto bien) la escalo
 		if(image != NULL){
 			image = this->getFigura()->ScaleSurface(image, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		
 		}
 		//			// Calculamos el color transparente, en nuestro caso el verde
 		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 		this->imagen = SDL_DisplayFormat(image);
-		  SDL_FreeSurface(image);
+		SDL_FreeSurface(image);		
+	
+		
 	}
+
 	if(this->modificarRadio){
-		this->imagen = this->getFigura()->ScaleSurface(this->imagen, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		this->imagenAuxiliar = Figura::ScaleSurface(this->imagenAuxiliar, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		SDL_SetColorKey(this->imagenAuxiliar,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenAuxiliar->format,255 ,255, 255));
+		this->imagen = SDL_DisplayFormat(this->imagenAuxiliar);
 		this->modificarRadio=false;
 	}
 	SDL_Rect rect;
@@ -340,7 +357,14 @@ bool Tejo::getModificarRadio()
        return modificarRadio;
    }
 
-   void Tejo::setModificarRadio(bool modificarRadio)
-   {
-       this->modificarRadio = modificarRadio;
-   }
+void Tejo::setModificarRadio(bool modificarRadio)
+ {
+      this->modificarRadio = modificarRadio;
+  }
+
+int Tejo::getVelocidadDefault(){
+   return this->velocidadDefault;   
+}
+void Tejo::setVelocidadDefault(int velocidad){
+  this->velocidadDefault = velocidad;   
+}

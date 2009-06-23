@@ -149,3 +149,9 @@ void Pad::setImagen(SDL_Surface *imagen){
 
 	this->imagen = imagen;
 }
+int Pad::getAlturaDefault(){
+	return this->alturaDefault;
+}
+void Pad::setAlturaDefault(int altura){
+	this->alturaDefault = altura;
+}

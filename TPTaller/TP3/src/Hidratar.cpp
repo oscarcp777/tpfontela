@@ -451,6 +451,8 @@ int hidratarTejo(std::string radio,std::string velocidad,std::string idTextura){
 		circulo->setIdTextura(idTextura);
 		Tejo* tejo = new Tejo(circulo);
 	     tejo->setVelocidad(atoi(velocidad.c_str()));
+		 tejo->setVelocidadDefault(atoi(velocidad.c_str()));
+		 tejo->setRadioDefault(atoi(radio.c_str()));
 		 escenario->setTejo(tejo);
 		 return 0;
 }
@@ -466,8 +468,10 @@ int hidratarPads(std::string altura,std::string base,std::string idTextura,std::
 			rectangulo2->setIdTextura(idTextura);
 			Pad* padCliente1 = new Pad(rectangulo1,new Puntaje());
 			padCliente1->setVelocidad(atoi(velocidad.c_str()));
+			padCliente1->setAlturaDefault(atoi(altura.c_str()));
 			Pad* padCliente2 = new Pad(rectangulo2,new Puntaje());
 			padCliente2->setVelocidad(atoi(velocidad.c_str()));
+			padCliente2->setAlturaDefault(atoi(altura.c_str()));
 			escenario->setPadCliente1(padCliente1);
 			escenario->setPadCliente2(padCliente2);
 			return 0;

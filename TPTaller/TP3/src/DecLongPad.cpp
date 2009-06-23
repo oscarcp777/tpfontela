@@ -18,7 +18,7 @@ int DecLongPad::aplicar(){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	Pad*pad=NULL;
 	int decUnTercioDeAltura=0;
-	int decMax = this->getAlturaAnterior()/3;
+	
     std::string padUltimaColision = escenario->getTejo()->obtenerUltimaColisionPad();
 
 			
@@ -29,8 +29,9 @@ int DecLongPad::aplicar(){
 
 		if(pad==NULL) //si ya se aplico, no se puede volver a aplicar el bonus
 			return -2;
-
-		decUnTercioDeAltura= pad->getAltura()- this->getAlturaAnterior()/3;
+		
+		int decMax = pad->getAlturaDefault()/3;
+		decUnTercioDeAltura= pad->getAltura() - pad->getAlturaDefault()/3;
 
 		if(decUnTercioDeAltura < decMax)
 			return -1;

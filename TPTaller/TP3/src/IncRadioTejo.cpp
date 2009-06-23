@@ -16,10 +16,11 @@ IncRadioTejo::IncRadioTejo()
 
 int IncRadioTejo::aplicar(){
 	Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
-	int incUnTercioDeRadio=this->getRadioAnterior()+this->getRadioAnterior()/3;
-	int incMax = this->getRadioAnterior() + (5/3)*this->getRadioAnterior();
+	int incUnTercioDeRadio= tejo->getRadio() + tejo->getRadioDefault()/3;
+	int incMax = tejo->getRadioDefault() + 5*(tejo->getRadioDefault()/3);
 
-
+	std::cout<<"INC RADIO "<<incUnTercioDeRadio<<endl;
+	std::cout<<"incMax"<<incMax<<endl;
 		if(incUnTercioDeRadio>incMax) //si ya se aplico, no se puede volver a aplicar el bonus
 		return -1;
 		tejo->setModificarRadio(true);
