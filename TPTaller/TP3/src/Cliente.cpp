@@ -112,7 +112,7 @@ void Cliente::start(char* host, int port)
 			} 
 			
 			else if(msj.find("BONUS")==0){
-				//std::cout<<"msj "<<msj<<endl;
+				std::cout<<"msj "<<msj<<endl;
 				string tipoBonus,idFigura;
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				idFigura = msj.substr(msj.find_last_of(" ")+1,msj.size());
@@ -125,7 +125,7 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
-				//std::cout<<"msj "<<msj<<endl;
+				std::cout<<"msj "<<msj<<endl;
 				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
@@ -143,7 +143,7 @@ void Cliente::start(char* host, int port)
 				escenario->incrementarNivel();				
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
-				//Sleep(3000);
+				Sleep(3000);
 				escenario->borrarListaFiguras();
 				escenario->borrarListaTexturas();
 				escenario->setearImagenesEnNull();
