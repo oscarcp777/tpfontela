@@ -138,10 +138,10 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			int tipoBonus;
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				//loading(todosLosClientes,"loading1.txt");
+				loading(todosLosClientes,"loading1.txt");
 
 
-				//loading(todosLosClientes,"loading2.txt");
+				loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
 				escenario->servidorInicializarListaBonus();
