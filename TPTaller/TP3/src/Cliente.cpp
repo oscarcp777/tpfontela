@@ -77,7 +77,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();			
 			
 			if(msj.find("TEJO")==0){
@@ -86,7 +86,7 @@ void Cliente::start(char* host, int port)
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getTejo()->setY(atoi(pPosicion.c_str()));
 				}
-			/*
+			
 			else if(msj.find("PAD1")==0){
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
@@ -114,7 +114,7 @@ void Cliente::start(char* host, int port)
 
 
 			} 
-			*/
+			
 			else if(msj.find("BONUS")==0){
 				string tipoBonus;
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -126,14 +126,16 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
+				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
+				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);
 				escenario->setFiguraConBonus(NULL);
 				//TODO desaplicar bonus anterior etc, "pensar eso"
-				escenario->getBonusActual()->aplicar();
-				std::cout<<"salio de getBonusActual"<<endl;
+				int resultado = escenario->getBonusActual()->aplicar();
+				std::cout<<"salio de getBonusActual resultado= "<<resultado<<endl;
 				
-			}/*
+			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);
 				escenario->setTejosRestantes(7);
@@ -162,12 +164,12 @@ void Cliente::start(char* host, int port)
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
-			*/
+			
 			if(escenario->graficar()<0){
 				this->sock.send("QUIT");
 				this->stop();
 			}
-			/*
+			
 			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
@@ -178,7 +180,7 @@ void Cliente::start(char* host, int port)
 				this->stop();
 				}
 			}
-			*/
+			
 		}
 
 

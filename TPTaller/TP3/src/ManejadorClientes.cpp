@@ -92,7 +92,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			strcat(pGanador,paux1);
 			strcat(pGanador,"\n");
 		}
-
+		
 		void ManejadorClientes::bonus(char* pMensBonus,int tipoBonus){
 
 			char aux1[20];
@@ -106,7 +106,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			strcat(pMensBonus,"BONUS ");
 			itoa(tipoBonus,paux1,10);
 			itoa(2,paux2,10);//TODO ese 2 hardcodeado no va, va el numero de figura o id
-
+		
 			strcat(pMensBonus,paux1);
 			strcat(pMensBonus," ");
 			strcat(pMensBonus,paux2);//TODO aca concatenar la figura que va a tener el bonus
@@ -114,7 +114,6 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		}
 
 		int ManejadorClientes :: process(void* arg){
-			Escenario* escenario=juegoNuevo->getEscenario();
 			seguirCiclando = 1;
 			std::string bufferStr = "";
 			int bytesRecibidos;
@@ -139,14 +138,14 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
 				loading(todosLosClientes,"loading1.txt");
-
-
+				
+				
 				loading(todosLosClientes,"loading2.txt");
 				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
-				escenario->servidorInicializarListaBonus();
+				juegoNuevo->getEscenario()->servidorInicializarListaBonus();
 				enviarAtodos(this->todosLosClientes,"INICIADO\n");
-
+				
 			}
 			while (seguirCiclando == 1){
 
@@ -155,22 +154,22 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
 						Sleep(30);
 						juegoNuevo->update();
-
-
+						
+					
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
-
+							
 							//se forma la cadena "INT posX posY" con las posiciones del tejo
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
-
+							
 							if((CalculosMatematicos::ramdom(100)) <10 && juegoNuevo->getEscenario()->getBonusActual()==NULL){
 							//Hago un random entre 0 y 100 si el numero es menor a 10 aparece bonus
 							 Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
 							 tipoBonus = bonus->getTipoBonus();
-							 escenario->setBonusActual(bonus);
-							 Figura* figura= *(escenario->iteratorListaFiguras());
+							 juegoNuevo->getEscenario()->setBonusActual(bonus);
+							 Figura* figura= *(juegoNuevo->getEscenario()->iteratorListaFiguras());
 							 figura->setTieneBonus(true);
-							escenario->setFiguraConBonus(figura);
+							 juegoNuevo->getEscenario()->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus);
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
@@ -181,10 +180,10 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("GOL")== 0){
 							this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
 							enviarAtodos(this->todosLosClientes,pPuntajes);
-
+													
 							if(juegoNuevo->getTejosRestantes() == 0){
 								//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
-								juegoNuevo->setEstado("NIVEL_TERMINADO");
+								juegoNuevo->setEstado("NIVEL_TERMINADO");								
 								juegoNuevo->incrementarNivel();
 
 								if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1){
@@ -195,19 +194,34 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							else {//si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
 								juegoNuevo->setEstado("CORRIENDO");
 							}
-
+							
 						}
 
-						if(escenario->getTejo()->getChocoFiguraConBonus()){
-							escenario->getBonusActual()->aplicar();
-							escenario->setBonusActual(NULL);
-							escenario->getFiguraConBonus()->setTieneBonus(false);
-							escenario->setFiguraConBonus(NULL);
-							escenario->getTejo()->setChocoFiguraConBonus(false);
-							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");
+
+						
+						if(juegoNuevo->getEscenario()->getTejo()->getChocoFiguraConBonus()){
+							int resultado = juegoNuevo->getEscenario()->getBonusActual()->aplicar();
+							std::cout<<"salio de getBonusActual resultado= "<<resultado<<endl;
+							juegoNuevo->getEscenario()->setBonusActual(NULL);
+							juegoNuevo->getEscenario()->getFiguraConBonus()->setTieneBonus(false);
+							juegoNuevo->getEscenario()->setFiguraConBonus(NULL);
+							juegoNuevo->getEscenario()->getTejo()->setChocoFiguraConBonus(false);
+							
+							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS "+juegoNuevo->getEscenario()->getTejo()->obtenerUltimaColisionPad()+"\n");	
+
+						}
+						if(juegoNuevo->getEscenario()->getTejo()->getChocoFiguraConBonus()){
+							juegoNuevo->getEscenario()->getBonusActual()->aplicar();
+							juegoNuevo->getEscenario()->setBonusActual(NULL);
+							juegoNuevo->getEscenario()->getFiguraConBonus()->setTieneBonus(false);
+							juegoNuevo->getEscenario()->setFiguraConBonus(NULL);
+							juegoNuevo->getEscenario()->getTejo()->setChocoFiguraConBonus(false);
+							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");	
+
+
 							juegoNuevo->setEstado("CORRIENDO");
-						}
-
+						}	
+						
 
 					}
 					else{//entra a este else si el juego esta en estado=JUEGO_TERMINADO o NIVEL_TERMINADO (es decir NO esta CORRIENDO)
@@ -224,25 +238,25 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
 							juegoNuevo->setTejosRestantes(7);
 							//guardo los puntos y las posiciones. los seteo luego de cargarArchivo, poruqe este metodo los borra
-							puntosPad1 = escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
-							puntosPad2 = escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
-							posXPad1 = escenario->getPadCliente1()->getX();
-							posYPad1 = escenario->getPadCliente1()->getY();
-							posXPad2 = escenario->getPadCliente2()->getX();
-							posYPad2 = escenario->getPadCliente2()->getY();
-							escenario->borrarListaFiguras();
+							puntosPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
+							puntosPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
+							posXPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getX();
+							posYPad1 = juegoNuevo->getEscenario()->getPadCliente1()->getY();
+							posXPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getX();
+							posYPad2 = juegoNuevo->getEscenario()->getPadCliente2()->getY();
+							this->juegoNuevo->getEscenario()->borrarListaFiguras();
 							Sleep(2000);
-
-						     escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
-							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
-							escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
-							escenario->getPadCliente1()->setX(posXPad1);
-							escenario->getPadCliente1()->setY(posYPad1);
-							escenario->getPadCliente2()->setX(posXPad2);
-							escenario->getPadCliente2()->setY(posYPad2);
-							escenario->getTejo()->setY(escenario->getPadCliente2()->getY()+escenario->getPadCliente2()->getAltura()/2);
-							escenario->getTejo()->setX(escenario->getPadCliente2()->getX()+escenario->getPadCliente2()->getBase()+escenario->getTejo()->getRadio());
-							escenario->getTejo()->getDireccion()->setFi(PI/4);
+							
+							this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getEscenario()->getNumeroNivelEnString()+".xml");
+							juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
+							juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
+							juegoNuevo->getEscenario()->getPadCliente1()->setX(posXPad1);
+							juegoNuevo->getEscenario()->getPadCliente1()->setY(posYPad1);
+							juegoNuevo->getEscenario()->getPadCliente2()->setX(posXPad2);
+							juegoNuevo->getEscenario()->getPadCliente2()->setY(posYPad2);
+							juegoNuevo->getEscenario()->getTejo()->setY(juegoNuevo->getEscenario()->getPadCliente2()->getY()+juegoNuevo->getEscenario()->getPadCliente2()->getAltura()/2);
+							juegoNuevo->getEscenario()->getTejo()->setX(juegoNuevo->getEscenario()->getPadCliente2()->getX()+juegoNuevo->getEscenario()->getPadCliente2()->getBase()+juegoNuevo->getEscenario()->getTejo()->getRadio());
+							juegoNuevo->getEscenario()->getTejo()->getDireccion()->setFi(PI/4);
 							juegoNuevo->setEstado("CORRIENDO");
 						}
 
@@ -262,18 +276,18 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					else if(msj.find("PAD1")==0)
 					{
 						string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-						escenario->getPadCliente1()->setX(atoi(pPosicion.c_str()));
+						juegoNuevo->getEscenario()->getPadCliente1()->setX(atoi(pPosicion.c_str()));
 						pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-						escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+						juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
 						msj += msj+"\n";
 						enviarAtodos(this->todosLosClientes,msj);
 					}
 					else if(msj.find("PAD2")==0)
 					{
 						string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-						escenario->getPadCliente2()->setX(atoi(pPosicion.c_str()));
+						juegoNuevo->getEscenario()->getPadCliente2()->setX(atoi(pPosicion.c_str()));
 						pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
-						escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+						juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
 						msj += msj+"\n";
 						enviarAtodos(this->todosLosClientes,msj);
 
@@ -283,7 +297,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				}
 			}
 
-
+			
 
 			/*Cuando el ManejadorClientes sale del ciclo de recepción es porque no
     recibirá mas mensajes (porque el juego terminó o alguien salió de la partida),
@@ -292,10 +306,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
     es el que inició el servidor) se liberen*/
 			delete(this);
 			return 0;
-		}
+		
+	
+}
 
 		//Envia los recursos necesarios a los clientes
-		void ManejadorClientes::loading(std::list<Thread*>& clientes, std::string archivo){
+void ManejadorClientes::loading(std::list<Thread*>& clientes, std::string archivo){
 			std::cout<<"ENTRO A LOADING SERVIDOR"<<endl;
 			int nbytes;
 			int i = 0;
@@ -311,7 +327,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			std::list<std::string> listaArchivos;  //todas las imagenes a cargar
 			string linea = " ";
-
+			
 
 			ArchivoTexto archivoNivel(archivo);
 			archivoNivel.leerLinea(linea);
@@ -356,7 +372,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		}
 
 		//Toma la lista de clientes y un string, itera la lista y envia el string
-		void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
+void ManejadorClientes::enviarAtodos(std::list<Thread*>& clientes,
 				const std::string& mensaje)
 		{
 			for (std::list<Thread*>::iterator it = clientes.begin();
@@ -366,7 +382,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			}
 		}
 
-		void ManejadorClientes::asignarNumeroClientes(std::list<Thread*>& clientes){
+void ManejadorClientes::asignarNumeroClientes(std::list<Thread*>& clientes){
 			std::string numeroCliente1 = "1";
 			std::string numeroCliente2 = "2";
 			int i=1;
@@ -386,7 +402,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 		/*Llama al send para enviar a traves del socket un string al cliente correspondiente
 a ese socket*/
-		void ManejadorClientes::enviarMensaje(const std::string& mensaje)
+void ManejadorClientes::enviarMensaje(const std::string& mensaje)
 		{
 			socketComunicacion->send((char*)mensaje.data());
 
@@ -394,7 +410,7 @@ a ese socket*/
 
 		/*Acumula en cantListos para saber cuantos clientes enviaron READY al Servidor.
 Cuando cantListos == clientes.size() todos están listos y el juego comienza*/
-		int ManejadorClientes::obtenerListos(std::list<Thread*>& clientes)
+int ManejadorClientes::obtenerListos(std::list<Thread*>& clientes)
 		{
 			int cantListos = 0;
 			for (std::list<Thread*>::iterator it = clientes.begin();
@@ -407,7 +423,7 @@ Cuando cantListos == clientes.size() todos están listos y el juego comienza*/
 
 		/*Itera todos los clientes, indicandoles a cada uno que deben dejar de
 ciclar*/
-		void ManejadorClientes::pararTodos(std::list<Thread*>& clientes)
+void ManejadorClientes::pararTodos(std::list<Thread*>& clientes)
 		{
 			for (std::list<Thread*>::iterator it = clientes.begin();
 			it != clientes.end(); ++it){
@@ -420,7 +436,7 @@ ciclar*/
 		/*Busca a un cliente en la lista de clientes, y le indica que deje de
 ciclar, además de quitarlo de la lista. Usado de esta manera para permitir
 abrir un slot para que un nuevo jugador se una a la partida*/
-		void ManejadorClientes::quitarCliente(std::list<Thread*>& clientes)
+void ManejadorClientes::quitarCliente(std::list<Thread*>& clientes)
 		{
 			int encontrado = 0;
 			int fin = 0;

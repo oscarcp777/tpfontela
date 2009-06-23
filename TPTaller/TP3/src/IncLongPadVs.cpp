@@ -21,8 +21,7 @@ int IncLongPadVs::aplicar(){
 	int incMax = this->getAlturaAnterior() + (5/3)*this->getAlturaAnterior();
     std::string padUltimaColision = escenario->getTejo()->obtenerUltimaColisionPad();
 
-	if(this->getActivo()==0){
-
+	
 		if(padUltimaColision.compare(PAD_CLIENTE1)==0)
 			pad = escenario->getPadCliente2();
 		else if(padUltimaColision.compare(PAD_CLIENTE2)==0)
@@ -39,9 +38,7 @@ int IncLongPadVs::aplicar(){
 		pad->setAltura(incUnTercioDeAltura);
 
 	return 0;
-	}
 
-	return -1;
 }
 
 IncLongPadVs::~IncLongPadVs()

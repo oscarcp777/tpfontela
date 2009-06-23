@@ -22,7 +22,7 @@ int DecLongPadVs::aplicar(){
 	int decMax = getAlturaAnterior()/3;
     std::string padUltimaColision = escenario->getTejo()->obtenerUltimaColisionPad();
 
-	if(this->getActivo()==0){
+
 
 		if(padUltimaColision.compare(PAD_CLIENTE1)==0)
 			pad = escenario->getPadCliente2();
@@ -30,7 +30,7 @@ int DecLongPadVs::aplicar(){
 			pad = escenario->getPadCliente1();
 
 		if(pad==NULL) //si ya se aplico, no se puede volver a aplicar el bonus
-		return -1;
+		return -2;
 
 		decUnTercioDeAltura = pad->getAltura()-this->getAlturaAnterior()/3;
 
@@ -40,9 +40,7 @@ int DecLongPadVs::aplicar(){
 		pad->setAltura(decUnTercioDeAltura);
 
 	return 0;
-	}
 
-	return -1;
 }
 
 

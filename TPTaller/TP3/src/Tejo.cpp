@@ -49,6 +49,7 @@ Tejo::Tejo(Circulo* circulo){
 	this->choco=false;
 	this->direccion = new Direccion();
 	this->modificarRadio=false;
+	this->ultimaColisionPad = PAD_CLIENTE2;
 
 }
 SDL_Surface* Tejo::getImagen()

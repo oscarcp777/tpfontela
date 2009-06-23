@@ -19,7 +19,7 @@ int IncVelocidadTejo::aplicar(){
 	int incUnTercioDeVelocidad=tejo->getVelocidad()+this->getVelocidadAnterior()/3;
 	int incMax = this->getVelocidadAnterior() + (5/3)*this->getVelocidadAnterior();
     	
-	if(this->getActivo()==0){
+
 
 		if(incUnTercioDeVelocidad>incMax) //si ya se aplico, no se puede volver a aplicar el bonus 
 		return -1;
@@ -29,8 +29,7 @@ int IncVelocidadTejo::aplicar(){
 	return 0;
 	}
 
-	return -1;
-}
+
 
 IncVelocidadTejo::~IncVelocidadTejo()
 {
