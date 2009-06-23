@@ -41,6 +41,7 @@ class Escenario {
 			void addTextura(Textura *textura);
 			int sizeListaFiguras();
 			int sizeListaTexturas();
+			int sizeListaBonus();
 			void servidorInicializarListaBonus();			
 			void clienteInicializarListaBonus();
 			void shuffleListBonus();
@@ -98,6 +99,10 @@ class Escenario {
 	void setPosicionYPad(int pos);
 	void setGolDe(std::string pad);
 	std::string getGolDe();
+	Bonus* obtenerBonusPorTipo(int tipo);
+	void setBonusActual(Bonus* bonus);
+	Bonus* getBonusActual();
+	
 
 protected:
 		Escenario();
@@ -134,7 +139,7 @@ protected:
 		int numeroNivel;
 		int posicionYPad;
 		std::string golDe;
-
+		Bonus* bonusActual;
 };
 
 #endif

@@ -113,13 +113,19 @@ void Cliente::start(char* host, int port)
 				escenario->decrementarTejosRestantes();
 
 
-			}
+			} 
 			else if(msj.find("BONUS")==0){
 				string tipoBonus;
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				Figura* figura= (*escenario->iteratorListaFiguras());
-				figura->setBonus(*escenario->iteratorListaBonus());
+				Figura* figura= (*escenario->iteratorListaFiguras());//TODO tiene que ser la figura que le pasan el id el mensaje es BONUS tipoBonus idFigura
+				Bonus* bonus = escenario->obtenerBonusPorTipo(atoi(tipoBonus.c_str()));
+				figura->setImagenBonus(bonus->getImagen());
+				escenario->setBonusActual(bonus);
 
+			}
+			else if(msj.find("APLICAR_BONUS")==0){
+				escenario->getBonusActual()->aplicar();
+				//TODO desaplicar bonus anterior etc, "pensar eso"
 			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);

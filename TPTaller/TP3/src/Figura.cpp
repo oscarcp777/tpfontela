@@ -1,17 +1,18 @@
 #include "Figura.h"
 #include "Escenario.h"
 #include "Define.h"
+
 Figura::Figura(){
 	this->colorFigura = NULL;
 	this->colorLinea = NULL;
 	this->setIdTextura("NULL");
 	this->imagen = NULL;
-	this->bonus = NULL;
+	this->imagenBonus = NULL;
 
 }
 SDL_Surface* Figura::getImagenBonus()
    {
-       return imagenBonus;
+       return this->imagenBonus;
    }
 
 void Figura::setImagenBonus(SDL_Surface *imagenBonus)

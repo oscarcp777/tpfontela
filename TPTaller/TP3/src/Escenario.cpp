@@ -28,6 +28,7 @@ Escenario::Escenario(){
 	escribirTituloLog(*(this->getLog()),"DESCRIPCION DE ERRORES");
 	this->validador->setLog(&(this->log));
 	this->padJugador = NULL;
+	this->bonusActual = NULL;
 
 	//levanto del archivo siguiente las texturas por default para el escenario
 	ArchivoTexto miArchivoDefault(configDefaultEscenario);
@@ -308,6 +309,9 @@ int Escenario::sizeListaFiguras(){
 	return this->listaFiguras.size();
 }
 
+int Escenario::sizeListaBonus(){
+	return this->listaBonus.size();
+}
 
 int Escenario::sizeListaTexturas(){
 	return this->listaTexturas.size();
@@ -446,6 +450,27 @@ bool Escenario::existeIdFigura(std::string idFigura){
 		}
 	}
 	return existe;
+}
+Bonus* Escenario::obtenerBonusPorTipo(int tipo){
+	
+	std::list<Bonus*>::iterator iter;
+	Bonus *bonus;
+	iter = this->iteratorListaBonus();
+	int i=1;
+	while(i<=this->sizeListaBonus()){
+		bonus = *iter;
+		if(bonus->getTipoBonus() == tipo ){
+			return bonus;
+		}
+		else{
+			i++;
+			iter++;
+		}
+	}
+	
+	return bonus;
+
+
 }
 
 SDL_Surface* Escenario::getScreen(){
@@ -670,4 +695,10 @@ void Escenario::setGolDe(std::string pad){
 }
 std::string Escenario::getGolDe(){
 	return this->golDe;
+}
+void Escenario::setBonusActual(Bonus* bonus){
+	this->bonusActual = bonus;
+}
+Bonus* Escenario::getBonusActual(){
+	return this->bonusActual;
 }

@@ -154,18 +154,21 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
 						juegoNuevo->update();
 
-						//se forma la cadena "INT posX posY" con las posiciones del tejo
-						sleep(40);
+						if(juegoNuevo->getEstado().compare("APLICAR_BONUS")== 0){
+							juegoNuevo->getEscenario()->getBonusActual()->aplicar();
+						}	
+						
 						if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+							//se forma la cadena "INT posX posY" con las posiciones del tejo
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
 							
-							if(CalculosMatematicos::ramdom(100) <10){
-							//*******************************************************
-							//TODO si hay gol aplico el bonus y mando un comando a los clientes para que apliquen bonus
+							if((CalculosMatematicos::ramdom(100)) <10){
+							//Hago un random entre 0 y 100 si el numero es menor a 10 aparece bonus
 							 tipoBonus = juegoNuevo->getNuevoBonusRandom()->getTipoBonus();
+							 juegoNuevo->getEscenario()->setBonusActual(juegoNuevo->getEscenario()->obtenerBonusPorTipo(tipoBonus));
+							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus);
-
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
 							}

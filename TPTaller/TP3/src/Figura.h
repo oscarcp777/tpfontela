@@ -48,15 +48,8 @@ class Figura{
           std::string getTipo();
           void setTipo(std::string tipo);
 		  void verificarBonusActivo(int base,int altura);
-    SDL_Surface *getImagenBonus() const
-    {
-        return imagenBonus;
-    }
-
-    void setImagenBonus(SDL_Surface *imagenBonus)
-    {
-        this->imagenBonus = imagenBonus;
-    }
+		  SDL_Surface *getImagenBonus();
+		  void setImagenBonus(SDL_Surface *imagenBonus);
 
 protected:
 	    int xInfluencia;
