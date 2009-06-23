@@ -565,6 +565,8 @@ int Escenario::iniciarSDL(){
 	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
 
 	this->screen = SDL_SetVideoMode(this->getAncho(),this->getAlto(),16, SDL_SWSURFACE | SDL_DOUBLEBUF );
+	this->buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, this->getAncho(), this->getAlto(), 16,
+					     0,0,0,0);
 
 	if(!this->screen){
 		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
@@ -586,8 +588,6 @@ int Escenario::graficar(){
 			rect.h = this->getAlto();
 
 		SDL_Event evento;
-	this->buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, this->getAncho(), this->getAlto(), 16,
-					     0,0,0,0);
 		Teclado teclado;
 		Pad* pad;
 
