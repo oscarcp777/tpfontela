@@ -32,23 +32,23 @@
                  </textura>
 	<textura id="EscDefault" path="imagenes/cuadrado.jpg">
 	</textura>
-	<textura id="decLongPad" path="imagenes/don.png">
+	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
-	<textura id="decLongPadVs" path="imagenes/sup2.jpg">
+	<textura id="decLongPadVs" path="imagenes/dispersor2.png">
                  </textura>
-	<textura id="decRadioTejo" path="imagenes/sup3.jpg">
+	<textura id="decRadioTejo" path="imagenes/dispersor10.png">
                  </textura>
-	<textura id="incLongPad" path="imagenes/sup4.jpg">
+	<textura id="incLongPad" path="imagenes/dispersor4.png">
                  </textura>
-	<textura id="incLongPadVs" path="imagenes/sup5.jpg">
+	<textura id="incLongPadVs" path="imagenes/dispersor5.png">
                  </textura>
-	<textura id="incRadioTejo" path="imagenes/sup6.jpg">
+	<textura id="incRadioTejo" path="imagenes/dispersor6.png">
                  </textura>
-	<textura id="incVelocidadTejo" path="imagenes/sup7.jpg">
+	<textura id="incVelocidadTejo" path="imagenes/dispersor7.png">
                  </textura>
-	<textura id="pegamentoTejo" path="imagenes/sup8.jpg">
+	<textura id="pegamentoTejo" path="imagenes/dispersor8.png">
                  </textura>
-	<textura id="frenoTejo" path="imagenes/sup1.jpg">
+	<textura id="frenoTejo" path="imagenes/dispersor9.png">
                  </textura>
              </ListadoDeTexturas>
 </escenario>
