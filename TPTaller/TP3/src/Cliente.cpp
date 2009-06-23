@@ -112,9 +112,11 @@ void Cliente::start(char* host, int port)
 			} 
 			
 			else if(msj.find("BONUS")==0){
-				string tipoBonus;
+				std::cout<<"msj "<<msj<<endl;
+				string tipoBonus,idFigura;
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
-				Figura* figura= (*escenario->iteratorListaFiguras());//TODO tiene que ser la figura que le pasan el id el mensaje es BONUS tipoBonus idFigura				
+				idFigura = msj.substr(msj.find_last_of(" ")+1,msj.size());
+				Figura* figura= escenario->getFiguraPorId(idFigura);
 				Bonus* bonus = escenario->obtenerBonusPorTipo(atoi(tipoBonus.c_str()));
 				figura->setImagenBonus(bonus->getImagen());
 				escenario->setBonusActual(bonus);

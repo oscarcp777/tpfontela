@@ -112,14 +112,8 @@ void Juego::update(){
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
-					/*
+					
 					if(ControladorColisiones::colisionesArcos()==0){
-					//TODO comentos estas lineas para que no vuelva el pad al centro cuando hay gol,
-					//this->escenario->getPadCliente1()->setY(this->escenario->getAlto()/2);
-					//this->escenario->getPadCliente1()->setX((int)this->escenario->getAncho()*POS_PAD1_Y_PORCENTAJE);
-					//this->escenario->getPadCliente2()->setY(this->escenario->getAlto()/2);
-					//this->escenario->getPadCliente2()->setX((int)this->escenario->getAncho()*POS_PAD2_Y_PORCENTAJE);
-					//DESPUES DEL GOL EL TEJO SE GRAFICA EN LA POSICION DEL PAD2 (este donde este en la pantalla)
 						if(this->escenario->getGolDe().compare("PAD1")== 0){
 							this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
 							this->escenario->getTejo()->setX(this->escenario->getPadCliente2()->getX()+this->escenario->getPadCliente2()->getBase()+this->escenario->getTejo()->getRadio());
@@ -135,8 +129,8 @@ void Juego::update(){
 						}
 						this->estado="GOL";
 						
-
-				}*/
+				}
+				
 
 		ControladorColisiones::calcularDireccion();
 		

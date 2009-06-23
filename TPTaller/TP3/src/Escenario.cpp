@@ -161,6 +161,19 @@ void Escenario::shuffleListBonus(){
 	}
 }
 
+void Escenario::shuffleListFiguras(){
+	list<Figura*>::iterator begin = this->listaFiguras.begin();
+	list<Figura*>::iterator end = this->listaFiguras.end();
+	list<Figura*>::iterator p = begin;
+
+	for (int i = this->listaFiguras.size(); i > 0; --i) {
+	for (int r = rand(); r > 0; --r) {
+	if (++p == end)
+	p = begin;
+	}
+	swap<Figura*>(*begin, *p);
+	}
+}
 
 Validador*  Escenario::getValidador(){
 	return this->validador;
@@ -458,6 +471,29 @@ bool Escenario::existeIdFigura(std::string idFigura){
 	}
 	return existe;
 }
+
+Figura* Escenario::getFiguraPorId(std::string idFigura){
+	std::list<Figura*>::iterator iter;
+	Figura *figura = NULL;
+	iter = this->iteratorListaFiguras();
+	int i=1;
+	
+	while(i<=this->sizeListaFiguras()){
+		figura = *iter;
+		if(figura->getId().compare(idFigura) == 0){
+			return figura;
+		}
+		else{
+			i++;
+			iter++;
+		}
+	}
+	return figura;
+
+
+
+}
+
 Bonus* Escenario::obtenerBonusPorTipo(int tipo){
 
 	std::list<Bonus*>::iterator iter;

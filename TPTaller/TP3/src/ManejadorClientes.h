@@ -38,7 +38,7 @@ public:
 		void posicionTejo(char* pEnvioInt);
 		void puntajes(char* pPuntajes);
 		void ganador(char* pPuntajes);
-		void bonus(char* pMensBonus,int tipoBonus);
+		void bonus(char* pMensBonus,int tipoBonus,std::string idFigura);
 
         Socket* socketServidor;
 		Socket* socketComunicacion;

@@ -45,10 +45,12 @@ class Escenario {
 			void servidorInicializarListaBonus();			
 			void clienteInicializarListaBonus();
 			void shuffleListBonus();
+			void shuffleListFiguras();
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
 			std::list<Bonus*>::iterator iteratorListaBonus();
 			std::string Escenario::obtenerPathTextura(std::string id);
+			Figura* getFiguraPorId(std::string idFigura);
     void setAncho(int ancho);
     int getAncho();
     void setAlto(int alto);

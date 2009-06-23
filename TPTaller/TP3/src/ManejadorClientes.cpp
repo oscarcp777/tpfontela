@@ -93,7 +93,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			strcat(pGanador,"\n");
 		}
 
-		void ManejadorClientes::bonus(char* pMensBonus,int tipoBonus){
+		void ManejadorClientes::bonus(char* pMensBonus,int tipoBonus, std::string idFigura){
 
 			char aux1[20];
 			char* paux1 = aux1;
@@ -105,11 +105,10 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			memset(pMensBonus,0,sizeof(char)*40);
 			strcat(pMensBonus,"BONUS ");
 			itoa(tipoBonus,paux1,10);
-			itoa(2,paux2,10);//TODO ese 2 hardcodeado no va, va el numero de figura o id
-
+			
 			strcat(pMensBonus,paux1);
 			strcat(pMensBonus," ");
-			strcat(pMensBonus,paux2);//TODO aca concatenar la figura que va a tener el bonus
+			strcat(pMensBonus,idFigura.c_str());
 			strcat(pMensBonus,"\n");
 		}
 
@@ -117,6 +116,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			Escenario* escenario=juegoNuevo->getEscenario();
 			seguirCiclando = 1;
 			std::string bufferStr = "";
+			std::string idFigura;
 			int bytesRecibidos;
 			std::string buffer;
 			char msjIngresado[TAM_MSJ];
@@ -163,16 +163,19 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							this->posicionTejo(pEnvioInt);
 							enviarAtodos(this->todosLosClientes,pEnvioInt);
 
-							if((CalculosMatematicos::ramdom(100)) <10 && escenario->getBonusActual()==NULL){
-							//Hago un random entre 0 y 100 si el numero es menor a 10 aparece bonus
+							if((CalculosMatematicos::ramdom(100)) <15 && escenario->getBonusActual()==NULL){
+							//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
 							 Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
+							 escenario->shuffleListFiguras();
 							 tipoBonus = bonus->getTipoBonus();
 							 escenario->setBonusActual(bonus);
 							 Figura* figura= *(escenario->iteratorListaFiguras());
 							 figura->setTieneBonus(true);
+							 idFigura = figura->getId();
 							 escenario->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
-							 this->bonus(pMensBonus,tipoBonus);
+							 this->bonus(pMensBonus,tipoBonus,idFigura);
+							 //std::cout<<"pMensBonus "<<pMensBonus<<endl;
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
 							}
@@ -198,31 +201,15 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 						}
 
-
-
-						if(escenario->getTejo()->getChocoFiguraConBonus()){
-							int resultado = escenario->getBonusActual()->aplicar();
-							std::cout<<"salio de getBonusActual resultado= "<<resultado<<endl;
-							escenario->setBonusActual(NULL);
-							escenario->getFiguraConBonus()->setTieneBonus(false);
-							escenario->setFiguraConBonus(NULL);
-							escenario->getTejo()->setChocoFiguraConBonus(false);
-
-							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS "+escenario->getTejo()->obtenerUltimaColisionPad()+"\n");
-
-						}
 						if(escenario->getTejo()->getChocoFiguraConBonus()){
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
-							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS\n");
+							enviarAtodos(this->todosLosClientes,"APLICAR_BONUS "+escenario->getTejo()->obtenerUltimaColisionPad()+"\n");
 
-
-							juegoNuevo->setEstado("CORRIENDO");
 						}
-
 
 					}
 					else{//entra a este else si el juego esta en estado=JUEGO_TERMINADO o NIVEL_TERMINADO (es decir NO esta CORRIENDO)
@@ -278,15 +265,13 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					{
 						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 						juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-						msj += msj+"\n";
-						enviarAtodos(this->todosLosClientes,msj);						
+						enviarAtodos(this->todosLosClientes,msj+"\n");						
 					}
 					else if(msj.find("PAD2")==0)
 					{
 						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 						juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-						msj += msj+"\n";
-						enviarAtodos(this->todosLosClientes,msj);						
+						enviarAtodos(this->todosLosClientes,msj+"\n");						
 
 					}
 
