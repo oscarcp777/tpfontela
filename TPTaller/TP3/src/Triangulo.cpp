@@ -16,6 +16,7 @@ Triangulo::~Triangulo(){
 	delete this->recta1;
 	delete this->recta2;
 	delete this->recta3;
+	SDL_FreeSurface(this->imagenAuxiliar);
 
 
 }
@@ -474,10 +475,20 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	}
 //	SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 			this->imagen = SDL_DisplayFormat(image);
+			this->imagenAuxiliar=this->imagen;
 			  SDL_FreeSurface(image);
 		}
 		//aca verifico si el bonus esta activo y le seteo la imagen del dispersor
-	       verificarBonusActivo( mayorDeXY, mayorDeXY);
+		if(this->imagenBonus!=NULL && !this->getEscalada()){
+				this->imagenBonus=ScaleSurface(this->imagenBonus, mayorDeXY, mayorDeXY);
+				this->imagen = SDL_DisplayFormat(this->imagenBonus);
+				this->setEscalada(true);
+			}
+
+				if(this->imagenBonus==NULL){
+					this->imagen=this->imagenAuxiliar;
+				}
+
 
 
 	//recorro la imagen y grafico los pixeles, en las posiciones que pertenecen al triangulo

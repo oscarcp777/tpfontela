@@ -38,6 +38,7 @@ class Triangulo: public Figura {
 		Posicion *vertice1;
 		Posicion *vertice2;
 		Posicion *vertice3;
+		SDL_Surface* imagenAuxiliar;
 		Recta *recta1;
 		Recta *recta2;
 		Recta *recta3;
