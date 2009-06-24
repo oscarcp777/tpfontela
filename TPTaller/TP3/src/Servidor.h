@@ -15,10 +15,16 @@ class Servidor : public Thread
 		virtual int process(void*);
 	private:
 		bool algunClienteCorre(std::list<Thread*>& clientes);
-
+		void posicionTejo(char* pEnvioInt);
+		void enviarAtodos(std::list<Thread*>& clientes,
+							const std::string& mensaje);
+		void bonus(char* pMensBonus,int tipoBonus,std::string idFigura);
+		void puntajes(char* pPuntajes);
+		void ganador(char* pPuntajes);
+		void asignarNumeroClientes(std::list<Thread*>& clientes);
 		std::list<Thread*> misClientes;
 		unsigned int participantesMax;
 		int puertoConexion;
 		Juego* juegoNuevo;
-		
+
 };

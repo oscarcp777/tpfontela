@@ -42,7 +42,7 @@ class Escenario {
 			int sizeListaFiguras();
 			int sizeListaTexturas();
 			int sizeListaBonus();
-			void servidorInicializarListaBonus();			
+			void servidorInicializarListaBonus();
 			void clienteInicializarListaBonus();
 			void shuffleListBonus();
 			void shuffleListFiguras();
@@ -97,6 +97,7 @@ class Escenario {
 	std::string getNumeroNivelEnString();
 	void borrarListaFiguras();
 	void borrarListaTexturas();
+	void borrarListaBonus();
 	void setearImagenesEnNull();
 	int getPosicionYPad();
 	void setPosicionYPad(int pos);
@@ -107,7 +108,7 @@ class Escenario {
 	Bonus* getBonusActual();
 	void setFiguraConBonus(Figura*  figura);
 	Figura* getFiguraConBonus();
-	
+
 
 protected:
 		Escenario();

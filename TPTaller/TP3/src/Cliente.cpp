@@ -9,7 +9,7 @@
 #include "Socket.h"			// Para connect(), send()
 #include "cSender.h"			// Para el thread que envia al server
 #include "cReceiver.h"			// Para el thread que recibe del server
-//#include "cInstruction.h"		// Para parsear las instrucciones
+
 #include "cSocketException.h"	// Para las excepciones de sockets
 #include "Escenario.h"
 #include <iostream>				// Para cerr y endl
@@ -43,13 +43,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		loading(&sock);
+		//loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/4,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -72,8 +72,6 @@ void Cliente::start(char* host, int port)
 
 		while (receiver.running() == true){
 
-		//	comienzo = clock() - comienzo;
-		//	std::cout<<"Tiempo: " << comienzo<<endl;
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
@@ -159,22 +157,22 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("GANADOR")==0){
 				std::cout<<"msj "<<msj<<endl;;
 				string cadena = "";
-			
+
 				if(msj.find("GANADOR 1")==0){
-					if(escenario->getNumJugador() == 1)	
+					if(escenario->getNumJugador() == 1)
 						cadena = "GANASTE!!!!!!";
 					else
 						cadena = "PERDISTE!!!!!";
 
 				}
 				else if(msj.find("GANADOR 2")==0){
-					if(escenario->getNumJugador() == 1)	
+					if(escenario->getNumJugador() == 1)
 						cadena = "PERDISTE!!!!!!";
 					else
 						cadena = "GANASTE!!!!!";
 
 				}
-			
+
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,(escenario->getAlto()/2)-15,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
@@ -189,13 +187,13 @@ void Cliente::start(char* host, int port)
 			else{
 				if(escenario->graficar()<0){
 				this->sock.send("QUIT");
-				this->stop();
+				receiver.stop();
 				}
 			}
 
 		}
-
-
+		this->stop();
+		std::cerr << "SALIOOO.." << endl;
 	}
 	catch (cSocketException &e)
 	{
@@ -241,46 +239,11 @@ std::string Cliente::get()
 {
 	return receiver.dequeue();
 }
-//cInstruction Cliente::get()
-//{
-//	cInstruction instruction;
-//
-//	string msg = receiver.dequeue();
-//
-//	if(msg.find(" "))
-//	{
-//		string action = msg.substr(0, msg.find(" "));
-//		instruction.setAction(action);
-//		string parametros = msg.substr(msg.find(" ")+1);
-//		unsigned int pos;
-//		if(action!="CHAT")
-//		{
-//			while((pos=parametros.find(",")) != string::npos)
-//			{
-//				instruction.addParam(parametros.substr(0,pos));
-//				parametros = parametros.substr(pos+1);
-//			}
-//			instruction.addParam(parametros);
-//		}
-//		else
-//		{
-//			pos = parametros.find(",");
-//			instruction.addParam(parametros.substr(0, pos));
-//			instruction.addParam(parametros.substr(pos+1));
-//		}
-//	}
-//	else
-//	{
-//		instruction.setAction(msg);
-//	}
-//
-//	return instruction;
-//}
+
 
 void Cliente::stop()
 {
 	sender.stop();
-	receiver.stop();
 	Sleep(1000);
 	sock.shutdown();
 	sock.close();

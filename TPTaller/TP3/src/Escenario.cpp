@@ -202,8 +202,8 @@ Escenario::~Escenario(){
 	SDL_FreeSurface(this->icono);
 	SDL_FreeSurface(this->fondoPantalla);
 	SDL_FreeSurface(this->buffer);
-	
-	
+
+
 	destruirLog(this->log);
 	delete this->colorLinea;
 	delete this->colorFondoEscenario;
@@ -215,32 +215,14 @@ Escenario::~Escenario(){
 	delete this->posicionInicialTejo;
 	delete this->padJugador;
 	delete this->bonusActual;
-	delete this->figuraConBonus;
-	
-	list<Textura*>::iterator iterTextura;
-	Textura* textura;
-	iterTextura=this->listaTexturas.begin();
-	while(iterTextura !=this->listaTexturas.end()){
-		textura=*iterTextura;
-		delete textura;
-		iterTextura++;
+	if(!this->figuraConBonus){
+		SDL_free(this->figuraConBonus);
+		delete this->figuraConBonus;
 	}
-	list<Figura*>::iterator iterFiguras;
-	Figura* figura;
-	iterFiguras=this->listaFiguras.begin();
-	while(iterFiguras !=this->listaFiguras.end()){
-		figura=*iterFiguras;
-		delete figura;
-		iterFiguras++;
-	}
-	list<Bonus*>::iterator iterBonus;
-	Bonus* bonus;
-	iterBonus=this->listaBonus.begin();
-	while(iterBonus !=this->listaBonus.end()){
-		bonus=*iterBonus;
-		delete bonus;
-		iterBonus++;
-	}
+	this->borrarListaFiguras();
+	this->borrarListaTexturas();
+	this->borrarListaBonus();
+
 
 }
 
@@ -377,7 +359,7 @@ void Escenario::pintarPantalla(){
 	iter = this->iteratorListaFiguras();
 	int res = this->texturaEsc.compare("NULL");
 
-	
+
 
 	if( res!=0){
 
@@ -741,6 +723,11 @@ void Escenario::borrarListaFiguras(){
 
 void Escenario::borrarListaTexturas(){
 	this->listaTexturas.clear();
+
+}
+
+void Escenario::borrarListaBonus(){
+	this->listaBonus.clear();
 
 }
 

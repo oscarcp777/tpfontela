@@ -17,6 +17,10 @@ int Thread::start(void* args)
     return 0;
 }
 
+void Thread::stopear(){
+	this->engaged = false;
+}
+
 //To terminate a particular thread without terminating the entire process, use the API
 //VOID ExitThread(DWORD ExitCode);
 int Thread::join()
@@ -48,7 +52,7 @@ Thread::~Thread()
 		this->engaged = false;
 		TerminateThread(this->hilo,0);
 	}
-	
+
 }
 
 bool Thread::running()

@@ -28,17 +28,13 @@ public:
 	protected:
 		virtual int process(void*);
 	private:
-        void asignarNumeroClientes(std::list<Thread*>& clientes);
+
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
 		void loading(std::list<Thread*>& clientes,std::string archivo);
 		int obtenerListos(std::list<Thread*>& clientes);
 		void pararTodos(std::list<Thread*>& clientes);
 		void quitarCliente(std::list<Thread*>& clientes);
-		void posicionTejo(char* pEnvioInt);
-		void puntajes(char* pPuntajes);
-		void ganador(char* pPuntajes);
-		void bonus(char* pMensBonus,int tipoBonus,std::string idFigura);
 
         Socket* socketServidor;
 		Socket* socketComunicacion;

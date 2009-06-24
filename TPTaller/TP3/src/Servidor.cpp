@@ -1,5 +1,6 @@
 #include "Servidor.h"
 #include "Utilidades.h"
+#include "CalculosMatematicos.h"
 
 Servidor :: Servidor(int puerto, int cantParticipantes):
 			participantesMax(cantParticipantes),
@@ -16,6 +17,8 @@ Servidor :: ~Servidor(){
 
 int Servidor :: process(void* arg){
     std::cout << "SERVER EN EJECUCION...\n";
+
+
     bool todoOK = true;//se usa para ver si no hay problemas
     Socket* socketServidor = new Socket();
 
@@ -46,7 +49,7 @@ int Servidor :: process(void* arg){
         else {
 			std::string numJugador;
             Socket* s = socketServidor->accept();
-			
+
             if (juegoNuevo->cancelado() == true){
                 /*Si el juego fue cancelado, entonces se destrabó el accept a la
                 fuerza, por lo que entra en este scope donde cerramos el socket
@@ -68,7 +71,7 @@ int Servidor :: process(void* arg){
                 entonces crea el ClientHandler que escuchará y enviará peticiones
                 desde y hacia el cliente*/
                 ++cantConecEscuchadas;
-				
+
                 ManejadorClientes* miCliente =	new ManejadorClientes(socketServidor, cantConecEscuchadas,s, juegoNuevo, misClientes);
 
                 /*Manda el cliente a la lista de clientes (se usa para que el juego pueda
@@ -84,24 +87,166 @@ int Servidor :: process(void* arg){
         }
     }
     this->sleep(5000);
-		
+
 		//**************************************************************
 		    this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
 			this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getNumeroNivelEnString()+".xml");
 			this->juegoNuevo->setJuegoArrancado(true);
 
-		
+
 		//***********************************************************
-		
-		ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
-    			socketServidor, juegoNuevo, misClientes);
-    	servidorSender->start(NULL);
+
+	//	ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
+    	//		socketServidor, juegoNuevo, misClientes);
+    //	servidorSender->start(NULL);
+
+
+
+
+    Escenario* escenario=juegoNuevo->getEscenario();
+    char envioInt[40];
+    char* pEnvioInt = envioInt;
+    int tipoBonus;
+    std::string idFigura;
+    char mensBonus[40];
+    char* pMensBonus = mensBonus;
+    char puntajes[40];
+    char* pPuntajes = puntajes;
+    char ganador[40];
+    char* pGanador = ganador;
+    int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
+
+
+
+    //loading(todosLosClientes,"loading1.txt");
+
+
+    //loading(todosLosClientes,"loading2.txt");
+    sleep(6000);
+    asignarNumeroClientes(this->misClientes);
+    escenario->servidorInicializarListaBonus();
+    enviarAtodos(this->misClientes,"INICIADO\n");
+
+
+
+
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/
+
     while (algunClienteCorre(misClientes) == true){
 
-    	this->sleep(10000);
+    	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
+    		Sleep(15);
+    		juegoNuevo->update();
+
+
+    		if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
+
+    			//se forma la cadena "INT posX posY" con las posiciones del tejo
+    			this->posicionTejo(pEnvioInt);
+    			enviarAtodos(this->misClientes,pEnvioInt);
+
+    			if((CalculosMatematicos::ramdom(100)) <10 && escenario->getBonusActual()==NULL){
+    				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
+    				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
+    				escenario->shuffleListFiguras();
+    				tipoBonus = bonus->getTipoBonus();
+    				escenario->setBonusActual(bonus);
+    				Figura* figura= *(escenario->iteratorListaFiguras());
+    				figura->setTieneBonus(true);
+    				idFigura = figura->getId();
+    				escenario->setFiguraConBonus(figura);
+    				//se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
+    				this->bonus(pMensBonus,tipoBonus,idFigura);
+    				enviarAtodos(this->misClientes,pMensBonus);
+    				//******************************************************
+    			}
+    		}
+
+    		else if(juegoNuevo->getEstado().compare("GOL")== 0){
+    			this->puntajes(pPuntajes);//se forma la cadena "STRING PUNTAJE puntosJug1 puntosJug2"
+    			enviarAtodos(this->misClientes,pPuntajes);
+
+    			if(juegoNuevo->getTejosRestantes() == 0){
+    				//si no quedan tejos por jugar en el nivel, el nivel esta terminado y incrementa el nivel
+    				juegoNuevo->setEstado("NIVEL_TERMINADO");
+    				juegoNuevo->incrementarNivel();
+
+    				if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1){
+    					juegoNuevo->setEstado("JUEGO_TERMINADO");
+    				}
+
+    			}
+    			else {//si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
+    				juegoNuevo->setEstado("CORRIENDO");
+    			}
+
+    		}
+
+    		if(escenario->getTejo()->getChocoFiguraConBonus() && juegoNuevo->getEstado().compare("CORRIENDO")== 0){
+    			std::cout<<"choco figura con bonus "<<escenario->getTejo()->getChocoFiguraConBonus()<<endl;
+    			escenario->getBonusActual()->aplicar();
+    			escenario->setBonusActual(NULL);
+    			escenario->getFiguraConBonus()->setTieneBonus(false);
+    			escenario->setFiguraConBonus(NULL);
+    			escenario->getTejo()->setChocoFiguraConBonus(false);
+    			enviarAtodos(this->misClientes,"APLICAR_BONUS "+escenario->getTejo()->obtenerUltimaColisionPad()+"\n");
+
+    		}
+
+    	}
+    	else{//entra a este else si el juego esta en estado=JUEGO_TERMINADO o NIVEL_TERMINADO (es decir NO esta CORRIENDO)
+    		if (juegoNuevo->cancelado()){
+    			juegoNuevo->setEstado("JUEGO_TERMINADO");
+    			this->stopear();
+    		}
+    		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
+    		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
+    			this->ganador(pGanador);
+    			std::cout<<"JUEGO_TERMINADO envia: "<<pGanador<<endl;
+    			enviarAtodos(this->misClientes,pGanador);
+    		}
+    		//si termino el nivel envio las imagenes y archivos a los clientes y vuelvo el estado del juego a CORRIENDO
+    		else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
+    			std::cout<<"ENTRO A NIVEL_TERMINADO"<<endl;
+    			enviarAtodos(this->misClientes,"NIVEL_TERMINADO\n");
+    			std::cout<<"despues de nivel terminado"<<endl;
+    			juegoNuevo->setTejosRestantes(7);
+    			//guardo los puntos y las posiciones. los seteo luego de cargarArchivo, poruqe este metodo los borra
+    			puntosPad1 = escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
+    			puntosPad2 = escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador();
+    			posXPad1 = escenario->getPadCliente1()->getX();
+    			posYPad1 = escenario->getPadCliente1()->getY();
+    			posXPad2 = escenario->getPadCliente2()->getX();
+    			posYPad2 = escenario->getPadCliente2()->getY();
+
+
+
+    			escenario->setBonusActual(NULL);
+    			escenario->setFiguraConBonus(NULL);
+    			escenario->getTejo()->setChocoFiguraConBonus(false);
+
+    			escenario->borrarListaFiguras();
+    			escenario->borrarListaTexturas();
+
+
+    			escenario->cargarArchivo("nivel"+juegoNuevo->getNumeroNivelEnString()+".xml");
+    			Sleep(4000);
+    			escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
+    			escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
+    			escenario->getPadCliente1()->setX(posXPad1);
+    			escenario->getPadCliente1()->setY(posYPad1);
+    			escenario->getPadCliente2()->setX(posXPad2);
+    			escenario->getPadCliente2()->setY(posYPad2);
+    			escenario->getTejo()->setY(escenario->getPadCliente2()->getY()+escenario->getPadCliente2()->getAltura()/2);
+    			escenario->getTejo()->setX(escenario->getPadCliente2()->getX()+escenario->getPadCliente2()->getBase()+escenario->getTejo()->getRadio());
+    			escenario->getTejo()->getDireccion()->setFi(PI/4);
+    			juegoNuevo->setEstado("CORRIENDO");
+
+    		}
+
+    	}
 
     }
 
@@ -123,4 +268,114 @@ bool Servidor :: algunClienteCorre(std::list<Thread*>& clientes){
 			unoCorre = true;
 	}
 	return unoCorre;
+}
+
+void Servidor::enviarAtodos(std::list<Thread*>& clientes,
+				const std::string& mensaje)
+{
+			if (clientes.size()>0)
+			for (std::list<Thread*>::iterator it = clientes.begin();
+			it!= clientes.end(); ++it){
+				if ((*it)->running() == true)
+					((ManejadorClientes*)(*it))->enviarMensaje(mensaje);
+			}
+}
+
+void Servidor ::posicionTejo(char* pEnvioInt){
+
+		char auxX[20];
+		char auxY[20];
+		char* pauxX = auxX;
+		char* pauxY = auxY;
+
+
+		memset(pauxX,0,sizeof(char)*20);
+		memset(pauxY,0,sizeof(char)*20);
+		memset(pEnvioInt,0,sizeof(char)*40);
+		strcat(pEnvioInt,"TEJO ");
+		itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
+		itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
+		strcat(pEnvioInt,pauxX);
+		strcat(pEnvioInt," ");
+		strcat(pEnvioInt,pauxY);
+		strcat(pEnvioInt,"\n");
+
+
+}
+
+void Servidor::bonus(char* pMensBonus,int tipoBonus, std::string idFigura){
+
+			char aux1[20];
+			char* paux1 = aux1;
+			char aux2[20];
+			char* paux2 = aux2;
+
+			memset(paux1,0,sizeof(char)*20);
+			memset(paux2,0,sizeof(char)*20);
+			memset(pMensBonus,0,sizeof(char)*40);
+			strcat(pMensBonus,"BONUS ");
+			itoa(tipoBonus,paux1,10);
+
+			strcat(pMensBonus,paux1);
+			strcat(pMensBonus," ");
+			strcat(pMensBonus,idFigura.c_str());
+			strcat(pMensBonus,"\n");
+}
+
+void Servidor::puntajes(char* pPuntajes){
+
+			char aux1[20];
+			char aux2[20];
+			char* paux1 = aux1;
+			char* paux2 = aux2;
+
+
+			memset(paux1,0,sizeof(char)*20);
+			memset(paux2,0,sizeof(char)*20);
+			memset(pPuntajes,0,sizeof(char)*40);
+			strcat(pPuntajes,"PUNTAJE ");
+			itoa(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),paux1,10);
+			itoa(juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),paux2,10);
+			strcat(pPuntajes,paux1);
+			strcat(pPuntajes," ");
+			strcat(pPuntajes,paux2);
+			strcat(pPuntajes,"\n");
+
+
+}
+
+void Servidor::ganador(char* pGanador){
+
+			char aux1[20];
+			char* paux1 = aux1;
+
+			memset(paux1,0,sizeof(char)*20);
+			memset(pGanador,0,sizeof(char)*40);
+			strcat(pGanador,"GANADOR ");
+			//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
+			if(juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles() > juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles())
+				itoa(1,paux1,10);
+			else //sino concatena STRING GANADOR 2
+				itoa(2,paux1,10);
+
+			strcat(pGanador,paux1);
+			strcat(pGanador,"\n");
+}
+
+void Servidor::asignarNumeroClientes(std::list<Thread*>& clientes){
+			std::string numeroCliente1 = "1";
+			std::string numeroCliente2 = "2";
+			int i=1;
+			for (std::list<Thread*>::iterator it = clientes.begin();
+			it!= clientes.end(); ++it){
+				if(i == 1){
+					if ((*it)->running() == true)
+						((ManejadorClientes*)(*it))->enviarMensaje(numeroCliente1);
+					i++;
+				}
+				else{
+					if ((*it)->running() == true)
+						((ManejadorClientes*)(*it))->enviarMensaje(numeroCliente2);
+				}
+			}
 }

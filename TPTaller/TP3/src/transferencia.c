@@ -83,7 +83,7 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	int error;
 	//"192.168.16.3"
 	//"localhost"
-	host = gethostbyname("192.168.16.3");
+	host = gethostbyname("localhost");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;
@@ -118,7 +118,7 @@ int trEscuchar(int puerto,CONEXION *pConexion){
 
     int error;
 
-	if (pConexion->usuario != 0){
+	//if (pConexion->usuario != 0){
 		error = iniciarSocket(pConexion, SERVIDOR);
 		if (error != RES_OK)
 			return error;
@@ -128,7 +128,7 @@ int trEscuchar(int puerto,CONEXION *pConexion){
 			return error;
 
 		mensajeServidorEnEspera();
-	}
+	//}
 	return error;
 
 
