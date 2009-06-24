@@ -34,7 +34,7 @@ void Cliente::start(char* host, int port)
 	std::string msj;
 	this->finLoading=false;
 	SDL_Surface *screen;
-	
+
 
 
 	try
@@ -42,29 +42,29 @@ void Cliente::start(char* host, int port)
 		this->sock.connect(host, port);
 
 		status = CONNECTED;
-		
-		//loading(&sock);	
+
+		//loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
-		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,escenario->getAlto()/3);
-		SDL_Flip(escenario->getScreen());	
-		
+		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/4,2*escenario->getAlto()/5);
+		SDL_Flip(escenario->getScreen());
+
 		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
-		
+
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
-		
+
 		while (receiver.isEmpty()){
 				Sleep(2);
 			}
-		
+
 
 		msj= this->get();
-		
-		if(msj.find("INICIAR")==0){			
+
+		if(msj.find("INICIAR")==0){
 			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
 			SDL_Flip(escenario->getScreen());
 			Sleep(3000);
@@ -78,15 +78,15 @@ void Cliente::start(char* host, int port)
 				Sleep(1);
 			}
 			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
-			msj= this->get();			
-			
+			msj= this->get();
+
 			if(msj.find("TEJO")==0){
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				escenario->getTejo()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getTejo()->setY(atoi(pPosicion.c_str()));
 				}
-			
+
 			else if(msj.find("PAD1")==0){
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
@@ -107,10 +107,11 @@ void Cliente::start(char* host, int port)
 				puntaje = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
 				escenario->decrementarTejosRestantes();
+				escenario->setPrimerPintada(false);
 
 
-			} 
-			
+			}
+
 			else if(msj.find("BONUS")==0){
 				std::cout<<"msj "<<msj<<endl;
 				string tipoBonus,idFigura;
@@ -127,20 +128,20 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("APLICAR_BONUS")==0){
 				std::cout<<"msj "<<msj<<endl;
 				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
-				escenario->getTejo()->setUltimaColisionPad(ultimoPad);				
+				escenario->getTejo()->setUltimaColisionPad(ultimoPad);
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);
 				escenario->setFiguraConBonus(NULL);
 				escenario->setPrimerPintada(false);
 				//TODO desaplicar bonus anterior etc, "pensar eso"
 				escenario->getBonusActual()->aplicar();
-				
-				
+
+
 			}
 			else if(msj.find("NIVEL_TERMINADO")==0){
 				escenario->setCorriendo(false);
 				escenario->setTejosRestantes(7);
-				escenario->incrementarNivel();				
+				escenario->incrementarNivel();
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
@@ -149,7 +150,7 @@ void Cliente::start(char* host, int port)
 				escenario->setearImagenesEnNull();
 				escenario->setFiguraConBonus(NULL);
 
-				escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");				
+				escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 				escenario->setPrimerPintada(false);
 				escenario->setCorriendo(true);
 
@@ -166,12 +167,12 @@ void Cliente::start(char* host, int port)
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
-			
+
 			if(escenario->graficar()<0){
 				this->sock.send("QUIT");
 				this->stop();
 			}
-			
+
 			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
@@ -182,7 +183,7 @@ void Cliente::start(char* host, int port)
 				this->stop();
 				}
 			}
-			
+
 		}
 
 
@@ -281,7 +282,7 @@ void Cliente::stop()
 
 }
 
-void Cliente::loading(Socket* s){	
+void Cliente::loading(Socket* s){
 	std::cout<<"ENTRO A LOADING CLIENTE"<<endl;
 	int i=0;
 	int nbytes;
@@ -294,7 +295,7 @@ void Cliente::loading(Socket* s){
 	memset(auxNumArch,0,sizeof(char)*5);
 	s->receive(auxNumArch,5);
 	std::cout<<"auxNumArch "<<auxNumArch<<endl;
-	
+
 	while(i<atoi(auxNumArch)){
 		memset(pNombreArchivo,0,sizeof(char)*200);
 		s->receive(pNombreArchivo,200);
@@ -310,7 +311,7 @@ void Cliente::loading(Socket* s){
 
 int Cliente::iniciarPantallaLoafing(SDL_Surface *screen){
 		// Iniciar SDL
-	
+
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
@@ -327,9 +328,9 @@ int Cliente::iniciarPantallaLoafing(SDL_Surface *screen){
 
 	}
 	screen = SDL_SetVideoMode(450,200,24, SDL_SWSURFACE | SDL_DOUBLEBUF );
-	
+
 	if(!screen){
-		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();		
+		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
 		exit(1);
 	}
 	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING...",10,50);
@@ -337,7 +338,7 @@ int Cliente::iniciarPantallaLoafing(SDL_Surface *screen){
 
 	/*
 	while(this->finLoading == false){
-	
+
 	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING",0,50);
 	SDL_Flip(screen);
 	Sleep(500);
@@ -347,10 +348,10 @@ int Cliente::iniciarPantallaLoafing(SDL_Surface *screen){
 	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING..",0,50);
 	SDL_Flip(screen);
 	Sleep(500);
-	
+
 	SDL_Flip(screen);
 	Sleep(500);
-	
+
 	}
 	SDL_FreeSurface(screen);
 	SDL_Quit();

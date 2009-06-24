@@ -78,7 +78,7 @@ void Escenario::servidorInicializarListaBonus(){
 	IncRadioTejo* incRadioTejo = new IncRadioTejo();
 	incRadioTejo->setTipoBonus(INC_RADIO_TEJO);
 	this->listaBonus.push_back(incRadioTejo);
-	
+
 
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
@@ -92,7 +92,7 @@ void Escenario::servidorInicializarListaBonus(){
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
 
- 
+
 }
 
 
@@ -144,7 +144,7 @@ void Escenario::clienteInicializarListaBonus(){
 	frenoTejo->cargarImagen("frenoTejo");
 	this->listaBonus.push_back(frenoTejo);
 
-	
+
 }
 
 void Escenario::shuffleListBonus(){
@@ -377,6 +377,8 @@ void Escenario::pintarPantalla(){
 	iter = this->iteratorListaFiguras();
 	int res = this->texturaEsc.compare("NULL");
 
+	
+
 	if( res!=0){
 
 		if(this->fondoPantalla==NULL){
@@ -433,6 +435,9 @@ void Escenario::pintarPantalla(){
 				iter++;
 				i++;
 			}
+			GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
+			graficadorPuntajes->graficarPuntaje(this->buffer);
+			graficadorPuntajes->graficarCantidadDeTejos(this->buffer);
 		}
 	}
 
@@ -490,7 +495,7 @@ Figura* Escenario::getFiguraPorId(std::string idFigura){
 	Figura *figura = NULL;
 	iter = this->iteratorListaFiguras();
 	int i=1;
-	
+
 	while(i<=this->sizeListaFiguras()){
 		figura = *iter;
 		if(figura->getId().compare(idFigura) == 0){
@@ -629,9 +634,6 @@ int Escenario::graficar(){
 		this->getPadCliente1()->dibujar(this->screen);
 		this->getPadCliente2()->dibujar(this->screen);
 
-		GraficadorPuntajes* graficadorPuntajes=GraficadorPuntajes::obtenerInstancia();
-		graficadorPuntajes->graficarPuntaje(this->getScreen());
-		graficadorPuntajes->graficarCantidadDeTejos(this->getScreen());
 
 		this->getTejo()->dibujar(this->screen);
 
