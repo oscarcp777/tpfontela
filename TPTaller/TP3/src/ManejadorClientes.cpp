@@ -143,7 +143,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 
 				//loading(todosLosClientes,"loading2.txt");
-				sleep(4000);
+				sleep(6000);
 				asignarNumeroClientes(this->todosLosClientes);
 				escenario->servidorInicializarListaBonus();
 				enviarAtodos(this->todosLosClientes,"INICIADO\n");
@@ -218,6 +218,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
 						if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
 							this->ganador(pGanador);
+							std::cout<<"JUEGO_TERMINADO envia: "<<pGanador<<endl;
 							enviarAtodos(this->todosLosClientes,pGanador);
 							seguirCiclando = 0;
 						}
@@ -257,7 +258,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							escenario->getTejo()->setX(escenario->getPadCliente2()->getX()+escenario->getPadCliente2()->getBase()+escenario->getTejo()->getRadio());
 							escenario->getTejo()->getDireccion()->setFi(PI/4);
 							juegoNuevo->setEstado("CORRIENDO");
-							//std::cout<<"SALIOOOOOOOOO DE NIVEL_TERMINADO"<<endl;
+							
 						}
 
 					}

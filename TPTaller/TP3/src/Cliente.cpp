@@ -156,23 +156,28 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("GANADOR")==0){
-				std::cout<<"msj "<<msj;
-				string cadena;
-				if(msj.find("1")==0){
+				std::cout<<"msj "<<msj<<endl;;
+				string cadena = "";
+				std::cout<<"escenario->getNumJugador()"<<escenario->getNumJugador()<<endl;
+				std::cout<<"msj.find(1)"<<msj.find("1")<<endl;
+				std::cout<<"msj.find(2)"<<msj.find("2")<<endl;
+
+				if(msj.find("GANADOR 1")==0){
 					if(escenario->getNumJugador() == 1)	
 						cadena = "GANASTE!!!!!!";
 					else
 						cadena = "PERDISTE!!!!!";
 
 				}
-				else if(msj.find("2")==0){
+				else if(msj.find("GANADOR 2")==0){
 					if(escenario->getNumJugador() == 1)	
 						cadena = "PERDISTE!!!!!!";
 					else
 						cadena = "GANASTE!!!!!";
 
 				}
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,50,escenario->getAlto()/3);
+				std::cout<<"cadena "<<cadena<<endl;
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,(escenario->getAlto()/2)-15,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
@@ -320,56 +325,6 @@ void Cliente::loading(Socket* s){
 
 }
 
-int Cliente::iniciarPantallaLoafing(SDL_Surface *screen){
-		// Iniciar SDL
-
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		printf("No se pudo iniciar SDL: %s\n",SDL_GetError());
-		exit(1);
-	}
-	atexit(SDL_Quit);
-
-	// Comprobamos que sea compatible el modo de video
-
-	if(SDL_VideoModeOK(450,200, 24, SDL_SWSURFACE|SDL_DOUBLEBUF) == 0) {
-
-		std::cout<< "Modo no soportado: " << SDL_GetError() << endl;
-		exit(1);
-
-	}
-	screen = SDL_SetVideoMode(450,200,24, SDL_SWSURFACE | SDL_DOUBLEBUF );
-
-	if(!screen){
-		std::cout<<"No se pudo iniciar la pantalla: %s"<<SDL_GetError();
-		exit(1);
-	}
-	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING...",10,50);
-	SDL_Flip(screen);
-
-	/*
-	while(this->finLoading == false){
-
-	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING",0,50);
-	SDL_Flip(screen);
-	Sleep(500);
-	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING.",0,50);
-	SDL_Flip(screen);
-	Sleep(500);
-	GraficadorPuntajes::obtenerInstancia()->graficarString(screen,"LOADING..",0,50);
-	SDL_Flip(screen);
-	Sleep(500);
-
-	SDL_Flip(screen);
-	Sleep(500);
-
-	}
-	SDL_FreeSurface(screen);
-	SDL_Quit();
-	*/
-	 return 0;
-
-}
 
 Cliente::~Cliente()
 {

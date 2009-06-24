@@ -36,8 +36,7 @@ public:
         // Detiene la ejecucion del "server proxy" (cierra el socket y joinea los threads)
         void stop();
 		void loading(Socket* s);
-		int iniciarPantallaLoafing(SDL_Surface *screen);
-        ~Cliente();
+		~Cliente();
 
     private:
 		int status;

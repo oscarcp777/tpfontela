@@ -32,6 +32,7 @@ private:
 		SDL_Surface* textImagen;
 		SDL_Surface *imagenTejo;
 		TTF_Font* fuente;
+		SDL_Surface* textImg;
 };
 
 #endif /* GRAFICADORPUNTAJES_H_ */

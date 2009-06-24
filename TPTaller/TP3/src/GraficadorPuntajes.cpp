@@ -188,13 +188,14 @@ int GraficadorPuntajes::graficarString(SDL_Surface*screen, std::string mensaje, 
 		Escenario* escenario = Escenario::obtenerInstancia();
 		SDL_Color colorTexto= {0, 100, 155, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
 		SDL_Color colorFondo= {0, 0, 0, 255};
-		SDL_Surface* textImg;
-		textImg=TTF_RenderText_Blended(this->fuente,mensaje.c_str(), colorTexto);
+	
+		this->textImg = TTF_RenderText_Blended(this->fuente,mensaje.c_str(), colorTexto);
 		
-		if(textImg == NULL) {
+		if(this->textImg == NULL) {
 			printf("Fallo al renderizar el texto");
 			return -1;
 		}
+		
 		SDL_Rect dest;
 		dest.x = 0;
 		dest.y = 0;
@@ -207,7 +208,7 @@ int GraficadorPuntajes::graficarString(SDL_Surface*screen, std::string mensaje, 
 		rect.w= escenario->getAncho();
 		rect.x = posX;
 		rect.y = posY;
-		SDL_BlitSurface(textImg,NULL,screen,&rect);
+		SDL_BlitSurface(this->textImg,NULL,screen,&rect);
 	
 
 	return 0;
