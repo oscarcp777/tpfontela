@@ -180,41 +180,41 @@ void Triangulo::darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Pos
 	int vert13Xvariando=verificarCondicionVertices(posicion1,posicion3,1);
 
 	//Hasta aca tengo las 3 rectas del triangulo, solo me falta ver cual es cual
-    
+
 	if(recta1->getInfinito()==-1 || recta2->getInfinito()==-1 || recta3->getInfinito()==-1){ //alguna de las 3 rectas es vertical
-	
+
 		if(vert12Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion3); //podria haber sido con 2 y 3 dado que el vert 1 y 2 tienen la misma coordenada x
 			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
 			asignarPuntosRectaBase(recta1);
-	
+
 			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
 				asignarPuntosRectaBase(recta1);
-	
+
 			}
 		}else if(vert23Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion3); //podria haber sido con 1 y 2 dado que el vert 2 y 3 tienen la misma coordenada x
 			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
 			asignarPuntosRectaBase(recta2);
-	
+
 			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
 				asignarPuntosRectaBase(recta2);
-	
+
 			}
 		}else if(vert13Yvariando==0){
 			int diferenciaPosX = diferenciaEnX(posicion1,posicion2); //podria haber sido con 3 y 2 dado que el vert 1 y 3 tienen la misma coordenada x
 			if(diferenciaPosX==1){
 			setBase(BASE_TRIANGULO_DERECHA);
 			asignarPuntosRectaBase(recta3);
-	
+
 			}else if(diferenciaPosX==-1){
 				setBase(BASE_TRIANGULO_IZQUIERDA);
 				asignarPuntosRectaBase(recta3);
-	
+
 			}
 		}
 	}else{ //ninguna de las 3 rectas es vertical, por lo que el triangulo esta mirando con la punta hacia abajo o hacia arriba
@@ -224,35 +224,35 @@ void Triangulo::darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Pos
 			if(diferenciaPosY==1){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta1);
-				
+
 			}
 			else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
 				asignarPuntosRectaBase(recta1);
-				
+
 			}
 		}else if(vert23Xvariando==0){
 			int diferenciaPosY = diferenciaEnY(posicion1,posicion3); //podria haber sido con 1 y 2 dado que el vert 2 y 3 tienen la misma coordenada y
 			if(diferenciaPosY==1){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta2);
-				
+
 			}else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
 				asignarPuntosRectaBase(recta2);
-				
+
 			}
 		}else if(vert13Xvariando==0){
 			int diferenciaPosY = diferenciaEnY(posicion1,posicion2); //podria haber sido con 3 y 2 dado que el vert 1 y 3 tienen la misma coordenada y
 			if(diferenciaPosY==0){
 			setBase(BASE_TRIANGULO_ABAJO);
 			asignarPuntosRectaBase(recta3);
-				
+
 			}
 			else if(diferenciaPosY==-1){
 				setBase(BASE_TRIANGULO_ARRIBA);
 				asignarPuntosRectaBase(recta3);
-				
+
 			}
 		}
 
@@ -272,11 +272,313 @@ Recta* Triangulo::getRecta3(){
 	return this->recta3;
 }
 
-Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3){
+int calcularVerticesBaseAbajo(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+
+	double xVert1 = vertice1->getX();
+	double yVert1 = vertice1->getY();
+	double xVert2 = vertice2->getX();
+	double yVert2 = vertice2->getY();
+	double xVert3 = vertice3->getX();
+	double yVert3 = vertice3->getY();
+
+	double lado_inicial = 0;
+	double altura_inicial = 0;
+	double altura_final = 0;
+	
+
+		if(diferenciaEnX(vertice1,vertice2)==1){ //x1>x2
+			lado_inicial = xVert1 - xVert2;
+			if(lado_inicial<lado){ //expandir triangulo
+				xVert2=(xVert3-(lado/2));
+				xVert1=(xVert3+(lado/2));
+				//xVert3 = xVert3 + (xVert1-xVert2)/2;
+			}else if(lado_inicial>lado){ //contraer triangulo
+				xVert2=(xVert3+(lado/2));
+				xVert1=(xVert3-(lado/2));
+				//xVert3= xVert3 + (xVert1-xVert2)/2;
+		    }
+		
+		}else{ //x1<x2
+			lado_inicial = xVert2 - xVert1;
+			std::cout<<lado_inicial<<"lado"<<lado<<endl;
+			if(lado_inicial<lado){ //expandir triangulo
+				xVert1=(xVert3-(lado/2));
+				xVert2=(xVert3+(lado/2));
+				
+			}else if(lado_inicial>lado){ //contraer triangulo
+				xVert1=(xVert3+(lado/2));
+				xVert2=(xVert3-(lado/2));
+				
+			}
+			
+
+		}
+
+		altura_inicial = (lado_inicial * sqrt(3))/2;
+		altura_final = (lado * sqrt(3))/2;
+
+		if(altura_inicial<altura_final){ //expande
+			yVert1 =(yVert1+(altura_final-altura_inicial));
+			yVert2 = yVert1;
+		}else if(altura_inicial>altura_final){ //contrae
+			yVert1 =(yVert1-(altura_inicial-altura_final));
+			yVert2 = yVert1;
+		}
+
+		vertice1->setX(xVert1);
+		vertice1->setY(yVert1);
+		vertice2->setX(xVert2);
+		vertice2->setY(yVert2);
+		vertice3->setX(xVert3);
+		vertice3->setY(yVert3);
+
+		return 0;
+		
+}
+
+int calcularVerticesBaseArriba(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+
+	double xVert1 = vertice1->getX();
+	double yVert1 = vertice1->getY();
+	double xVert2 = vertice2->getX();
+	double yVert2 = vertice2->getY();
+	double xVert3 = vertice3->getX();
+	double yVert3 = vertice3->getY();
+
+	double lado_inicial = 0;
+	double altura_inicial = 0;
+	double altura_final = 0;
+	
+
+		if(diferenciaEnX(vertice1,vertice2)==1){ //x1>x2
+			lado_inicial = xVert1 - xVert2;
+			if(lado_inicial<lado){ //expandir triangulo
+				xVert2=(xVert3-(lado/2));
+				xVert1=(xVert3+(lado/2));
+				//xVert3 = xVert3 + (xVert1-xVert2)/2;
+			}else if(lado_inicial>lado){ //contraer triangulo
+				xVert2=(xVert3+(lado/2));
+				xVert1=(xVert3-(lado/2));
+				//xVert3= xVert3 + (xVert1-xVert2)/2;
+		    }
+		
+		}else{ //x1<x2
+			lado_inicial = xVert2 - xVert1;
+			std::cout<<lado_inicial<<"lado"<<lado<<endl;
+			if(lado_inicial<lado){ //expandir triangulo
+				xVert1=(xVert3-(lado/2));
+				xVert2=(xVert3+(lado/2));
+				
+			}else if(lado_inicial>lado){ //contraer triangulo
+				xVert1=(xVert3+(lado/2));
+				xVert2=(xVert3-(lado/2));
+				
+			}
+			
+
+		}
+
+		altura_inicial = (lado_inicial * sqrt(3))/2;
+		altura_final = (lado * sqrt(3))/2;
+
+		if(altura_inicial<altura_final){ //expande
+			yVert1 =(yVert1-(altura_final-altura_inicial));
+			yVert2 = yVert1;
+		}else if(altura_inicial>altura_final){ //contrae
+			yVert1 =(yVert1+(altura_inicial-altura_final));
+			yVert2 = yVert1;
+		}
+
+		vertice1->setX(xVert1);
+		vertice1->setY(yVert1);
+		vertice2->setX(xVert2);
+		vertice2->setY(yVert2);
+		vertice3->setX(xVert3);
+		vertice3->setY(yVert3);
+
+		return 0;
+		
+}
+
+int calcularVerticesBaseDerecha(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+
+	double xVert1 = vertice1->getX();
+	double yVert1 = vertice1->getY();
+	double xVert2 = vertice2->getX();
+	double yVert2 = vertice2->getY();
+	double xVert3 = vertice3->getX();
+	double yVert3 = vertice3->getY();
+
+	double lado_inicial = 0;
+	double altura_inicial = 0;
+	double altura_final = 0;
+	
+
+		if(diferenciaEnY(vertice1,vertice2)==1){ //y1>y2
+			lado_inicial = yVert1 - yVert2;
+			if(lado_inicial<lado){ //expandir triangulo
+				yVert2=(yVert3-(lado/2));
+				yVert1=(yVert3+(lado/2));
+				//xVert3 = xVert3 + (xVert1-xVert2)/2;
+			}else if(lado_inicial>lado){ //contraer triangulo
+				yVert2=(yVert3+(lado/2));
+				yVert1=(yVert3-(lado/2));
+				//xVert3= xVert3 + (xVert1-xVert2)/2;
+		    }
+		
+		}else{ //x1<x2
+			lado_inicial = yVert2 - yVert1;
+			std::cout<<lado_inicial<<"lado"<<lado<<endl;
+			if(lado_inicial<lado){ //expandir triangulo
+				yVert1=(yVert3-(lado/2));
+				yVert2=(yVert3+(lado/2));
+				
+			}else if(lado_inicial>lado){ //contraer triangulo
+				yVert1=(yVert3+(lado/2));
+				yVert2=(yVert3-(lado/2));
+				
+			}
+			
+
+		}
+
+		altura_inicial = (lado_inicial * sqrt(3))/2;
+		altura_final = (lado * sqrt(3))/2;
+
+		if(altura_inicial<altura_final){ //expande
+			xVert1 =(xVert1+(altura_final-altura_inicial));
+			xVert2 = xVert1;
+		}else if(altura_inicial>altura_final){ //contrae
+			xVert1 =(xVert1-(altura_inicial-altura_final));
+			xVert2 = xVert1;
+		}
+
+		vertice1->setX(xVert1);
+		vertice1->setY(yVert1);
+		vertice2->setX(xVert2);
+		vertice2->setY(yVert2);
+		vertice3->setX(xVert3);
+		vertice3->setY(yVert3);
+
+		return 0;
+		
+}
+
+int calcularVerticesBaseIzquierda(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+
+	double xVert1 = vertice1->getX();
+	double yVert1 = vertice1->getY();
+	double xVert2 = vertice2->getX();
+	double yVert2 = vertice2->getY();
+	double xVert3 = vertice3->getX();
+	double yVert3 = vertice3->getY();
+	
+	double lado_inicial = 0;
+	double altura_inicial = 0;
+	double altura_final = 0;
+
+		if(diferenciaEnY(vertice1,vertice2)==1){ //y1>y2
+			lado_inicial = yVert1 - yVert2;
+			if(lado_inicial<lado){ //expandir triangulo
+				yVert2=(yVert3-(lado/2));
+				yVert1=(yVert3+(lado/2));
+				//xVert3 = xVert3 + (xVert1-xVert2)/2;
+			}else if(lado_inicial>lado){ //contraer triangulo
+				yVert2=(yVert3+(lado/2));
+				yVert1=(yVert3-(lado/2));
+				//xVert3= xVert3 + (xVert1-xVert2)/2;
+		    }
+		
+		}else{ //x1<x2
+			lado_inicial = yVert2 - yVert1;
+			std::cout<<lado_inicial<<"lado"<<lado<<endl;
+			if(lado_inicial<lado){ //expandir triangulo
+				yVert1=(yVert3-(lado/2));
+				yVert2=(yVert3+(lado/2));
+				
+			}else if(lado_inicial>lado){ //contraer triangulo
+				yVert1=(yVert3+(lado/2));
+				yVert2=(yVert3-(lado/2));
+				
+			}
+			
+
+		}
+
+		altura_inicial = (lado_inicial * sqrt(3))/2;
+		altura_final = (lado * sqrt(3))/2;
+
+		if(altura_inicial<altura_final){ //expande
+			xVert1 =(xVert1-(altura_final-altura_inicial));
+			xVert2 = xVert1;
+		}else if(altura_inicial>altura_final){ //contrae
+			xVert1 =(xVert1+(altura_inicial-altura_final));
+			xVert2 = xVert1;
+		}
+
+		vertice1->setX(xVert1);
+		vertice1->setY(yVert1);
+		vertice2->setX(xVert2);
+		vertice2->setY(yVert2);
+		vertice3->setX(xVert3);
+		vertice3->setY(yVert3);
+
+		return 0;
+		
+}
+
+int Triangulo::calcularVerticesSegunLado(){
+
+	
+
+
+	//recta1 formado por vert1 y vert2
+	//recta2 formado por vert2 y vert3
+	//recta3 formado por vert1 y vert3
+	
+	if(isBase(recta1)==0){
+		if(getBase().compare(BASE_TRIANGULO_ABAJO)==0)
+		calcularVerticesBaseAbajo(vertice1,vertice2,vertice3,lado);
+			else if(getBase().compare(BASE_TRIANGULO_ARRIBA)==0)
+			calcularVerticesBaseArriba(vertice1,vertice2,vertice3,lado);
+				else if(getBase().compare(BASE_TRIANGULO_DERECHA)==0)
+				calcularVerticesBaseDerecha(vertice1,vertice2,vertice3,lado);
+					else if(getBase().compare(BASE_TRIANGULO_IZQUIERDA)==0)
+						calcularVerticesBaseIzquierda(vertice1,vertice2,vertice3,lado);
+		return 0;
+	}else if(isBase(recta2)==0){
+		if(getBase().compare(BASE_TRIANGULO_ABAJO)==0)
+		calcularVerticesBaseAbajo(vertice2,vertice3,vertice1,lado);
+			else if(getBase().compare(BASE_TRIANGULO_ARRIBA)==0)
+			calcularVerticesBaseArriba(vertice2,vertice3,vertice1,lado);
+				else if(getBase().compare(BASE_TRIANGULO_DERECHA)==0)
+				calcularVerticesBaseDerecha(vertice2,vertice3,vertice1,lado);
+					else if(getBase().compare(BASE_TRIANGULO_IZQUIERDA)==0)
+						calcularVerticesBaseIzquierda(vertice2,vertice3,vertice1,lado);
+		return 0;
+	}else if(isBase(recta3)==0){
+		if(getBase().compare(BASE_TRIANGULO_ABAJO)==0)
+		calcularVerticesBaseAbajo(vertice1,vertice3,vertice2,lado);
+			else if(getBase().compare(BASE_TRIANGULO_ARRIBA)==0)
+			calcularVerticesBaseArriba(vertice1,vertice3,vertice2,lado);
+				else if(getBase().compare(BASE_TRIANGULO_DERECHA)==0)
+				calcularVerticesBaseDerecha(vertice1,vertice3,vertice2,lado);
+					else if(getBase().compare(BASE_TRIANGULO_IZQUIERDA)==0)
+						calcularVerticesBaseIzquierda(vertice1,vertice3,vertice2,lado);
+		return 0;
+
+	}
+
+	return -1; //el triangulo no tiene una base bien definida, por lo que no se pueden modificar los vertices y por ende su lado
+}
+
+
+Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3,int lado){
 	this->id = id;
 	this->vertice1 = ver1;
 	this->vertice2 = ver2;
 	this->vertice3 = ver3;
+	this->lado = lado;
 
 	this->x1 = new int(0);
 	this->x2 = new int(0);
@@ -286,7 +588,10 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	this->recta1 = new Recta(ver1->getX(),ver2->getX(),ver1->getY(),ver2->getY());
 	this->recta2 = new Recta(ver1->getX(),ver3->getX(),ver1->getY(),ver3->getY());
 	this->recta3 = new Recta(ver2->getX(),ver3->getX(),ver2->getY(),ver3->getY());
+
 	darNombreBaseTriangulo(ver1,ver2,ver3);
+
+	calcularVerticesSegunLado();
 
 	Posicion*  ejeDeCordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
 

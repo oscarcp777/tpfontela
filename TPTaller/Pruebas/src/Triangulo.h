@@ -13,7 +13,7 @@ class Triangulo: public Figura {
 	public:
 		Triangulo();
 		~Triangulo();
-		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3);
+		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3,int lado);
 		void setVertice1(Posicion * posicion);
 		void setVertice2(Posicion * posicion);
 		void setVertice3(Posicion * posicion);
@@ -33,6 +33,7 @@ class Triangulo: public Figura {
 		void setBase(std::string base);
 		void asignarPuntosRectaBase(Recta*recta);
 		int isBase(Recta*recta);
+		int calcularVerticesSegunLado();
 
 	private:
 		Posicion *vertice1;
