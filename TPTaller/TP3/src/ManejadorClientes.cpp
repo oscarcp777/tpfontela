@@ -176,7 +176,6 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							 escenario->setFiguraConBonus(figura);
 							 //se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
 							 this->bonus(pMensBonus,tipoBonus,idFigura);
-							 std::cout<<"*******************pMensBonus "<<pMensBonus<<endl;
 							 enviarAtodos(this->todosLosClientes,pMensBonus);
 							//******************************************************
 							}
@@ -203,6 +202,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						}
 
 						if(escenario->getTejo()->getChocoFiguraConBonus()){
+							std::cout<<"choco figura con bonus "<<escenario->getTejo()->getChocoFiguraConBonus()<<endl;
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
@@ -225,6 +225,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 						else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
 							std::cout<<"ENTRO A NIVEL_TERMINADO"<<endl;
 							enviarAtodos(this->todosLosClientes,"NIVEL_TERMINADO\n");
+							std::cout<<"despues de nivel terminado"<<endl;
 							juegoNuevo->setTejosRestantes(7);
 							//guardo los puntos y las posiciones. los seteo luego de cargarArchivo, poruqe este metodo los borra
 							puntosPad1 = escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador();
@@ -235,18 +236,18 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posYPad2 = escenario->getPadCliente2()->getY();
 							
 							
+							
 							escenario->setBonusActual(NULL);
-							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
-							
+													
 							escenario->borrarListaFiguras();
-							std::cout<<"salio de borra lista Figuras"<<endl;
 							escenario->borrarListaTexturas();
-							std::cout<<"salio de borra lista Texturas"<<endl;
-							Sleep(3000);
+							
+							
 							
 							escenario->cargarArchivo("nivel"+juegoNuevo->getNumeroNivelEnString()+".xml");
+							Sleep(3000);
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
 							escenario->getPadCliente1()->setX(posXPad1);
@@ -257,6 +258,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							escenario->getTejo()->setX(escenario->getPadCliente2()->getX()+escenario->getPadCliente2()->getBase()+escenario->getTejo()->getRadio());
 							escenario->getTejo()->getDireccion()->setFi(PI/4);
 							juegoNuevo->setEstado("CORRIENDO");
+							//std::cout<<"SALIOOOOOOOOO DE NIVEL_TERMINADO"<<endl;
 						}
 
 					}

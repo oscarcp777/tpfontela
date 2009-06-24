@@ -8,6 +8,7 @@ Figura::Figura(){
 	this->setIdTextura("NULL");
 	this->imagen = NULL;
 	this->imagenBonus = NULL;
+	this->tieneBonus=false;
 
 }
 SDL_Surface* Figura::getImagenBonus()
