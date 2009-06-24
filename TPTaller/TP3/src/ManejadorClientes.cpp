@@ -233,13 +233,17 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posYPad1 = escenario->getPadCliente1()->getY();
 							posXPad2 = escenario->getPadCliente2()->getX();
 							posYPad2 = escenario->getPadCliente2()->getY();
-							escenario->borrarListaFiguras();
+							
 							
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
 							escenario->setFiguraConBonus(NULL);
 							escenario->getTejo()->setChocoFiguraConBonus(false);
-
+							
+							escenario->borrarListaFiguras();
+							std::cout<<"salio de borra lista Figuras"<<endl;
+							escenario->borrarListaTexturas();
+							std::cout<<"salio de borra lista Texturas"<<endl;
 							Sleep(3000);
 							
 							escenario->cargarArchivo("nivel"+juegoNuevo->getNumeroNivelEnString()+".xml");

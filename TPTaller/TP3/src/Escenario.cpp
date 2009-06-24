@@ -199,11 +199,24 @@ void Escenario::setArcoIzquierda(Rectangulo *arcoIzquierda)
 }
 Escenario::~Escenario(){
 	//los siguientes son valores por defecto (si existe <General> estos se modificaran)
+	SDL_FreeSurface(this->icono);
+	SDL_FreeSurface(this->fondoPantalla);
+	SDL_FreeSurface(this->buffer);
+	
+	
 	destruirLog(this->log);
 	delete this->colorLinea;
 	delete this->colorFondoEscenario;
 	delete this->colorFondoFiguras;
-	this->validador->~Validador();
+	delete this->validador;
+
+	delete this->arcoDerecha;
+	delete this->arcoIzquierda;
+	delete this->posicionInicialTejo;
+	delete this->padJugador;
+	delete this->bonusActual;
+	delete this->figuraConBonus;
+	
 	list<Textura*>::iterator iterTextura;
 	Textura* textura;
 	iterTextura=this->listaTexturas.begin();

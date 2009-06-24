@@ -10,9 +10,13 @@ Circulo::Circulo(void){
 
 }
 Circulo::~Circulo(){
-	delete this->pos;
+	if(!this->imagenAuxiliar){
+	SDL_FreeSurface(this->imagenAuxiliar);
+	}
+	delete this->pos;	
 
 }
+
 Circulo::Circulo(std::string id,int r,Posicion *p){
 	this->id = id;
 	this->radio = r;

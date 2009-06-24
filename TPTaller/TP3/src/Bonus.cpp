@@ -30,7 +30,10 @@ void Bonus::cargarImagen(std::string idTextura){
 		}
 }
 Bonus::~Bonus() {
-	// TODO Auto-generated destructor stub
+	if(!this->imagen){
+		SDL_FreeSurface(this->imagen);		
+	}
+
 }
 SDL_Surface* Bonus::getImagen()
     {

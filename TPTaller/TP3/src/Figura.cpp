@@ -112,6 +112,12 @@ void Figura::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }
 Figura::~Figura(){
+	if(!this->imagen){
+	SDL_FreeSurface(this->imagen);
+	}
+	if(!this->imagenBonus){
+	SDL_FreeSurface(this->imagenBonus);
+	}
 	delete this->colorFigura;
 	delete this->colorLinea;
 
