@@ -24,6 +24,7 @@ public:
 				std::list<Thread*>& clientes);
 		~ManejadorClientes();
 		void enviarMensaje(const std::string& mensaje);
+		int enviarArchivo(const std::string& mensaje);
 		int seguirCiclando;
 	protected:
 		virtual int process(void*);
@@ -31,7 +32,6 @@ public:
 
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
-		void loading(std::list<Thread*>& clientes,std::string archivo);
 		int obtenerListos(std::list<Thread*>& clientes);
 		void pararTodos(std::list<Thread*>& clientes);
 		void quitarCliente(std::list<Thread*>& clientes);

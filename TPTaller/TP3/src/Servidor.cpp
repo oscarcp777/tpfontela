@@ -1,6 +1,7 @@
 #include "Servidor.h"
 #include "Utilidades.h"
 #include "CalculosMatematicos.h"
+#include "archivoTexto.h"
 
 Servidor :: Servidor(int puerto, int cantParticipantes):
 			participantesMax(cantParticipantes),
@@ -118,10 +119,10 @@ int Servidor :: process(void* arg){
 
 
 
-    //loading(todosLosClientes,"loading1.txt");
+    loading(misClientes,"loading1.txt");
 
 
-    //loading(todosLosClientes,"loading2.txt");
+    loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
@@ -378,4 +379,64 @@ void Servidor::asignarNumeroClientes(std::list<Thread*>& clientes){
 						((ManejadorClientes*)(*it))->enviarMensaje(numeroCliente2);
 				}
 			}
+}
+
+void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
+			std::cout<<"ENTRO A LOADING SERVIDOR"<<endl;
+			int nbytes;
+			int i = 0;
+			char aux1[20];
+			char cantArchivos[20];
+			char nombreArchivo[200];
+			char *paux1= aux1;
+			char *pCantArchivos= cantArchivos;
+			char *pNombreArchivo = nombreArchivo;
+			memset(paux1,0,sizeof(char)*20);
+			memset(pCantArchivos,0,sizeof(char)*20);
+
+
+			std::list<std::string> listaArchivos;  //todas las imagenes a cargar
+			string linea = " ";
+
+
+			ArchivoTexto archivoNivel(archivo);
+			archivoNivel.leerLinea(linea);
+
+			while(linea.compare("FIN") != 0){
+				std::cout<<linea<<endl;
+				listaArchivos.push_back(linea);
+				archivoNivel.leerLinea(linea);
+			}
+
+			std::list<std::string>::iterator iterArchivos = listaArchivos.begin();
+
+			char* cadena;
+			itoa(listaArchivos.size(),paux1,10);
+			std::cout<<"listaArchivos.size() "<<listaArchivos.size()<<endl;
+			strcat(pCantArchivos,paux1);
+			for (std::list<Thread*>::iterator it = clientes.begin();
+			it!= clientes.end(); ++it){
+				if ((*it)->running() == true){
+					((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
+					while (listaArchivos.size()> i){
+						sleep(500);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+						memset(pNombreArchivo,0,sizeof(char)*200);
+						cadena = (char*)(*iterArchivos).data();
+						std::cout << "cadena: " << cadena<< std::endl;
+						strcat(pNombreArchivo,cadena);
+						((ManejadorClientes*)(*it))->enviarMensaje(pNombreArchivo);
+						std::cout << "Nombre Archivo " << pNombreArchivo<< std::endl;
+						nbytes =((ManejadorClientes*)(*it))->enviarArchivo(cadena);
+						std::cout << "Bytes enviados: " << nbytes << std::endl;
+						iterArchivos++;
+						i++;
+
+					}
+					i = 0;
+					iterArchivos = listaArchivos.begin();
+
+				}
+			}
+
+
 }
