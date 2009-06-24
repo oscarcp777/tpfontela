@@ -15,6 +15,11 @@ Pad::Pad() {
 Rectangulo* Pad::getFigura(){
 	return this->rectangulo;
 }
+void Pad::volverEstadoInicial(){
+	this->setAltura(this->getAlturaDefault());
+	this->setModificar(true);
+
+}
 Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->imagen=NULL;
 	this->fondoPad=NULL;

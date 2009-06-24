@@ -14,6 +14,12 @@ Bonus::Bonus() {
 this->imagen=NULL;
 
 }
+void Bonus::desAplicar(){
+	Escenario* escenario=Escenario::obtenerInstancia();
+	escenario->getPadCliente1()->volverEstadoInicial();
+	escenario->getPadCliente2()->volverEstadoInicial();
+	escenario->getTejo()->volverEstadoInicial();
+}
 void Bonus::cargarImagen(std::string idTextura){
 	SDL_Surface* image;
 		//	 Cargamos la imagen
@@ -31,7 +37,7 @@ void Bonus::cargarImagen(std::string idTextura){
 }
 Bonus::~Bonus() {
 	if(!this->imagen){
-		SDL_FreeSurface(this->imagen);		
+		SDL_FreeSurface(this->imagen);
 	}
 
 }

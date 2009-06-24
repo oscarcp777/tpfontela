@@ -27,6 +27,7 @@ public:
     void dibujar(SDL_Surface *pantalla);
     Circulo* getFigura();
     void mover_x();
+    void volverEstadoInicial();
 	int getVelocidadDefault();
 	void setVelocidadDefault(int velocidad);
     	// void retrasar_x();

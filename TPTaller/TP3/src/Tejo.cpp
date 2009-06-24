@@ -24,7 +24,13 @@ bool Tejo::getChocoFiguraConBonus()
    {
        return chocoFiguraConBonus;
    }
-
+void Tejo::volverEstadoInicial(){
+	if(this->getRadio()!=this->getRadioDefault()){
+	this->setRadio(this->getRadioDefault());
+	this->modificarRadio=true;
+	}
+	this->setVelocidad(this->getVelocidadDefault());
+}
 void Tejo::setChocoFiguraConBonus(bool chocoFiguraConBonus)
    {
        this->chocoFiguraConBonus = chocoFiguraConBonus;
@@ -131,14 +137,14 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 		//si la imagen no es null (es decir si la levanto bien) la escalo
 		if(image != NULL){
 			image = this->getFigura()->ScaleSurface(image, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
-		
+
 		}
 		//			// Calculamos el color transparente, en nuestro caso el verde
 		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 		this->imagen = SDL_DisplayFormat(image);
-		SDL_FreeSurface(image);		
-	
-		
+		SDL_FreeSurface(image);
+
+
 	}
 
 	if(this->modificarRadio){
@@ -227,7 +233,7 @@ void Tejo::mover_y(){
 	}
 }
 void  Tejo::cargarPixelesAMover() {
-	
+
 	switch (this->velocidad) {
 	case 1:
 		this->moverMayor=2;
@@ -376,8 +382,8 @@ void Tejo::setModificarRadio(bool modificarRadio)
   }
 
 int Tejo::getVelocidadDefault(){
-   return this->velocidadDefault;   
+   return this->velocidadDefault;
 }
 void Tejo::setVelocidadDefault(int velocidad){
-  this->velocidadDefault = velocidad;   
+  this->velocidadDefault = velocidad;
 }

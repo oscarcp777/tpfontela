@@ -16,6 +16,7 @@ public:
 	Bonus();
 
 	virtual int aplicar()=0;
+	static void desAplicar();
 	int getActivo();
 	/* 0  si esta activo
 	 * -1 si no esta activo
@@ -31,7 +32,7 @@ public:
     SDL_Surface* getImagen();
     void setImagen(SDL_Surface *imagen);
 
-private:	
+private:
 	SDL_Surface *imagen; //donde se guarda la imagen en caso de tenerla
 	int tipoBonus;
 };

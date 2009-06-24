@@ -41,6 +41,7 @@ public:
     void setModificar(bool modificar);
 	int getAlturaDefault();
 	void setAlturaDefault(int altura);
+	void volverEstadoInicial();
 
 
 private:
