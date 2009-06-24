@@ -203,6 +203,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 						if(escenario->getTejo()->getChocoFiguraConBonus() && juegoNuevo->getEstado().compare("CORRIENDO")== 0){
 							std::cout<<"choco figura con bonus "<<escenario->getTejo()->getChocoFiguraConBonus()<<endl;
+							Bonus::desAplicar();
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
 							escenario->getFiguraConBonus()->setTieneBonus(false);
@@ -235,7 +236,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							posYPad1 = escenario->getPadCliente1()->getY();
 							posXPad2 = escenario->getPadCliente2()->getX();
 							posYPad2 = escenario->getPadCliente2()->getY();
-							
+							Bonus::desAplicar();
 							
 							
 							escenario->setBonusActual(NULL);

@@ -128,6 +128,7 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("APLICAR_BONUS")==0){
 				std::cout<<"msj "<<msj<<endl;
 				string ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
+				Bonus::desAplicar();
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);
 				escenario->getFiguraConBonus()->setImagenBonus(NULL);
 				escenario->getFiguraConBonus()->setEscalada(false);
@@ -149,7 +150,7 @@ void Cliente::start(char* host, int port)
 				escenario->borrarListaTexturas();
 				escenario->setearImagenesEnNull();
 				escenario->setFiguraConBonus(NULL);
-
+				Bonus::desAplicar();
 				escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 				escenario->setPrimerPintada(false);
 				escenario->setCorriendo(true);
