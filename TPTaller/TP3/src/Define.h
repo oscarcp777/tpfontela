@@ -1,4 +1,4 @@
-#ifndef __DEFINE_H__
+ar#ifndef __DEFINE_H__
 #define __DEFINE_H__
 
 
@@ -91,7 +91,7 @@
 #define POS_PAD1_Y_INICIAL  240
 #define POS_PAD2_X_INICIAL  56
 #define POS_PAD2_Y_INICIAL  240
-#define PORCENTAJE_ARCO 0.3
+#define PORCENTAJE_ARCO 0.4
 #define PORCENTAJE_TEJO_PUNTAJES 0.03
 #define  PIXELES_SALTO 2
 #define  PIXELES_SALTO_TEJO 3
