@@ -201,7 +201,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 						}
 
-						if(escenario->getTejo()->getChocoFiguraConBonus()){
+						if(escenario->getTejo()->getChocoFiguraConBonus() && juegoNuevo->getEstado().compare("CORRIENDO")== 0){
 							std::cout<<"choco figura con bonus "<<escenario->getTejo()->getChocoFiguraConBonus()<<endl;
 							escenario->getBonusActual()->aplicar();
 							escenario->setBonusActual(NULL);
@@ -242,12 +242,11 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							escenario->getTejo()->setChocoFiguraConBonus(false);
 													
 							escenario->borrarListaFiguras();
-							escenario->borrarListaTexturas();
-							
+							escenario->borrarListaTexturas();						
 							
 							
 							escenario->cargarArchivo("nivel"+juegoNuevo->getNumeroNivelEnString()+".xml");
-							Sleep(3000);
+							Sleep(4000);
 							escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(puntosPad1);
 							escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(puntosPad2);
 							escenario->getPadCliente1()->setX(posXPad1);

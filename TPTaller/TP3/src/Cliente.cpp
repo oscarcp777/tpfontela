@@ -77,7 +77,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("TEJO")==0){
@@ -156,11 +156,22 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("GANADOR")==0){
+				std::cout<<"msj "<<msj;
 				string cadena;
-				if(msj.find("1")==0)
-					cadena = "GANO EL JUGADOR 1";
-				else
-					cadena = "GANO EL JUGADOR 2";
+				if(msj.find("1")==0){
+					if(escenario->getNumJugador() == 1)	
+						cadena = "GANASTE!!!!!!";
+					else
+						cadena = "PERDISTE!!!!!";
+
+				}
+				else if(msj.find("2")==0){
+					if(escenario->getNumJugador() == 1)	
+						cadena = "PERDISTE!!!!!!";
+					else
+						cadena = "GANASTE!!!!!";
+
+				}
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,50,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
