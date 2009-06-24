@@ -13,7 +13,7 @@ class Triangulo: public Figura {
 	public:
 		Triangulo();
 		~Triangulo();
-		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3);
+		Triangulo(std::string id,Posicion *ver1,Posicion *ver2, Posicion *ver3,int lado);
 		void setVertice1(Posicion * posicion);
 		void setVertice2(Posicion * posicion);
 		void setVertice3(Posicion * posicion);
@@ -33,6 +33,7 @@ class Triangulo: public Figura {
 		void setBase(std::string base);
 		void asignarPuntosRectaBase(Recta*recta);
 		int isBase(Recta*recta);
+		int calcularVerticesSegunLado();
 
 	private:
 		Posicion *vertice1;
@@ -42,10 +43,10 @@ class Triangulo: public Figura {
 		Recta *recta1;
 		Recta *recta2;
 		Recta *recta3;
-		int x1; //posiciones de la base del triangulo
-		int y1;
-		int x2;
-		int y2;
+		int *x1; //posiciones de la base del triangulo
+		int *y1;
+		int *x2;
+		int *y2;
 		int lado;
 		std::string base; //me dice donde esta la base del triangulo, abajo, arriba, derecha, izquierda
 		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);

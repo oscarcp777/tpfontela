@@ -1,26 +1,37 @@
 <escenario>
- <General resolucion="800" texturaFig="triangulo" alturaPad="150" basePad="20" idTexturaPad="triangulo"
+ <General resolucion="800" texturaFig="cuadrado" alturaPad="150" basePad="20" idTexturaPad="pad"
                      idTexturaTejo="tejo" radioTejo="20" velocidadTejo="4" velocidadPad="4">
              </General>
              <ListadoDeDispersores> 
-	<circulo id="circulo1" radio="100" idTextura="bola" tipo="circulo"> 
-                                   <posicion x="400" y="40" />
-                       </circulo> 
-	<circulo id="circulo2" radio="70" idTextura="bola" tipo="circulo"> 
-                                   <posicion x="400" y="300" />
-                       </circulo>     	       
-	<circulo id="circulo3" radio="40" idTextura="bola" tipo="circulo"> 
-                                   <posicion x="500" y="450" />
-                       </circulo>   
+	                <triangulo id="triangulo1" idTextura="triangulo" lado="100" tipo"triangulo">
+                                  <ver1 x="300" y="250"/>
+                                  <ver2 x="300" y="350"/>
+                                  <ver3 x="250" y="300"/>
+                   </triangulo>
+                   <triangulo id="triangulo2" idTextura="triangulo" lado="100" tipo"triangulo">
+                                  <ver1 x="350" y="200"/>
+                                  <ver2 x="450" y="200"/>
+                                  <ver3 x="400" y="150"/>
+                   </triangulo>
+                   <triangulo id="triangulo3" idTextura="triangulo" lado="100" tipo"triangulo">
+                                  <ver1 x="500" y="250"/>
+                                  <ver2 x="500" y="350"/>
+                                  <ver3 x="550" y="300"/>
+                   </triangulo>
+                   <triangulo id="triangulo4" idTextura="triangulo" lado="100" tipo"triangulo">
+                                  <ver1 x="350" y="400"/>
+                                  <ver2 x="450" y="400"/>
+                                  <ver3 x="400" y="450"/>
+                   </triangulo>   
             </ListadoDeDispersores>
             <ListadoDeTexturas>
                  <textura id="bola" path="imagenes/bola_3d.png">
                  </textura>
                   <textura id="tejo" path="imagenes/tejo6.png">
                  </textura>
-                 <textura id="triangulo" path="imagenes/padNegro.png">
+                 <textura id="pad" path="imagenes/padNegro.png">
                  </textura>
-                 <textura id="arco" path="imagenes/sup1.jpg">
+                 <textura id="triangulo" path="imagenes/cuadrado.jpg">
                  </textura>
 	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
                  </textura>
