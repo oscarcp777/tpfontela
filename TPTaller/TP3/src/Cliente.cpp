@@ -158,10 +158,7 @@ void Cliente::start(char* host, int port)
 			else if(msj.find("GANADOR")==0){
 				std::cout<<"msj "<<msj<<endl;;
 				string cadena = "";
-				std::cout<<"escenario->getNumJugador()"<<escenario->getNumJugador()<<endl;
-				std::cout<<"msj.find(1)"<<msj.find("1")<<endl;
-				std::cout<<"msj.find(2)"<<msj.find("2")<<endl;
-
+			
 				if(msj.find("GANADOR 1")==0){
 					if(escenario->getNumJugador() == 1)	
 						cadena = "GANASTE!!!!!!";
@@ -176,7 +173,7 @@ void Cliente::start(char* host, int port)
 						cadena = "GANASTE!!!!!";
 
 				}
-				std::cout<<"cadena "<<cadena<<endl;
+			
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,(escenario->getAlto()/2)-15,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
