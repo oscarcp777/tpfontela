@@ -139,11 +139,11 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		
 			if (this->socketComunicacion->getConexion()->usuario == 0){
 
-				//loading(todosLosClientes,"loading1.txt");
+				loading(todosLosClientes,"loading1.txt");
 
 
-				//loading(todosLosClientes,"loading2.txt");
-				sleep(6000);
+				loading(todosLosClientes,"loading2.txt");
+				sleep(4000);
 				asignarNumeroClientes(this->todosLosClientes);
 				escenario->servidorInicializarListaBonus();
 				enviarAtodos(this->todosLosClientes,"INICIADO\n");

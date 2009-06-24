@@ -43,13 +43,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		//loading(&sock);
+		loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/4,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -180,11 +180,6 @@ void Cliente::start(char* host, int port)
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
-			}
-
-			if(escenario->graficar()<0){
-				this->sock.send("QUIT");
-				this->stop();
 			}
 
 			if(msj.find("FINJUEGO")==0){
