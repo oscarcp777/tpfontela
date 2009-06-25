@@ -74,6 +74,8 @@ public:
     void setChocoFiguraConBonus(bool chocoFiguraConBonus);
 	void setRadioDefault(int radioDefault);
 	int getRadioDefault();
+	std::string	getPadPegajoso();
+	void setPadPegajoso(std::string padPegajoso);
 
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
@@ -94,7 +96,8 @@ private:
 		int velocidadDefault;
 		int radioDefault;
 		bool pegajoso;
-
+		std::string padPegajoso;
+		
 };
 
 #endif /* TEJO_H_ */

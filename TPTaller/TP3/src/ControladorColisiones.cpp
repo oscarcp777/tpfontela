@@ -874,15 +874,23 @@ void ControladorColisiones::colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo
 			}
 
 		}
+		
 		if(rectangulo->getTipo().compare(PAD_DERECHA)==0){
 			tejo->setUltimaColisionPad(PAD_CLIENTE1);
 			if(tejo->getPegajoso()){
-				tejo->setMover(false);
-				//SETEAR POSICION PAD AL TEJO
+				if(tejo->getPadPegajoso().compare(PAD_CLIENTE1) == 0){
+					tejo->setMover(false);
+				}
 			}
 		}
-		if(rectangulo->getTipo().compare(PAD_IZQUIERDA)==0){
+		else if(rectangulo->getTipo().compare(PAD_IZQUIERDA)==0){
 			tejo->setUltimaColisionPad(PAD_CLIENTE2);
+			if(tejo->getPegajoso()){
+				if(tejo->getPadPegajoso().compare(PAD_CLIENTE2) == 0){
+					tejo->setMover(false);
+				}
+				
+			}
 		}
 	
 

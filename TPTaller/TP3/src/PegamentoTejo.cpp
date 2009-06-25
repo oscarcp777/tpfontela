@@ -17,7 +17,9 @@ PegamentoTejo::PegamentoTejo()
 int PegamentoTejo::aplicar(){
 		Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
 	
-	//	tejo->setPegajoso(true); 
+		
+		tejo->setPadPegajoso(tejo->obtenerUltimaColisionPad());
+		tejo->setPegajoso(true);
 		return 0;
 
 }

@@ -217,9 +217,23 @@ return x;
 
 void Tejo::moverTejo(){
 	if(this->mover){
-	this->cargarPixelesAMover();
-	this->mover_x();
-	this->mover_y();
+		this->cargarPixelesAMover();
+		this->mover_x();
+		this->mover_y();
+	}
+	else{
+		if(this->getPadPegajoso().compare(PAD_CLIENTE1) == 0){
+			Pad* pad = Escenario::obtenerInstancia()->getPadCliente1();
+			this->setY(pad->getY()+pad->getAltura()/2);
+			this->setX(pad->getX()-this->getRadio());
+			
+		}
+		else if(this->getPadPegajoso().compare(PAD_CLIENTE2) == 0){
+			Pad* pad = Escenario::obtenerInstancia()->getPadCliente2();
+			this->setX(pad->getX()+pad->getBase()+this->getRadio());
+			this->setY(pad->getY()+pad->getAltura()/2);
+		}
+
 	}
 }
 void Tejo::mover_y(){
@@ -386,4 +400,10 @@ int Tejo::getVelocidadDefault(){
 }
 void Tejo::setVelocidadDefault(int velocidad){
   this->velocidadDefault = velocidad;
+}
+std::string	Tejo::getPadPegajoso(){
+	return this->padPegajoso;
+}
+void Tejo::setPadPegajoso(std::string padPegajoso){
+	this->padPegajoso = padPegajoso;
 }

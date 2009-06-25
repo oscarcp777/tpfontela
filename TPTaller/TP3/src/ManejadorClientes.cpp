@@ -77,6 +77,9 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					enviarAtodos(this->todosLosClientes,msj+"\n");
 
 				}
+				else if(msj.find("SOLTAR_TEJO")==0){
+					juegoNuevo->getEscenario()->getTejo()->setMover(true);
+				}
 
 
 

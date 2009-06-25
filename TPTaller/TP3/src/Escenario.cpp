@@ -83,11 +83,11 @@ void Escenario::servidorInicializarListaBonus(){
 	IncVelocidadTejo* incVelocidadTejo = new IncVelocidadTejo();
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	this->listaBonus.push_back(incVelocidadTejo);
-/*
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	this->listaBonus.push_back(pegamentoTejo);
-*/
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	this->listaBonus.push_back(frenoTejo);
@@ -133,12 +133,12 @@ void Escenario::clienteInicializarListaBonus(){
 	incVelocidadTejo->setTipoBonus(INC_VELOCIDAD_TEJO);
 	incVelocidadTejo->cargarImagen("incVelocidadTejo");
 	this->listaBonus.push_back(incVelocidadTejo);
-/*
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	pegamentoTejo->cargarImagen("pegamentoTejo");
 	this->listaBonus.push_back(pegamentoTejo);
-*/
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	frenoTejo->cargarImagen("frenoTejo");
@@ -604,6 +604,9 @@ int Escenario::graficar(){
 		if(teclado.pulso(Teclado::TECLA_BAJAR)) {
 			if(pad->getY()<this->getAlto() - pad->getAltura())
 				this->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
+		}
+		if(teclado.pulso(Teclado::TECLA_DISPARAR)){
+			pad->setSoltarTejo(true);				
 		}
 
 		if (!primerPintada){

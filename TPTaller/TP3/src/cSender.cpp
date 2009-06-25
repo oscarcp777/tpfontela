@@ -27,7 +27,14 @@ void cSender::posicionPad(char* pEnvioString){
 	strcat(pEnvioString,pauxY);
 	
 }
-
+void cSender::soltarTejo(char* pEnvioString){
+	char aux[20];
+	char* paux = aux;
+	memset(paux,0,sizeof(char)*20);
+	memset(pEnvioString,0,sizeof(char)*40);
+	strcat(pEnvioString,"SOLTAR_TEJO");
+		
+}
 int cSender::process(void* args)
 {
 	Socket* sock = (Socket*) args;
@@ -41,6 +48,9 @@ int cSender::process(void* args)
 		char envioString[40];
 		char *pEnvioString = envioString;
 		int posPad_Y_actual;
+		char soltarTejo[40];
+		char *pSoltarTejo = soltarTejo;
+		
 		
 		while (escenario->getPadJugador()==NULL){
 			sleep(3000);
@@ -55,6 +65,12 @@ int cSender::process(void* args)
 				//std::cout<<pEnvioString<<endl;
 				sock->send(pEnvioString);
 				
+			}
+			if(escenario->getPadJugador()->getSoltarTejo()){
+				this->soltarTejo(pSoltarTejo);
+				sock->send(pSoltarTejo);
+				escenario->getPadJugador()->setSoltarTejo(false);
+			
 			}
 			
 			

@@ -462,8 +462,9 @@ int hidratarPads(std::string altura,std::string base,std::string idTextura,std::
 			Rectangulo* rectangulo1 = new Rectangulo("padCliente1",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente1);
 			rectangulo1->setTipo("padDerecha");
 			Rectangulo* rectangulo2 = new Rectangulo("padCliente2",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente2);
-			rectangulo1->setTipo("padIzquierda");
+			rectangulo1->setTipo(PAD_DERECHA);
 			rectangulo1->setIdTextura(idTextura);
+			rectangulo2->setTipo(PAD_IZQUIERDA);
 			rectangulo2->setIdTextura(idTextura);
 			Pad* padCliente1 = new Pad(rectangulo1,new Puntaje());
 			padCliente1->setVelocidad(atoi(velocidad.c_str()));

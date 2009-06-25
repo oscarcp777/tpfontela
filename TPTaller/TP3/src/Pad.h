@@ -42,6 +42,9 @@ public:
 	int getAlturaDefault();
 	void setAlturaDefault(int altura);
 	void volverEstadoInicial();
+	void setSoltarTejo(bool soltar);
+	bool getSoltarTejo();
+
 
 
 private:
@@ -53,6 +56,7 @@ private:
 	int velocidad;
     bool modificar;
 	int alturaDefault;
+	bool soltarTejo;
 };
 
 #endif /* PAD_H_ */

@@ -19,6 +19,9 @@ void Bonus::desAplicar(){
 	escenario->getPadCliente1()->volverEstadoInicial();
 	escenario->getPadCliente2()->volverEstadoInicial();
 	escenario->getTejo()->volverEstadoInicial();
+	escenario->getTejo()->setMover(true);
+	escenario->getPadCliente1()->setSoltarTejo(false);
+	escenario->getPadCliente2()->setSoltarTejo(false);
 }
 void Bonus::cargarImagen(std::string idTextura){
 	SDL_Surface* image;

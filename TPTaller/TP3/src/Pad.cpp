@@ -27,6 +27,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->puntaje = puntaje;
 	this->cantGoles = 0;
 	this->modificar=false;
+	this->soltarTejo=false;
 
 
 }
@@ -159,4 +160,10 @@ int Pad::getAlturaDefault(){
 }
 void Pad::setAlturaDefault(int altura){
 	this->alturaDefault = altura;
+}
+void Pad::setSoltarTejo(bool soltar){
+	this->soltarTejo = soltar;
+}
+bool Pad::getSoltarTejo(){
+	return this->soltarTejo;
 }
