@@ -32,13 +32,6 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		}
 
 
-
-
-
-
-
-
-
 		int ManejadorClientes :: process(void* arg){
 			Escenario* escenario=juegoNuevo->getEscenario();
 			seguirCiclando = 1;
@@ -50,11 +43,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			char *pmsjIngresado = msjIngresado;
 			char leyenda[TAM_MSJ];
 			char * pLeyenda = leyenda;
-
-
-
 			char datosRecividos[30];
-
 			char* pDatosRecividos = datosRecividos;
 			std::string msj;
 
@@ -68,11 +57,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				msj = pDatosRecividos;
 
 				if(msj.find("QUIT")==0){
-					//if (todosLosClientes.size()>1)
-					//	quitarCliente(todosLosClientes);
+					quitarCliente(todosLosClientes);
 					juegoNuevo->setJuegoCancelado(true);
+					Sleep(1000);
 					enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
 					seguirCiclando = 0;
+					this->stopear();
 				}
 				else if(msj.find("PAD1")==0)
 				{

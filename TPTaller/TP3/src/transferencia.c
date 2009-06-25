@@ -81,9 +81,9 @@ int socketEscuchando(int puerto,CONEXION *pConexion){
 	struct hostent* host;
 	SOCKADDR_IN conexrem;
 	int error;
-	//"192.168.16.3"
+	//"169.254.162.98"
 	//"localhost"
-	host = gethostbyname("localhost");
+	host = gethostbyname("169.254.162.98");
 	conexrem.sin_port = htons(puerto);
     conexrem.sin_addr = *((struct in_addr *)host->h_addr);
     conexrem.sin_family = AF_INET;

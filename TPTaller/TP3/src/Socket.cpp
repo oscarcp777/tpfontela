@@ -164,7 +164,7 @@ int Socket::receive(void* dato, int size)
     ret = ::recv(this->sockDesc,(char*)dato,sizeof(char)*size,0);
 	//ret = recibir(&(this->conexion), dato);
     if (ret < 0)
-		throw cSocketException("Error en recv()");
+		throw cSocketException(/*Error en recv()*/"\n");
     initialized = false;
 
 

@@ -102,7 +102,7 @@ int cReceiver::process(void* args){
 
 				}
 			}catch (cSocketException &e){
-				std::cerr << e.what() << endl;
+			//	std::cerr << e.what() << endl;
 			}
 
 

@@ -75,7 +75,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("TEJO")==0){
@@ -155,7 +155,7 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("GANADOR")==0){
-				std::cout<<"msj "<<msj<<endl;;
+				std::cout<<"msj "<<msj<<endl;
 				string cadena = "";
 
 				if(msj.find("GANADOR 1")==0){
@@ -173,13 +173,22 @@ void Cliente::start(char* host, int port)
 
 				}
 
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,(escenario->getAlto()/2)-15,escenario->getAlto()/3);
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena, 200,escenario->getAlto()/3);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
 			}
-
+			else if(msj.find("JUGADOR_DESCONECTADO")==0){
+				std::string cadena = "SE DESCONECTO EL OPONENTE";
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena, 10,escenario->getAlto()/3);
+				SDL_Flip(escenario->getScreen());
+				Sleep(3000);
+				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
+				msj = "FINJUEGO";
+			
+			
+			}
 			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
@@ -251,6 +260,7 @@ void Cliente::stop()
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
 	delete(Escenario::obtenerInstancia());
+	exit(1);
 
 }
 
