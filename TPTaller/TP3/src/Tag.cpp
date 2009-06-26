@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include "Tag.h"
+#include "Define.h"
 
 
 Tag::Tag(std::string nombre){
@@ -50,5 +51,7 @@ int Tag::chequearAtributo(std::string nombreAtributo){
 
 }
 Tag::~Tag(){
-	
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Tag"<<std::endl;
+
 }

@@ -260,6 +260,11 @@ void Cliente::stop()
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
 	delete(Escenario::obtenerInstancia());
+	 if(DEBUG_DESTRUCTOR==1){
+	std::cout<<" entro al destructor de Cliente"<<std::endl;
+	std::cout<<"BUENISIMO DESTRUYO TODO!!!!! "<<std::endl;
+	std::cout<<"SI NO QUERES VER ESTO PONE EL DEBUG_DESTRUCTOR EN 0  "<<std::endl;
+	 }
 	exit(1);
 
 }

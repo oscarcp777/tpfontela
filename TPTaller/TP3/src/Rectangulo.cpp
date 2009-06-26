@@ -2,14 +2,15 @@
 #include <string>
 #include <iostream>
 #include "Escenario.h"
+#include "Define.h"
 #define WALLCOLOR 0x9f1f1f
 
 Rectangulo::Rectangulo(){
 }
 Rectangulo::~Rectangulo(){
 	delete this->pos;
-
-
+	if(DEBUG_DESTRUCTOR==1)
+	std::cout<<" entro al destructor de Rectangulo"<<std::endl;
 }
 
 Rectangulo::Rectangulo(std::string id,int base,int altura,Posicion *p){

@@ -40,13 +40,18 @@ int Pad::getVelocidad()
     {
         this->velocidad = velocidad;
     }
-Pad::~Pad() {
-	// TODO Auto-generated destructor stub
+ Pad::~Pad() {
+	   if(this->imagen!=NULL)
+    	SDL_FreeSurface(this->imagen);
+    	delete rectangulo;
+    	delete puntaje;
+    	if(DEBUG_DESTRUCTOR==1)
+    		std::cout<<" entro al destructor de Pad"<<endl;
+
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
 	 SDL_Surface* imageACargar1;
-	Escenario* escenario=Escenario::obtenerInstancia();
 
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());

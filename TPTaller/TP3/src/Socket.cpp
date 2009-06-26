@@ -6,6 +6,7 @@
  */
 
 #include "Socket.h"
+#include "Define.h"
 #include "cSocketException.h"
 #include <iostream>
 #include <fstream>
@@ -208,6 +209,9 @@ Socket::~Socket()
 {
 	this->shutdown();
 	this->close();
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Socket"<<std::endl;
+
 }
 
 void Socket::cleanUp()

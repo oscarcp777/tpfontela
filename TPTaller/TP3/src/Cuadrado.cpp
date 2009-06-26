@@ -2,11 +2,13 @@
 #include <string>
 #include <iostream>
 #include "Escenario.h"
+#include "Define.h"
 Cuadrado::Cuadrado(){
 }
 Cuadrado::~Cuadrado(){
 	 delete this->pos;
-
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Cuadrado"<<endl;
 }
 
 Cuadrado::Cuadrado(std::string id,int l,Posicion *p){//,std::string i):Figura(i){

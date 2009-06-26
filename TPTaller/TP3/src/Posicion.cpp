@@ -1,4 +1,5 @@
 #include "Posicion.h"
+#include "Define.h"
 #include <iostream>
 
 Posicion::Posicion(int posX,int posY){
@@ -7,7 +8,9 @@ Posicion::Posicion(int posX,int posY){
 	this->y = posY;
 }
 Posicion::~Posicion(){
-	
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Posicion"<<std::endl;
+
 }
 int Posicion::getX(){
 

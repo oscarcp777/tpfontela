@@ -6,6 +6,7 @@
  */
 
 #include "Bonus.h"
+#include "Define.h"
 #include "Escenario.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -42,6 +43,8 @@ Bonus::~Bonus() {
 	if(!this->imagen){
 		SDL_FreeSurface(this->imagen);
 	}
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Bonus"<<endl;
 
 }
 SDL_Surface* Bonus::getImagen()

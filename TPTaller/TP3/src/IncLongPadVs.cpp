@@ -46,5 +46,7 @@ int IncLongPadVs::aplicar(){
 
 IncLongPadVs::~IncLongPadVs()
 {
+if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de IncLongPadVs"<<endl;
 
 }

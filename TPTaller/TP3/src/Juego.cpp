@@ -18,7 +18,11 @@ Juego::Juego() {
 }
 
 Juego::~Juego() {
-	// TODO Auto-generated destructor stub
+	delete this->escenario;
+	if(DEBUG_DESTRUCTOR==1){
+		std::cout<<" entro al destructor de Juego"<<endl;
+		std::cout<<"BUENISIMO DESTRUYO TODO!!!!! "<<std::endl;
+	}
 }
 
 Juego* Juego::unicaInstanciaJuego = NULL;
@@ -127,7 +131,7 @@ void Juego::update(){
 		/*############################################################################################################################*/
 		/*############      si hubo gol repinto el tejo lo cambio de posicion                                                            ##########*/
 		/*############################################################################################################################*/
-					
+
 					if(ControladorColisiones::colisionesArcos()==0){
 						if(this->escenario->getGolDe().compare("PAD1")== 0){
 							this->escenario->getTejo()->setY(this->escenario->getPadCliente2()->getY()+this->escenario->getPadCliente2()->getAltura()/2);
@@ -143,12 +147,12 @@ void Juego::update(){
 
 						}
 						this->estado="GOL";
-						
+
 				}
-				
-					
+
+
 		ControladorColisiones::calcularDireccion();
-		
+
 
 				if(this->estado.compare("GOL")==0){
 					    Sleep(1000);

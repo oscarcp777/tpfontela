@@ -203,7 +203,9 @@ Escenario::~Escenario(){
 	SDL_FreeSurface(this->fondoPantalla);
 	SDL_FreeSurface(this->buffer);
 
-
+	delete this->tejo;
+	delete this->padCliente1;
+	delete this->padCliente2;
 	destruirLog(this->log);
 	delete this->colorLinea;
 	delete this->colorFondoEscenario;
@@ -213,15 +215,11 @@ Escenario::~Escenario(){
 	delete this->arcoDerecha;
 	delete this->arcoIzquierda;
 	delete this->posicionInicialTejo;
-	delete this->padJugador;
-	delete this->bonusActual;
-	if(!this->figuraConBonus){
-		SDL_free(this->figuraConBonus);
-		delete this->figuraConBonus;
-	}
 	this->borrarListaFiguras();
 	this->borrarListaTexturas();
 	this->borrarListaBonus();
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Escenario"<<std::endl;
 
 
 }
@@ -606,7 +604,7 @@ int Escenario::graficar(){
 				this->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
 		}
 		if(teclado.pulso(Teclado::TECLA_DISPARAR)){
-			pad->setSoltarTejo(true);				
+			pad->setSoltarTejo(true);
 		}
 
 		if (!primerPintada){
@@ -721,15 +719,45 @@ std::string Escenario::getNumeroNivelEnString(){
 
 }
 void Escenario::borrarListaFiguras(){
+	list<Figura*>::iterator iterFiguras;
+	Figura* figura;
+	iterFiguras=this->listaFiguras.begin();
+	while(iterFiguras !=this->listaFiguras.end()){
+		figura=*iterFiguras;
+		delete figura;
+		iterFiguras++;
+	}
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al borrarListaFiguras"<<endl<<endl;
 	this->listaFiguras.clear();
 }
 
 void Escenario::borrarListaTexturas(){
+	list<Textura*>::iterator iterTextura;
+	Textura* textura;
+	iterTextura=this->listaTexturas.begin();
+	while(iterTextura !=this->listaTexturas.end()){
+		textura=*iterTextura;
+		delete textura;
+		iterTextura++;
+	}
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al borrarListaTexturas"<<endl<<endl;
 	this->listaTexturas.clear();
 
 }
 
 void Escenario::borrarListaBonus(){
+	list<Bonus*>::iterator iterBonus;
+	Bonus* bonus;
+		iterBonus=this->listaBonus.begin();
+		while(iterBonus !=this->listaBonus.end()){
+			bonus=*iterBonus;
+			delete bonus;
+			iterBonus++;
+		}
+		if(DEBUG_DESTRUCTOR==1)
+			std::cout<<" entro al borrarListaBonus"<<endl<<endl;
 	this->listaBonus.clear();
 
 }

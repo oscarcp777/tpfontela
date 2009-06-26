@@ -1,9 +1,11 @@
 #include "Color.h"
+#include "Define.h"
 #include <iostream>
 
 
 Color::~Color(){
-	
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Color"<<std::endl;
 }
 Color::Color(){
 }

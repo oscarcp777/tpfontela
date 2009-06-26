@@ -31,5 +31,7 @@ int DecRadioTejo::aplicar(){
 
 DecRadioTejo::~DecRadioTejo()
 {
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de DecRadioTejo"<<endl;
 
 }

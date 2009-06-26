@@ -13,7 +13,9 @@ Circulo::~Circulo(){
 	if(!this->imagenAuxiliar){
 	SDL_FreeSurface(this->imagenAuxiliar);
 	}
-	delete this->pos;	
+	delete this->pos;
+	 if(DEBUG_DESTRUCTOR==1)
+	std::cout<<" entro al destructor de Circulo"<<endl;
 
 }
 

@@ -18,10 +18,10 @@ int IncVelocidadTejo::aplicar(){
 	Tejo* tejo = Escenario::obtenerInstancia()->getTejo();
 	int incUnTercioDeVelocidad=tejo->getVelocidad()+ tejo->getVelocidadDefault()/3;
 	int incMax = 5*(tejo->getVelocidadDefault()/3);
-    	
 
 
-		if(incUnTercioDeVelocidad>incMax) //si ya se aplico, no se puede volver a aplicar el bonus 
+
+		if(incUnTercioDeVelocidad>incMax) //si ya se aplico, no se puede volver a aplicar el bonus
 		return -1;
 
 		tejo->setVelocidad(incUnTercioDeVelocidad);
@@ -33,5 +33,7 @@ int IncVelocidadTejo::aplicar(){
 
 IncVelocidadTejo::~IncVelocidadTejo()
 {
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de IncVelocidadTejo"<<endl;
 
 }

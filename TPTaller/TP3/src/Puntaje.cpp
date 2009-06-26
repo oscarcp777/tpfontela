@@ -4,6 +4,7 @@
 
 #include "Puntaje.h"
 #include "Define.h"
+#include <iostream>
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -25,5 +26,7 @@ void Puntaje::setCantPuntosJugador(int cantPuntos){
 
 Puntaje::~Puntaje()
 {
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Puntaje"<<std::endl;
 
 }

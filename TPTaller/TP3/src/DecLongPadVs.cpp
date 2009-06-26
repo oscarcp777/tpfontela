@@ -47,5 +47,6 @@ int DecLongPadVs::aplicar(){
 
 DecLongPadVs::~DecLongPadVs()
 {
-
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de DecLongPadVs"<<endl;
 }

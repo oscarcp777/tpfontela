@@ -116,7 +116,9 @@ int Recta::getCortaX(){
 	return (int)cortaX;
 }
 Recta::~Recta() {
-	// TODO Auto-generated destructor stub
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Recta"<<std::endl;
+
 }
 float Recta::getPendiente()
  {

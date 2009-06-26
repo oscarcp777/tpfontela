@@ -44,5 +44,6 @@ int DecLongPad::aplicar(){
 
 DecLongPad::~DecLongPad()
 {
-
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de DecLongPad"<<endl;
 }

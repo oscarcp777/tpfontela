@@ -29,6 +29,9 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 	esperando que los clientes terminen de correr)*/
 			if (this->idCliente == 1)
 				delete(socketServidor);
+			if(DEBUG_DESTRUCTOR==1)
+					std::cout<<" entro al destructor de ManejadorClientes"<<endl;
+
 		}
 
 

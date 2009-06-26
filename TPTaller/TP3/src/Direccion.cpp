@@ -6,13 +6,16 @@
  */
 #include "Direccion.h"
 #include "Define.h"
+#include <iostream>
 Direccion::Direccion() {
 	fi = PI/4;
 
 }
 
 Direccion::~Direccion() {
-	// TODO Auto-generated destructor stub
+	 if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Direccion"<<std::endl;
+
 }
 
 

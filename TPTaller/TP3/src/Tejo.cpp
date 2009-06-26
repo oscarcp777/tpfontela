@@ -162,7 +162,13 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 
 }
 Tejo::~Tejo() {
-	// TODO Auto-generated destructor stub
+
+	delete direccion;
+	delete circulo;
+	SDL_FreeSurface(this->imagen);
+	SDL_FreeSurface(this->imagenAuxiliar);
+   if(DEBUG_DESTRUCTOR==1)
+	std::cout<<" entro al destructor de Tejo"<<endl;
 }
 int Tejo::getX(){
 	return this->circulo->getPosicion()->getX();

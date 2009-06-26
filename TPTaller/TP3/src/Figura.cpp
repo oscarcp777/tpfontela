@@ -9,6 +9,7 @@ Figura::Figura(){
 	this->imagen = NULL;
 	this->imagenBonus = NULL;
 	this->tieneBonus=false;
+	this->pos = NULL;
 
 }
 SDL_Surface* Figura::getImagenBonus()
@@ -69,10 +70,10 @@ int Figura::getAnchoInfluencia()
 	return anchoInfluencia;
 }
 void Figura::setTieneBonus(bool tiene){
-	this->tieneBonus = tiene;	
+	this->tieneBonus = tiene;
 }
 bool Figura::getTieneBonus(){
-	return this->tieneBonus;	
+	return this->tieneBonus;
 }
 void Figura::setAnchoInfluencia(int anchoInfluencia)
 {
@@ -121,6 +122,8 @@ Figura::~Figura(){
 	}
 	delete this->colorFigura;
 	delete this->colorLinea;
+	 if(DEBUG_DESTRUCTOR==1)
+	std::cout<<" entro al destructor de figura"<<endl;
 
 }
 std::string Figura::getId(){

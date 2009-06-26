@@ -14,6 +14,8 @@ Servidor :: Servidor(int puerto, int cantParticipantes):
 
 Servidor :: ~Servidor(){
 	delete(juegoNuevo);
+	if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Servidor"<<endl;
 }
 
 int Servidor :: process(void* arg){
@@ -119,10 +121,10 @@ int Servidor :: process(void* arg){
 
 
 
-    loading(misClientes,"loading1.txt");
+  //  loading(misClientes,"loading1.txt");
 
 
-    loading(misClientes,"loading2.txt");
+  //  loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
@@ -202,19 +204,22 @@ int Servidor :: process(void* arg){
     		if (juegoNuevo->cancelado()){
     			juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
     			this->stopear();
+    			delete this->juegoNuevo;
     		}
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
     			this->ganador(pGanador);
     			//std::cout<<"JUEGO_TERMINADO envia: "<<pGanador<<endl;
     			enviarAtodos(this->misClientes,pGanador);
-				this->stopear();
+ 				this->stopear();
+ 	   			delete this->juegoNuevo;
 				exit(1);
     		}
 			if(juegoNuevo->getEstado().compare("JUGADOR_DESCONECTADO")==0){
 				enviarAtodos(this->misClientes,"JUGADOR_DESCONECTADO\n");
 				this->stopear();
-				exit(1);			
+				delete this->juegoNuevo;
+				exit(1);
 			}
     		//si termino el nivel envio las imagenes y archivos a los clientes y vuelvo el estado del juego a CORRIENDO
     		else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){

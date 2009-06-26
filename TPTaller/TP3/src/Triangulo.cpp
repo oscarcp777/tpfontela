@@ -22,6 +22,8 @@ Triangulo::~Triangulo(){
 	delete this->y2;
 	if(this->imagenAuxiliar!=NULL)
 	SDL_FreeSurface(this->imagenAuxiliar);
+	  if(DEBUG_DESTRUCTOR==1)
+		std::cout<<" entro al destructor de Triangulo"<<endl;
 
 
 }
