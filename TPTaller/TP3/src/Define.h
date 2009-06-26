@@ -99,7 +99,7 @@
 #define MARCADOR_TAG  '-'
 #define PUNTAJE_GOL 10
 //tamanio de letra de los puntajes
-#define TAMANIO_LETRA 60
+#define TAMANIO_LETRA 40
 #define ANCHO_PUNTAJES 100
 #define ALTO_PUNTAJES 100
 #define PUNTAJE_GANADOR_NIVEL 70

@@ -94,7 +94,7 @@ int openFont(TTF_Font* fuente){
 		return -1;
 	}
 
-	fuente = TTF_OpenFont("arial.ttf", 100);
+	fuente = TTF_OpenFont("arial.ttf", TAMANIO_LETRA);
 	if(fuente == NULL) {
 	printf("Fallo al abrir la fuente");
 	    return -1;

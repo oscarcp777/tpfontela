@@ -121,17 +121,14 @@ int Servidor :: process(void* arg){
 
 
 
-  //  loading(misClientes,"loading1.txt");
+   loading(misClientes,"loading1.txt");
 
 
-  //  loading(misClientes,"loading2.txt");
+    loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
-    enviarAtodos(this->misClientes,"INICIADO\n");
-
-
-
+    enviarAtodos(this->misClientes,"INICIAR\n");
 
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
@@ -204,7 +201,7 @@ int Servidor :: process(void* arg){
     		if (juegoNuevo->cancelado()){
     			juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
     			this->stopear();
-    			delete this->juegoNuevo;
+    			
     		}
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
@@ -214,12 +211,14 @@ int Servidor :: process(void* arg){
  				this->stopear();
  	   			delete this->juegoNuevo;
 				exit(1);
+				return 0;
     		}
 			if(juegoNuevo->getEstado().compare("JUGADOR_DESCONECTADO")==0){
 				enviarAtodos(this->misClientes,"JUGADOR_DESCONECTADO\n");
 				this->stopear();
 				delete this->juegoNuevo;
 				exit(1);
+				return 0;
 			}
     		//si termino el nivel envio las imagenes y archivos a los clientes y vuelvo el estado del juego a CORRIENDO
     		else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
@@ -267,6 +266,7 @@ int Servidor :: process(void* arg){
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se
 	auto removieron de la lista misClientes.*/
 	misClientes.clear();
+	delete this->juegoNuevo;
 	exit(1);
 	return 0;
 }

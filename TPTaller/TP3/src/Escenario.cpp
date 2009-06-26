@@ -55,6 +55,7 @@ Escenario::Escenario(){
 
 void Escenario::servidorInicializarListaBonus(){
 
+
 	DecLongPad* decLongPad = new DecLongPad();
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	this->listaBonus.push_back(decLongPad);

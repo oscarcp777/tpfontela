@@ -46,7 +46,7 @@ void Cliente::start(char* host, int port)
 		loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
-		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/4,2*escenario->getAlto()/5);
+		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
 		loading(&sock);
@@ -65,8 +65,8 @@ void Cliente::start(char* host, int port)
 		msj= this->get();
 
 		if(msj.find("INICIAR")==0){
-			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
-			SDL_Flip(escenario->getScreen());
+			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/5);
+			SDL_Flip(escenario->getScreen());			
 			Sleep(3000);
 		}
 
@@ -141,7 +141,7 @@ void Cliente::start(char* host, int port)
 				escenario->setCorriendo(false);
 				escenario->setTejosRestantes(7);
 				escenario->incrementarNivel();
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/3);
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,2*escenario->getAlto()/5);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				escenario->borrarListaFiguras();
@@ -173,7 +173,7 @@ void Cliente::start(char* host, int port)
 
 				}
 
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena, 200,escenario->getAlto()/3);
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
@@ -181,7 +181,7 @@ void Cliente::start(char* host, int port)
 			}
 			else if(msj.find("JUGADOR_DESCONECTADO")==0){
 				std::string cadena = "SE DESCONECTO EL OPONENTE";
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena, 10,escenario->getAlto()/3);
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,30,2*escenario->getAlto()/5);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
@@ -206,7 +206,8 @@ void Cliente::start(char* host, int port)
 	}
 	catch (cSocketException &e)
 	{
-		std::cerr << e.what() << endl;
+		
+	    std::cerr << e.what() << endl;
 		status = NO_HOST;
 	}
 }
