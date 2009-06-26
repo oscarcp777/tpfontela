@@ -79,7 +79,7 @@ int Servidor :: process(void* arg){
                 desde y hacia el cliente*/
                 ++cantConecEscuchadas;
 
-                ManejadorClientes* miCliente =	new ManejadorClientes(socketServidor, cantConecEscuchadas,s, juegoNuevo, misClientes);
+                ManejadorClientes* miCliente =	new ManejadorClientes(&this->cola,socketServidor, cantConecEscuchadas,s, juegoNuevo, misClientes);
 
                 /*Manda el cliente a la lista de clientes (se usa para que el juego pueda
                 enviarles mensajes)*/
@@ -122,7 +122,7 @@ int Servidor :: process(void* arg){
     char ganador[40];
     char* pGanador = ganador;
     int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
-	
+	std::string msj;
 	/*
 	void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
@@ -145,7 +145,37 @@ int Servidor :: process(void* arg){
     while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-    		Sleep(20);
+    		
+			if(!this->cola.isEmpty()){
+					msj = this->cola.pop();
+
+				/*	if(msj.find("QUIT")==0){
+						quitarCliente(todosLosClientes);
+						juegoNuevo->setJuegoCancelado(true);
+						Sleep(1000);
+						enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
+						seguirCiclando = 0;
+						this->stopear();
+					}*/
+					/*else */if(msj.find("PAD1")==0)
+					{
+						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+						escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
+						enviarAtodos(this->misClientes,msj+"\n");
+					}
+					else if(msj.find("PAD2")==0)
+					{
+						string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+						escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+						enviarAtodos(this->misClientes,msj+"\n");
+
+					}
+					else if(msj.find("SOLTAR_TEJO")==0){
+						escenario->getTejo()->setMover(true);
+					}			
+			}
+			
+			Sleep(20);
     		juegoNuevo->update();
 
 

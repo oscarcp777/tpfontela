@@ -10,7 +10,7 @@
 #include "Define.h"
 #include "CalculosMatematicos.h"
 
-ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
+ManejadorClientes::ManejadorClientes(ColaEsperaSegura* received,Socket* socketServer, int id, Socket* s, Juego* juego,
 		std::list<Thread*>& clientes):
 			socketServidor(socketServer), socketComunicacion(s), juegoNuevo(juego),
 			todosLosClientes(clientes){
@@ -18,6 +18,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			this->recibioMapa = 0;
 			seguirCiclando = 0;
 			idCliente = id;
+			this->cola = received;
 		}
 
 		ManejadorClientes::~ManejadorClientes(){
@@ -57,7 +58,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 				memset(pDatosRecividos,0,sizeof(char)*30);
 				socketComunicacion->receive(pDatosRecividos,30);
+				
+				
 				msj = pDatosRecividos;
+				this->cola->push(msj);
+				
+				/*msj = pDatosRecividos;
 
 				if(msj.find("QUIT")==0){
 					quitarCliente(todosLosClientes);
@@ -84,8 +90,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					juegoNuevo->getEscenario()->getTejo()->setMover(true);
 				}
 
-
-
+				
+				*/
 			}
 
 

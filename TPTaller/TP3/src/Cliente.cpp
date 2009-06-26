@@ -106,8 +106,6 @@ void Cliente::start(char* host, int port)
 				escenario->getPadCliente2()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
 				escenario->decrementarTejosRestantes();
 				escenario->setPrimerPintada(false);
-
-
 			}
 
 			else if(msj.find("BONUS")==0){
@@ -132,7 +130,6 @@ void Cliente::start(char* host, int port)
 				escenario->getFiguraConBonus()->setEscalada(false);
 				escenario->setFiguraConBonus(NULL);
 				escenario->setPrimerPintada(false);
-				//TODO desaplicar bonus anterior etc, "pensar eso"
 				escenario->getBonusActual()->aplicar();
 
 
@@ -170,13 +167,12 @@ void Cliente::start(char* host, int port)
 						cadena = "PERDISTE!!!!!!";
 					else
 						cadena = "GANASTE!!!!!";
-
 				}
 
 				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
-				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
+				//seteo msj en finJuego asi no grafica mas
 				msj = "FINJUEGO";
 			}
 			else if(msj.find("JUGADOR_DESCONECTADO")==0){
@@ -195,8 +191,8 @@ void Cliente::start(char* host, int port)
 			}
 			else{
 				if(escenario->graficar()<0){
-				this->sock.send("QUIT");
-				receiver.stop();
+					this->sock.send("QUIT");
+					receiver.stop();
 				}
 			}
 

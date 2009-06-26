@@ -15,12 +15,12 @@
 #include "Thread.h"
 #include "Socket.h"
 #include "Juego.h"
-
+#include "ColaEsperaSegura.h"
 
 class ManejadorClientes : public Thread{
 
 public:
-		ManejadorClientes(Socket* socketServer, int id, Socket* s, Juego* juego,
+		ManejadorClientes(ColaEsperaSegura* received,Socket* socketServer, int id, Socket* s, Juego* juego,
 				std::list<Thread*>& clientes);
 		~ManejadorClientes();
 		void enviarMensaje(const std::string& mensaje);
@@ -29,7 +29,6 @@ public:
 	protected:
 		virtual int process(void*);
 	private:
-
 		void enviarAtodos(std::list<Thread*>& clientes,
 					const std::string& mensaje);
 		int obtenerListos(std::list<Thread*>& clientes);
@@ -45,7 +44,7 @@ public:
 		std::string map_info;
 		int estaListo;
 		int recibioMapa;
-
+		ColaEsperaSegura* cola;
 		std::string colorAleatorio();
 };
 

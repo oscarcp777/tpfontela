@@ -5,12 +5,15 @@
 #include "Socket.h"
 #include <iostream>
 #include <fstream>
+#include "ColaEsperaSegura.h"
 
 class Servidor : public Thread
 {
 	public:
 		Servidor(int puerto, int cantParticipantes);
 		virtual ~Servidor();
+		ColaEsperaSegura received;
+
 	protected:
 		virtual int process(void*);
 	private:
@@ -27,5 +30,7 @@ class Servidor : public Thread
 		unsigned int participantesMax;
 		int puertoConexion;
 		Juego* juegoNuevo;
+		ColaEsperaSegura cola;
+
 
 };
