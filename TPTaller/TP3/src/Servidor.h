@@ -23,7 +23,6 @@ class Servidor : public Thread
 		void ganador(char* pPuntajes);
 		void asignarNumeroClientes(std::list<Thread*>& clientes);
 		void loading(std::list<Thread*>& clientes,std::string archivo);
-
 		std::list<Thread*> misClientes;
 		unsigned int participantesMax;
 		int puertoConexion;

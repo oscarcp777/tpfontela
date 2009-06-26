@@ -17,7 +17,11 @@ Servidor :: ~Servidor(){
 	if(DEBUG_DESTRUCTOR==1)
 		std::cout<<" entro al destructor de Servidor"<<endl;
 }
-
+/*
+void antesDeCerrar(){
+	//enviarAtodos(this->misClientes,"MURIO_SERVER \n");
+}
+*/
 int Servidor :: process(void* arg){
     std::cout << "SERVER EN EJECUCION...\n";
 
@@ -118,8 +122,12 @@ int Servidor :: process(void* arg){
     char ganador[40];
     char* pGanador = ganador;
     int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
-
-
+	
+	/*
+	void (*pfuncion)(void);
+	pfuncion=antesDeCerrar;
+	atexit(pfuncion);
+    */
 
    loading(misClientes,"loading1.txt");
 
