@@ -98,7 +98,7 @@ void Cliente::start(char* host, int port)
 				j++;
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-				std::cout<<"veces q recibe PAD1: "<<j<<endl;
+				std::cout<<"veces q recibe PAD2: "<<j<<endl;
 			}
 			else if(msj.find("PUNTAJE")==0)
 			{
