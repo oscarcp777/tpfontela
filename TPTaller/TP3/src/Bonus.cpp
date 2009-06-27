@@ -21,6 +21,7 @@ void Bonus::desAplicar(){
 	escenario->getPadCliente2()->volverEstadoInicial();
 	escenario->getTejo()->volverEstadoInicial();
 	escenario->getTejo()->setMover(true);
+	escenario->getTejo()->setPegajoso(false);
 	escenario->getPadCliente1()->setSoltarTejo(false);
 	escenario->getPadCliente2()->setSoltarTejo(false);
 }
