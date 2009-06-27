@@ -27,5 +27,6 @@ class Servidor : public Thread
 		unsigned int participantesMax;
 		int puertoConexion;
 		Juego* juegoNuevo;
+		void posicionPad(char* pEnvioString, int numJugador);
 
 };

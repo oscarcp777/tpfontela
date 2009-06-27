@@ -93,7 +93,7 @@ int Servidor :: process(void* arg){
             }
         }
     }
-    this->sleep(5000);
+   // this->sleep(5000);
 
 		//**************************************************************
 		    this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
@@ -122,17 +122,18 @@ int Servidor :: process(void* arg){
     char ganador[40];
     char* pGanador = ganador;
     int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
-	
+    char envioString[40];
+    char *pEnvioString = envioString;
 	/*
 	void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
 	atexit(pfuncion);
     */
 
-   loading(misClientes,"loading1.txt");
+   //loading(misClientes,"loading1.txt");
 
 
-    loading(misClientes,"loading2.txt");
+    //loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
@@ -145,7 +146,7 @@ int Servidor :: process(void* arg){
     while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-    		Sleep(20);
+    		Sleep(10);
     		juegoNuevo->update();
 
 
@@ -154,6 +155,14 @@ int Servidor :: process(void* arg){
     			//se forma la cadena "INT posX posY" con las posiciones del tejo
     			this->posicionTejo(pEnvioInt);
     			enviarAtodos(this->misClientes,pEnvioInt);
+    			if (escenario->getPadCliente1()->getCambioPosicion()){
+    				this->posicionPad(pEnvioString,1);
+    				enviarAtodos(this->misClientes,pEnvioString);
+    			}
+    			if (escenario->getPadCliente2()->getCambioPosicion()){
+    				this->posicionPad(pEnvioString,2);
+    				enviarAtodos(this->misClientes,pEnvioString);
+    			}
 
     			if((CalculosMatematicos::ramdom(100)) <80 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
@@ -209,7 +218,7 @@ int Servidor :: process(void* arg){
     		if (juegoNuevo->cancelado()){
     			juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
     			this->stopear();
-    			
+
     		}
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
@@ -462,3 +471,25 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 
 
 }
+
+void Servidor::posicionPad(char* pEnvioString, int numPad){
+	Escenario* escenario = Escenario::obtenerInstancia();
+	char auxY[20];
+	char numJugador[20];
+	char* pauxY = auxY;
+	char* pauxNumJugador = numJugador;
+	memset(pauxY,0,sizeof(char)*20);
+	memset(pEnvioString,0,sizeof(char)*40);
+	strcat(pEnvioString,"PAD");
+	itoa(numPad,pauxNumJugador,10);
+	strcat(pEnvioString,pauxNumJugador);
+	if (numPad == 1)
+		itoa(escenario->getPadCliente1()->getY(),pauxY,10);
+	else
+		itoa(escenario->getPadCliente2()->getY(),pauxY,10);
+	strcat(pEnvioString," ");
+	strcat(pEnvioString,pauxY);
+	strcat(pEnvioString,"\n");
+
+}
+

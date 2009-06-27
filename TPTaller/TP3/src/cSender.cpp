@@ -58,12 +58,11 @@ int cSender::process(void* args)
 		posPad_Y_actual = escenario->getPosicionYPad();
 
 		while(status==CONNECTED){
-			Sleep(5);
+			Sleep(10);
 			
 			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
 				posPad_Y_actual = escenario->getPosicionYPad();
 				this->posicionPad(pEnvioString);
-				std::cout<<pEnvioString<<endl;
 				sock->send(pEnvioString);
 				
 			}

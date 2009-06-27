@@ -28,6 +28,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->cantGoles = 0;
 	this->modificar=false;
 	this->soltarTejo=false;
+	this->cambioPosicion=false;
 
 
 }
@@ -97,6 +98,7 @@ void Pad::setX(int x){
 }
 void Pad::setY(int y){
 	this->rectangulo->getPosicion()->setY(y);
+	this->cambioPosicion = true;
 }
 
 int Pad::getBase(){
@@ -172,3 +174,12 @@ void Pad::setSoltarTejo(bool soltar){
 bool Pad::getSoltarTejo(){
 	return this->soltarTejo;
 }
+
+bool Pad::getCambioPosicion()
+{
+		bool aux = this->cambioPosicion;
+		if (this->cambioPosicion)
+			this->cambioPosicion = false;
+        return aux;
+}
+

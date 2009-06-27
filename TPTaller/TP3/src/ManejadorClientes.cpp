@@ -71,13 +71,13 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				{
 					string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-					enviarAtodos(this->todosLosClientes,msj+"\n");
+				//	enviarAtodos(this->todosLosClientes,msj+"\n");
 				}
 				else if(msj.find("PAD2")==0)
 				{
 					string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-					enviarAtodos(this->todosLosClientes,msj+"\n");
+				//	enviarAtodos(this->todosLosClientes,msj+"\n");
 
 				}
 				else if(msj.find("SOLTAR_TEJO")==0){
