@@ -245,7 +245,8 @@ void Cliente::start(char* host, int port)
 									if (evento.key.keysym.sym == SDLK_UP){
 										//std::cout<<"Arriba"<<std::endl;
 										if(pad->getY()>0)
-											escenario->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
+											pad->setMoverArriba(true);
+											//escenario->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
 										//pEnvioString = "ARRIBA";
 										//this->posicionPad(pEnvioString);
 										//std::cout<<pEnvioString<<endl;
@@ -254,7 +255,8 @@ void Cliente::start(char* host, int port)
 									if (evento.key.keysym.sym == SDLK_DOWN){
 										//std::cout<<"Abajo"<<std::endl;
 										if(pad->getY()<escenario->getAlto() - pad->getAltura())
-											escenario->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
+											pad->setMoverAbajo(true);
+											//escenario->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
 										//pEnvioString = "Abajo";
 										//this->posicionPad(pEnvioString);
 										//std::cout<<pEnvioString<<endl;
