@@ -45,13 +45,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		loading(&sock);
+	//	loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+	//	loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -78,7 +78,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+			//std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("TEJO")==0){
@@ -217,28 +217,39 @@ void Cliente::start(char* host, int port)
 		                  switch (evento.type) {
 							case SDL_KEYDOWN:
 								//std::cout<<"The %s key was pressed!\n"<<evento.key.keysym.sym;
-								switch(evento.key.keysym.sym){
-									case 273:
+									if (evento.key.keysym.sym == SDLK_UP){
 										//std::cout<<"Arriba"<<std::endl;
 										if(pad->getY()>0)
 											escenario->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
-										break;
-									case 274:
+										//pEnvioString = "ARRIBA";
+										//this->posicionPad(pEnvioString);
+										//std::cout<<pEnvioString<<endl;
+										//sock->send(pEnvioString);
+									};
+									if (evento.key.keysym.sym == SDLK_DOWN){
 										//std::cout<<"Abajo"<<std::endl;
 										if(pad->getY()<escenario->getAlto() - pad->getAltura())
 											escenario->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
-										break;
-									case 32:
+										//pEnvioString = "Abajo";
+										//this->posicionPad(pEnvioString);
+										//std::cout<<pEnvioString<<endl;
+										//sock->send(pEnvioString);
+									};
+									if (evento.key.keysym.sym == SDLK_SPACE){
 										//std::cout<<"Space"<<std::endl;
 										pad->setSoltarTejo(true);
-										break;
+									//	this->soltarTejo(pSoltarTejo);
+									//	sock->send(pSoltarTejo);
+									//	escenario->getPadJugador()->setSoltarTejo(false);
+									};
 									default:
 										//std::cout<<evento.key.keysym.sym;
 										break; 
-								}
+								//}
 							case SDL_QUIT:
 								this->sock.send("QUIT");
 								receiver.stop();
+								
 
 						  }
 				

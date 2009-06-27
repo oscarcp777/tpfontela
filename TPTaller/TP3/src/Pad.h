@@ -44,8 +44,7 @@ public:
 	void volverEstadoInicial();
 	void setSoltarTejo(bool soltar);
 	bool getSoltarTejo();
-
-
+    bool getCambioPosicion();
 
 private:
   	Rectangulo* rectangulo;
@@ -57,6 +56,7 @@ private:
     bool modificar;
 	int alturaDefault;
 	bool soltarTejo;
+	bool cambioPosicion;
 };
 
 #endif /* PAD_H_ */
