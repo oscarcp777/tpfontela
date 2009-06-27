@@ -1,4 +1,4 @@
-arial.ttf
+fuente.ttf
 config Atributos.txt
 config Default Escenario.txt
 config Validador.txt
