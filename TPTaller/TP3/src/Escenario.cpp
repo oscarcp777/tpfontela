@@ -585,9 +585,7 @@ int Escenario::graficar(){
 			rect.y =0;
 			rect.w = this->getAncho();
 			rect.h = this->getAlto();
-
-		SDL_Event evento;
-		Teclado teclado;
+	
 		Pad* pad;
 
 		
@@ -598,31 +596,7 @@ int Escenario::graficar(){
 		this->pintarPantalla();
 			primerPintada = true;
 		}
-			SDL_PollEvent(&evento);
-
-		                  switch (evento.type) {
-							case SDL_KEYDOWN:
-								//std::cout<<"The %s key was pressed!\n"<<evento.key.keysym.sym;
-								switch(evento.key.keysym.sym){
-									case 273:
-										//std::cout<<"Arriba"<<std::endl;
-										if(pad->getY()>0)
-											this->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
-										break;
-									case 274:
-										//std::cout<<"Abajo"<<std::endl;
-										if(pad->getY()<this->getAlto() - pad->getAltura())
-											this->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
-										break;
-									case 32:
-										//std::cout<<"Space"<<std::endl;
-										pad->setSoltarTejo(true);
-										break;
-									default:
-										//std::cout<<evento.key.keysym.sym;
-										break; 
-								}
-						  }
+		
 		SDL_BlitSurface(this->buffer, NULL,this->screen, &rect);
 
 		this->getPadCliente1()->dibujar(this->screen);
