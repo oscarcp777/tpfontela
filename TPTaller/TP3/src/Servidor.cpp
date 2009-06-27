@@ -130,15 +130,16 @@ int Servidor :: process(void* arg){
 	atexit(pfuncion);
     */
 
-   //loading(misClientes,"loading1.txt");
+   loading(misClientes,"loading1.txt");
 
 
-    //loading(misClientes,"loading2.txt");
+    loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
     enviarAtodos(this->misClientes,"INICIAR\n");
-
+	
+	Sleep(8000);
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/

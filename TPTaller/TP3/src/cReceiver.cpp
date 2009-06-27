@@ -74,7 +74,7 @@ int cReceiver::process(void* args){
 					sock->receive(pmensRecive,1024);
 					msg = pmensRecive;
 					bufferStr += msg;
-					std::cout<<msg;
+					//std::cout<<msg;
 					while((i=bufferStr.find("\n")) != -1){
 						msg = bufferStr.substr(0,i);
 						//std::cout<<"msg "<<msg<<endl;
