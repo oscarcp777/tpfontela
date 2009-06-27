@@ -67,19 +67,29 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					seguirCiclando = 0;
 					this->stopear();
 				}
-				else if(msj.find("PAD1")==0)
-				{
-					string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-					juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-				//	enviarAtodos(this->todosLosClientes,msj+"\n");
-				}
-				else if(msj.find("PAD2")==0)
-				{
-					string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-					juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-				//	enviarAtodos(this->todosLosClientes,msj+"\n");
-
-				}
+				else if(msj.find("PAD1 ABAJO") == 0){
+						std::cout<<"SERVIDOR moverAbajo pad1"<<endl;
+						juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
+					
+					}
+				else if(msj.find("PAD1 ARRIBA") == 0){	
+						std::cout<<"SERVIDOR moverArriba pad1"<<endl;
+						juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
+					}
+					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+					//juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));				
+				else if(msj.find("PAD2 ABAJO") == 0){
+						std::cout<<"SERVIDOR moverAbajo pad2"<<endl;
+						juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+					
+					}
+				else if(msj.find("PAD2 ARRIBA") == 0){	
+						std::cout<<"SERVIDOR moverArriba pad2"<<endl;
+						juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
+					}
+					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
+					//juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+								
 				else if(msj.find("SOLTAR_TEJO")==0){
 					juegoNuevo->getEscenario()->getTejo()->setMover(true);
 				}

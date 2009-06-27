@@ -45,6 +45,11 @@ public:
 	void setSoltarTejo(bool soltar);
 	bool getSoltarTejo();
     bool getCambioPosicion();
+	bool getMoverArriba();
+	void setMoverArriba(bool moverArriba);
+	bool getMoverAbajo();
+	void setMoverAbajo(bool moverAbajo);
+
 
 private:
   	Rectangulo* rectangulo;
@@ -57,6 +62,8 @@ private:
 	int alturaDefault;
 	bool soltarTejo;
 	bool cambioPosicion;
+	bool moverArriba;
+	bool moverAbajo;
 };
 
 #endif /* PAD_H_ */

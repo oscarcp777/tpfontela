@@ -29,6 +29,8 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->modificar=false;
 	this->soltarTejo=false;
 	this->cambioPosicion=false;
+	this->moverArriba = false;
+	this->moverAbajo = false;
 
 
 }
@@ -127,11 +129,13 @@ void Pad::bajar_y() {
 	int y =this->getY();
 	y += this->velocidad;
 	this->setY(y);
+	this->cambioPosicion = true;
 }
 void Pad::subir_y() {
 	int y =this->getY();
 	y -= this->velocidad;
 	this->setY(y);
+	this->cambioPosicion = true;
 }
 int Pad::calcularProximaPosicionAlSubir(){
 		int y =this->getY();
@@ -182,4 +186,15 @@ bool Pad::getCambioPosicion()
 			this->cambioPosicion = false;
         return aux;
 }
-
+bool Pad::getMoverArriba(){
+	return this->moverArriba;
+}
+void Pad::setMoverArriba(bool moverArriba){
+	this->moverArriba = moverArriba;
+}
+bool Pad::getMoverAbajo(){
+	return this->moverAbajo;
+}
+void Pad::setMoverAbajo(bool moverAbajo){
+	this->moverAbajo = moverAbajo;
+}

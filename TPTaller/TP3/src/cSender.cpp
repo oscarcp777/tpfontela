@@ -10,14 +10,11 @@
 using namespace std;
 
 cSender::cSender():status(NOT_CONNECTED){}
-
+/*
 void cSender::posicionPad(char* pEnvioString){
 	Escenario* escenario = Escenario::obtenerInstancia();
-	char auxY[20];
 	char numJugador[20];
-	char* pauxY = auxY;
 	char* pauxNumJugador = numJugador;
-	memset(pauxY,0,sizeof(char)*20);
 	memset(pEnvioString,0,sizeof(char)*40);
 	strcat(pEnvioString,"PAD");
 	itoa(escenario->getNumJugador(),pauxNumJugador,10);
@@ -26,7 +23,7 @@ void cSender::posicionPad(char* pEnvioString){
 	strcat(pEnvioString," ");
 	strcat(pEnvioString,pauxY);
 	
-}
+}*/
 void cSender::soltarTejo(char* pEnvioString){
 	char aux[20];
 	char* paux = aux;
@@ -50,23 +47,47 @@ int cSender::process(void* args)
 		int posPad_Y_actual;
 		char soltarTejo[40];
 		char *pSoltarTejo = soltarTejo;
-		
+		std::string moverArriba, moverAbajo;
 		
 		while (escenario->getPadJugador()==NULL){
 			sleep(3000);
 		}
-		posPad_Y_actual = escenario->getPosicionYPad();
-
+		//posPad_Y_actual = escenario->getPosicionYPad();
+		Pad* pad = escenario->getPadJugador();
+	
+		if(escenario->getNumJugador() == 1){
+			moverArriba = "PAD1 ARRIBA";
+			moverAbajo =  "PAD1 ABAJO";
+		}
+		else if(escenario->getNumJugador() == 2){
+			
+			moverArriba =  "PAD2 ARRIBA";
+			moverAbajo = "PAD2 ABAJO";
+		}
+		
+		
+		
+		
 		while(status==CONNECTED){
 			Sleep(10);
-			
+			/*
 			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
 				posPad_Y_actual = escenario->getPosicionYPad();
 				this->posicionPad(pEnvioString);
 				sock->send(pEnvioString);
 				
+			}*/
+			if(pad->getMoverArriba()){
+				std::cout<<"cSender moverArriba"<<endl;
+				sock->send((char*)moverArriba.data());
+				pad->setMoverArriba(false);
 			}
-			if(escenario->getPadJugador()->getSoltarTejo()){
+			if(pad->getMoverAbajo()){
+				std::cout<<"cSender moverAbajo"<<endl;
+				sock->send((char*)moverAbajo.data());
+				pad->setMoverAbajo(false);
+			}
+			if(pad->getSoltarTejo()){
 				this->soltarTejo(pSoltarTejo);
 				sock->send(pSoltarTejo);
 				escenario->getPadJugador()->setSoltarTejo(false);
