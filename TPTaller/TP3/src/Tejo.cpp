@@ -27,7 +27,7 @@ bool Tejo::getChocoFiguraConBonus()
 void Tejo::volverEstadoInicial(){
 	if(this->getRadio()!=this->getRadioDefault()){
 	this->setRadio(this->getRadioDefault());
-	this->modificarRadio=true;
+	this->imagen=this->imagenAuxiliar;
 	}
 	this->setVelocidad(this->getVelocidadDefault());
 }
@@ -128,7 +128,8 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->circulo->getIdTextura());
 		image = IMG_Load(path.begin());
-		this->imagenAuxiliar = IMG_Load(path.begin());
+		this->imagenGrande = IMG_Load(path.begin());
+		this->imagenChica = IMG_Load(path.begin());
 		//			this->imagen = SDL_LoadBMP(path.begin());
 		if(image == NULL) {
 			std::cout<< "Error: " << SDL_GetError() << endl;
@@ -143,14 +144,20 @@ void Tejo::dibujar(SDL_Surface *pantalla){
 		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255 ,255, 255));
 		this->imagen = SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
-
+		this->imagenAuxiliar=this->imagen;
 
 	}
 
 	if(this->modificarRadio){
-		this->imagenAuxiliar = Figura::ScaleSurface(this->imagenAuxiliar, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
-		SDL_SetColorKey(this->imagenAuxiliar,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenAuxiliar->format,255 ,255, 255));
-		this->imagen = SDL_DisplayFormat(this->imagenAuxiliar);
+		if(this->radioDefault<this->getRadio()){
+		this->imagenGrande = Figura::ScaleSurface(this->imagenGrande, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+		SDL_SetColorKey(this->imagenGrande,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenGrande->format,255 ,255, 255));
+		this->imagen = SDL_DisplayFormat(this->imagenGrande);
+		}else{
+			this->imagenChica = Figura::ScaleSurface(this->imagenChica, this->getFigura()->getRadio()*2,this->getFigura()->getRadio()*2);
+			SDL_SetColorKey(this->imagenChica,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenChica->format,255 ,255, 255));
+			this->imagen = SDL_DisplayFormat(this->imagenChica);
+		}
 		this->modificarRadio=false;
 	}
 	SDL_Rect rect;
@@ -232,7 +239,7 @@ void Tejo::moverTejo(){
 			Pad* pad = Escenario::obtenerInstancia()->getPadCliente1();
 			this->setY(pad->getY()+pad->getAltura()/2);
 			this->setX(pad->getX()-this->getRadio());
-			
+
 		}
 		else if(this->getPadPegajoso().compare(PAD_CLIENTE2) == 0){
 			Pad* pad = Escenario::obtenerInstancia()->getPadCliente2();
