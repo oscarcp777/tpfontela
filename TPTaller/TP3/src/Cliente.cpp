@@ -58,9 +58,6 @@ void Cliente::start(char* host, int port)
 	SDL_Surface *screen;
 	SDL_Event evento;
 
-	int i = 0;
-	int j = 0;
-
 	try
 	{
 		this->sock.connect(host, port);
@@ -111,16 +108,12 @@ void Cliente::start(char* host, int port)
 				}
 
 			else if(msj.find("PAD1")==0){
-				i++;
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-				std::cout<<"veces q recibe PAD1: "<<i<<endl;
 			}
 			else if(msj.find("PAD2")==0){
-				j++;
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-				std::cout<<"veces q recibe PAD2: "<<j<<endl;
+				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));			
 			}
 			else if(msj.find("PUNTAJE")==0)
 			{

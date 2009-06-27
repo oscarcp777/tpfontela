@@ -1,45 +1,26 @@
 <escenario>
- <General resolucion="800" texturaFig="cuadrado" alturaPad="150" basePad="20" idTexturaPad="pad"
-                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="4" velocidadPad="4">
+ <General resolucion="800" texturaFig="pad" alturaPad="150" basePad="20" idTexturaPad="pad"
+                     idTexturaTejo="tejo" radioTejo="10" velocidadTejo="4" velocidadPad="4">
              </General>
-             <ListadoDeDispersores> 
-	                <triangulo id="triangulo1" idTextura="triangulo" lado="100" tipo"triangulo">
-                                  <ver1 x="300" y="250"/>
-                                  <ver2 x="300" y="350"/>
-                                  <ver3 x="250" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo2" idTextura="triangulo" lado="100" tipo"triangulo">
-                                  <ver1 x="350" y="200"/>
-                                  <ver2 x="450" y="200"/>
-                                  <ver3 x="400" y="150"/>
-                   </triangulo>
-                   <triangulo id="triangulo3" idTextura="triangulo" lado="100" tipo"triangulo">
-                                  <ver1 x="500" y="250"/>
-                                  <ver2 x="500" y="350"/>
-                                  <ver3 x="550" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo4" idTextura="triangulo" lado="100" tipo"triangulo">
-                                  <ver1 x="350" y="400"/>
-                                  <ver2 x="450" y="400"/>
-                                  <ver3 x="400" y="450"/>
-                   </triangulo>   
+             <ListadoDeDispersores> 	
+	<circulo id="circulo1" radio="100" idTextura="circulos" tipo="circulo"> 
+                                   <posicion x="400" y="100" />
+                       </circulo> 
             </ListadoDeDispersores>
             <ListadoDeTexturas>
-                 <textura id="bola" path="imagenes/bola_3d.png">
+                 <textura id="circulos" path="imagenes/circulos.png">
                  </textura>
-                  <textura id="tejo" path="imagenes/tejo6.png">
+                  <textura id="tejo" path="imagenes/tejo.png">
                  </textura>
-                 <textura id="pad" path="imagenes/padNegro.png">
+                 <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="triangulo" path="imagenes/cuadrado.jpg">
-                 </textura>
-	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio.jpg">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
 	<textura id="decLongPadVs" path="imagenes/dispersor2.png">
                  </textura>
-	<textura id="decRadioTejo" path="imagenes/dispersor10.png">
+	<textura id="decRadioTejo" path="imagenes/dispersor3.png">
                  </textura>
 	<textura id="incLongPad" path="imagenes/dispersor4.png">
                  </textura>
@@ -53,5 +34,5 @@
                  </textura>
 	<textura id="frenoTejo" path="imagenes/dispersor9.png">
                  </textura>
-             </ListadoDeTexturas>
+	</ListadoDeTexturas>
 </escenario>
