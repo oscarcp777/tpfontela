@@ -36,8 +36,8 @@ void Cliente::start(char* host, int port)
 	SDL_Surface *screen;
 	SDL_Event evento;
 
-	
-
+	int i = 0;
+	int j = 0;
 
 	try
 	{
@@ -78,7 +78,7 @@ void Cliente::start(char* host, int port)
 			while (receiver.isEmpty()){
 				Sleep(1);
 			}
-			std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
+		//	std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 			msj= this->get();
 
 			if(msj.find("TEJO")==0){
@@ -89,13 +89,16 @@ void Cliente::start(char* host, int port)
 				}
 
 			else if(msj.find("PAD1")==0){
+				i++;
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
-
+				std::cout<<"veces q recibe PAD1: "<<i<<endl;
 			}
 			else if(msj.find("PAD2")==0){
+				j++;
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
+				std::cout<<"veces q recibe PAD1: "<<j<<endl;
 			}
 			else if(msj.find("PUNTAJE")==0)
 			{
