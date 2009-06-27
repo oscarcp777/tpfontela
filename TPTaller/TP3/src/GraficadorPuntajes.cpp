@@ -118,7 +118,7 @@ int GraficadorPuntajes::inicializarFuente(int puntajeJugadorIzquierda, int punta
 	
 	//Fuente que se va a utilizar
 	SDL_Surface* textImg;
-	SDL_Color color= {0, 0, 0, 255};
+	SDL_Color color= {255,255,255, 255};
 
 		std::string puntaje,puntajeJugador;
 		IntToString(puntajeJugadorIzquierda,puntajeJugador);
@@ -160,7 +160,7 @@ int GraficadorPuntajes::graficarPuntaje(SDL_Surface*screen){
 		
 		
 		Escenario* escenario = Escenario::obtenerInstancia();
-		SDL_Color color= {0, 0, 0, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
+		SDL_Color color= {255,255,255, 255};//TODO poner el color como atributo de graficador puntaje y llamarlo como this->color hacer lo mismo con textImg
 		
 		std::string puntaje,puntajeJugador;
 		IntToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
