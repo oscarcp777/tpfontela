@@ -108,6 +108,7 @@
 #define BASE_TRIANGULO_ABAJO "ABAJO"
 #define BASE_TRIANGULO_ARRIBA "ARRIBA"
 #define CANT_NIVELES 3
+#define FUENTE "fuente.ttf"
 
 #define DEC_LONG_PAD 0
 #define DEC_LONG_PAD_VS 1

@@ -64,12 +64,10 @@ int cSender::process(void* args)
 			moverArriba =  "PAD2 ARRIBA";
 			moverAbajo = "PAD2 ABAJO";
 		}
-		
-		
-		
+				
 		
 		while(status==CONNECTED){
-			Sleep(10);
+			Sleep(30);
 			/*
 			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
 				posPad_Y_actual = escenario->getPosicionYPad();
@@ -78,12 +76,10 @@ int cSender::process(void* args)
 				
 			}*/
 			if(pad->getMoverArriba()){
-				std::cout<<"cSender moverArriba"<<endl;
 				sock->send((char*)moverArriba.data());
 				pad->setMoverArriba(false);
 			}
 			if(pad->getMoverAbajo()){
-				std::cout<<"cSender moverAbajo"<<endl;
 				sock->send((char*)moverAbajo.data());
 				pad->setMoverAbajo(false);
 			}
