@@ -83,7 +83,9 @@ private:
     	int velocidad;
     	Circulo* circulo;
     	SDL_Surface *imagen;
-		SDL_Surface *imagenAuxiliar;
+    	SDL_Surface *imagenAuxiliar;
+		SDL_Surface *imagenGrande;
+		SDL_Surface *imagenChica;
 		int XAnterior;
 		int YAnterior;
         int moverMayor;
@@ -97,7 +99,7 @@ private:
 		int radioDefault;
 		bool pegajoso;
 		std::string padPegajoso;
-		
+
 };
 
 #endif /* TEJO_H_ */
