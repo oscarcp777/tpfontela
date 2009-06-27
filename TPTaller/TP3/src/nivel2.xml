@@ -1,25 +1,23 @@
 <escenario>
              <ListadoDeDispersores>        
- 	<circulo id="circulo1" radio="100" tipo="circulo"> 
+ 	<circulo id="circulo1" radio="100"  idTextura="circulos" tipo="circulo"> 
                                    <posicion x="400" y="300" />
                        </circulo>
                     </ListadoDeDispersores>
             <ListadoDeTexturas>
-                 <textura id="bola" path="imagenes/bola_3d.png">
+                  <textura id="circulos" path="imagenes/circulos.png">
                  </textura>
-                  <textura id="tejo" path="imagenes/tejo6.png">
+                  <textura id="tejo" path="imagenes/tejo.png">
                  </textura>
-                 <textura id="triangulo" path="imagenes/padNegro.png">
+                 <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="arco" path="imagenes/cuadrado2.jpg">
-                 </textura>
-	 <textura id="EscDefault" path="imagenes/cancha2.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio2.jpg">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
 	<textura id="decLongPadVs" path="imagenes/dispersor2.png">
                  </textura>
-	<textura id="decRadioTejo" path="imagenes/dispersor10.png">
+	<textura id="decRadioTejo" path="imagenes/dispersor3.png">
                  </textura>
 	<textura id="incLongPad" path="imagenes/dispersor4.png">
                  </textura>
@@ -33,5 +31,5 @@
                  </textura>
 	<textura id="frenoTejo" path="imagenes/dispersor9.png">
                  </textura>
-             </ListadoDeTexturas>
+	</ListadoDeTexturas>
 </escenario>
