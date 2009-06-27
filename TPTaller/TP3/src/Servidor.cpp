@@ -147,7 +147,7 @@ int Servidor :: process(void* arg){
     while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-    		Sleep(10);
+    		Sleep(15);
     		juegoNuevo->update();
 
 
@@ -165,7 +165,7 @@ int Servidor :: process(void* arg){
     				enviarAtodos(this->misClientes,pEnvioString);
     			}
 
-    			if((CalculosMatematicos::ramdom(100)) <80 && escenario->getBonusActual()==NULL){
+    			if((CalculosMatematicos::ramdom(100)) <20 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
     				escenario->shuffleListFiguras();

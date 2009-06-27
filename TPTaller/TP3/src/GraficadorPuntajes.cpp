@@ -94,7 +94,7 @@ int openFont(TTF_Font* fuente){
 		return -1;
 	}
 
-	fuente = TTF_OpenFont("arial.ttf", TAMANIO_LETRA);
+	fuente = TTF_OpenFont(FUENTE, TAMANIO_LETRA);
 	if(fuente == NULL) {
 	printf("Fallo al abrir la fuente");
 	    return -1;
@@ -134,7 +134,7 @@ int GraficadorPuntajes::inicializarFuente(int puntajeJugadorIzquierda, int punta
 		return -1;
 	}
 
-	this->fuente = TTF_OpenFont("arial.ttf",TAMANIO_LETRA);
+	this->fuente = TTF_OpenFont(FUENTE,TAMANIO_LETRA);
 
 	TTF_SetFontStyle(this->fuente, TTF_STYLE_BOLD);
 
