@@ -22,6 +22,28 @@ using namespace std;
 
 Cliente::Cliente():status(NOT_CONNECTED){}
 
+void intToString(int i, string & s)
+{
+    s = "";
+    if (i == 0)
+    {
+        s = "0";
+        return;
+    }
+    if (i < 0)
+    {
+        s += '-';
+        i = -i;
+    }
+    int count = (int)log10(i);
+    while (count >= 0)
+    {
+        s += ('0' + i/pow(10.0, count));
+        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
+        count--;
+    }
+}
+
 void Cliente::start(char* host, int port)
 {
 
@@ -68,7 +90,7 @@ void Cliente::start(char* host, int port)
 		msj= this->get();
 
 		if(msj.find("INICIAR")==0){
-			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,escenario->getAlto()/5);
+			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,2*escenario->getAlto()/5);
 			SDL_Flip(escenario->getScreen());			
 			Sleep(3000);
 		}
@@ -166,20 +188,27 @@ void Cliente::start(char* host, int port)
 
 				if(msj.find("GANADOR 1")==0){
 					if(escenario->getNumJugador() == 1)
-						cadena = "GANASTE!!!!!!";
+						cadena = "GANASTE!!!!!!!";
 					else
-						cadena = "PERDISTE!!!!!";
+						cadena = "PERDISTE!!!!!!";
 
 				}
 				else if(msj.find("GANADOR 2")==0){
 					if(escenario->getNumJugador() == 1)
 						cadena = "PERDISTE!!!!!!";
 					else
-						cadena = "GANASTE!!!!!";
+						cadena = "GANASTE!!!!!!!";
 
 				}
-
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);
+				
+				std::string puntaje,puntajeJugador;
+				intToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
+				puntaje+=puntajeJugador;
+				intToString(escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
+				puntaje+='-';
+				puntaje+=puntajeJugador;
+				cadena += "  "+ puntaje;
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);				
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
