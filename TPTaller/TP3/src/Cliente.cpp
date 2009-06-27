@@ -236,7 +236,12 @@ void Cliente::start(char* host, int port)
 										//std::cout<<evento.key.keysym.sym;
 										break; 
 								}
+							case SDL_QUIT:
+								this->sock.send("QUIT");
+								receiver.stop();
+
 						  }
+				
 		SDL_BlitSurface(escenario->buffer, NULL,escenario->screen, &rect);
 
 		escenario->getPadCliente1()->dibujar(escenario->screen);
