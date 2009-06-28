@@ -95,23 +95,23 @@ void Escenario::clienteInicializarListaBonus(){
 	decLongPad->setTipoBonus(DEC_LONG_PAD);
 	decLongPad->cargarImagen("decLongPad");
 	this->listaBonus.push_back(decLongPad);
-
+	
 	DecLongPadVs* decLongPadVs = new DecLongPadVs();
 	decLongPadVs->setTipoBonus(DEC_LONG_PAD_VS);
 	decLongPadVs->cargarImagen("decLongPadVs");
 	this->listaBonus.push_back(decLongPadVs);
-
+	
 
 	DecRadioTejo* decRadioTejo = new DecRadioTejo();
 	decRadioTejo->setTipoBonus(DEC_RADIO_TEJO);
 	decRadioTejo->cargarImagen("decRadioTejo");
 	this->listaBonus.push_back(decRadioTejo);
-
+	
 	IncLongPad* incLongPad = new IncLongPad();
 	incLongPad->setTipoBonus(INC_LONG_PAD);
 	incLongPad->cargarImagen("incLongPad");
 	this->listaBonus.push_back(incLongPad);
-
+	
 	IncLongPadVs* incLongPadVs = new IncLongPadVs();
 	incLongPadVs->setTipoBonus(INC_LONG_PAD_VS);
 	incLongPadVs->cargarImagen("incLongPadVs");
@@ -127,17 +127,17 @@ void Escenario::clienteInicializarListaBonus(){
 	incVelocidadTejo->cargarImagen("incVelocidadTejo");
 	this->listaBonus.push_back(incVelocidadTejo);
 
+
 	PegamentoTejo* pegamentoTejo = new PegamentoTejo();
 	pegamentoTejo->setTipoBonus(PEGAMENTO_TEJO);
 	pegamentoTejo->cargarImagen("pegamentoTejo");
 	this->listaBonus.push_back(pegamentoTejo);
 
+
 	FrenoTejo* frenoTejo = new FrenoTejo();
 	frenoTejo->setTipoBonus(FRENO_TEJO);
 	frenoTejo->cargarImagen("frenoTejo");
 	this->listaBonus.push_back(frenoTejo);
-
-
 }
 
 void Escenario::shuffleListBonus(){

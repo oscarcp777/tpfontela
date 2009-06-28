@@ -48,7 +48,7 @@ int cSender::process(void* args)
 		char soltarTejo[40];
 		char *pSoltarTejo = soltarTejo;
 		std::string moverArriba, moverAbajo;
-		
+		std::string noMover = "NO MOVER";
 		while (escenario->getPadJugador()==NULL){
 			sleep(3000);
 		}
@@ -67,7 +67,7 @@ int cSender::process(void* args)
 				
 		
 		while(status==CONNECTED){
-			Sleep(30);
+			Sleep(20);
 			/*
 			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
 				posPad_Y_actual = escenario->getPosicionYPad();
@@ -88,6 +88,9 @@ int cSender::process(void* args)
 				sock->send(pSoltarTejo);
 				escenario->getPadJugador()->setSoltarTejo(false);
 			
+			}
+			if(!pad->getMoverArriba() && !pad->getMoverAbajo()){
+				sock->send((char*)noMover.data());
 			}
 			
 			
