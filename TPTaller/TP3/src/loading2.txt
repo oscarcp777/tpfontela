@@ -1,14 +1,15 @@
 nivel1.xml
 nivel2.xml
 nivel3.xml
-imagenes/icono.jpg
 imagenes/espacio.jpg
 imagenes/espacio2.jpg
 imagenes/espacio3.jpg
 imagenes/espacio4.jpg
 imagenes/tejo.png
 imagenes/pad.png
-imagenes/circulos.png
+imagenes/circulo.png
+imagenes/triangulo.jpg
+imagenes/rectangulo.jpg
 imagenes/dispersor1.png
 imagenes/dispersor2.png
 imagenes/dispersor3.png

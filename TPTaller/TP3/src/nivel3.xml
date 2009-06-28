@@ -1,36 +1,30 @@
 <escenario>
-           <ListadoDeDispersores>        
- 	<triangulo id="triangulo1" idTextura="triangulo" lado="80" tipo"triangulo">
-                                  <ver1 x="300" y="250"/>
-                                  <ver2 x="300" y="350"/>
-                                  <ver3 x="250" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo2" idTextura="triangulo" lado="80" tipo"triangulo">
-                                  <ver1 x="350" y="200"/>
-                                  <ver2 x="450" y="200"/>
-                                  <ver3 x="400" y="150"/>
-                   </triangulo>
-                   <triangulo id="triangulo3" idTextura="triangulo" lado="80" tipo"triangulo">
-                                  <ver1 x="500" y="250"/>
-                                  <ver2 x="500" y="350"/>
-                                  <ver3 x="550" y="300"/>
-                   </triangulo>
-                   <triangulo id="triangulo4" idTextura="triangulo" lado="80" tipo"triangulo">
-                                  <ver1 x="350" y="400"/>
-                                  <ver2 x="450" y="400"/>
-                                  <ver3 x="400" y="450"/>
-                   </triangulo>           
-                    </ListadoDeDispersores>
+             <ListadoDeDispersores> 	
+             <circulo id="circulo1" radio="60" idTextura="incVelocidadTejo" tipo="circulo"> 
+                                   <posicion x="300" y="150" />
+             </circulo>
+             <circulo id="circulo2" radio="60" idTextura="decLongPad" tipo="circulo"> 
+                                   <posicion x="600" y="150" />
+             </circulo>
+             <circulo id="circulo3" radio="60" idTextura="pegamentoTejo" tipo="circulo"> 
+                                   <posicion x="300" y="450" />
+             </circulo>
+             <circulo id="circulo4" radio="60" idTextura="incLongPad" tipo="circulo"> 
+                                   <posicion x="600" y="450" />
+             </circulo>                            
+            </ListadoDeDispersores>
             <ListadoDeTexturas>
-	<textura id="triangulo" path="imagenes/espacio4.jpg">
+                 <textura id="circulos" path="imagenes/circulo.png">
                  </textura>
-                  <textura id="circulos" path="imagenes/circulos.png">
+                 <textura id="rectangulo" path="imagenes/rectangulo.png">
+                 </textura>
+                 <textura id="triangulo" path="imagenes/triangulo.jpg">
                  </textura>
                   <textura id="tejo" path="imagenes/tejo.png">
                  </textura>
                  <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="EscDefault" path="imagenes/espacio3.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio.jpg">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
@@ -50,5 +44,5 @@
                  </textura>
 	<textura id="frenoTejo" path="imagenes/dispersor9.png">
                  </textura>
-             </ListadoDeTexturas>
+	</ListadoDeTexturas>
 </escenario>
