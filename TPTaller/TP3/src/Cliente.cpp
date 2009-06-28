@@ -74,7 +74,7 @@ void Cliente::start(char* host, int port)
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
-
+	
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
 
@@ -266,10 +266,10 @@ void Cliente::start(char* host, int port)
 							break;
 							default:
 							 //std::cout<<"ESTA ACAAA"<<endl;
-							break; 
+						    break; 
 						
 						  }
-						 
+			
 		SDL_BlitSurface(escenario->buffer, NULL,escenario->screen, &rect);
 
 		escenario->getPadCliente1()->dibujar(escenario->screen);
