@@ -1,7 +1,0 @@
-nivel2.xml
-imagenes/icono.jpg
-imagenes/bola_3d.png
-imagenes/cuadrado2.jpg
-imagenes/bola.png
-imagenes/cancha2.jpg
-FIN
