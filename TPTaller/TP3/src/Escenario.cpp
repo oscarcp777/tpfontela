@@ -33,19 +33,11 @@ Escenario::Escenario(){
 	//levanto del archivo siguiente las texturas por default para el escenario
 	ArchivoTexto miArchivoDefault(configDefaultEscenario);
 	string linea;
-	//la primer linea tiene el path de textura para el fondo del pad
-	miArchivoDefault.leerLinea(linea);
-	//	Textura * fondoPad = new Textura("fondoPad", linea);
-	//	this->addTextura(fondoPad);
-	//la segunda linea tiene el path de textura escenario por default
+	//la primera linea tiene el path de textura escenario por default
 	miArchivoDefault.leerLinea(linea);
 	Textura * texturaEscDefault = new Textura("EscDefault", linea);
 	//
 	this->addTextura(texturaEscDefault);
-	miArchivoDefault.leerLinea(linea);
-	Textura* icono = new Textura("icono", linea);
-	//
-	this->addTextura(icono);
 	this->tejosRestantes = 7;
 	this->numeroNivel = 1;
 	this->primerPintada = false;
@@ -547,18 +539,6 @@ int Escenario::iniciarSDL(){
 		exit(1);
 
 	}
-	/*if(this->icono==NULL){
-		std::string pathIcono =this->obtenerPathTextura("icono");
-		std::cout<< "path  " << pathIcono << endl;
-		this->icono = IMG_Load(pathIcono.begin());
-		if(this->icono == NULL) {
-			std::cout<< "Error: " << SDL_GetError() << endl;
-			exit(1);
-		}
-		if(this->icono != NULL){
-			this->icono = Figura::ScaleSurface(this->icono,40,40);
-		}
-	}*/
 	//seteamos el titulo a la barra
 	SDL_WM_SetCaption("    Taller de Programacion Grupo Nro:3   GRAFICADOR  "," Taller de Programacion Grupo Nro:3   GRAFICADOR ");
 	//SDL_WM_SetIcon(icono, NULL); // Compatible con MS Windows
@@ -596,7 +576,7 @@ int Escenario::graficar(){
 		this->pintarPantalla();
 			primerPintada = true;
 		}
-		
+
 		SDL_BlitSurface(this->buffer, NULL,this->screen, &rect);
 
 		this->getPadCliente1()->dibujar(this->screen);
@@ -609,7 +589,7 @@ int Escenario::graficar(){
 		SDL_Flip(this->getScreen());
 		SDL_FreeSurface(this->screen);
 
-		
+
 	return 0;
 }
 

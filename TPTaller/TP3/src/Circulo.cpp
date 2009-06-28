@@ -85,14 +85,14 @@ int Circulo::dibujar(SDL_Surface *screen){
 				image = ScaleSurface(image, this->getRadio()*2, this->getRadio()*2);
 			}
 		}
-		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255,255,255));
+		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,0,0,0));
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}
 
 	if(this->imagenBonus!=NULL && !this->getEscalada()){
 		this->imagenBonus=ScaleSurface(this->imagenBonus,this->getRadio()*2, this->getRadio()*2);
-		SDL_SetColorKey(this->imagenBonus,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenBonus->format,255 ,255, 255));
+		SDL_SetColorKey(this->imagenBonus,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(this->imagenBonus->format,0 ,0, 0));
 		this->imagenAuxiliar = SDL_DisplayFormat(this->imagenBonus);
 		this->setEscalada(true);
 	}
