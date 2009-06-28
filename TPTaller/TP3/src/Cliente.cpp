@@ -64,13 +64,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		loading(&sock);
+		//loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		loading(&sock);
+		//loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -246,40 +246,30 @@ void Cliente::start(char* host, int port)
 										//std::cout<<"Arriba"<<std::endl;
 										if(pad->getY()>0)
 											pad->setMoverArriba(true);
-											//escenario->setPosicionYPad(pad->calcularProximaPosicionAlSubir());
-										//pEnvioString = "ARRIBA";
-										//this->posicionPad(pEnvioString);
-										//std::cout<<pEnvioString<<endl;
-										//sock->send(pEnvioString);
-									};
+										
+									}else
 									if (evento.key.keysym.sym == SDLK_DOWN){
 										//std::cout<<"Abajo"<<std::endl;
 										if(pad->getY()<escenario->getAlto() - pad->getAltura())
 											pad->setMoverAbajo(true);
-											//escenario->setPosicionYPad(pad->calcularProximaPosicionAlBajar());
-										//pEnvioString = "Abajo";
-										//this->posicionPad(pEnvioString);
-										//std::cout<<pEnvioString<<endl;
-										//sock->send(pEnvioString);
-									};
+										
+									}else
 									if (evento.key.keysym.sym == SDLK_SPACE){
 										//std::cout<<"Space"<<std::endl;
 										pad->setSoltarTejo(true);
-									//	this->soltarTejo(pSoltarTejo);
-									//	sock->send(pSoltarTejo);
-									//	escenario->getPadJugador()->setSoltarTejo(false);
+									
 									};
-									default:
-										//std::cout<<evento.key.keysym.sym;
-										break; 
-								//}
+							 break;
 							case SDL_QUIT:
 								this->sock.send("QUIT");
 								receiver.stop();
-								
-
+							break;
+							default:
+							 //std::cout<<"ESTA ACAAA"<<endl;
+							break; 
+						
 						  }
-				
+						 
 		SDL_BlitSurface(escenario->buffer, NULL,escenario->screen, &rect);
 
 		escenario->getPadCliente1()->dibujar(escenario->screen);
