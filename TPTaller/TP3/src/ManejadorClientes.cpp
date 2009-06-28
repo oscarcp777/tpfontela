@@ -38,27 +38,35 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		int ManejadorClientes :: process(void* arg){
 			Escenario* escenario=juegoNuevo->getEscenario();
 			seguirCiclando = 1;
-			std::string bufferStr = "";
-
+			
 			int bytesRecibidos;
 			std::string buffer;
 			char msjIngresado[TAM_MSJ];
 			char *pmsjIngresado = msjIngresado;
 			char leyenda[TAM_MSJ];
 			char * pLeyenda = leyenda;
-			char datosRecividos[30];
+			char datosRecividos[1024];
 			char* pDatosRecividos = datosRecividos;
-			std::string msj;
-
+			std::string msj= "";
+			string bufferStr = "";
+			int i;
 			int tipoBonus;
 
 
 			while (seguirCiclando == 1){
 
-				memset(pDatosRecividos,0,sizeof(char)*30);
-				socketComunicacion->receive(pDatosRecividos,30);
-				msj = pDatosRecividos;
+				memset(pDatosRecividos,0,sizeof(char)*1024);
+				socketComunicacion->receive(pDatosRecividos,1024);
+				
 
+					msj = pDatosRecividos;
+					bufferStr += msj;
+					
+					while((i=bufferStr.find("\n")) != -1){
+						msj = bufferStr.substr(0,i);
+						//if(this->idCliente==1)
+						//std::cout<<"MSJ cliente1 "<<msj<<endl;						
+							
 				if(msj.find("QUIT")==0){
 					quitarCliente(todosLosClientes);
 					juegoNuevo->setJuegoCancelado(true);
@@ -89,6 +97,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 				else if(msj.find("SOLTAR_TEJO")==0){
 					juegoNuevo->getEscenario()->getTejo()->setMover(true);
 				}
+										
+						bufferStr = bufferStr.substr(i+1);
+					}
+							
+				
+			
 
 
 

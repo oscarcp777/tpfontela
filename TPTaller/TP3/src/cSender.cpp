@@ -23,15 +23,15 @@ void cSender::posicionPad(char* pEnvioString){
 	strcat(pEnvioString," ");
 	strcat(pEnvioString,pauxY);
 	
-}*/
+}
 void cSender::soltarTejo(char* pEnvioString){
 	char aux[20];
 	char* paux = aux;
 	memset(paux,0,sizeof(char)*20);
 	memset(pEnvioString,0,sizeof(char)*40);
-	strcat(pEnvioString,"SOLTAR_TEJO");
+	strcat(pEnvioString,"SOLTAR_TEJO\n");
 		
-}
+}*/
 int cSender::process(void* args)
 {
 	Socket* sock = (Socket*) args;
@@ -45,10 +45,13 @@ int cSender::process(void* args)
 		char envioString[40];
 		char *pEnvioString = envioString;
 		int posPad_Y_actual;
-		char soltarTejo[40];
-		char *pSoltarTejo = soltarTejo;
+	//	char soltarTejo[40];
+	//	char *pSoltarTejo = soltarTejo;
 		std::string moverArriba, moverAbajo;
-		std::string noMover = "NO MOVER";
+		std::string noMover = "NO MOVER\n";
+		std::string soltarTejo = "SOLTAR_TEJO\n";
+		
+
 		while (escenario->getPadJugador()==NULL){
 			sleep(3000);
 		}
@@ -56,13 +59,13 @@ int cSender::process(void* args)
 		Pad* pad = escenario->getPadJugador();
 	
 		if(escenario->getNumJugador() == 1){
-			moverArriba = "PAD1 ARRIBA";
-			moverAbajo =  "PAD1 ABAJO";
+			moverArriba = "PAD1 ARRIBA\n";
+			moverAbajo =  "PAD1 ABAJO\n";
 		}
 		else if(escenario->getNumJugador() == 2){
 			
-			moverArriba =  "PAD2 ARRIBA";
-			moverAbajo = "PAD2 ABAJO";
+			moverArriba =  "PAD2 ARRIBA\n";
+			moverAbajo = "PAD2 ABAJO\n";
 		}
 				
 		
@@ -84,13 +87,13 @@ int cSender::process(void* args)
 				pad->setMoverAbajo(false);
 			}
 			if(pad->getSoltarTejo()){
-				this->soltarTejo(pSoltarTejo);
-				sock->send(pSoltarTejo);
+				sock->send((char*)soltarTejo.data());
 				escenario->getPadJugador()->setSoltarTejo(false);
 			
 			}
 			if(!pad->getMoverArriba() && !pad->getMoverAbajo()){
 				sock->send((char*)noMover.data());
+				
 			}
 			
 			

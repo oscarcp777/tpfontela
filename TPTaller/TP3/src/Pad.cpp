@@ -198,3 +198,55 @@ bool Pad::getMoverAbajo(){
 void Pad::setMoverAbajo(bool moverAbajo){
 	this->moverAbajo = moverAbajo;
 }
+void Pad::setXString(int i){
+	this->xString = "";
+    if (i == 0)
+    {
+        this->xString = "0";
+        return;
+    }
+    if (i < 0)
+    {
+        this->xString += '-';
+        i = -i;
+    }
+    int count = (int)log10(i);
+    while (count >= 0)
+    {
+        this->xString += ('0' + i/pow(10.0, count));
+        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
+        count--;
+    }
+
+}
+
+void Pad::setYString(int i){
+	this->yString = "";
+    if (i == 0)
+    {
+        this->yString = "0";
+        return;
+    }
+    if (i < 0)
+    {
+        this->yString += '-';
+        i = -i;
+    }
+    int count = (int)log10(i);
+    while (count >= 0)
+    {
+        this->yString += ('0' + i/pow(10.0, count));
+        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
+        count--;
+    }
+
+}
+
+std::string Pad::getXString(){
+	return this->xString;
+}
+std::string Pad::getYString(){
+	return this->yString;
+
+}
+

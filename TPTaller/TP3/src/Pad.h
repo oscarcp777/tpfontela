@@ -49,7 +49,11 @@ public:
 	void setMoverArriba(bool moverArriba);
 	bool getMoverAbajo();
 	void setMoverAbajo(bool moverAbajo);
-
+	void setXString(int i);
+	void setYString(int i);
+	std::string getXString();
+	std::string getYString();
+	
 
 private:
   	Rectangulo* rectangulo;
@@ -64,6 +68,8 @@ private:
 	bool cambioPosicion;
 	bool moverArriba;
 	bool moverAbajo;
+	std::string xString;
+	std::string yString;
 };
 
 #endif /* PAD_H_ */

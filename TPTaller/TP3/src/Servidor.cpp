@@ -111,6 +111,8 @@ int Servidor :: process(void* arg){
 
 
     Escenario* escenario=juegoNuevo->getEscenario();
+	Pad* pad1 = escenario->getPadCliente1();
+	Pad* pad2 = escenario->getPadCliente2();
     char envioInt[40];
     char* pEnvioInt = envioInt;
     int tipoBonus;
@@ -124,16 +126,17 @@ int Servidor :: process(void* arg){
     int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
     char envioString[40];
     char *pEnvioString = envioString;
+	std::string posicionPad;
 	/*
 	void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
 	atexit(pfuncion);
     */
 
-   loading(misClientes,"loading1.txt");
+    //loading(misClientes,"loading1.txt");
 
 
-    loading(misClientes,"loading2.txt");
+    //loading(misClientes,"loading2.txt");
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
@@ -147,25 +150,32 @@ int Servidor :: process(void* arg){
     while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
-    		Sleep(15);
+    		Sleep(10);
     		juegoNuevo->update();
-
+			
 
     		if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 
     			//se forma la cadena "INT posX posY" con las posiciones del tejo
     			this->posicionTejo(pEnvioInt);
     			enviarAtodos(this->misClientes,pEnvioInt);
-    			if (escenario->getPadCliente1()->getCambioPosicion()){
-    				this->posicionPad(pEnvioString,1);
-    				enviarAtodos(this->misClientes,pEnvioString);
+    			
+				if (escenario->getPadCliente1()->getCambioPosicion()){
+    				//this->posicionPad(pEnvioString,1);
+					pad1->setYString(pad1->getY());
+					posicionPad = "PAD1 "+pad1->getYString()+"\n";
+					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
+    				enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
     			if (escenario->getPadCliente2()->getCambioPosicion()){
-    				this->posicionPad(pEnvioString,2);
-    				enviarAtodos(this->misClientes,pEnvioString);
+    				//this->posicionPad(pEnvioString,2);
+					pad2->setYString(pad2->getY());
+					posicionPad = "PAD2 "+pad2->getYString()+"\n";
+					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
+    				enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
 
-    			if((CalculosMatematicos::ramdom(100)) <20 && escenario->getBonusActual()==NULL){
+    			if((CalculosMatematicos::ramdom(100)) <0 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
     				escenario->shuffleListFiguras();
