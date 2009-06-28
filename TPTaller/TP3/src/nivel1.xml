@@ -1,6 +1,6 @@
 <escenario>
  <General resolucion="800" texturaFig="pad" alturaPad="150" basePad="20" idTexturaPad="pad"
-                     idTexturaTejo="tejo" radioTejo="20" velocidadTejo="4" velocidadPad="4">
+                     idTexturaTejo="tejo" radioTejo="10" velocidadTejo="1" velocidadPad="4">
              </General>
              <ListadoDeDispersores> 	
 	         <circulo id="circulo1" radio="60" idTextura="circulos" tipo="circulo"> 
@@ -36,7 +36,7 @@
                  </textura>
                  <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="EscDefault" path="imagenes/espacio4.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio.png">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
