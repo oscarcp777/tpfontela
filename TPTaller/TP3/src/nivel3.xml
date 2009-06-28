@@ -24,7 +24,7 @@
                  </textura>
                  <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="EscDefault" path="imagenes/espacio.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio3.png">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>

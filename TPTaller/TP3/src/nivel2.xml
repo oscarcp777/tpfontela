@@ -3,12 +3,12 @@
              <circulo id="circulo2" radio="60" idTextura="decLongPadVs" tipo="circulo"> 
                                    <posicion x="450" y="450" />
              </circulo>
-                 <triangulo id="triangulo2" idTextura="triangulo" lado="150" tipo"triangulo">
+                 <triangulo id="triangulo2" idTextura="triangulo" lado="150" tipo="triangulo">
                                   <ver1 x="400" y="200"/>
                                   <ver2 x="500" y="200"/>
                                   <ver3 x="450" y="150"/>
                    </triangulo>
-                   <triangulo id="triangulo4" idTextura="triangulo" lado="150" tipo"triangulo">
+                   <triangulo id="triangulo4" idTextura="triangulo" lado="150" tipo="triangulo">
                                   <ver1 x="400" y="290"/>
                                   <ver2 x="500" y="290"/>
                                   <ver3 x="450" y="340"/>
@@ -25,7 +25,7 @@
                  </textura>
                  <textura id="pad" path="imagenes/pad.png">
                  </textura>
-                 <textura id="EscDefault" path="imagenes/espacio4.jpg">
+                 <textura id="EscDefault" path="imagenes/espacio2.png">
                  </textura>
 	<textura id="decLongPad" path="imagenes/dispersor1.png">
                  </textura>
