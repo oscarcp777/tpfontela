@@ -15,7 +15,7 @@ class cSender : public Thread
         void enqueue(std::string msg);
         void stop();
 		void posicionPad(char* pEnvioString);
-		void soltarTejo(char* pEnvioString);
+		// soltarTejo(char* pEnvioString);
     private:
     	int status;
     	//cSafeQueue toSend;

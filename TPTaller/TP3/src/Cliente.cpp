@@ -77,7 +77,7 @@ void Cliente::start(char* host, int port)
 	
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
-
+		
 		
 		while (receiver.isEmpty()){
 				Sleep(2);
@@ -236,6 +236,7 @@ void Cliente::start(char* host, int port)
 		escenario->pintarPantalla();
 			escenario->setPrimerPintada(true);
 		}
+		    
 			Pad* pad = escenario->getPadJugador();
 			SDL_PollEvent(&evento);
 
