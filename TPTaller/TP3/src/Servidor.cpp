@@ -146,7 +146,7 @@ int Servidor :: process(void* arg){
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/
-
+	//this->mutex = CreateMutex(NULL,false,NULL);
     while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
@@ -159,7 +159,7 @@ int Servidor :: process(void* arg){
     			//se forma la cadena "INT posX posY" con las posiciones del tejo
     			this->posicionTejo(pEnvioInt);
     			enviarAtodos(this->misClientes,pEnvioInt);
-    			
+    			//WaitForSingleObject(this->mutex,INFINITE);
 				if (escenario->getPadCliente1()->getCambioPosicion()){
     				//this->posicionPad(pEnvioString,1);
 					pad1->setYString(pad1->getY());
@@ -167,14 +167,16 @@ int Servidor :: process(void* arg){
 					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
     				enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-    			if (escenario->getPadCliente2()->getCambioPosicion()){
+				//ReleaseMutex(this->mutex);
+    			//WaitForSingleObject(this->mutex,INFINITE);
+				if (escenario->getPadCliente2()->getCambioPosicion()){
     				//this->posicionPad(pEnvioString,2);
 					pad2->setYString(pad2->getY());
 					posicionPad = "PAD2 "+pad2->getYString()+"\n";
 					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
     				enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-
+				//ReleaseMutex(this->mutex);
     			if((CalculosMatematicos::ramdom(100)) <0 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
@@ -290,7 +292,7 @@ int Servidor :: process(void* arg){
     	}
 
     }
-
+	//CloseHandle(this->mutex);
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se
 	auto removieron de la lista misClientes.*/
 	misClientes.clear();
@@ -482,7 +484,7 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 
 
 }
-
+/*
 void Servidor::posicionPad(char* pEnvioString, int numPad){
 	Escenario* escenario = Escenario::obtenerInstancia();
 	char auxY[20];
@@ -502,5 +504,5 @@ void Servidor::posicionPad(char* pEnvioString, int numPad){
 	strcat(pEnvioString,pauxY);
 	strcat(pEnvioString,"\n");
 
-}
+}*/
 

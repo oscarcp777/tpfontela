@@ -10,6 +10,8 @@
 #include <SDL.h>
 #include "Figura.h"
 #include "Puntaje.h"
+#include <windows.h>
+
 
 class Pad{
 public:
@@ -56,6 +58,7 @@ public:
 	
 
 private:
+	HANDLE mutex;
   	Rectangulo* rectangulo;
   	SDL_Surface *imagen;
   	SDL_Surface* fondoPad;
