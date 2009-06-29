@@ -52,7 +52,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			int i;
 			int tipoBonus;
 
-
+			this->mutex = CreateMutex(NULL,false,NULL);
+    
 			while (seguirCiclando == 1){
 
 				memset(pDatosRecividos,0,sizeof(char)*1024);
@@ -64,11 +65,12 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					
 					while((i=bufferStr.find("\n")) != -1){
 						msj = bufferStr.substr(0,i);
-						//if(this->idCliente==1)
+					 //if(this->idCliente==1)
 						//std::cout<<"MSJ cliente1 "<<msj<<endl;						
 							
 				if(msj.find("QUIT")==0){
-					quitarCliente(todosLosClientes);
+					
+    			   	quitarCliente(todosLosClientes);
 					juegoNuevo->setJuegoCancelado(true);
 					Sleep(1000);
 					enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
@@ -76,20 +78,29 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 					this->stopear();
 				}
 				else if(msj.find("PAD1 ABAJO") == 0){
+						//WaitForSingleObject(this->mutex,INFINITE);
 						juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
-					
+						//ReleaseMutex(this->mutex);
+				
 					}
 				else if(msj.find("PAD1 ARRIBA") == 0){	
+						//WaitForSingleObject(this->mutex,INFINITE);
 						juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
+						//ReleaseMutex(this->mutex);
+					
 					}
 					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					//juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));				
 				else if(msj.find("PAD2 ABAJO") == 0){
-						juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+					//WaitForSingleObject(this->mutex,INFINITE);	
+					juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+					//ReleaseMutex(this->mutex);
 					
 					}
 				else if(msj.find("PAD2 ARRIBA") == 0){	
+						//WaitForSingleObject(this->mutex,INFINITE);
 						juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
+						//ReleaseMutex(this->mutex);
 					}
 					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 					//juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
@@ -108,7 +119,8 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 			}
 
-
+			CloseHandle(this->mutex);
+	
 			delete(this);
 			return 0;
 

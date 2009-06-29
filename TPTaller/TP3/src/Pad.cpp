@@ -31,6 +31,7 @@ Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->cambioPosicion=false;
 	this->moverArriba = false;
 	this->moverAbajo = false;
+	this->mutex = CreateMutex(NULL,false,NULL);
 
 
 }
@@ -50,7 +51,7 @@ int Pad::getVelocidad()
     	delete puntaje;
     	if(DEBUG_DESTRUCTOR==1)
     		std::cout<<" entro al destructor de Pad"<<endl;
-
+		CloseHandle(this->mutex);
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
@@ -126,16 +127,25 @@ void Pad::retrasar_x() {
 	this->setX(x);
 }
 void Pad::bajar_y() {
+//	WaitForSingleObject(this->mutex,INFINITE);	
+					
 	int y =this->getY();
 	y += this->velocidad;
 	this->setY(y);
+	WaitForSingleObject(this->mutex,INFINITE);	
+
 	this->cambioPosicion = true;
+	ReleaseMutex(this->mutex);
 }
 void Pad::subir_y() {
+					
 	int y =this->getY();
 	y -= this->velocidad;
 	this->setY(y);
+	WaitForSingleObject(this->mutex,INFINITE);	
+
 	this->cambioPosicion = true;
+	ReleaseMutex(this->mutex);
 }
 int Pad::calcularProximaPosicionAlSubir(){
 		int y =this->getY();
@@ -181,10 +191,12 @@ bool Pad::getSoltarTejo(){
 
 bool Pad::getCambioPosicion()
 {
+		//WaitForSingleObject(this->mutex,INFINITE);	
 		bool aux = this->cambioPosicion;
 		if (this->cambioPosicion)
 			this->cambioPosicion = false;
         return aux;
+		//ReleaseMutex(this->mutex);
 }
 bool Pad::getMoverArriba(){
 	return this->moverArriba;

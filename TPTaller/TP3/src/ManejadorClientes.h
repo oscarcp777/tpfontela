@@ -45,7 +45,7 @@ public:
 		std::string map_info;
 		int estaListo;
 		int recibioMapa;
-
+		HANDLE mutex;
 		std::string colorAleatorio();
 };
 
