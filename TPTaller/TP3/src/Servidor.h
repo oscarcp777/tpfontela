@@ -28,5 +28,5 @@ class Servidor : public Thread
 		int puertoConexion;
 		Juego* juegoNuevo;
 		//void posicionPad(char* pEnvioString, int numJugador);
-		HANDLE mutex;
+
 };

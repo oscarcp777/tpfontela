@@ -24,6 +24,7 @@ public:
 				std::list<Thread*>& clientes);
 		~ManejadorClientes();
 		void enviarMensaje(const std::string& mensaje);
+		std::string recibirMensaje();
 		int enviarArchivo(const std::string& mensaje);
 		int seguirCiclando;
 	protected:
@@ -45,7 +46,6 @@ public:
 		std::string map_info;
 		int estaListo;
 		int recibioMapa;
-		HANDLE mutex;
 		std::string colorAleatorio();
 };
 
