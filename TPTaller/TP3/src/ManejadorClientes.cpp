@@ -38,13 +38,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 		int ManejadorClientes :: process(void* arg){
 			Escenario* escenario=juegoNuevo->getEscenario();
 			seguirCiclando = 1;
-			
-			int bytesRecibidos;
-			std::string buffer;
-			char msjIngresado[TAM_MSJ];
-			char *pmsjIngresado = msjIngresado;
-			char leyenda[TAM_MSJ];
-			char * pLeyenda = leyenda;
+
 			char datosRecividos[1024];
 			char* pDatosRecividos = datosRecividos;
 			std::string msj= "";
@@ -52,75 +46,56 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			int i;
 			int tipoBonus;
 
-			this->mutex = CreateMutex(NULL,false,NULL);
-    
+
 			while (seguirCiclando == 1){
 
-				memset(pDatosRecividos,0,sizeof(char)*1024);
-				socketComunicacion->receive(pDatosRecividos,1024);
-				
+
+				if (juegoNuevo->arrancado() == true){
+					memset(pDatosRecividos,0,sizeof(char)*1024);
+					socketComunicacion->receive(pDatosRecividos,1024);
+
 
 					msj = pDatosRecividos;
 					bufferStr += msj;
-					
+
 					while((i=bufferStr.find("\n")) != -1){
 						msj = bufferStr.substr(0,i);
-					 //if(this->idCliente==1)
-						//std::cout<<"MSJ cliente1 "<<msj<<endl;						
-							
-				if(msj.find("QUIT")==0){
-					
-    			   	quitarCliente(todosLosClientes);
-					juegoNuevo->setJuegoCancelado(true);
-					Sleep(1000);
-					enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
-					seguirCiclando = 0;
-					this->stopear();
-				}
-				else if(msj.find("PAD1 ABAJO") == 0){
-						//WaitForSingleObject(this->mutex,INFINITE);
-						juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
-						//ReleaseMutex(this->mutex);
-				
-					}
-				else if(msj.find("PAD1 ARRIBA") == 0){	
-						//WaitForSingleObject(this->mutex,INFINITE);
-						juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
-						//ReleaseMutex(this->mutex);
-					
-					}
-					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-					//juegoNuevo->getEscenario()->getPadCliente1()->setY(atoi(pPosicion.c_str()));				
-				else if(msj.find("PAD2 ABAJO") == 0){
-					//WaitForSingleObject(this->mutex,INFINITE);	
-					juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
-					//ReleaseMutex(this->mutex);
-					
-					}
-				else if(msj.find("PAD2 ARRIBA") == 0){	
-						//WaitForSingleObject(this->mutex,INFINITE);
-						juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
-						//ReleaseMutex(this->mutex);
-					}
-					//string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-					//juegoNuevo->getEscenario()->getPadCliente2()->setY(atoi(pPosicion.c_str()));
-								
-				else if(msj.find("SOLTAR_TEJO")==0){
-					juegoNuevo->getEscenario()->getTejo()->setMover(true);
-				}
-										
+
+						if(msj.find("QUIT")==0){
+
+							quitarCliente(todosLosClientes);
+							juegoNuevo->setJuegoCancelado(true);
+							Sleep(1000);
+							enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
+							seguirCiclando = 0;
+							this->stopear();
+						}
+						else if(msj.find("PAD1 ABAJO") == 0){
+							juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
+
+						}
+						else if(msj.find("PAD1 ARRIBA") == 0){
+							juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
+
+						}
+						else if(msj.find("PAD2 ABAJO") == 0){
+							juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+
+						}
+						else if(msj.find("PAD2 ARRIBA") == 0){
+							juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
+						}
+
+						else if(msj.find("SOLTAR_TEJO")==0){
+							juegoNuevo->getEscenario()->getTejo()->setMover(true);
+						}
+
 						bufferStr = bufferStr.substr(i+1);
 					}
-							
-				
-			
-
-
-
+				}else
+					Sleep(1000);
 			}
 
-			CloseHandle(this->mutex);
-	
 			delete(this);
 			return 0;
 
@@ -158,19 +133,17 @@ int ManejadorClientes::enviarArchivo(const std::string& mensaje)
 
 		}
 
-		/*Acumula en cantListos para saber cuantos clientes enviaron READY al Servidor.
-Cuando cantListos == clientes.size() todos están listos y el juego comienza*/
-/*int ManejadorClientes::obtenerListos(std::list<Thread*>& clientes)
-		{
-			int cantListos = 0;
-			for (std::list<Thread*>::iterator it = clientes.begin();
-			it != clientes.end(); ++it){
-				if (((ManejadorClientes*)(*it))->estaListo == 1){
-					cantListos++;}
-			}
-			return cantListos;
-		}
-*/
+std::string ManejadorClientes::recibirMensaje(){
+	char datosRecividos[300];
+	char* pDatosRecividos = datosRecividos;
+	std::string mensaje;
+	socketComunicacion->receive(pDatosRecividos,300);
+	mensaje = pDatosRecividos;
+	return mensaje;
+}
+
+
+
 		/*Itera todos los clientes, indicandoles a cada uno que deben dejar de
 ciclar*/
 void ManejadorClientes::pararTodos(std::list<Thread*>& clientes)

@@ -64,21 +64,21 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		//loading(&sock);
+		loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
-	
+
 		receiver.start((void*)&sock);
 		sender.start((void*)&sock);
-		
-		
+
+
 		while (receiver.isEmpty()){
 				Sleep(2);
 			}
@@ -88,7 +88,7 @@ void Cliente::start(char* host, int port)
 
 		if(msj.find("INICIAR")==0){
 			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,2*escenario->getAlto()/5);
-			SDL_Flip(escenario->getScreen());			
+			SDL_Flip(escenario->getScreen());
 			Sleep(3000);
 		}
 
@@ -113,7 +113,7 @@ void Cliente::start(char* host, int port)
 			}
 			else if(msj.find("PAD2")==0){
 				string pPosicion = msj.substr(msj.find(" ")+1,msj.size());
-				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));			
+				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
 			}
 			else if(msj.find("PUNTAJE")==0)
 			{
@@ -193,7 +193,7 @@ void Cliente::start(char* host, int port)
 						cadena = "GANASTE!!!!!!!";
 
 				}
-				
+
 				std::string puntaje,puntajeJugador;
 				intToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
 				puntaje+=puntajeJugador;
@@ -201,7 +201,7 @@ void Cliente::start(char* host, int port)
 				puntaje+='-';
 				puntaje+=puntajeJugador;
 				cadena += "  "+ puntaje;
-				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);				
+				GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),cadena,escenario->getAlto()/3,2*escenario->getAlto()/5);
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
@@ -214,29 +214,29 @@ void Cliente::start(char* host, int port)
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
 				msj = "FINJUEGO";
-			
-			
+
+
 			}
-		
+
 
 			if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
 			}
 			else{
-			
+
 			SDL_Rect rect;
 			rect.x =0;
 			rect.y =0;
 			rect.w = escenario->getAncho();
 			rect.h = escenario->getAlto();
-		
-	
+
+
 		if (!escenario->getPrimerPintada()){
 		escenario->pintarPantalla();
 			escenario->setPrimerPintada(true);
 		}
-		    
+
 			Pad* pad = escenario->getPadJugador();
 			SDL_PollEvent(&evento);
 
@@ -247,18 +247,18 @@ void Cliente::start(char* host, int port)
 										//std::cout<<"Arriba"<<std::endl;
 										if(pad->getY()>0)
 											pad->setMoverArriba(true);
-										
+
 									}else
 									if (evento.key.keysym.sym == SDLK_DOWN){
 										//std::cout<<"Abajo"<<std::endl;
 										if(pad->getY()<escenario->getAlto() - pad->getAltura())
 											pad->setMoverAbajo(true);
-										
+
 									}else
 									if (evento.key.keysym.sym == SDLK_SPACE){
 										//std::cout<<"Space"<<std::endl;
 										pad->setSoltarTejo(true);
-									
+
 									};
 							 break;
 							case SDL_QUIT:
@@ -267,10 +267,10 @@ void Cliente::start(char* host, int port)
 							break;
 							default:
 							 //std::cout<<"ESTA ACAAA"<<endl;
-						    break; 
-						
+						    break;
+
 						  }
-			
+
 		SDL_BlitSurface(escenario->buffer, NULL,escenario->screen, &rect);
 
 		escenario->getPadCliente1()->dibujar(escenario->screen);
@@ -290,7 +290,7 @@ void Cliente::start(char* host, int port)
 	}
 	catch (cSocketException &e)
 	{
-		
+
 	    std::cerr << e.what() << endl;
 		status = NO_HOST;
 	}
@@ -366,15 +366,16 @@ void Cliente::loading(Socket* s){
 
 	memset(auxNumArch,0,sizeof(char)*5);
 	s->receive(auxNumArch,5);
-	std::cout<<"auxNumArch "<<auxNumArch<<endl;
+	std::cout<<"Recibiendo "<<auxNumArch<<" archivos..."<<endl;
 
 	while(i<atoi(auxNumArch)){
 		memset(pNombreArchivo,0,sizeof(char)*200);
 		s->receive(pNombreArchivo,200);
 		std::cout << "NombreArchivo: "<< pNombreArchivo << std::endl;
 		nbytes = s->receiveFile(pNombreArchivo);
-		std::cout << "nbytes "<< nbytes<< std::endl;
+		std::cout << "Bytes: "<< nbytes<< std::endl;
 		i++;
+		s->send("OK");
 
 	}
 	this->finLoading=true;

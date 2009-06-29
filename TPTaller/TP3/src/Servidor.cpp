@@ -87,27 +87,19 @@ int Servidor :: process(void* arg){
 	             miCliente->start(NULL);
 
                 if (misClientes.size() == participantesMax){
-                	juegoNuevo->setJuegoArrancado(true);
-
+                	puedoCiclar = false;
                 }
             }
         }
     }
-   // this->sleep(5000);
 
-		//**************************************************************
-		    this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
-			this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getNumeroNivelEnString()+".xml");
-			this->juegoNuevo->setJuegoArrancado(true);
-
-
-		//***********************************************************
-
-	//	ManejadorClientes* servidorSender =new ManejadorClientes(socketServidor, cantConecEscuchadas,
-    	//		socketServidor, juegoNuevo, misClientes);
-    //	servidorSender->start(NULL);
+    //**************************************************************
+    this->juegoNuevo->setEscenario(Escenario::obtenerInstancia());
+    this->juegoNuevo->getEscenario()->cargarArchivo("nivel"+this->juegoNuevo->getNumeroNivelEnString()+".xml");
+    //	this->juegoNuevo->setJuegoArrancado(true);
 
 
+    //***********************************************************
 
 
     Escenario* escenario=juegoNuevo->getEscenario();
@@ -133,51 +125,42 @@ int Servidor :: process(void* arg){
 	atexit(pfuncion);
     */
 
-    //loading(misClientes,"loading1.txt");
+    loading(misClientes,"loading1.txt");
+    loading(misClientes,"loading2.txt");
 
-
-    //loading(misClientes,"loading2.txt");
+    juegoNuevo->setJuegoArrancado(true);
     sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
     enviarAtodos(this->misClientes,"INICIAR\n");
-	
+
 	Sleep(8000);
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/
-	//this->mutex = CreateMutex(NULL,false,NULL);
-    while (algunClienteCorre(misClientes) == true){
+	while (algunClienteCorre(misClientes) == true){
 
     	if(!juegoNuevo->cancelado() && juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 && juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0){
     		Sleep(10);
     		juegoNuevo->update();
-			
+
 
     		if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 
     			//se forma la cadena "INT posX posY" con las posiciones del tejo
     			this->posicionTejo(pEnvioInt);
     			enviarAtodos(this->misClientes,pEnvioInt);
-    			//WaitForSingleObject(this->mutex,INFINITE);
-				if (escenario->getPadCliente1()->getCambioPosicion()){
-    				//this->posicionPad(pEnvioString,1);
-					pad1->setYString(pad1->getY());
+    			if (escenario->getPadCliente1()->getCambioPosicion()){
+    				pad1->setYString(pad1->getY());
 					posicionPad = "PAD1 "+pad1->getYString()+"\n";
-					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
-    				enviarAtodos(this->misClientes,(char*)posicionPad.data());
+					enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-				//ReleaseMutex(this->mutex);
-    			//WaitForSingleObject(this->mutex,INFINITE);
 				if (escenario->getPadCliente2()->getCambioPosicion()){
-    				//this->posicionPad(pEnvioString,2);
-					pad2->setYString(pad2->getY());
+    				pad2->setYString(pad2->getY());
 					posicionPad = "PAD2 "+pad2->getYString()+"\n";
-					//std::cout<<"POS PAD1 "<<posicionPad<<endl;
-    				enviarAtodos(this->misClientes,(char*)posicionPad.data());
+					enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-				//ReleaseMutex(this->mutex);
-    			if((CalculosMatematicos::ramdom(100)) <0 && escenario->getBonusActual()==NULL){
+				if((CalculosMatematicos::ramdom(100)) <50 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
     				escenario->shuffleListFiguras();
@@ -292,7 +275,6 @@ int Servidor :: process(void* arg){
     	}
 
     }
-	//CloseHandle(this->mutex);
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se
 	auto removieron de la lista misClientes.*/
 	misClientes.clear();
@@ -435,6 +417,8 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 			char *paux1= aux1;
 			char *pCantArchivos= cantArchivos;
 			char *pNombreArchivo = nombreArchivo;
+			int tamanioArchivo = 0;
+			string ok = "";
 			memset(paux1,0,sizeof(char)*20);
 			memset(pCantArchivos,0,sizeof(char)*20);
 
@@ -444,6 +428,7 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 
 
 			ArchivoTexto archivoNivel(archivo);
+
 			archivoNivel.leerLinea(linea);
 
 			while(linea.compare("FIN") != 0){
@@ -456,17 +441,16 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 
 			char* cadena;
 			itoa(listaArchivos.size(),paux1,10);
-			std::cout<<"listaArchivos.size() "<<listaArchivos.size()<<endl;
+			std::cout<<"\n\nEnviando archivos de "<<archivo<<", total de: "<<listaArchivos.size()<<endl;
 			strcat(pCantArchivos,paux1);
 			for (std::list<Thread*>::iterator it = clientes.begin();
 			it!= clientes.end(); ++it){
 				if ((*it)->running() == true){
 					((ManejadorClientes*)(*it))->enviarMensaje(pCantArchivos);
 					while (listaArchivos.size()> i){
-						sleep(500);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
+						sleep(30);//este sleep es entre envio de imagenes (sin este sleep pincha), puede ser mas chico (probar valores) PUEDE QUE EN RED NECESITE MAS TIEMPO
 						memset(pNombreArchivo,0,sizeof(char)*200);
 						cadena = (char*)(*iterArchivos).data();
-						std::cout << "cadena: " << cadena<< std::endl;
 						strcat(pNombreArchivo,cadena);
 						((ManejadorClientes*)(*it))->enviarMensaje(pNombreArchivo);
 						std::cout << "Nombre Archivo " << pNombreArchivo<< std::endl;
@@ -474,7 +458,11 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 						std::cout << "Bytes enviados: " << nbytes << std::endl;
 						iterArchivos++;
 						i++;
-
+						ok =((ManejadorClientes*)(*it))->recibirMensaje();
+						if (ok.find("OK")==0){
+							std::cout << "Enviado correctamente\n" <<endl;
+							ok = "";
+						}
 					}
 					i = 0;
 					iterArchivos = listaArchivos.begin();
@@ -484,25 +472,5 @@ void Servidor::loading(std::list<Thread*>& clientes, std::string archivo){
 
 
 }
-/*
-void Servidor::posicionPad(char* pEnvioString, int numPad){
-	Escenario* escenario = Escenario::obtenerInstancia();
-	char auxY[20];
-	char numJugador[20];
-	char* pauxY = auxY;
-	char* pauxNumJugador = numJugador;
-	memset(pauxY,0,sizeof(char)*20);
-	memset(pEnvioString,0,sizeof(char)*40);
-	strcat(pEnvioString,"PAD");
-	itoa(numPad,pauxNumJugador,10);
-	strcat(pEnvioString,pauxNumJugador);
-	if (numPad == 1)
-		itoa(escenario->getPadCliente1()->getY(),pauxY,10);
-	else
-		itoa(escenario->getPadCliente2()->getY(),pauxY,10);
-	strcat(pEnvioString," ");
-	strcat(pEnvioString,pauxY);
-	strcat(pEnvioString,"\n");
 
-}*/
 
