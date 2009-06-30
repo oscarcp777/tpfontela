@@ -112,6 +112,7 @@ void Cliente::start(char* host, int port)
 		//	std::cout<<"msj "<<msj<<endl;
 
 			if(msj.find("TEJO")==0){
+				pPosicion = "";
 				pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				escenario->getTejo()->setX(atoi(pPosicion.c_str()));
 				pPosicion = msj.substr(msj.find_last_of(" ")+1,msj.size());
@@ -119,10 +120,12 @@ void Cliente::start(char* host, int port)
 				}
 
 			else if(msj.find("PAD1")==0){
+				pPosicion = "";
 				pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente1()->setY(atoi(pPosicion.c_str()));
 			}
 			else if(msj.find("PAD2")==0){
+				pPosicion = "";
 				pPosicion = msj.substr(msj.find(" ")+1,msj.size());
 				escenario->getPadCliente2()->setY(atoi(pPosicion.c_str()));
 			}
@@ -130,7 +133,8 @@ void Cliente::start(char* host, int port)
 			{
 				//el cliente no se entera quien hizo el gol, cuando recibe puntajes es porque hubo un gol
 				//se setean los puntajes nuevos y se decrementa la cantidad de tejos restantes (esto es solo para graficar los "tejitos" en pantalla
-				
+				cadena = "";
+				puntaje ="";
 				cadena = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				puntaje = cadena.substr(0,cadena.find_last_of(" "));
 				escenario->getPadCliente1()->getPuntaje()->setCantPuntosJugador(atoi(puntaje.c_str()));
@@ -142,7 +146,8 @@ void Cliente::start(char* host, int port)
 
 			else if(msj.find("BONUS")==0){
 			
-				
+				tipoBonus = "";
+				idFigura = "";
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				idFigura = msj.substr(msj.find_last_of(" ")+1,msj.size());
 				Figura* figura= escenario->getFiguraPorId(idFigura);
@@ -154,7 +159,7 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("APLICAR_BONUS")==0){
-				
+				ultimoPad = "";
 				ultimoPad = msj.substr(msj.find(" ")+1,msj.size());
 				Bonus::desAplicar();
 				escenario->getTejo()->setUltimaColisionPad(ultimoPad);
@@ -184,7 +189,8 @@ void Cliente::start(char* host, int port)
 
 			}
 			else if(msj.find("GANADOR")==0){
-				
+				puntaje ="";
+				cadena = "";
 				if(msj.find("GANADOR 1")==0){
 					if(escenario->getNumJugador() == 1)
 						cadena = "GANASTE!!!!!!!";
@@ -203,7 +209,7 @@ void Cliente::start(char* host, int port)
 						cadena = "EMPATARON!!!!!!";
 				
 				}
-
+				
 				intToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
 				puntaje+=puntajeJugador;
 				intToString(escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);

@@ -392,7 +392,7 @@ void Servidor::ganador(char* pGanador){
 			//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
 			if(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador() > juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador())
 				itoa(1,paux1,10);
-			else if (juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador() < juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador()//sino concatena STRING GANADOR 2
+			else if (juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador() < juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador())//sino concatena STRING GANADOR 2
 				itoa(2,paux1,10);
 			else
 				itoa(0,paux1,10);
