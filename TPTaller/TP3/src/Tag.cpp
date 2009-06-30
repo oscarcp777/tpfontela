@@ -14,9 +14,6 @@ Tag::Tag(std::string nombre){
 void Tag::addAtributo(std::string atributo){
 
 	this->listaAtributos.push_back(atributo);
-
-
-
 }
 
 std::string Tag::getNombreTag(){
@@ -51,7 +48,22 @@ int Tag::chequearAtributo(std::string nombreAtributo){
 
 }
 Tag::~Tag(){
+	list<std::string>::iterator iter;
 	if(DEBUG_DESTRUCTOR==1)
-		std::cout<<" entro al destructor de Tag"<<std::endl;
+			std::cout<<" entro al destructor de Tag"<<std::endl;
+
+			std::string nombreA;
+			std::cout<<"tamanio lista atributos: " <<this->listaAtributos.size()<<endl;
+		 	iter=this->listaAtributos.begin();
+
+		 	while(iter != this->listaAtributos.end()){
+		 		nombreA=*iter;
+		 		std::cout<<"atributo: " <<nombreA<<endl;
+		 		iter++;
+		 	}
+		 	this->listaAtributos.clear();
+
+			if(DEBUG_DESTRUCTOR==1)
+					std::cout<<" salio del destructor de Tag"<<std::endl;
 
 }

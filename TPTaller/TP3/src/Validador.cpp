@@ -37,7 +37,7 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 				linea2 = linea2.substr(1,linea2.size());
 				if (linea2.compare(linea1) == 0){
 					encontro = true;
-					while (linea2.at(0)!= MARCADOR_TAG  && miArchivoAtributos.leerLinea(linea2))
+					while (miArchivoAtributos.leerLinea(linea2) && linea2.at(0) != MARCADOR_TAG)
 						tagActual->addAtributo(linea2);
 
 				}
@@ -52,13 +52,16 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
  Validador::~Validador(){
 	 list<Tag*>::iterator iter;
 	 	Tag* nombreTag;
-	 	iter=Validador::ListaTagsValidos.begin();
+		std::cout<<"tamanio lista tags: " <<this->ListaTagsValidos.size()<<endl;
+	 	iter=this->ListaTagsValidos.begin();
 
-	 	while(iter != Validador::ListaTagsValidos.end()){
+	 	while(iter != this->ListaTagsValidos.end()){
 	 		nombreTag=*iter;
-	 		delete nombreTag;
+	 		std::cout<<"tag: " <<nombreTag->getNombreTag()<<endl;
+	 		//delete nombreTag;
 	 		iter++;
 	 	}
+	 	this->ListaTagsValidos.clear();
 }
 void Validador::setLog(Log* log){
 	this->log = log;
