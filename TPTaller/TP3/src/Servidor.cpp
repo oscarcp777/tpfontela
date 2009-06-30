@@ -127,8 +127,8 @@ int Servidor :: process(void* arg){
 	atexit(pfuncion);
     */
 
-    //loading(misClientes,"loading1.txt");
-    //loading(misClientes,"loading2.txt");
+    loading(misClientes,"loading1.txt");
+    loading(misClientes,"loading2.txt");
 
     juegoNuevo->setJuegoArrancado(true);
     sleep(6000);
@@ -390,10 +390,12 @@ void Servidor::ganador(char* pGanador){
 			memset(pGanador,0,sizeof(char)*1024);
 			strcat(pGanador,"GANADOR ");
 			//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
-			if(juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles() > juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles())
+			if(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador() > juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador())
 				itoa(1,paux1,10);
-			else //sino concatena STRING GANADOR 2
+			else if (juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador() < juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador()//sino concatena STRING GANADOR 2
 				itoa(2,paux1,10);
+			else
+				itoa(0,paux1,10);
 
 			strcat(pGanador,paux1);
 			strcat(pGanador,"\n");
