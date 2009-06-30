@@ -76,16 +76,16 @@ int cSender::process(void* args)
 				sock->send((char*)moverArriba.data());
 				pad->setMoverArriba(false);
 			}
-			if(pad->getMoverAbajo()){
+			else if(pad->getMoverAbajo()){
 				sock->send((char*)moverAbajo.data());
 				pad->setMoverAbajo(false);
 			}
-			if(pad->getSoltarTejo()){
+			else if(pad->getSoltarTejo()){
 				sock->send((char*)soltarTejo.data());
 				escenario->getPadJugador()->setSoltarTejo(false);
 			
 			}
-			if(!pad->getMoverArriba() && !pad->getMoverAbajo()){
+			else if(!pad->getMoverArriba() && !pad->getMoverAbajo()){
 				sock->send((char*)noMover.data());
 				
 			}

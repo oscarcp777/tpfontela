@@ -51,17 +51,19 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 
 				if (juegoNuevo->arrancado() == true){
+					
 					memset(pDatosRecividos,0,sizeof(char)*1024);
-					socketComunicacion->receive(pDatosRecividos,1024);
-
-
+					socketComunicacion->receive(pDatosRecividos,1024);				
+					
 					msj = pDatosRecividos;
+				  
 					bufferStr += msj;
-
+						
 					while((i=bufferStr.find("\n")) != -1){
 						msj = bufferStr.substr(0,i);
-
-						if(msj.find("QUIT")==0){
+						
+								
+						if(msj.compare("QUIT")==0){
 
 							quitarCliente(todosLosClientes);
 							juegoNuevo->setJuegoCancelado(true);
@@ -70,28 +72,34 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 							seguirCiclando = 0;
 							this->stopear();
 						}
-						else if(msj.find("PAD1 ABAJO") == 0){
-							juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
+						else if(msj.compare("PAD1 ABAJO") == 0){
+							//juegoNuevo->getEscenario()->getPadCliente1()->bajar_y();
+							Escenario::obtenerInstancia()->getPadCliente1()->bajar_y();
 
 						}
-						else if(msj.find("PAD1 ARRIBA") == 0){
-							juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
+						else if(msj.compare("PAD1 ARRIBA") == 0){
+							//juegoNuevo->getEscenario()->getPadCliente1()->subir_y();
+							Escenario::obtenerInstancia()->getPadCliente1()->subir_y();
 
 						}
-						else if(msj.find("PAD2 ABAJO") == 0){
-							juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+						else if(msj.compare("PAD2 ABAJO") == 0){
+							//juegoNuevo->getEscenario()->getPadCliente2()->bajar_y();
+							Escenario::obtenerInstancia()->getPadCliente2()->bajar_y();
 
 						}
-						else if(msj.find("PAD2 ARRIBA") == 0){
-							juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
+						else if(msj.compare("PAD2 ARRIBA") == 0){
+							//juegoNuevo->getEscenario()->getPadCliente2()->subir_y();
+							Escenario::obtenerInstancia()->getPadCliente2()->subir_y();
 						}
 
-						else if(msj.find("SOLTAR_TEJO")==0){
-							juegoNuevo->getEscenario()->getTejo()->setMover(true);
+						else if(msj.compare("SOLTAR_TEJO")==0){
+							//juegoNuevo->getEscenario()->getTejo()->setMover(true);
+							Escenario::obtenerInstancia()->getTejo()->setMover(true);
 						}
 
 						bufferStr = bufferStr.substr(i+1);
 					}
+				   
 				}else
 					Sleep(1000);
 			}

@@ -55,7 +55,7 @@ public:
 	void setYString(int i);
 	std::string getXString();
 	std::string getYString();
-	
+
 
 private:
 	HANDLE mutex;
