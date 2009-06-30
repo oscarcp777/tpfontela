@@ -141,31 +141,38 @@ void Escenario::clienteInicializarListaBonus(){
 }
 
 void Escenario::shuffleListBonus(){
-	list<Bonus*>::iterator begin = this->listaBonus.begin();
-	list<Bonus*>::iterator end = this->listaBonus.end();
-	list<Bonus*>::iterator p = begin;
 
-	for (int i = this->listaBonus.size(); i > 0; --i) {
-	for (int r = rand(); r > 0; --r) {
-	if (++p == end)
-	p = begin;
-	}
-	swap<Bonus*>(*begin, *p);
-	}
+		list<Bonus*>::iterator begin = this->listaBonus.begin();
+		list<Bonus*>::iterator end = this->listaBonus.end();
+		list<Bonus*>::iterator p = begin;
+
+		for (int i = this->listaBonus.size(); i > 0; --i) {
+			for (int r = rand(); r > 0; --r) {
+				if (++p == end)
+					p = begin;
+				}
+			swap<Bonus*>(*begin, *p);
+		}
+	
 }
 
-void Escenario::shuffleListFiguras(){
-	list<Figura*>::iterator begin = this->listaFiguras.begin();
-	list<Figura*>::iterator end = this->listaFiguras.end();
-	list<Figura*>::iterator p = begin;
+int Escenario::shuffleListFiguras(){
+	int res = -1;
+	if(this->sizeListaFiguras()>0){
+		res = 0;
+		list<Figura*>::iterator begin = this->listaFiguras.begin();
+		list<Figura*>::iterator end = this->listaFiguras.end();
+		list<Figura*>::iterator p = begin;
 
-	for (int i = this->listaFiguras.size(); i > 0; --i) {
-	for (int r = rand(); r > 0; --r) {
-	if (++p == end)
-	p = begin;
+		for (int i = this->listaFiguras.size(); i > 0; --i) {
+			for (int r = rand(); r > 0; --r) {
+				if (++p == end)
+				p = begin;
+			}
+			swap<Figura*>(*begin, *p);
+		}
 	}
-	swap<Figura*>(*begin, *p);
-	}
+	return res;
 }
 
 Validador*  Escenario::getValidador(){
