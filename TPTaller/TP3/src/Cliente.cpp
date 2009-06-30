@@ -199,6 +199,10 @@ void Cliente::start(char* host, int port)
 						cadena = "GANASTE!!!!!!!";
 
 				}
+				else if(msj.find("GANADOR 0")==0){
+						cadena = "EMPATARON!!!!!!";
+				
+				}
 
 				intToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
 				puntaje+=puntajeJugador;
