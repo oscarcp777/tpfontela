@@ -13,6 +13,7 @@
 #include "Triangulo.h"
 #include "Cuadrado.h"
 #include "Rectangulo.h"
+#include "Posicion.h"
 #include "Recta.h"
 #include "Pad.h"
 
@@ -26,6 +27,7 @@ public:
 	static void calcularDireccion();
 	static void colisionesPads();
 	static int colisionesArcos();
+	static Posicion* hallarPuntoTriangulo(Recta* recta, int x, int y);
 	static void colisionCirculo(Tejo* tejo,Circulo* figura);
 	static double hallarDistancia(Recta* recta, int x, int y);
 	static void decidirDireccionPrimerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
@@ -36,6 +38,12 @@ public:
 	static void colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo);
 	static void colisionTriangulo(Triangulo* Triangulo,Tejo* tejo);
 	static bool verificarExcepciones(Recta* rectaEntreRadios,Tejo* tejo,Circulo* figura);
+	static void asignarDireccionTrianguloConPendiente(Tejo*  tejo,Recta* recta,Triangulo* triangulo);
+	static void asignarDireccionTriangulo(Tejo* tejo,Recta* recta,Triangulo* triangulo);
+	static bool getZonaDeInfluencia(Recta* rectaDireccionTejo,Recta*recta,Triangulo* triangulo,Tejo*tejo );
+	static bool isPuntoZonaDeInfluenciaTejo(Posicion* posicion,Tejo* tejo);
+	static bool isPuntoZonaDeInfluenciaTriangulo(Posicion* posicion,Triangulo* triangulo);
+	static Recta* getRectaDeColision(Triangulo* triangulo,Tejo* tejo);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */
