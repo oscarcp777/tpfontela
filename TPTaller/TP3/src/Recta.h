@@ -41,11 +41,12 @@ public:
 	int getY1();
 	int getY2();
     int getValorInverso(int y);
-
+    double getDistancia();
+        void setDistancia(double distancia);
 private:
 	float pendiente;
 	float ordenada;
-
+	double distancia;
 	int infinito;
 	int x1;
 	int x2;
