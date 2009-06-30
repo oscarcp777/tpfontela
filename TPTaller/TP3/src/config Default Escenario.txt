@@ -1,1 +1,1 @@
-imagenes/espacio.jpg
+imagenes/espacio.png
