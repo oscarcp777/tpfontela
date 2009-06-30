@@ -168,19 +168,21 @@ int Servidor :: process(void* arg){
 					posicionPad = "PAD2 "+pad2->getYString()+"\n";
 					enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-				if((CalculosMatematicos::ramdom(100)) <0 && escenario->getBonusActual()==NULL){
+				if((CalculosMatematicos::ramdom(100)) <20 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
-    				escenario->shuffleListFiguras();
-    				tipoBonus = bonus->getTipoBonus();
-    				escenario->setBonusActual(bonus);
-    				Figura* figura= *(escenario->iteratorListaFiguras());
-    				figura->setTieneBonus(true);
-    				idFigura = figura->getId();
-    				escenario->setFiguraConBonus(figura);
-    				//se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
-    				this->bonus(pMensBonus,tipoBonus,idFigura);
-    				enviarAtodos(this->misClientes,pMensBonus);
+    				
+					if( escenario->shuffleListFiguras() == 0){
+    					tipoBonus = bonus->getTipoBonus();
+    					escenario->setBonusActual(bonus);
+    					Figura* figura= *(escenario->iteratorListaFiguras());
+    					figura->setTieneBonus(true);
+    					idFigura = figura->getId();
+    					escenario->setFiguraConBonus(figura);
+    					//se forma la cadena "BONUS tipoBonus idFigura" tipoBonus es un int
+    					this->bonus(pMensBonus,tipoBonus,idFigura);
+    					enviarAtodos(this->misClientes,pMensBonus);
+					}
     				//******************************************************
     			}
     		}

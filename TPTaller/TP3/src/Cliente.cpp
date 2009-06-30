@@ -72,13 +72,13 @@ void Cliente::start(char* host, int port)
 
 		status = CONNECTED;
 
-		//loading(&sock);
+		loading(&sock);
 		Escenario* escenario = Escenario::obtenerInstancia();
 		escenario->iniciarSDL();
 		GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"LOADING...",escenario->getAncho()/3,2*escenario->getAlto()/5);
 		SDL_Flip(escenario->getScreen());
 
-		//loading(&sock);
+		loading(&sock);
 		escenario->cargarArchivo("nivel"+escenario->getNumeroNivelEnString()+".xml");
 		escenario->clienteInicializarListaBonus();
 		escenario->setCorriendo(true);
@@ -109,7 +109,7 @@ void Cliente::start(char* host, int port)
 		//	std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 		
 			msj= this->get();
-			std::cout<<"msj "<<msj<<endl;
+		//	std::cout<<"msj "<<msj<<endl;
 
 			if(msj.find("TEJO")==0){
 				pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -266,7 +266,7 @@ void Cliente::start(char* host, int port)
 									};
 							 break;
 							case SDL_QUIT:
-								this->sock.send("QUIT");
+								this->sock.send("QUIT\n");
 								receiver.stop();
 							break;
 							default:

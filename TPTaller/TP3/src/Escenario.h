@@ -45,7 +45,7 @@ class Escenario {
 			void servidorInicializarListaBonus();
 			void clienteInicializarListaBonus();
 			void shuffleListBonus();
-			void shuffleListFiguras();
+			int shuffleListFiguras();
 			std::list<Figura*>::iterator iteratorListaFiguras();
 			std::list<Textura*>::iterator iteratorListaTexturas();
 			std::list<Bonus*>::iterator iteratorListaBonus();
