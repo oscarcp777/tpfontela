@@ -71,13 +71,7 @@ int cSender::process(void* args)
 		
 		while(status==CONNECTED){
 			Sleep(20);
-			/*
-			if (posPad_Y_actual != escenario->getPosicionYPad()){ // si la pos del pad varia envio al servidor
-				posPad_Y_actual = escenario->getPosicionYPad();
-				this->posicionPad(pEnvioString);
-				sock->send(pEnvioString);
-				
-			}*/
+		
 			if(pad->getMoverArriba()){
 				sock->send((char*)moverArriba.data());
 				pad->setMoverArriba(false);

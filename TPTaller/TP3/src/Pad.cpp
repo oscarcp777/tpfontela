@@ -126,26 +126,24 @@ void Pad::retrasar_x() {
 	x -= this->velocidad;
 	this->setX(x);
 }
-void Pad::bajar_y() {
-//	WaitForSingleObject(this->mutex,INFINITE);	
-					
+void Pad::bajar_y() {					
 	int y =this->getY();
 	y += this->velocidad;
 	this->setY(y);
-	WaitForSingleObject(this->mutex,INFINITE);	
+	//WaitForSingleObject(this->mutex,INFINITE);	
 
 	this->cambioPosicion = true;
-	ReleaseMutex(this->mutex);
+	//ReleaseMutex(this->mutex);
 }
 void Pad::subir_y() {
 					
 	int y =this->getY();
 	y -= this->velocidad;
 	this->setY(y);
-	WaitForSingleObject(this->mutex,INFINITE);	
+//	WaitForSingleObject(this->mutex,INFINITE);	
 
 	this->cambioPosicion = true;
-	ReleaseMutex(this->mutex);
+//	ReleaseMutex(this->mutex);
 }
 int Pad::calcularProximaPosicionAlSubir(){
 		int y =this->getY();
