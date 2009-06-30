@@ -242,6 +242,8 @@ Escenario* Escenario::obtenerInstancia(){
 	}
 
 	return Escenario::unicaInstanciaEscenario;
+
+
 }
 void  Escenario::setColorFondoEscenario(Color* colorFondoEscenario){
 	this->colorFondoEscenario=colorFondoEscenario;

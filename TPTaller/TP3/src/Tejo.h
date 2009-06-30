@@ -76,6 +76,11 @@ public:
 	int getRadioDefault();
 	std::string	getPadPegajoso();
 	void setPadPegajoso(std::string padPegajoso);
+	std::string getXString();
+	std::string getYString();
+	void setXString(int i);
+	void setYString(int i);
+
 
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
@@ -99,6 +104,8 @@ private:
 		int radioDefault;
 		bool pegajoso;
 		std::string padPegajoso;
+		std::string xString;
+		std::string yString;
 
 };
 

@@ -105,20 +105,22 @@ int Servidor :: process(void* arg){
     Escenario* escenario=juegoNuevo->getEscenario();
 	Pad* pad1 = escenario->getPadCliente1();
 	Pad* pad2 = escenario->getPadCliente2();
-    char envioInt[40];
+	Tejo* tejo = escenario->getTejo();
+    char envioInt[1024];
     char* pEnvioInt = envioInt;
     int tipoBonus;
     std::string idFigura;
-    char mensBonus[40];
+    char mensBonus[1024];
     char* pMensBonus = mensBonus;
-    char puntajes[40];
+    char puntajes[1024];
     char* pPuntajes = puntajes;
-    char ganador[40];
+    char ganador[1024];
     char* pGanador = ganador;
     int puntosPad1, puntosPad2,posXPad1,posXPad2,posYPad1,posYPad2;
-    char envioString[40];
+    char envioString[1024];
     char *pEnvioString = envioString;
 	std::string posicionPad;
+	std::string posicionTejo;
 	/*
 	void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
@@ -148,8 +150,14 @@ int Servidor :: process(void* arg){
     		if (juegoNuevo->getEstado().compare("CORRIENDO")== 0){ //envia las posiciones solo si esta corriendo (no hay goles ni nada)
 
     			//se forma la cadena "INT posX posY" con las posiciones del tejo
-    			this->posicionTejo(pEnvioInt);
-    			enviarAtodos(this->misClientes,pEnvioInt);
+    			//this->posicionTejo(pEnvioInt);
+				//enviarAtodos(this->misClientes,pEnvioInt);
+
+				tejo->setXString(tejo->getX());
+				tejo->setYString(tejo->getY());
+				posicionTejo = "TEJO "+tejo->getXString()+" "+tejo->getYString()+"\n";
+    			enviarAtodos(this->misClientes,(char*)posicionTejo.data());
+
     			if (escenario->getPadCliente1()->getCambioPosicion()){
     				pad1->setYString(pad1->getY());
 					posicionPad = "PAD1 "+pad1->getYString()+"\n";
@@ -160,7 +168,7 @@ int Servidor :: process(void* arg){
 					posicionPad = "PAD2 "+pad2->getYString()+"\n";
 					enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-				if((CalculosMatematicos::ramdom(100)) <50 && escenario->getBonusActual()==NULL){
+				if((CalculosMatematicos::ramdom(100)) <0 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
     				escenario->shuffleListFiguras();
@@ -318,7 +326,7 @@ void Servidor ::posicionTejo(char* pEnvioInt){
 
 		memset(pauxX,0,sizeof(char)*20);
 		memset(pauxY,0,sizeof(char)*20);
-		memset(pEnvioInt,0,sizeof(char)*40);
+		memset(pEnvioInt,0,sizeof(char)*1024);
 		strcat(pEnvioInt,"TEJO ");
 		itoa(juegoNuevo->getEscenario()->getTejo()->getX(),pauxX,10);
 		itoa(juegoNuevo->getEscenario()->getTejo()->getY(),pauxY,10);
@@ -339,7 +347,7 @@ void Servidor::bonus(char* pMensBonus,int tipoBonus, std::string idFigura){
 
 			memset(paux1,0,sizeof(char)*20);
 			memset(paux2,0,sizeof(char)*20);
-			memset(pMensBonus,0,sizeof(char)*40);
+			memset(pMensBonus,0,sizeof(char)*1024);
 			strcat(pMensBonus,"BONUS ");
 			itoa(tipoBonus,paux1,10);
 
@@ -359,7 +367,7 @@ void Servidor::puntajes(char* pPuntajes){
 
 			memset(paux1,0,sizeof(char)*20);
 			memset(paux2,0,sizeof(char)*20);
-			memset(pPuntajes,0,sizeof(char)*40);
+			memset(pPuntajes,0,sizeof(char)*1024);
 			strcat(pPuntajes,"PUNTAJE ");
 			itoa(juegoNuevo->getEscenario()->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),paux1,10);
 			itoa(juegoNuevo->getEscenario()->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),paux2,10);
@@ -377,7 +385,7 @@ void Servidor::ganador(char* pGanador){
 			char* paux1 = aux1;
 
 			memset(paux1,0,sizeof(char)*20);
-			memset(pGanador,0,sizeof(char)*40);
+			memset(pGanador,0,sizeof(char)*1024);
 			strcat(pGanador,"GANADOR ");
 			//si los goles el jugador 1 son mas que los del jugador 2 concatena STRING GANADOR 1
 			if(juegoNuevo->getEscenario()->getPadCliente1()->getCantGoles() > juegoNuevo->getEscenario()->getPadCliente2()->getCantGoles())

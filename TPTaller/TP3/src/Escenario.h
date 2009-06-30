@@ -126,7 +126,6 @@ protected:
 		std::string texturaFig;
 		std::string texturaEsc;
 		static Escenario *unicaInstanciaEscenario;
-	
 		std::list<Figura*> listaFiguras;
 		std::list<Textura*> listaTexturas;
 		std::list<Bonus*> listaBonus;
@@ -151,6 +150,7 @@ protected:
 		Bonus* bonusActual;
 		Figura* figuraConBonus;
 		bool primerPintada;
+		
 
 };
 

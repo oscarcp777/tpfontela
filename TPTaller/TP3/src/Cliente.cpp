@@ -109,7 +109,8 @@ void Cliente::start(char* host, int port)
 		//	std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
 		
 			msj= this->get();
-			//std::cout<<"msj "<<msj<<endl;
+			std::cout<<"msj "<<msj<<endl;
+
 			if(msj.find("TEJO")==0){
 				pPosicion = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
 				escenario->getTejo()->setX(atoi(pPosicion.c_str()));
@@ -223,7 +224,7 @@ void Cliente::start(char* host, int port)
 			}
 
 
-			if(msj.find("FINJUEGO")==0){
+		     if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT");
 				this->stop();
 			}

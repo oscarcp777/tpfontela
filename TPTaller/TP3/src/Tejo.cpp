@@ -420,3 +420,54 @@ std::string	Tejo::getPadPegajoso(){
 void Tejo::setPadPegajoso(std::string padPegajoso){
 	this->padPegajoso = padPegajoso;
 }
+void Tejo::setXString(int i){
+	this->xString = "";
+    if (i == 0)
+    {
+        this->xString = "0";
+        return;
+    }
+    if (i < 0)
+    {
+        this->xString += '-';
+        i = -i;
+    }
+    int count = (int)log10(i);
+    while (count >= 0)
+    {
+        this->xString += ('0' + i/pow(10.0, count));
+        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
+        count--;
+    }
+
+}
+
+void Tejo::setYString(int i){
+	this->yString = "";
+    if (i == 0)
+    {
+        this->yString = "0";
+        return;
+    }
+    if (i < 0)
+    {
+        this->yString += '-';
+        i = -i;
+    }
+    int count = (int)log10(i);
+    while (count >= 0)
+    {
+        this->yString += ('0' + i/pow(10.0, count));
+        i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
+        count--;
+    }
+
+}
+
+std::string Tejo::getXString(){
+	return this->xString;
+}
+std::string Tejo::getYString(){
+	return this->yString;
+
+}
