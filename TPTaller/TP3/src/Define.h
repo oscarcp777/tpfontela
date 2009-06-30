@@ -119,5 +119,5 @@
 #define INC_VELOCIDAD_TEJO 6
 #define PEGAMENTO_TEJO 7
 #define FRENO_TEJO 8
-#define DEBUG_DESTRUCTOR 0
+#define DEBUG_DESTRUCTOR 1
 #endif

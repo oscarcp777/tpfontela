@@ -20,19 +20,21 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 			idCliente = id;
 		}
 
-		ManejadorClientes::~ManejadorClientes(){
+ManejadorClientes::~ManejadorClientes(){
 			/*Cierra el socket que usaba para hablar con su cliente*/
 			delete(socketComunicacion);
 			/*Y si es el cliente 1 (el que inició el server) pide además cerrar el socket
 	que el servidor usa para aceptar conexiones. Esto genera en el Servidor que
 	se destrabe del accept, si estaba en ese lugar (o está allí, o está ciclando
 	esperando que los clientes terminen de correr)*/
-			if (this->idCliente == 1)
+			if (this->todosLosClientes.size() == 0){
 				delete(socketServidor);
+				juegoNuevo->setJuegoCancelado(true);
+			}
 			if(DEBUG_DESTRUCTOR==1)
 					std::cout<<" entro al destructor de ManejadorClientes"<<endl;
 
-		}
+}
 
 
 		int ManejadorClientes :: process(void* arg){
@@ -51,25 +53,26 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 
 				if (juegoNuevo->arrancado() == true){
-					
+
 					memset(pDatosRecividos,0,sizeof(char)*1024);
-					socketComunicacion->receive(pDatosRecividos,1024);				
-					
+					socketComunicacion->receive(pDatosRecividos,1024);
+
 					msj = pDatosRecividos;
-				  
+
 					bufferStr += msj;
-						
+
 					while((i=bufferStr.find("\n")) != -1){
 						msj = bufferStr.substr(0,i);
-						
-								
-						if(msj.compare("QUIT")==0){
 
+
+						if(msj.compare("QUIT")==0){
+							//juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
 							quitarCliente(todosLosClientes);
-							juegoNuevo->setJuegoCancelado(true);
+							
+							if (this->todosLosClientes.size() > 0)
+								enviarAtodos(this->todosLosClientes,"JUGADOR_DESCONECTADO\n");
 							Sleep(1000);
-							enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
-							seguirCiclando = 0;
+							//enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
 							this->stopear();
 						}
 						else if(msj.compare("PAD1 ABAJO") == 0){
@@ -99,7 +102,7 @@ ManejadorClientes::ManejadorClientes(Socket* socketServer, int id, Socket* s, Ju
 
 						bufferStr = bufferStr.substr(i+1);
 					}
-				   
+
 				}else
 					Sleep(1000);
 			}
