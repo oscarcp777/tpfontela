@@ -170,7 +170,7 @@ int Servidor :: process(void* arg){
 					posicionPad = "PAD2 "+pad2->getYString()+"\n";
 					enviarAtodos(this->misClientes,(char*)posicionPad.data());
     			}
-				if((CalculosMatematicos::ramdom(100)) <20 && escenario->getBonusActual()==NULL){
+				if((CalculosMatematicos::ramdom(100)) <80 && escenario->getBonusActual()==NULL){
     				//Hago un random entre 0 y 100 si el numero es menor a 15 y no hay bonus actual aparece bonus
     				Bonus* bonus = juegoNuevo->getNuevoBonusRandom();
 

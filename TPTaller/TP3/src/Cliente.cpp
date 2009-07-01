@@ -107,9 +107,9 @@ void Cliente::start(char* host, int port)
 				Sleep(1);
 			}
 		//	std::cout<<"size pila: "<<receiver.getFileSize()<<endl;
-		
+			msj="";
 			msj= this->get();
-		//	std::cout<<"msj "<<msj<<endl;
+			///std::cout<<"msj "<<msj<<endl;
 
 			if(msj.find("TEJO")==0){
 				pPosicion = "";
