@@ -145,7 +145,7 @@ int Servidor :: process(void* arg){
 	while (!juegoNuevo->cancelado()){
 
     	if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 ){
-    		Sleep(10);
+    		Sleep(15);
     		juegoNuevo->update();
 
 

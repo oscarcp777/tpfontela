@@ -78,6 +78,7 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 
 		if(this->imagenBonus!=NULL && !this->getEscalada()){
 			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getBase(), this->getAltura());
+			this->imagenAuxiliar = SDL_DisplayFormat(this->imagenBonus);			
 			this->setEscalada(true);
 		}
 
@@ -85,10 +86,10 @@ int Rectangulo::dibujar(SDL_Surface *screen){
 			SDL_Rect rect;
 	   		rect.x =this->getPosicion()->getX();
 			rect.y = this->getPosicion()->getY();
-	   		SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+	   		SDL_BlitSurface(this->imagenAuxiliar, NULL, screen, &rect);
 		}
 
-		if(this->imagen!=NULL){
+		else if(this->imagen!=NULL){
 			SDL_Rect rect;
 			rect.x =this->getPosicion()->getX();
 			rect.y = this->getPosicion()->getY();

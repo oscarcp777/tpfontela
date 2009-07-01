@@ -26,6 +26,7 @@ class Rectangulo: public Figura {
 		int base;
 		int altura;
 		Posicion *pos;
+		SDL_Surface *imagenAuxiliar;
 
 
 

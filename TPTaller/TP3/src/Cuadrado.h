@@ -21,6 +21,7 @@ class Cuadrado: public Figura{
 	private:
 		int lado;
 		Posicion *pos;
+		SDL_Surface *imagenAuxiliar;
 
 
 };
