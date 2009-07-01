@@ -72,6 +72,7 @@ int cReceiver::process(void* args){
 
 					memset(pmensRecive,0,sizeof(char)*1024);
 					sock->receive(pmensRecive,1024);
+					msg="";
 					msg = pmensRecive;
 					bufferStr += msg;
 					//std::cout<<msg;

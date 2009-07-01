@@ -124,13 +124,13 @@ int Servidor :: process(void* arg){
 	std::string posicionPad;
 	std::string posicionTejo;
 	
-	void (*pfuncion)(void);
+	/*void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
 	atexit(pfuncion);
-    
+    */
 
-    //loading(misClientes,"loading1.txt");
-    //loading(misClientes,"loading2.txt");
+    loading(misClientes,"loading1.txt");
+    loading(misClientes,"loading2.txt");
 
     juegoNuevo->setJuegoArrancado(true);
     sleep(6000);
