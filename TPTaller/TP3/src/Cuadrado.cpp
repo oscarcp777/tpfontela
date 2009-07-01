@@ -66,7 +66,8 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 	
        
 		if(this->imagenBonus!=NULL && !this->getEscalada()){
-			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getLado(), this->getLado());
+			this->imagenBonus=ScaleSurface(this->imagenBonus,this->getLado(), this->getLado());		
+			this->imagenAuxiliar = SDL_DisplayFormat(this->imagenBonus);
 			this->setEscalada(true);
 		}
 	
@@ -74,7 +75,7 @@ int Cuadrado::dibujar(SDL_Surface *screen){
 			SDL_Rect rect;
 			rect.x =this->getX();
 			rect.y = this->getY();
-			SDL_BlitSurface(this->imagenBonus, NULL, screen, &rect);
+			SDL_BlitSurface(this->imagenAuxiliar, NULL, screen, &rect);
 		}	
 		else if(this->imagen!=NULL){
 			SDL_Rect rect;
