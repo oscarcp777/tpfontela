@@ -11,8 +11,10 @@ class Servidor : public Thread
 	public:
 		Servidor(int puerto, int cantParticipantes);
 		virtual ~Servidor();
+		static void antesDeCerrar();
 	protected:
 		virtual int process(void*);
+	
 	private:
 		bool algunClienteCorre(std::list<Thread*>& clientes);
 		void posicionTejo(char* pEnvioInt);
