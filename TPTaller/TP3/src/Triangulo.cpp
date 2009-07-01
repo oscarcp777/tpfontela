@@ -617,7 +617,10 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	this->recta1 = new Recta(this->vertice1->getX(),this->vertice2->getX(),this->vertice1->getY(),this->vertice2->getY());
 	this->recta2 = new Recta(this->vertice1->getX(),this->vertice3->getX(),this->vertice1->getY(),this->vertice3->getY());
 	this->recta3 = new Recta(this->vertice2->getX(),this->vertice3->getX(),this->vertice2->getY(),this->vertice3->getY());
-
+	this->ejeDeCoordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
+	this->ver1Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice1());
+	this->ver2Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice2());
+	this->ver3Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice3());
 
 }
 
@@ -737,10 +740,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	int j = 0;
 	bool rectaEnX = false;
 
-	this->ejeDeCoordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
-	this->ver1Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice1());
-	this->ver2Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice2());
-	this->ver3Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice3());
+
 
 
 	maxValorX = hallarDominio(this->getVertice1()->getX(),this->getVertice2()->getX(),this->getVertice3()->getX());
