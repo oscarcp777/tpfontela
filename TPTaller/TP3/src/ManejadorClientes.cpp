@@ -56,7 +56,7 @@ ManejadorClientes::~ManejadorClientes(){
 
 					memset(pDatosRecividos,0,sizeof(char)*1024);
 					socketComunicacion->receive(pDatosRecividos,1024);
-
+					msj="";
 					msj = pDatosRecividos;
 
 					bufferStr += msj;
