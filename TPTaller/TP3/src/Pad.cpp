@@ -55,9 +55,10 @@ int Pad::getVelocidad()
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
-	 SDL_Surface* imageACargar1;
+	 
 
 	if(this->imagen==NULL){
+		SDL_Surface* imageACargar1;
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
 		imageACargar1 = IMG_Load(path.begin());
 		if(imageACargar1 == NULL) {
