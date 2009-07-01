@@ -228,8 +228,8 @@ int Servidor :: process(void* arg){
     		}*/
 			if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1)
     					juegoNuevo->setEstado("JUEGO_TERMINADO");
-			else
-						juegoNuevo->setEstado("CORRIENDO");
+			
+						
     				
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
