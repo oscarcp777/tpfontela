@@ -58,7 +58,7 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
 	 	while(iter != this->ListaTagsValidos.end()){
 	 		nombreTag=*iter;
 	 		std::cout<<"tag: " <<nombreTag->getNombreTag()<<endl;
-	 		//delete nombreTag;
+	 		delete nombreTag;
 	 		iter++;
 	 	}
 	 	this->ListaTagsValidos.clear();
