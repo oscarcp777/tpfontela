@@ -39,6 +39,10 @@ class Triangulo: public Figura {
 		Posicion *vertice1;
 		Posicion *vertice2;
 		Posicion *vertice3;
+		Posicion *ejeDeCoordenadas;
+		Posicion *ver1Aux;
+		Posicion *ver2Aux;
+		Posicion *ver3Aux;
 		SDL_Surface* imagenAuxiliar;
 		Recta *recta1;
 		Recta *recta2;
@@ -51,6 +55,7 @@ class Triangulo: public Figura {
 		std::string base; //me dice donde esta la base del triangulo, abajo, arriba, derecha, izquierda
 		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);
 		void darNombreBaseTriangulo(Posicion*posicion1,Posicion*posicion2,Posicion*posicion3);
+
 
 
 

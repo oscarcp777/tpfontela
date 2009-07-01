@@ -20,6 +20,10 @@ Triangulo::~Triangulo(){
 	delete this->x2;
 	delete this->y1;
 	delete this->y2;
+	delete this->ejeDeCoordenadas;
+	delete this->ver1Aux;
+	delete this->ver2Aux;
+	delete this->ver3Aux;
 	if(this->imagenAuxiliar!=NULL)
 	SDL_FreeSurface(this->imagenAuxiliar);
 	  if(DEBUG_DESTRUCTOR==1)
@@ -609,6 +613,7 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	delete this->recta1;
 	delete this->recta2;
 	delete this->recta3;
+	delete ejeDeCordenadas;
 	this->recta1 = new Recta(this->vertice1->getX(),this->vertice2->getX(),this->vertice1->getY(),this->vertice2->getY());
 	this->recta2 = new Recta(this->vertice1->getX(),this->vertice3->getX(),this->vertice1->getY(),this->vertice3->getY());
 	this->recta3 = new Recta(this->vertice2->getX(),this->vertice3->getX(),this->vertice2->getY(),this->vertice3->getY());
@@ -724,10 +729,6 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 	this->color = getColorFigura()->getColor();
 
-	Posicion* ejeDeCordenadas;
-	Posicion* ver1;
-	Posicion* ver2;
-	Posicion* ver3;
 	int maxValorX = 0;
 	int maxValorY = 0;
 	float m1,m2,m3;  //pendientes de las tres rectas;
@@ -736,25 +737,25 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	int j = 0;
 	bool rectaEnX = false;
 
-	ejeDeCordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
-	ver1 = cambioCoordenadas(ejeDeCordenadas, this->getVertice1());
-	ver2 = cambioCoordenadas(ejeDeCordenadas, this->getVertice2());
-	ver3 = cambioCoordenadas(ejeDeCordenadas, this->getVertice3());
+	this->ejeDeCoordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
+	this->ver1Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice1());
+	this->ver2Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice2());
+	this->ver3Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice3());
 
 
 	maxValorX = hallarDominio(this->getVertice1()->getX(),this->getVertice2()->getX(),this->getVertice3()->getX());
 	maxValorY = hallarDominio(this->getVertice1()->getY(),this->getVertice2()->getY(),this->getVertice3()->getY());
 
-	m1 = calcularPendiente (ver1,ver2);
-	m2 = calcularPendiente (ver1,ver3);
-	m3 = calcularPendiente (ver2,ver3);
+	m1 = calcularPendiente (this->ver1Aux,this->ver2Aux);
+	m2 = calcularPendiente (this->ver1Aux,this->ver3Aux);
+	m3 = calcularPendiente (this->ver2Aux,this->ver3Aux);
 
 	if (m1 == PENDIENTE_RECTAX || m2 == PENDIENTE_RECTAX || m3 == PENDIENTE_RECTAX)
 		rectaEnX = true;
 
-	k1 =  calcularOrdenada (ver1->getX(), ver1->getY(), m1) ;
-	k2 =  calcularOrdenada (ver1->getX(), ver1->getY(), m2) ;
-	k3 =  calcularOrdenada (ver2->getX(), ver2->getY(), m3) ;
+	k1 =  calcularOrdenada (this->ver1Aux->getX(), this->ver1Aux->getY(), m1) ;
+	k2 =  calcularOrdenada (this->ver1Aux->getX(), this->ver1Aux->getY(), m2) ;
+	k3 =  calcularOrdenada (this->ver2Aux->getX(), this->ver2Aux->getY(), m3) ;
 
 	bool perteneceAR1 = false;
 	bool perteneceAR2 = false;
@@ -767,7 +768,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 	Posicion* verticeFinal;
 
 
-	hallarVertices(ver1, ver2, ver3, maxValorX, verticeCentral, verticeInicial, verticeFinal);
+	hallarVertices(this->ver1Aux, this->ver2Aux, this->ver3Aux, maxValorX, verticeCentral, verticeInicial, verticeFinal);
 
 
 	perteneceAR1 = estaEnRecta (verticeInicial,m1,k1);
@@ -846,20 +847,20 @@ int Triangulo::dibujar(SDL_Surface *screen){
 						resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 						resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
 						if (resComp1*resComp2<0)
-							graficarPixel(screen, i, j, ejeDeCordenadas);
+							graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 					}
 					else
 						if(perteneceAR1 && perteneceAR3){
 							resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 							resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 							if (resComp1*resComp2<0)
-								graficarPixel(screen, i, j, ejeDeCordenadas);
+								graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 						}
 						else{
 							resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 							resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 							if (resComp1*resComp2<0)
-								graficarPixel(screen, i, j, ejeDeCordenadas);
+								graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 						}
 
 				}else{
@@ -873,19 +874,19 @@ int Triangulo::dibujar(SDL_Surface *screen){
 						resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 						resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
 						if (resComp1*resComp2<0)
-							graficarPixel(screen, i, j, ejeDeCordenadas);
+							graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 					}
 					else if(perteneceAR1 && perteneceAR3){
 						resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 						if (resComp1*resComp2<0)
-							graficarPixel(screen, i, j, ejeDeCordenadas);
+							graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 					}
 					else{
 						resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 						resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 						if (resComp1*resComp2<0)
-							graficarPixel(screen, i, j, ejeDeCordenadas);
+							graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 					}
 				}
 			}
@@ -895,19 +896,19 @@ int Triangulo::dibujar(SDL_Surface *screen){
 					resComp1 = compararPosicionConRecta (m2 ,k2,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 					if (resComp1*resComp2<0)
-						graficarPixel(screen, i, j, ejeDeCordenadas);
+						graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 				}
 				if (m2 == PENDIENTE_RECTAX && i!=k2){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m3 ,k3,i,j);
 					if (resComp1*resComp2<0)
-						graficarPixel(screen, i, j, ejeDeCordenadas);
+						graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 				}
 				if (m3 == PENDIENTE_RECTAX && i!=k3){
 					resComp1 = compararPosicionConRecta (m1 ,k1,i,j);
 					resComp2 = compararPosicionConRecta (m2 ,k2,i,j);
 					if (resComp1*resComp2<0)
-						graficarPixel(screen, i, j, ejeDeCordenadas);
+						graficarPixel(screen, i, j, this->ejeDeCoordenadas);
 				}
 
 
@@ -921,10 +922,7 @@ int Triangulo::dibujar(SDL_Surface *screen){
 
 	}
 
-	delete ejeDeCordenadas;
-	delete ver1;
-	delete ver2;
-	delete ver3;
+
 
 
 	return 0;
