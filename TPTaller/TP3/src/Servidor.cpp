@@ -17,11 +17,13 @@ Servidor :: ~Servidor(){
 	if(DEBUG_DESTRUCTOR==1)
 		std::cout<<" entro al destructor de Servidor"<<endl;
 }
-/*
-void antesDeCerrar(){
-	//enviarAtodos(this->misClientes,"MURIO_SERVER \n");
+
+void Servidor::antesDeCerrar(){
+	//enviarAtodos(Servidor::misClientes,"MURIO_SERVER\n");	
+	std::cout<<"se llamo a antes de cerrar"<<endl;
+	system("PAUSE");
 }
-*/
+
 int Servidor :: process(void* arg){
     std::cout << "SERVER EN EJECUCION...\n";
 
@@ -121,11 +123,11 @@ int Servidor :: process(void* arg){
     char *pEnvioString = envioString;
 	std::string posicionPad;
 	std::string posicionTejo;
-	/*
+	
 	void (*pfuncion)(void);
 	pfuncion=antesDeCerrar;
 	atexit(pfuncion);
-    */
+    
 
     //loading(misClientes,"loading1.txt");
     //loading(misClientes,"loading2.txt");
@@ -140,7 +142,7 @@ int Servidor :: process(void* arg){
 
     /*Al salir del ciclo necesito verificar que efectivamente todos los ClientHandler
     hayan dejado de correr*/
-	while (!juegoNuevo->cancelado() /*|| juegoNuevo->getEstado().compare("JUEGO_TERMINADO")!=0*/){
+	while (!juegoNuevo->cancelado()){
 
     	if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO")!=0 ){
     		Sleep(10);
@@ -196,9 +198,7 @@ int Servidor :: process(void* arg){
     				juegoNuevo->setEstado("NIVEL_TERMINADO");
     				juegoNuevo->incrementarNivel();
 
-    				if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1){
-    					juegoNuevo->setEstado("JUEGO_TERMINADO");
-    				}
+    				
 
     			}
     			else {//si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
@@ -226,12 +226,18 @@ int Servidor :: process(void* arg){
     			this->stopear();
 
     		}*/
+			if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1)
+    					juegoNuevo->setEstado("JUEGO_TERMINADO");
+			else
+						juegoNuevo->setEstado("CORRIENDO");
+    				
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
     			this->ganador(pGanador);
     			//std::cout<<"JUEGO_TERMINADO envia: "<<pGanador<<endl;
     			enviarAtodos(this->misClientes,pGanador);
  				this->stopear();
+				juegoNuevo->setJuegoCancelado(true);
  	   			//delete this->juegoNuevo;
 				//exit(1);
 				//return 0;
@@ -287,6 +293,9 @@ int Servidor :: process(void* arg){
     }
 	/*Para cuando ya no hay mas clientes corriendo, todos los clientes se
 	auto removieron de la lista misClientes.*/
+	while (algunClienteCorre(this->misClientes)){
+		sleep(1000);
+	}
 	misClientes.clear();
 	delete(this);
 	exit(1);

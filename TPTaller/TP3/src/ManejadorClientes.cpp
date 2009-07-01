@@ -63,16 +63,20 @@ ManejadorClientes::~ManejadorClientes(){
 
 					while((i=bufferStr.find("\n")) != -1){
 						msj = bufferStr.substr(0,i);
+						if(msj.compare("FIN")==0){
+							
+							quitarCliente(todosLosClientes);
+							Sleep(1000);
+							this->stopear();
+							
 
-
-						if(msj.compare("QUIT")==0){
-							//juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
+						}
+						else if(msj.compare("QUIT")==0){
 							quitarCliente(todosLosClientes);
 							
 							if (this->todosLosClientes.size() > 0)
 								enviarAtodos(this->todosLosClientes,"JUGADOR_DESCONECTADO\n");
 							Sleep(1000);
-							//enviarAtodos(this->todosLosClientes,"FINJUEGO\n");
 							this->stopear();
 						}
 						else if(msj.compare("PAD1 ABAJO") == 0){

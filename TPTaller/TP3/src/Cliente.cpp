@@ -220,7 +220,8 @@ void Cliente::start(char* host, int port)
 				SDL_Flip(escenario->getScreen());
 				Sleep(3000);
 				//seteo msj en finJuego asi no grafica mas CAMBIAR ESTO
-				msj = "FINJUEGO";
+				this->sock.send("FIN\n");
+				this->stop();
 			}
 			else if(msj.find("JUGADOR_DESCONECTADO")==0){
 				cadena = "SE DESCONECTO EL OPONENTE";
