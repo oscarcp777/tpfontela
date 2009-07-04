@@ -3,14 +3,18 @@
 
 
 #define NOT_CONNECTED 0
+#define ACTIVADO 0
 #define CONNECTED 1
 #define NO_HOST 2
 #define DEBUG 0
-#define VELOCIDAD_DE_FRAMES_POR_SEGUNDO 0
+#define DEBUG2 1
+#define VELOCIDAD_DE_FRAMES_POR_SEGUNDO 10
 #define PI 3.141592653
 #define PI 3.141592653
 #define NUMERO_PEQUENIO 0.0000001
 #define SIN_VALOR "sinValor"
+#define PAD_DERECHA "padDerecha"
+#define PAD_IZQUIERDA "padIzquierda"
 #define CIRCULO "circulo"
 #define ARRIBA "arriba"
 #define	ABAJO "abajo"
@@ -21,7 +25,7 @@
 #define RESOLUCION_640_ANCHO 640
 #define RESOLUCION_800 800
 #define RESOLUCION_800_ALTO 600
-#define RESOLUCION_800_ANCHO 800
+#define RESOLUCION_800_ANCHO 900
 #define RESOLUCION_1024 1024
 #define RESOLUCION_1024_ALTO 768
 #define RESOLUCION_1024_ANCHO 1024
@@ -53,8 +57,8 @@
 #define TRIANGULO "triangulo"
 #define TEJO "tejo"
 #define PAD "pad"
-#define PAD_CLIENTE1 "padCliente1"
-#define PAD_CLIENTE2 "padCliente2"
+#define PAD_CLIENTE1 "PAD1"
+#define PAD_CLIENTE2 "PAD2"
 #define CIRCULO "circulo"
 #define DELIMITADOR "\""
 #define GENERAL "General"
@@ -88,7 +92,7 @@
 #define POS_PAD1_Y_INICIAL  240
 #define POS_PAD2_X_INICIAL  56
 #define POS_PAD2_Y_INICIAL  240
-#define PORCENTAJE_ARCO 0.5
+#define PORCENTAJE_ARCO 0.4
 #define PORCENTAJE_TEJO_PUNTAJES 0.03
 #define  PIXELES_SALTO 2
 #define  PIXELES_SALTO_TEJO 3
@@ -96,7 +100,7 @@
 #define MARCADOR_TAG  '-'
 #define PUNTAJE_GOL 10
 //tamanio de letra de los puntajes
-#define TAMANIO_LETRA 60
+#define TAMANIO_LETRA 40
 #define ANCHO_PUNTAJES 100
 #define ALTO_PUNTAJES 100
 #define PUNTAJE_GANADOR_NIVEL 70
@@ -104,4 +108,17 @@
 #define BASE_TRIANGULO_IZQUIERDA "IZQUIERDA"
 #define BASE_TRIANGULO_ABAJO "ABAJO"
 #define BASE_TRIANGULO_ARRIBA "ARRIBA"
+#define CANT_NIVELES 3
+#define FUENTE "fuente.ttf"
+
+#define DEC_LONG_PAD 0
+#define DEC_LONG_PAD_VS 1
+#define DEC_RADIO_TEJO 2
+#define INC_LONG_PAD 3
+#define INC_LONG_PAD_VS 4
+#define INC_RADIO_TEJO 5
+#define INC_VELOCIDAD_TEJO 6
+#define PEGAMENTO_TEJO 7
+#define FRENO_TEJO 8
+#define DEBUG_DESTRUCTOR 1
 #endif

@@ -23,11 +23,11 @@ int main(int argc, char* argv[])
 
 	Escenario* escenario = Escenario::obtenerInstancia();
 	int exito = 0;
-	std::string nombreArchivoXML;
+	std::string nombreArchivoXML="xml.xml";
 	char caracter;
 
 	std::cout<<"INGRESE EL NOMBRE DEL ARCHIVO (ej: XML.xml)"<<endl;
-	std::cin>>nombreArchivoXML;
+//	std::cin>>nombreArchivoXML;
 
 
 
@@ -56,7 +56,6 @@ int main(int argc, char* argv[])
 		std::cout<<"EL ARCHIVO NO EXISTE"<<endl;
 	}
 	delete escenario;
-   system("PAUSE");
 	return 0;
 }
 

@@ -1,3 +1,1 @@
-imagenes/cancha1.jpg
-imagenes/cancha1.jpg
-imagenes/icono.jpg
+imagenes/espacio.png

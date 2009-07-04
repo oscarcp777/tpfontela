@@ -416,7 +416,7 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 	std::cout<<"Error atributos validos"<<errorAtributosValidos<<endl;
 
 	if(errorVertice==0&&errorAtributosValidos==0){
-
+//de aca
 		vertice1 = new Posicion(atoi(posicionX1.c_str()),atoi(posicionY1.c_str()));
 		vertice2 = new Posicion(atoi(posicionX2.c_str()),atoi(posicionY2.c_str()));
 		vertice3 = new Posicion(atoi(posicionX3.c_str()),atoi(posicionY3.c_str()));
@@ -425,7 +425,8 @@ int Hidratar::hidratarTriangulo(std::string atributos){
 		if(lado.compare(SIN_VALOR)!=0){
 		triangulo = new Triangulo(valueId,vertice1,vertice2,vertice3,atoi(lado.c_str()));
 		}
-		system("PAUSE");
+	
+	//hasta aca	
 		std::cout<<"exito AL CREAR EL TRIANGULO SE LA AGREGO A LA LISTA DE ESCENARIO"<<endl;
 		triangulo->setTipo(StringUtils::getValorTag(TIPO,vec));
 		escenario->addFigura(triangulo);
@@ -459,7 +460,9 @@ int hidratarPads(std::string altura,std::string base,std::string idTextura,std::
 	Posicion *posPadInicialCliente1 = new Posicion((int)escenario->getAncho()*POS_PAD1_Y_PORCENTAJE,escenario->getAlto()/2);
 			Posicion *posPadInicialCliente2 = new Posicion((int)escenario->getAncho()*POS_PAD2_Y_PORCENTAJE,escenario->getAlto()/2);
 			Rectangulo* rectangulo1 = new Rectangulo("padCliente1",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente1);
+			rectangulo1->setTipo("padDerecha");
 			Rectangulo* rectangulo2 = new Rectangulo("padCliente2",atoi(base.c_str()),atoi(altura.c_str()),posPadInicialCliente2);
+			rectangulo1->setTipo("padIzquierda");
 			rectangulo1->setIdTextura(idTextura);
 			rectangulo2->setIdTextura(idTextura);
 			Pad* padCliente1 = new Pad(rectangulo1,new Puntaje());

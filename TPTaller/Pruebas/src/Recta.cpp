@@ -14,7 +14,7 @@ Recta::Recta(){
 
 }
 void Recta::toString(){
-std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<std::endl;
+std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<" infinito"<<this->infinito<<std::endl;
 }
 
 Recta::Recta(int x1,int x2,int y1,int y2){
@@ -32,6 +32,12 @@ Recta::Recta(int x1,int x2,int y1,int y2){
 
 
 }
+double Recta::getDistancia(){
+	return this->distancia;
+}
+       void Recta::setDistancia(double distancia){
+    	   this->distancia=distancia;
+       }
 int Recta::getInfinito()
    {
        return infinito;
@@ -41,30 +47,48 @@ int Recta::getInfinito()
    {
        this->infinito = infinito;
    }
-Posicion* Recta::getInterseccion(Recta* recta){
+   Posicion* Recta::getInterseccion(Recta* recta){
 
-	  // si m1 y m2 son iguales (si las pendientes son iguales), entonces las
-	  // rectas son paralelas.no considero el hecho de calcular si dos rectas paralelas
-	  // son o no la misma devuleve una interseccion furea dela pantalla
+	   // si m1 y m2 son iguales (si las pendientes son iguales), entonces las
+	   // rectas son paralelas.no considero el hecho de calcular si dos rectas paralelas
+	   // son o no la misma devuleve una interseccion furea dela pantalla
+	   if (recta->getInfinito() == this->infinito&&this->infinito==-1){
+		   return new Posicion(-1,-1);
+	   }else{
+		   if (recta->getPendiente() == this->pendiente){
+			   return new Posicion(-1,-1);
+		   }else{
+			   if (recta->getPendiente() ==0&& this->infinito==-1){
+				   return (new Posicion(this->ordenada,recta->getOrdenada()));
+			   }else{
+				   if (recta->getInfinito() ==-1&& this->pendiente==0){
+					   return (new Posicion(recta->getOrdenada(),this->ordenada));
+				   }else{
+					   if (this->infinito == -1){
+						   return (new Posicion(this->ordenada,recta->getPendiente()*this->ordenada+recta->getOrdenada()));
+				   }else{
+					   if(this->infinito==0){
+						   float b1,b2,m1,m2;
+						   m1=recta->getPendiente();
+						   m2=this->pendiente;
+						   b2=this->ordenada;
+						   b1=recta->getOrdenada();
 
-	  if (recta->getPendiente() == this->pendiente||this->infinito==-1){
-	      return new Posicion(-1,-1);
-	  }else{
-		  if(this->infinito==0){
-     float b1,b2,m1,m2;
-     m1=recta->getPendiente();
-     m2=this->pendiente;
-     b2=this->ordenada;
-     b1=recta->getOrdenada();
+						   // hallo el punto de cruce
+						   // de las rectas
+						   float Xc = (float)(b2 - b1)/(float)(m1 - m2);
+						   float Yc = (float)(b2*m1 - b1*m2)/(float)(m1 - m2);
+						   Posicion* interseccion= new Posicion((int)Xc,(int)Yc);
+						   return interseccion;
+					   }
+				   }
+			   }
+		   }
+	   }
+   }
+//	   if (this->infinito == -1)
+//		   return (new Posicion(this->ordenada,recta->getPendiente()*this->ordenada+recta->getOrdenada()));
 
-	  // hallo el punto de cruce
-	  // de las rectas
-	 float Xc = (float)(b2 - b1)/(float)(m1 - m2);
-	 float Yc = (float)(b2*m1 - b1*m2)/(float)(m1 - m2);
-	  Posicion* interseccion= new Posicion((int)Xc,(int)Yc);
-	  return interseccion;
-	  }
-	  }
 }
 /**
  * devuelve una recta perpendicular a actual necesita que se le pase el

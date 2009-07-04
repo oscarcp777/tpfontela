@@ -24,6 +24,7 @@ public:
 	static int verificarDireccionRectasPositivas(Recta* rectaDeChoque,Recta* rectaTejo);
 	static int verificarDireccionRectasNegativas(Recta* rectaDeChoque,Recta* rectaTejo);
 	static double getAnguloValido(double direcion);
+	int ramdom(int numeroMaximo);
 };
 
 #endif /* CALCULOSMATEMATICOS_H_ */

@@ -8,9 +8,20 @@
 #include "CalculosMatematicos.h"
 #include "Define.h"
 #include<math.h>
+#include <stdlib.h>
+#include <time.h>
 CalculosMatematicos::CalculosMatematicos() {
 	// TODO Auto-generated constructor stub
 
+}
+int CalculosMatematicos::ramdom(int numeroMaximo){
+	 srand ( time(NULL) );
+	int devolver=0;
+    if (numeroMaximo > 0) {
+        devolver = (rand() % numeroMaximo) + 1;
+
+    }
+    return devolver;
 }
 double CalculosMatematicos::getAnguloValido(double direcion){
 	double devolver=direcion;
