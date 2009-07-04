@@ -15,13 +15,22 @@ Pad::Pad() {
 Rectangulo* Pad::getFigura(){
 	return this->rectangulo;
 }
+void Pad::volverEstadoInicial(){
+	this->setAltura(this->getAlturaDefault());
+	this->setModificar(true);
+
+}
 Pad::Pad(Rectangulo* rectangulo,Puntaje* puntaje){
 	this->imagen=NULL;
 	this->fondoPad=NULL;
 	this->rectangulo=rectangulo;
 	this->puntaje = puntaje;
 	this->cantGoles = 0;
-	std::cout<< "padv1: "  <<this->rectangulo->getIdTextura()<< endl;
+	this->modificar=false;
+	this->soltarTejo=false;
+	this->cambioPosicion=false;
+	this->moverArriba = false;
+	this->moverAbajo = false;
 
 
 }
@@ -34,34 +43,18 @@ int Pad::getVelocidad()
     {
         this->velocidad = velocidad;
     }
-Pad::~Pad() {
-	// TODO Auto-generated destructor stub
+ Pad::~Pad() {
+	   if(this->imagen!=NULL)
+    	SDL_FreeSurface(this->imagen);
+    	delete rectangulo;
+    	delete puntaje;
+    	if(DEBUG_DESTRUCTOR==1)
+    		std::cout<<" entro al destructor de Pad"<<endl;
+
 }
 void Pad::dibujar(SDL_Surface *pantalla){
 	// Cargamos la imagen
-	 SDL_Surface* imageACargar;
 	 SDL_Surface* imageACargar1;
-	Escenario* escenario=Escenario::obtenerInstancia();
-//	if(this->fondoPad==NULL){
-//
-//			std::string pathFondo =escenario->obtenerPathTextura("padFondo");
-//			imageACargar = IMG_Load(pathFondo.begin());
-//			if(imageACargar == NULL) {
-//						std::cout<< "Error: " << SDL_GetError() << endl;
-//						exit(1);
-//		}
-//		if(imageACargar!= NULL){
-//			std::cout<< "modifico image"<<pathFondo<< endl;
-//			imageACargar = this->getFigura()->ScaleSurface(imageACargar,this->getFigura()->getBase(),escenario->getAlto());
-//			}
-//		SDL_SetColorKey(imageACargar,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(imageACargar->format,255 ,255, 255));
-//     		this->fondoPad = SDL_DisplayFormat(imageACargar);
-//				  SDL_FreeSurface(imageACargar);
-//	}
-//		SDL_Rect rectFondo;
-//		rectFondo.x =this->getX();
-//		rectFondo.y =0;
-//		SDL_BlitSurface(this->fondoPad, NULL, pantalla, &rectFondo);
 
 	if(this->imagen==NULL){
 		std::string path = Escenario::obtenerInstancia()->obtenerPathTextura(this->rectangulo->getIdTextura());
@@ -77,7 +70,10 @@ void Pad::dibujar(SDL_Surface *pantalla){
 		this->imagen = SDL_DisplayFormat(imageACargar1);
 	    SDL_FreeSurface(imageACargar1);
 	}
-
+	if(this->modificar){
+			this->imagen = this->getFigura()->ScaleSurface(this->imagen,  this->getFigura()->getBase(), this->getFigura()->getAltura());
+		    this->modificar=false;
+	}
 	SDL_Rect rect;
 	rect.x =this->getX();
 	rect.y = this->getY();
@@ -89,11 +85,22 @@ int Pad::getX(){
 int Pad::getY(){
 	return this->rectangulo->getPosicion()->getY();
 }
+bool Pad::getModificar()
+    {
+        return modificar;
+    }
+
+    void Pad::setModificar(bool modificar)
+    {
+        this->modificar = modificar;
+    }
+
 void Pad::setX(int x){
 	this->rectangulo->getPosicion()->setX(x);
 }
 void Pad::setY(int y){
 	this->rectangulo->getPosicion()->setY(y);
+	this->cambioPosicion = true;
 }
 
 int Pad::getBase(){
@@ -102,6 +109,7 @@ int Pad::getBase(){
 int Pad::getAltura(){
 	return this->rectangulo->getAltura();
 }
+
 void Pad::setAltura(int altura){
 	this->rectangulo->setAltura(altura);
 }
@@ -121,12 +129,25 @@ void Pad::bajar_y() {
 	int y =this->getY();
 	y += this->velocidad;
 	this->setY(y);
+	this->cambioPosicion = true;
 }
 void Pad::subir_y() {
 	int y =this->getY();
 	y -= this->velocidad;
 	this->setY(y);
+	this->cambioPosicion = true;
 }
+int Pad::calcularProximaPosicionAlSubir(){
+		int y =this->getY();
+		y -= this->velocidad;
+		return y;
+	}
+
+int Pad::calcularProximaPosicionAlBajar(){
+	int y =this->getY();
+	y += this->velocidad;
+	return y;
+	}
 
 Puntaje* Pad::getPuntaje(){
 	return this->puntaje;
@@ -141,5 +162,39 @@ void Pad::setCantGoles(int cantGoles)
 {
 	this->cantGoles = cantGoles;
 }
+void Pad::setImagen(SDL_Surface *imagen){
 
+	this->imagen = imagen;
+}
+int Pad::getAlturaDefault(){
+	return this->alturaDefault;
+}
+void Pad::setAlturaDefault(int altura){
+	this->alturaDefault = altura;
+}
+void Pad::setSoltarTejo(bool soltar){
+	this->soltarTejo = soltar;
+}
+bool Pad::getSoltarTejo(){
+	return this->soltarTejo;
+}
 
+bool Pad::getCambioPosicion()
+{
+		bool aux = this->cambioPosicion;
+		if (this->cambioPosicion)
+			this->cambioPosicion = false;
+        return aux;
+}
+bool Pad::getMoverArriba(){
+	return this->moverArriba;
+}
+void Pad::setMoverArriba(bool moverArriba){
+	this->moverArriba = moverArriba;
+}
+bool Pad::getMoverAbajo(){
+	return this->moverAbajo;
+}
+void Pad::setMoverAbajo(bool moverAbajo){
+	this->moverAbajo = moverAbajo;
+}

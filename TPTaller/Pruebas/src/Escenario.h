@@ -77,6 +77,8 @@ class Escenario {
     Posicion *getPosicionInicialTejo();
     void setPosicionInicialTejo(Posicion *posicionInicialTejo);
     int iniciarSDL();
+    SDL_Surface *buffer;
+
 protected:
 		Escenario();
 
@@ -85,7 +87,6 @@ protected:
 		int terminar;
 		SDL_Surface* icono;
 		SDL_Surface *fondoPantalla;
-		SDL_Surface *buffer;
 		int ancho;
 		int alto;
 		int resolucion;

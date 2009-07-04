@@ -75,7 +75,7 @@ int Circulo::dibujar(SDL_Surface *screen){
 				image = ScaleSurface(image, this->getRadio()*2, this->getRadio()*2);
 			}
 		}
-		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,255,255,255));
+		SDL_SetColorKey(image,SDL_SRCCOLORKEY|SDL_RLEACCEL,SDL_MapRGB(image->format,0,0,0));
 		this->imagen=SDL_DisplayFormat(image);
 		SDL_FreeSurface(image);
 	}

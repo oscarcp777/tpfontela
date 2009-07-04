@@ -1,15 +1,37 @@
 #include "Figura.h"
 #include "Escenario.h"
+#include "Define.h"
 
 Figura::Figura(){
 	this->colorFigura = NULL;
 	this->colorLinea = NULL;
 	this->setIdTextura("NULL");
 	this->imagen = NULL;
+	this->imagenBonus = NULL;
+	this->tieneBonus=false;
+	this->pos = NULL;
 
 }
+SDL_Surface* Figura::getImagenBonus()
+   {
+       return this->imagenBonus;
+   }
+
+void Figura::setImagenBonus(SDL_Surface *imagenBonus)
+   {
+       this->imagenBonus = imagenBonus;
+   }
 int Figura::getX(){
   return this->pos->getX();
+}
+/**
+	 * si el bonus esta activo le seteo la imagendel bonus al dispersor
+	 */
+void Figura::verificarBonusActivo(int base,int altura){
+	if(this->imagenBonus!=NULL){
+		this->imagenBonus=ScaleSurface(this->imagenBonus, base, altura);
+
+	}
 }
 std::string Figura::getTipo()
     {
@@ -47,7 +69,12 @@ int Figura::getAnchoInfluencia()
 {
 	return anchoInfluencia;
 }
-
+void Figura::setTieneBonus(bool tiene){
+	this->tieneBonus = tiene;
+}
+bool Figura::getTieneBonus(){
+	return this->tieneBonus;
+}
 void Figura::setAnchoInfluencia(int anchoInfluencia)
 {
 	this->anchoInfluencia = anchoInfluencia;
@@ -74,6 +101,12 @@ void Figura::addRectanguloInfluencia(RectanguloInfluencia *rectanguloInfluencia)
 	this->rectangulosDeInfluencia.push_back(rectanguloInfluencia);
 
 }
+void Figura::setEscalada(bool escalada){
+	this->escalada = escalada;
+}
+bool Figura::getEscalada(){
+	return this->escalada;
+}
 int Figura::sizeListaRectangulos(){
 	return this->rectangulosDeInfluencia.size();
 }
@@ -81,8 +114,16 @@ void Figura::setPosicion(Posicion*posicion){
 	this->pos = posicion;
 }
 Figura::~Figura(){
+	if(!this->imagen){
+	SDL_FreeSurface(this->imagen);
+	}
+	if(!this->imagenBonus){
+	SDL_FreeSurface(this->imagenBonus);
+	}
 	delete this->colorFigura;
 	delete this->colorLinea;
+	 if(DEBUG_DESTRUCTOR==1)
+	std::cout<<" entro al destructor de figura"<<endl;
 
 }
 std::string Figura::getId(){
@@ -111,6 +152,13 @@ void Figura::setColorLinea(Color *colorLinea)
 {
 	this->colorLinea = colorLinea;
 }
+
+void Figura::setImagen(SDL_Surface *imagen){
+
+	this->imagen = imagen;
+}
+
+
 Color* Figura::getColorFigura()
 {
 	if (this->colorFigura == NULL)

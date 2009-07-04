@@ -4,10 +4,11 @@
  *  Created on: 17/05/2009
  *      Author: oscar
  */
+
+#ifndef TEJO_H_
+#define TEJO_H_
 #include "Circulo.h"
 #include "Direccion.h"
-#ifndef __TEJO_H__
-#define __TEJO_H__
 #include <vector>
 #include <math.h>
 #include "Posicion.h"
@@ -23,9 +24,12 @@ public:
 	Tejo(Circulo *circulo);
 	virtual ~Tejo();
 	void borrarTejo();
-      void dibujar(SDL_Surface *pantalla);
-         Circulo* getFigura();
-    	 void mover_x();
+    void dibujar(SDL_Surface *pantalla);
+    Circulo* getFigura();
+    void mover_x();
+    void volverEstadoInicial();
+	int getVelocidadDefault();
+	void setVelocidadDefault(int velocidad);
     	// void retrasar_x();
 
     	  // Modifica la posición del personaje con respecto al eje Y
@@ -39,9 +43,7 @@ public:
 		  int getXAnterior();
     	  int getYAnterior();
     	  Direccion* getDireccion();
-          void moverTejo
-
-			  ();
+          void moverTejo();
        void cargarPuntos();
     	 // Modificadoras
 
@@ -55,14 +57,25 @@ public:
     void setPuntosDeInfluencia(std::vector<Posicion*> puntosDeInfluencia);
     void cargarRadioDeInfluencia();
     SDL_Surface *getImagen();
-
 	std::string obtenerUltimaColisionPad();
-	void setMover(int mover);
-	int getMover();
-
+	void setUltimaColisionPad(std::string ultimoPad);
+	void setMover(bool mover);
+	bool getMover();
+	void setPegajoso(bool pegajoso);
+	bool getPegajoso();
 
     bool getChoco();
     void setChoco(bool choco);
+	void setImagen(SDL_Surface *imagen);
+    bool getModificarRadio();
+
+    void setModificarRadio(bool modificarRadio);
+    bool getChocoFiguraConBonus();
+    void setChocoFiguraConBonus(bool chocoFiguraConBonus);
+	void setRadioDefault(int radioDefault);
+	int getRadioDefault();
+	std::string	getPadPegajoso();
+	void setPadPegajoso(std::string padPegajoso);
 
 private:
 	std::vector<Posicion*> puntosDeInfluencia;
@@ -70,12 +83,22 @@ private:
     	int velocidad;
     	Circulo* circulo;
     	SDL_Surface *imagen;
+    	SDL_Surface *imagenAuxiliar;
+		SDL_Surface *imagenGrande;
+		SDL_Surface *imagenChica;
 		int XAnterior;
 		int YAnterior;
         int moverMayor;
 		int  moverMenor;
-		int  mover;
+		bool mover;
 		bool choco;
+		bool modificarRadio;
+		std::string ultimaColisionPad;
+		bool chocoFiguraConBonus;
+		int velocidadDefault;
+		int radioDefault;
+		bool pegajoso;
+		std::string padPegajoso;
 
 };
 
