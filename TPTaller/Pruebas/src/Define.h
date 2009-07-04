@@ -7,7 +7,7 @@
 #define CONNECTED 1
 #define NO_HOST 2
 #define DEBUG 0
-#define DEBUG2 1
+#define DEBUG2 0
 #define VELOCIDAD_DE_FRAMES_POR_SEGUNDO 10
 #define PI 3.141592653
 #define PI 3.141592653

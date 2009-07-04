@@ -34,6 +34,10 @@ public:
 	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
+	static void decidirDireccionPrimerCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionSegundoCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionTercerCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionCuartoCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
 	static void colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo);
 	static void colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo);
 	static void colisionTriangulo(Triangulo* Triangulo,Tejo* tejo);
@@ -44,6 +48,7 @@ public:
 	static bool isPuntoZonaDeInfluenciaTejo(Posicion* posicion,Tejo* tejo);
 	static bool isPuntoZonaDeInfluenciaTriangulo(Posicion* posicion,Triangulo* triangulo);
 	static Recta* getRectaDeColision(Triangulo* triangulo,Tejo* tejo);
+	static int getTipoPendienteCeroOInfinito(Triangulo* triangulo);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */
