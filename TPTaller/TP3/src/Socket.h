@@ -40,7 +40,6 @@ protected:
 private:
     Socket(int sockDesc);
     CONEXION conexion;
-    sockaddr_in getAddressStruct(const std::string & address, unsigned int port);
     bool initialized;
 };
 

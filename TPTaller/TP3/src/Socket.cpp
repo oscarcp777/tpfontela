@@ -18,23 +18,7 @@ typedef char raw_type;
 
 using namespace std;
 
-sockaddr_in Socket::getAddressStruct(const string& address, unsigned int port)
-{
-    sockaddr_in strctAddr;
-    memset(&strctAddr, 0, sizeof(address));
 
-    hostent* he;
-//    if((he=gethostbyname(address.c_str())) == NULL)
-//    {
-//        throw cSocketException("Error en gethostbyname()");
-//    }
-
-    strctAddr.sin_family = AF_INET;
-    strctAddr.sin_addr = *((struct in_addr *)he->h_addr);
-    strctAddr.sin_port = htons(port);
-
-    return strctAddr;
-}
 
 Socket::Socket()
 {
@@ -53,19 +37,7 @@ void Socket::connect(char  *host, unsigned int port)
 	}
 	this->sockDesc = this->conexion.locsock;
 	initialized = true;
-//	try
-//	{
-//		sockaddr_in destAddr = getAddressStruct(host, port);
-//
-//		if (::connect(sockDesc, (sockaddr*) &destAddr, sizeof(destAddr))==-1)
-//		{
-//			throw cSocketException("Error en connect()");
-//		}
-//	}
-//	catch(cSocketException &e)
-//    {
-//    	throw e;
-//    }
+
 }
 
 void Socket::listen(unsigned int port)
@@ -159,21 +131,12 @@ void Socket::send(char* stream)
 int Socket::receive(void* dato, int size)
 {
     int ret;
-	//char mensaje[1000];
-	//char* pMensaje = mensaje;
-	//memset(pMensaje,0,sizeof(char)*1000);
     ret = ::recv(this->sockDesc,(char*)dato,sizeof(char)*size,0);
-	//ret = recibir(&(this->conexion), dato);
     if (ret < 0)
 		throw cSocketException("Error en recv()");
     initialized = false;
 
 
-	//memcpy(stream,dato,strlen((char*)dato)+1);
-//    if ((ret = recv(sockDesc, (raw_type*)stream, size, 0))==-1)
-//    {
-//        throw cSocketException("Error en recv()");
-//    }
     return ret;
 }
 

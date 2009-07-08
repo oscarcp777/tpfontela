@@ -52,12 +52,10 @@ Validador::Validador(std::string nombreArchivoTags,std::string nombreArchivoAtri
  Validador::~Validador(){
 	 list<Tag*>::iterator iter;
 	 	Tag* nombreTag;
-		std::cout<<"tamanio lista tags: " <<this->ListaTagsValidos.size()<<endl;
 	 	iter=this->ListaTagsValidos.begin();
 
 	 	while(iter != this->ListaTagsValidos.end()){
 	 		nombreTag=*iter;
-	 		std::cout<<"tag: " <<nombreTag->getNombreTag()<<endl;
 	 		delete nombreTag;
 	 		iter++;
 	 	}
