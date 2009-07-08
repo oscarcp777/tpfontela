@@ -16,8 +16,6 @@ class cReceiver : public Thread
         std::string dequeue();
         bool isEmpty();
         int getFileSize();
-        int getDownloaded();
-        void clearDownloaded();
         void stop();
 
     private:

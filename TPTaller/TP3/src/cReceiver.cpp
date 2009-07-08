@@ -118,21 +118,9 @@ string cReceiver::dequeue()
 
 int cReceiver::getFileSize()
 {
-	//cLockableGuard<cMutex,int,int> safeMu(mFile,&cMutex::Lock,&cMutex::Unlock);
 	return received.size();
 }
 
-int cReceiver::getDownloaded()
-{
-	//cLockableGuard<cMutex,int,int> safeMu(mDown,&cMutex::Lock,&cMutex::Unlock);
-	return this->downloaded;
-}
-
-void cReceiver::clearDownloaded()
-{
-	//cLockableGuard<cMutex,int,int> safeMu(mDown,&cMutex::Lock,&cMutex::Unlock);
-	this->downloaded = 0;
-}
 
 
 void cReceiver::stop()
