@@ -10,28 +10,8 @@
 using namespace std;
 
 cSender::cSender():status(NOT_CONNECTED){}
-/*
-void cSender::posicionPad(char* pEnvioString){
-	Escenario* escenario = Escenario::obtenerInstancia();
-	char numJugador[20];
-	char* pauxNumJugador = numJugador;
-	memset(pEnvioString,0,sizeof(char)*40);
-	strcat(pEnvioString,"PAD");
-	itoa(escenario->getNumJugador(),pauxNumJugador,10);
-	strcat(pEnvioString,pauxNumJugador);
-	itoa(escenario->getPosicionYPad(),pauxY,10);
-	strcat(pEnvioString," ");
-	strcat(pEnvioString,pauxY);
-	
-}
-void cSender::soltarTejo(char* pEnvioString){
-	char aux[20];
-	char* paux = aux;
-	memset(paux,0,sizeof(char)*20);
-	memset(pEnvioString,0,sizeof(char)*40);
-	strcat(pEnvioString,"SOLTAR_TEJO\n");
-		
-}*/
+
+
 int cSender::process(void* args)
 {
 	Socket* sock = (Socket*) args;
@@ -45,8 +25,6 @@ int cSender::process(void* args)
 		char envioString[40];
 		char *pEnvioString = envioString;
 		int posPad_Y_actual;
-	//	char soltarTejo[40];
-	//	char *pSoltarTejo = soltarTejo;
 		std::string moverArriba, moverAbajo;
 		std::string noMover = "NO MOVER\n";
 		std::string soltarTejo = "SOLTAR_TEJO\n";
@@ -119,10 +97,6 @@ int cSender::process(void* args)
 	return 0;
 }
 
-void cSender::enqueue(string msg)
-{
-	//toSend.push(msg);
-}
 
 void cSender::stop()
 {
