@@ -311,10 +311,6 @@ void Cliente::start(char* host, int port)
 	}
 }
 
-void Cliente::send(string msg)
-{
-	sender.enqueue(msg+"\r\n");
-}
 
 int Cliente::getStatus()
 {
@@ -324,22 +320,6 @@ int Cliente::getStatus()
 void Cliente::setStatus(int status)
 {
 	this->status = status;
-}
-
-bool Cliente::haveInstructions()
-{
-	return !receiver.isEmpty();
-}
-
-float Cliente::getDownloadedPercent()
-{
-	float percent = (float)receiver.getDownloaded()/(float)receiver.getFileSize();
-	return percent;
-}
-
-void Cliente::clearDownloaded()
-{
-	receiver.clearDownloaded();
 }
 
 
