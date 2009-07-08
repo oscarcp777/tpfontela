@@ -92,13 +92,13 @@ void Cliente::start(char* host, int port)
 			}
 
 		msj= this->get();
-	
+
 		if(msj.find("INICIAR")==0){
 			GraficadorPuntajes::obtenerInstancia()->graficarString(escenario->getScreen(),"NIVEL "+escenario->getNumeroNivelEnString(),escenario->getAncho()/3,2*escenario->getAlto()/5);
 			SDL_Flip(escenario->getScreen());
 			Sleep(3000);
 		}
-		
+
 		Pad* pad = escenario->getPadJugador();
 
 		while (receiver.running() == true){
@@ -145,7 +145,7 @@ void Cliente::start(char* host, int port)
 			}
 
 			else if(msj.find("BONUS")==0){
-			
+
 				tipoBonus = "";
 				idFigura = "";
 				tipoBonus = msj.substr(msj.find(" ")+1,msj.find_last_of(" "));
@@ -207,9 +207,9 @@ void Cliente::start(char* host, int port)
 				}
 				else if(msj.find("GANADOR 0")==0){
 						cadena = "EMPATARON!!!!!!";
-				
+
 				}
-				
+
 				intToString(escenario->getPadCliente2()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
 				puntaje+=puntajeJugador;
 				intToString(escenario->getPadCliente1()->getPuntaje()->getCantPuntosJugador(),puntajeJugador);
@@ -237,11 +237,11 @@ void Cliente::start(char* host, int port)
 
 		     if(msj.find("FINJUEGO")==0){
 				this->sock.send("QUIT\n");
-				this->stop();
+				receiver.stop();
 			}
 			else{
 
-			
+
 			rect.x =0;
 			rect.y =0;
 			rect.w = escenario->getAncho();
@@ -252,7 +252,7 @@ void Cliente::start(char* host, int port)
 		escenario->pintarPantalla();
 			escenario->setPrimerPintada(true);
 		}
-			
+
 			SDL_PollEvent(&evento);
 
 		                  switch (evento.type) {
@@ -340,11 +340,11 @@ void Cliente::stop()
 	SDL_FreeSurface(Escenario::obtenerInstancia()->getScreen());
 	SDL_Quit();
 	delete(Escenario::obtenerInstancia());
-	 if(DEBUG_DESTRUCTOR==1){
-	std::cout<<" entro al destructor de Cliente"<<std::endl;
-	std::cout<<"BUENISIMO DESTRUYO TODO!!!!! "<<std::endl;
-	std::cout<<"SI NO QUERES VER ESTO PONE EL DEBUG_DESTRUCTOR EN 0  "<<std::endl;
-	 }
+	if(DEBUG_DESTRUCTOR==1){
+		std::cout<<" entro al destructor de Cliente"<<std::endl;
+		std::cout<<"SI NO QUERES VER ESTO PONE EL DEBUG_DESTRUCTOR EN 0  "<<std::endl;
+	}
+	std::cout<<"DESTRUYO TODO!!!!! "<<std::endl;
 	exit(1);
 
 }
