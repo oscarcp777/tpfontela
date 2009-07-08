@@ -3,6 +3,16 @@
 #include "CalculosMatematicos.h"
 #include "archivoTexto.h"
 
+void Servidor ::antesDeCerrar(){
+	
+	juegoNuevo->~Juego();
+		
+	puts( "Nos vamos..." );
+	system("PAUSE");
+	exit(0);
+
+}
+
 Servidor :: Servidor(int puerto, int cantParticipantes):
 			participantesMax(cantParticipantes),
 			puertoConexion(puerto)
@@ -10,6 +20,11 @@ Servidor :: Servidor(int puerto, int cantParticipantes):
 	/*Crea un juego vacio*/
 	this->juegoNuevo = Juego::obtenerInstancia();
 	puertoConexion = puerto;
+
+	void (*pfuncion)(void);
+	pfuncion=antesDeCerrar;
+	atexit(pfuncion);
+	 
 }
 
 Servidor :: ~Servidor(){
@@ -18,11 +33,7 @@ Servidor :: ~Servidor(){
 		std::cout<<" entro al destructor de Servidor"<<endl;
 }
 
-void Servidor::antesDeCerrar(){
-	//enviarAtodos(Servidor::misClientes,"MURIO_SERVER\n");	
-	std::cout<<"se llamo a antes de cerrar"<<endl;
-	system("PAUSE");
-}
+
 
 int Servidor :: process(void* arg){
     std::cout << "SERVER EN EJECUCION...\n";
@@ -124,16 +135,13 @@ int Servidor :: process(void* arg){
 	std::string posicionPad;
 	std::string posicionTejo;
 	
-	/*void (*pfuncion)(void);
-	pfuncion=antesDeCerrar;
-	atexit(pfuncion);
-    */
+
+
 
     loading(misClientes,"loading1.txt");
     loading(misClientes,"loading2.txt");
 
     juegoNuevo->setJuegoArrancado(true);
-    sleep(6000);
     asignarNumeroClientes(this->misClientes);
     escenario->servidorInicializarListaBonus();
     enviarAtodos(this->misClientes,"INICIAR\n");
@@ -198,7 +206,7 @@ int Servidor :: process(void* arg){
     				juegoNuevo->setEstado("NIVEL_TERMINADO");
     				juegoNuevo->incrementarNivel();
 
-    				
+
 
     			}
     			else {//si quedan tejos el estado del juego vuelve a ser "CORRIENDO"
@@ -221,16 +229,11 @@ int Servidor :: process(void* arg){
 
     	}
     	else{//entra a este else si el juego esta en estado=JUEGO_TERMINADO o NIVEL_TERMINADO (es decir NO esta CORRIENDO)
-    		/*if (juegoNuevo->cancelado()){
-    			juegoNuevo->setEstado("JUGADOR_DESCONECTADO");
-    			this->stopear();
-
-    		}*/
 			if(juegoNuevo->getNumeroNivel() == CANT_NIVELES+1)
     					juegoNuevo->setEstado("JUEGO_TERMINADO");
-			
-						
-    				
+
+
+
     		//TODO Si se termino el juego (fin de todos los niveles) se envia el ganador a los jugadores y se finaliza la aplicacion
     		if(juegoNuevo->getEstado().compare("JUEGO_TERMINADO")==0){
     			this->ganador(pGanador);
@@ -238,17 +241,9 @@ int Servidor :: process(void* arg){
     			enviarAtodos(this->misClientes,pGanador);
  				this->stopear();
 				juegoNuevo->setJuegoCancelado(true);
- 	   			//delete this->juegoNuevo;
-				//exit(1);
-				//return 0;
+
     		}
-			/*if(juegoNuevo->getEstado().compare("JUGADOR_DESCONECTADO")==0){
-				enviarAtodos(this->misClientes,"JUGADOR_DESCONECTADO\n");
-				this->stopear();
-				//delete this->juegoNuevo;
-				//exit(1);
-				//return 0;
-			}*/
+
     		//si termino el nivel envio las imagenes y archivos a los clientes y vuelvo el estado del juego a CORRIENDO
     		else if(juegoNuevo->getEstado().compare("NIVEL_TERMINADO") == 0){
     			std::cout<<"ENTRO A NIVEL_TERMINADO"<<endl;
