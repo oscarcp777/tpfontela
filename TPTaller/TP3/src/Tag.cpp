@@ -52,15 +52,8 @@ Tag::~Tag(){
 	if(DEBUG_DESTRUCTOR==1)
 			std::cout<<" entro al destructor de Tag"<<std::endl;
 
-			std::string nombreA;
-			std::cout<<"tamanio lista atributos: " <<this->listaAtributos.size()<<endl;
-		 	iter=this->listaAtributos.begin();
+			iter=this->listaAtributos.begin();
 
-		 	while(iter != this->listaAtributos.end()){
-		 		nombreA=*iter;
-		 		std::cout<<"atributo: " <<nombreA<<endl;
-		 		iter++;
-		 	}
 		 	this->listaAtributos.clear();
 
 			if(DEBUG_DESTRUCTOR==1)

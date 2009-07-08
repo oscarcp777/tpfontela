@@ -21,8 +21,9 @@ Juego::~Juego() {
 	delete this->escenario;
 	if(DEBUG_DESTRUCTOR==1){
 		std::cout<<" entro al destructor de Juego"<<endl;
-		std::cout<<"BUENISIMO DESTRUYO TODO!!!!! "<<std::endl;
 	}
+	std::cout<<"DESTRUYO TODO!!!!! "<<std::endl;
+
 }
 
 Juego* Juego::unicaInstanciaJuego = NULL;
