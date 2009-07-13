@@ -49,6 +49,9 @@ public:
 	static bool isPuntoZonaDeInfluenciaTriangulo(Posicion* posicion,Triangulo* triangulo);
 	static Recta* getRectaDeColision(Triangulo* triangulo,Tejo* tejo);
 	static int getTipoPendienteCeroOInfinito(Triangulo* triangulo);
+	static Recta* obtenerRectaParalelaRectaDirTejo(Triangulo*triangulo,Tejo*tejo,Posicion*posicionTejo);
+	static double obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*tejo,Posicion*verticeChoque);
+	static double obtenerAnguloTejo(Posicion*vertice,Posicion*posicionAcomparar,Recta*rectaDireccion,Tejo*tejo,Triangulo*triangulo);
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */
