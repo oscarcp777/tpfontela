@@ -7,7 +7,7 @@ Posicion::Posicion(int posX,int posY){
 	this->y = posY;
 }
 Posicion::~Posicion(){
-	
+
 }
 int Posicion::getX(){
 
@@ -25,4 +25,11 @@ void Posicion::setX(int x){
 }
 void Posicion::setY(int y){
 	this->y = y;
+}
+
+int Posicion::compare(Posicion*otraPosicion){
+	if((this->y == otraPosicion->getY())&&(this->x == otraPosicion->getX()))
+		return 0;
+	else
+		return -1;
 }

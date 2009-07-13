@@ -23,7 +23,6 @@ class Triangulo: public Figura {
 		Recta* getRecta1();
 		Recta* getRecta2();
 		Recta* getRecta3();
-
 		int dibujar(SDL_Surface *screen);
 		void calcularRadioDeInfluencia();
 		Recta* obtenerRectaTriangulo(Posicion*posicion,Posicion*otraPosicion);
@@ -34,6 +33,14 @@ class Triangulo: public Figura {
 		void asignarPuntosRectaBase(Recta*recta);
 		int isBase(Recta*recta);
 		int calcularVerticesSegunLado();
+		int diferenciaEnX(Posicion*posicion,Posicion*otraPosicion);
+		int diferenciaEnY(Posicion*posicion,Posicion*otraPosicion);
+		int verificarCondicionVertices(Posicion*posicion,Posicion*otraPosicion,int variante);
+		int calcularVerticesBaseAbajo(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado);
+		int calcularVerticesBaseArriba(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado);
+		int calcularVerticesBaseDerecha(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado);
+		int calcularVerticesBaseIzquierda(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado);
+
 
 	private:
 		Posicion *vertice1;
@@ -47,10 +54,10 @@ class Triangulo: public Figura {
 		Recta *recta1;
 		Recta *recta2;
 		Recta *recta3;
-		int *x1; //posiciones de la base del triangulo
-		int *y1;
-		int *x2;
-		int *y2;
+		int x1; //posiciones de la base del triangulo
+		int y1;
+		int x2;
+		int y2;
 		int lado;
 		std::string base; //me dice donde esta la base del triangulo, abajo, arriba, derecha, izquierda
 		void graficarPixel(SDL_Surface *screen, int i, int j, Posicion* ejeDeCoordenadas);

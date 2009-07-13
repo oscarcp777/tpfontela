@@ -10,6 +10,8 @@ class Posicion {
 		int getY();
 		void setX(int x);
 		void setY(int y);
+		int compare(Posicion*otraPosicion);
+
 	private:
 		int x;
 		int y;
