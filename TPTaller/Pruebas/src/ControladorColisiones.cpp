@@ -1336,7 +1336,7 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 			if(triangulo->getVertice1()->compare(verticeChoque)==0 || triangulo->getVertice2()->compare(verticeChoque)==0){
 
 				if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())<0){
-					
+
 					if(triangulo->getVertice2()->compare(verticeChoque)==0){
 					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
 						return tejo->getDireccion()->getFi() - PI/8;
@@ -1358,7 +1358,7 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 					}
 
 				}else if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())>0){
-					
+
 					if(triangulo->getVertice1()->compare(verticeChoque)==0){
 					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
 						return tejo->getDireccion()->getFi() - PI/8;
@@ -1537,6 +1537,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	bool fueraDeZonaInfluencia = false;
 	bool colisionVertice = false;
 	Recta*  rectaDireccionTejo=tejo->getRectaDireccion();
+	Posicion* verticeDeChoque;
 
 	Recta* recta1=triangulo->getRecta1();
 	Recta* recta2=triangulo->getRecta2();
@@ -1557,24 +1558,31 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	int numeroRecta=0;
 
 	if (d_r1 < radioTejo && d_r2 < radioTejo && d_r1 < d_r3){
-		colisionVertice = true;
 		dMenor = d_r1;
 		recta = recta1;
 		numeroRecta=1;
+
+
 	}
 	else{
 		if(d_r1 < radioTejo && d_r3 < radioTejo && d_r1 < d_r2){
-			colisionVertice = true;
+			//colisionVertice = true;
 			dMenor = d_r1;
 			recta = recta1;
 			numeroRecta=1;
+
+			Posicion* ptoInterseccion = rectaDireccionTejo->getInterseccion(recta);
+
+
 		}
 		else{
 			if (d_r2 < radioTejo && d_r3 < radioTejo && d_r2 < d_r1){
-				colisionVertice = true;
+			//	colisionVertice = true;
 				dMenor = d_r2;
 				recta = recta2;
 				numeroRecta=2;
+
+
 			}
 			else{
 				if (d_r1 < d_r2){
@@ -1604,6 +1612,28 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 			}
 		}
 	}
+
+	Posicion* ptoInterseccion = rectaDireccionTejo->getInterseccion(recta);
+
+	std::cout<<"Punto Interseccion:"<<" X:"<<ptoInterseccion->getX()<<" Y:"<<ptoInterseccion->getY()<<endl;
+	std::cout<<"Vertice 1:"<<" X:"<<triangulo->getVertice1()->getX()<<" Y:"<<triangulo->getVertice1()->getY()<<endl;
+	std::cout<<"Vertice 2:"<<" X:"<<triangulo->getVertice2()->getX()<<" Y:"<<triangulo->getVertice2()->getY()<<endl;
+	std::cout<<"Vertice 3:"<<" X:"<<triangulo->getVertice3()->getX()<<" Y:"<<triangulo->getVertice3()->getY()<<endl;
+
+	if(-5<=triangulo->getVertice1()->getX()-ptoInterseccion->getX()<=5 && -5<=triangulo->getVertice1()->getY()-ptoInterseccion->getY()<=5){
+			verticeDeChoque=triangulo->getVertice1();
+			colisionVertice=true;
+	}else if(-5<=triangulo->getVertice2()->getX()-ptoInterseccion->getX()<=5 && -5<=triangulo->getVertice2()->getY()-ptoInterseccion->getY()<=5){
+			verticeDeChoque=triangulo->getVertice2();
+			colisionVertice=true;
+	}else if(-5<=triangulo->getVertice3()->getX()-ptoInterseccion->getX()<=5 && -5<=triangulo->getVertice3()->getY()-ptoInterseccion->getY()<=5){
+			verticeDeChoque=triangulo->getVertice3();
+			colisionVertice=true;
+	}else
+			colisionVertice=false;
+		
+			
+	delete ptoInterseccion;
 
 	Posicion* posicion2 = rectaDireccionTejo->getInterseccion(recta);
 	if(!isPuntoZonaDeInfluenciaTriangulo(posicion2,triangulo)&&posicion2!=NULL&&recta->getInfinito()!=-1&&recta->getPendiente()!=0){
@@ -1668,34 +1698,31 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		if (colisionVertice){
 			bool puntoTriangulo=false;
 
-			Posicion* posicion3 = rectaDireccionTejo->getInterseccion(recta);
+			//Posicion* posicion3 = rectaDireccionTejo->getInterseccion(recta);
 			Posicion* posicion4 = new Posicion(tejo->getX(),tejo->getY());
-			Posicion* vertice=triangulo->getVertice1();;
-			if(isPuntoZonaDeInfluenciaTriangulo(posicion3,triangulo)&&!isPuntoZonaDeInfluenciaTriangulo(posicion4,triangulo)){
+			
+		/*	if(isPuntoZonaDeInfluenciaTriangulo(posicion3,triangulo)&&!isPuntoZonaDeInfluenciaTriangulo(posicion4,triangulo)){
 				puntoTriangulo=true;
-			}
+			}*/
 
 			if(DEBUG2==1){
 				std::cout<<"colisionVertice  :"<<puntoTriangulo<<endl;
 				system("PAUSE");
 			}
 
-			if(isPuntoZonaDeInfluenciaTejo(triangulo->getVertice2(),tejo))
-				vertice = triangulo->getVertice2();
-			else if(isPuntoZonaDeInfluenciaTejo(triangulo->getVertice3(),tejo))
-				vertice = triangulo->getVertice3();
-
+		
 			if(triangulo->getTieneBonus()){
 					tejo->setChocoFiguraConBonus(true);
 			}
 			//	if(puntoTriangulo){
-
-					tejo->getDireccion()->setFi(CalculosMatematicos::getAnguloValido(obtenerAnguloTejo(vertice,posicion4,rectaDireccionTejo,tejo,triangulo)));
+		//	if(isPuntoZonaDeInfluenciaTejo(verticeDeChoque,tejo)){
+					tejo->getDireccion()->setFi(CalculosMatematicos::getAnguloValido(obtenerAnguloTejo(verticeDeChoque,posicion4,rectaDireccionTejo,tejo,triangulo)));
 					sacarDelAmbitoDelTriangulo(tejo,triangulo);
+		//	}
 			//	}
 
 
-          delete posicion3;
+         // delete posicion3;
           delete posicion4;
 		}
 		else{
