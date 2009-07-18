@@ -52,6 +52,13 @@ public:
 	static Recta* obtenerRectaParalelaRectaDirTejo(Triangulo*triangulo,Tejo*tejo,Posicion*posicionTejo);
 	static double obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*tejo,Posicion*verticeChoque);
 	static double obtenerAnguloTejo(Posicion*vertice,Posicion*posicionAcomparar,Recta*rectaDireccion,Tejo*tejo,Triangulo*triangulo);
+	static void asignarVerticesSegunBase(Recta*rectaBase, Triangulo*triangulo, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseDerecha(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseIzquierda(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseAbajo(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseArriba(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+
+
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */

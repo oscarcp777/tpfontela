@@ -170,7 +170,7 @@ int Recta::getY1(){
 	return y1;
 }
 int Recta::getY2(){
-	return y1;
+	return y2;
 }
 double Recta::getAnguloConAbcisa(){
 	int cortaY=abs(this->getValor(0));
