@@ -1266,7 +1266,7 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 						return tejo->getDireccion()->getFi() + PI/2;
 					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
 						std::cout<<"3"<<endl;
-						return tejo->getDireccion()->getFi() + PI/2;
+						return tejo->getDireccion()->getFi() - PI/2;
 					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
 						std::cout<<"4"<<endl;
 						return tejo->getDireccion()->getFi() + (3/2)*PI;
@@ -1281,9 +1281,10 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
 						std::cout<<"7"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
-					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
 						std::cout<<"8"<<endl;
 						return tejo->getDireccion()->getFi() + PI/8;
+					}
 					}
 					}
 
@@ -1323,16 +1324,16 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 
 				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
 					std::cout<<"17"<<endl;
-					return tejo->getDireccion()->getFi() + PI/8;
+					return tejo->getDireccion()->getFi() + PI/2;
 				}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
 					std::cout<<"18"<<endl;
 					return tejo->getDireccion()->getFi() - PI/8;
 				}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
 					std::cout<<"19"<<endl;
-					return tejo->getDireccion()->getFi() + PI/2;
+					return tejo->getDireccion()->getFi() - (3/2)*PI;
 				}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
 					std::cout<<"20"<<endl;
-					return tejo->getDireccion()->getFi() + PI/2;
+					return tejo->getDireccion()->getFi()+(3/2)*PI;
 				}
 			}
 
