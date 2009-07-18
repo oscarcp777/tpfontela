@@ -1217,50 +1217,273 @@ Recta* ControladorColisiones::getRectaDeColision(Triangulo* triangulo,Tejo* tejo
 				return NULL;
 }
 
+/* Los vertices 1 y 2 estarán en rectaBase, y el vertice 3 será el vertice opuesto */
+void ControladorColisiones::asignarVerticesSegunBase(Recta*rectaBase, Triangulo*triangulo, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3){
+	int x1 = rectaBase->getX1();
+	int y1 = rectaBase->getY1();
+	int x2 = rectaBase->getX2();
+	int y2 = rectaBase->getY2();
+/*
+	std::cout<<"x1: "<<x1<<endl;
+	std::cout<<"x2: "<<x2<<endl;
 
-double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*tejo,Posicion*verticeChoque){
-	bool base_derecha=false;
-	bool base_izquierda=false;
-	bool base_arriba=false;
-	bool base_abajo=false;
+	std::cout<<"y1: "<<x1<<endl;
+	std::cout<<"y2: "<<x1<<endl;
+*/
+	if(triangulo->getVertice1()->getX()==x1 && triangulo->getVertice1()->getY()==y1){
+		vertice1->setX(triangulo->getVertice1()->getX());
+		vertice1->setY(triangulo->getVertice1()->getY());
+		//std::cout<<"vertice1 es 1: "<<endl;
+	}else if(triangulo->getVertice2()->getX()==x1 && triangulo->getVertice2()->getY()==y1){
+		vertice1->setX(triangulo->getVertice2()->getX());
+		vertice1->setY(triangulo->getVertice2()->getY());
+		//std::cout<<"vertice1 es 2: "<<endl;
+	}else if(triangulo->getVertice3()->getX()==x1 && triangulo->getVertice3()->getY()==y1){
+		vertice1->setX(triangulo->getVertice3()->getX());
+		vertice1->setY(triangulo->getVertice3()->getY());
+		//std::cout<<"vertice1 es 3: "<<endl;
+	}
 
-	bool recta1Base=false;
-	bool recta2Base=false;
-	bool recta3Base=false;
+	if(triangulo->getVertice1()->getX()==x2 && triangulo->getVertice1()->getY()==y2){
+			vertice2->setX(triangulo->getVertice1()->getX());
+			vertice2->setY(triangulo->getVertice1()->getY());
+			//std::cout<<"vertice2 es 1: "<<endl;
+	}else if(triangulo->getVertice2()->getX()==x2 && triangulo->getVertice2()->getY()==y2){
+			vertice2->setX(triangulo->getVertice2()->getX());
+			vertice2->setY(triangulo->getVertice2()->getY());
+			//std::cout<<"vertice2 es 2: "<<endl;
+	}else if(triangulo->getVertice3()->getX()==x2 && triangulo->getVertice3()->getY()==y2){
+			vertice2->setX(triangulo->getVertice3()->getX());
+			vertice2->setY(triangulo->getVertice3()->getY());
+			//std::cout<<"vertice2 es 3: "<<endl;
+	}
+
+	if(vertice1->compare(triangulo->getVertice1())!=0 && vertice2->compare(triangulo->getVertice1())!=0){
+		vertice3->setX(triangulo->getVertice1()->getX());
+		vertice3->setY(triangulo->getVertice1()->getY());
+		//std::cout<<"vertice3 es 1: "<<endl;
+	}else if(vertice1->compare(triangulo->getVertice2())!=0 && vertice2->compare(triangulo->getVertice2())!=0){
+		vertice3->setX(triangulo->getVertice2()->getX());
+		vertice3->setY(triangulo->getVertice2()->getY());
+		//std::cout<<"vertice3 es 2: "<<endl;
+	}else if(vertice1->compare(triangulo->getVertice3())!=0 && vertice2->compare(triangulo->getVertice3())!=0){
+		vertice3->setX(triangulo->getVertice3()->getX());
+		vertice3->setY(triangulo->getVertice3()->getY());
+		//std::cout<<"vertice3 es 3: "<<endl;
+	}
+
+
+std::cout<<"vertice1: "<<vertice1->getX()<<", "<<vertice1->getY()<<endl;
+std::cout<<"vertice2: "<<vertice2->getX()<<", "<<vertice2->getY()<<endl;
+std::cout<<"vertice3: "<<vertice3->getX()<<", "<<vertice3->getY()<<endl;
+
+//system("PAUSE");
+
+}
+
+double  ControladorColisiones::colisionVerticeEnBaseDerecha(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3){
+
 	double anguloTejo = tejo->getDireccion()->getFi();
 
-	std::cout<<"1ro"<<endl;
-	if(triangulo->isBase(triangulo->getRecta1())==0){
-		recta1Base=true;
-	}
 
-	if(triangulo->isBase(triangulo->getRecta2())==0){
-		recta2Base=true;
-	}
+			std::cout<<"vertice1: "<<vertice1->getX()<<", "<<vertice1->getY()<<endl;
+			std::cout<<"vertice2: "<<vertice2->getX()<<", "<<vertice2->getY()<<endl;
+			std::cout<<"vertice3: "<<vertice3->getX()<<", "<<vertice3->getY()<<endl;
+			std::cout<<"verticeChoque: "<<verticeChoque->getX()<<", "<<verticeChoque->getY()<<endl;
 
-	if(triangulo->isBase(triangulo->getRecta3())==0){
-		recta3Base=true;
-	}
+			if(vertice1->compare(verticeChoque)==0 || vertice2->compare(verticeChoque)==0){
 
-	if(triangulo->getBase()==BASE_TRIANGULO_DERECHA)
-		base_derecha = true;
-	else if(triangulo->getBase()==BASE_TRIANGULO_IZQUIERDA)
-		base_izquierda = true;
-	else if(triangulo->getBase()==BASE_TRIANGULO_ARRIBA)
-		base_arriba = true;
-	else if(triangulo->getBase()==BASE_TRIANGULO_ABAJO)
-		base_abajo = true;
-
-	if(recta1Base){
-		if(base_derecha){
-			if(triangulo->getVertice1()->compare(verticeChoque)==0 || triangulo->getVertice2()->compare(verticeChoque)==0){
-
-				if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())<0){
-
-					if(triangulo->getVertice2()->compare(verticeChoque)==0){
+				if(vertice2->compare(verticeChoque)==0){
 					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
 						std::cout<<"1"<<endl;
+						return tejo->getDireccion()->getFi() - (3*PI/2);
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"2"<<endl;
+						return tejo->getDireccion()->getFi() - PI/2;
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"3"<<endl;
+						return tejo->getDireccion()->getFi() - PI/2;
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"4"<<endl;
+						return tejo->getDireccion()->getFi() + (PI/8);
+					}
+				}else{
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"5"<<endl;
+						return tejo->getDireccion()->getFi() - (PI/8);
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"6"<<endl;
+						return tejo->getDireccion()->getFi() + PI/2;
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"7"<<endl;
+						return tejo->getDireccion()->getFi() + PI/2;
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"8"<<endl;
+						return tejo->getDireccion()->getFi() + (3*PI/2);
+					}
+				}
+
+			}else if(vertice3->compare(verticeChoque)==0){
+
+				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"9"<<endl;
+					return tejo->getDireccion()->getFi() + PI/8;
+				}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"10"<<endl;
+					return tejo->getDireccion()->getFi() - PI/8;
+				}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"11"<<endl;
+					return tejo->getDireccion()->getFi() - (PI/2);
+				}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"12"<<endl;
+					return tejo->getDireccion()->getFi()+(PI/2);
+				}
+			}
+
+				return 0;
+}
+
+double  ControladorColisiones::colisionVerticeEnBaseIzquierda(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3){
+
+	double anguloTejo = tejo->getDireccion()->getFi();
+
+
+			std::cout<<"vertice1: "<<vertice1->getX()<<", "<<vertice1->getY()<<endl;
+			std::cout<<"vertice2: "<<vertice2->getX()<<", "<<vertice2->getY()<<endl;
+			std::cout<<"vertice3: "<<vertice3->getX()<<", "<<vertice3->getY()<<endl;
+			std::cout<<"verticeChoque: "<<verticeChoque->getX()<<", "<<verticeChoque->getY()<<endl;
+
+			if(vertice1->compare(verticeChoque)==0 || vertice2->compare(verticeChoque)==0){
+
+				if(vertice2->compare(verticeChoque)==0){
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"1"<<endl;
+						return tejo->getDireccion()->getFi() - (PI/2);
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"2"<<endl;
+						return tejo->getDireccion()->getFi() - PI/2;
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"3"<<endl;
+						return tejo->getDireccion()->getFi() + PI/2;
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"4"<<endl;
+						return tejo->getDireccion()->getFi() + (3*PI/2);
+					}
+				}else{
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"5"<<endl;
+						return tejo->getDireccion()->getFi() - (3*PI/2);
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"6"<<endl;
+						return tejo->getDireccion()->getFi() - PI/2;
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"7"<<endl;
 						return tejo->getDireccion()->getFi() - PI/8;
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"8"<<endl;
+						return tejo->getDireccion()->getFi() - (PI/2);
+					}
+				}
+
+			}else if(vertice3->compare(verticeChoque)==0){
+
+				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"9"<<endl;
+					return tejo->getDireccion()->getFi() - PI/2;
+				}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"10"<<endl;
+					return tejo->getDireccion()->getFi() + PI/2;
+				}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"11"<<endl;
+					return tejo->getDireccion()->getFi() + (PI/8);
+				}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"12"<<endl;
+					return tejo->getDireccion()->getFi()-(PI/8);
+				}
+			}
+
+				return 0;
+}
+
+double  ControladorColisiones::colisionVerticeEnBaseAbajo(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3){
+
+	double anguloTejo = tejo->getDireccion()->getFi();
+
+
+		std::cout<<"vertice1: "<<vertice1->getX()<<", "<<vertice1->getY()<<endl;
+		std::cout<<"vertice2: "<<vertice2->getX()<<", "<<vertice2->getY()<<endl;
+		std::cout<<"vertice3: "<<vertice3->getX()<<", "<<vertice3->getY()<<endl;
+		std::cout<<"verticeChoque: "<<verticeChoque->getX()<<", "<<verticeChoque->getY()<<endl;
+
+		if(vertice1->compare(verticeChoque)==0 || vertice2->compare(verticeChoque)==0){
+
+			if(vertice2->compare(verticeChoque)==0){
+				if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+					std::cout<<"1"<<endl;
+					return tejo->getDireccion()->getFi() + (PI/8);
+				}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+					std::cout<<"2"<<endl;
+					return tejo->getDireccion()->getFi() + PI/2;
+				}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+					std::cout<<"3"<<endl;
+					return tejo->getDireccion()->getFi() + PI/2;
+				}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+					std::cout<<"4"<<endl;
+					return tejo->getDireccion()->getFi() + (3*PI/2);
+				}
+			}else{
+				if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+					std::cout<<"5"<<endl;
+					return tejo->getDireccion()->getFi() - (PI/2);
+				}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+					std::cout<<"6"<<endl;
+					return tejo->getDireccion()->getFi() - PI/8;
+				}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+					std::cout<<"7"<<endl;
+					return tejo->getDireccion()->getFi() + PI/2;
+				}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+					std::cout<<"8"<<endl;
+					return tejo->getDireccion()->getFi() + PI/2;
+				}
+			}
+
+		}else if(vertice3->compare(verticeChoque)==0){
+
+			if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
+				std::cout<<"9"<<endl;
+				return tejo->getDireccion()->getFi() - PI/2;
+			}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
+				std::cout<<"10"<<endl;
+				return tejo->getDireccion()->getFi() - PI/2;
+			}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
+				std::cout<<"11"<<endl;
+				return tejo->getDireccion()->getFi() - (3*PI/2);
+			}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
+				std::cout<<"12"<<endl;
+				return tejo->getDireccion()->getFi()+(PI/8);
+			}
+		}
+
+			return 0;
+
+}
+
+double  ControladorColisiones::colisionVerticeEnBaseArriba(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3){
+
+	double anguloTejo = tejo->getDireccion()->getFi();
+
+
+			std::cout<<"vertice1: "<<vertice1->getX()<<", "<<vertice1->getY()<<endl;
+			std::cout<<"vertice2: "<<vertice2->getX()<<", "<<vertice2->getY()<<endl;
+			std::cout<<"vertice3: "<<vertice3->getX()<<", "<<vertice3->getY()<<endl;
+			std::cout<<"verticeChoque: "<<verticeChoque->getX()<<", "<<verticeChoque->getY()<<endl;
+
+			if(vertice1->compare(verticeChoque)==0 || vertice2->compare(verticeChoque)==0){
+
+				if(vertice2->compare(verticeChoque)==0){
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"1"<<endl;
+						return tejo->getDireccion()->getFi() - (3*PI/2);
 					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
 						std::cout<<"2"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
@@ -1269,79 +1492,93 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 						return tejo->getDireccion()->getFi() - PI/2;
 					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
 						std::cout<<"4"<<endl;
-						return tejo->getDireccion()->getFi() + (3/2)*PI;
+						return tejo->getDireccion()->getFi() - (PI/8);
 					}
-					}else{
+				}else{
 					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
 						std::cout<<"5"<<endl;
-						return tejo->getDireccion()->getFi() - (3/2)*PI;
+						return tejo->getDireccion()->getFi() - (PI/2);
 					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
 						std::cout<<"6"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
 					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
 						std::cout<<"7"<<endl;
-						return tejo->getDireccion()->getFi() - PI/2;
+						return tejo->getDireccion()->getFi() + PI/8;
 					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
 						std::cout<<"8"<<endl;
-						return tejo->getDireccion()->getFi() + PI/8;
-					}
-					}
-					}
-
-				}else if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())>0){
-
-					if(triangulo->getVertice1()->compare(verticeChoque)==0){
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
-						std::cout<<"9"<<endl;
-						return tejo->getDireccion()->getFi() - PI/8;
-					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
-						std::cout<<"10"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
-					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
-						std::cout<<"11"<<endl;
-						return tejo->getDireccion()->getFi() + PI/2;
-					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
-						std::cout<<"12"<<endl;
-						return tejo->getDireccion()->getFi() + (3/2)*PI;
-					}
-					}else{
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
-						std::cout<<"13"<<endl;
-						return tejo->getDireccion()->getFi() - (3/2)*PI;
-					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
-						std::cout<<"14"<<endl;
-						return tejo->getDireccion()->getFi() - PI/2;
-					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
-						std::cout<<"15"<<endl;
-						return tejo->getDireccion()->getFi() - PI/2;
-					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
-						std::cout<<"16"<<endl;
-						return tejo->getDireccion()->getFi() + PI/8;
 					}
 				}
 
-			}else{
+			}else if(vertice3->compare(verticeChoque)==0){
 
 				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
-					std::cout<<"17"<<endl;
+					std::cout<<"9"<<endl;
 					return tejo->getDireccion()->getFi() + PI/2;
 				}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
-					std::cout<<"18"<<endl;
-					return tejo->getDireccion()->getFi() - PI/8;
+					std::cout<<"10"<<endl;
+					return tejo->getDireccion()->getFi() + PI/8;
 				}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
-					std::cout<<"19"<<endl;
-					return tejo->getDireccion()->getFi() - (3/2)*PI;
+					std::cout<<"11"<<endl;
+					return tejo->getDireccion()->getFi() - (PI/8);
 				}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
-					std::cout<<"20"<<endl;
-					return tejo->getDireccion()->getFi()+(3/2)*PI;
+					std::cout<<"12"<<endl;
+					return tejo->getDireccion()->getFi()+(3*PI/2);
 				}
 			}
 
-		}
+				return 0;
+}
+
+double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*tejo,Posicion*verticeChoque){
+	bool base_derecha=false;
+	bool base_izquierda=false;
+	bool base_arriba=false;
+	bool base_abajo=false;
+
+	//vertice1 y vertice2 seran puntos de la base y vertice 3 el vertice opuesto a los vertices que forman la recta base
+	Posicion* vertice1 = new Posicion(0,0);
+	Posicion* vertice2 = new Posicion(0,0);
+	Posicion* vertice3 = new Posicion(0,0);
+
+	Recta* rectaBase;
+
+	if(triangulo->isBase(triangulo->getRecta1())==0){
+		rectaBase = triangulo->getRecta1();
 	}
 
-		return 0;
+	if(triangulo->isBase(triangulo->getRecta2())==0){
+		rectaBase = triangulo->getRecta2();
+	}
 
+	if(triangulo->isBase(triangulo->getRecta3())==0){
+		rectaBase = triangulo->getRecta3();
+	}
+
+	if(triangulo->getBase()==BASE_TRIANGULO_DERECHA){
+		base_derecha = true;
+	}else if(triangulo->getBase()==BASE_TRIANGULO_IZQUIERDA){
+		base_izquierda = true;
+	}else if(triangulo->getBase()==BASE_TRIANGULO_ARRIBA){
+		base_arriba = true;
+	}else if(triangulo->getBase()==BASE_TRIANGULO_ABAJO)
+		base_abajo = true;
+
+	asignarVerticesSegunBase(rectaBase, triangulo, vertice1, vertice2, vertice3);
+
+	if(base_derecha){
+		return colisionVerticeEnBaseDerecha(triangulo, tejo, verticeChoque, vertice1, vertice2, vertice3);
+	}else if(base_izquierda){
+		return colisionVerticeEnBaseIzquierda(triangulo, tejo, verticeChoque, vertice1, vertice2, vertice3);
+	}else if(base_abajo){
+		return colisionVerticeEnBaseAbajo(triangulo, tejo, verticeChoque, vertice1, vertice2, vertice3);
+	}else if(base_arriba){
+		return colisionVerticeEnBaseArriba(triangulo, tejo, verticeChoque, vertice1, vertice2, vertice3);
+	}
+
+	delete vertice1;
+	delete vertice2;
+	delete vertice3;
 }
 
 double ControladorColisiones::obtenerAnguloTejo(Posicion*vertice,Posicion*posicionAcomparar,Recta*rectaDireccion,Tejo*tejo,Triangulo*triangulo){
@@ -1384,6 +1621,7 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 	int xTejo=tejo->getX();
 	int yTejo=tejo->getY();
 
+
 	bool fueraDeZonaInfluencia = false;
 	bool colisionVertice = false;
 	Recta*  rectaDireccionTejo=tejo->getRectaDireccion();
@@ -1415,12 +1653,19 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 		dMenor = d_r1;
 		recta = recta1;
 
-		if((diferenciaEnXmodulo(recta->getX1(),xTejo)<diferenciaEnXmodulo(recta->getX2(),xTejo))
-		   &&(diferenciaEnYmodulo(recta->getY1(),yTejo)<diferenciaEnYmodulo(recta->getY2(),yTejo)))
-			verticeDeChoque = triangulo->getVertice1();
-		else
-			verticeDeChoque = triangulo->getVertice2();
+		int diferenciaVertice1 = (diferenciaEnXmodulo(triangulo->getVertice1()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice1()->getY(),yTejo));
+		int diferenciaVertice2 = (diferenciaEnXmodulo(triangulo->getVertice2()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice2()->getY(),yTejo));
+		int diferenciaVertice3 = (diferenciaEnXmodulo(triangulo->getVertice3()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice3()->getY(),yTejo));
 
+		std::cout<<"diferenciaVertice1: "<<diferenciaVertice1<<endl;
+		std::cout<<"diferenciaVertice2: "<<diferenciaVertice2<<endl;
+
+		if(diferenciaVertice1<diferenciaVertice2 && diferenciaVertice1<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice1();
+		else if(diferenciaVertice2<diferenciaVertice1 && diferenciaVertice2<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice2();
+		else if(diferenciaVertice3<diferenciaVertice1 && diferenciaVertice3<diferenciaVertice2)
+			verticeDeChoque = triangulo->getVertice3();
 
 		numeroRecta=1;
 	}
@@ -1430,11 +1675,19 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 			dMenor = d_r1;
 			recta = recta1;
 
-			if((diferenciaEnXmodulo(recta->getX1(),xTejo)<diferenciaEnXmodulo(recta->getX2(),xTejo))
-					   &&(diferenciaEnYmodulo(recta->getY1(),yTejo)<diferenciaEnYmodulo(recta->getY2(),yTejo)))
-						verticeDeChoque = triangulo->getVertice1();
-					else
-						verticeDeChoque = triangulo->getVertice3();
+				int diferenciaVertice1 = (diferenciaEnXmodulo(triangulo->getVertice1()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice1()->getY(),yTejo));
+				int diferenciaVertice2 = (diferenciaEnXmodulo(triangulo->getVertice2()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice2()->getY(),yTejo));
+				int diferenciaVertice3 = (diferenciaEnXmodulo(triangulo->getVertice3()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice3()->getY(),yTejo));
+
+		std::cout<<"diferenciaVertice1: "<<diferenciaVertice1<<endl;
+		std::cout<<"diferenciaVertice2: "<<diferenciaVertice2<<endl;
+
+		if(diferenciaVertice1<diferenciaVertice2 && diferenciaVertice1<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice1();
+		else if(diferenciaVertice2<diferenciaVertice1 && diferenciaVertice2<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice2();
+		else if(diferenciaVertice3<diferenciaVertice1 && diferenciaVertice3<diferenciaVertice2)
+			verticeDeChoque = triangulo->getVertice3();
 
 			numeroRecta=1;
 		}
@@ -1443,12 +1696,19 @@ void ControladorColisiones::colisionTriangulo(Triangulo* triangulo,Tejo* tejo){
 				colisionVertice = true;
 				dMenor = d_r2;
 				recta = recta2;
+					int diferenciaVertice1 = (diferenciaEnXmodulo(triangulo->getVertice1()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice1()->getY(),yTejo));
+					int diferenciaVertice2 = (diferenciaEnXmodulo(triangulo->getVertice2()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice2()->getY(),yTejo));
+					int diferenciaVertice3 = (diferenciaEnXmodulo(triangulo->getVertice3()->getX(),xTejo)+diferenciaEnYmodulo(triangulo->getVertice3()->getY(),yTejo));
 
-				if((diferenciaEnXmodulo(recta->getX1(),xTejo)<diferenciaEnXmodulo(recta->getX2(),xTejo))
-						   &&(diferenciaEnYmodulo(recta->getY1(),yTejo)<diferenciaEnYmodulo(recta->getY2(),yTejo)))
-							verticeDeChoque = triangulo->getVertice2();
-						else
-							verticeDeChoque = triangulo->getVertice3();
+		std::cout<<"diferenciaVertice1: "<<diferenciaVertice1<<endl;
+		std::cout<<"diferenciaVertice2: "<<diferenciaVertice2<<endl;
+
+		if(diferenciaVertice1<diferenciaVertice2 && diferenciaVertice1<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice1();
+		else if(diferenciaVertice2<diferenciaVertice1 && diferenciaVertice2<diferenciaVertice3)
+			verticeDeChoque = triangulo->getVertice2();
+		else if(diferenciaVertice3<diferenciaVertice1 && diferenciaVertice3<diferenciaVertice2)
+			verticeDeChoque = triangulo->getVertice3();
 
 				numeroRecta=2;
 			}
