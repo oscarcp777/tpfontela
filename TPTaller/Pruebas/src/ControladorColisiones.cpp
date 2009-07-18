@@ -1258,58 +1258,82 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 				if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())<0){
 
 					if(triangulo->getVertice2()->compare(verticeChoque)==0){
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"1"<<endl;
 						return tejo->getDireccion()->getFi() - PI/8;
-					else if(CalculosMatematicos::isTercerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"2"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
-					else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"3"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
-					else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"4"<<endl;
 						return tejo->getDireccion()->getFi() + (3/2)*PI;
+					}
 					}else{
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"5"<<endl;
 						return tejo->getDireccion()->getFi() - (3/2)*PI;
-				    else if(CalculosMatematicos::isTercerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"6"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
-					else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"7"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
-					else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+						std::cout<<"8"<<endl;
 						return tejo->getDireccion()->getFi() + PI/8;
+					}
 					}
 
 				}else if(triangulo->diferenciaEnY(triangulo->getVertice1(),triangulo->getVertice2())>0){
 
 					if(triangulo->getVertice1()->compare(verticeChoque)==0){
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"9"<<endl;
 						return tejo->getDireccion()->getFi() - PI/8;
-					else if(CalculosMatematicos::isTercerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"10"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
-					else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"11"<<endl;
 						return tejo->getDireccion()->getFi() + PI/2;
-					else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"12"<<endl;
 						return tejo->getDireccion()->getFi() + (3/2)*PI;
+					}
 					}else{
-					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo))
+					if(CalculosMatematicos::isCuartoCuadrante(anguloTejo)){
+						std::cout<<"13"<<endl;
 						return tejo->getDireccion()->getFi() - (3/2)*PI;
-				    else if(CalculosMatematicos::isTercerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isTercerCuadrante(anguloTejo)){
+						std::cout<<"14"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
-					else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isSegundoCuadrante(anguloTejo)){
+						std::cout<<"15"<<endl;
 						return tejo->getDireccion()->getFi() - PI/2;
-					else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo))
+					}else if(CalculosMatematicos::isPrimerCuadrante(anguloTejo)){
+						std::cout<<"16"<<endl;
 						return tejo->getDireccion()->getFi() + PI/8;
 					}
 				}
 
 			}else{
 
-				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi()))
+				if(CalculosMatematicos::isSegundoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"17"<<endl;
 					return tejo->getDireccion()->getFi() + PI/8;
-				else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi()))
+				}else if(CalculosMatematicos::isTercerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"18"<<endl;
 					return tejo->getDireccion()->getFi() - PI/8;
-				else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi()))
+				}else if(CalculosMatematicos::isCuartoCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"19"<<endl;
 					return tejo->getDireccion()->getFi() + PI/2;
-				else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi()))
+				}else if(CalculosMatematicos::isPrimerCuadrante(tejo->getDireccion()->getFi())){
+					std::cout<<"20"<<endl;
 					return tejo->getDireccion()->getFi() + PI/2;
+				}
 			}
 
 		}
@@ -1321,126 +1345,11 @@ double ControladorColisiones::obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*te
 
 double ControladorColisiones::obtenerAnguloTejo(Posicion*vertice,Posicion*posicionAcomparar,Recta*rectaDireccion,Tejo*tejo,Triangulo*triangulo){
 
-//	int posAcompararX = posicionAcomparar->getX();
-//	int posAcompararY = posicionAcomparar->getY();
+
 	double anguloTejo;
-/*	bool cuartoCuadrante = CalculosMatematicos::isCuartoCuadrante(anguloTejo);
-	bool tercerCuadrante = CalculosMatematicos::isTercerCuadrante(anguloTejo);
-	bool segundoCuadrante = CalculosMatematicos::isSegundoCuadrante(anguloTejo);
-	bool primerCuadrante = CalculosMatematicos::isTercerCuadrante(anguloTejo);
-	bool intersectaTodasLasRectas;
 
-	Posicion*intersectaRecta1=rectaDireccion->getInterseccion(triangulo->getRecta1());
-	Posicion*intersectaRecta2=rectaDireccion->getInterseccion(triangulo->getRecta2());
-	Posicion*intersectaRecta3=rectaDireccion->getInterseccion(triangulo->getRecta3());
+	anguloTejo=obtenerAnguloSegunBase(triangulo,tejo,vertice);
 
-	Posicion*posicion;
-
-	if(!isPuntoZonaDeInfluenciaTriangulo(intersectaRecta1,triangulo)){
-		delete intersectaRecta1;
-		intersectaRecta1=NULL;
-	}else
-		posicion = intersectaRecta1;
-
-	if(!isPuntoZonaDeInfluenciaTriangulo(intersectaRecta2,triangulo)){
-		delete intersectaRecta2;
-		intersectaRecta2=NULL;
-	}else
-		posicion = intersectaRecta2;
-
-	if(!isPuntoZonaDeInfluenciaTriangulo(intersectaRecta3,triangulo)){
-		delete intersectaRecta3;
-		intersectaRecta3=NULL;
-	}else
-		posicion = intersectaRecta3;
-
-	if(intersectaRecta1!=NULL && intersectaRecta2!=NULL && intersectaRecta3!=NULL)
-		intersectaTodasLasRectas = true;
-	else
-		intersectaTodasLasRectas = false;
-*/
-
-
-/*	if(primerCuadrante){
-		if(intersectaTodasLasRectas){
-			posicionAcomparar->setX(posAcompararX+1);
-
-
-			if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-				anguloTejo += PI;
-			else{
-
-				posicionAcomparar->setX(posAcompararY-1);
-
-				if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-								anguloTejo += PI;
-			}
-
-			posicionAcomparar->setX(posAcompararX);
-			posicionAcomparar->setY(posAcompararY);
-		}else*/
-			anguloTejo=obtenerAnguloSegunBase(triangulo,tejo,vertice);
-
-/*	}else if(segundoCuadrante){
-
-		if(intersectaTodasLasRectas){
-					posicionAcomparar->setX(posAcompararX-1);
-
-					if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-						anguloTejo += PI;
-					else{
-
-						posicionAcomparar->setX(posAcompararY-1);
-
-						if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-										anguloTejo += PI;
-					}
-
-					posicionAcomparar->setX(posAcompararX);
-					posicionAcomparar->setY(posAcompararY);
-		}else
-			anguloTejo=obtenerAnguloSegunBase(triangulo,tejo,vertice);
-	}else if(tercerCuadrante){
-
-		if(intersectaTodasLasRectas){
-					posicionAcomparar->setX(posAcompararX-1);
-
-					if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-						anguloTejo += PI;
-					else{
-
-						posicionAcomparar->setX(posAcompararY-1);
-
-						if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-										anguloTejo += PI;
-					}
-
-					posicionAcomparar->setX(posAcompararX);
-					posicionAcomparar->setY(posAcompararY);
-		}else
-			anguloTejo=obtenerAnguloSegunBase(triangulo,tejo,vertice);
-	}else if(cuartoCuadrante){
-
-		if(intersectaTodasLasRectas){
-					posicionAcomparar->setX(posAcompararX+1);
-
-					if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-						anguloTejo += PI;
-					else{
-
-						posicionAcomparar->setX(posAcompararY+1);
-
-						if(triangulo->diferenciaEnX(posicionAcomparar,vertice)==0 && triangulo->diferenciaEnY(posicionAcomparar,vertice)==0)
-										anguloTejo += PI;
-					}
-
-					posicionAcomparar->setX(posAcompararX);
-					posicionAcomparar->setY(posAcompararY);
-		}else
-			anguloTejo=obtenerAnguloSegunBase(triangulo,tejo,vertice);
-	}*/
-
-//	delete posicion;
 
 	return anguloTejo;
 }
