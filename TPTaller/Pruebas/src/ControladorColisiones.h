@@ -22,6 +22,7 @@ class ControladorColisiones {
 
 public:
 	ControladorColisiones();
+	static void acelerarTejo(Tejo* tejo);
 	virtual ~ControladorColisiones();
 	static bool posibilidadDeColisionDispersores();
 	static void calcularDireccion();
