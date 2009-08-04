@@ -16,10 +16,7 @@ Triangulo::~Triangulo(){
 	delete this->recta1;
 	delete this->recta2;
 	delete this->recta3;
-	delete this->x1;
-	delete this->x2;
-	delete this->y1;
-	delete this->y2;
+
 	delete this->ejeDeCoordenadas;
 	delete this->ver1Aux;
 	delete this->ver2Aux;
@@ -107,7 +104,7 @@ int hallarDominio(int z1,int z2,int z3){
  * Devuelve -1 si posicion en x es menor a otraPosicion en x
  * Devuelve 0 si posicion en x es igual a otraPosicion en x
  */
-int diferenciaEnX(Posicion*posicion,Posicion*otraPosicion){
+int Triangulo::diferenciaEnX(Posicion*posicion,Posicion*otraPosicion){
 	if((posicion->getX()-otraPosicion->getX())>0)
 		return 1;
 	else if((posicion->getX()-otraPosicion->getX())<0)
@@ -121,7 +118,7 @@ int diferenciaEnX(Posicion*posicion,Posicion*otraPosicion){
  * Devuelve -1 si posicion en y es menor a otraPosicion en y
  * Devuelve 0 si posicion en y es igual a otraPosicion en y
  */
-int diferenciaEnY(Posicion*posicion,Posicion*otraPosicion){
+int Triangulo::diferenciaEnY(Posicion*posicion,Posicion*otraPosicion){
 	if((posicion->getY()-otraPosicion->getY())>0)
 		return 1;
 	else if((posicion->getY()-otraPosicion->getY())<0)
@@ -137,7 +134,7 @@ int diferenciaEnY(Posicion*posicion,Posicion*otraPosicion){
  * devuelve -1 en caso que ambos vertices no cumplan con la condición variante
  * devuelve -2 en caso de no ingresar correctamente el int variante que puede ser 0 o 1
  */
-int verificarCondicionVertices(Posicion*posicion,Posicion*otraPosicion,int variante){
+int Triangulo::verificarCondicionVertices(Posicion*posicion,Posicion*otraPosicion,int variante){
 	if(variante==0){ //x constante, y variando
 		if(diferenciaEnX(posicion,otraPosicion)==0)
 			if(diferenciaEnY(posicion,otraPosicion)!=0)
@@ -165,16 +162,16 @@ int Triangulo::isBase(Recta*recta){
 //	std::cout<<"recta->y1=="<<recta->getY1()<<" vert->y1=="<<*this->y1<<endl;
 //	std::cout<<"recta->y2=="<<recta->getY2()<<" vert->y2=="<<*this->y2<<endl;
 //	system("PAUSE");
-	if((recta->getX1()==*this->x1) && (recta->getX2()==*this->x2) && (recta->getY1()==*this->y1) && (recta->getY2()==*this->y2))
+	if((recta->getX1()==this->x1) && (recta->getX2()==this->x2) && (recta->getY1()==this->y1) && (recta->getY2()==this->y2))
 		return 0; //es base
 	else return -1; //no es base
 }
 
 void Triangulo::asignarPuntosRectaBase(Recta*recta){
-	*this->x1 = recta->getX1();
-	*this->x2 = recta->getX2();
-	*this->y1 = recta->getY1();
-	*this->y2 = recta->getY2();
+	this->x1 = recta->getX1();
+	this->x2 = recta->getX2();
+	this->y1 = recta->getY1();
+	this->y2 = recta->getY2();
 }
 
 //posicion1, posicion2 y posicion3 se corresponden a los vertices vert1, vert2 y vert3 del triangulo
@@ -281,7 +278,7 @@ Recta* Triangulo::getRecta3(){
 	return this->recta3;
 }
 
-int calcularVerticesBaseAbajo(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+int Triangulo::calcularVerticesBaseAbajo(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
 
 	double xVert1 = vertice1->getX();
 	double yVert1 = vertice1->getY();
@@ -345,7 +342,7 @@ int calcularVerticesBaseAbajo(Posicion*vertice1,Posicion*vertice2,Posicion*verti
 
 }
 
-int calcularVerticesBaseArriba(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+int Triangulo::calcularVerticesBaseArriba(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
 
 	double xVert1 = vertice1->getX();
 	double yVert1 = vertice1->getY();
@@ -409,7 +406,7 @@ int calcularVerticesBaseArriba(Posicion*vertice1,Posicion*vertice2,Posicion*vert
 
 }
 
-int calcularVerticesBaseDerecha(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+int Triangulo::calcularVerticesBaseDerecha(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
 
 	double xVert1 = vertice1->getX();
 	double yVert1 = vertice1->getY();
@@ -473,7 +470,7 @@ int calcularVerticesBaseDerecha(Posicion*vertice1,Posicion*vertice2,Posicion*ver
 
 }
 
-int calcularVerticesBaseIzquierda(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
+int Triangulo::calcularVerticesBaseIzquierda(Posicion*vertice1,Posicion*vertice2,Posicion*vertice3,int lado){
 
 	double xVert1 = vertice1->getX();
 	double yVert1 = vertice1->getY();
@@ -589,11 +586,6 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	this->vertice3 = ver3;
 	this->lado = lado;
 
-	this->x1 = new int(0);
-	this->x2 = new int(0);
-	this->y1 = new int(0);
-	this->y2 = new int(0);
-
 	this->recta1 = new Recta(ver1->getX(),ver2->getX(),ver1->getY(),ver2->getY());
 	this->recta2 = new Recta(ver1->getX(),ver3->getX(),ver1->getY(),ver3->getY());
 	this->recta3 = new Recta(ver2->getX(),ver3->getX(),ver2->getY(),ver3->getY());
@@ -614,9 +606,10 @@ Triangulo::Triangulo(std::string id,Posicion *ver1,Posicion *ver2,Posicion *ver3
 	delete this->recta2;
 	delete this->recta3;
 	delete ejeDeCordenadas;
-	this->recta1 = new Recta(this->vertice1->getX(),this->vertice2->getX(),this->vertice1->getY(),this->vertice2->getY());
-	this->recta2 = new Recta(this->vertice1->getX(),this->vertice3->getX(),this->vertice1->getY(),this->vertice3->getY());
-	this->recta3 = new Recta(this->vertice2->getX(),this->vertice3->getX(),this->vertice2->getY(),this->vertice3->getY());
+    this->recta1 = new Recta(ver1->getX(),ver2->getX(),ver1->getY(),ver2->getY());
+	this->recta2 = new Recta(ver1->getX(),ver3->getX(),ver1->getY(),ver3->getY());
+	this->recta3 = new Recta(ver2->getX(),ver3->getX(),ver2->getY(),ver3->getY());
+	darNombreBaseTriangulo(ver1,ver2,ver3);
 	this->ejeDeCoordenadas = hallarEjeDeCordenadas(this->getVertice1(),this->getVertice2(),this->getVertice3());
 	this->ver1Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice1());
 	this->ver2Aux = cambioCoordenadas(this->ejeDeCoordenadas, this->getVertice2());
