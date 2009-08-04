@@ -18,6 +18,10 @@ std::cout<<" y = "<<this->pendiente<<"*x + "<<this->ordenada<<" infinito"<<this-
 }
 
 Recta::Recta(int x1,int x2,int y1,int y2){
+	this->x1=x1;
+	this->x2=x2;
+	this->y1=y1;
+	this->y2=y2;
 	int equis=(x2 - x1);
 	if ( equis== 0){
 		 this->pendiente=NUMERO_PEQUENIO;
@@ -38,6 +42,13 @@ double Recta::getDistancia(){
        void Recta::setDistancia(double distancia){
     	   this->distancia=distancia;
        }
+
+int Recta::isPuntoDeRecta(Posicion*posicion){
+	if((posicion->getX()==this->getX1() && posicion->getY()==this->getY1())||(posicion->getX()==this->getX2() && posicion->getY()==this->getY2()) )
+		return 0;
+	else return -1;
+}
+
 int Recta::getInfinito()
    {
        return infinito;
@@ -158,7 +169,7 @@ int Recta::getY1(){
 	return y1;
 }
 int Recta::getY2(){
-	return y1;
+	return y2;
 }
 double Recta::getAnguloConAbcisa(){
 	int cortaY=abs(this->getValor(0));
