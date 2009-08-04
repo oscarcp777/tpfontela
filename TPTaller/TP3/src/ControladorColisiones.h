@@ -22,6 +22,7 @@ class ControladorColisiones {
 
 public:
 	ControladorColisiones();
+	static void acelerarTejo(Tejo* tejo);
 	virtual ~ControladorColisiones();
 	static bool posibilidadDeColisionDispersores();
 	static void calcularDireccion();
@@ -34,6 +35,10 @@ public:
 	static void decidirDireccionSegundoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionTercerCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
 	static void decidirDireccionCuartoCuadrante(Recta* rectaDeColision,Tejo* tejo,int posicionY);
+	static void decidirDireccionPrimerCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionSegundoCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionTercerCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
+	static void decidirDireccionCuartoCuadranteTriangulo(Recta* rectaDeColision,Tejo* tejo,Triangulo* triangulo);
 	static void colisionRectangulo(Rectangulo* rectangulo,Tejo* tejo);
 	static void colisionCuadrado(Cuadrado* cuadrado,Tejo* tejo);
 	static void colisionTriangulo(Triangulo* Triangulo,Tejo* tejo);
@@ -44,6 +49,17 @@ public:
 	static bool isPuntoZonaDeInfluenciaTejo(Posicion* posicion,Tejo* tejo);
 	static bool isPuntoZonaDeInfluenciaTriangulo(Posicion* posicion,Triangulo* triangulo);
 	static Recta* getRectaDeColision(Triangulo* triangulo,Tejo* tejo);
+	static int getTipoPendienteCeroOInfinito(Triangulo* triangulo);
+	static Recta* obtenerRectaParalelaRectaDirTejo(Triangulo*triangulo,Tejo*tejo,Posicion*posicionTejo);
+	static double obtenerAnguloSegunBase(Triangulo*triangulo,Tejo*tejo,Posicion*verticeChoque);
+	static double obtenerAnguloTejo(Posicion*vertice,Posicion*posicionAcomparar,Recta*rectaDireccion,Tejo*tejo,Triangulo*triangulo);
+	static void asignarVerticesSegunBase(Recta*rectaBase, Triangulo*triangulo, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseDerecha(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseIzquierda(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseAbajo(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+	static double colisionVerticeEnBaseArriba(Triangulo*triangulo, Tejo*tejo, Posicion*verticeChoque, Posicion*vertice1, Posicion*vertice2, Posicion*vertice3);
+
+
 };
 
 #endif /* CONTROLADORCOLISIONES_H_ */
