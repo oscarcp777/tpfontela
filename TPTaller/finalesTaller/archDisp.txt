@@ -1,0 +1,9 @@
+dispersor1 10 10 20 30
+dispersor2 20 10 20 30
+dispersor3 30 10 20 30
+dispersor4 10 10 20 30
+dispersor5 20 10 20 30
+dispersor6 30 10 20 30
+dispersor7 10 10 20 30
+dispersor8 20 10 20 30
+dispersor9 30 10 20 30
