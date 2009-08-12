@@ -1,0 +1,3 @@
+dispersor1 100 250 40 40
+dispersor2 230 190 80 40
+dispersor3 120 80 30 100
