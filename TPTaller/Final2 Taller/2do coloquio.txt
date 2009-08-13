@@ -1,0 +1,84 @@
+ Dani dice:
+la cosa era asi
+- Dani escribe:
+Un escenario "estaria dividido" en 3 partes de 0 a 25
+de 25 a 50 y de 70 a 75 (eje X)
+el arco esta posicionado en 75 del ejeX
+entre 15 y 35 del eje Y
+ 
+- Dani dice:
+ese es el escenario
+- Dani dice:
+la idea es que tenes equipos que patean
+- Dani dice:
+y equipos que atajan
+- Dani dice:
+entonces te dan un archivo con los siguientes datos
+- Dani dice:
+idequipo patea
+idequipo ataja
+xorigen
+yorigen
+xdestino
+ydestino
+yarquero
+alturaarquero
+- Dani dice:
+(eso seria una linea del archivo, se entiende no?)
+'       Richy... dice:
+si de 10 todo eso una linea
+- Dani dice:
+con el punto de origen y el punto destino
+- Dani dice:
+te estan dando la direccion
+- Dani dice:
+no es que la pelota llega a xd y d
+- Dani dice:
+se entiende eso?
+'       Richy... dice:
+ah ah ta bien
+- Dani dice:
+osea para sacar la direccion tenes que hacer
+- Dani dice:
+xd - xo, yd-yo
+- Dani dice:
+eso te da la direccion 
+'       Richy... dice:
+ 
+- Dani dice:
+(por suerte no patean con comba  )
+- Dani dice:
+los equipos van de 1 a 4
+- Dani dice:
+osea que hay 4 equipos
+- Dani dice:
+ya es la posicion del arquero (en el eje y)
+- Dani dice:
+ y la altura seria cuando mide
+- Dani dice:
+el arquero esta sobre la x = 75
+- Dani dice:
+se entiende eso?
+'       Richy... dice:
+si
+- Dani dice:
+fijate en el grafico que puse 25 50 75
+- Dani dice:
+bueno el arco es entre 15 y 35 (EJE y)
+- Dani dice:
+lo que pide el ejercicio com resultado es
+- Dani dice:
+el equipo que hizo mas puntos
+el equipo que hizo mas goles
+el equipo que mas atajo
+- Dani dice:
+los puntos son
+
+- Dani dice:
+de 0 a 25   30
+de 25 a 50 20
+de 50 en adelante 10
+- Dani dice:
+el arquero puede atajar aunque el tiro no vaya al arco
+- Dani dice:
+si la pelota pasa por la posicion del arquero el arquero la ataja
