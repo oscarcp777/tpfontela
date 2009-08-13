@@ -181,7 +181,7 @@ int main(){
                            
    }
    
-   system("PAUSE"); 
+  
   // el vector de tejos lo tengo que ordenar por distancia recorrida
   //y despues imprimir 
     
@@ -193,10 +193,19 @@ int main(){
                     printf(" choco con Dispersor= %s", (vecTejo[i])->idDispChoque);
                     printf(" y recorrio una distancia de= %.2f \n", (vecTejo[i])->distRecorrida);                                                                                       
                 } 
-				free (vecTejo[i]);
-        }      
-	
-     
+              
+        }  
+        
+    for(i=0; i< cantidadTejos; i++){    
+              tejoDestruir(vecTejo[i]);
+		      free (vecTejo[i]);
+    }    
+            
+	for(i=0; i< cantidadDisp; i++){    
+              dispersorDestruir(vecDisp[i]);
+              free(vecDisp[i]);
+    }
     
+     system("PAUSE"); 
     
 }
