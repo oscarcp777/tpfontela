@@ -1,0 +1,12 @@
+Se cuenta con un archivo que indica posicion  de gotas que caen;
+ la linea del archivo es;
+PosX(float) PosY(float)
+Y un archivo que indica posicion (vertice inferior izquierdo), volumen (es un entero con la cantidad de gotas que entran) y ancho de 
+los baldes, los cuales son todos cuadrados,  la linea del archivo es;
+idBalde PosX(float) PosY(float) Volumen(float) ancho(float)
+Se pide imprimir en pantalla, de forma ordenada (baldes con mayor cantidad de gotas a menor cantidad de gotas), los baldes con la cantidad correspondiente
+de las gotas que cayeron dentro, tener en cuenta que si los baldes estan llenos, se rebalsan y la gota
+seguira cayendo por la posicion del vertice inferior izquierdo del balde.
+imprimir:
+idBalde cantidadDeGotas
+

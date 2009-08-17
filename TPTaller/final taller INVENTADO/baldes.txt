@@ -1,0 +1,4 @@
+balde1 0 20 5 10
+balde2 5 40 4 15
+balde3 25 10 1 5
+balde4 15 60 1 13
