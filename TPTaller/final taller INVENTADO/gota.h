@@ -1,7 +1,6 @@
 typedef struct gota{
 	float x;
 	float y;
-	float vol;
 	int choco;
 
 

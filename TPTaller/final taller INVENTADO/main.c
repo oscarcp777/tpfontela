@@ -65,7 +65,6 @@ void cargarDatosGota(TDA_Gota* gota, char linea[TAM_LINEA]){
 	
 	gota->x = atof(strtok(linea,&s));
 	gota->y = atof(strtok(NULL,&s));
-	gota->vol = atof(strtok(NULL,&s));
 
 
 }
