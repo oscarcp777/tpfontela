@@ -37,6 +37,7 @@ typedef struct options_flags Oflags;
 Oflags oflags = {0,0,0,0,0};
 int posicionesArchivos[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 char* filename = "";
+int numParameters = 0;
 
 //Funciones para parsear los parametros
 int getOptions(int argc, char** argv,char** ofname);
@@ -46,7 +47,8 @@ void getVersion();
 //Funciones para extraccion de caracteres
 
 int listFields(char* fields, char* delimiter);
-int listBytes(char* bytes, char* delimiter);
+int listBytes(char* bytes);
+int validateCommand();
 
 int main(int argc, char** argv){
 	char* ofname;
@@ -59,18 +61,9 @@ int main(int argc, char** argv){
 		while(fgets(cadena, 80, stdin) != NULL) { 
 			printf("entro por pipe %sn",cadena);
 		}*/
-		    	
-        	if(oflags.flag_delimeter == 1 && oflags.flag_field == 0 ){
-                  help();                
-                  return EXIT_SUCCESS;
-            } 
-                         
-            if(oflags.flag_delimeter !=0){
-                 if(posicionesArchivos[1] == -1){
-                    help();
-                    return EXIT_SUCCESS;
-                 } 
-            }
+		    if (validateCommand() != EXIT_SUCCESS)
+               return -1;	
+        
             if(oflags.flag_field != 0){
                     if(oflags.flag_field == 1){                                            
                          printf("parametros de -f %s\n",argv[posicionesArchivos[0]]); 
@@ -83,14 +76,43 @@ int main(int argc, char** argv){
                          listFields(argv[posicionesArchivos[1]],argv[posicionesArchivos[0]]);
                          
                     }
-                                                       
+                    return EXIT_SUCCESS;                                                       
             }
-            else{
-                         printf("parametros de -f %s\n",argv[posicionesArchivos[1]]); 
-                         listFields(argv[posicionesArchivos[2]],argv[posicionesArchivos[0]]);
+            if(oflags.flag_bytes == 1){
+                    if ( posicionesArchivos[0] == -1)
+                       help();
+                    else
+                       listBytes(argv[posicionesArchivos[0]]);
             }
+            
+            
+            
 	return EXIT_SUCCESS;
 }
+
+int validateCommand(){
+    
+    	if(oflags.flag_delimeter == 1 && oflags.flag_field == 0 ){
+                  help();                
+                  return -1;
+            } 
+                         
+        if(oflags.flag_delimeter !=0){
+                 if(posicionesArchivos[1] == -1){
+                    help();
+                    return -1;
+                 } 
+        }
+        
+        if(oflags.flag_bytes == 1 && oflags.flag_field == 1 ){
+                  help();                
+                  return -1;
+        } 
+        
+        return EXIT_SUCCESS;
+    
+}
+
 
 void help(){
      /*In computing, cut is a Unix command line utility which is used to extract sections from each line of input — usually from a file*/
@@ -137,18 +159,14 @@ int getOptions(int argc, char** argv, char** ofname){
         	   	help();
     	   	break;
         	case 'd':
-                 if(oflags.flag_bytes != 0 ||  oflags.flag_field != 0)
+                 if(oflags.flag_field != 0)
                     oflags.flag_delimeter = 2;
                  else 
                  oflags.flag_delimeter = 1;
         		//TODO levantar el caracter delimitador y guardarlo en algun lado
         	break;
         	case 'b':
-        		if(oflags.flag_delimeter == 1)
-                    oflags.flag_bytes = 2;
-                else
-                    oflags.flag_bytes = 1;
-        		
+        		 oflags.flag_bytes = 1;
         	break;
         	case 'f':
                  if(oflags.flag_delimeter == 1)
@@ -175,32 +193,27 @@ int getOptions(int argc, char** argv, char** ofname){
     		posicionesArchivos[j]=optind++;
     		j++;
     	}
+    	numParameters = j;
     }
     
-    return 0;
+    return EXIT_SUCCESS;
 }
 
-int listBytes(char* bytes, char* delimiter){
+int listBytes(char* bytes){
+    numParameters--;
     printf("ENTRO A listByte\n");
-    if(delimiter == NULL){
-     //no se definio delimitador, uso el delimitador por defecto TAB
-     printf("delimitador por defecto: %s\n",delimiter); 
-    }
-    else{
-    // se definio un delimitador
-    printf("delimitador: %s\n",delimiter);   
-         
-         
-    }
-    return 0;    
+    printf("parametros de b: %s\n",bytes); 
+    return EXIT_SUCCESS;    
 }
 int listFields(char* fields, char* delimiter){
     printf("ENTRO A listField\n");
     if(delimiter == NULL){
+       numParameters--;
      //no se definio delimitador, uso el delimitador por defecto TAB
      printf("delimitador por defecto: %s\n",delimiter); 
     }
     else{
+         numParameters = numParameters-2;
     // se definio un delimitador
     printf("delimitador: %s\n",delimiter);   
          
