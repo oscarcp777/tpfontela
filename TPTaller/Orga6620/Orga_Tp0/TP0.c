@@ -44,16 +44,18 @@ int numParameters = 0;
 
 //Funciones para parsear los parametros
 int getOptions(int argc, char** argv,char** ofname);
-void help();
-void getVersion();
-
-//Funciones para extraccion de caracteres
-int listFields(char* string);
-int listBytes(char* string);
-int validateCommand();
 int* validateRange(char* datos);
+
+int validateCommand();
 int numDigitos( int numero );
 int totalFields(char* line,char c);
+
+
+//Funciones que ejecutan parametros
+void help();
+void getVersion();
+int listFields(char* string);
+int listBytes(char* string);
 void getField(char* line, int nField, char delimiter, char* field);
 
 
@@ -266,13 +268,16 @@ int listBytes(char* string){
 }
 int listFields(char* string){
     
-   int i = 0;
+    int i = 0;
     int min = 0;
     int max = 0;
     int tFields;
     int aux;
     char field[80]; 
     memset(field,0,80);
+    tFields = totalFields(string,*(oflags.p_delimiter));
+    if (tFields == 1)
+       return EXIT_SUCCESS;
     
     while (rango[i]!= -5){
           if (rango[i+1] == -2){
@@ -294,7 +299,6 @@ int listFields(char* string){
             getField(string, i,*(oflags.p_delimiter), field);     
        } 
     if (max){
-       tFields = totalFields(string,*(oflags.p_delimiter));
        for (i=aux;i<=tFields;i++){
             memset(field,0,80);
             getField(string, i,*(oflags.p_delimiter), field);     
