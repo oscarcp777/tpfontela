@@ -10,7 +10,7 @@ Codigo C Trabajo Practico 0
 
 
 
-const char* version = "Version 1.0 beta \n";
+const char* version = "Version 0.0.8 beta \n";
 const char* modifiers = "Vhd:b:f:s";
 
 static struct option long_options[] ={
@@ -77,37 +77,38 @@ int main(int argc, char** argv){
 	getOptions(argc,argv,&ofname);
    	
 		
-     /*
-		fgets(string, 80, stdin);   
-		printf("Entro por pipe %s\n",string);
-       */ 
-		
 		    if (validateCommand() != EXIT_SUCCESS)
                return -1;	
-        
-            if(oflags.flag_field != 0){
-                    listFields();
-                    memset(field,0,80);
-                    getField(string, 4,',', field);
-                    printf("Campo obtenido: %s\n", field); 
-                    return EXIT_SUCCESS;                                                       
-            }
-            if(oflags.flag_bytes == 1){
-                                 
-            if(validateRange(oflags.p_bytes) == NULL){
-                   printf("ERROR EN LOS DATOS \n");          
-                   system("PAUSE");
-             }
-           else{
-                for(k; k<10; k++){
-                  printf("rango en i= %d   valor=%d\n",k,rango[k]);            
-                 }
-             }     
-                            
-                    listBytes();
-            }
+
+
+            if(oflags.flag_ifile == 0){
+     	       	fgets(string, 80, stdin);   
+	    	    printf("Entro por pipe %s\n",string);
+            }else{
+                
+                    if(oflags.flag_field != 0){
+                            listFields();
+                            memset(field,0,80);
+                            getField(string, 4,',', field);
+                            printf("Campo obtenido: %s\n", field); 
+                            return EXIT_SUCCESS;                                                       
+                    }
+                    if(oflags.flag_bytes == 1){
+                                         
+                    if(validateRange(oflags.p_bytes) == NULL){
+                           printf("ERROR EN LOS DATOS \n");          
+                           system("PAUSE");
+                     }
+                   else{
+                        for(k; k<10; k++){
+                          printf("rango en i= %d   valor=%d\n",k,rango[k]);            
+                         }
+                     }     
+                                    
+                            listBytes();
+                    }
             
-            
+            }
             
 	return EXIT_SUCCESS;
 }
@@ -179,7 +180,7 @@ int getOptions(int argc, char** argv, char** ofname){
                  oflags.flag_delimiter = 1;
                  aux = oflags.p_delimiter;
                  if (optarg != NULL)
-                     memcpy(aux,optarg,sizeof(optarg));
+                     memcpy(aux,optarg,sizeof(char)*10);
                  else
                      help(); 
                  printf("Parametro de d:  %s\n",aux);
@@ -189,7 +190,7 @@ int getOptions(int argc, char** argv, char** ofname){
                  oflags.flag_bytes = 1;
         		 aux = oflags.p_bytes;
         		 if (optarg != NULL)
-                    memcpy(aux,optarg,sizeof(optarg));
+                    memcpy(aux,optarg,sizeof(char)*50);
                  else
                      help();  
         		 printf("Parametro de b:  %s\n",aux);
@@ -198,7 +199,7 @@ int getOptions(int argc, char** argv, char** ofname){
                  oflags.flag_field = 1;
         		 aux = oflags.p_field;
                  if (optarg != NULL)
-                     memcpy(aux,optarg,sizeof(optarg));
+                     memcpy(aux,optarg,sizeof(char)*50);
                  else
                     help();      
                  printf("Parametro de f:  %s\n",aux); 
