@@ -8,7 +8,7 @@ Codigo C Trabajo Practico 0
 #include <unistd.h>
 #include <getopt.h>
 
-const char* version = "Version 0.0.9 beta \n";
+const char* version = "Version 0.1.4 beta \n";
 const char* modifiers = "Vhd:b:f:s";
 
 static struct option long_options[] ={
@@ -240,7 +240,7 @@ int listBytes(char* string){
              }
              aux--;
              strcpy(field,aux);
-             printf("Campo obtenido: %s\n", field);  
+             printf("%s\n", field);  
           }else
                if (rango[i+1] == -2){
                   rango[i+1] = -5;            
@@ -250,14 +250,14 @@ int listBytes(char* string){
                   }
                   aux--;
                    strncpy(field,string,aux-string);
-                   printf("Campo obtenido: %s\n", field);
+                   printf("%s\n", field);
                }else{
                         while (j<rango[i]){
                               j++;
                               aux++;
                         }
                         aux--;
-                        printf("Campo obtenido: %c\n", *aux); 
+                        printf("%c\n", *aux); 
                     }
           j = 0; 
           aux = string;         
@@ -348,7 +348,7 @@ void getField(char* line, int nField, char delimiter, char* field){
              strncpy(field,fBegin,size);
            }
         }
-        printf("Campo obtenido: %s\n", field); 
+        printf("%s\n", field); 
       
 }
 
