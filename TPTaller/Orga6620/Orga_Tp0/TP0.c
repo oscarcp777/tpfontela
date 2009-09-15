@@ -46,21 +46,25 @@ void getVersion();
 
 //Funciones para extraccion de caracteres
 
-int listFields(char* fields, char* delimiter);
+int listFields(char* fields, char* delimiter, char* line);
 int listBytes(char* bytes);
 int validateCommand();
+void getField(char* line, int nField, char delimiter, char* field);
 
 int main(int argc, char** argv){
 	char* ofname;
 			
 	getOptions(argc,argv,&ofname);
    	
-        /* 
-		char cadena[80];	
-		//Copio el archivo para podeer leerlo varias veces
-		while(fgets(cadena, 80, stdin) != NULL) { 
-			printf("entro por pipe %sn",cadena);
-		}*/
+        char field[80]; 
+		char string[80];	
+		int i;
+		
+
+		fgets(string, 80, stdin);   
+		printf("entro por pipe %sn",string);
+        
+		
 		    if (validateCommand() != EXIT_SUCCESS)
                return -1;	
         
@@ -68,14 +72,18 @@ int main(int argc, char** argv){
                     if(oflags.flag_field == 1){                                            
                          printf("parametros de -f %s\n",argv[posicionesArchivos[0]]); 
                          if ( posicionesArchivos[1] != -1)
-                               listFields(argv[posicionesArchivos[0]],argv[posicionesArchivos[1]]);
+                               listFields(argv[posicionesArchivos[0]],argv[posicionesArchivos[1]],"aaa");
                          else
-                               listFields(argv[posicionesArchivos[0]],NULL); 
+                               listFields(argv[posicionesArchivos[0]],NULL,"aaa");
+                              
                     }else{
                          printf("parametros de -f %s\n",argv[posicionesArchivos[1]]); 
-                         listFields(argv[posicionesArchivos[1]],argv[posicionesArchivos[0]]);
+                         listFields(argv[posicionesArchivos[1]],argv[posicionesArchivos[0]],"aaa");
                          
                     }
+                    memset(field,0,80);
+                    getField(string, 4,',', field);
+                    printf("Campo obtenido: %s\n", field); 
                     return EXIT_SUCCESS;                                                       
             }
             if(oflags.flag_bytes == 1){
@@ -205,12 +213,12 @@ int listBytes(char* bytes){
     printf("parametros de b: %s\n",bytes); 
     return EXIT_SUCCESS;    
 }
-int listFields(char* fields, char* delimiter){
+int listFields(char* fields, char* delimiter, char* line){
     printf("ENTRO A listField\n");
     if(delimiter == NULL){
        numParameters--;
-     //no se definio delimitador, uso el delimitador por defecto TAB
-     printf("delimitador por defecto: %s\n",delimiter); 
+       //no se definio delimitador, uso el delimitador por defecto TAB
+       printf("delimitador por defecto: %s\n",delimiter); 
     }
     else{
          numParameters = numParameters-2;
@@ -220,6 +228,45 @@ int listFields(char* fields, char* delimiter){
          
     }
     return 0;    
+}
+
+
+void getField(char* line, int nField, char delimiter, char* field){
+        
+        char* lAux;
+        char c = delimiter;
+        int totalFields = 0;
+        lAux = line;
+        int i, size;
+        char *fBegin , *fEnd;
+        
+        fBegin = fEnd = line;
+        
+        while (lAux!=NULL){
+              if ((lAux=strchr(++lAux,c))!= NULL) 
+              totalFields++; 
+        }
+        totalFields++;
+       
+           
+        if (totalFields == 1)
+          strcpy(field,fBegin);
+        else{  
+           for(i=0;i<nField;++i){
+              fBegin=fEnd;
+              fEnd=strchr(fEnd,c); 
+              if (fEnd!=NULL) 
+                 ++fEnd;
+           }
+           if (nField==totalFields)
+              strcpy(field,fBegin);
+           else{
+             fEnd--;
+             size = (fEnd-fBegin);
+             strncpy(field,fBegin,size);
+           }
+        }
+      
 }
 
 /* TODO las siguientes funciones borrarlas, tenes en cuenta su estructura para hacer nuestras funciones
