@@ -87,27 +87,34 @@ int main(int argc, char** argv){
      	       	fgets(cadena, 80, stdin);   
 	    	    printf("Entro por pipe %s\n",cadena);
 	    	    
-	    	    if(oflags.flag_field != 0)
-                    listFields(cadena); 
+	    	    if(oflags.flag_field != 0){
+                    if(validateRange(oflags.p_field) == NULL){
+                           help();         
+                           return -1;
+                     }else
+                           listFields(cadena); 
+                }
                     
-                else if(oflags.flag_bytes == 1)                             
-                    listBytes(cadena);	    	    
+                else if(oflags.flag_bytes == 1){                             
+                           if(validateRange(oflags.p_bytes) == NULL){
+                                    help();         
+                                    return -1;
+                           }else         
+                                    listBytes(cadena);	    	
+                    
+                    }    
 	    	    
             }
             else{
                  
-                 if(validateRange(oflags.p_bytes) == NULL){
-                           help();         
-                           return -1;
-                     }
                       
                   //**********************************************************     
                  //Este else es para verificar la carga correcta de range BORRAR   
-                   else{
+                 /*  else{
                         for(k; k<10; k++){
                           printf("rango en i= %d   valor=%d\n",k,rango[k]);            
                          }
-                     }     
+                     }*/     
                 //**********************************************************
                 
                 for(i = 0; i < 10; i++){
@@ -126,11 +133,20 @@ int main(int argc, char** argv){
     				
     				while(fgets(cadena, 80, inputFile) != NULL) { 
                          printf("cadena: %s",cadena);
-                         if(oflags.flag_field != 0)
-                            listFields(cadena); 
-                            
-                         else if(oflags.flag_bytes == 1)                             
-                            listBytes(cadena);
+                         if(oflags.flag_field != 0){
+                            if(validateRange(oflags.p_field) == NULL){
+                                 help();         
+                                 return -1;
+                            }else
+                                 listFields(cadena); 
+                         }   
+                         else if(oflags.flag_bytes == 1){                             
+                                  if(validateRange(oflags.p_bytes) == NULL){
+                                       help();         
+                                       return -1;
+                                  }else         
+                                       listBytes(cadena);	
+                           }
                     }
                     fclose(inputFile);
     				
