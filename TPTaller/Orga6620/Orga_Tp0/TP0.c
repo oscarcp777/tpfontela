@@ -8,8 +8,10 @@ Codigo C Trabajo Practico 0
 #include <unistd.h>
 #include <getopt.h>
 
+
+
 const char* version = "Version 1.0 beta \n";
-const char* modifiers = "Vh:dbfs";
+const char* modifiers = "Vhd:b:f:s";
 
 static struct option long_options[] ={
     {"Version", no_argument,       0, 'V'},
@@ -21,20 +23,24 @@ static struct option long_options[] ={
     {0, 0, 0, 0}
 };
 
-struct options_flags{
-	int flag_delimeter;
+typedef struct options_flags{
+	int flag_delimiter;
+	char p_delimiter[10];
+	
 	int flag_bytes;
-	int flag_field;
-	int flag_ignore;	
+	char p_bytes[3];
+	
+    int flag_field;
+	char p_field[3];
+	
+    int flag_ignore;	
     //Si hay un archivo de entrada ifile = 1
 	int flag_ifile;
 	
 	
-};
+}Oflags;
 
-typedef struct options_flags Oflags;
-
-Oflags oflags = {0,0,0,0,0};
+Oflags oflags;
 int posicionesArchivos[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 char* filename = "";
 int numParameters = 0;
@@ -46,8 +52,8 @@ void getVersion();
 
 //Funciones para extraccion de caracteres
 
-int listFields(char* fields, char* delimiter, char* line);
-int listBytes(char* bytes);
+int listFields();
+int listBytes();
 int validateCommand();
 void getField(char* line, int nField, char delimiter, char* field);
 
@@ -56,7 +62,7 @@ int main(int argc, char** argv){
 	char field[80]; 
 	char string[80];	
 	int i = 0;
-	int inBoF = -1;
+/*	int inBoF = -1;
 	//validates if after -b or -f comes the -number parameter
 	while (i<argc){
           if (strcmp(argv[i],"-b")==0 || strcmp(argv[i],"-f")==0)
@@ -70,7 +76,12 @@ int main(int argc, char** argv){
           i++;
     }                  		
     for(i=0; i<argc; i++) printf("%5d- %s\n", i, argv[i]);
-			
+	*/		
+	char delimiterDefault[10]="        ";
+	memcpy(oflags.p_delimiter, delimiterDefault, 10);
+	
+	
+	
 	getOptions(argc,argv,&ofname);
    	
 		
@@ -83,28 +94,14 @@ int main(int argc, char** argv){
                return -1;	
         
             if(oflags.flag_field != 0){
-                    if(oflags.flag_field == 1){                                            
-                         printf("parametros de -f %s\n",argv[posicionesArchivos[0]]); 
-                         if ( posicionesArchivos[1] != -1)
-                               listFields(argv[posicionesArchivos[0]],argv[posicionesArchivos[1]],"aaa");
-                         else
-                               listFields(argv[posicionesArchivos[0]],NULL,"aaa");
-                              
-                    }else{
-                         printf("parametros de -f %s\n",argv[posicionesArchivos[1]]); 
-                         listFields(argv[posicionesArchivos[1]],argv[posicionesArchivos[0]],"aaa");
-                         
-                    }
+                    listFields();
                     memset(field,0,80);
                     getField(string, 4,',', field);
                     printf("Campo obtenido: %s\n", field); 
                     return EXIT_SUCCESS;                                                       
             }
             if(oflags.flag_bytes == 1){
-                    if ( posicionesArchivos[0] == -1)
-                       help();
-                    else
-                       listBytes(argv[posicionesArchivos[0]]);
+                    listBytes();
             }
             
             
@@ -114,18 +111,12 @@ int main(int argc, char** argv){
 
 int validateCommand(){
     
-    	if(oflags.flag_delimeter == 1 && oflags.flag_field == 0 ){
+    	if(oflags.flag_delimiter == 1 && oflags.flag_field == 0 ){
                   help();                
                   return -1;
             } 
                          
-        if(oflags.flag_delimeter !=0){
-                 if(posicionesArchivos[1] == -1){
-                    help();
-                    return -1;
-                 } 
-        }
-        
+             
         if(oflags.flag_bytes == 1 && oflags.flag_field == 1 ){
                   help();                
                   return -1;
@@ -158,7 +149,7 @@ void getVersion(){
 int getOptions(int argc, char** argv, char** ofname){
 	int option_index = 0;
 	int c;
-	
+	char *aux;
     opterr = 0;
    /* DESCRIPTION getopt_long:
        The  getopt()  function parses the command line arguments.
@@ -173,7 +164,8 @@ int getOptions(int argc, char** argv, char** ofname){
        consultar dudas en http://www.cs.duke.edu/courses/spring04/cps108/resources/getoptman.html
        */
     while((c = getopt_long(argc, argv, modifiers,long_options, &option_index)) != EOF){
-    	switch (c){
+    	
+        switch (c){
         	case 'V':
         		getVersion();
             	break;
@@ -181,24 +173,33 @@ int getOptions(int argc, char** argv, char** ofname){
         	   	help();
     	   	break;
         	case 'd':
-                 if(oflags.flag_field != 0)
-                    oflags.flag_delimeter = 2;
-                 else 
-                 oflags.flag_delimeter = 1;
-        		//TODO levantar el caracter delimitador y guardarlo en algun lado
+                 oflags.flag_delimiter = 1;
+                 aux = oflags.p_delimiter;
+                 if (optarg != NULL)
+                     memcpy(aux,optarg,sizeof(optarg));
+                 else
+                     help(); 
+                 printf("Parametro de d:  %s\n",aux);
+                 
         	break;
         	case 'b':
-        		 oflags.flag_bytes = 1;
+                 oflags.flag_bytes = 1;
+        		 aux = oflags.p_bytes;
+        		 if (optarg != NULL)
+                    memcpy(aux,optarg,sizeof(optarg));
+                 else
+                     help();  
+        		 printf("Parametro de b:  %s\n",aux);
         	break;
         	case 'f':
-                 if(oflags.flag_delimeter == 1)
-              		oflags.flag_field = 2;
-       		    else
-       		        oflags.flag_field = 1;
-        	break;
-        	case 's':
-        		oflags.flag_ignore = 1;
-        	break;
+                 oflags.flag_field = 1;
+        		 aux = oflags.p_field;
+                 if (optarg != NULL)
+                     memcpy(aux,optarg,sizeof(optarg));
+                 else
+                    help();      
+                 printf("Parametro de f:  %s\n",aux); 
+            break;
         	default:
         		help();
         		abort();
@@ -208,6 +209,7 @@ int getOptions(int argc, char** argv, char** ofname){
     //Veo si quedo algun parametro por recoger
     //optind es una variable externa (la utiliza getopt_long), leer link
     //a mi forma de verlo guarda en posicionArchivos la posicion del primer caracter donde comienza la cadena con el nombre del archivo
+    printf("Optind: %d, Argc: %d\n",optind,argc); 
     if (optind < argc){
     	int j = 0;
     	while (optind < argc && j < 10){
@@ -221,27 +223,13 @@ int getOptions(int argc, char** argv, char** ofname){
     return EXIT_SUCCESS;
 }
 
-int listBytes(char* bytes){
-    numParameters--;
-    printf("ENTRO A listByte\n");
-    printf("parametros de b: %s\n",bytes); 
+int listBytes(){
+    
     return EXIT_SUCCESS;    
 }
-int listFields(char* fields, char* delimiter, char* line){
-    printf("ENTRO A listField\n");
-    if(delimiter == NULL){
-       numParameters--;
-       //no se definio delimitador, uso el delimitador por defecto TAB
-       printf("delimitador por defecto: %s\n",delimiter); 
-    }
-    else{
-         numParameters = numParameters-2;
-    // se definio un delimitador
-    printf("delimitador: %s\n",delimiter);   
-         
-         
-    }
-    return 0;    
+int listFields(){
+    
+    return EXIT_SUCCESS;    
 }
 
 
