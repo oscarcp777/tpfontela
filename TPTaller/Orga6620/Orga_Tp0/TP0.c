@@ -10,7 +10,7 @@ Codigo C Trabajo Practico 0
 
 
 
-const char* version = "Version 0.0.8 beta \n";
+const char* version = "Version 0.0.9 beta \n";
 const char* modifiers = "Vhd:b:f:s";
 
 static struct option long_options[] ={
@@ -53,11 +53,12 @@ void getVersion();
 
 //Funciones para extraccion de caracteres
 
-int listFields(char* cadena);
-int listBytes(char* cadena);
+int listFields(char* string);
+int listBytes(char* string);
 int validateCommand();
 int* validateRange(char* datos);
 int numDigitos( int numero );
+int totalFields(char* line,char c);
 
 
 void getField(char* line, int nField, char delimiter, char* field);
@@ -262,31 +263,70 @@ int listBytes(char* cadena){
     
     return EXIT_SUCCESS;    
 }
-int listFields(char* cadena){
+int listFields(char* string){
     
-    return EXIT_SUCCESS;    
+   int i = 0;
+    int min = 0;
+    int max = 0;
+    int tFields;
+    int aux;
+    char field[80]; 
+    memset(field,0,80);
+    
+    while (rango[i]!= -5){
+          if (rango[i+1] == -2){
+             aux = rango[i];
+             rango[i+1] = -5;
+             min = 1;
+          }else
+               if (rango[i+1] == -1){
+                  rango[i+1] = -5;
+                  aux = rango[i];
+                  max = 1;
+               }else
+                    getField(string, rango[i],*(oflags.p_delimiter), field);
+          i++;
+    }
+    if (min)
+       for (i=1;i<=aux;i++){
+            memset(field,0,80);
+            getField(string, i,*(oflags.p_delimiter), field);     
+       } 
+    if (max){
+       tFields = totalFields(string,*(oflags.p_delimiter));
+       for (i=aux;i<=tFields;i++){
+            memset(field,0,80);
+            getField(string, i,*(oflags.p_delimiter), field);     
+       }   
+    } 
+    return EXIT_SUCCESS;     
+}
+int totalFields(char* line,char c) {
+        char* lAux;
+        int total = 0;
+        lAux = line;
+        
+        while (lAux!=NULL){
+              if ((lAux=strchr(++lAux,c))!= NULL) 
+              total++; 
+        }
+        total++;
+        return total;
 }
 
-
 void getField(char* line, int nField, char delimiter, char* field){
-        
+ 
         char* lAux;
         char c = delimiter;
-        int totalFields = 0;
-        lAux = line;
+        int tFields = 0;
         int i, size;
         char *fBegin , *fEnd;
         
         fBegin = fEnd = line;
         
-        while (lAux!=NULL){
-              if ((lAux=strchr(++lAux,c))!= NULL) 
-              totalFields++; 
-        }
-        totalFields++;
-       
+        tFields = totalFields(line, delimiter);       
            
-        if (totalFields == 1)
+        if (tFields == 1)
           strcpy(field,fBegin);
         else{  
            for(i=0;i<nField;++i){
@@ -295,7 +335,7 @@ void getField(char* line, int nField, char delimiter, char* field){
               if (fEnd!=NULL) 
                  ++fEnd;
            }
-           if (nField==totalFields)
+           if (nField==tFields)
               strcpy(field,fBegin);
            else{
              fEnd--;
@@ -303,6 +343,7 @@ void getField(char* line, int nField, char delimiter, char* field){
              strncpy(field,fBegin,size);
            }
         }
+        printf("Campo obtenido: %s\n", field); 
       
 }
 
