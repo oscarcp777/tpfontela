@@ -62,21 +62,7 @@ int main(int argc, char** argv){
 	char field[80]; 
 	char string[80];	
 	int i = 0;
-/*	int inBoF = -1;
-	//validates if after -b or -f comes the -number parameter
-	while (i<argc){
-          if (strcmp(argv[i],"-b")==0 || strcmp(argv[i],"-f")==0)
-                      inBoF = i;
-          if (inBoF != -1 && inBoF != i)
-                if (*(argv[i])=='-'){    
-                  *(argv[i])=' ';
-                  inBoF = -1;
-                }     
-                           
-          i++;
-    }                  		
-    for(i=0; i<argc; i++) printf("%5d- %s\n", i, argv[i]);
-	*/		
+
 	char delimiterDefault[10]="        ";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
 	
@@ -87,7 +73,7 @@ int main(int argc, char** argv){
 		
 
 		fgets(string, 80, stdin);   
-		printf("entro por pipe %sn",string);
+		printf("Entro por pipe %s\n",string);
         
 		
 		    if (validateCommand() != EXIT_SUCCESS)
@@ -209,14 +195,16 @@ int getOptions(int argc, char** argv, char** ofname){
     //Veo si quedo algun parametro por recoger
     //optind es una variable externa (la utiliza getopt_long), leer link
     //a mi forma de verlo guarda en posicionArchivos la posicion del primer caracter donde comienza la cadena con el nombre del archivo
-    printf("Optind: %d, Argc: %d\n",optind,argc); 
     if (optind < argc){
     	int j = 0;
+    	printf ("Nombres Archivos: \n\t");
     	while (optind < argc && j < 10){
     		oflags.flag_ifile = 1;
-    		posicionesArchivos[j]=optind++;
+    		printf("%s\n\t", argv[optind]);
+            posicionesArchivos[j]=optind++;
     		j++;
     	}
+    	printf("\n");
     	numParameters = j;
     }
     
