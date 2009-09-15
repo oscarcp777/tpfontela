@@ -9,10 +9,11 @@
 
 int rango[10] = {-5,-5,-5,-5,-5,-5,-5,-5,-5,-5};
 int* validateRange(char* datos);
-				
+int numDigitos( int numero );				
 int main(int argc, char** argv){
      int k =0 ;
-     char datos[15] = "2-5";        
+     char datos[20] = "10,15,19,165";     
+  
      if(validateRange(datos) == NULL){
                    printf("ERROR EN LOS DATOS \n");          
                    system("PAUSE");
@@ -29,6 +30,15 @@ int main(int argc, char** argv){
 	return EXIT_SUCCESS;
 }
 
+int numDigitos( int numero ){
+    int cuentaDigitos = 0;
+    while ( numero ) {
+          ++cuentaDigitos;
+          numero /= 10;
+    }
+    return cuentaDigitos;
+}
+
 
 int* validateRange(char* datos){
       
@@ -38,6 +48,7 @@ int* validateRange(char* datos){
       int aux2;
       int iInicial;   
       int diferencia;
+      int digitos;
       
     if(strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;!¡¿?_+*[]{}´¨°¬#$%&^/=`~") != NULL){
 		 printf("tiene caracteres incorrectos \n"); 
@@ -45,40 +56,48 @@ int* validateRange(char* datos){
 	}
 	else{
          pDatos = datos;
-         //********ESTA COMENTADO EL pDatos != NULL porque no corta el while con esa condicion ANDA PERFECTO si cortas con el i, probe todos los casos del tp
-         //buscar cual es el caracter de corte del char* para que salga correctamente del while, otra cosa, cuando pongas 2- no va a andar porque el caracter de fin no lo conozco
-         //si le pones 2-? y comparas contra ? anda perfecto ENCARGATE DE VER CUAL ES EL FIN DE UN char* y esta parte ya esta joya CUALQUIER COSA LLAMAME AL CEL
-         while(/*pDatos != NULL*/i<3 ){
-               //printf("pDatos %c\n",*pDatos);
+         
+         while(*pDatos != '\0'){
+               
                if(i==0){
                //si es el primer caracter leido
                      if(*pDatos == '-'){
-                                printf("entro a - con i=0 \n"); 
+                                
                                 //si es un guion, ej -5 pongo en el vector 5,-2
                                 rango[i+1]= -2; 
                                 pDatos++;
                                 rango[i]= atoi(pDatos);  
+                                digitos = numDigitos(rango[i]);
+                                while(digitos){
+                                  pDatos++;
+                                 digitos--;
+                                }
                                 i++;
                      }
                      else if(*pDatos == ','){
-                          printf("entro a , con i=0 \n");
+                          
                           //no puede empezar con una "," ERROR
                           return NULL;     
                      }                     
                      else{
-                          //si es un numero
-                          printf("entro numero , con i=0 \n");
+                          //si es un numero                          
                           rango[i] = atoi(pDatos);
-                          i++;                         
+                          digitos = numDigitos(rango[i]);
+                          while(digitos){
+                              pDatos++;
+                              digitos--;
+                          } 
+                          i++;          
+                                                 
                      }
                }
                else{
                     //si no es el primer caracter
                     if(*pDatos == '-'){
                                pDatos++;
-                                printf("entro - con i>0 \n");
-                                if(*pDatos == '?'){
-                                   //si es un guion y le sigue un espacio, ej 5- pongo 5,-1 
+                                
+                                if(*pDatos == '\0'){
+                                   //si es un guion y le sigue un \0, ej 5- pongo 5,-1 
                                    rango[i]= -1;    
                                    i++;
                                 }
@@ -97,38 +116,50 @@ int* validateRange(char* datos){
                                         iInicial = i;
                                         diferencia = aux2-aux1;
                                         for(i;i<iInicial+diferencia;i++){
-                                            aux1++; 
-                                            rango[i]= aux1;//guardo el siguiente en el ejemplo de 2-5 seria el 3
-                                                              
-                                                                         
+                                               aux1++;
+                                               rango[i]= aux1;//guardo el siguiente en el ejemplo de 2-5 seria el 3
+                                                                                         
+                                        }   
+                                        digitos = numDigitos(aux1);
+                                        while(digitos){
+                                              pDatos++;
+                                              digitos--;                                                                                                                 
                                         }
                                      }        
                                      
                                 }
                      }
-                     else if(*pDatos == ','){
-                          printf("entro , con i>0 \n");
+                     else if(*pDatos == ','){                          
                            pDatos++;
                            if( (*pDatos == ',') || (*pDatos == ' ') || (*pDatos == '-') )
                                return NULL; 
                            else{
                                 //si es un numero
                                 rango[i] = atoi(pDatos);
-                                i++;   
+                                digitos = numDigitos(rango[i]);
+                                while(digitos){
+                                     pDatos++;
+                                     digitos--;
+                                } 
+                                i++;  
                            }
                              
                      }                     
                      else{
                           //si es un numero
-                          printf("entro numero con i>0 \n");
                           rango[i] = atoi(pDatos);
-                          i++;                         
+                          digitos = numDigitos(rango[i]);
+                          while(digitos){
+                               pDatos++;
+                               digitos--;
+                          } 
+                          i++; 
+                                                   
                      }
                     
                     
-                    }          
-            
-               pDatos++;       
+                    }               
+                     
                       
           }
 		
