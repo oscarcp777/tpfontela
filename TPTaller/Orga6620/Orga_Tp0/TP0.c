@@ -71,7 +71,7 @@ int main(int argc, char** argv){
 	int k=0;
 	FILE* inputFile;
 
-	char delimiterDefault[10]="        ";
+	char delimiterDefault[10]="\t";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
 	
 	
@@ -132,7 +132,7 @@ int main(int argc, char** argv){
     				}
     				
     				while(fgets(cadena, 80, inputFile) != NULL) { 
-                         printf("cadena: %s",cadena);
+                         printf("cadena: %s\n",cadena);
                          if(oflags.flag_field != 0){
                             if(validateRange(oflags.p_field) == NULL){
                                  help();         
@@ -275,8 +275,45 @@ int getOptions(int argc, char** argv, char** ofname){
     return EXIT_SUCCESS;
 }
 
-int listBytes(char* cadena){
+int listBytes(char* string){
+    int i = 0;
+    int j = 0;
+    char* aux;
+    char field[50]; 
+    memset(field,0,80);
+    aux = string;
     
+    while (rango[i]!= -5){
+          if (rango[i+1] == -1){
+             rango[i+1] = -5;
+             while (j<rango[i]){
+                   j++;
+                   aux++;
+             }
+             strcpy(field,aux);
+             printf("Campo obtenido: %s\n", field);  
+          }else
+               if (rango[i+1] == -2){
+                  rango[i+1] = -5;            
+                  while (j<rango[i]){
+                   j++;
+                   aux++;
+                  }
+                   strncpy(field,string,aux-string);
+                   printf("Campo obtenido: %s\n", field);
+               }else{
+                        while (j<rango[i]){
+                              j++;
+                              aux++;
+                        }
+                        aux--;
+                        printf("Campo obtenido: %c\n", *aux); 
+                    }
+          j = 0; 
+          aux = string;         
+          i++;
+    }
+   
     return EXIT_SUCCESS;    
 }
 int listFields(char* string){
