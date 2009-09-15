@@ -53,12 +53,26 @@ void getField(char* line, int nField, char delimiter, char* field);
 
 int main(int argc, char** argv){
 	char* ofname;
+	char field[80]; 
+	char string[80];	
+	int i = 0;
+	int inBoF = -1;
+	//validates if after -b or -f comes the -number parameter
+	while (i<argc){
+          if (strcmp(argv[i],"-b")==0 || strcmp(argv[i],"-f")==0)
+                      inBoF = i;
+          if (inBoF != -1 && inBoF != i)
+                if (*(argv[i])=='-'){    
+                  *(argv[i])=' ';
+                  inBoF = -1;
+                }     
+                           
+          i++;
+    }                  		
+    for(i=0; i<argc; i++) printf("%5d- %s\n", i, argv[i]);
 			
 	getOptions(argc,argv,&ofname);
    	
-        char field[80]; 
-		char string[80];	
-		int i;
 		
 
 		fgets(string, 80, stdin);   
