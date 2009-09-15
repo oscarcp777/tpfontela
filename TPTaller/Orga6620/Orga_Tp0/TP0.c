@@ -28,10 +28,10 @@ typedef struct options_flags{
 	char p_delimiter[10];
 	
 	int flag_bytes;
-	char p_bytes[3];
+	char p_bytes[50];
 	
     int flag_field;
-	char p_field[3];
+	char p_field[50];
 	
     int flag_ignore;	
     //Si hay un archivo de entrada ifile = 1
@@ -42,6 +42,7 @@ typedef struct options_flags{
 
 Oflags oflags;
 int posicionesArchivos[10]={-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+int rango[10] = {-5,-5,-5,-5,-5,-5,-5,-5,-5,-5};
 char* filename = "";
 int numParameters = 0;
 
@@ -55,6 +56,10 @@ void getVersion();
 int listFields();
 int listBytes();
 int validateCommand();
+int* validateRange(char* datos);
+int numDigitos( int numero );
+
+
 void getField(char* line, int nField, char delimiter, char* field);
 
 int main(int argc, char** argv){
@@ -62,6 +67,7 @@ int main(int argc, char** argv){
 	char field[80]; 
 	char string[80];	
 	int i = 0;
+	int k=0;
 
 	char delimiterDefault[10]="        ";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
@@ -71,10 +77,10 @@ int main(int argc, char** argv){
 	getOptions(argc,argv,&ofname);
    	
 		
-
+     /*
 		fgets(string, 80, stdin);   
 		printf("Entro por pipe %s\n",string);
-        
+       */ 
 		
 		    if (validateCommand() != EXIT_SUCCESS)
                return -1;	
@@ -87,6 +93,17 @@ int main(int argc, char** argv){
                     return EXIT_SUCCESS;                                                       
             }
             if(oflags.flag_bytes == 1){
+                                 
+            if(validateRange(oflags.p_bytes) == NULL){
+                   printf("ERROR EN LOS DATOS \n");          
+                   system("PAUSE");
+             }
+           else{
+                for(k; k<10; k++){
+                  printf("rango en i= %d   valor=%d\n",k,rango[k]);            
+                 }
+             }     
+                            
                     listBytes();
             }
             
@@ -259,6 +276,144 @@ void getField(char* line, int nField, char delimiter, char* field){
       
 }
 
+
+int numDigitos( int numero ){
+    int cuentaDigitos = 0;
+    while ( numero ) {
+          ++cuentaDigitos;
+          numero /= 10;
+    }
+    return cuentaDigitos;
+}
+
+
+int* validateRange(char* datos){
+      
+      char* pDatos;
+      int i = 0;
+      int aux1;
+      int aux2;
+      int iInicial;   
+      int diferencia;
+      int digitos;
+      
+    if(strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;!¡¿?_+*[]{}´¨°¬#$%&^/=`~") != NULL){
+		 printf("tiene caracteres incorrectos \n"); 
+        return NULL;	
+	}
+	else{
+         pDatos = datos;
+         
+         while(*pDatos != '\0'){
+               
+               if(i==0){
+               //si es el primer caracter leido
+                     if(*pDatos == '-'){
+                                
+                                //si es un guion, ej -5 pongo en el vector 5,-2
+                                rango[i+1]= -2; 
+                                pDatos++;
+                                rango[i]= atoi(pDatos);  
+                                digitos = numDigitos(rango[i]);
+                                while(digitos){
+                                  pDatos++;
+                                 digitos--;
+                                }
+                                i++;
+                     }
+                     else if(*pDatos == ','){
+                          
+                          //no puede empezar con una "," ERROR
+                          return NULL;     
+                     }                     
+                     else{
+                          //si es un numero                          
+                          rango[i] = atoi(pDatos);
+                          digitos = numDigitos(rango[i]);
+                          while(digitos){
+                              pDatos++;
+                              digitos--;
+                          } 
+                          i++;          
+                                                 
+                     }
+               }
+               else{
+                    //si no es el primer caracter
+                    if(*pDatos == '-'){
+                               pDatos++;
+                                
+                                if(*pDatos == '\0'){
+                                   //si es un guion y le sigue un \0, ej 5- pongo 5,-1 
+                                   rango[i]= -1;    
+                                   i++;
+                                }
+                                else if(*pDatos == ','){
+                                     //no puede empezar con una "," ERROR
+                                     return NULL;     
+                                }
+                                else{
+                                   //si es un guion y le sigue un numero, ej 2-5 pongo 2,3,4,5 pero si el primero es mayor al segundo es un ERROR  (ej 5-2) 
+                                     aux1 = rango[i-1];// ultimo numero guardado
+                                     aux2 = atoi(pDatos);//obtengo el siguiente despues del "-"
+                                     
+                                     if(aux2<=aux1)//es un error(ej 5-2)
+                                           return NULL;  
+                                     else{
+                                        iInicial = i;
+                                        diferencia = aux2-aux1;
+                                        for(i;i<iInicial+diferencia;i++){
+                                               aux1++;
+                                               rango[i]= aux1;//guardo el siguiente en el ejemplo de 2-5 seria el 3
+                                                                                         
+                                        }   
+                                        digitos = numDigitos(aux1);
+                                        while(digitos){
+                                              pDatos++;
+                                              digitos--;                                                                                                                 
+                                        }
+                                     }        
+                                     
+                                }
+                     }
+                     else if(*pDatos == ','){                          
+                           pDatos++;
+                           if( (*pDatos == ',') || (*pDatos == ' ') || (*pDatos == '-') )
+                               return NULL; 
+                           else{
+                                //si es un numero
+                                rango[i] = atoi(pDatos);
+                                digitos = numDigitos(rango[i]);
+                                while(digitos){
+                                     pDatos++;
+                                     digitos--;
+                                } 
+                                i++;  
+                           }
+                             
+                     }                     
+                     else{
+                          //si es un numero
+                          rango[i] = atoi(pDatos);
+                          digitos = numDigitos(rango[i]);
+                          while(digitos){
+                               pDatos++;
+                               digitos--;
+                          } 
+                          i++; 
+                                                   
+                     }
+                    
+                    
+                    }               
+                     
+                      
+          }
+		
+		 return rango;
+		}
+      
+}	
 /* TODO las siguientes funciones borrarlas, tenes en cuenta su estructura para hacer nuestras funciones
 int countWord(char* cadena){
 	char* word;
