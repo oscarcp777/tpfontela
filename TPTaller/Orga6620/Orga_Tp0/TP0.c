@@ -290,6 +290,7 @@ int listBytes(char* string){
                    j++;
                    aux++;
              }
+             aux--;
              strcpy(field,aux);
              printf("Campo obtenido: %s\n", field);  
           }else
@@ -299,6 +300,7 @@ int listBytes(char* string){
                    j++;
                    aux++;
                   }
+                  aux--;
                    strncpy(field,string,aux-string);
                    printf("Campo obtenido: %s\n", field);
                }else{
