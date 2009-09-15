@@ -320,7 +320,7 @@ int* validateRange(char* datos){
                                   pDatos++;
                                  digitos--;
                                 }
-                                i++;
+                                i+=2;
                      }
                      else if(*pDatos == ','){
                           
