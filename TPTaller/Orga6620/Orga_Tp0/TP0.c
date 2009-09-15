@@ -53,8 +53,8 @@ void getVersion();
 
 //Funciones para extraccion de caracteres
 
-int listFields();
-int listBytes();
+int listFields(char* cadena);
+int listBytes(char* cadena);
 int validateCommand();
 int* validateRange(char* datos);
 int numDigitos( int numero );
@@ -64,10 +64,11 @@ void getField(char* line, int nField, char delimiter, char* field);
 
 int main(int argc, char** argv){
 	char* ofname;
-	char field[80]; 
-	char string[80];	
+	char field[80];	
+    char cadena[80]	;
 	int i = 0;
 	int k=0;
+	FILE* inputFile;
 
 	char delimiterDefault[10]="        ";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
@@ -82,31 +83,59 @@ int main(int argc, char** argv){
 
 
             if(oflags.flag_ifile == 0){
-     	       	fgets(string, 80, stdin);   
-	    	    printf("Entro por pipe %s\n",string);
-            }else{
-                
-                    if(oflags.flag_field != 0){
-                            listFields();
-                            memset(field,0,80);
-                            getField(string, 4,',', field);
-                            printf("Campo obtenido: %s\n", field); 
-                            return EXIT_SUCCESS;                                                       
-                    }
-                    if(oflags.flag_bytes == 1){
-                                         
-                    if(validateRange(oflags.p_bytes) == NULL){
-                           printf("ERROR EN LOS DATOS \n");          
-                           system("PAUSE");
+     	       	fgets(cadena, 80, stdin);   
+	    	    printf("Entro por pipe %s\n",cadena);
+	    	    
+	    	    if(oflags.flag_field != 0)
+                    listFields(cadena); 
+                    
+                else if(oflags.flag_bytes == 1)                             
+                    listBytes(cadena);	    	    
+	    	    
+            }
+            else{
+                 
+                 if(validateRange(oflags.p_bytes) == NULL){
+                           help();         
+                           return -1;
                      }
+                      
+                  //**********************************************************     
+                 //Este else es para verificar la carga correcta de range BORRAR   
                    else{
                         for(k; k<10; k++){
                           printf("rango en i= %d   valor=%d\n",k,rango[k]);            
                          }
                      }     
-                                    
-                            listBytes();
+                //**********************************************************
+                
+                for(i = 0; i < 10; i++){
+    		
+    			if(posicionesArchivos[i] != -1){
+		
+    				filename = argv[posicionesArchivos[i]];
+  		    	    printf ("Nombre Archivo: %s\n",filename);	    				
+    				
+                    inputFile = fopen(filename, "r");
+    				
+    				if(inputFile == NULL){
+    					fprintf(stderr, "No se puede abrir el archivo!! %s!\n" ,filename);
+    					return -1;
+    				}
+    				
+    				while(fgets(cadena, 80, inputFile) != NULL) { 
+                         printf("cadena: %s",cadena);
+                         if(oflags.flag_field != 0)
+                            listFields(cadena); 
+                            
+                         else if(oflags.flag_bytes == 1)                             
+                            listBytes(cadena);
                     }
+                    fclose(inputFile);
+    				
+    			}
+		      }
+                   
             
             }
             
@@ -215,25 +244,25 @@ int getOptions(int argc, char** argv, char** ofname){
     //a mi forma de verlo guarda en posicionArchivos la posicion del primer caracter donde comienza la cadena con el nombre del archivo
     if (optind < argc){
     	int j = 0;
-    	printf ("Nombres Archivos: \n\t");
+    	//printf ("Nombres Archivos: \n\t");
     	while (optind < argc && j < 10){
     		oflags.flag_ifile = 1;
-    		printf("%s\n\t", argv[optind]);
+    		//printf("%s\n\t", argv[optind]);
             posicionesArchivos[j]=optind++;
     		j++;
     	}
-    	printf("\n");
+    	//printf("\n");
     	numParameters = j;
     }
     
     return EXIT_SUCCESS;
 }
 
-int listBytes(){
+int listBytes(char* cadena){
     
     return EXIT_SUCCESS;    
 }
-int listFields(){
+int listFields(char* cadena){
     
     return EXIT_SUCCESS;    
 }
