@@ -8,8 +8,6 @@ Codigo C Trabajo Practico 0
 #include <unistd.h>
 #include <getopt.h>
 
-
-
 const char* version = "Version 0.0.9 beta \n";
 const char* modifiers = "Vhd:b:f:s";
 
@@ -36,8 +34,6 @@ typedef struct options_flags{
     int flag_ignore;	
     //Si hay un archivo de entrada ifile = 1
 	int flag_ifile;
-	
-	
 }Oflags;
 
 Oflags oflags;
@@ -52,16 +48,14 @@ void help();
 void getVersion();
 
 //Funciones para extraccion de caracteres
-
 int listFields(char* string);
 int listBytes(char* string);
 int validateCommand();
 int* validateRange(char* datos);
 int numDigitos( int numero );
 int totalFields(char* line,char c);
-
-
 void getField(char* line, int nField, char delimiter, char* field);
+
 
 int main(int argc, char** argv){
 	char* ofname;
@@ -74,65 +68,41 @@ int main(int argc, char** argv){
 	char delimiterDefault[10]="\t";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
 	
-	
-	
 	getOptions(argc,argv,&ofname);
-   	
 		
-		    if (validateCommand() != EXIT_SUCCESS)
-               return -1;	
+    if (validateCommand() != EXIT_SUCCESS)
+       return -1;	
 
-
-            if(oflags.flag_ifile == 0){
-     	       	fgets(cadena, 80, stdin);   
-	    	    printf("Entro por pipe %s\n",cadena);
+    if(oflags.flag_ifile == 0){
+       	fgets(cadena, 80, stdin);   
 	    	    
-	    	    if(oflags.flag_field != 0){
-                    if(validateRange(oflags.p_field) == NULL){
-                           help();         
-                           return -1;
-                     }else
-                           listFields(cadena); 
-                }
-                    
-                else if(oflags.flag_bytes == 1){                             
-                           if(validateRange(oflags.p_bytes) == NULL){
-                                    help();         
-                                    return -1;
-                           }else         
-                                    listBytes(cadena);	    	
-                    
-                    }    
+    if(oflags.flag_field != 0){
+        if(validateRange(oflags.p_field) == NULL){
+               help();         
+               return -1;
+        }else
+               listFields(cadena); 
+    }
+    else if(oflags.flag_bytes == 1){                             
+             if(validateRange(oflags.p_bytes) == NULL){
+                  help();         
+                  return -1;
+             }else         
+                  listBytes(cadena);	    	
+         }    
 	    	    
-            }
-            else{
-                 
-                      
-                  //**********************************************************     
-                 //Este else es para verificar la carga correcta de range BORRAR   
-                 /*  else{
-                        for(k; k<10; k++){
-                          printf("rango en i= %d   valor=%d\n",k,rango[k]);            
-                         }
-                     }*/     
-                //**********************************************************
-                
-                for(i = 0; i < 10; i++){
-    		
+    }
+    else{
+         for(i = 0; i < 10; i++){
     			if(posicionesArchivos[i] != -1){
-		
-    				filename = argv[posicionesArchivos[i]];
-  		    	    printf ("Nombre Archivo: %s\n",filename);	    				
-    				
-                    inputFile = fopen(filename, "r");
-    				
+					filename = argv[posicionesArchivos[i]];
+  		    	    inputFile = fopen(filename, "r");
+    
     				if(inputFile == NULL){
     					fprintf(stderr, "No se puede abrir el archivo!! %s!\n" ,filename);
     					return -1;
     				}
-    				
     				while(fgets(cadena, 80, inputFile) != NULL) { 
-                         printf("cadena: %s\n",cadena);
                          if(oflags.flag_field != 0){
                             if(validateRange(oflags.p_field) == NULL){
                                  help();         
@@ -147,14 +117,11 @@ int main(int argc, char** argv){
                                   }else         
                                        listBytes(cadena);	
                            }
-                    }
-                    fclose(inputFile);
-    				
+                     }
+                     fclose(inputFile);
     			}
-		      }
-                   
-            
-            }
+	      }
+       }
             
 	return EXIT_SUCCESS;
 }
@@ -165,7 +132,6 @@ int validateCommand(){
                   help();                
                   return -1;
             } 
-                         
              
         if(oflags.flag_bytes == 1 && oflags.flag_field == 1 ){
                   help();                
@@ -173,7 +139,6 @@ int validateCommand(){
         } 
         
         return EXIT_SUCCESS;
-    
 }
 
 
@@ -201,18 +166,7 @@ int getOptions(int argc, char** argv, char** ofname){
 	int c;
 	char *aux;
     opterr = 0;
-   /* DESCRIPTION getopt_long:
-       The  getopt()  function parses the command line arguments.
-       Its arguments argc and argv are  the  argument  count  and
-       array  as passed to the main() function on program invoca-
-       tion.  An element of argv that starts with `-' (and is not
-       exactly "-" or "--") is an option element.  The characters
-       of this element (aside from the initial  `-')  are  option
-       characters.   If getopt() is called repeatedly, it returns
-       successively each of the option characters  from  each  of
-       the option elements.
-       consultar dudas en http://www.cs.duke.edu/courses/spring04/cps108/resources/getoptman.html
-       */
+   
     while((c = getopt_long(argc, argv, modifiers,long_options, &option_index)) != EOF){
     	
         switch (c){
@@ -229,8 +183,6 @@ int getOptions(int argc, char** argv, char** ofname){
                      memcpy(aux,optarg,sizeof(char)*10);
                  else
                      help(); 
-                 printf("Parametro de d:  %s\n",aux);
-                 
         	break;
         	case 'b':
                  oflags.flag_bytes = 1;
@@ -239,7 +191,6 @@ int getOptions(int argc, char** argv, char** ofname){
                     memcpy(aux,optarg,sizeof(char)*50);
                  else
                      help();  
-        		 printf("Parametro de b:  %s\n",aux);
         	break;
         	case 'f':
                  oflags.flag_field = 1;
@@ -248,7 +199,6 @@ int getOptions(int argc, char** argv, char** ofname){
                      memcpy(aux,optarg,sizeof(char)*50);
                  else
                     help();      
-                 printf("Parametro de f:  %s\n",aux); 
             break;
         	default:
         		help();
@@ -256,9 +206,6 @@ int getOptions(int argc, char** argv, char** ofname){
     	}
 
     }    
-    //Veo si quedo algun parametro por recoger
-    //optind es una variable externa (la utiliza getopt_long), leer link
-    //a mi forma de verlo guarda en posicionArchivos la posicion del primer caracter donde comienza la cadena con el nombre del archivo
     if (optind < argc){
     	int j = 0;
     	//printf ("Nombres Archivos: \n\t");
@@ -268,7 +215,6 @@ int getOptions(int argc, char** argv, char** ofname){
             posicionesArchivos[j]=optind++;
     		j++;
     	}
-    	//printf("\n");
     	numParameters = j;
     }
     
@@ -435,7 +381,6 @@ int* validateRange(char* datos){
                if(i==0){
                //si es el primer caracter leido
                      if(*pDatos == '-'){
-                                
                                 //si es un guion, ej -5 pongo en el vector 5,-2
                                 rango[i+1]= -2; 
                                 pDatos++;
@@ -448,7 +393,6 @@ int* validateRange(char* datos){
                                 i+=2;
                      }
                      else if(*pDatos == ','){
-                          
                           //no puede empezar con una "," ERROR
                           return NULL;     
                      }                     
@@ -461,14 +405,12 @@ int* validateRange(char* datos){
                               digitos--;
                           } 
                           i++;          
-                                                 
                      }
                }
                else{
                     //si no es el primer caracter
                     if(*pDatos == '-'){
                                pDatos++;
-                                
                                 if(*pDatos == '\0'){
                                    //si es un guion y le sigue un \0, ej 5- pongo 5,-1 
                                    rango[i]= -1;    
@@ -499,7 +441,6 @@ int* validateRange(char* datos){
                                               digitos--;                                                                                                                 
                                         }
                                      }        
-                                     
                                 }
                      }
                      else if(*pDatos == ','){                          
@@ -516,7 +457,6 @@ int* validateRange(char* datos){
                                 } 
                                 i++;  
                            }
-                             
                      }                     
                      else{
                           //si es un numero
@@ -527,16 +467,10 @@ int* validateRange(char* datos){
                                digitos--;
                           } 
                           i++; 
-                                                   
                      }
-                    
-                    
                     }               
-                     
-                      
           }
-		
 		 return rango;
 		}
-      
+    
 }
