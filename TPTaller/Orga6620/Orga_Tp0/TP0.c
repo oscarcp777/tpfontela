@@ -61,10 +61,10 @@ void getField(char* line, int nField, char delimiter, char* field);
 
 int main(int argc, char** argv){
 	char* ofname;
-	char field[80];	
+	//char field[80];
     char cadena[80]	;
 	int i = 0;
-	int k=0;
+	//int k=0;
 	FILE* inputFile;
 
 	char delimiterDefault[10]="\t";
@@ -145,11 +145,11 @@ int validateCommand(){
 
 
 void help(){
-     /*In computing, cut is a Unix command line utility which is used to extract sections from each line of input — usually from a file*/
+     /*In computing, cut is a Unix command line utility which is used to extract sections from each line of input ï¿½ usually from a file*/
 	printf("The cut utility is used to extract sections from each line of input (usually from a file)\n");
 	printf("Usage: \n tp0 -h \n tp0 -V \n tp0 [options] \n");
-	//de la wiki Extraction of line segments can typically be done by bytes (-b), characters (-c), or fields (-f) separated by a delimiter (-d — the tab character by default)
-	//importante --> by a delimiter (-d — the tab character by default)
+	//de la wiki Extraction of line segments can typically be done by bytes (-b), characters (-c), or fields (-f) separated by a delimiter (-d ï¿½ the tab character by default)
+	//importante --> by a delimiter (-d ï¿½ the tab character by default)
     printf("-V, --version Print version and quit.\n");
 	printf("-h, --help Print this information and quit.\n");
 	printf("-d, --Use the first character of the specified string as field delimiter instead of tab caracter.\n");
@@ -321,7 +321,7 @@ int totalFields(char* line,char c) {
 
 void getField(char* line, int nField, char delimiter, char* field){
  
-        char* lAux;
+       // char* lAux;
         char c = delimiter;
         int tFields = 0;
         int i, size;
@@ -373,7 +373,7 @@ int* validateRange(char* datos){
       int diferencia;
       int digitos;
       
-    if(strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;!¡¿?_+*[]{}´¨°¬#$%&^/=`~") != NULL){
+    if(strpbrk(datos,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;!ï¿½ï¿½?_+*[]{}ï¿½ï¿½ï¿½ï¿½#$%&^/=`~") != NULL){
 		 printf("tiene caracteres incorrectos \n"); 
         return NULL;	
 	}
@@ -434,11 +434,12 @@ int* validateRange(char* datos){
                                      else{
                                         iInicial = i;
                                         diferencia = aux2-aux1;
-                                        for(i;i<iInicial+diferencia;i++){
+                                        //for(i;i<iInicial+diferencia;i++)
+                                        while(i<iInicial+diferencia){
                                                aux1++;
                                                rango[i]= aux1;//guardo el siguiente en el ejemplo de 2-5 seria el 3
-                                                                                         
-                                        }   
+                                               i++;
+                                        }
                                         digitos = numDigitos(aux1);
                                         while(digitos){
                                               pDatos++;
