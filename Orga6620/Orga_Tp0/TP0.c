@@ -8,13 +8,13 @@ Codigo C Trabajo Practico 0
 #include <unistd.h>
 #include <getopt.h>
 
-const char* version = "Version 0.1.4 beta \n";
+const char* version = "Organizacion de Computadoras - 6620\n\tTP0 - Version 1.0.0 \n Donikian Santiago, Dubini Richard \n";
 const char* modifiers = "Vhd:b:f:s";
 
 static struct option long_options[] ={
     {"Version", no_argument,       0, 'V'},
     {"help",    no_argument,       0, 'h'},
-    {"delimeter",  required_argument, 0, 'd'},
+    {"delimiter",  required_argument, 0, 'd'},
     {"bytes",   required_argument,       0, 'b'},
     {"field",   required_argument,       0, 'f'},
     {"ignore",   no_argument,       0, 's'},
@@ -70,7 +70,8 @@ int main(int argc, char** argv){
 	char delimiterDefault[10]="\t";
 	memcpy(oflags.p_delimiter, delimiterDefault, 10);
 
-	getOptions(argc,argv,&ofname);
+	if (getOptions(argc,argv,&ofname) != EXIT_SUCCESS)
+	   return -1;
 
 	if (validateCommand() != EXIT_SUCCESS)
 		return -1;
@@ -146,17 +147,26 @@ int validateCommand(){
 
 void help(){
      /*In computing, cut is a Unix command line utility which is used to extract sections from each line of input � usually from a file*/
-	printf("The cut utility is used to extract sections from each line of input (usually from a file)\n");
-	printf("Usage: \n tp0 -h \n tp0 -V \n tp0 [options] \n");
+	printf("\nThe tp0 utility is used to extract sections from each line of input (usually from a file)\n");
+	printf("Usage:  tp0 [-h] [-V] [-f LIST] [-d CHARACTER] [-b LIST] [-s] [files]\n\n");
 	//de la wiki Extraction of line segments can typically be done by bytes (-b), characters (-c), or fields (-f) separated by a delimiter (-d � the tab character by default)
 	//importante --> by a delimiter (-d � the tab character by default)
-    printf("-V, --version Print version and quit.\n");
-	printf("-h, --help Print this information and quit.\n");
-	printf("-d, --Use the first character of the specified string as field delimiter instead of tab caracter.\n");
-	printf("-b, --LIST specifies byte positions to be extracted.\n");
-	printf("-f, --LIST specifies field positions to be extracted.\n");
-	printf("-s, --Ignore lines not containing delimiters..\n");
-	printf("Example: \n tp0 -b 1 inputl.in");
+    printf("-V, --version \t\tPrint version and quit.\n");
+	printf("-h, --help \t\tPrint this information and quit.\n");
+	printf("-d, --delimiter \tUse as field delimiter instead of tab character.\n");
+	printf("-b, --bytes \t\tSpecifies bytes positions to be extracted. \n ");
+	            printf("\tLIST [n,] \tBytes position to be extracted, separated by points\n");
+	            printf("\tLIST [n-n] \tExtract bytes in this range\n");
+	            printf("\tLIST [n-] \tExtract bytes from this position to the end\n");
+	            printf("\tLIST [-n] \tExtract bytes from the beginning to this position\n");
+	printf("-f, --field \t\tSpecifies fields positions to be extracted.\n");
+                printf("\tLIST [n,] \tFields to be extracted, separated by points\n");
+                printf("\tLIST [n-n] \tExtract fields in this range\n");
+	            printf("\tLIST [n-] \tExtract from this field to the end\n");
+	            printf("\tLIST [-n] \tExtract from the beginning to this field\n");
+	printf("-s, --ignore \t\tIgnore lines not containing delimiters\n");
+	printf("files \t\t\tFiles to be cutted\n\n");
+	printf("Examples: \n\t tp0 -b -3 inputl.in \n\t tp0 -f 1-5 -d . tes.txt");
 }
 
 void getVersion(){
@@ -174,33 +184,41 @@ int getOptions(int argc, char** argv, char** ofname){
         switch (c){
         	case 'V':
         		getVersion();
+        		return -1;
             	break;
         	case 'h':
         	   	help();
+        	   	return -1;
     	   	break;
         	case 'd':
                  oflags.flag_delimiter = 1;
                  aux = oflags.p_delimiter;
                  if (optarg != NULL)
                      memcpy(aux,optarg,sizeof(char)*10);
-                 else
+                 else{
                      help();
+                     return -1;
+                 }
         	break;
         	case 'b':
                  oflags.flag_bytes = 1;
         		 aux = oflags.p_bytes;
         		 if (optarg != NULL)
                     memcpy(aux,optarg,sizeof(char)*50);
-                 else
+                 else{
                      help();
+                     return -1;
+                 }
         	break;
         	case 'f':
                  oflags.flag_field = 1;
         		 aux = oflags.p_field;
                  if (optarg != NULL)
                      memcpy(aux,optarg,sizeof(char)*50);
-                 else
+                 else{
                     help();
+                    return -1;
+                 }
             break;
             case 's':
                  oflags.flag_ignore = 1;
@@ -347,24 +365,30 @@ void getField(char* line, int nField, char delimiter, char* field){
         tFields = totalFields(line, delimiter);
 
         if (tFields == 1)
-          strcpy(field,fBegin);
+        	strcpy(field,fBegin);
         else{
-           for(i=0;i<nField;++i){
-              fBegin=fEnd;
-              fEnd=strchr(fEnd,c);
-              if (fEnd!=NULL)
-                 ++fEnd;
-           }
-           if (nField==tFields)
-              strcpy(field,fBegin);
-           else{
-             fEnd--;
-             size = (fEnd-fBegin);
-             strncpy(field,fBegin,size);
-           }
+              //printf("nField: %d", nField );
+              //printf("tfields: %d", tFields);
+        	if (nField>tFields)
+        		memset(field,0,10);
+        	else{
+        		for(i=0;i<nField;++i){
+        			fBegin=fEnd;
+        			fEnd=strchr(fEnd,c);
+        			if (fEnd!=NULL)
+        				++fEnd;
+        		}
+        		if (nField==tFields)
+        			strcpy(field,fBegin);
+        		else{
+        			fEnd--;
+        			size = (fEnd-fBegin);
+        			strncpy(field,fBegin,size);
+        		}
+        	}
         }
         printf("%s", field);
-        if (nField != tFields)
+        if (nField < tFields)
         	printf("%c",delimiter);
 
 }
