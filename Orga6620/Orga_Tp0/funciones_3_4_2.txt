@@ -1,0 +1,16 @@
+las funciones del programa principalmente se dividen en dos,
+	-funciones de validacion
+	-funciones de parseo
+
+-funciones de validacion
+	.getOptions(int argc, char** argv,char** ofname)	valida parametros y setea sus repectivos valores. argc=numero de parametros, argv=lista de parametros
+	.validateCommand() 					valida que las combinaciones de flags sean validas	
+	.validateRange(char* datos)				valida y obtiene los rangos para los cuales se toman los bytes y los campos
+
+-funciones de parseo
+	.listFields(char* a)					obtiene los campos seteados en el vector 'rango' de la cadena 'a', y los imprime por consola
+	.listBytes(char* a)					obtiene los bytes seteados en el vector 'rango' de la cadena 'a', y los imprime por consola
+
+-otras funciones
+	.help()							imprime la ayuda 
+	.getVersion()						imprime la version del programa y otros datos 							
