@@ -202,6 +202,9 @@ int getOptions(int argc, char** argv, char** ofname){
                  else
                     help();
             break;
+            case 's':
+                 oflags.flag_ignore = 1;
+        	break;
         	default:
         		help();
         		abort();
@@ -288,7 +291,7 @@ int listFields(char* string){
     char field[80];
     memset(field,0,80);
     tFields = totalFields(string,*(oflags.p_delimiter));
-    if (tFields == 1)
+    if (tFields == 1 && oflags.flag_ignore)
        return EXIT_SUCCESS;
 
     while (rango[i]!= -5){
