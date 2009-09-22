@@ -97,37 +97,23 @@
 				\item Siempre se usará la salidad standard para mostrar los resultados.
 				\item Las opticiones habilitarán banderas que luego le avisarán al programa que hacer.
 			\end{itemize}
-		\subsubsection{Funciones para contar}
-		Dentro de la aplicación, dividos el conjunto de las funciones para contar en dos:
+		\subsubsection{Funciones}
+		Se dividio el conjunto de funciones principales de la siguiente manera:
 		\begin{itemize}
-			\item Las funciones para contar archivos.
-			\item Las funciones para contar cadenas de texto.
+			\item funciones de validacion.
+				
+				\textbf	getOptions(int argc, char** argv,char** ofname)	valida parametros y setea sus repectivos valores. argc=numero de parametros, argv=lista de parametros\newline
+				\textbf	validateCommand() 					valida que las combinaciones de flags sean validas\newline
+				\textbf	validateRange(char* datos)				valida y obtiene los rangos para los cuales se toman los bytes y los campos\newline\newline		
+				
+			\item funciones de parseo.
+			
+				\textbf listFields(char* a)	 obtiene los campos seteados en el vector 'rango' de la cadena 'a', y los imprime por consola\newline
+				\textbf listBytes(char* a)	 obtiene los bytes seteados en el vector 'rango' de la cadena 'a', y los imprime por consola\newline				
+							
 		\end{itemize}
+		\newline
 		
-		El criterio para las funciones para contar archivos fue el siguiente:
-		Se considera que más probable que el usuario pida una unica opción que las tres opciones juntas (cantidad de líneas, bytes, palabras). Por ende, se decidió el archivo se lea dentro de cada función.\newline
-		
-		\begin{center}
-		int fcountWord(FILE* file);\newline
-		int fcountBytes(FILE* file);\newline
-		int countLines(FILE* file);\newline\newline
-		
-		int countWord(char* cadena);\newline
-		int countBytes(char* cadena);\newline
-		\end{center}
-
-		Para contar la cantidad de bytes se consideró que un caracter ocupa en c 1 byte por ende una cadena de caracteres ocupará  1byte x la cantidad de caraceteres. El operador \textbackslash  n y el espacio se consideran como un caracter.
-		Para contar la cantidad de líneas se consideró que una línea termina en \textbackslash n .
-		Para contar la cantidad de palabras se divide la cadena por sus espacios y se cuenta la cantidad de palabras que quedan.
-		
-		\subsubsection{Salida de datos}
-		Como ya se mencionó en la sección de parámetros, la salida de datos considera que si al programa no se le pasa la opción -o con un nombre de archivo, el programa usará la salidad standard y mostrará los datos por pantalla.
-		El formato de los datos es el siguiente:\newline
-		
-			      
-			      [tab]lineas[tab]palabras[tab]bytes[tab]nombre archivo\newline
-			-----------------------------------------------------------\newline
-			Total:     líneas     palabras     bytes
 		
 	\subsection{Paso 5: Informe con LaTex}
 	Lo primero que hicimos fue buscar las herramientas que necesitamos.\newline
