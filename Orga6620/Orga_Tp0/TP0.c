@@ -249,7 +249,7 @@ int listBytes(char* string){
     int j = 0;
     char* aux;
     char field[50];
-    memset(field,0,80);
+    memset(field,0,50);
     aux = string;
     while (rango[i]!= -5){
           if (rango[i+1] == -1){
