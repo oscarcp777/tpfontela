@@ -1,5 +1,0 @@
-partida.rondas=50
-partida.tablero=tablero.txt
-partida.equipos=equipos.dat
-partida.bots=bots.dat
-partida.resultado=resultado.xml

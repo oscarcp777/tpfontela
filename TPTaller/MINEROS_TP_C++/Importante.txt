@@ -1,4 +1,0 @@
-Cada vez que ejecute mineros.exe, procure previamente asegurarse que estan los
-4 archivos de entrada correctamente disponibles y QUE NO SE ENCUENTRE CREADO YA
-EL ARCHIVO DE RESULTADOS. Si esto ultimo sucede, la informacion en ese archivo 
-será errónea.
