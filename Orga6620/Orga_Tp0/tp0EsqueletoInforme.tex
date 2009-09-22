@@ -1,0 +1,196 @@
+% ------ Clase de documento ------
+\documentclass[a4paper,11pt,oneside]{article}
+
+% ------ Paquetes ------
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage[activeacute,spanish]{babel}
+
+% ------ Configuración ------
+\title{\textbf{Trabajo Práctico 0}}
+
+\author{Donikian Santiago , \textit{Padrón Nro. 85689} 		\\
+				\texttt{santiagodonikian@hotmail.com}								\\
+			  Dubini Richard, \textit{Padrón Nro. 85440} 		\\
+				\texttt{r\_dubini@hotmail.com}									\\[2.5ex]
+				\normalsize{2do. Cuatrimestre de 2009}					\\
+        \normalsize{66.20 Organización de Computadoras} \\
+        \normalsize{Facultad de Ingeniería, Universidad de Buenos Aires}   \\
+}
+\date{\today}
+
+
+
+% ----- Cuerpo del documento -----
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+\newpage
+
+\section{Objetivos}
+	El objetivo de este trabajo práctico es que nos familiaricemos con las herramientas que se usarán a lo largo de la cursada:
+	\begin{itemize}
+		\item Sistema operativo Linux
+		\item Máquina virtual GxEmul
+		\item Lenguaje de programación C
+		\item Lenguaje de marcado \LaTeX
+	\end{itemize}
+	
+\section{Introducción}
+	El trabajo consiste en instalar y ejecutar, correctamente, la máquina virtual GxEmul que se usará para emular la arquitectura MIPS corriendo el sistema operativo NetBSD. Una vez hecho esto, habrá que implementar una aplicación en lenguaje C similar a cut de Unix (extrae bytes o grupos de bytes de cada linea de un archivo, y los escribe en stdout) y compilarla en el host (con sistema operativo linux) y en NetBSD.
+	A lo largo del informe se describirán los pasos seguidos para desarrollar el trabajo práctico.
+
+\section{Desarrollo}
+	A continuación veremos los pasos que se siguieron para hacer el trabajo práctico.
+	\subsection{Paso 1: Instalación de Linux}
+	Este paso dependió de cada miembro del grupo, dado que alguno de ellos ya tenían instalado el sistema operativo necesario para trabajar. En general trabajamos con la distribución Ubuntu 8.10 (basada en Debian) que se puede bajar libremente de http://www.ubuntu.com/ .
+	La instalación no genera mayores inconvenientes ya que esta distribución está pensada para usuarios finales.
+	\subsection{Paso 2: Descarga e instalación de GxEmul}
+	La descarga se realizó desde el sitio indicado en la cursada, dicha versión de GxEmul ya viene configurada con el NetBSD. 
+	El archivo descargado, es un bzip, es decir, un archivo comprimido. La sentencia UNIX para descomprimirlo es:
+	\begin{center}
+		bzip2 -dc [nombre de archivo] | cpio --sparse -i -v
+	\end{center}
+	\textbf{Nota:}
+	bzip2 es un programa libre desarrollado bajo licencia BSD que comprime y descomprime ficheros usando los algoritmos de compresión de Burrows-Wheeler y de codificación de Huffman.
+	Para ejecutar GxEmul se utiliza la sentencia:
+	\begin{center}
+		./gxemul -e 3max -d netbsd-pmax.img
+	\end{center}
+	
+	\subsection{Paso 3: Tunel Ssh}
+	A continuación listaremos los comandos más importantes:
+	\begin{center}
+		\begin{itemize}
+			\item ifconfig lo:0 172.20.0.1    configuramos una ip para que NetBSD se conecte con el Host (Ubuntu).
+			\item ssh -R 2222:127.0.0.1:22 USER@172.20.0.1   este comando se ejecuta desde la consola de NetBSD para conectarse al Ubuntu
+			\item ssh -p 2222 root@127.0.0.1  este comando se ejecuta desde la consola de Ubuntu para conectarse al NetBSD
+			\item scp -p 2222 ARCHIVO USER@IP:/DIRDONDEQUIEROCOPIAR este comando sirve para copiar archivos desde el Host hasta el NetBSD (y viceversa).
+		\end{itemize}
+	\end{center}
+	\subsection{Paso 4: Implementación del programa}
+			\subsubsection{Ingreso de parámetros}
+			Los parámetros validos que puede recibir la función son:\\
+			\textbf{-V}, --version Print version and quit. \\
+			\textbf{-h}, --help Print this information and quit. \\
+			\textbf{-d}, --delimitert Use the first character of the specified string as field delimiter instead of TAB. \\
+			\textbf{-f}, --field LIST specifies field positions to be extracted. \\
+			\textbf{-b}, --bytes LIST specifies byte positions to be extracted. \\
+			\textbf{-s}, --ignore Ignore lines not containing delimiters. \\
+			
+			Para parsear los parámetros se uso la función:
+			\begin{center}
+				int  getopt\_long (int argc, char *const *argv, const char *shortopts, const struct option *longopts, int *indexptr)
+			\end{center}
+			
+			Esta función permite recoger los parámetros de entrada del programa tanto en su formato corto como en su formato largo.
+			Ejemplo: -h --help. Existen otras funciones como argp que son propias de Linux. Se eligió esta por que es compatible con NetBSD (también es compatible con Windows).
+			
+			Los parámetros de entrada se interpretan así:
+			\begin{center}
+				./tp0 [opción] [argumentos de la opción][archivos de entrada] 
+			\end{center}
+			\begin{itemize}
+				\item Todos los parámetros que no empiecen con <<->> o <<-->> y no sean argumento de alguna opción (la opcion -s no tiene argumentos) serán considerados como archivos de entrada. El programa limita a solamente 10 archivos de entrada. Si hay más de 10 archivos de entrada no se tendrán en cuenta. En el caso de que no se especifique archivo de entrada, se lee de stdin. 
+				\item Siempre se usará la salidad standard para mostrar los resultados.
+				\item Las opticiones habilitarán banderas que luego le avisarán al programa que hacer.
+			\end{itemize}
+		\subsubsection{Funciones para contar}
+		Dentro de la aplicación, dividos el conjunto de las funciones para contar en dos:
+		\begin{itemize}
+			\item Las funciones para contar archivos.
+			\item Las funciones para contar cadenas de texto.
+		\end{itemize}
+		
+		El criterio para las funciones para contar archivos fue el siguiente:
+		Se considera que más probable que el usuario pida una unica opción que las tres opciones juntas (cantidad de líneas, bytes, palabras). Por ende, se decidió el archivo se lea dentro de cada función.\newline
+		
+		\begin{center}
+		int fcountWord(FILE* file);\newline
+		int fcountBytes(FILE* file);\newline
+		int countLines(FILE* file);\newline\newline
+		
+		int countWord(char* cadena);\newline
+		int countBytes(char* cadena);\newline
+		\end{center}
+
+		Para contar la cantidad de bytes se consideró que un caracter ocupa en c 1 byte por ende una cadena de caracteres ocupará  1byte x la cantidad de caraceteres. El operador \textbackslash  n y el espacio se consideran como un caracter.
+		Para contar la cantidad de líneas se consideró que una línea termina en \textbackslash n .
+		Para contar la cantidad de palabras se divide la cadena por sus espacios y se cuenta la cantidad de palabras que quedan.
+		
+		\subsubsection{Salida de datos}
+		Como ya se mencionó en la sección de parámetros, la salida de datos considera que si al programa no se le pasa la opción -o con un nombre de archivo, el programa usará la salidad standard y mostrará los datos por pantalla.
+		El formato de los datos es el siguiente:\newline
+		
+			      
+			      [tab]lineas[tab]palabras[tab]bytes[tab]nombre archivo\newline
+			-----------------------------------------------------------\newline
+			Total:     líneas     palabras     bytes
+		
+	\subsection{Paso 5: Informe con LaTex}
+	Lo primero que hicimos fue buscar las herramientas que necesitamos.\newline
+	Para Windows:
+	\begin{itemize}
+		\item MikTex, es una distribución de LaTex para windows. Se puede conseguir gratuitamente en http://miktex.org/
+		\item TeXnicCenter, es un ambiente para crear documentos LaTex. Se puede bajar gratuitamente de http://www.texniccenter.org/  
+	\end{itemize}
+	
+	Para Linux:
+	Hay varios ambientes de trabajo por ejemplo el Kile.
+	
+	\subsubsection{Estructura básica de un documento de LaTex}
+		Un documento básico de latex tiene la siguiente estructura:\newline
+		Clase de documento:
+		\textbackslash[a4paper,11pt,oneside]\{article\}\newline
+		Claramente podemos ver lo que se está definiendo. En particular el parametro report indica el tipo de documento: articulo, libro, reporte, etc...\newline \newline
+		\textbf{Paquetes}\newline
+		\textbackslash usepackage[latin1]\{inputenc\} \newline
+		\textbackslash usepackage[activeacute,spanish]\{babel\} \newline
+		Con estos paquetes le decimos que tipo de teclado usamos (latin1) y habilitamos los acentos españoles.\newline \newline
+		\textbf{Título y Autor}\newline
+		\textbackslash title\{título\} \newline
+		\textbackslash author\{autor\} \newline
+		\textbackslash date\{\textbackslash today\} \newline
+		Aquí se configura el título, autor y fecha. \newline \newline
+		\textbf{Documento}\newline
+		\textbackslash begin\{document\} \newline
+		\textbackslash end\{document\} \newline
+		Dentro del begin y el end va el contenido del documento.	
+	
+	\section{Corridas de prueba}
+		La figura~\ref{fig001} muestra la línea utilizada para compilar el código en Linux, y además se puede apreciar las diferentes pruebas que están como ejemplo en el enunciado.
+			
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.70\textwidth]{pruebaslinux.JPG}
+		\caption{Corridas en Linux}
+		\label{fig001}
+	\end{figure}
+	\afterpage{\clearpage}
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.70\textwidth]{pruebasnetBSD.JPG}
+		\caption{Corridas en NetBSD}
+		\label{fig002}
+	\end{figure}
+	
+	La figura~\ref{fig002} muestra los mismos ejemplos y el comando para compilar en NetBSD.
+	
+	\section{Conclusiones}
+	Si bien las activades del trabajo son sencillas, a lo largo del desarrollo del mismo tuvimos inconvenientes para establecer la conexion SSH desde linux, afortunadamente el error pudo solucionarse facilmente, borrando el archivo known\_hosts en el sistema operativo NetBSD. Finalmente podemos decir que el trabajo practico nos sirvió para familiarizarnos con las herramientas utilizadas, si bien todos los integrantes del grupo habían programado en el lenguaje C en otras ocasiones, no todos habian utilizado el sistema operativo Linux, el lenguaje de marcado LATEX,  ni la maquina virtual GxEmul. De las corridas de prueba podemos apreciar que el resultado obtenido era el esperado. 
+	
+% Citas bibliográficas.
+\begin{thebibliography}{99}
+
+\bibitem{U01} http://www.ubuntu.com/
+
+\bibitem{GNU02} http://www.cs.duke.edu/courses/spring04/cps108/resources/getoptman.html
+
+\bibitem{LAT03} http://los-pajaros-de-hogano.blogspot.com/2009/03/hal-y-las-marcas-latex-i.html
+
+\end{thebibliography}
+
+\end{document}
+
