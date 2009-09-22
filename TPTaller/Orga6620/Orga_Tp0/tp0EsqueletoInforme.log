@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.9.20)  22 SEP 2009 16:03
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2009.9.20)  22 SEP 2009 16:26
 entering extended mode
 **C:/Richy/Organizacion*de*Computadoras/tp0/tp0EsqueletoInforme.tex
 ("C:/Richy/Organizacion de Computadoras/tp0/tp0EsqueletoInforme.tex"
@@ -206,10 +206,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 130--147
 
  []
 
-[4] <pruebaslinux.JPG, id=22, 486.31688pt x 588.69937pt>
-File: pruebaslinux.JPG Graphic file (type jpg)
+[4]
 
-<use pruebaslinux.JPG>
+LaTeX Warning: Reference `fig001' on page 5 undefined on input line 149.
+
+<pruebaslinux.JPG, id=22, 486.31688pt x 588.69937pt>
+File: pruebaslinux.JPG Graphic file (type jpg)
+ <use pruebaslinux.JPG>
 ! Undefined control sequence.
 l.157 	\afterpage
                  {\clearpage}
@@ -223,6 +226,9 @@ and I'll forget about whatever was undefined.
 <pruebasnetBSD.JPG, id=30, 489.32813pt x 600.74437pt>
 File: pruebasnetBSD.JPG Graphic file (type jpg)
  <use pruebasnetBSD.JPG>
+
+LaTeX Warning: Reference `fig002' on page 7 undefined on input line 165.
+
 [7
 
  <C:/Richy/Organizacion de Computadoras/tp0/pruebasnetBSD.JPG>]
@@ -237,7 +243,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 177--178
 s-marcas-
  []
 
-[8] ("C:\Richy\Organizacion de Computadoras\tp0\tp0EsqueletoInforme.aux") ) 
+[8] ("C:\Richy\Organizacion de Computadoras\tp0\tp0EsqueletoInforme.aux")
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  1658 strings out of 495285
  21717 string characters out of 3179726
@@ -246,17 +259,16 @@ Here is how much of TeX's memory you used:
  9740 words of font info for 35 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  25i,7n,27p,770b,232s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/
-Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/A
-rchivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Ar
-chivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Arch
-ivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Archiv
-os de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Archivos 
-de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Archivos d
-e programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Archivos de
- programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Archivos de 
-programa/MiKTeX 2.8/fonts/type1/public/amsfonts/latxfont/lasy10.pfb>
-Output written on tp0EsqueletoInforme.pdf (8 pages, 313784 bytes).
+<C:/Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+><C:/Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+<C:/Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr10.pfb><C
+:/Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/
+Archivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Arc
+hivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Arch
+ivos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Archi
+vos de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Archiv
+os de programa/MiKTeX 2.8/fonts/type1/public/amsfonts/latxfont/lasy10.pfb>
+Output written on tp0EsqueletoInforme.pdf (8 pages, 314037 bytes).
 PDF statistics:
  67 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
