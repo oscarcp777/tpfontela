@@ -15,3 +15,12 @@ Almacenamiento::Almacenamiento() {
 Almacenamiento::~Almacenamiento() {
 	// TODO Auto-generated destructor stub
 }
+Compuesto* Almacenamiento::getCompuesto() const
+   {
+       return compuesto;
+   }
+
+   void Almacenamiento::setCompuesto(Compuesto *compuesto)
+   {
+       this->compuesto = compuesto;
+   }

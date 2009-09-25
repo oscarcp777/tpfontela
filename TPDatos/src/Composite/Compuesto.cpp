@@ -15,3 +15,9 @@ Compuesto::Compuesto() {
 Compuesto::~Compuesto() {
 	// TODO Auto-generated destructor stub
 }
+int Compuesto::getCantidadDeElelmentos(){
+	return this->listaDeComponetes.size();
+}
+std::list<Componente*>::iterator  Compuesto::iteratorListaDeComponetes(){
+	return this->listaDeComponetes.begin();
+}
