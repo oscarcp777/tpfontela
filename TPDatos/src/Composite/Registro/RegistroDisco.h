@@ -12,7 +12,7 @@
 
 class RegistroDisco: public Registro {
 public:
-	RegistroDisco();
+	RegistroDisco(int tamanio);
 	virtual ~RegistroDisco();
 };
 

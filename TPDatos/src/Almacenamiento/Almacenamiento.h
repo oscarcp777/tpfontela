@@ -7,6 +7,9 @@
 
 #ifndef ALMACENAMIENTO_H_
 #define ALMACENAMIENTO_H_
+
+
+
 #include "../Composite/Compuesto.h"
 class Almacenamiento {
 private:

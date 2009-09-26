@@ -8,11 +8,15 @@
 #ifndef REGISTRO_H_
 #define REGISTRO_H_
 
-#include "../../Object/Object.h"
-class Registro : public Object{
+#include "../../Composite/Componente.h"
+
+class Registro : public Componente{
 public:
-	Registro();
+	Registro(int tamanio);
 	virtual ~Registro();
+
+private:
+	char* datos;
 };
 
 #endif /* REGISTRO_H_ */

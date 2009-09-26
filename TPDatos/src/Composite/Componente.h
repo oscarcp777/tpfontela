@@ -8,12 +8,21 @@
 #ifndef COMPONENTE_H_
 #define COMPONENTE_H_
 
-#include "../Object/Object.h"
 
-class Componente: public Object {
+class Componente{
+
+private:
+	int tamanio;
+
 public:
-	Componente();
+	Componente(int tamanio);
+
 	virtual ~Componente();
+
+    int getTamanio();
+
+    void setTamanio(int tamanio);
+
 };
 
 #endif /* COMPONENTE_H_ */

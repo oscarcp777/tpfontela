@@ -7,7 +7,7 @@
 
 #include "RegistroDisco.h"
 
-RegistroDisco::RegistroDisco() {
+RegistroDisco::RegistroDisco(int tamanio):Registro(tamanio) {
 	// TODO Auto-generated constructor stub
 
 }
