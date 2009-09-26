@@ -12,7 +12,7 @@
 
 class BloqueMemoria: public Bloque {
 public:
-	BloqueMemoria();
+	BloqueMemoria(int tamanio);
 	virtual ~BloqueMemoria();
 };
 

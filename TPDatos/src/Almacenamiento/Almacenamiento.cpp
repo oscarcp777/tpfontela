@@ -15,7 +15,7 @@ Almacenamiento::Almacenamiento() {
 Almacenamiento::~Almacenamiento() {
 	// TODO Auto-generated destructor stub
 }
-Compuesto* Almacenamiento::getCompuesto() const
+Compuesto* Almacenamiento::getCompuesto()
    {
        return compuesto;
    }

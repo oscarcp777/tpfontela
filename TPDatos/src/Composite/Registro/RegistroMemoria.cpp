@@ -7,7 +7,7 @@
 
 #include "RegistroMemoria.h"
 
-RegistroMemoria::RegistroMemoria() {
+RegistroMemoria::RegistroMemoria(int tamanio) :Registro(tamanio){
 	// TODO Auto-generated constructor stub
 
 }

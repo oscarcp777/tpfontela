@@ -10,7 +10,7 @@
 #include "Bloque.h"
 class BloqueDisco : public Bloque{
 public:
-	BloqueDisco();
+	BloqueDisco(int tamanio);
 	virtual ~BloqueDisco();
 };
 

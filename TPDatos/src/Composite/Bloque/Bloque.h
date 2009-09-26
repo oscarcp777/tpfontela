@@ -8,10 +8,12 @@
 #ifndef BLOQUE_H_
 #define BLOQUE_H_
 
-#include "../../Object/Object.h"
-class Bloque : public Object{
+#include "../../Composite/Componente.h"
+#include "../../Composite/Compuesto.h"
+
+class Bloque : public Componente , Compuesto{
 public:
-	Bloque();
+	Bloque(int tamanio);
 	virtual ~Bloque();
 };
 

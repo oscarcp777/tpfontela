@@ -7,7 +7,8 @@
 
 #include "Bloque.h"
 
-Bloque::Bloque() {
+Bloque::Bloque(int tamanio):Componente(tamanio) {
+
 	// TODO Auto-generated constructor stub
 
 }

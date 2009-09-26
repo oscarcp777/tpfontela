@@ -7,8 +7,9 @@
 
 #include "Registro.h"
 
-Registro::Registro() {
-	// TODO Auto-generated constructor stub
+
+Registro::Registro(int tamanio):Componente(tamanio) {
+
 
 }
 
