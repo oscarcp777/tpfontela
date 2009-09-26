@@ -16,7 +16,8 @@ public:
 	virtual ~Registro();
 
 private:
-	char* datos;
+	void* datos;
+
 };
 
 #endif /* REGISTRO_H_ */
