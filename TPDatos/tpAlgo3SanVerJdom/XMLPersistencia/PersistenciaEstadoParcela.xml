@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EstadoParcela><Posicion X="8" Y="8" /><MaterialDeTerreno esRompible="true" esCaminable="false" esVacio="true" esMortal="false" tipoDeMaterial="0" altura="0" esPuertaDeEntrada="false" esPuertaDeSalida="false">
+</MaterialDeTerreno></EstadoParcela>
