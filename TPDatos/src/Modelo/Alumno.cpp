@@ -42,14 +42,25 @@ void Alumno::setNombre(std::string nombre)
 	this->nombre = nombre;
 }
 
-Clave* Dato::serializarToolkit(){
-	return new Clave();
+Clave* Alumno::serializarToolkit(){
+	Clave* raiz = new Clave("Alumno");
+	char nombreAtributo[30];
+	raiz->setearAtributo("dni",itoa(this->dni,nombreAtributo,10));
+
+	return raiz;
 }
 
-void Dato::hidratarToolkit(Clave* clave){
+void Alumno::hidratarToolkit(Clave* clave){
 
 }
 
+
+/*public Element serializarJDOM() {
+		Element raiz = new Element("Posicion");
+		raiz.setAttribute("PosX", (new Integer(this.x).toString()));
+		raiz.setAttribute("PosY", new Integer(this.y).toString());
+		return raiz;
+	}*/
 
 Alumno::~Alumno() {
 	// TODO Auto-generated destructor stub
