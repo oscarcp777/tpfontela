@@ -7,8 +7,12 @@
 
 #include "Clave.h"
 
-Clave::Clave() {
+Clave::Clave(std::string nombre) {
 	// TODO Auto-generated constructor stub
+
+}
+
+void Clave::setearAtributo(std::string nombre, std::string valor){
 
 }
 
