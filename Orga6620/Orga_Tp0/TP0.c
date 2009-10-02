@@ -55,7 +55,7 @@ int totalFields(char* line,char c);
 void help();
 void getVersion();
 int listFields(char* string);
-int listBytes(char* string);
+int listBytes(char* string,FILE* inputFile);
 void getField(char* line, int nField, char delimiter, char* field);
 
 
@@ -91,7 +91,7 @@ int main(int argc, char** argv){
 				help();
 				return -1;
 			}else
-				listBytes(cadena);
+				listBytes(cadena,stdin);
 		}
 
 	}
@@ -105,7 +105,7 @@ int main(int argc, char** argv){
 					fprintf(stderr, "No se puede abrir el archivo!! %s!\n" ,filename);
 					return -1;
 				}
-				while(fgets(cadena, 80, inputFile) != NULL) {
+				//while(fgets(cadena, 80, inputFile) != NULL) {
 					if(oflags.flag_field != 0){
 						if(validateRange(oflags.p_field) == NULL){
 							help();
@@ -118,9 +118,9 @@ int main(int argc, char** argv){
 							help();
 							return -1;
 						}else
-							listBytes(cadena);
+							listBytes(cadena,inputFile);
 					}
-				}
+				//}
 				fclose(inputFile);
 			}
 		}
@@ -244,38 +244,44 @@ int getOptions(int argc, char** argv, char** ofname){
     return EXIT_SUCCESS;
 }
 
-int listBytes(char* string){
+int listBytes(char* string,FILE* inputFile){
     int i = 0;
     int j = 0;
     char* aux;
     char field[50];
     memset(field,0,50);
+
+
+    while(fgets(string, 80, inputFile) != NULL) {
+    i = 0;
+    j = 0;
+    memset(field,0,50);
     aux = string;
-    while (rango[i]!= -5){
+      while (rango[i]!= -5){
           if (rango[i+1] == -1){
-             rango[i+1] = -5;
+
              //si el menor campo pedido es mayor que la cantidad de bytes de la linea no devuelve nada
              if (rango[i] < strlen(string)){
-            	 while (j<rango[i]){
-            		 j++;
+
+            	 j=1;
+            	 while(*aux != '\n'){
+            		 printf("%c", *aux);
             		 aux++;
+
             	 }
-            	 aux--;
-            	 strcpy(field,aux);
-            	 printf("%s", field);
              }
           }else
                if (rango[i+1] == -2){
-                  rango[i+1] = -5;
-                  while (j<rango[i]){
-                   j++;
-                   aux++;
-                  }
                   //si el mayor campo pedido es mayor que la cantidad de bytes de la linea devuelve
                   //hasta el final de la linea
                   if (rango[i] < strlen(string)){
-                	  strncpy(field,string,aux-string);
-                	  printf("%s\n", field);
+
+                	  while (j<rango[i]){
+                	   printf("%c", *aux);
+                	   j++;
+                	   aux++;
+                	  }
+
                   }else{
                 	  strcpy(field,aux);
                 	  printf("%s", string);
@@ -284,17 +290,22 @@ int listBytes(char* string){
                }else{
             	   //si el campo pedido es mayor que la cantidad de bytes de la linea no devuelve nada
             	   if (rango[i] < strlen(string)){
+
             		   while (j<rango[i]){
             			   j++;
             			   aux++;
             		   }
             		   aux--;
-            		   printf("%c\n", *aux);
+            		   printf("%c", *aux);
             	   }
+
                }
           j = 0;
           aux = string;
           i++;
+
+    }
+    printf("\n");
     }
 
     return EXIT_SUCCESS;
