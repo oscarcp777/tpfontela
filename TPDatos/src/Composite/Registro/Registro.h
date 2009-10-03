@@ -15,6 +15,7 @@ public:
 	Registro(int tamanio);
 	virtual ~Registro();
 
+
 private:
 	void* datos;
 

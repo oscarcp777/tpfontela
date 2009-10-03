@@ -6,6 +6,7 @@
  */
 #include <iostream>
 #include "../Composite/Dato.h"
+#include "../Factory/FabricaDeRecursosDeAlmacenamiento.h"
 
 #ifndef PERSISTIDOR_H_
 #define PERSISTIDOR_H_

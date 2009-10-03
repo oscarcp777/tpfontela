@@ -13,9 +13,12 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
 }
 
 
-void FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string eAlmacenamiento /*"texto","registros","bloques"*/,Componente* componente){
-	//if (texto)
-		//new RecursoDeAlmacenamiento(componente, new EstrategiaUnAlmacenamiento(), new EstrategiaAlmacenamientoTexto(), new Archivo(nombrearchivo, componente) );
+void FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string nombreArchivo, std::string eAlmacenamiento /*"texto","registros","bloques"*/,Componente* componente){
+	if (eAlmacenamiento.compare("texto")==0){
+		new RecursoDeAlmacenamiento(componente, new EstrategiaRecursoUnAlmacenamiento(), new EstrategiaAlmacenamientoTexto(), new Archivo(/*nombreArchivo, componente*/) );
+
+	}
+
 }
 
 FabricaDeRecursosDeAlmacenamiento::~FabricaDeRecursosDeAlmacenamiento() {

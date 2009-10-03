@@ -5,7 +5,14 @@
  *      Author: richy
  */
 #include <iostream>
-#include "../Composite/Componente.h"
+#include "../Almacenamiento/RecursoDeAlmacenamiento.h"
+#include "../Almacenamiento/Archivo.h"
+#include "../Estrategy/EstrategiaRecursoUnAlmacenamiento.h"
+#include "../Estrategy/EstrategiaAlmacenamientoTexto.h"
+
+//#include "../Estrategy/EstrategiaRecurso.h"
+//#include "../Estrategy/EstrategiaIndice.h"
+//#include "../Composite/Componente.h"
 
 #ifndef FABRICADERECURSOSDEALMACENAMIENTO_H_
 #define FABRICADERECURSOSDEALMACENAMIENTO_H_
@@ -15,7 +22,9 @@ public:
 	FabricaDeRecursosDeAlmacenamiento();
 	virtual ~FabricaDeRecursosDeAlmacenamiento();
 
-	static void RecursoDeAlmacenamientoEnArchivo(std::string eAlmacenamiento /*"texto","registros","bloques"*/,Componente* componente);
+	static void RecursoDeAlmacenamientoEnArchivo(std::string nombreArchivo, std::string eAlmacenamiento /*"texto","registros","bloques"*/,Componente* componente);
 };
 
 #endif /* FABRICADERECURSOSDEALMACENAMIENTO_H_ */
+
+
