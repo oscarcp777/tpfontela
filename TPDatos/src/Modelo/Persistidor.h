@@ -14,7 +14,7 @@ class Persistidor {
 public:
 	Persistidor();
 	virtual ~Persistidor();
-	static void guardar(std::string nombreArchivo,Dato* dato);
+	static void guardar(std::string nombreArchivo,Dato* dato, std::string eAlmacenamiento);
 	static void recuperar(std::string nombreArchivo,Dato* dato);
 };
 

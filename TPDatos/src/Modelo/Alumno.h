@@ -21,8 +21,9 @@ public:
 	void setDni(int dni);
 	std::string getNombre() const;
 	void setNombre(std::string nombre);
-	virtual Clave* serializarToolkit();
+    virtual Clave* serializarToolkit();
 	virtual void hidratarToolkit (Clave* desde);
+
 
 
 private:
