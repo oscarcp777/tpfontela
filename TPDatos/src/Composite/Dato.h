@@ -4,13 +4,14 @@
  *  Created on: 01-oct-2009
  *      Author: Santiago
  */
+#include "Registro/Registro.h"
 #include "Clave.h"
 
 #ifndef DATO_H_
 #define DATO_H_
 
 //funciona como interface
-class Dato {
+class Dato : public Registro {
 public:
 	Dato();
 	virtual ~Dato();

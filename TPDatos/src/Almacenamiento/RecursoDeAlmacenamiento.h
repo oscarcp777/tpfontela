@@ -13,10 +13,10 @@
 #ifndef RECURSOSALMACENAMIENTO_H_
 #define RECURSOSALMACENAMIENTO_H_
 
-class RecursosAlmacenamiento {
+class RecursoDeAlmacenamiento {
 public:
-	RecursosAlmacenamiento(/*Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento*/ );
-	virtual ~RecursosAlmacenamiento();
+	RecursoDeAlmacenamiento(Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
+	virtual ~RecursoDeAlmacenamiento();
 
 private:
 	Almacenamiento* almacenamiento;

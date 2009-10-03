@@ -15,7 +15,7 @@ Persistidor::Persistidor() {
 void Persistidor::guardar(std::string nombreArchivo,Dato* dato,std::string eAlmacenamiento){
 		//guardar archivo llamando a dato.serializarToolkit()
 		//en este caso dato es un alumno con datos a ser guardados en un archivo con ese nombre
-		//FabricaDeRecursosDeAlmacenamiento.
+		FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(nombreArchivo, eAlmacenamiento, dato);
 
 }
 

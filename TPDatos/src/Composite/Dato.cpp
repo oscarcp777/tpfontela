@@ -7,7 +7,7 @@
 
 #include "Dato.h"
 
-Dato::Dato() {
+Dato::Dato():Registro(50) {
 	// TODO Auto-generated constructor stub
 
 }
