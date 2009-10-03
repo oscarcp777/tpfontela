@@ -14,7 +14,7 @@ ControladorPersistencia::ControladorPersistencia(Alumno* alumno) {
 }
 
 void ControladorPersistencia::guardar(){
-	Persistidor::guardar("alumno.txt", this->alumno);
+	Persistidor::guardar("alumno.txt", this->alumno, "texto");
 }
 
 void ControladorPersistencia::recuperar(){

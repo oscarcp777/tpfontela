@@ -16,8 +16,8 @@ public:
 	virtual ~Dato();
 
 	//metodos virtuales a implementar por clase hija
-	virtual Clave* serializarToolkit()=0;
-	virtual void hidratarToolkit (Clave* desde)=0;
+	virtual Clave* serializarToolkit() const =0;
+	virtual void hidratarToolkit (Clave* desde) const =0;
 };
 
 #endif /* DATO_H_ */

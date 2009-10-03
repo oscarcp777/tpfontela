@@ -7,8 +7,12 @@
 
 #include "RecursosAlmacenamiento.h"
 
-RecursosAlmacenamiento::RecursosAlmacenamiento() {
+RecursosAlmacenamiento::RecursosAlmacenamiento(/*Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* alm*/  ) {
 	// TODO Auto-generated constructor stub
+	//	this->almacenamiento = alm;
+		//this->eAlmacenamiento = eAlmacenamiento;
+		//this->eRecurso = eRecurso;
+		//this->eIndice = ?¿;
 
 }
 
