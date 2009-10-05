@@ -15,3 +15,6 @@ EstrategiaRecursoEscrituraDirecta::EstrategiaRecursoEscrituraDirecta() {
 EstrategiaRecursoEscrituraDirecta::~EstrategiaRecursoEscrituraDirecta() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaRecursoEscrituraDirecta::toString(){
+   	return "EstrategiaRecursoEscrituraDirecta";
+   }

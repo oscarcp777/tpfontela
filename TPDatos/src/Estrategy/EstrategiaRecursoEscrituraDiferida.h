@@ -14,6 +14,7 @@ class EstrategiaRecursoEscrituraDiferida: public EstrategiaRecurso {
 public:
 	EstrategiaRecursoEscrituraDiferida();
 	virtual ~EstrategiaRecursoEscrituraDiferida();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIARECURSOESCRITURADIFERIDA_H_ */

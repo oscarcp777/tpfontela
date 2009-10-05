@@ -44,8 +44,8 @@ void Alumno::setNombre(std::string nombre)
 
 Clave* Alumno::serializarToolkit(){
 	Clave* raiz = new Clave("Alumno");
-	char nombreAtributo[30];
-	raiz->setearAtributo("dni",itoa(this->dni,nombreAtributo,10));
+	//char nombreAtributo[30];
+	//raiz->setearAtributo("dni",this->dni,nombreAtributo,10));
 
 	return raiz;
 }

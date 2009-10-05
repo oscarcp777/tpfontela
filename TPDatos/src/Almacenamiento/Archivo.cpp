@@ -15,3 +15,6 @@ Archivo::Archivo() {
 Archivo::~Archivo() {
 	// TODO Auto-generated destructor stub
 }
+std::string Archivo::toString(){
+	return "Archivo";
+}

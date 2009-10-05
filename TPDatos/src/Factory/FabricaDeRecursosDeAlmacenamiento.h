@@ -5,26 +5,31 @@
  *      Author: richy
  */
 #include <iostream>
-#include "../Almacenamiento/RecursoDeAlmacenamiento.h"
-#include "../Almacenamiento/Archivo.h"
-#include "../Estrategy/EstrategiaRecursoUnAlmacenamiento.h"
-#include "../Estrategy/EstrategiaAlmacenamientoTexto.h"
-
-//#include "../Estrategy/EstrategiaRecurso.h"
-//#include "../Estrategy/EstrategiaIndice.h"
-//#include "../Composite/Componente.h"
+#include "../Composite/Componente.h"
 
 #ifndef FABRICADERECURSOSDEALMACENAMIENTO_H_
 #define FABRICADERECURSOSDEALMACENAMIENTO_H_
-
+#include <map>
+#include "../fabricas/FabricaAbstracta.h"
+#include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 class FabricaDeRecursosDeAlmacenamiento {
-public:
+private:
+	static FabricaDeRecursosDeAlmacenamiento* unicaInstanciaFabrica;
 	FabricaDeRecursosDeAlmacenamiento();
+
+private:
+	std::map<std::string , FabricaAbstracta*> mapaFabricas;
+
+public:
+	        /**
+			 * Enumerado de elementos posibles, para poder utilizar como claves de la fabrica
+			 */
+
+	FabricaAbstracta* getFabrica(std::string clave);
+	static FabricaDeRecursosDeAlmacenamiento* obtenerInstancia();
 	virtual ~FabricaDeRecursosDeAlmacenamiento();
 
-	static void RecursoDeAlmacenamientoEnArchivo(std::string nombreArchivo, std::string eAlmacenamiento /*"texto","registros","bloques"*/,Componente* componente);
+	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,std::string almacenamiento  ,Componente* componente);
 };
 
 #endif /* FABRICADERECURSOSDEALMACENAMIENTO_H_ */
-
-

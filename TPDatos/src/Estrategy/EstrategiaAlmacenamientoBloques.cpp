@@ -15,3 +15,6 @@ EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
 EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaAlmacenamientoBloques::toString(){
+   	return "EstrategiaAlmacenamientoBloques";
+   }

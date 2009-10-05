@@ -15,3 +15,6 @@ Buffer::Buffer() {
 Buffer::~Buffer() {
 	// TODO Auto-generated destructor stub
 }
+std::string Buffer::toString(){
+	return "Buffer";
+}

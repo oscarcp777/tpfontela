@@ -7,11 +7,12 @@
 
 #ifndef ESTRATEGIARECURSO_H_
 #define ESTRATEGIARECURSO_H_
-
-class EstrategiaRecurso {
+#include "../Object/Object.h"
+class EstrategiaRecurso :public Object{
 public:
 	EstrategiaRecurso();
 	virtual ~EstrategiaRecurso();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIARECURSO_H_ */

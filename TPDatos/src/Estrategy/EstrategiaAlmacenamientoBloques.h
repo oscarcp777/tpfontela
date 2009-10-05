@@ -12,6 +12,7 @@
 
 class EstrategiaAlmacenamientoBloques: public EstrategiaAlmacenamiento {
 public:
+	std::string toString();
 	EstrategiaAlmacenamientoBloques();
 	virtual ~EstrategiaAlmacenamientoBloques();
 };

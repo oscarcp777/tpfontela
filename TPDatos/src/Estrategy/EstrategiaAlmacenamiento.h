@@ -7,11 +7,12 @@
 
 #ifndef ESTRATEGIAALMACENAMIENTO_H_
 #define ESTRATEGIAALMACENAMIENTO_H_
-
-class EstrategiaAlmacenamiento {
+#include "../Object/Object.h"
+class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
 	virtual ~EstrategiaAlmacenamiento();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTO_H_ */

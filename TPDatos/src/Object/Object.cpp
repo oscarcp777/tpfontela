@@ -15,3 +15,6 @@ Object::Object() {
 Object::~Object() {
 	// TODO Auto-generated destructor stub
 }
+std::string Object::toString(){
+	return "Object";
+}

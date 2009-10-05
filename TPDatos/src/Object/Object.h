@@ -7,10 +7,11 @@
 
 #ifndef OBJECT_H_
 #define OBJECT_H_
-
+#include <iostream>
 class Object {
 public:
 	Object();
+	virtual std::string toString();
 	virtual ~Object();
 };
 

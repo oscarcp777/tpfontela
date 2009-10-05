@@ -15,3 +15,6 @@ EstrategiaAlmacenamientoRegistros::EstrategiaAlmacenamientoRegistros() {
 EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaAlmacenamientoRegistros::toString(){
+   	return "EstrategiaAlmacenamientoRegistros";
+   }

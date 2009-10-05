@@ -14,6 +14,7 @@ class EstrategiaRecursoUnAlmacenamiento: public EstrategiaRecurso {
 public:
 	EstrategiaRecursoUnAlmacenamiento();
 	virtual ~EstrategiaRecursoUnAlmacenamiento();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIARECURSOUNALMACENAMIENTO_H_ */
