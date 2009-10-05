@@ -15,3 +15,6 @@ EstrategiaIndice::EstrategiaIndice() {
 EstrategiaIndice::~EstrategiaIndice() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaIndice::toString(){
+   	return "EstrategiaIndice";
+   }

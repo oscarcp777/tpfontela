@@ -24,3 +24,6 @@ Compuesto* Almacenamiento::getCompuesto()
    {
        this->compuesto = compuesto;
    }
+   std::string Almacenamiento::toString(){
+   	return "Almacenamiento";
+   }

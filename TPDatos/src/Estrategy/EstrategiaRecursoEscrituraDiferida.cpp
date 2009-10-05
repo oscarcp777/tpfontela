@@ -15,3 +15,6 @@ EstrategiaRecursoEscrituraDiferida::EstrategiaRecursoEscrituraDiferida() {
 EstrategiaRecursoEscrituraDiferida::~EstrategiaRecursoEscrituraDiferida() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaRecursoEscrituraDiferida::toString(){
+   	return "EstrategiaRecursoEscrituraDiferida";
+   }

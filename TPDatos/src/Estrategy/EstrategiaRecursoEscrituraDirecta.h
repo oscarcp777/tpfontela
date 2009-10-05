@@ -14,6 +14,7 @@ class EstrategiaRecursoEscrituraDirecta: public EstrategiaRecurso {
 public:
 	EstrategiaRecursoEscrituraDirecta();
 	virtual ~EstrategiaRecursoEscrituraDirecta();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIARECURSOESCRITURADIRECTA_H_ */

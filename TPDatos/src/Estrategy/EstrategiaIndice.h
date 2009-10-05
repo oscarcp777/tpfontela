@@ -7,11 +7,12 @@
 
 #ifndef ESTRATEGIAINDICE_H_
 #define ESTRATEGIAINDICE_H_
-
-class EstrategiaIndice {
+#include "../Object/Object.h"
+class EstrategiaIndice :public Object{
 public:
 	EstrategiaIndice();
 	virtual ~EstrategiaIndice();
+	std::string toString();
 };
 
 #endif /* ESTRATEGIAINDICE_H_ */

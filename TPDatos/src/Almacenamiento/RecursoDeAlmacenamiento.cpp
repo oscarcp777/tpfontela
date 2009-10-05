@@ -6,16 +6,37 @@
  */
 
 #include "RecursoDeAlmacenamiento.h"
+#include "../Estrategy/EstrategiaRecursoUnAlmacenamiento.h"
 
 RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* alm  ) {
 	// TODO Auto-generated constructor stub
 		this->almacenamiento = alm;
-		this->eAlmacenamiento = eAlmacenamiento;
-		this->eRecurso = eRecurso;
-		//this->eIndice = ?�;
+		this->estrategiaAlmacenamiento = eAlmacenamiento;
+		this->estrategiaRecurso = eRecurso;
+
 
 }
 
 RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
-	// TODO Auto-generated destructor stub
+	delete this->almacenamiento;
+	delete this->estrategiaAlmacenamiento ;
+	delete this->estrategiaRecurso ;
+}
+RecursoDeAlmacenamiento::RecursoDeAlmacenamiento() {
+	            this->almacenamiento = NULL;
+				this->estrategiaAlmacenamiento = NULL;
+				this->estrategiaRecurso = new EstrategiaRecursoUnAlmacenamiento();
+}
+std::string RecursoDeAlmacenamiento::toString(){
+	std::string almacenamiento="null";
+	std::string estrategiaAlmacenamiento="null";
+	std::string estrategiaRecurso="null";
+	  if( this->almacenamiento!=NULL) almacenamiento= this->almacenamiento->toString();
+	  if(this->estrategiaAlmacenamiento!=NULL)  estrategiaAlmacenamiento=this->estrategiaAlmacenamiento->toString();
+	  if(this->estrategiaRecurso!=NULL)  estrategiaRecurso=this->estrategiaRecurso->toString();
+	  std::string devolver="Objetos que contiene el RecursoDeAlmacenamiento \n"+
+			              almacenamiento+"\n"+
+			              estrategiaAlmacenamiento+"\n"+
+			              estrategiaRecurso+"\n";
+	return devolver;
 }

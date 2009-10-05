@@ -13,6 +13,7 @@
 class Archivo: public Almacenamiento {
 public:
 	Archivo();
+	std::string toString();
 	virtual ~Archivo();
 };
 

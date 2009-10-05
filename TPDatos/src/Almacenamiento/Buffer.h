@@ -10,10 +10,12 @@
 
 #include "Almacenamiento.h"
 
+
 class Buffer: public Almacenamiento {
 public:
 	Buffer();
 	virtual ~Buffer();
+	std::string toString();
 };
 
 #endif /* BUFFER_H_ */

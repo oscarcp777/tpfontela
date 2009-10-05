@@ -15,3 +15,6 @@ EstrategiaRecurso::EstrategiaRecurso() {
 EstrategiaRecurso::~EstrategiaRecurso() {
 	// TODO Auto-generated destructor stub
 }
+std::string EstrategiaRecurso::toString(){
+   	return "EstrategiaRecurso";
+   }

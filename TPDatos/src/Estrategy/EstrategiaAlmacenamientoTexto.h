@@ -7,11 +7,11 @@
 
 #ifndef ESTRATEGIAALMACENAMIENTOTEXTO_H_
 #define ESTRATEGIAALMACENAMIENTOTEXTO_H_
-
 #include "EstrategiaAlmacenamiento.h"
 
 class EstrategiaAlmacenamientoTexto: public EstrategiaAlmacenamiento {
 public:
+	std::string toString();
 	EstrategiaAlmacenamientoTexto();
 	virtual ~EstrategiaAlmacenamientoTexto();
 };

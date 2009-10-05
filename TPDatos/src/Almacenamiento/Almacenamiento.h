@@ -11,14 +11,15 @@
 
 
 #include "../Composite/Compuesto.h"
-class Almacenamiento {
+#include "../Object/Object.h"
+class Almacenamiento:public Object{
 private:
 	Compuesto* compuesto;
 public:
 	Almacenamiento();
 	virtual ~Almacenamiento();
     Compuesto *getCompuesto();
-
+    std::string toString();
     void setCompuesto(Compuesto *compuesto);
 };
 
