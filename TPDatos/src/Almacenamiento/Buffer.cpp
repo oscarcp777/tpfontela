@@ -7,7 +7,7 @@
 
 #include "Buffer.h"
 
-Buffer::Buffer() {
+Buffer::Buffer(Componente* comp):Almacenamiento(comp) {
 	// TODO Auto-generated constructor stub
 
 }

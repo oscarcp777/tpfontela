@@ -13,7 +13,7 @@
 
 class Alumno : public Dato {
 public:
-	Alumno();
+	Alumno(double dni, std::string nombre, int padron);
 	virtual ~Alumno();
 	int getPadron() const;
 	void setPadron(int padron);
@@ -21,14 +21,14 @@ public:
 	void setDni(int dni);
 	std::string getNombre() const;
 	void setNombre(std::string nombre);
-    virtual Clave* serializarToolkit();
-	virtual void hidratarToolkit (Clave* desde);
+    virtual Clave* serializarToolkit() const;
+	virtual void hidratarToolkit (Clave* desde) const;
 
 
 
 private:
 	int padron;
-	int dni;
+	double dni;
 	std::string nombre;
 
 };

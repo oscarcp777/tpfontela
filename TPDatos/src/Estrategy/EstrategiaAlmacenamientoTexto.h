@@ -14,6 +14,7 @@ public:
 	std::string toString();
 	EstrategiaAlmacenamientoTexto();
 	virtual ~EstrategiaAlmacenamientoTexto();
+	virtual void guardar(Almacenamiento* donde) const;
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOTEXTO_H_ */

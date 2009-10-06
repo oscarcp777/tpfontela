@@ -8,10 +8,12 @@
 #ifndef ESTRATEGIAALMACENAMIENTO_H_
 #define ESTRATEGIAALMACENAMIENTO_H_
 #include "../Object/Object.h"
+#include "../Almacenamiento/Almacenamiento.h"
 class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
 	virtual ~EstrategiaAlmacenamiento();
+	virtual void guardar(Almacenamiento* donde) const=0;
 	std::string toString();
 };
 

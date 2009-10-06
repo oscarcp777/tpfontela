@@ -15,6 +15,11 @@ EstrategiaAlmacenamientoRegistros::EstrategiaAlmacenamientoRegistros() {
 EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated destructor stub
 }
+
+void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde) const{
+
+}
+
 std::string EstrategiaAlmacenamientoRegistros::toString(){
    	return "EstrategiaAlmacenamientoRegistros";
    }

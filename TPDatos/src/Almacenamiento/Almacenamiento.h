@@ -11,12 +11,13 @@
 
 
 #include "../Composite/Compuesto.h"
+#include "../Composite/Componente.h"
 #include "../Object/Object.h"
 class Almacenamiento:public Object{
 private:
 	Compuesto* compuesto;
 public:
-	Almacenamiento();
+	Almacenamiento(Componente* comp);
 	virtual ~Almacenamiento();
     Compuesto *getCompuesto();
     std::string toString();

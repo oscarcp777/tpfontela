@@ -9,10 +9,11 @@
 #define FABRICAARCHIVO_H_
 
 #include "FabricaAbstracta.h"
+#include "../Composite/Componente.h"
 
 class FabricaArchivo: public FabricaAbstracta {
 public:
-	Object* fabricar();
+	Object* fabricar(Componente* comp);
 	FabricaArchivo();
 	virtual ~FabricaArchivo();
 };

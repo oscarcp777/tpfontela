@@ -7,7 +7,7 @@
 
 #include "EstrategiaRecursoUnAlmacenamiento.h"
 
-EstrategiaRecursoUnAlmacenamiento::EstrategiaRecursoUnAlmacenamiento() {
+EstrategiaRecursoUnAlmacenamiento::EstrategiaRecursoUnAlmacenamiento(/*RecursoDeAlmacenamiento r*/) {
 	// TODO Auto-generated constructor stub
 
 }
