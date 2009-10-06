@@ -8,6 +8,7 @@
 #ifndef ESTRATEGIARECURSO_H_
 #define ESTRATEGIARECURSO_H_
 #include "../Object/Object.h"
+
 class EstrategiaRecurso :public Object{
 public:
 	EstrategiaRecurso();

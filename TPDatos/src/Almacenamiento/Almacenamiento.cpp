@@ -7,7 +7,7 @@
 
 #include "Almacenamiento.h"
 
-Almacenamiento::Almacenamiento() {
+Almacenamiento::Almacenamiento(Componente* comp) {
 	// TODO Auto-generated constructor stub
 
 }

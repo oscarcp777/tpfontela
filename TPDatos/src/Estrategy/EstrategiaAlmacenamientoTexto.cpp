@@ -15,6 +15,11 @@ EstrategiaAlmacenamientoTexto::EstrategiaAlmacenamientoTexto() {
 EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 	// TODO Auto-generated destructor stub
 }
+
+void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde) const{
+
+}
+
 std::string EstrategiaAlmacenamientoTexto::toString(){
    	return "EstrategiaAlmacenamientoTexto";
    }

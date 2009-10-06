@@ -7,7 +7,7 @@
 
 #include "Archivo.h"
 
-Archivo::Archivo() {
+Archivo::Archivo(Componente* comp):Almacenamiento(comp) {
 	// TODO Auto-generated constructor stub
 
 }

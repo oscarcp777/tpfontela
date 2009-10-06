@@ -7,8 +7,11 @@
 
 #include "Alumno.h"
 
-Alumno::Alumno() {
+Alumno::Alumno(double dni, std::string nombre, int padron) {
 	// TODO Auto-generated constructor stub
+	this->dni = dni;
+	this->nombre = nombre;
+	this->padron = padron;
 
 }
 
@@ -42,7 +45,7 @@ void Alumno::setNombre(std::string nombre)
 	this->nombre = nombre;
 }
 
-Clave* Alumno::serializarToolkit(){
+Clave* Alumno::serializarToolkit() const{
 	Clave* raiz = new Clave("Alumno");
 	//char nombreAtributo[30];
 	//raiz->setearAtributo("dni",this->dni,nombreAtributo,10));
@@ -53,7 +56,7 @@ Clave* Alumno::serializarToolkit(){
 
 
 
-void Alumno::hidratarToolkit(Clave* clave){
+void Alumno::hidratarToolkit(Clave* clave) const{
 
 }
 

@@ -27,6 +27,11 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento() {
 				this->estrategiaAlmacenamiento = NULL;
 				this->estrategiaRecurso = new EstrategiaRecursoUnAlmacenamiento();
 }
+
+void RecursoDeAlmacenamiento::crearArchivo(){
+			this->estrategiaAlmacenamiento->guardar(this->almacenamiento);
+}
+
 std::string RecursoDeAlmacenamiento::toString(){
 	std::string almacenamiento="null";
 	std::string estrategiaAlmacenamiento="null";

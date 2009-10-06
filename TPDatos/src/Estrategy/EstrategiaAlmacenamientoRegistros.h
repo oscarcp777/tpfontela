@@ -15,6 +15,7 @@ public:
 	std::string toString();
 	EstrategiaAlmacenamientoRegistros();
 	virtual ~EstrategiaAlmacenamientoRegistros();
+	virtual void guardar(Almacenamiento* donde) const;
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOREGISTROS_H_ */

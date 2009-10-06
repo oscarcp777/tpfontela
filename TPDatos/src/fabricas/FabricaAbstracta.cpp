@@ -6,6 +6,7 @@
  */
 
 #include "FabricaAbstracta.h"
+
 #include <stdlib.h>
 FabricaAbstracta::FabricaAbstracta() {
 	// TODO Auto-generated constructor stub
@@ -14,6 +15,11 @@ FabricaAbstracta::FabricaAbstracta() {
 Object* FabricaAbstracta::fabricar(){
    return NULL;
 }
+
+Object* FabricaAbstracta::fabricar(Componente* comp){
+   return NULL;
+}
+
 FabricaAbstracta::~FabricaAbstracta() {
 	// TODO Auto-generated destructor stub
 }

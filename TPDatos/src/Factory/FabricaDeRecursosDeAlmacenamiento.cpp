@@ -10,6 +10,7 @@
 #include "../fabricas/FabricaEstrategiaAlmacenamientoTexto.h"
 #include "../fabricas/FabricaEstrategiaAlmacenamientoRegistros.h"
 #include "../fabricas/FabricaEstrategiaAlmacenamientoBloques.h"
+#include "../estrategy/EstrategiaRecursoUnAlmacenamiento.h"
 #include "../fabricas/FabricaArchivo.h"
 #include "../fabricas/FabricaBuffer.h"
 FabricaDeRecursosDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica=NULL;
@@ -43,7 +44,7 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,std::string almacenamiento ,Componente* componente){
        RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento();
        rAlmacenamiento->setEstrategiaAlmacenamiento((EstrategiaAlmacenamiento*)this->getFabrica(estrategiaAlmacenamiento)->fabricar());
-       rAlmacenamiento->setAlmacenamiento((Almacenamiento*)this->getFabrica(almacenamiento)->fabricar());
+       rAlmacenamiento->setAlmacenamiento((Almacenamiento*)this->getFabrica(almacenamiento)->fabricar(componente));
 		//new RecursoDeAlmacenamiento(componente, new EstrategiaUnAlmacenamiento(), new EstrategiaAlmacenamientoTexto(), new Archivo(nombrearchivo, componente) );
   return rAlmacenamiento;
 }

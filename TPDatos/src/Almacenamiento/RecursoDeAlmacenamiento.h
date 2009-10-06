@@ -19,6 +19,8 @@ public:
 	RecursoDeAlmacenamiento();
 	RecursoDeAlmacenamiento(Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
 	virtual ~RecursoDeAlmacenamiento();
+	void crearArchivo();
+
     Almacenamiento *getAlmacenamiento()
     {
         return almacenamiento;
