@@ -14,6 +14,8 @@ class RegistroDisco: public Registro {
 public:
 	RegistroDisco(int tamanio);
 	virtual ~RegistroDisco();
+	void serializar();
+	void hidratar();
 };
 
 #endif /* REGISTRODISCO_H_ */

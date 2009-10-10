@@ -6,12 +6,11 @@
  */
 
 #include <iostream>
-#include "../Composite/Dato.h"
 
 #ifndef ALUMNO_H_
 #define ALUMNO_H_
 
-class Alumno : public Dato {
+class Alumno  {
 public:
 	Alumno(double dni, std::string nombre, int padron);
 	virtual ~Alumno();
@@ -21,8 +20,7 @@ public:
 	void setDni(int dni);
 	std::string getNombre() const;
 	void setNombre(std::string nombre);
-    virtual Clave* serializarToolkit() const;
-	virtual void hidratarToolkit (Clave* desde) const;
+
 
 
 

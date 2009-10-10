@@ -18,3 +18,6 @@ EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
 std::string EstrategiaAlmacenamiento::toString(){
    	return "EstrategiaAlmacenamiento";
    }
+void EstrategiaAlmacenamiento::guardar(Almacenamiento* donde){
+
+}

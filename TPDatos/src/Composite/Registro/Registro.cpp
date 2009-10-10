@@ -9,7 +9,7 @@
 
 
 Registro::Registro(int tamanio):Componente(tamanio) {
-	this->registro = "";
+
 
 }
 
@@ -18,8 +18,9 @@ Registro::~Registro() {
 }
 
 void Registro::setAtributo(std::string etiqueta, std::string valor){
-	this->registro += etiqueta;
-	this->registro += "=";
-	this->registro += valor;
-	this->registro += DELIMITADOR;
+	mapaAtributos[etiqueta]=valor;
+//	this->registro += etiqueta;
+//	this->registro += "=";
+//	this->registro += valor;
+//	this->registro += DELIMITADOR;
 }

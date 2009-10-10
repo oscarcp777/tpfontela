@@ -16,7 +16,7 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 	// TODO Auto-generated destructor stub
 }
 
-void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde) const{
+void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 }
 

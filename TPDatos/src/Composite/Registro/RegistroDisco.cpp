@@ -15,3 +15,9 @@ RegistroDisco::RegistroDisco(int tamanio):Registro(tamanio) {
 RegistroDisco::~RegistroDisco() {
 	// TODO Auto-generated destructor stub
 }
+void RegistroDisco::serializar(){
+
+}
+void RegistroDisco::hidratar(){
+
+}

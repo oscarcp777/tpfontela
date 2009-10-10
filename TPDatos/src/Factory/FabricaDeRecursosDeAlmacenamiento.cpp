@@ -42,11 +42,11 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
  *  ,
     		   (Almacenamiento*));
  */
-RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,std::string almacenamiento ,Componente* componente){
-    EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
-    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(almacenamiento)->fabricar(componente);
-    RecursoDeAlmacenamiento* rAlmacenamiento=
-    		   new RecursoDeAlmacenamiento(new Componente(200),new EstrategiaRecurso(),estrategiaAlmac, almac);
+RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento){
+
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar(new Compuesto());
+    RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
 
 
   return rAlmacenamiento;

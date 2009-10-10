@@ -20,6 +20,7 @@ public:
 	RecursoDeAlmacenamiento();
 	RecursoDeAlmacenamiento(Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
 	RecursoDeAlmacenamiento(Compuesto* compuesto,Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
+	RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
 	virtual ~RecursoDeAlmacenamiento();
 	void crearArchivo();
 	/**
@@ -36,7 +37,7 @@ public:
     /**
      *este metodo carga en el compuesto el registro que se le pasa por parametro
      */
-    int cargarRegistro(Componente componente);
+    int cargarComponente(Componente* componente);
 private:
 	Almacenamiento* almacenamiento;
 	EstrategiaAlmacenamiento* estrategiaAlmacenamiento;

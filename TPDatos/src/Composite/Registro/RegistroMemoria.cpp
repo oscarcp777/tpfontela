@@ -15,3 +15,9 @@ RegistroMemoria::RegistroMemoria(int tamanio) :Registro(tamanio){
 RegistroMemoria::~RegistroMemoria() {
 	// TODO Auto-generated destructor stub
 }
+void RegistroMemoria::serializar(){
+
+}
+void RegistroMemoria::hidratar(){
+
+}

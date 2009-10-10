@@ -5,7 +5,6 @@
  *      Author: Santiago
  */
 #include "Alumno.h"
-#include "Persistidor.h"
 
 
 #ifndef CONTROLADORPERSISTENCIA_H_

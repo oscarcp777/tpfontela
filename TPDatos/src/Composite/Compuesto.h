@@ -18,6 +18,7 @@ public:
 	virtual ~Compuesto();
 	std::list<Componente*>::iterator iteratorListaDeComponetes();
     int getCantidadDeElelmentos();
+   void agregarComponente(Componente* componente);
 
 };
 
