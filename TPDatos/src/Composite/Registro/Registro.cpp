@@ -9,10 +9,17 @@
 
 
 Registro::Registro(int tamanio):Componente(tamanio) {
-
+	this->registro = "";
 
 }
 
 Registro::~Registro() {
 	// TODO Auto-generated destructor stub
+}
+
+void Registro::setAtributo(std::string etiqueta, std::string valor){
+	this->registro += etiqueta;
+	this->registro += "=";
+	this->registro += valor;
+	this->registro += DELIMITADOR;
 }
