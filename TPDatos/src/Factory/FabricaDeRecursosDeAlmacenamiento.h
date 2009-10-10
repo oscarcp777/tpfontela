@@ -29,7 +29,7 @@ public:
 	static FabricaDeRecursosDeAlmacenamiento* obtenerInstancia();
 	virtual ~FabricaDeRecursosDeAlmacenamiento();
 
-	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,std::string almacenamiento  ,Componente* componente);
+	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento);
 };
 
 #endif /* FABRICADERECURSOSDEALMACENAMIENTO_H_ */

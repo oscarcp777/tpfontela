@@ -16,7 +16,16 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 	// TODO Auto-generated destructor stub
 }
 
-void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde) const{
+void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
+	int i=1;
+	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+	Componente* componente;
+	     while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+	    	        componente = (Componente*)*iter;
+	    	        //componente->
+					iter++;
+					i++;
+				}
 
 }
 

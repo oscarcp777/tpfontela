@@ -11,7 +11,10 @@ Compuesto::Compuesto() {
 	// TODO Auto-generated constructor stub
 
 }
+void Compuesto::agregarComponente(Componente* componente){
+		this->listaDeComponetes.push_back(componente);
 
+}
 Compuesto::~Compuesto() {
 	// TODO Auto-generated destructor stub
 }

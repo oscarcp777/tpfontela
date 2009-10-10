@@ -16,7 +16,7 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated destructor stub
 }
 
-void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde) const{
+void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
 }
 

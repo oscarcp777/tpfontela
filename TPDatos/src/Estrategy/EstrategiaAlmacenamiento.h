@@ -13,7 +13,7 @@ class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
 	virtual ~EstrategiaAlmacenamiento();
-	virtual void guardar(Almacenamiento* donde) const=0;
+	virtual void guardar(Almacenamiento* donde);
 	std::string toString();
 };
 

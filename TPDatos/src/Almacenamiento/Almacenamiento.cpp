@@ -6,11 +6,33 @@
  */
 
 #include "Almacenamiento.h"
+std::string Almacenamiento::getNombreArchivo()
+    {
+        return nombreArchivo;
+    }
+
+    std::string Almacenamiento::getRuta()
+    {
+        return ruta;
+    }
+
+    void Almacenamiento::setNombreArchivo(std::string nombreArchivo)
+    {
+        this->nombreArchivo = nombreArchivo;
+    }
+
+    void Almacenamiento::setRuta(std::string ruta)
+    {
+        this->ruta = ruta;
+    }
 
 Almacenamiento::Almacenamiento(Compuesto* comp) {
    this->compuesto=comp;
 }
+void Almacenamiento::agregarComponente(Componente* componente){
+		this->compuesto->agregarComponente(componente);
 
+}
 Almacenamiento::~Almacenamiento() {
 	// TODO Auto-generated destructor stub
 }

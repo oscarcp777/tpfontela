@@ -15,6 +15,11 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Componente* componente, Estrate
 		this->estrategiaRecurso = eRecurso;
 
 }
+RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento ){
+	       this->almacenamiento = almacenamiento;
+			this->estrategiaAlmacenamiento = eAlmacenamiento;
+			this->estrategiaRecurso = new EstrategiaRecursoUnAlmacenamiento();
+}
 RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento ){
 	        this->almacenamiento = almacenamiento;
 			this->estrategiaAlmacenamiento = eAlmacenamiento;
@@ -24,6 +29,8 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente
 }
 
     int RecursoDeAlmacenamiento::escribirArchivo(std::string ruta,std::string nombreArchivo){
+    	this->almacenamiento->setNombreArchivo(nombreArchivo);
+    	this->almacenamiento->setRuta(ruta);
     	return 0;
     }
 
@@ -31,8 +38,8 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente
     	return 0;
     }
 
-    int RecursoDeAlmacenamiento::cargarRegistro(Componente componente){
-
+    int RecursoDeAlmacenamiento::cargarComponente(Componente* componente){
+        //this->almacenamiento->compuesto->
     	return 0;
     }
 RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {

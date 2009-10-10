@@ -45,20 +45,10 @@ void Alumno::setNombre(std::string nombre)
 	this->nombre = nombre;
 }
 
-Clave* Alumno::serializarToolkit() const{
-	Clave* raiz = new Clave("Alumno");
-	//char nombreAtributo[30];
-	//raiz->setearAtributo("dni",this->dni,nombreAtributo,10));
-
-	return raiz;
-}
 
 
 
 
-void Alumno::hidratarToolkit(Clave* clave) const{
-
-}
 
 
 /*public Element serializarJDOM() {
