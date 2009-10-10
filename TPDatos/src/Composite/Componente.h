@@ -8,8 +8,8 @@
 #ifndef COMPONENTE_H_
 #define COMPONENTE_H_
 
-
-class Componente{
+#include "../Object/Object.h"
+class Componente :public Object {
 
 private:
 	int tamanio;

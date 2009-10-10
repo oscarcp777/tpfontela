@@ -13,7 +13,7 @@
 
 class Buffer: public Almacenamiento {
 public:
-	Buffer(Componente* comp);
+	Buffer(Compuesto* comp);
 	virtual ~Buffer();
 	std::string toString();
 };
