@@ -9,6 +9,7 @@
 #include "../Estrategy/EstrategiaAlmacenamiento.h"
 #include "../Estrategy/EstrategiaIndice.h"
 #include "../Composite/Componente.h"
+#include "../Composite/Compuesto.h"
 
 #ifndef RECURSOSALMACENAMIENTO_H_
 #define RECURSOSALMACENAMIENTO_H_
@@ -18,49 +19,24 @@ public:
 	std::string toString();
 	RecursoDeAlmacenamiento();
 	RecursoDeAlmacenamiento(Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
+	RecursoDeAlmacenamiento(Compuesto* compuesto,Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
 	virtual ~RecursoDeAlmacenamiento();
 	void crearArchivo();
-
-    Almacenamiento *getAlmacenamiento()
-    {
-        return almacenamiento;
-    }
-
-    EstrategiaAlmacenamiento *getEstrategiaAlmacenamiento()
-    {
-        return estrategiaAlmacenamiento;
-    }
-
-    EstrategiaIndice *getEstrategiaIndice()
-    {
-        return estrategiaIndice;
-    }
-
-    EstrategiaRecurso *getEstrategiaRecurso()
-    {
-        return estrategiaRecurso;
-    }
-
-    void setAlmacenamiento(Almacenamiento *almacenamiento)
-    {
-        this->almacenamiento = almacenamiento;
-    }
-
-    void setEstrategiaAlmacenamiento(EstrategiaAlmacenamiento *estrategiaAlmacenamiento)
-    {
-        this->estrategiaAlmacenamiento = estrategiaAlmacenamiento;
-    }
-
-    void setEstrategiaIndice(EstrategiaIndice *estrategiaIndice)
-    {
-        this->estrategiaIndice = estrategiaIndice;
-    }
-
-    void setEstrategiaRecurso(EstrategiaRecurso *estrategiaRecurso)
-    {
-        this->estrategiaRecurso = estrategiaRecurso;
-    }
-
+	/**
+	 * guarda el archivo especificado con los datos cargados de los registros
+	 * en caso de no tener registros genera el archivo vacio
+	 * return : en caso de error devulve -1
+	 */
+    int escribirArchivo(std::string ruta,std::string nombreArchivo);
+    /**
+     * levantaa memoria los registros de este archivo que recibe por parametro
+     * return : en caso de error devulve -1
+     */
+    int leerArchivo();
+    /**
+     *este metodo carga en el compuesto el registro que se le pasa por parametro
+     */
+    int cargarRegistro(Componente componente);
 private:
 	Almacenamiento* almacenamiento;
 	EstrategiaAlmacenamiento* estrategiaAlmacenamiento;

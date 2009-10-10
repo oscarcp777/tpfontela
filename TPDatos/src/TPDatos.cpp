@@ -1,19 +1,19 @@
-//============================================================================
-// Name        : TPDatos.cpp
-// Author      : richy
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
-#include <iostream>
-#include "Object/Object.h"
-#include "utils/Define.h"
-#include "Composite/Componente.h"
-#include "Factory/FabricaDeRecursosDeAlmacenamiento.h"
-#include "Almacenamiento/RecursoDeAlmacenamiento.h"
-using namespace std;
-
+////============================================================================
+//// Name        : TPDatos.cpp
+//// Author      : richy
+//// Version     :
+//// Copyright   : Your copyright notice
+//// Description : Hello World in C++, Ansi-style
+////============================================================================
+//
+//#include <iostream>
+//#include "Object/Object.h"
+//#include "utils/Define.h"
+//#include "Composite/Componente.h"
+//#include "Factory/FabricaDeRecursosDeAlmacenamiento.h"
+//#include "Almacenamiento/RecursoDeAlmacenamiento.h"
+//using namespace std;
+//
 //int main() {
 //	/**
 //	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos

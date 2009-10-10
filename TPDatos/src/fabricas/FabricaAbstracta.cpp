@@ -16,7 +16,7 @@ Object* FabricaAbstracta::fabricar(){
    return NULL;
 }
 
-Object* FabricaAbstracta::fabricar(Componente* comp){
+Object* FabricaAbstracta::fabricar(Object* comp){
    return NULL;
 }
 

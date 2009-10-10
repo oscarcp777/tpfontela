@@ -15,7 +15,7 @@ FabricaArchivo::FabricaArchivo() {
 FabricaArchivo::~FabricaArchivo() {
 	// TODO Auto-generated destructor stub
 }
-Object* FabricaArchivo::fabricar(Componente* comp){
-	return new Archivo(comp);
+Object* FabricaArchivo::fabricar(Object* comp){
+	return new Archivo((Compuesto*)comp);
 
 }

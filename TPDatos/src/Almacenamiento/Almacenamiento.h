@@ -17,7 +17,7 @@ class Almacenamiento:public Object{
 private:
 	Compuesto* compuesto;
 public:
-	Almacenamiento(Componente* comp);
+	Almacenamiento(Compuesto* comp);
 	virtual ~Almacenamiento();
     Compuesto *getCompuesto();
     std::string toString();
