@@ -15,7 +15,8 @@ public:
 	Archivo(Compuesto* comp);
 	std::string toString();
 	virtual ~Archivo();
-    void guardar(std::string contenido);
+    void guardar(std::string registro);
+    void guardar(void* registro,int tamanioRegistro);
     void abrirArchivo(std::string tipoArchivo);
     void cerrarArchivo();
 };
