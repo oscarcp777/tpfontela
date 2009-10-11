@@ -8,7 +8,7 @@
 #include "Archivo.h"
 #include "../utils/Define.h"
 using namespace std;
-Archivo::Archivo(Compuesto* comp):Almacenamiento(comp) {
+Archivo::Archivo() {
 	// TODO Auto-generated constructor stub
 
 }

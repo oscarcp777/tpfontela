@@ -45,7 +45,7 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento){
 
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
-    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar(new Compuesto());
+    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar();
     RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
 
 

@@ -28,9 +28,9 @@ int main() {
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO);
 
-	Alumno* alumno1 = new Alumno(31993745,"Santiago Donikian",85689);
-	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440);
-	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534);
+	Alumno* alumno1 = new Alumno(31993745,"Santiago Donikian",85689,8,8,8);
+	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
 	recurso->cargarComponente(alumno1);
 	recurso->cargarComponente(alumno2);

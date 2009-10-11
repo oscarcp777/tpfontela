@@ -23,7 +23,7 @@ private:
 	std::string ruta;
 
 public:
-	Almacenamiento(Compuesto* comp);
+	Almacenamiento();
 	virtual ~Almacenamiento();
     Compuesto *getCompuesto();
     std::string toString();

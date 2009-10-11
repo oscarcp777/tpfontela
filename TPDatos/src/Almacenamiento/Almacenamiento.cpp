@@ -31,8 +31,8 @@ std::string Almacenamiento::getNombreArchivo()
         this->ruta = ruta;
     }
 
-Almacenamiento::Almacenamiento(Compuesto* comp) {
-   this->compuesto=comp;
+Almacenamiento::Almacenamiento() {
+
 }
 void Almacenamiento::agregarComponente(Componente* componente){
 		this->compuesto->agregarComponente(componente);

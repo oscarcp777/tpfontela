@@ -40,7 +40,8 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente
     }
 
     int RecursoDeAlmacenamiento::cargarComponente(Componente* componente){
-        this->almacenamiento->agregarComponente(componente);
+        //this->almacenamiento->agregarComponente(componente);
+    	this->estrategiaAlmacenamiento->agregarComponente(this->almacenamiento, componente);
     	return 0;
     }
 RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {

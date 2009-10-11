@@ -12,7 +12,7 @@
 
 class Archivo: public Almacenamiento {
 public:
-	Archivo(Compuesto* comp);
+	Archivo();
 	std::string toString();
 	virtual ~Archivo();
     void guardar(std::string registro);

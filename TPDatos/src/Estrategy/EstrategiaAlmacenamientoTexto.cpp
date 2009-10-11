@@ -35,7 +35,7 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 
 }
 
-void EstrategiaAlmacenamientoTexto::agregarComponente(Componente* componente){
+void EstrategiaAlmacenamientoTexto::agregarComponente(Almacenamiento* donde, Componente* componente){
 
 }
 
