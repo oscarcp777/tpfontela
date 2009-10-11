@@ -6,11 +6,12 @@
  */
 
 #include <iostream>
+#include "../Composite/Registro/Registro.h"
 
 #ifndef ALUMNO_H_
 #define ALUMNO_H_
 
-class Alumno  {
+class Alumno : public Registro  {
 public:
 	Alumno(double dni, std::string nombre, int padron);
 	virtual ~Alumno();
@@ -20,6 +21,9 @@ public:
 	void setDni(int dni);
 	std::string getNombre() const;
 	void setNombre(std::string nombre);
+
+	void serializar();
+	void hidratar();
 
 
 

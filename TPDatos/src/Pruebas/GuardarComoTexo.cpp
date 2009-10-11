@@ -9,6 +9,7 @@
 #include <iostream>
 #include "../Object/Object.h"
 #include "../utils/Define.h"
+#include "../Modelo/Alumno.h"
 #include "../Composite/Componente.h"
 #include "../Factory/FabricaDeRecursosDeAlmacenamiento.h"
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
@@ -27,14 +28,23 @@ int main() {
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO);
 
+	Alumno* alumno1 = new Alumno(31993745,"Santiago Donikian",85689);
+	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534);
+
+	recurso->cargarComponente(alumno1);
+	recurso->cargarComponente(alumno2);
+	recurso->cargarComponente(alumno3);
+
+	recurso->escribirArchivo("bobo.txt",".\\");
+
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
 	 * la fabrica
 	 */
 
-	cout << "!!!NOS VAN A ROMPER EL ORTO EN DATOS LALALA!!!" << endl; // prints !!!Hello World!!!
-	cout << "VEO QUE CARGO LA FABRICA DE RECURSOS :" <<recurso->toString()<< endl;
+
 	delete recurso;
 	return 0;
 }

@@ -28,3 +28,8 @@ void Registro::setAtributo(std::string etiqueta, std::string valor){
 //	this->registro += valor;
 //	this->registro += DELIMITADOR;
 }
+
+std::string Registro::getAtributo(std::string etiqueta){
+	return this->getMapaAtributos()[etiqueta];
+}
+
