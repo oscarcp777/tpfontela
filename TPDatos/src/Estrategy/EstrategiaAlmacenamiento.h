@@ -11,7 +11,8 @@
 #include "../Almacenamiento/Almacenamiento.h"
 #include "../utils/Define.h"
 #include "../Almacenamiento/Archivo.h"
-#include "../Composite/Componente.h"
+#include "../Composite/Bloque/Bloque.h"
+#include "../Composite/Registro/Registro.h"
 class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
