@@ -9,6 +9,8 @@
 #define ESTRATEGIAALMACENAMIENTO_H_
 #include "../Object/Object.h"
 #include "../Almacenamiento/Almacenamiento.h"
+#include "../utils/Define.h"
+#include "../Almacenamiento/Archivo.h"
 class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
@@ -16,7 +18,7 @@ public:
 	virtual void guardar(Almacenamiento* donde);
 	std::string toString();
 	void generarClaves(Almacenamiento* donde);
-	std::string getRegistro(Componente* componente);
+	std::string generarRegistro(Componente* componente);
 
 };
 

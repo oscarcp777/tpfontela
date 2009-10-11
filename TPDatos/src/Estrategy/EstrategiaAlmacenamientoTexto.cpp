@@ -17,15 +17,21 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 }
 
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
+	this->generarClaves(donde);
+	Archivo* archivo=(Archivo*)donde;
+	archivo->abrirArchivo(TEXTO);
 	int i=1;
-	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-	Componente* componente;
-	     while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
-	    	        componente = (Componente*)*iter;
-	    	        componente->serializar();
-					iter++;
-					i++;
-				}
+		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+		Componente* componente;
+		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+			componente = (Componente*)*iter;
+			archivo->guardar(generarRegistro(componente));
+			iter++;
+			i++;
+		}
+
+	archivo->cerrarArchivo();
+
 }
 
 
