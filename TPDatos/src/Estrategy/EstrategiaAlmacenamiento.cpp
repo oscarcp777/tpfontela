@@ -23,17 +23,14 @@ void EstrategiaAlmacenamiento::generarClaves(Almacenamiento* donde){
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		componente = (Componente*)*iter;
 		componente->serializar();
-		getRegistro(componente);
 		iter++;
 		i++;
 	}
 
 }
 
-std::string EstrategiaAlmacenamiento::getRegistro(Componente* componente){
-
-
-	return NULL;
+std::string EstrategiaAlmacenamiento::generarRegistro(Componente* componente){
+  return "nada";
 }
 
 std::string EstrategiaAlmacenamiento::toString(){
