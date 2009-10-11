@@ -17,8 +17,12 @@ Registro::~Registro() {
 	// TODO Auto-generated destructor stub
 }
 
+
+
+
 void Registro::setAtributo(std::string etiqueta, std::string valor){
-	mapaAtributos[etiqueta]=valor;
+	this->getMapaAtributos()[etiqueta]=valor;
+
 //	this->registro += etiqueta;
 //	this->registro += "=";
 //	this->registro += valor;
