@@ -35,6 +35,10 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 
 }
 
+void EstrategiaAlmacenamientoTexto::agregarComponente(Componente* componente){
+
+}
+
 
 
 std::string EstrategiaAlmacenamientoTexto::toString(){

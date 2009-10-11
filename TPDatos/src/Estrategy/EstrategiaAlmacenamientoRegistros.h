@@ -17,6 +17,7 @@ public:
 	virtual ~EstrategiaAlmacenamientoRegistros();
     void guardar(Almacenamiento* donde);
     std::string generarRegistro(Componente* componente);
+    void agregarComponente(Componente* componente);
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOREGISTROS_H_ */
