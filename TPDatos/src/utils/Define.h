@@ -12,4 +12,6 @@
 #define ESTRATEGIA_ALMACENAMIENTO_BLOQUES "estrategiaAlmacBloques"
 #define ARCHIVO "archivo"
 #define BUFFER "buffer"
+#define BINARIO "binario"
+#define TEXTO "texto"
 #endif /* DEFINE_H_ */

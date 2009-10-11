@@ -16,6 +16,7 @@ public:
 	Buffer(Compuesto* comp);
 	virtual ~Buffer();
 	std::string toString();
+	 void guardar(std::string contenido,std::string tipoArchivo);
 };
 
 #endif /* BUFFER_H_ */

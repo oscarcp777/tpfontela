@@ -7,6 +7,9 @@
 
 #include "Buffer.h"
 
+ void Buffer::guardar(std::string contenido,std::string tipoArchivo){
+
+ }
 Buffer::Buffer(Compuesto* comp):Almacenamiento(comp) {
 	// TODO Auto-generated constructor stub
 
