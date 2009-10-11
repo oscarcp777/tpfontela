@@ -6,6 +6,8 @@
  */
 
 #include <iostream>
+#include "Nota.h"
+
 #include "../Composite/Registro/Registro.h"
 
 #ifndef ALUMNO_H_
@@ -13,7 +15,7 @@
 
 class Alumno : public Registro  {
 public:
-	Alumno(double dni, std::string nombre, int padron);
+	Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3);
 	virtual ~Alumno();
 	int getPadron() const;
 	void setPadron(int padron);
@@ -32,6 +34,8 @@ private:
 	int padron;
 	double dni;
 	std::string nombre;
+	Nota* nota[3];
+
 
 };
 

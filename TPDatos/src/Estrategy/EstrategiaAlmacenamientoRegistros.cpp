@@ -32,6 +32,6 @@ std::string EstrategiaAlmacenamientoRegistros::generarRegistro(Componente* compo
 	return "hola";
 }
 
-void EstrategiaAlmacenamientoRegistros::agregarComponente(Componente* componente){
+void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde, Componente* componente){
 
 }

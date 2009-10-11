@@ -13,7 +13,7 @@
 
 class FabricaBuffer: public FabricaAbstracta {
 public:
-	Object* fabricar(Object* comp);
+	Object* fabricar();
 	FabricaBuffer();
 	virtual ~FabricaBuffer();
 };

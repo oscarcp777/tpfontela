@@ -16,7 +16,7 @@ FabricaBuffer::FabricaBuffer() {
 FabricaBuffer::~FabricaBuffer() {
 	// TODO Auto-generated destructor stub
 }
-Object* FabricaBuffer::fabricar(Object* comp){
-	return new Buffer((Compuesto*)comp);
+Object* FabricaBuffer::fabricar(){
+	return new Buffer();
 
 }

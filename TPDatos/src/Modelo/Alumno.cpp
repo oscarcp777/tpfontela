@@ -6,12 +6,16 @@
  */
 
 #include "Alumno.h"
-#include <sstream>
-Alumno::Alumno(double dni, std::string nombre, int padron):Registro(10) {
+
+Alumno::Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3):Registro(10) {
 	// TODO Auto-generated constructor stub
 	this->dni = dni;
 	this->nombre = nombre;
 	this->padron = padron;
+	//this->nota= new Nota[3];
+	this->nota[0]=new Nota(n1);
+	this->nota[1]=new Nota(n2);
+	this->nota[2]=new Nota(n3);
 
 }
 
@@ -55,6 +59,11 @@ void Alumno::serializar(){
 
 	flujo2<<this->padron;
 	this->setAtributo("Padron",flujo2.str());
+	//for (int i = 0;  i < 3;  i++) {
+		this->nota[1]->serializar();
+	//}
+
+
 }
 
 void Alumno::hidratar(){

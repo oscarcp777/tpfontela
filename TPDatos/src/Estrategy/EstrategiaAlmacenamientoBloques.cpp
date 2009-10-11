@@ -36,7 +36,7 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 }
 
 
-void EstrategiaAlmacenamientoBloques::agregarComponente(Componente* componente){
+void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, Componente* componente){
 
 }
 
