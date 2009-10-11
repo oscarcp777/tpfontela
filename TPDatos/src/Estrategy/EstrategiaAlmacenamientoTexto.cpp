@@ -26,10 +26,9 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 					iter++;
 					i++;
 				}
-
-
-
 }
+
+
 
 std::string EstrategiaAlmacenamientoTexto::toString(){
    	return "EstrategiaAlmacenamientoTexto";

@@ -15,6 +15,9 @@ public:
 	virtual ~EstrategiaAlmacenamiento();
 	virtual void guardar(Almacenamiento* donde);
 	std::string toString();
+	void generarClaves(Almacenamiento* donde);
+	std::string getRegistro(Componente* componente);
+
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTO_H_ */
