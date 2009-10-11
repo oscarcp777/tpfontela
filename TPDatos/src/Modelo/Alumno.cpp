@@ -7,7 +7,7 @@
 
 #include "Alumno.h"
 
-Alumno::Alumno(double dni, std::string nombre, int padron) {
+Alumno::Alumno(double dni, std::string nombre, int padron):Registro(10) {
 	// TODO Auto-generated constructor stub
 	this->dni = dni;
 	this->nombre = nombre;
@@ -45,6 +45,16 @@ void Alumno::setNombre(std::string nombre)
 	this->nombre = nombre;
 }
 
+
+void Alumno::serializar(){
+	this->setAtributo("Nombre",this->nombre);
+
+
+}
+
+void Alumno::hidratar(){
+	this->nombre = this->getAtributo("Nombre");
+}
 
 
 

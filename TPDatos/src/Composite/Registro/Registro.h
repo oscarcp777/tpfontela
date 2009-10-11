@@ -13,9 +13,10 @@ class Registro : public Componente{
 public:
 	Registro(int tamanio);
 	virtual ~Registro();
-	virtual void serializar()const=0;
-	virtual void hidratar()const=0;
+	virtual void serializar() =0;
+	virtual void hidratar() =0;
 	void setAtributo(std::string etiqueta, std::string valor);
+	std::string getAtributo(std::string etiqueta);
 
 
 

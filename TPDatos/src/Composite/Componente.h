@@ -20,8 +20,8 @@ private:
 
 public:
 
-   virtual	void serializar()const=0;
-	virtual void hidratar()const=0;
+   virtual	void serializar() =0;
+	virtual void hidratar() =0;
 	Componente(int tamanio);
     Componente();
 	virtual ~Componente();
