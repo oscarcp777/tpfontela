@@ -34,7 +34,7 @@ public:
     std::string getPath();
     void setNombreArchivo(std::string nombreArchivo);
     void setRuta(std::string ruta);
-    virtual void guardar(std::string contenido,std::string tipoArchivo);
+
 
 };
 

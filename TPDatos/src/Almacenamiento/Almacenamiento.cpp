@@ -7,9 +7,7 @@
 
 #include "Almacenamiento.h"
 
- void Almacenamiento::guardar(std::string contenido,std::string tipoArchivo){
 
- }
 std::string Almacenamiento::getPath(){
     return this->ruta+this->nombreArchivo;
 }
