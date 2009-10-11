@@ -33,6 +33,8 @@ public:
     std::string getClave() const;
     std::map<std::string,std::string> getMapaAtributos() const;
     void setClave(std::string clave);
+    virtual std::string getDatosRegistro() const = 0;
+    virtual void setDatosRegistro(std::string datosRegistro) = 0;
 
 
 

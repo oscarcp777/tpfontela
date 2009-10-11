@@ -17,7 +17,7 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 }
 
 void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
-	this->generarClaves(donde);
+	//this->generarClaves(donde);
 	Archivo* archivo=(Archivo*)donde;
 	archivo->abrirArchivo(TEXTO);
 	int i=1;
@@ -37,6 +37,20 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 
 void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, Componente* componente){
+		Bloque* bloque = NULL;
+		int i=1;
+		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+		componente->serializar();
+		std::string registro = generarRegistro(componente);
+		componente->setDatosRegistro(registro);
+
+		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+				bloque = (Bloque*)*iter;
+				bloque->agregarComponente(componente);
+				iter++;
+				i++;
+			}
+
 
 }
 
