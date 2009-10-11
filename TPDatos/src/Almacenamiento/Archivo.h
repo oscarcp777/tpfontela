@@ -15,7 +15,9 @@ public:
 	Archivo(Compuesto* comp);
 	std::string toString();
 	virtual ~Archivo();
-    void guardar(std::string contenido,std::string tipoArchivo);
+    void guardar(std::string contenido);
+    void abrirArchivo(std::string tipoArchivo);
+    void cerrarArchivo();
 };
 
 #endif /* ARCHIVO_H_ */
