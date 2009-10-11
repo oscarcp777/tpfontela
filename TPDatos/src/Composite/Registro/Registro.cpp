@@ -29,7 +29,7 @@ std::string Registro::getAtributo(std::string etiqueta){
 	return this->mapaAtributos[etiqueta];
 }
 
-std::string Registro::getDatosRegistro() const
+std::string Registro::getDatosRegistro()
 {
 	return datosRegistro;
 }

@@ -16,7 +16,7 @@ public:
 	std::string toString();
 	virtual ~Archivo();
     void guardar(std::string registro);
-    void guardar(void* registro,int tamanioRegistro);
+    void guardar(const char* registro,int tamanioRegistro);
     void abrirArchivo(std::string tipoArchivo);
     void cerrarArchivo();
 };

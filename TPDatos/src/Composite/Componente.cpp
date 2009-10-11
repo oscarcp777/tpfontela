@@ -12,6 +12,7 @@
 Componente::Componente(int tamanio) {
 	// TODO Auto-generated constructor stub
 	this->tamanio = tamanio;
+	this->posicionActual = 0;
 
 }
 
@@ -48,6 +49,26 @@ std::string Componente::getClave() const
 void Componente::setClave(std::string clave)
 {
 	this->clave = clave;
+}
+
+int Componente::getPosicionActual() const
+{
+	return posicionActual;
+}
+
+void Componente::setPosicionActual(int posicionActual)
+{
+	this->posicionActual = posicionActual;
+}
+
+int Componente::getId() const
+{
+	return id;
+}
+
+void Componente::setId(int id)
+{
+	this->id = id;
 }
 
 
