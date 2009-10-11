@@ -30,7 +30,15 @@ void Componente::setTamanio(int tamanio)
 
 std::map<std::string,std::string>::iterator  Componente::iteratorCampos(){
 	return mapaAtributos.begin();
+
 }
+
+std::map<std::string,std::string>::iterator  Componente::finIteratorCampos(){
+	return mapaAtributos.end();
+
+}
+
+
 
 std::string Componente::getClave() const
 {

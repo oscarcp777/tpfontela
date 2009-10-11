@@ -28,6 +28,7 @@ public:
     int getTamanio();
     void setTamanio(int tamanio);
     std::map<std::string,std::string>::iterator  iteratorCampos();
+    std::map<std::string,std::string>::iterator  finIteratorCampos();
     std::string getClave() const;
     std::map<std::string,std::string> getMapaAtributos() const;
     void setClave(std::string clave);
