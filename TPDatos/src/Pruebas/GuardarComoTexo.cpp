@@ -31,7 +31,7 @@ int main2() {
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
 
-	recurso->escribirArchivo("/home/richy/","bobo");
+	recurso->escribirArchivo("/home/oscar/","archivo");
 	cout << "Archivo guardado" << endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
@@ -41,5 +41,6 @@ int main2() {
 
 
 	delete recurso;
+	delete fabricaDeRecursos;
 	return 0;
 }
