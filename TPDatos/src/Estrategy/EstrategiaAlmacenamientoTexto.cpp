@@ -26,7 +26,7 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 
 		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 			componente = (Componente*)*iter;
-			archivo->guardar(generarRegistro(componente));
+			archivo->guardar(componente->getDatosRegistro());
 			iter++;
 			i++;
 		}
@@ -36,7 +36,11 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 }
 
 void EstrategiaAlmacenamientoTexto::agregarComponente(Almacenamiento* donde, Componente* componente){
-
+	componente->serializar();
+	std::string datos=this->generarRegistro(componente);
+	componente->setDatosRegistro(datos);
+	std::cout<<datos<<std::endl;
+	donde->agregarComponente(componente);
 }
 
 
