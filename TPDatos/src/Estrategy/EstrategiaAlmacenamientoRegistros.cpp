@@ -18,8 +18,20 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 
 void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
-	std::string registro;
-//	registro = obtenerRegistro();
+		Archivo* archivo=(Archivo*)donde;
+		archivo->abrirArchivo(BINARIO);
+		int i=1;
+			std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+			Componente* componente;
+
+			while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+				componente = (Componente*)*iter;
+				archivo->guardar(componente->getDatosRegistro().c_str(),donde->getTamanio());
+				iter++;
+				i++;
+			}
+
+		archivo->cerrarArchivo();
 
 }
 
@@ -28,10 +40,28 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
    }
 
 std::string EstrategiaAlmacenamientoRegistros::generarRegistro(Componente* componente){
+			  std::string registro="";
+			  std::map<std::string,std::string>::iterator it;
 
-	return "hola";
+			  for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+
+				  registro+= it->second + DELIMITADOR;
+			  }
+
+			return registro;
 }
 
 void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde, Componente* componente){
+	    componente->serializar();
+	    int tamanio=0;
+		std::string datos=this->generarRegistro(componente);
+		tamanio=((int)datos.length());
+		std::cout<<datos<<std::endl;
+		if(tamanio<donde->getTamanio()){
+			componente->setDatosRegistro(datos);
+			donde->agregarComponente(componente);
+		}
+
 
 }
+
