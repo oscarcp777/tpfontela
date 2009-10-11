@@ -13,13 +13,27 @@ Archivo::Archivo(Compuesto* comp):Almacenamiento(comp) {
 
 }
 void Archivo::abrirArchivo(std::string tipoArchivo){
+	cout << "PATH:" << this->getPath() << endl;
 	if(tipoArchivo.compare(TEXTO)==0)
 		 this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out);
-	if(tipoArchivo.compare(BINARIO)==0)
+
+		 if(tipoArchivo.compare(BINARIO)==0)
 		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary);
+
 	if (!archivo.is_open()){
-		      // si no se pudo crear el archivo arroja una excepción/
-		      throw std::ios_base::failure("El archivo no pudo ser abierto");
+					this->archivo.clear();
+
+				   //crea el archivo
+					this->archivo.open(this->getPath().c_str(), std::fstream::out);
+					this->archivo.close();
+
+
+				   //reabre el archivo para lectura - escritura
+					if(tipoArchivo.compare(TEXTO)==0)
+						this->archivo.open(this->getPath().c_str(), std::fstream::in | std::fstream::out);
+
+					if(tipoArchivo.compare(BINARIO)==0)
+						this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary);
 		  }
 }
   void Archivo::cerrarArchivo(){

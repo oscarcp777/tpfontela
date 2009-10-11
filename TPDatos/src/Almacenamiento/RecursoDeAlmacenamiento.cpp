@@ -31,6 +31,7 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente
     int RecursoDeAlmacenamiento::escribirArchivo(std::string ruta,std::string nombreArchivo){
     	this->almacenamiento->setNombreArchivo(nombreArchivo);
     	this->almacenamiento->setRuta(ruta);
+    	this->estrategiaAlmacenamiento->guardar(this->almacenamiento);
     	return 0;
     }
 
