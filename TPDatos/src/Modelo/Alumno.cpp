@@ -6,7 +6,7 @@
  */
 
 #include "Alumno.h"
-
+#include <sstream>
 Alumno::Alumno(double dni, std::string nombre, int padron):Registro(10) {
 	// TODO Auto-generated constructor stub
 	this->dni = dni;
@@ -48,8 +48,13 @@ void Alumno::setNombre(std::string nombre)
 
 void Alumno::serializar(){
 	this->setAtributo("Nombre",this->nombre);
+	std::stringstream flujo;
+	std::stringstream flujo2;
+	flujo<<this->dni;
+	this->setAtributo("DNI",flujo.str());
 
-
+	flujo2<<this->padron;
+	this->setAtributo("Padron",flujo2.str());
 }
 
 void Alumno::hidratar(){

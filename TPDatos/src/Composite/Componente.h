@@ -16,6 +16,7 @@ class Componente :public Object {
 private:
 	int tamanio;
 	std::string clave;
+protected:
 	std::map<std::string ,std::string> mapaAtributos;
 
 public:
