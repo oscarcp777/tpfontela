@@ -16,7 +16,7 @@ Componente::Componente(int tamanio) {
 }
 
 Componente::~Componente() {
-	// TODO Auto-generated destructor stub
+
 }
 
 int Componente::getTamanio(){

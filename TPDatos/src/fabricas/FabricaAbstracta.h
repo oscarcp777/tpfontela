@@ -13,7 +13,6 @@ public:
 	FabricaAbstracta();
 	//metodo virtual para fabricar
     virtual	Object* fabricar();
-    //virtual Object* fabricar(Object* comp);
 	virtual ~FabricaAbstracta();
 };
 

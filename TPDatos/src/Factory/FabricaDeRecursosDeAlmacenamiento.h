@@ -30,6 +30,7 @@ public:
 	virtual ~FabricaDeRecursosDeAlmacenamiento();
 
 	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento);
+	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,int tamanio);
 };
 
 #endif /* FABRICADERECURSOSDEALMACENAMIENTO_H_ */

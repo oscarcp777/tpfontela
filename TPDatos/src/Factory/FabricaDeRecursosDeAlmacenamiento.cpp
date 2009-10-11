@@ -51,7 +51,13 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamie
 
   return rAlmacenamiento;
 }
-
+RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,int tamanio){
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar();
+    almac->setTamanio(tamanio);
+	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
+	  return rAlmacenamiento;
+}
 FabricaDeRecursosDeAlmacenamiento::~FabricaDeRecursosDeAlmacenamiento() {
 	// TODO Auto-generated destructor stub
 }

@@ -16,7 +16,16 @@ void Compuesto::agregarComponente(Componente* componente){
 
 }
 Compuesto::~Compuesto() {
-	// TODO Auto-generated destructor stub
+	int i=0;
+	std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();
+			Componente* componente;
+
+			while(i<this->getCantidadDeElelmentos()){
+				componente = (Componente*)*iter;
+				delete componente;
+				iter++;
+				i++;
+			}
 }
 int Compuesto::getCantidadDeElelmentos(){
 	return this->listaDeComponetes.size();

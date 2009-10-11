@@ -6,7 +6,15 @@
  */
 
 #include "Almacenamiento.h"
+ int Almacenamiento::getTamanio()
+    {
+        return tamanio;
+    }
 
+    void Almacenamiento::setTamanio(int tamanio)
+    {
+        this->tamanio = tamanio;
+    }
 
 std::string Almacenamiento::getPath(){
     return this->ruta+this->nombreArchivo;

@@ -15,4 +15,5 @@
 #define BINARIO "binario"
 #define TEXTO "texto"
 #define DELIMITADOR "|"
+#define COMPUESTO "compuesto"
 #endif /* DEFINE_H_ */

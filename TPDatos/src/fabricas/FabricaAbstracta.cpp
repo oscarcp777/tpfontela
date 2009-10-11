@@ -16,9 +16,6 @@ Object* FabricaAbstracta::fabricar(){
    return NULL;
 }
 
-//Object* FabricaAbstracta::fabricar(Object* comp){
-//   return NULL;
-//}
 
 FabricaAbstracta::~FabricaAbstracta() {
 	// TODO Auto-generated destructor stub
