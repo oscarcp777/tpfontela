@@ -16,3 +16,13 @@ Bloque::Bloque(int tamanio):Componente(tamanio) {
 Bloque::~Bloque() {
 	// TODO Auto-generated destructor stub
 }
+
+std::string Bloque::getDatosRegistro() const
+{
+	return "nada";
+}
+
+void Bloque::setDatosRegistro(std::string datosRegistro)
+{
+	//this->datosRegistro = datosRegistro;
+}

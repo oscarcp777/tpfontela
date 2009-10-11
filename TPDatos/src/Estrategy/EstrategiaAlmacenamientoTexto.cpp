@@ -17,7 +17,7 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 }
 
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
-	this->generarClaves(donde);
+	//this->generarClaves(donde);
 	Archivo* archivo=(Archivo*)donde;
 	archivo->abrirArchivo(TEXTO);
 	int i=1;
