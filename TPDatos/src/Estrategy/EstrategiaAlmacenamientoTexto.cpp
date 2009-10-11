@@ -22,10 +22,12 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 	Componente* componente;
 	     while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 	    	        componente = (Componente*)*iter;
-	    	        //componente->
+	    	        componente->serializar();
 					iter++;
 					i++;
 				}
+
+
 
 }
 

@@ -13,11 +13,15 @@
 #include "../Composite/Compuesto.h"
 #include "../Composite/Componente.h"
 #include "../Object/Object.h"
+#include <fstream>
 class Almacenamiento:public Object{
+protected:
+	std::fstream  archivo;  // referencia al archivo
 private:
 	Compuesto* compuesto;
 	std::string nombreArchivo;
 	std::string ruta;
+
 public:
 	Almacenamiento(Compuesto* comp);
 	virtual ~Almacenamiento();
@@ -27,9 +31,10 @@ public:
     void agregarComponente(Componente* componente);
     std::string getNombreArchivo();
     std::string getRuta();
-
+    std::string getPath();
     void setNombreArchivo(std::string nombreArchivo);
     void setRuta(std::string ruta);
+    virtual void guardar(std::string contenido,std::string tipoArchivo);
 
 };
 
