@@ -20,6 +20,7 @@ public:
 	std::string toString();
 	void generarClaves(Almacenamiento* donde);
 	virtual std::string generarRegistro(Componente* componente);
+	virtual void agregarComponente(Componente* componente) = 0;
 
 };
 

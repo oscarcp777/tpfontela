@@ -29,6 +29,8 @@ void EstrategiaAlmacenamiento::generarClaves(Almacenamiento* donde){
 
 }
 
+
+
 std::string EstrategiaAlmacenamiento::generarRegistro(Componente* componente){
   return "nada";
 }
