@@ -15,6 +15,27 @@ EstrategiaAlmacenamiento::EstrategiaAlmacenamiento() {
 EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
 	// TODO Auto-generated destructor stub
 }
+
+void EstrategiaAlmacenamiento::generarClaves(Almacenamiento* donde){
+	int i=1;
+	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+	Componente* componente;
+	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+		componente = (Componente*)*iter;
+		componente->serializar();
+		getRegistro(componente);
+		iter++;
+		i++;
+	}
+
+}
+
+std::string EstrategiaAlmacenamiento::getRegistro(Componente* componente){
+
+
+	return NULL;
+}
+
 std::string EstrategiaAlmacenamiento::toString(){
    	return "EstrategiaAlmacenamiento";
    }
