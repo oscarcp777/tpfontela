@@ -26,3 +26,8 @@ void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 std::string EstrategiaAlmacenamientoRegistros::toString(){
    	return "EstrategiaAlmacenamientoRegistros";
    }
+
+std::string EstrategiaAlmacenamientoRegistros::generarRegistro(Componente* componente){
+
+	return "hola";
+}

@@ -23,3 +23,7 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 std::string EstrategiaAlmacenamientoBloques::toString(){
    	return "EstrategiaAlmacenamientoBloques";
    }
+std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* componente){
+
+	return "hola";
+}

@@ -39,3 +39,8 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 std::string EstrategiaAlmacenamientoTexto::toString(){
    	return "EstrategiaAlmacenamientoTexto";
    }
+
+std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* componente){
+
+	return "hola";
+}

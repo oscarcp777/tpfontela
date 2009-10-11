@@ -18,7 +18,7 @@ public:
 	virtual void guardar(Almacenamiento* donde);
 	std::string toString();
 	void generarClaves(Almacenamiento* donde);
-	std::string generarRegistro(Componente* componente);
+	virtual std::string generarRegistro(Componente* componente);
 
 };
 
