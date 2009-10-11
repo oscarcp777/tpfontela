@@ -7,7 +7,7 @@
 
 #include "BloqueDisco.h"
 
-BloqueDisco::BloqueDisco(int tamanio):Bloque(tamanio) {
+BloqueDisco::BloqueDisco(int tamanio):Bloque(tamanio,0) {
 	// TODO Auto-generated constructor stub
 
 }

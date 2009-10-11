@@ -15,13 +15,15 @@ class Componente :public Object {
 
 private:
 	int tamanio;
+	int id;
 	std::string clave;
+	int posicionActual;
 protected:
 	std::map<std::string ,std::string> mapaAtributos;
 
 public:
 
-   virtual	void serializar() =0;
+	virtual	void serializar() =0;
 	virtual void hidratar() =0;
 	Componente(int tamanio);
     Componente();
@@ -33,10 +35,12 @@ public:
     std::string getClave() const;
     std::map<std::string,std::string> getMapaAtributos() const;
     void setClave(std::string clave);
-    virtual std::string getDatosRegistro() const = 0;
+    virtual std::string getDatosRegistro() = 0;
     virtual void setDatosRegistro(std::string datosRegistro) = 0;
-
-
+    int getPosicionActual() const;
+    void setPosicionActual(int posicionActual);
+    int getId() const;
+    void setId(int id);
 
 };
 

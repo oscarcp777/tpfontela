@@ -10,6 +10,7 @@
 
 #include "EstrategiaAlmacenamiento.h"
 
+
 class EstrategiaAlmacenamientoBloques: public EstrategiaAlmacenamiento {
 public:
 	std::string toString();

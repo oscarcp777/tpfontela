@@ -17,7 +17,7 @@ public:
 	virtual void hidratar() =0;
 	void setAtributo(std::string etiqueta, std::string valor);
 	std::string getAtributo(std::string etiqueta);
-    std::string getDatosRegistro() const;
+    std::string getDatosRegistro();
     void setDatosRegistro(std::string datosRegistro);
 
 private:

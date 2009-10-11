@@ -74,7 +74,7 @@ void Archivo::guardar(std::string registro){
 		  }
 
 }
-void Archivo::guardar(void* registro,int tamanioRegistro){
+void Archivo::guardar(const char* registro,int tamanioRegistro){
 
 	 /* verifica que el archivo esté abierto */
 	  if (this->archivo.is_open()) {

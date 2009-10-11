@@ -7,7 +7,7 @@
 
 #include "BloqueMemoria.h"
 
-BloqueMemoria::BloqueMemoria(int tamanio):Bloque(tamanio) {
+BloqueMemoria::BloqueMemoria(int tamanio):Bloque(tamanio,0) {
 	// TODO Auto-generated constructor stub
 
 }

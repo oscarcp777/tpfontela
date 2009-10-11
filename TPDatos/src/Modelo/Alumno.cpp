@@ -52,10 +52,11 @@ void Alumno::setNombre(std::string nombre)
 
 void Alumno::serializar(){
 	this->setAtributo("Nombre",this->nombre);
-	std::stringstream flujo;
+
+	//std::stringstream flujo;
 	std::stringstream flujo2;
-	flujo<<this->dni;
-	this->setAtributo("DNI",flujo.str());
+	//flujo<<this->dni;
+	//this->setAtributo("DNI",flujo.str());
 
 	flujo2<<this->padron;
 	this->setAtributo("Padron",flujo2.str());
