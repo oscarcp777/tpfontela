@@ -20,7 +20,7 @@ Bloque::~Bloque() {
 std::string Bloque::getDatosRegistro()
 {
 	std::list<Componente*>::iterator iteraRegistros = this->iteratorListaDeComponetes();
-	int i=1;
+	int i=0;
 	Componente* componente;
 	std::string datosBloque = "";
 

@@ -17,9 +17,10 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 }
 
 void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
-	//this->generarClaves(donde);
+
 	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo(TEXTO);
+	//archivo->abrirArchivo(TEXTO);
+	archivo->abrirArchivo(BINARIO);
 	int i=1;
 
 	std::list<Componente*>::iterator iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
@@ -29,8 +30,8 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		bloque = (Bloque*)*iteraBloques;
-		//archivo->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
-		archivo->guardar(bloque->getDatosRegistro());
+		archivo->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
+		//archivo->guardar(bloque->getDatosRegistro());
 		iteraBloques++;
 		i++;
 	}
@@ -42,12 +43,12 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, Componente* componente){
 	Bloque* bloque = NULL;
-	int i=1;
+	int i=0;
 
 	componente->serializar();
 	std::string registro = generarRegistro(componente);
 	componente->setDatosRegistro(registro);
-
+	int cargado = 0;
 
 	if(donde->getCompuesto()->getCantidadDeElelmentos() == 0){
 		bloque = new Bloque(donde->getTamanio(),donde->getCompuesto()->getCantidadDeElelmentos()+1);
@@ -55,20 +56,28 @@ void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, C
 	}
 	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
 
-	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+
+	while(cargado == 0){
+		i++;
 		bloque = (Bloque*)*iter;
-		componente->setId(bloque->getCantidadDeElelmentos()+1);
-         int length=(int)registro.length();
+		int length=(int)registro.length();
+		//componente->setId(bloque->getCantidadDeElelmentos()+1);
 		if(bloque->getTamanio()-bloque->getPosicionActual()>length){
 			bloque->agregarComponente(componente);
 			bloque->setPosicionActual(bloque->getPosicionActual()+registro.length());
+			cargado = 1;
+		}else{
+			if(i<donde->getCompuesto()->getCantidadDeElelmentos())
+				iter++;
+			else{
+				bloque = new Bloque(donde->getTamanio(),donde->getCompuesto()->getCantidadDeElelmentos()+1);
+				donde->getCompuesto()->agregarComponente(bloque);
+				bloque->agregarComponente(componente);
+				bloque->setPosicionActual(bloque->getPosicionActual()+registro.length());
+				cargado = 1;
+			}
+
 		}
-		else{
-			bloque = new Bloque(donde->getTamanio(),donde->getCompuesto()->getCantidadDeElelmentos()+1);
-			donde->getCompuesto()->agregarComponente(bloque);
-			bloque->agregarComponente(componente);
-		}
-		i++;
 	}
 
 }
