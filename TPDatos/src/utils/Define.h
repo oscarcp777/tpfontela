@@ -14,4 +14,5 @@
 #define BUFFER "buffer"
 #define BINARIO "binario"
 #define TEXTO "texto"
+#define DELIMITADOR "|"
 #endif /* DEFINE_H_ */

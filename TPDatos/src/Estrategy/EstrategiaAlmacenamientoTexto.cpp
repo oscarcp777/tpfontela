@@ -41,6 +41,12 @@ std::string EstrategiaAlmacenamientoTexto::toString(){
    }
 
 std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* componente){
+      std::string registro="";
+	  std::map<std::string,std::string>::iterator it;
+	  for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
 
-	return "hola";
+           registro+= it->first + "=" + it->second + DELIMITADOR;
+	  }
+	  registro+="\n";
+	return registro;
 }
