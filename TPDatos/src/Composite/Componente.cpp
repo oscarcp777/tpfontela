@@ -28,3 +28,25 @@ void Componente::setTamanio(int tamanio)
     this->tamanio = tamanio;
 }
 
+std::map<std::string,std::string>::iterator  Componente::iteratorCampos(){
+	return mapaAtributos.begin();
+}
+
+std::string Componente::getClave() const
+{
+	return clave;
+}
+
+std::map<std::string,std::string> Componente::getMapaAtributos() const
+{
+	return mapaAtributos;
+}
+
+void Componente::setClave(std::string clave)
+{
+	this->clave = clave;
+}
+
+
+
+

@@ -10,10 +10,13 @@
 #include <iostream>
 
 #include "../Object/Object.h"
+#include <map>
 class Componente :public Object {
 
 private:
 	int tamanio;
+	std::string clave;
+	std::map<std::string ,std::string> mapaAtributos;
 
 public:
 
@@ -22,10 +25,14 @@ public:
 	Componente(int tamanio);
     Componente();
 	virtual ~Componente();
-
     int getTamanio();
-
     void setTamanio(int tamanio);
+    std::map<std::string,std::string>::iterator  iteratorCampos();
+    std::string getClave() const;
+    std::map<std::string,std::string> getMapaAtributos() const;
+    void setClave(std::string clave);
+
+
 
 };
 

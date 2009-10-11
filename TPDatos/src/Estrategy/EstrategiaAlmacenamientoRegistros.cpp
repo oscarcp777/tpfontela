@@ -18,6 +18,9 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 
 void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
+	std::string registro;
+//	registro = obtenerRegistro();
+
 }
 
 std::string EstrategiaAlmacenamientoRegistros::toString(){
