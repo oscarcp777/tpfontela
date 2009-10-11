@@ -40,6 +40,7 @@ std::string Almacenamiento::getNombreArchivo()
     }
 
 Almacenamiento::Almacenamiento() {
+	this->compuesto= new Compuesto();
 
 }
 void Almacenamiento::agregarComponente(Componente* componente){

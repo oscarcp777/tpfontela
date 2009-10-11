@@ -60,7 +60,7 @@ void Alumno::serializar(){
 	flujo2<<this->padron;
 	this->setAtributo("Padron",flujo2.str());
 	//for (int i = 0;  i < 3;  i++) {
-		this->nota[1]->serializar();
+	//	this->nota[1]->serializar();
 	//}
 
 

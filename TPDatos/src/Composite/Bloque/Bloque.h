@@ -11,7 +11,7 @@
 #include "../../Composite/Componente.h"
 #include "../../Composite/Compuesto.h"
 
-class Bloque : public Componente , Compuesto{
+class Bloque : public Componente , public Compuesto{
 public:
 	Bloque(int tamanio);
 	virtual ~Bloque();std::string getDatosRegistro() const;
