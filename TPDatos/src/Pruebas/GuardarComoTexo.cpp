@@ -37,7 +37,7 @@ int main() {
 	recurso->cargarComponente(alumno3);
 
 	recurso->escribirArchivo("/home/richy/","bobo");
-	cout << "Archivo guardado pero no se donde" << endl;
+	cout << "Archivo guardado" << endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien

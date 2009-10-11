@@ -21,15 +21,11 @@ Registro::~Registro() {
 
 
 void Registro::setAtributo(std::string etiqueta, std::string valor){
-	this->getMapaAtributos()[etiqueta]=valor;
+	this->mapaAtributos[etiqueta]=valor;
 
-//	this->registro += etiqueta;
-//	this->registro += "=";
-//	this->registro += valor;
-//	this->registro += DELIMITADOR;
 }
 
 std::string Registro::getAtributo(std::string etiqueta){
-	return this->getMapaAtributos()[etiqueta];
+	return this->mapaAtributos[etiqueta];
 }
 
