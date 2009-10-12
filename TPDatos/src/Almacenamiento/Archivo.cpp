@@ -9,17 +9,20 @@
 #include "../utils/Define.h"
 using namespace std;
 Archivo::Archivo() {
-	// TODO Auto-generated constructor stub
+	this->existeMetaData = 0;
 
 }
 void Archivo::abrirArchivo(std::string tipoArchivo){
 	cout << "PATH:" << this->getPath() << endl;
 	if(tipoArchivo.compare(TEXTO)==0){
-		this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out);
+		this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out | fstream::app);
+
+
 		if (!archivo.is_open()){
 			this->archivo.clear();
 
 			//crea el archivo
+			this->existeMetaData = 0;
 			this->archivo.open(this->getPath().c_str(), std::fstream::out);
 			this->archivo.close();
 
@@ -30,10 +33,13 @@ void Archivo::abrirArchivo(std::string tipoArchivo){
 
 
 		}
+
+
 	}
 	if(tipoArchivo.compare(BINARIO)==0){
 		/* abre el archivo en modo lectura - escritura binario*/
-		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary);
+		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary | fstream::app);
+
 		/* determina si tuvo éxito la apertura del archivo */
 		if (!this->archivo.is_open()) {
 
@@ -41,6 +47,8 @@ void Archivo::abrirArchivo(std::string tipoArchivo){
 			this->archivo.clear();
 
 			/* crea el archivo */
+			std::cout<<"PASA "<<std::endl;
+			this->existeMetaData = 0;
 			this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
 			this->archivo.close();
 
@@ -49,6 +57,7 @@ void Archivo::abrirArchivo(std::string tipoArchivo){
 
 
 		}
+
 	}
 
 }
@@ -125,14 +134,19 @@ void Archivo::leer(void* datos, int tamanio) {
     throw string("El archivo no está abierto");
   }
 }
-
-std::string Archivo::leer(){
-	return "nada";
-}
-
 Archivo::~Archivo() {
 	// TODO Auto-generated destructor stub
 }
 std::string Archivo::toString(){
 	return "Archivo";
+}
+
+int Archivo::getExisteMetaData()
+{
+	return existeMetaData;
+}
+
+void Archivo::setExisteMetaData(int existeMetaData)
+{
+	this->existeMetaData = existeMetaData;
 }
