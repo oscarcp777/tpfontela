@@ -18,6 +18,8 @@ public:
     void guardar(Almacenamiento* donde);
     std::string generarRegistro(Componente* componente);
     void agregarComponente(Almacenamiento* donde, Componente* componente);
+    std::string getMetaData(Componente* componente);
+
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOREGISTROS_H_ */

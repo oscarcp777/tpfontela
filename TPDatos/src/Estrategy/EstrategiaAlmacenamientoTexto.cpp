@@ -17,12 +17,14 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 }
 
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
-	//this->generarClaves(donde);
+	std::string metaData;
 	Archivo* archivo=(Archivo*)donde;
 	archivo->abrirArchivo(TEXTO);
 	int i=1;
 		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
 		Componente* componente;
+		metaData = this->getMetaData((Componente*)*iter);
+		archivo->guardar(metaData);
 
 		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 			componente = (Componente*)*iter;
@@ -54,8 +56,19 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 	  std::map<std::string,std::string>::iterator it;
 	  for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
 
-           registro+= it->first + "=" + it->second + DELIMITADOR;
+           registro+= it->second + DELIMITADOR;
 	  }
 	  registro+="\n";
 	return registro;
+}
+std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){
+	 std::string metaData="";
+	 std::map<std::string,std::string>::iterator it;
+
+	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+
+		 metaData+= it->first + DELIMITADOR;
+	 }
+	 metaData+="\n";
+	 return metaData;
 }

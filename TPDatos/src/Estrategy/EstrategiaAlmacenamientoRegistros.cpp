@@ -19,10 +19,14 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
 		Archivo* archivo=(Archivo*)donde;
+		std::string metaData;
 		archivo->abrirArchivo(BINARIO);
 		int i=1;
 			std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
 			Componente* componente;
+			metaData = this->getMetaData((Componente*)*iter);
+			archivo->guardar(metaData.c_str(),donde->getTamanio());
+
 
 			while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 				componente = (Componente*)*iter;
@@ -64,4 +68,14 @@ void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde,
 
 
 }
+std::string EstrategiaAlmacenamientoRegistros::getMetaData(Componente* componente){
+	 std::string metaData="";
+	 std::map<std::string,std::string>::iterator it;
 
+	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+
+		 metaData+= it->first + DELIMITADOR;
+	 }
+
+	 return metaData;
+}

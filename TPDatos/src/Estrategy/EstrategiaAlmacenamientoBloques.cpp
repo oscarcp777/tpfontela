@@ -18,15 +18,19 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 
 void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
+	std::string metaData;
 	Archivo* archivo=(Archivo*)donde;
 	//archivo->abrirArchivo(TEXTO);
 	archivo->abrirArchivo(BINARIO);
 	int i=1;
 
 	std::list<Componente*>::iterator iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
-
 	Bloque* bloque;
 
+	metaData = this->getMetaData((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
+	archivo->guardar(metaData.c_str(),donde->getTamanio());
+
+	//archivo->guardar(metaData);
 
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		bloque = (Bloque*)*iteraBloques;
@@ -104,4 +108,19 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 		  registro += flujo.str()+DELIMITADOR+ aux;
 
 		return registro;
+}
+
+std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
+	std::stringstream flujo;
+	std::string metaData="";
+	 std::string aux="";
+	 std::map<std::string,std::string>::iterator it;
+
+	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+
+		 aux+= it->first + DELIMITADOR;
+	 }
+	 flujo<< aux.length();
+	 metaData+= flujo.str()+DELIMITADOR+aux;
+	 return metaData;
 }

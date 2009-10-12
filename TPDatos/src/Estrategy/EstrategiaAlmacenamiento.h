@@ -24,6 +24,7 @@ public:
 	void generarClaves(Almacenamiento* donde);
 	virtual std::string generarRegistro(Componente* componente);
 	virtual void agregarComponente(Almacenamiento* donde, Componente* componente) = 0;
+	virtual std::string getMetaData(Componente* componente) = 0;
 
 };
 
