@@ -126,8 +126,11 @@ std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente)
 }
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
-	//Archivo* archivo=(Archivo*)donde;
-	//archivo->abrirArchivo(BINARIO);
+	char* datos;
+	Archivo* archivo=(Archivo*)donde;
+	archivo->abrirArchivo(BINARIO);
+	archivo->leer(datos,componente->getTamanio());
+	std::cout<<"DATOS: "<<datos<<std::endl;
 
 
 }
