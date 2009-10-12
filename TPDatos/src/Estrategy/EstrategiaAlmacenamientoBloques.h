@@ -9,6 +9,7 @@
 #define ESTRATEGIAALMACENAMIENTOBLOQUES_H_
 
 #include "EstrategiaAlmacenamiento.h"
+#include <vector>
 
 
 class EstrategiaAlmacenamientoBloques: public EstrategiaAlmacenamiento {
@@ -21,6 +22,8 @@ public:
     void agregarComponente(Almacenamiento* donde, Componente* componente);
     std::string getMetaData(Componente* componente);
     void busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave);
+
+
 };
 
-#endif /* ESTRATEGIAALMACENAMIENTOBLOQUES_H_ */
+#endif /* ESTRATEGIAALMACENAMIENTOBLOQ UES_H_ */
