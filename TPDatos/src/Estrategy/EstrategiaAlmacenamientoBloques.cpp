@@ -124,3 +124,9 @@ std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente)
 	 metaData+= flujo.str()+DELIMITADOR+aux;
 	 return metaData;
 }
+
+void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+
+
+
+}
