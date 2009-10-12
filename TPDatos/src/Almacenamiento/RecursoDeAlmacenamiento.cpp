@@ -20,13 +20,7 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlma
 			this->estrategiaAlmacenamiento = eAlmacenamiento;
 			this->estrategiaRecurso = new EstrategiaRecursoUnAlmacenamiento();
 }
-RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(Compuesto* compuesto,Componente* componente, EstrategiaRecurso* eRecurso, EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento ){
-	        this->almacenamiento = almacenamiento;
-			this->estrategiaAlmacenamiento = eAlmacenamiento;
-			this->estrategiaRecurso = eRecurso;
-			this->almacenamiento->setCompuesto(compuesto);
 
-}
 
     int RecursoDeAlmacenamiento::escribirArchivo(std::string ruta,std::string nombreArchivo){
     	this->almacenamiento->setNombreArchivo(nombreArchivo);

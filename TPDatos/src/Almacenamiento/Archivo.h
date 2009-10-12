@@ -15,12 +15,15 @@ public:
 	Archivo();
 	std::string toString();
 	virtual ~Archivo();
-    void guardar(std::string registro);
-    void guardar(const char* registro,int tamanioRegistro);
+
     void abrirArchivo(std::string tipoArchivo);
     void cerrarArchivo();
-    void leer(void* datos, int tamanio);
     bool fin();
+
+    void guardar(std::string registro);
+    void guardar(const char* registro,int tamanioRegistro);
+    std::string leer ();
+    void leer(void* datos, int tamanio);
 };
 
 #endif /* ARCHIVO_H_ */

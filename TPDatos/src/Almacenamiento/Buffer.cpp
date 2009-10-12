@@ -7,9 +7,7 @@
 
 #include "Buffer.h"
 
- void Buffer::guardar(std::string contenido,std::string tipoArchivo){
 
- }
 Buffer::Buffer() {
 	// TODO Auto-generated constructor stub
 
@@ -20,4 +18,20 @@ Buffer::~Buffer() {
 }
 std::string Buffer::toString(){
 	return "Buffer";
+}
+
+void Buffer::guardar(std::string registro){
+
+}
+
+void Buffer::guardar(const char* registro,int tamanioRegistro){
+
+}
+
+std::string Buffer::leer (){
+	return "nada";
+}
+
+void Buffer::leer(void* datos, int tamanio){
+
 }

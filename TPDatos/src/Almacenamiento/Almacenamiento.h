@@ -28,7 +28,7 @@ public:
     virtual ~Almacenamiento();
     Compuesto *getCompuesto();
     std::string toString();
-    void setCompuesto(Compuesto *compuesto);
+
     void agregarComponente(Componente *componente);
     std::string getNombreArchivo();
     std::string getRuta();
@@ -37,6 +37,11 @@ public:
     void setRuta(std::string ruta);
     int getTamanio();
     void setTamanio(int tamanio);
+
+    virtual void guardar(std::string registro) = 0;
+    virtual void guardar(const char* registro,int tamanioRegistro) = 0;
+    virtual std::string leer () = 0;
+    virtual void leer(void* datosestrategiaAlmac, int tamanio) = 0;
 };
 
 #endif /* ALMACENAMIENTO_H_ */

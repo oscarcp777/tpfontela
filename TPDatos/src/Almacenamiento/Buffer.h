@@ -16,7 +16,11 @@ public:
 	Buffer();
 	virtual ~Buffer();
 	std::string toString();
-	 void guardar(std::string contenido,std::string tipoArchivo);
+
+	void guardar(std::string registro);
+	void guardar(const char* registro,int tamanioRegistro);
+	std::string leer ();
+	void leer(void* datos, int tamanio);
 };
 
 #endif /* BUFFER_H_ */
