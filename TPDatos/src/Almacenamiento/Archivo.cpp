@@ -92,6 +92,24 @@ void Archivo::guardar(const char* registro,int tamanioRegistro){
 
 
 }
+void Archivo::leer(void* datos, int tamanio) {
+
+  /* verifica que el archivo esté abierto */
+  if (this->archivo.is_open()) {
+
+    /* lee del archivo un registro */
+    this->archivo.read(static_cast<char*>(datos),tamanio);
+
+    /* chequea si se ha producido un error */
+    if (this->archivo.fail())
+      /* arroja una excepción ante la imposibilidad de leer un reg */
+      throw string("No se pudo leer correctamente el registro");
+  }
+  else {
+    /* arroja una excepción porque el archivo no está abierto */
+    throw string("El archivo no está abierto");
+  }
+}
 Archivo::~Archivo() {
 	// TODO Auto-generated destructor stub
 }
