@@ -19,6 +19,7 @@ public:
     void guardar(const char* registro,int tamanioRegistro);
     void abrirArchivo(std::string tipoArchivo);
     void cerrarArchivo();
+    void leer(void* datos, int tamanio);
 };
 
 #endif /* ARCHIVO_H_ */
