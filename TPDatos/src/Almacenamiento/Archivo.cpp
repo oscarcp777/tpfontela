@@ -125,6 +125,11 @@ void Archivo::leer(void* datos, int tamanio) {
     throw string("El archivo no está abierto");
   }
 }
+
+std::string Archivo::leer(){
+	return "nada";
+}
+
 Archivo::~Archivo() {
 	// TODO Auto-generated destructor stub
 }
