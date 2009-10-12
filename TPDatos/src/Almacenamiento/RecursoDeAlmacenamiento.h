@@ -23,6 +23,7 @@ public:
 	RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlmacenamiento, Almacenamiento* almacenamiento );
 	virtual ~RecursoDeAlmacenamiento();
 	void crearArchivo();
+	void busquedaSecuencial(Componente* componente, std::string clave);
 	/**
 	 * guarda el archivo especificado con los datos cargados de los registros
 	 * en caso de no tener registros genera el archivo vacio

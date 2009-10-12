@@ -73,3 +73,8 @@ std::string RecursoDeAlmacenamiento::toString(){
 			              estrategiaRecurso+"\n";
 	return devolver;
 }
+
+void RecursoDeAlmacenamiento::busquedaSecuencial(Componente* componente, std::string clave){
+	this->estrategiaAlmacenamiento->busquedaSecuencial(componente, this->almacenamiento, clave);
+
+}

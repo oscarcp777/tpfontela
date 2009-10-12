@@ -79,3 +79,9 @@ std::string EstrategiaAlmacenamientoRegistros::getMetaData(Componente* component
 
 	 return metaData;
 }
+
+void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+
+
+
+}

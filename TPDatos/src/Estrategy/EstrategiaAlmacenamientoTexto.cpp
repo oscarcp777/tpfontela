@@ -72,3 +72,9 @@ std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){
 	 metaData+="\n";
 	 return metaData;
 }
+
+void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+
+
+
+}
