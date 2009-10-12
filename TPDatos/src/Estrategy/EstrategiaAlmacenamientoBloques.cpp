@@ -26,11 +26,14 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 	std::list<Componente*>::iterator iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
 	Bloque* bloque;
-
+	std::cout<<"metaData "<<archivo->getExisteMetaData() <<std::endl;
+	//if(archivo->getExisteMetaData() == 0){
 	metaData = this->getMetaData((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
 	archivo->guardar(metaData.c_str(),donde->getTamanio());
-
+	archivo->setExisteMetaData(1);
 	//archivo->guardar(metaData);
+
+	//}
 
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		bloque = (Bloque*)*iteraBloques;
@@ -111,8 +114,8 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 }
 
 std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
-	std::stringstream flujo;
-	std::string metaData="";
+	 std::stringstream flujo;
+	 std::string metaData="";
 	 std::string aux="";
 	 std::map<std::string,std::string>::iterator it;
 
@@ -127,11 +130,13 @@ std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente)
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 	char* datos;
+
 	Archivo* archivo=(Archivo*)donde;
 	archivo->abrirArchivo(BINARIO);
 	while(!archivo->fin()){
 		archivo->leer(datos,donde->getTamanio());
 		std::cout<<"DATOS: "<<datos<<std::endl;
+
 	}
 
 

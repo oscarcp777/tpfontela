@@ -15,15 +15,18 @@ public:
 	Archivo();
 	std::string toString();
 	virtual ~Archivo();
-
-    void abrirArchivo(std::string tipoArchivo);
-    void cerrarArchivo();
-    bool fin();
-
     void guardar(std::string registro);
     void guardar(const char* registro,int tamanioRegistro);
-    std::string leer ();
+    
+    void abrirArchivo(std::string tipoArchivo);
+    void cerrarArchivo();
     void leer(void* datos, int tamanio);
+    bool fin();
+    int getExisteMetaData();
+    void setExisteMetaData(int existeMetaData);
+
+private:
+    int existeMetaData;
 };
 
 #endif /* ARCHIVO_H_ */

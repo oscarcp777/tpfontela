@@ -39,7 +39,7 @@ int main() {
 	recurso->cargarComponente(alumno3);
 	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("/home/richy/","archivoBloques");
+	recurso->escribirArchivo("/home/richy/","archivoBloques1");
 	cout << "Archivo guardado" << endl;
 
 
