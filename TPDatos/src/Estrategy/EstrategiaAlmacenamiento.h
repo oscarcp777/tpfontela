@@ -13,7 +13,9 @@
 #include "../Almacenamiento/Archivo.h"
 #include "../Composite/Bloque/Bloque.h"
 #include "../Composite/Registro/Registro.h"
+#include "../utils/StringUtils.h"
 #include <sstream>
+#include <iostream>
 
 class EstrategiaAlmacenamiento :public Object{
 public:

@@ -40,7 +40,7 @@ public:
 
     virtual void guardar(std::string registro) = 0;
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
-    virtual std::string leer () = 0;
+   // virtual std::string leer () = 0;
     virtual void leer(void* datosestrategiaAlmac, int tamanio) = 0;
 };
 
