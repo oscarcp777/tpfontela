@@ -12,9 +12,9 @@ Archivo::Archivo() {
 	// TODO Auto-generated constructor stub
 
 }
-void Archivo::abrirArchivo(std::string tipoArchivo){
+void Archivo::abrirArchivo(){
 	cout << "PATH:" << this->getPath() << endl;
-	if(tipoArchivo.compare(TEXTO)==0){
+	if(this->getTipoArchivo().compare(TEXTO)==0){
 		this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out);
 		if (!archivo.is_open()){
 			this->archivo.clear();
@@ -31,7 +31,7 @@ void Archivo::abrirArchivo(std::string tipoArchivo){
 
 		}
 	}
-	if(tipoArchivo.compare(BINARIO)==0){
+	if(this->getTipoArchivo().compare(BINARIO)==0){
 		/* abre el archivo en modo lectura - escritura binario*/
 		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary);
 		/* determina si tuvo éxito la apertura del archivo */

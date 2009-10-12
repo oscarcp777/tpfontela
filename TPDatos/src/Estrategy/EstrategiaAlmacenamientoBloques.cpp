@@ -21,7 +21,7 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 	std::string metaData;
 	Archivo* archivo=(Archivo*)donde;
 	//archivo->abrirArchivo(TEXTO);
-	archivo->abrirArchivo(BINARIO);
+	archivo->abrirArchivo();
 	int i=1;
 
 	std::list<Componente*>::iterator iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
@@ -128,7 +128,7 @@ std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente)
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 	char* datos;
 	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo(BINARIO);
+	archivo->abrirArchivo();
 	archivo->leer(datos,componente->getTamanio());
 	std::cout<<"DATOS: "<<datos<<std::endl;
 

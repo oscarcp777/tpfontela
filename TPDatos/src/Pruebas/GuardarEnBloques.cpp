@@ -39,7 +39,7 @@ int main() {
 	recurso->cargarComponente(alumno3);
 	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("/home/richy/","archivoBloques");
+	recurso->escribirArchivo("/home/oscar/","archivoBloques");
 	cout << "Archivo guardado" << endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
