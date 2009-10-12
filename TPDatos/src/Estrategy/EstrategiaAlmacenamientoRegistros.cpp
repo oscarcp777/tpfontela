@@ -20,7 +20,8 @@ void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
 		Archivo* archivo=(Archivo*)donde;
 		std::string metaData;
-		archivo->abrirArchivo();
+		archivo->abrirArchivo(BINARIO);
+		
 		int i=1;
 			std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
 			Componente* componente;

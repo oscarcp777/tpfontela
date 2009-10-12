@@ -55,7 +55,7 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamie
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
     Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar();
     almac->setTamanio(tamanio);
-    almac->setTipoArchivo(BINARIO);
+    
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
 	  return rAlmacenamiento;
 }

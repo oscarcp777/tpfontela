@@ -6,17 +6,10 @@
  */
 
 #include "Almacenamiento.h"
-  std::string Almacenamiento::getTipoArchivo()
-    {
-        return tipoArchivo;
-    }
-
-    void Almacenamiento::setTipoArchivo(std::string tipoArchivo)
-    {
-        this->tipoArchivo = tipoArchivo;
-    }
  int Almacenamiento::getTamanio()
     {
+    
+    
         return tamanio;
     }
 

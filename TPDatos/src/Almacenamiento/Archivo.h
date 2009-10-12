@@ -17,9 +17,10 @@ public:
 	virtual ~Archivo();
     void guardar(std::string registro);
     void guardar(const char* registro,int tamanioRegistro);
-    void abrirArchivo();
+    void abrirArchivo(std::string tipoArchivo);
     void cerrarArchivo();
     void leer(void* datos, int tamanio);
+    bool fin();
 };
 
 #endif /* ARCHIVO_H_ */

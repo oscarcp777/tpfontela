@@ -39,8 +39,11 @@ int main() {
 	recurso->cargarComponente(alumno3);
 	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("/home/oscar/","archivoBloques");
+	recurso->escribirArchivo("/home/richy/","archivoBloques");
 	cout << "Archivo guardado" << endl;
+
+
+	recurso->busquedaSecuencial(alumno1, "hola");
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
