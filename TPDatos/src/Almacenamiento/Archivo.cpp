@@ -12,9 +12,9 @@ Archivo::Archivo() {
 	// TODO Auto-generated constructor stub
 
 }
-void Archivo::abrirArchivo(){
+void Archivo::abrirArchivo(std::string tipoArchivo){
 	cout << "PATH:" << this->getPath() << endl;
-	if(this->getTipoArchivo().compare(TEXTO)==0){
+	if(tipoArchivo.compare(TEXTO)==0){
 		this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out);
 		if (!archivo.is_open()){
 			this->archivo.clear();
@@ -31,7 +31,7 @@ void Archivo::abrirArchivo(){
 
 		}
 	}
-	if(this->getTipoArchivo().compare(BINARIO)==0){
+	if(tipoArchivo.compare(BINARIO)==0){
 		/* abre el archivo en modo lectura - escritura binario*/
 		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary);
 		/* determina si tuvo éxito la apertura del archivo */
@@ -92,6 +92,21 @@ void Archivo::guardar(const char* registro,int tamanioRegistro){
 
 
 }
+
+bool Archivo::fin() {
+
+  /* para comprobar el fin lee un char del buffer, sin retirarlo y lo
+     compara con el fin de archivo */
+  bool esEof = (this->archivo.peek() == char_traits<char>::eof());
+
+  if (esEof)
+    /* si llegó al fin del archivo limpia los flags */
+    this->archivo.clear();
+
+  return esEof;
+}
+
+
 void Archivo::leer(void* datos, int tamanio) {
 
   /* verifica que el archivo esté abierto */

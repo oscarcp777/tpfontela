@@ -21,9 +21,9 @@ private:
     Compuesto *compuesto;
     std::string nombreArchivo;
     std::string ruta;
-    std::string tipoArchivo;
     int tamanio;
 public:
+
     Almacenamiento();
     virtual ~Almacenamiento();
     Compuesto *getCompuesto();
@@ -37,8 +37,6 @@ public:
     void setRuta(std::string ruta);
     int getTamanio();
     void setTamanio(int tamanio);
-    std::string getTipoArchivo() ;
-    void setTipoArchivo(std::string tipoArchivo);
 };
 
 #endif /* ALMACENAMIENTO_H_ */

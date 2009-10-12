@@ -19,7 +19,8 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 	std::string metaData;
 	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo();
+	archivo->abrirArchivo(TEXTO);
+	
 	int i=1;
 		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
 		Componente* componente;
