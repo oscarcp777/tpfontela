@@ -18,17 +18,18 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 
 void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
+	    std::string metaData;
+		 int i=1;
+		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+	    Componente* componente;
 		Archivo* archivo=(Archivo*)donde;
-		std::string metaData;
-		archivo->abrirArchivo(BINARIO);
-		
-		int i=1;
-			std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-			Componente* componente;
+		    archivo->abrirArchivo();
+		    if(archivo->getExisteMetaData()==1){
 			metaData = this->getMetaData((Componente*)*iter);
 			archivo->guardar(metaData.c_str(),donde->getTamanio());
-
-
+			archivo->setExisteMetaData(0);
+		    }
+		    archivo->irAlFinal();
 			while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 				componente = (Componente*)*iter;
 				archivo->guardar(componente->getDatosRegistro().c_str(),donde->getTamanio());
@@ -37,6 +38,7 @@ void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 			}
 
 		archivo->cerrarArchivo();
+
 
 }
 

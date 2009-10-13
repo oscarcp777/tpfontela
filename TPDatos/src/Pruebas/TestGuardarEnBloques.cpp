@@ -1,9 +1,10 @@
 /*
- * guardarComoRegistro.cpp
+ * GuardarEnBloques.cpp
  *
  *  Created on: 11/10/2009
- *      Author: oscar
+ *      Author: richy
  */
+
 
 
 #include <iostream>
@@ -15,7 +16,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main5() {
+int main33() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -26,17 +27,23 @@ int main5() {
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,30);
+			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55);
 
-	Alumno* alumno1 = new Alumno(31993745,"Daniel Sivori",85689,8,8,8);
+	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	Alumno* alumno4 = new Alumno(31993745,"D",8,8,8,8);
 
 	recurso->cargarComponente(alumno1);
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
+	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("/home/richy/","registros");
+	recurso->escribirArchivo("/home/oscar/","archivoBloques1");
+
+
+//	recurso->leerArchivo("/home/oscar/","archivoBloques1");
+//	recurso->busquedaSecuencial(alumno1, "hola");
 	cout << "Archivo guardado" << endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces

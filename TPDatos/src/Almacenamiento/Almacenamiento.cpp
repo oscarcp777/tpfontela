@@ -6,6 +6,18 @@
  */
 
 #include "Almacenamiento.h"
+   void Almacenamiento::abrirArchivo(){
+
+   }
+std::string Almacenamiento::getTipoArchivo()
+    {
+        return tipoArchivo;
+    }
+
+    void Almacenamiento::setTipoArchivo(std::string tipoArchivo)
+    {
+        this->tipoArchivo = tipoArchivo;
+    }
  int Almacenamiento::getTamanio()
     {
     
@@ -50,7 +62,7 @@ void Almacenamiento::agregarComponente(Componente* componente){
 
 }
 Almacenamiento::~Almacenamiento() {
-	// TODO Auto-generated destructor stub
+   delete this->compuesto;
 }
 Compuesto* Almacenamiento::getCompuesto()
    {

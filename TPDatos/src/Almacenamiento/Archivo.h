@@ -12,19 +12,71 @@
 
 class Archivo: public Almacenamiento {
 public:
+	/*
+	  pre : ninguna.
+	  post: abre el archivo, si no existe lo crea.
+
+	  archivoRegistros : estructura de datos a ser creada.
+	  nombre : nombre físico del archivo, path incluido.
+
+	*/
 	Archivo();
 	std::string toString();
 	virtual ~Archivo();
     void guardar(std::string registro);
+    /*
+      pre : archivoRegistros ha sido creado con crear() y registro es un puntero
+            a un struct del tamaño correspondiente al de los registros del archivo.
+      post: escribe el registro en el archivo en la posición actual.
+
+      registro : puntero hacia el registro a ser escrito en el archivo.
+    */
     void guardar(const char* registro,int tamanioRegistro);
     
-    void abrirArchivo(std::string tipoArchivo);
+    void abrirArchivo();
     void cerrarArchivo();
+    /*
+      pre : archivoRegistros ha sido creado con crear() y registro es un puntero
+            a un struct del tamaño correspondiente al de los registros del archivo.
+      post: lee del archivo el registro en la posición actual.
+      registro : puntero hacia el registro donde colocar la lectura.
+    */
     void leer(void* datos, int tamanio);
+    /*
+      pre : archivoRegistros ha sido creado con crear().
+      post: devuelve true si se ha llegado al fin del archivo, es decir no se puede
+            leer más registros. false en caso contrario.
+
+      archivoRegistros : archivo sobre el cual se aplica la primitiva.
+    */
     bool fin();
+    /*
+      pre : archivoRegistros ha sido creado con crear().
+      post: devuelve la posición relativa del registro actual.
+
+      archivoRegistros : archivo sobre el cual se aplica la primitiva.
+    */
+    long int posicion(int tamanioRegistro);
+    /*
+      pre : archivoRegistros ha sido creado con crear().
+      post: cambia la posición actual.
+
+      archivoRegistros : archivo sobre el cual se aplica la primitiva.
+      posicion : número de registro (0..n)
+    */
+    void posicionarse(long int posicion,int tamanioRegistro);
+
     int getExisteMetaData();
     void setExisteMetaData(int existeMetaData);
+    /**
+       * Posiciona el cursor al comienzo del archivo
+       */
+      void irAlPrincipio();
 
+      /**
+       * Posiciona el cursor al final del archivo
+       */
+      void irAlFinal();
 private:
     int existeMetaData;
 };

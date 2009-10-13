@@ -29,8 +29,9 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlma
     	return 0;
     }
 
-    int RecursoDeAlmacenamiento::leerArchivo(){
-    
+    int RecursoDeAlmacenamiento::leerArchivo(std::string ruta,std::string nombreArchivo){
+    	this->almacenamiento->setNombreArchivo(nombreArchivo);
+    	 this->almacenamiento->setRuta(ruta);
     	return 0;
     }
 

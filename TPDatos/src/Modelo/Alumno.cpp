@@ -12,10 +12,7 @@ Alumno::Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3)
 	this->dni = dni;
 	this->nombre = nombre;
 	this->padron = padron;
-	//this->nota= new Nota[3];
-	this->nota[0]=new Nota(n1);
-	this->nota[1]=new Nota(n2);
-	this->nota[2]=new Nota(n3);
+
 
 }
 
