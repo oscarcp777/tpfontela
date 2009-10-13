@@ -34,7 +34,7 @@ public:
      * levantaa memoria los registros de este archivo que recibe por parametro
      * return : en caso de error devulve -1
      */
-    int leerArchivo();
+    int leerArchivo(std::string ruta,std::string nombreArchivo);
     
     /**
      *este metodo carga en el compuesto el registro que se le pasa por parametro

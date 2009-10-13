@@ -6,7 +6,7 @@
  */
 
 #include "EstrategiaAlmacenamientoBloques.h"
-
+using namespace std;
 EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
 	// TODO Auto-generated constructor stub
 
@@ -17,28 +17,23 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 }
 
 void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
-
+	int i=1;
+	std::list<Componente*>::iterator iteraBloques;
+	Bloque* bloque;
 	std::string metaData;
 	Archivo* archivo=(Archivo*)donde;
-	//archivo->abrirArchivo(TEXTO);
-	archivo->abrirArchivo(BINARIO);
-	int i=1;
-
-	std::list<Componente*>::iterator iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
-	Bloque* bloque;
-	std::cout<<"metaData "<<archivo->getExisteMetaData() <<std::endl;
-	//if(archivo->getExisteMetaData() == 0){
+	archivo->abrirArchivo();
+	iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
+	if(archivo->getExisteMetaData() == 1){
 	metaData = this->getMetaData((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
 	archivo->guardar(metaData.c_str(),donde->getTamanio());
-	archivo->setExisteMetaData(1);
-	//archivo->guardar(metaData);
-
-	//}
-
+	archivo->setExisteMetaData(0);
+	}
+   archivo->irAlFinal();
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		bloque = (Bloque*)*iteraBloques;
 		archivo->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
-		//archivo->guardar(bloque->getDatosRegistro());
+
 		iteraBloques++;
 		i++;
 	}
@@ -129,30 +124,39 @@ std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente)
 }
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
-	char* datos;
-	std::string datosString;
+
+
+	/*#########################################################################################################################*/
+	/*#################    MALDITO RICHY SE TE MORIA NO POR LO QUE HABIA TOCADO YO SINO POR QUE EL STACK DE LA MEMORIA ESTATICA */
+	/*#################    SE LLENABA  PARA ESO CREE UN BUFFER CON EL TAMANIO DEL BLOQUE Y ANDA JOYA AHI QUE HACERLO ASI EN TODO
+	 *                              JAJAJAJAJAAJ!!                                                                                 ##*/
+	/*#########################################################################################################################*/
+
+
+
+	// Creo buffer de tamanio length.
+	char* buffer = new char[donde->getTamanio() + 1];
+    std::string datos;
+    std::string valor ;
+    vector<string> tokens;
 	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo(BINARIO);
-	std::vector<std::string> vec;
-	vector<string>::iterator the_iterator;
-
+	 vector<string>::iterator the_iterator;
+	archivo->abrirArchivo();
+	archivo->irAlPrincipio();
 	while(!archivo->fin()){
-		archivo->leer(datos,donde->getTamanio());
-		datosString.append(datos);
-		std::cout<<"DATOS: "<<datosString<<std::endl;
-		StringUtils::Tokenize(datosString,vec,DELIMITADOR);
-		//std::cout<<"datosString "<<vec.size()<<std::endl;
+		archivo->leer(buffer,donde->getTamanio());
+		datos=buffer;
+		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
+		StringUtils::Tokenize(datos,tokens,"|");
+			   	the_iterator = tokens.begin();
+			   	while( the_iterator != tokens.end() ) {
+			   		valor = *the_iterator;
+			   		++the_iterator;
+			     cout<<"dato del campo :"<<valor<<endl;
+			   	}
 	}
-
-
-	 	the_iterator = vec.begin();
-	 	while( the_iterator != vec.end() ) {
-	 		datosString = *the_iterator;
-	 		std::cout<<"datosString "<<datosString<<std::endl;
-
-	 		++the_iterator;
-	 	}
+	// Libero el buffer
+	delete[] buffer;
+	archivo->cerrarArchivo();
 
 }
-
-

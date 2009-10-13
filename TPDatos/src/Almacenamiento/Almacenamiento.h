@@ -22,6 +22,7 @@ private:
     std::string nombreArchivo;
     std::string ruta;
     int tamanio;
+    std::string tipoArchivo;
 public:
 
     Almacenamiento();
@@ -42,6 +43,11 @@ public:
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
    // virtual std::string leer () = 0;
     virtual void leer(void* datosestrategiaAlmac, int tamanio) = 0;
+    virtual void abrirArchivo();
+    std::string getTipoArchivo();
+
+    void setTipoArchivo(std::string tipoArchivo);
+
 };
 
 #endif /* ALMACENAMIENTO_H_ */

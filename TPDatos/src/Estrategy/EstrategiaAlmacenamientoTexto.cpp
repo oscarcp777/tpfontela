@@ -18,15 +18,16 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 	std::string metaData;
+	 int i=1;
+	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
+    Componente* componente;
 	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo(TEXTO);
-	
-	int i=1;
-		std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-		Componente* componente;
+	    archivo->abrirArchivo();
+	    if(archivo->getExisteMetaData()==1){
 		metaData = this->getMetaData((Componente*)*iter);
 		archivo->guardar(metaData);
-
+	    }
+	    archivo->irAlFinal();
 		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 			componente = (Componente*)*iter;
 			archivo->guardar(componente->getDatosRegistro());

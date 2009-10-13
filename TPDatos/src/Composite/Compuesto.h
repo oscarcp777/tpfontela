@@ -11,7 +11,7 @@
 #include "../Object/Object.h"
 #include "Componente.h"
 class Compuesto: public Object {
-private:
+protected:
 	std::list<Componente*> listaDeComponetes;
 public:
 	Compuesto();

@@ -12,51 +12,60 @@ Archivo::Archivo() {
 	this->existeMetaData = 0;
 
 }
-void Archivo::abrirArchivo(std::string tipoArchivo){
-	cout << "PATH:" << this->getPath() << endl;
-	if(tipoArchivo.compare(TEXTO)==0){
-		this->archivo.open(this->getPath().c_str(),fstream::in | fstream::out | fstream::app);
+void Archivo::abrirArchivo(){
 
+	if(this->getTipoArchivo().compare(TEXTO)==0){
+		//intenta abrir el archivo en modo lectura - escritura
+		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
-		if (!archivo.is_open()){
-			this->archivo.clear();
+		  if (!this->archivo.is_open()) {
 
-			//crea el archivo
-			this->existeMetaData = 0;
-			this->archivo.open(this->getPath().c_str(), std::fstream::out);
-			this->archivo.close();
+			  this->existeMetaData=1;
+		    //si no hubo éxito en la apertura...
+		    //limpia los flags de control de estado del archivo
+			  this->archivo.clear();
 
+		    //crea el archivo
+			  this->archivo.open(this->getPath().c_str(),ios::out);
+			  this->archivo.close();
 
-			//reabre el archivo para lectura - escritura
+		    //reabre el archivo para lectura - escritura
+			  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
-			this->archivo.open(this->getPath().c_str(), std::fstream::in | std::fstream::out);
-
-
-		}
+		    if (!this->archivo.is_open())
+		      // si no se pudo crear el archivo arroja una excepción/
+		      throw std::ios_base::failure("El archivo no pudo ser abierto");
+		  }
 
 
 	}
-	if(tipoArchivo.compare(BINARIO)==0){
-		/* abre el archivo en modo lectura - escritura binario*/
-		this->archivo.open(this->getPath().c_str(),  ios::in |ios::out |ios::binary | fstream::app);
+	if(this->getTipoArchivo().compare(BINARIO)==0){
+		  /* abre el archivo en modo lectura - escritura binario*/
+		  this->archivo.open(this->getPath().c_str(),
+		                                ios::in |ios::out |ios::binary);
 
-		/* determina si tuvo éxito la apertura del archivo */
-		if (!this->archivo.is_open()) {
+		  /* determina si tuvo éxito la apertura del archivo */
+		  if (! this->archivo.is_open()) {
+			  this->existeMetaData=1;
+		    /* limpia los flags de control de estado del archivo */
+		    this->archivo.clear();
 
-			/* limpia los flags de control de estado del archivo */
-			this->archivo.clear();
+		    /* crea el archivo */
+		    this->archivo.open(this->getPath().c_str(),
+		                                  ios::out | ios::binary);
+		    this->archivo.close();
 
-			/* crea el archivo */
-			std::cout<<"PASA "<<std::endl;
-			this->existeMetaData = 0;
-			this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
-			this->archivo.close();
+		    /* reabre el archivo para lectura - escritura binario */
+		    this->archivo.open(this->getPath().c_str(),
+		                                  ios::in|ios::out|ios::binary);
 
-			/* reabre el archivo para lectura - escritura binario */
-			this->archivo.open(this->getPath().c_str(),ios::in|ios::out|ios::binary);
+		    /* verifica que haya podido crear el archivo */
+		    if (! this->archivo.is_open())
 
+		      /* arroja una excepción */
+		      throw string("El archivo no pudo ser abierto");
+		  }
 
-		}
 
 	}
 
@@ -135,7 +144,7 @@ void Archivo::leer(void* datos, int tamanio) {
   }
 }
 Archivo::~Archivo() {
-	// TODO Auto-generated destructor stub
+
 }
 std::string Archivo::toString(){
 	return "Archivo";
@@ -149,4 +158,60 @@ int Archivo::getExisteMetaData()
 void Archivo::setExisteMetaData(int existeMetaData)
 {
 	this->existeMetaData = existeMetaData;
+}
+/**
+ * Posiciona el cursor al comienzo del archivo
+ */
+void Archivo::irAlPrincipio() {
+	this->archivo.tellg();
+	this->archivo.clear();
+	this->archivo.seekg(0);
+	this->archivo.seekp(0);
+	this->archivo.tellg();
+}
+
+/**
+ * Posiciona el cursor al final del archivo
+ */
+void Archivo::irAlFinal() {
+	this->archivo.tellg();
+	this->archivo.clear();
+	this->archivo.seekg(0, ios::end);
+	this->archivo.seekp(0, ios::end);
+	this->archivo.tellg();
+}
+/*----------------------------------------------------------------------------*/
+long int Archivo::posicion(int tamanioRegistro) {
+
+  long int pos = 0;
+
+  /* verifica que el archivo esté abierto */
+  if (this->archivo.is_open())
+
+    /* calcula el número de registro según la posición del byte actual */
+    pos = this->archivo.tellg() / tamanioRegistro;
+
+  else
+    /* arroja una excepción porque el archivo no está abierto */
+    throw string("El archivo no está abierto");
+
+  return pos;
+}
+/*----------------------------------------------------------------------------*/
+void Archivo::posicionarse(long int posicion,int tamanioRegistro) {
+
+  /* verifica que el archivo esté abierto */
+  if (this->archivo.is_open()) {
+
+    /* mueve la posición actual según sea el tamano del registro */
+	  this->archivo.seekg(posicion * tamanioRegistro,ios_base::beg);
+
+    /* chequea si se ha producido un error */
+    if (this->archivo.fail())
+      /* arroja una excepción ante la imposibilidad de leer un reg */
+      throw string("No se pudo posicionar correctamente el registro");
+  }
+  else
+    /* arroja una excepción porque el archivo no está abierto */
+    throw string("El archivo no está abierto");
 }
