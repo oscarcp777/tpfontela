@@ -44,7 +44,7 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 	delete this->almacenamiento;
 	delete this->estrategiaAlmacenamiento ;
 	delete this->estrategiaRecurso ;
-	delete this->estrategiaIndice;
+	//delete this->estrategiaIndice;
 }
 RecursoDeAlmacenamiento::RecursoDeAlmacenamiento() {
 	            this->almacenamiento = NULL;
