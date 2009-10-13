@@ -11,7 +11,7 @@
 
 class Registro : public Componente{
 public:
-	Registro(int tamanio);
+	Registro();
 	virtual ~Registro();
 	virtual void serializar() =0;
 	virtual void hidratar() =0;

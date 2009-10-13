@@ -12,7 +12,7 @@
 
 class RegistroDisco: public Registro {
 public:
-	RegistroDisco(int tamanio);
+	RegistroDisco();
 	virtual ~RegistroDisco();
 	void serializar();
 	void hidratar();

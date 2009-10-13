@@ -7,9 +7,10 @@
 
 #include "Bloque.h"
 #include <list>
-Bloque::Bloque(int tamanio, int id):Componente(tamanio) {
+Bloque::Bloque(int tamanio, int id) {
 
 	// TODO Auto-generated constructor stub
+	this->setTamanio(tamanio);
 	this->setId(id);
 }
 

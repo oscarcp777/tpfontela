@@ -36,7 +36,7 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* eAlma
     }
 
     int RecursoDeAlmacenamiento::cargarComponente(Componente* componente){
-        //this->almacenamiento->agregarComponente(componente);
+        componente->setTamanio(this->almacenamiento->getTamanio());
     	this->estrategiaAlmacenamiento->agregarComponente(this->almacenamiento, componente);
     	return 0;
     }

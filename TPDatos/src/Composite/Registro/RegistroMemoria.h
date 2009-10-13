@@ -12,7 +12,7 @@
 
 class RegistroMemoria: public Registro {
 public:
-	RegistroMemoria(int tamanio);
+	RegistroMemoria();
 	virtual ~RegistroMemoria();
 	void serializar();
 	void hidratar();

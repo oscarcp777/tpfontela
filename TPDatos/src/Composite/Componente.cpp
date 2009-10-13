@@ -9,9 +9,9 @@
 
 
 
-Componente::Componente(int tamanio) {
+Componente::Componente() {
 	// TODO Auto-generated constructor stub
-	this->tamanio = tamanio;
+	this->tamanio = 0;
 	this->posicionActual = 0;
 
 }
