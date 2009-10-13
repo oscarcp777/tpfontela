@@ -17,6 +17,7 @@ EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
 }
 
 std::string EstrategiaAlmacenamiento::generarRegistro(Componente* componente){
+	componente->serializar();
 	std::string registro="";
 	std::map<std::string,std::string>::iterator it;
 	for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
@@ -26,10 +27,9 @@ std::string EstrategiaAlmacenamiento::generarRegistro(Componente* componente){
 	return registro;
 }
 
+
 std::string EstrategiaAlmacenamiento::toString(){
    	return "EstrategiaAlmacenamiento";
    }
-void EstrategiaAlmacenamiento::guardar(Almacenamiento* donde){
 
-}
 
