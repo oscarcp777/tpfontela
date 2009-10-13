@@ -17,7 +17,13 @@ EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
 }
 
 std::string EstrategiaAlmacenamiento::generarRegistro(Componente* componente){
-  return "nada";
+	std::string registro="";
+	std::map<std::string,std::string>::iterator it;
+	for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+
+		registro+= it->second + DELIMITADOR;
+	}
+	return registro;
 }
 
 std::string EstrategiaAlmacenamiento::toString(){
