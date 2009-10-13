@@ -54,13 +54,10 @@ std::string EstrategiaAlmacenamientoTexto::toString(){
    }
 
 std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* componente){
-      std::string registro="";
-	  std::map<std::string,std::string>::iterator it;
-	  for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
 
-           registro+= it->second + DELIMITADOR;
-	  }
-	  registro+="\n";
+	std::string registro="";
+	registro = EstrategiaAlmacenamiento::generarRegistro(componente);
+	registro+="\n";
 	return registro;
 }
 std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){

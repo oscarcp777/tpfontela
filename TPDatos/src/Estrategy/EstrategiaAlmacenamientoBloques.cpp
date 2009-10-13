@@ -95,17 +95,10 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 		  std::stringstream flujo;
 		  std::string aux="";
 		  std::string registro="";
-		  std::map<std::string,std::string>::iterator it;
-
-		  for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-
-	           aux+= it->second + DELIMITADOR;
-		  }
-
+		  aux = EstrategiaAlmacenamiento::generarRegistro(componente);
 		  flujo<< aux.length();
 		  registro += flujo.str()+DELIMITADOR+ aux;
-
-		return registro;
+		  return registro;
 }
 
 std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
