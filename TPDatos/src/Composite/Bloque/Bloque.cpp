@@ -14,16 +14,19 @@ Bloque::Bloque(int tamanio, int id):Componente(tamanio) {
 }
 
 Bloque::~Bloque() {
-	int i=0;
-		std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();
-				Componente* componente;
+//Comente estas lineas porque se llama solo al destructor de Compuesto desde aca (por la herencia)
+// y rompia cuando queria destruir, supongo destruye bien
 
-				while(i<this->getCantidadDeElelmentos()){
-					componente = (Componente*)*iter;
-					delete componente;
-					iter++;
-					i++;
-				}
+//	int i=0;
+//		std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();
+//				Componente* componente;
+//
+//				while(i<this->getCantidadDeElelmentos()){
+//					componente = (Componente*)*iter;
+//					delete componente;
+//					iter++;
+//					i++;
+//				}
 }
 
 std::string Bloque::getDatosRegistro()
