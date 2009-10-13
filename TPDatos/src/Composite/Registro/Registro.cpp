@@ -8,7 +8,7 @@
 #include "Registro.h"
 
 
-Registro::Registro(int tamanio):Componente(tamanio) {
+Registro::Registro() {
 
 
 }

@@ -7,7 +7,7 @@
 
 #include "Alumno.h"
 
-Alumno::Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3):Registro(10) {
+Alumno::Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3) {
 	// TODO Auto-generated constructor stub
 	this->dni = dni;
 	this->nombre = nombre;

@@ -25,8 +25,7 @@ public:
 
 	virtual	void serializar() =0;
 	virtual void hidratar() =0;
-	Componente(int tamanio);
-    Componente();
+	Componente();
 	virtual ~Componente();
     int getTamanio();
     void setTamanio(int tamanio);

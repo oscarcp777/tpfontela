@@ -7,7 +7,7 @@
 
 #include "Nota.h"
 
-Nota::Nota(int n):Registro(10) {
+Nota::Nota(int n) {
 	// TODO Auto-generated constructor stub
 	this->nota = n;
 }
