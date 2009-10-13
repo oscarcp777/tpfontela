@@ -53,13 +53,13 @@ std::string EstrategiaAlmacenamientoRegistros::generarRegistro(Componente* compo
 }
 
 void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde, Componente* componente){
-	    componente->serializar();
+
 	    int tamanio=0;
-		std::string datos=this->generarRegistro(componente);
-		tamanio=((int)datos.length());
-		std::cout<<datos<<std::endl;
+		std::string registro=this->generarRegistro(componente);
+		tamanio=((int)registro.length());
+		std::cout<<registro<<std::endl;
 		if(tamanio<donde->getTamanio()){
-			componente->setDatosRegistro(datos);
+			componente->setDatosRegistro(registro);
 			donde->agregarComponente(componente);
 		}
 

@@ -21,7 +21,7 @@ class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
 	virtual ~EstrategiaAlmacenamiento();
-	virtual void guardar(Almacenamiento* donde);
+	virtual void guardar(Almacenamiento* donde) = 0;
 	std::string toString();
 	void generarClaves(Almacenamiento* donde);
 	virtual std::string generarRegistro(Componente* componente);

@@ -47,7 +47,6 @@ void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, C
 	Bloque* bloque = NULL;
 	int i=0;
 
-	componente->serializar();
 	std::string registro = generarRegistro(componente);
 	componente->setDatosRegistro(registro);
 	int cargado = 0;
