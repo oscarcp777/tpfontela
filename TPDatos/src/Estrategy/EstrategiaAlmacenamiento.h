@@ -23,12 +23,12 @@ public:
 	virtual ~EstrategiaAlmacenamiento();
 	virtual void guardar(Almacenamiento* donde) = 0;
 	std::string toString();
-	void generarClaves(Almacenamiento* donde);
-	virtual std::string generarRegistro(Componente* componente);
 	virtual void agregarComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual std::string getMetaData(Componente* componente) = 0;
 	virtual void busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave) = 0;
 
+protected:
+	virtual std::string generarRegistro(Componente* componente);
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTO_H_ */
