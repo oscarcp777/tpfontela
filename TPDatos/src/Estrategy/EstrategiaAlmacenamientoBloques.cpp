@@ -114,15 +114,6 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
-
-	/*#########################################################################################################################*/
-	/*#################    MALDITO RICHY SE TE MORIA NO POR LO QUE HABIA TOCADO YO SINO POR QUE EL STACK DE LA MEMORIA ESTATICA */
-	/*#################    SE LLENABA  PARA ESO CREE UN BUFFER CON EL TAMANIO DEL BLOQUE Y ANDA JOYA AHI QUE HACERLO ASI EN TODO
-	 *                              JAJAJAJAJAAJ!!                                                                                 ##*/
-	/*#########################################################################################################################*/
-
-
-
 	// Creo buffer de tamanio length.
 	char* buffer = new char[donde->getTamanio() + 1];
     std::string datos;

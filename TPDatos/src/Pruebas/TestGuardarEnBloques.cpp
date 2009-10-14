@@ -16,7 +16,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main33() {
+int main() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -39,12 +39,13 @@ int main33() {
 	recurso->cargarComponente(alumno3);
 	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("/home/oscar/","archivoBloques1");
-
-
-//	recurso->leerArchivo("/home/oscar/","archivoBloques1");
-//	recurso->busquedaSecuencial(alumno1, "hola");
+	recurso->escribirArchivo("/home/richy/","Bloques");
 	cout << "Archivo guardado" << endl;
+
+	recurso->leerArchivo("/home/richy/","Bloques");
+	recurso->busquedaSecuencial(alumno1, "hola");
+
+
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
