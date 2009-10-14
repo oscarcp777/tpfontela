@@ -29,7 +29,7 @@ void pruebaParseo(){
 
 }
 
-int main() {
+int main3() {
           //  pruebaParseo();
 
 /**
@@ -46,7 +46,7 @@ int main() {
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 
-	recurso->leerArchivo("/home/oscar/","archivoBloques1");
+	recurso->leerArchivo("/home/richy/","archivoBloques1");
 	recurso->busquedaSecuencial(alumno1, "hola");
 	cout << "Archivo guardado" << endl;
 	/**
