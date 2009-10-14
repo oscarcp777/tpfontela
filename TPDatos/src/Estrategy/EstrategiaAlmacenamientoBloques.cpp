@@ -116,27 +116,54 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 
 	// Creo buffer de tamanio length.
 	char* buffer = new char[donde->getTamanio() + 1];
-    std::string datos;
-    std::string valor ;
+	int tam = 0;
+	int cantCaracteresLeidos=0;
+	int i = 0;
+	int posDelimitador=0;
+	int dif = 0;
+    std::string datos="";
+    std::string valor="" ;
+    std::string auxString="" ;
+
+
     vector<string> tokens;
 	Archivo* archivo=(Archivo*)donde;
 	 vector<string>::iterator the_iterator;
-	//archivo->abrirArchivo();
+	archivo->abrir();
 	archivo->irAlPrincipio();
 	while(!archivo->fin()){
+		i=0;
+		cantCaracteresLeidos=0;
 		archivo->leer(buffer,donde->getTamanio());
 		datos=buffer;
 		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
-		StringUtils::Tokenize(datos,tokens,"|");
-			   	the_iterator = tokens.begin();
-			   	while( the_iterator != tokens.end() ) {
-			   		valor = *the_iterator;
-			   		++the_iterator;
-			     cout<<"dato del campo :"<<valor<<endl;
-			   	}
+
+		auxString = datos;
+		while(cantCaracteresLeidos != (int)datos.length()){
+			tokens.clear();
+			posDelimitador = datos.find_first_of(DELIMITADOR,cantCaracteresLeidos);
+			auxString = datos.substr(cantCaracteresLeidos,cantCaracteresLeidos+posDelimitador);
+
+			dif = posDelimitador - cantCaracteresLeidos;
+			cantCaracteresLeidos+= dif+1;
+			tam = atoi(auxString.c_str());
+
+			auxString="";
+			auxString = datos.substr(posDelimitador +1,tam);
+
+			cantCaracteresLeidos+= tam;
+			std::cout<<"string: "<<auxString<<std::endl;
+			StringUtils::Tokenize(auxString,tokens,"|");
+			the_iterator = tokens.begin();
+							   	while( the_iterator != tokens.end() ) {
+							   		valor = *the_iterator;
+							   		++the_iterator;
+							     cout<<"dato del campo :"<<valor<<endl;
+							   	}
+
+		}
 	}
 	// Libero el buffer
 	delete[] buffer;
-	//archivo->cerrarArchivo();
-
+	archivo->cerrar();
 }
