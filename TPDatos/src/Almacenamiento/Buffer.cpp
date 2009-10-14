@@ -20,6 +20,14 @@ std::string Buffer::toString(){
 	return "Buffer";
 }
 
+void Buffer::abrir(){
+
+}
+
+void Buffer::cerrar(){
+
+}
+
 void Buffer::guardar(std::string registro){
 
 }

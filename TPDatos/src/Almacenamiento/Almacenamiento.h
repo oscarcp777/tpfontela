@@ -15,14 +15,15 @@
 #include "../Object/Object.h"
 #include <fstream>
 class Almacenamiento:public Object{
-protected:
-	std::fstream  archivo;
+
+
 private:
     Compuesto *compuesto;
     std::string nombreArchivo;
     std::string ruta;
     int tamanio;
     std::string tipoArchivo;
+    std::string metaData;
 public:
 
     Almacenamiento();
@@ -43,11 +44,25 @@ public:
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
    // virtual std::string leer () = 0;
     virtual void leer(void* datosestrategiaAlmac, int tamanio) = 0;
-    virtual void abrirArchivo();
+
+    virtual void abrir() = 0;
+    virtual void cerrar() = 0;
+
+
     std::string getTipoArchivo();
 
     void setTipoArchivo(std::string tipoArchivo);
 
+    int getExisteMetaData();
+    virtual std::string leerMetadata();
+    virtual void escribirMetadata(std::string metadata);
+
+protected:
+	std::fstream  archivo;
+	int existeMetadata;
+	void setExisteMetaData(int i);
+	std::string getMetaData() const;
+    void setMetaData(std::string metaData);
 };
 
 #endif /* ALMACENAMIENTO_H_ */

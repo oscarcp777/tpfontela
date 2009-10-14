@@ -17,6 +17,9 @@ public:
 	virtual ~Buffer();
 	std::string toString();
 
+	void abrir();
+	void cerrar();
+
 	void guardar(std::string registro);
 	void guardar(const char* registro,int tamanioRegistro);
 	std::string leer ();

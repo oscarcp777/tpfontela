@@ -18,24 +18,23 @@ EstrategiaAlmacenamientoTexto::~EstrategiaAlmacenamientoTexto() {
 
 void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 	std::string metaData;
-	 int i=1;
+	int i=1;
 	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-    Componente* componente;
-	Archivo* archivo=(Archivo*)donde;
-	    archivo->abrirArchivo();
-	    if(archivo->getExisteMetaData()==1){
-		metaData = this->getMetaData((Componente*)*iter);
-		archivo->guardar(metaData);
-	    }
-	    archivo->irAlFinal();
-		while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
-			componente = (Componente*)*iter;
-			archivo->guardar(componente->getDatosRegistro());
-			iter++;
-			i++;
-		}
+	Componente* componente;
+	if(donde->getExisteMetaData() == 0){
+		metaData = this->generarMetadata((Componente*)*iter);
+		metaData += "\n";
+		donde->escribirMetadata(metaData);
+	}
+	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
+		componente = (Componente*)*iter;
+		donde->guardar(componente->getDatosRegistro());
+		iter++;
+		i++;
+	}
 
-	archivo->cerrarArchivo();
+
+
 
 }
 
@@ -59,17 +58,18 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 	registro+="\n";
 	return registro;
 }
-std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){
-	 std::string metaData="";
-	 std::map<std::string,std::string>::iterator it;
 
-	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-
-		 metaData+= it->first + DELIMITADOR;
-	 }
-	 metaData+="\n";
-	 return metaData;
-}
+//std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){
+//	 std::string metaData="";
+//	 std::map<std::string,std::string>::iterator it;
+//
+//	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+//
+//		 metaData+= it->first + DELIMITADOR;
+//	 }
+//	 metaData+="\n";
+//	 return metaData;
+//}
 
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
