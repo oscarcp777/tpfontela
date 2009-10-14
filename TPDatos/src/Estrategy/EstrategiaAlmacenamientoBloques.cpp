@@ -21,24 +21,21 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 	std::list<Componente*>::iterator iteraBloques;
 	Bloque* bloque;
 	std::string metaData;
-	Archivo* archivo=(Archivo*)donde;
-	archivo->abrirArchivo();
+
 	iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
-	if(archivo->getExisteMetaData() == 1){
-	metaData = this->getMetaData((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
-	archivo->guardar(metaData.c_str(),donde->getTamanio());
-	archivo->setExisteMetaData(0);
+	if(donde->getExisteMetaData() == 0){
+		metaData = this->generarMetadata((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
+		donde->escribirMetadata(metaData);
 	}
-   archivo->irAlFinal();
+
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		bloque = (Bloque*)*iteraBloques;
-		archivo->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
-
+		donde->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
 		iteraBloques++;
 		i++;
 	}
 
-	archivo->cerrarArchivo();
+
 
 }
 
@@ -100,20 +97,20 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 		  return registro;
 }
 
-std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
-	 std::stringstream flujo;
-	 std::string metaData="";
-	 std::string aux="";
-	 std::map<std::string,std::string>::iterator it;
-
-	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-
-		 aux+= it->first + DELIMITADOR;
-	 }
-	 flujo<< aux.length();
-	 metaData+= flujo.str()+DELIMITADOR+aux;
-	 return metaData;
-}
+//std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
+//	std::stringstream flujo;
+//	std::string metaData="";
+//	std::string aux="";
+//	std::map<std::string,std::string>::iterator it;
+//
+//	for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
+//
+//		aux+= it->first + DELIMITADOR;
+//	}
+//	flujo<< aux.length();
+//	metaData+= flujo.str()+DELIMITADOR+aux;
+//	return metaData;
+//}
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
@@ -133,7 +130,7 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
     vector<string> tokens;
 	Archivo* archivo=(Archivo*)donde;
 	 vector<string>::iterator the_iterator;
-	archivo->abrirArchivo();
+	//archivo->abrirArchivo();
 	archivo->irAlPrincipio();
 	while(!archivo->fin()){
 		archivo->leer(buffer,donde->getTamanio());
@@ -149,6 +146,6 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 	}
 	// Libero el buffer
 	delete[] buffer;
-	archivo->cerrarArchivo();
+	//archivo->cerrarArchivo();
 
 }

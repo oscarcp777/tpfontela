@@ -9,18 +9,23 @@
 #include "../utils/Define.h"
 using namespace std;
 Archivo::Archivo() {
-	this->existeMetaData = 0;
+
 
 }
-void Archivo::abrirArchivo(){
+void Archivo::abrir(){
 
 	if(this->getTipoArchivo().compare(TEXTO)==0){
 		//intenta abrir el archivo en modo lectura - escritura
 		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
-		  if (!this->archivo.is_open()) {
-
-			  this->existeMetaData=1;
+		  if (this->archivo.is_open()){
+			  cout<<"Existe Metadata";
+			  this->setMetaData(this->leerMetadata());
+			  this->setExisteMetaData(1);
+		  }
+		  else
+		  {
+			  cout<<"No Existe Metadata";
 		    //si no hubo éxito en la apertura...
 		    //limpia los flags de control de estado del archivo
 			  this->archivo.clear();
@@ -45,8 +50,11 @@ void Archivo::abrirArchivo(){
 		                                ios::in |ios::out |ios::binary);
 
 		  /* determina si tuvo éxito la apertura del archivo */
-		  if (! this->archivo.is_open()) {
-			  this->existeMetaData=1;
+		  if (this->archivo.is_open()) {
+			  this->setMetaData(this->leerMetadata());
+			  this->setExisteMetaData(1);
+		  }else{
+
 		    /* limpia los flags de control de estado del archivo */
 		    this->archivo.clear();
 
@@ -70,14 +78,36 @@ void Archivo::abrirArchivo(){
 	}
 
 }
-void Archivo::cerrarArchivo(){
+void Archivo::cerrar(){
 	this->archivo.close();
 
 }
-void Archivo::guardar(std::string registro){
-	/* verifica que el archivo esté abierto */
-	if (this->archivo.is_open()) {
 
+std::string Archivo::leerMetadata(){
+	return "nada";
+}
+
+void Archivo::escribirMetadata(std::string metadata){
+	int tamanio = metadata.length();
+	this->setMetaData(metadata);
+	this->setExisteMetaData(1);
+//	if(this->getTipoArchivo().compare(TEXTO)==0){
+//		this->cerrar();
+//		this->setTipoArchivo(BINARIO);
+//		this->abrir();
+//		this->guardar(metadata.c_str(),tamanio);
+//		this->cerrar();
+//		this->setTipoArchivo(TEXTO);
+//		this->abrir();
+//	}else
+		this->guardar(metadata.c_str(),tamanio);
+
+}
+
+void Archivo::guardar(std::string registro){
+	/* verifica que el archivo esta abierto */
+	if (this->archivo.is_open()) {
+		this->irAlFinal();
 		//intenta escribir la cadena en el archivo
 		this->archivo << registro;
 
@@ -86,7 +116,7 @@ void Archivo::guardar(std::string registro){
 			throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
 	} else {
 		/* arroja una excepción porque el archivo no está abierto */
-		throw string("El archivo no está abierto");
+		throw string("El archivo no esta abierto");
 	}
 
 }
@@ -94,7 +124,7 @@ void Archivo::guardar(const char* registro,int tamanioRegistro){
 
 	/* verifica que el archivo esté abierto */
 	if (this->archivo.is_open()) {
-
+		this->irAlFinal();
 		/* escribe el registro en el archivo */
 		this->archivo.write(static_cast<const char*>(registro),	tamanioRegistro);
 
@@ -150,15 +180,9 @@ std::string Archivo::toString(){
 	return "Archivo";
 }
 
-int Archivo::getExisteMetaData()
-{
-	return existeMetaData;
-}
 
-void Archivo::setExisteMetaData(int existeMetaData)
-{
-	this->existeMetaData = existeMetaData;
-}
+
+
 /**
  * Posiciona el cursor al comienzo del archivo
  */

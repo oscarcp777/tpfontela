@@ -23,6 +23,10 @@ public:
 	Archivo();
 	std::string toString();
 	virtual ~Archivo();
+
+	void abrir();
+	void cerrar();
+
     void guardar(std::string registro);
     /*
       pre : archivoRegistros ha sido creado con crear() y registro es un puntero
@@ -32,9 +36,8 @@ public:
       registro : puntero hacia el registro a ser escrito en el archivo.
     */
     void guardar(const char* registro,int tamanioRegistro);
-    
-    void abrirArchivo();
-    void cerrarArchivo();
+
+
     /*
       pre : archivoRegistros ha sido creado con crear() y registro es un puntero
             a un struct del tamaño correspondiente al de los registros del archivo.
@@ -66,8 +69,8 @@ public:
     */
     void posicionarse(long int posicion,int tamanioRegistro);
 
-    int getExisteMetaData();
-    void setExisteMetaData(int existeMetaData);
+
+
     /**
        * Posiciona el cursor al comienzo del archivo
        */
@@ -77,8 +80,13 @@ public:
        * Posiciona el cursor al final del archivo
        */
       void irAlFinal();
-private:
-    int existeMetaData;
+
+
+      std::string leerMetadata();
+      void escribirMetadata(std::string metadata);
+
+
+
 };
 
 #endif /* ARCHIVO_H_ */
