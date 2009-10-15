@@ -90,12 +90,13 @@ std::string Archivo::leerMetadata(){
 	this->metadataSize = metaDataSize;
 
 	char* buffer = new char[metaDataSize];
+	memset(buffer,' ',metaDataSize);
 	this->leer(buffer,this->metadataSize);
 	datos = buffer;
 	delete buffer;
 
 	std::cout<<"Metadata: " << datos <<endl;
-	return buffer;
+	return datos;
 }
 
 void Archivo::escribirMetadata(std::string metadata){

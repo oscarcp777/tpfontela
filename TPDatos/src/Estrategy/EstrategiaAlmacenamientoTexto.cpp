@@ -81,6 +81,7 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, A
 		 vector<string>::iterator the_iterator;
 		archivo->abrir();
 		archivo->irAlPrincipio();
+		std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
 		while(!archivo->fin()){
 			tokens.clear();
 			archivo->leer(datos);

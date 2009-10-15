@@ -24,7 +24,7 @@ void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 	Componente* componente;
 	if(donde->getExisteMetaData() == 0){
 		metaData = this->generarMetadata((Componente*)*iter);
-		//donde->escribirMetadata(metaData);
+		donde->escribirMetadata(metaData);
 	}
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		componente = (Componente*)*iter;
@@ -85,6 +85,7 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* component
 	 vector<string>::iterator the_iterator;
 	archivo->abrir();
 	archivo->irAlPrincipio();
+	std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
 	while(!archivo->fin()){
 		tokens.clear();
 		archivo->leer(buffer,donde->getTamanio());
