@@ -24,7 +24,7 @@ void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 	Componente* componente;
 	if(donde->getExisteMetaData() == 0){
 		metaData = this->generarMetadata((Componente*)*iter);
-		donde->escribirMetadata(metaData);
+		//donde->escribirMetadata(metaData);
 	}
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
 		componente = (Componente*)*iter;
@@ -73,6 +73,38 @@ void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde,
 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
+	// Creo buffer de tamanio length.
+	char* buffer = new char[donde->getTamanio() + 1];
+	std::string datos="";
+    std::string valor="" ;
+
+
+
+    vector<string> tokens;
+	Archivo* archivo=(Archivo*)donde;
+	 vector<string>::iterator the_iterator;
+	archivo->abrir();
+	archivo->irAlPrincipio();
+	while(!archivo->fin()){
+		tokens.clear();
+		archivo->leer(buffer,donde->getTamanio());
+		datos="";
+		datos=buffer;
+		std::cout<<"DATOS del registro: "<<datos<<std::endl;
+
+		StringUtils::Tokenize(datos,tokens,DELIMITADOR);
+		the_iterator = tokens.begin();
+		while( the_iterator != tokens.end() ) {
+			valor = *the_iterator;
+			++the_iterator;
+			cout<<"dato del campo :"<<valor<<endl;
+		}
+
+		}
+
+	// Libero el buffer
+	delete[] buffer;
+	archivo->cerrar();
 
 
 }

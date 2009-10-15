@@ -9,7 +9,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main39() {
+int main() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -19,7 +19,7 @@ int main39() {
 	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
-	cout << "hola" << endl;
+
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO);
 
@@ -31,8 +31,13 @@ int main39() {
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
 
-	recurso->escribirArchivo("/home/oscar/","archivoTexto");
+	recurso->escribirArchivo("/home/richy/","archivoTexto");
 	cout << "Archivo guardado" << endl;
+
+
+	recurso->leerArchivo("/home/richy/","archivoTexto");
+	recurso->busquedaSecuencial(alumno1, "hola");
+
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien

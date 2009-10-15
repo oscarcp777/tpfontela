@@ -73,6 +73,32 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
+		std::string datos="";
+	    std::string valor="";
+
+	    vector<string> tokens;
+		Archivo* archivo=(Archivo*)donde;
+		 vector<string>::iterator the_iterator;
+		archivo->abrir();
+		archivo->irAlPrincipio();
+		while(!archivo->fin()){
+			tokens.clear();
+			archivo->leer(datos);
+			std::cout<<"DATOS de la linea: "<<datos<<std::endl;
+
+			StringUtils::Tokenize(datos,tokens,DELIMITADOR);
+			the_iterator = tokens.begin();
+			while( the_iterator != tokens.end() ) {
+				valor = *the_iterator;
+				++the_iterator;
+				cout<<"dato del campo :"<<valor<<endl;
+			}
+
+		}
+
+		// Libero el buffer
+		//delete[] buffer;
+		archivo->cerrar();
 
 
 }
