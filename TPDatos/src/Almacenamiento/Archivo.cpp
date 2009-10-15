@@ -19,8 +19,8 @@ void Archivo::abrir(){
 		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
 		  if (this->archivo.is_open()){
-			  cout<<"Existe Metadata";
-			  this->metaData = this->leerMetadata();
+			  if (this->metadataSize == -1)
+				  this->metaData = this->leerMetadata();
 		  }
 		  else
 		  {
@@ -50,8 +50,8 @@ void Archivo::abrir(){
 
 		  /* determina si tuvo éxito la apertura del archivo */
 		  if (this->archivo.is_open()) {
-			  cout<<"Existe Metadata";
-			  this->metaData = this->leerMetadata();
+			  if (this->metadataSize == -1)
+			 	  this->metaData = this->leerMetadata();
 		  }else{
 			  cout<<"No Existe Metadata";
 		    /* limpia los flags de control de estado del archivo */
