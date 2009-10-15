@@ -12,8 +12,10 @@
 
 #include "../Composite/Compuesto.h"
 #include "../Composite/Componente.h"
+#include "../utils/Define.h"
 #include "../Object/Object.h"
 #include <fstream>
+#include <sstream>
 class Almacenamiento:public Object{
 
 
@@ -23,7 +25,7 @@ private:
     std::string ruta;
     int tamanio;
     std::string tipoArchivo;
-    std::string metaData;
+
 public:
 
     Almacenamiento();
@@ -43,7 +45,7 @@ public:
     virtual void guardar(std::string registro) = 0;
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
    // virtual std::string leer () = 0;
-    virtual void leer(void* datosestrategiaAlmac, int tamanio) = 0;
+    virtual void leer(void* datos, int tamanio) = 0;
 
     virtual void abrir() = 0;
     virtual void cerrar() = 0;
@@ -59,10 +61,9 @@ public:
 
 protected:
 	std::fstream  archivo;
-	int existeMetadata;
-	void setExisteMetaData(int i);
-	std::string getMetaData() const;
-    void setMetaData(std::string metaData);
+	int metadataSize;
+	std::string metaData;
+
 };
 
 #endif /* ALMACENAMIENTO_H_ */

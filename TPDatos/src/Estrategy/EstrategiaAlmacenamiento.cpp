@@ -38,7 +38,8 @@ std::string EstrategiaAlmacenamiento::generarMetadata(Componente* componente){
 		 aux+= it->first + DELIMITADOR;
 	 }
 	 flujo<< aux.length();
-	 metaData+= flujo.str()+DELIMITADOR+aux;
+	// metaData+= flujo.str()+DELIMITADOR+aux;
+	 metaData = aux;
 	 return metaData;
 }
 
