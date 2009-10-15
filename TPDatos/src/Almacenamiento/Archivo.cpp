@@ -173,6 +173,26 @@ void Archivo::leer(void* datos, int tamanio) {
     throw string("El archivo no está abierto");
   }
 }
+
+void Archivo::leer(std::string& datos){
+
+  /* verifica que el archivo esté abierto */
+  if (this->archivo.is_open()) {
+
+    /* lee del archivo una linea */
+   std::getline(this->archivo,datos);
+
+    /* chequea si se ha producido un error */
+    if (this->archivo.fail())
+      /* arroja una excepción ante la imposibilidad de leer un reg */
+      throw string("No se pudo leer correctamente el registro");
+  }
+  else {
+    /* arroja una excepción porque el archivo no está abierto */
+    throw string("El archivo no está abierto");
+  }
+}
+
 Archivo::~Archivo() {
 
 }
