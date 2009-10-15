@@ -25,7 +25,7 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 	iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
 	if(donde->getExisteMetaData() == 0){
 		metaData = this->generarMetadata((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
-		//donde->escribirMetadata(metaData);
+		donde->escribirMetadata(metaData);
 	}
 
 	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
@@ -125,12 +125,12 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
     std::string valor="" ;
     std::string auxString="" ;
 
-
     vector<string> tokens;
 	Archivo* archivo=(Archivo*)donde;
 	 vector<string>::iterator the_iterator;
 	archivo->abrir();
 	archivo->irAlPrincipio();
+	std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
 	while(!archivo->fin()){
 		i=0;
 		cantCaracteresLeidos=0;
