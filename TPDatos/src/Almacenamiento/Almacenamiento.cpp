@@ -9,7 +9,7 @@
 Almacenamiento::Almacenamiento() {
 	this->compuesto= new Compuesto();
 	this->metaData = "";
-	this->existeMetadata = 0;
+	this->metadataSize = -1;
 
 }
 
@@ -72,12 +72,12 @@ Compuesto* Almacenamiento::getCompuesto()
 
 int Almacenamiento::getExisteMetaData()
 {
-	return this->existeMetadata;
+	if (this->metadataSize == -1)
+		return 0;
+	else
+		return 1;
 }
 
-void Almacenamiento::setExisteMetaData(int i){
-	this->existeMetadata = i;
-}
 
 std::string Almacenamiento::leerMetadata(){
 	return "nada";
@@ -88,15 +88,6 @@ void Almacenamiento::escribirMetadata(std::string metadata){
 
 }
 
-std::string Almacenamiento::getMetaData() const
-{
-	return metaData;
-}
-
-void Almacenamiento::setMetaData(std::string metaData)
-{
-	this->metaData = metaData;
-}
 std::string Almacenamiento::toString(){
 	return "Almacenamiento";
 }

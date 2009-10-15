@@ -20,8 +20,7 @@ void Archivo::abrir(){
 
 		  if (this->archivo.is_open()){
 			  cout<<"Existe Metadata";
-			  this->setMetaData(this->leerMetadata());
-			  this->setExisteMetaData(1);
+			  this->metaData = this->leerMetadata();
 		  }
 		  else
 		  {
@@ -51,10 +50,10 @@ void Archivo::abrir(){
 
 		  /* determina si tuvo éxito la apertura del archivo */
 		  if (this->archivo.is_open()) {
-			  this->setMetaData(this->leerMetadata());
-			  this->setExisteMetaData(1);
+			  cout<<"Existe Metadata";
+			  this->metaData = this->leerMetadata();
 		  }else{
-
+			  cout<<"No Existe Metadata";
 		    /* limpia los flags de control de estado del archivo */
 		    this->archivo.clear();
 
@@ -84,23 +83,33 @@ void Archivo::cerrar(){
 }
 
 std::string Archivo::leerMetadata(){
-	return "nada";
+	unsigned short metaDataSize;
+	std::string datos = "";
+
+	this->archivo.read((char*)&metaDataSize,sizeof(metaDataSize));
+	this->metadataSize = metaDataSize;
+
+	char* buffer = new char[metaDataSize];
+	this->leer(buffer,this->metadataSize);
+	datos = buffer;
+	delete buffer;
+
+	std::cout<<"Metadata: " << datos <<endl;
+	return buffer;
 }
 
 void Archivo::escribirMetadata(std::string metadata){
+	unsigned short metaDataSize;
+	std::stringstream flujo;
 	int tamanio = metadata.length();
-	this->setMetaData(metadata);
-	this->setExisteMetaData(1);
-//	if(this->getTipoArchivo().compare(TEXTO)==0){
-//		this->cerrar();
-//		this->setTipoArchivo(BINARIO);
-//		this->abrir();
-//		this->guardar(metadata.c_str(),tamanio);
-//		this->cerrar();
-//		this->setTipoArchivo(TEXTO);
-//		this->abrir();
-//	}else
-		this->guardar(metadata.c_str(),tamanio);
+
+	this->metadataSize = tamanio;
+	metaDataSize = tamanio;
+	this->guardar((char*)&metaDataSize,sizeof(metaDataSize));
+
+	//flujo<< tamanio;
+	this->metaData = /*flujo.str() + DELIMITADOR +*/ metadata;
+	this->guardar(this->metaData.c_str(),this->metaData.length());
 
 }
 
@@ -161,7 +170,8 @@ void Archivo::leer(void* datos, int tamanio) {
   if (this->archivo.is_open()) {
 
     /* lee del archivo un registro */
-    this->archivo.read(static_cast<char*>(datos),tamanio);
+	this->archivo.read(static_cast<char*>(datos),tamanio);
+
 
     /* chequea si se ha producido un error */
     if (this->archivo.fail())
