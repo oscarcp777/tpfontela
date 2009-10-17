@@ -32,7 +32,8 @@ public:
     std::map<std::string,std::string>::iterator  iteratorCampos();
     std::map<std::string,std::string>::iterator  finIteratorCampos();
     std::string getClave() const;
-    std::map<std::string,std::string> getMapaAtributos() const;
+    std::map<std::string,std::string> getMapaAtributos();
+    void cargarAtributo(std::string clave, std::string valor);
     void setClave(std::string clave);
     virtual std::string getDatosRegistro() = 0;
     virtual void setDatosRegistro(std::string datosRegistro) = 0;
