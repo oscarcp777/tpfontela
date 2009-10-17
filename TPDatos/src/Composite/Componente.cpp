@@ -71,6 +71,7 @@ void Componente::setId(int id)
 	this->id = id;
 }
 
+void Componente::cargarAtributo(std::string clave, std::string valor){
+	this->mapaAtributos[clave] = valor;
 
-
-
+}

@@ -15,6 +15,9 @@ Alumno::Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3)
 
 
 }
+Alumno::Alumno() {
+
+}
 
 int Alumno::getPadron() const
 {
@@ -66,6 +69,7 @@ void Alumno::serializar(){
 
 void Alumno::hidratar(){
 	this->nombre = this->getAtributo("Nombre");
+	this->padron = atoi((this->getAtributo("Padron")).c_str());
 }
 
 

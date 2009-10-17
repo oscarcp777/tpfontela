@@ -6,6 +6,7 @@
  */
 
 #include "EstrategiaAlmacenamientoRegistros.h"
+#include "../Modelo/Alumno.h"
 
 EstrategiaAlmacenamientoRegistros::EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated constructor stub
@@ -77,28 +78,43 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* component
 	char* buffer = new char[donde->getTamanio() + 1];
 	std::string datos="";
     std::string valor="" ;
-
-
-
+    std::string metaData="" ;
+    int i = 0;
     vector<string> tokens;
+    vector<string> tags;
 	Archivo* archivo=(Archivo*)donde;
 	 vector<string>::iterator the_iterator;
 	archivo->abrir();
 	archivo->irAlPrincipio();
-	std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
+	metaData = archivo->leerMetadata();
+	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
+			//recorre e imprime el vector de campos BORRAR CUANDO ANDE BIEN
+			/*
+			the_iterator = tags.begin();
+			while( the_iterator != tags.end() ) {
+				valor = *the_iterator;
+				++the_iterator;
+				cout<<"dato del campo :"<<valor<<endl;
+			}
+			*/
 	while(!archivo->fin()){
+		i=0;
 		tokens.clear();
 		archivo->leer(buffer,donde->getTamanio());
 		datos="";
 		datos=buffer;
-		std::cout<<"DATOS del registro: "<<datos<<std::endl;
+		//std::cout<<"DATOS del registro: "<<datos<<std::endl;
 
 		StringUtils::Tokenize(datos,tokens,DELIMITADOR);
 		the_iterator = tokens.begin();
 		while( the_iterator != tokens.end() ) {
 			valor = *the_iterator;
 			++the_iterator;
-			cout<<"dato del campo :"<<valor<<endl;
+			//cout<<"tag: "<<tags.at(i);
+			//cout<<"  dato: "<<valor<<endl;
+			componente->cargarAtributo(tags.at(i),valor);
+			componente->hidratar();
+			i++;
 		}
 
 		}

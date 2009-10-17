@@ -27,7 +27,7 @@ int main() {
 	 */
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,30);
-
+	Alumno* alumno = new Alumno();
 	Alumno* alumno1 = new Alumno(31993745,"Daniel Sivori",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
@@ -44,7 +44,10 @@ int main() {
 	 * la fabrica
 	 */
 	recurso->leerArchivo("/home/richy/","archivoRegistros");
-	recurso->busquedaSecuencial(alumno1, "hola");
+	recurso->busquedaSecuencial(alumno,"hola");
+	std::cout<<std::endl;
+	std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+	std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
 
 	delete recurso;
 	delete fabricaDeRecursos;
