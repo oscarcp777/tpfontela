@@ -9,7 +9,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main99() {
+int main24() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -36,8 +36,12 @@ int main99() {
 
 
 	recurso->leerArchivo("/home/richy/","archivoTexto");
-	recurso->busquedaSecuencial(alumno1, "hola");
+	Alumno* alumno = new Alumno();
+	recurso->busquedaSecuencial(alumno, "86534");
 
+	std::cout<<std::endl;
+	std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+	std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces
 	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien

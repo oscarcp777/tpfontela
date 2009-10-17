@@ -47,7 +47,7 @@ int main3() {
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 
 	recurso->leerArchivo("/home/richy/","archivoBloques1");
-	recurso->busquedaSecuencial(alumno1, "hola");
+	recurso->busquedaSecuencial(alumno1,"85689");
 	cout << "Archivo guardado" << endl;
 	/**
 	 * el metodo toString lo implementan todos los que hereden de object entonces

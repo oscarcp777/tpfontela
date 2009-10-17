@@ -123,15 +123,21 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 	int dif = 0;
     std::string datos="";
     std::string valor="" ;
-    std::string auxString="" ;
+    std::string auxString="";
+    std::string metaData="";
+    bool encontrado = false;
+    int k= 0;
 
     vector<string> tokens;
+    vector<string> tags;
 	Archivo* archivo=(Archivo*)donde;
 	 vector<string>::iterator the_iterator;
 	archivo->abrir();
 	archivo->irAlPrincipio();
-	std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
-	while(!archivo->fin()){
+
+	metaData = archivo->leerMetadata();
+	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
+	while(!archivo->fin()  && !encontrado ){
 		i=0;
 		cantCaracteresLeidos=0;
 		archivo->leer(buffer,donde->getTamanio());
@@ -140,7 +146,8 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
 
 		auxString = datos;
-		while(cantCaracteresLeidos != (int)datos.length()){
+		while(cantCaracteresLeidos != (int)datos.length() && !encontrado){
+			k=0;
 			tokens.clear();
 			posDelimitador = datos.find_first_of(DELIMITADOR,cantCaracteresLeidos);
 			auxString = datos.substr(cantCaracteresLeidos,cantCaracteresLeidos+posDelimitador);
@@ -159,8 +166,17 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 			while( the_iterator != tokens.end() ) {
 				valor = *the_iterator;
 				++the_iterator;
-				cout<<"dato del campo :"<<valor<<endl;
+				cout<<"tag: "<<tags.at(k);
+				cout<<"  dato: "<<valor<<endl;
+				componente->cargarAtributo(tags.at(k),valor);
+
+				if(valor.compare(clave) == 0)
+					encontrado = true;
+
+				k++;
 			}
+			if(encontrado)
+				componente->hidratar();
 
 		}
 	}

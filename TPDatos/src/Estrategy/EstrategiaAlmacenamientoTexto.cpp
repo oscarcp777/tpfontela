@@ -75,30 +75,43 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, A
 
 		std::string datos="";
 	    std::string valor="";
-
+	    std::string metaData="";
+	    int i = 0;
+	    bool encontrado = false;
 	    vector<string> tokens;
+	    vector<string> tags;
 		Archivo* archivo=(Archivo*)donde;
 		 vector<string>::iterator the_iterator;
+
 		archivo->abrir();
 		archivo->irAlPrincipio();
-		std::cout<<"METADATA: "<<archivo->leerMetadata()<<std::endl;
-		while(!archivo->fin()){
+		metaData = archivo->leerMetadata();
+		StringUtils::Tokenize(metaData,tags,DELIMITADOR);
+		while(!archivo->fin() && !encontrado){
+			i=0;
 			tokens.clear();
 			archivo->leer(datos);
-			std::cout<<"DATOS de la linea: "<<datos<<std::endl;
+			//std::cout<<"DATOS de la linea: "<<datos<<std::endl;
 
 			StringUtils::Tokenize(datos,tokens,DELIMITADOR);
 			the_iterator = tokens.begin();
 			while( the_iterator != tokens.end() ) {
 				valor = *the_iterator;
 				++the_iterator;
-				cout<<"dato del campo :"<<valor<<endl;
+				//cout<<"tag: "<<tags.at(i);
+				//cout<<"  dato: "<<valor<<endl;
+				componente->cargarAtributo(tags.at(i),valor);
+
+				if(valor.compare(clave) == 0)
+					encontrado = true;
+
+				i++;
 			}
+			if(encontrado)
+				componente->hidratar();
 
 		}
 
-		// Libero el buffer
-		//delete[] buffer;
 		archivo->cerrar();
 
 
