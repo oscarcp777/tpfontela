@@ -143,7 +143,7 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 		archivo->leer(buffer,donde->getTamanio());
 		datos="";
 		datos=buffer;
-		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
+		//std::cout<<"DATOS del bloque: "<<datos<<std::endl;
 
 		auxString = datos;
 		while(cantCaracteresLeidos != (int)datos.length() && !encontrado){
@@ -160,14 +160,14 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 			auxString = datos.substr(posDelimitador +1,tam);
 
 			cantCaracteresLeidos+= tam;
-			std::cout<<"string: "<<auxString<<std::endl;
+			//std::cout<<"string: "<<auxString<<std::endl;
 			StringUtils::Tokenize(auxString,tokens,DELIMITADOR);
 			the_iterator = tokens.begin();
 			while( the_iterator != tokens.end() ) {
 				valor = *the_iterator;
 				++the_iterator;
-				cout<<"tag: "<<tags.at(k);
-				cout<<"  dato: "<<valor<<endl;
+				//cout<<"tag: "<<tags.at(k);
+				//cout<<"  dato: "<<valor<<endl;
 				componente->cargarAtributo(tags.at(k),valor);
 
 				if(valor.compare(clave) == 0)

@@ -97,15 +97,15 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* component
 		archivo->leer(buffer,donde->getTamanio());
 		datos="";
 		datos=buffer;
-		std::cout<<"DATOS del registro: "<<datos<<std::endl;
+		//std::cout<<"DATOS del registro: "<<datos<<std::endl;
 
 		StringUtils::Tokenize(datos,tokens,DELIMITADOR);
 		the_iterator = tokens.begin();
 		while( the_iterator != tokens.end() ) {
 			valor = *the_iterator;
 			++the_iterator;
-			cout<<"tag: "<<tags.at(i);
-			cout<<"  dato: "<<valor<<endl;
+			//cout<<"tag: "<<tags.at(i);
+			//cout<<"  dato: "<<valor<<endl;
 			componente->cargarAtributo(tags.at(i),valor);
 
 			if(valor.compare(clave) == 0)

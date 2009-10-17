@@ -1,5 +1,5 @@
 /*
- * TestBusquedaSecuencial.cpp
+ * TestBusquedaSecuencialBloques.cpp
  *
  *  Created on: 12/10/2009
  *      Author: oscar
@@ -22,7 +22,7 @@ int main90() {
 	RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55);
 
-		recurso->leerArchivo("/home/richy/","Bloques");
+		recurso->leerArchivo("../TP0Datos/files/","Bloques");
 		Alumno* alumno = new Alumno();
 		recurso->busquedaSecuencial(alumno,"85440");
 		std::cout<<"resultados busqueda: "<<std::endl;

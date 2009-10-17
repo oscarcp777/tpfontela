@@ -36,7 +36,7 @@ int main77() {
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
 
-	recurso->escribirArchivo("/home/richy/","archivoRegistros");
+	recurso->escribirArchivo("../TP0Datos/files/","archivoRegistros");
 	cout << endl;
 	cout << "Archivo guardado" << endl;
 
