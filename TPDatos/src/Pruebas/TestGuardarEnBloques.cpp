@@ -39,7 +39,7 @@ int main33() {
 	recurso->cargarComponente(alumno3);
 	recurso->cargarComponente(alumno4);
 
-	recurso->escribirArchivo("../TP0Datos/files/","Bloques");
+	recurso->escribirArchivo("../TPDatos/files/","Bloques");
 	cout<<std::endl<< "Archivo guardado" << endl;
 
 	/**

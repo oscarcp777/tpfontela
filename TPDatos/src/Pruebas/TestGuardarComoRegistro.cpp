@@ -15,7 +15,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main77() {
+int main333() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -36,7 +36,7 @@ int main77() {
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
 
-	recurso->escribirArchivo("../TP0Datos/files/","archivoRegistros");
+	recurso->escribirArchivo("../TPDatos/files/","archivoRegistros");
 	cout << endl;
 	cout << "Archivo guardado" << endl;
 

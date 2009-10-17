@@ -16,7 +16,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main() {
+int main3443() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -28,7 +28,7 @@ int main() {
 				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO);
 
 
-		recurso->leerArchivo("../TP0Datos/files/","archivoTexto");
+		recurso->leerArchivo("../TPDatos/files/","archivoTexto");
 		Alumno* alumno = new Alumno();
 		recurso->busquedaSecuencial(alumno, "86534");
 
