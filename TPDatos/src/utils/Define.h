@@ -16,4 +16,5 @@
 #define TEXTO "texto"
 #define DELIMITADOR "|"
 #define COMPUESTO "compuesto"
+#define TAM_BUFFER 1024
 #endif /* DEFINE_H_ */
