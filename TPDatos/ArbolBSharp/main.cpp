@@ -10,7 +10,7 @@
 #include <stdlib.h>
 using namespace std;
 // Main
-int main(){
+int main5(){
 	ArbolBSharp* H=new ArbolBSharp(5); //observacion: ingresar una cantidad impar, empezando por el 3. Ej: 3, 5, 7, 11...
 	NodoRegistro* temp;
 

@@ -16,7 +16,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main34() {
+int main4() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**

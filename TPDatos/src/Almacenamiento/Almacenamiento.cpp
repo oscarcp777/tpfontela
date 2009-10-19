@@ -12,7 +12,9 @@ Almacenamiento::Almacenamiento() {
 	this->metadataSize = -1;
 
 }
-
+ std::string Almacenamiento::getClass(){
+	 return "Almacenamiento";
+ }
 std::string Almacenamiento::getTipoArchivo()
 {
 	return tipoArchivo;
@@ -59,6 +61,7 @@ void Almacenamiento::setRuta(std::string ruta)
 
 
 void Almacenamiento::agregarComponente(Componente* componente){
+	std::cout<<"lllego 3"<<this->toString()<<std::endl;
 	this->compuesto->agregarComponente(componente);
 
 }

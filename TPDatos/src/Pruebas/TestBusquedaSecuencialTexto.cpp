@@ -16,7 +16,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main098() {
+int main3() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -24,11 +24,12 @@ int main098() {
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
 
+
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO);
+				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0);
 
 
-		recurso->leerArchivo("../TP0Datos/files/","archivoTexto");
+		recurso->leerArchivo("../TPDatos/files/","archivoTexto");
 		Alumno* alumno = new Alumno();
 		recurso->busquedaSecuencial(alumno, "86534");
 

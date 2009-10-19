@@ -15,6 +15,17 @@ EstrategiaRecursoEscrituraDirecta::EstrategiaRecursoEscrituraDirecta() {
 EstrategiaRecursoEscrituraDirecta::~EstrategiaRecursoEscrituraDirecta() {
 	// TODO Auto-generated destructor stub
 }
+int EstrategiaRecursoEscrituraDirecta::escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento){
+
+	// guardo en el archivo
+	Almacenamiento* archivo=   almacenamientos.at(ALMACENAMIENTO_ARCHIVO);
+	archivo->abrir();
+	estrategiaAlmacenamiento->guardar(archivo);
+	archivo->cerrar();
+	//guardo en el buffer
+	estrategiaAlmacenamiento->guardar( almacenamientos.at(ALMACENAMIENTO_BUFFER));
+	return 0;
+}
 std::string EstrategiaRecursoEscrituraDirecta::toString(){
-   	return "EstrategiaRecursoEscrituraDirecta";
-   }
+	return "EstrategiaRecursoEscrituraDirecta";
+}

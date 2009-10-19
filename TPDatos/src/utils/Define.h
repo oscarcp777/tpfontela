@@ -16,5 +16,7 @@
 #define TEXTO "texto"
 #define DELIMITADOR "|"
 #define COMPUESTO "compuesto"
+#define ALMACENAMIENTO_ARCHIVO 0
+#define ALMACENAMIENTO_BUFFER 1
 #define TAM_BUFFER 1024
 #endif /* DEFINE_H_ */

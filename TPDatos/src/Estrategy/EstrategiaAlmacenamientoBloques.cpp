@@ -6,6 +6,7 @@
  */
 
 #include "EstrategiaAlmacenamientoBloques.h"
+#include "stdlib.h"
 using namespace std;
 EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
 	// TODO Auto-generated constructor stub

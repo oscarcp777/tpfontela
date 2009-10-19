@@ -14,6 +14,7 @@ class BloqueMemoria: public Bloque {
 public:
 	BloqueMemoria(int tamanio);
 	virtual ~BloqueMemoria();
+
 };
 
 #endif /* BLOQUEMEMORIA_H_ */

@@ -15,6 +15,8 @@ public:
 	EstrategiaRecursoEscrituraDiferida();
 	virtual ~EstrategiaRecursoEscrituraDiferida();
 	std::string toString();
+	int escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento);
+
 };
 
 #endif /* ESTRATEGIARECURSOESCRITURADIFERIDA_H_ */

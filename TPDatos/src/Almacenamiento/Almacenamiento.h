@@ -14,8 +14,11 @@
 #include "../Composite/Componente.h"
 #include "../utils/Define.h"
 #include "../Object/Object.h"
+#include <stdio.h>
+#include <string.h>
 #include <fstream>
 #include <sstream>
+
 class Almacenamiento:public Object{
 
 
@@ -32,7 +35,7 @@ public:
     virtual ~Almacenamiento();
     Compuesto *getCompuesto();
     std::string toString();
-
+    virtual std::string getClass();
     void agregarComponente(Componente *componente);
     std::string getNombreArchivo();
     std::string getRuta();

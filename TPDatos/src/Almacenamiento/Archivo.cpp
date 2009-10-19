@@ -7,14 +7,15 @@
 
 #include "Archivo.h"
 #include "../utils/Define.h"
-using namespace std;
-Archivo::Archivo() {
 
+
+using namespace std;
+Archivo::Archivo():Almacenamiento(){
 
 }
 void Archivo::abrir(){
 
-	if(this->getTipoArchivo().compare(TEXTO)==0){
+	if(this->getTipoArchivo().compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0){
 		//intenta abrir el archivo en modo lectura - escritura
 		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
@@ -24,7 +25,7 @@ void Archivo::abrir(){
 		  }
 		  else
 		  {
-			  cout<<"No Existe Metadata";
+			  cout<<"No Existe Metadata"<<endl;
 		    //si no hubo éxito en la apertura...
 		    //limpia los flags de control de estado del archivo
 			  this->archivo.clear();
@@ -36,14 +37,15 @@ void Archivo::abrir(){
 		    //reabre el archivo para lectura - escritura
 			  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
-		    if (!this->archivo.is_open())
+		    if (!this->archivo.is_open()){
 		      // si no se pudo crear el archivo arroja una excepción/
+		      cout<<"El archivo no pudo ser abierto "<<endl;
 		      throw std::ios_base::failure("El archivo no pudo ser abierto");
+		    }
 		  }
 
 
-	}
-	if(this->getTipoArchivo().compare(BINARIO)==0){
+	}else{
 		  /* abre el archivo en modo lectura - escritura binario*/
 		  this->archivo.open(this->getPath().c_str(),
 		                                ios::in |ios::out |ios::binary);
@@ -53,7 +55,7 @@ void Archivo::abrir(){
 			  if (this->metadataSize == -1)
 			 	  this->metaData = this->leerMetadata();
 		  }else{
-			  cout<<"No Existe Metadata";
+			  cout<<"No Existe Metadata"<<endl;
 		    /* limpia los flags de control de estado del archivo */
 		    this->archivo.clear();
 
@@ -67,10 +69,11 @@ void Archivo::abrir(){
 		                                  ios::in|ios::out|ios::binary);
 
 		    /* verifica que haya podido crear el archivo */
-		    if (! this->archivo.is_open())
-
+		    if (! this->archivo.is_open()){
+		    	 cout<<"El archivo no pudo ser abierto "<<endl;
 		      /* arroja una excepción */
 		      throw string("El archivo no pudo ser abierto");
+		    }
 		  }
 
 
@@ -211,7 +214,9 @@ std::string Archivo::toString(){
 	return "Archivo";
 }
 
-
+std::string Archivo::getClass(){
+	return "Archivo";
+}
 
 
 /**

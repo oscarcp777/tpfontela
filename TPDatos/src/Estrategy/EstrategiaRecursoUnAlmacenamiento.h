@@ -15,6 +15,7 @@ public:
 	EstrategiaRecursoUnAlmacenamiento();
 	virtual ~EstrategiaRecursoUnAlmacenamiento();
 	std::string toString();
+	int escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento);
 };
 
 #endif /* ESTRATEGIARECURSOUNALMACENAMIENTO_H_ */

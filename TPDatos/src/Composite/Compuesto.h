@@ -16,6 +16,7 @@ protected:
 public:
 	Compuesto();
 	virtual ~Compuesto();
+	std::string toString();
 	std::list<Componente*>::iterator iteratorListaDeComponetes();
     int getCantidadDeElelmentos();
    void agregarComponente(Componente* componente);

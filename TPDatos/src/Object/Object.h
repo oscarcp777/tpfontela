@@ -8,6 +8,7 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 #include <iostream>
+#include <vector>
 class Object {
 public:
 	Object();

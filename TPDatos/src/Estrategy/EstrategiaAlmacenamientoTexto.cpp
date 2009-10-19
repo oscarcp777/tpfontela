@@ -42,7 +42,9 @@ void EstrategiaAlmacenamientoTexto::agregarComponente(Almacenamiento* donde, Com
 	std::string datos=this->generarRegistro(componente);
 	componente->setDatosRegistro(datos);
 	std::cout<<datos<<std::endl;
+	std::cout<<"lllego 2 "<<donde->toString()<<std::endl;
 	donde->agregarComponente(componente);
+	std::cout<<"lllego 6"<<std::endl;
 }
 
 

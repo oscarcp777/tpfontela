@@ -11,19 +11,24 @@
 #include "../fabricas/FabricaEstrategiaAlmacenamientoRegistros.h"
 #include "../fabricas/FabricaEstrategiaAlmacenamientoBloques.h"
 #include "../Estrategy/EstrategiaRecursoUnAlmacenamiento.h"
+#include "../Estrategy/EstrategiaRecursoEscrituraDirecta.h"
 #include "../fabricas/FabricaArchivo.h"
 #include "../fabricas/FabricaBuffer.h"
 FabricaDeRecursosDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica=NULL;
 FabricaDeRecursosDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::obtenerInstancia(){
 
-       if(!FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica){
-    	   FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica= new FabricaDeRecursosDeAlmacenamiento();
-       }
-       return FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica;
+	if(!FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica){
+		FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica= new FabricaDeRecursosDeAlmacenamiento();
+	}
+	return FabricaDeRecursosDeAlmacenamiento::unicaInstanciaFabrica;
 }
+FabricaDeRecursosDeAlmacenamiento::~FabricaDeRecursosDeAlmacenamiento() {
+	// TODO Auto-generated destructor stub
+}
+
 FabricaAbstracta* FabricaDeRecursosDeAlmacenamiento::getFabrica(std::string clave){
 
-    return this->mapaFabricas[clave];
+	return this->mapaFabricas[clave];
 
 }
 FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
@@ -36,31 +41,43 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
 
 }
 
-/**
- *std::string estrategiaAlmacenamiento puede ser de tipo: texto,registros,bloques
- *std::string almacenamiento pude ser del tipo archivo ,buffer
- *  ,
-    		   (Almacenamiento*));
- */
-RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento){
 
-	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
-    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar();
-    almac->setTipoArchivo(TEXTO);
-    RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
-
-
-  return rAlmacenamiento;
-}
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,int tamanio){
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
-    Almacenamiento* almac=(Almacenamiento*)this->getFabrica(ARCHIVO)->fabricar();
-    almac->setTamanio(tamanio);
-    almac->setTipoArchivo(BINARIO);
-    
-	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, almac);
-	  return rAlmacenamiento;
+	Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+	archivo->setTamanio(tamanio);
+	archivo->setTipoArchivo(estrategiaAlmacenamiento);
+	std::cout<<"toString ;"<<archivo->toString()<<std::endl;
+	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
+	EstrategiaIndice* estrategiaIndice= new EstrategiaIndice();
+	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);
+	return rAlmacenamiento;
 }
-FabricaDeRecursosDeAlmacenamiento::~FabricaDeRecursosDeAlmacenamiento() {
-	// TODO Auto-generated destructor stub
+
+RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnBuffer(std::string estrategiaAlmacenamiento,int tamanio){
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+	Buffer* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
+	buffer->setTamanio(tamanio);
+	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
+	EstrategiaIndice* estrategiaIndice= new EstrategiaIndice();
+	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, NULL,buffer,unAlmacenamiento,estrategiaIndice);
+	return rAlmacenamiento;
+}
+
+
+
+RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamientoEnArchivoConBuffer(std::string estrategiaAlmacenamiento,int tamanio){
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+		Buffer* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
+		Archivo* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+		buffer->setTamanio(tamanio);
+		archivo->setTipoArchivo(estrategiaAlmacenamiento);
+		archivo->setTamanio(tamanio);
+		EstrategiaRecursoEscrituraDirecta* unAlmacenamiento=new EstrategiaRecursoEscrituraDirecta();
+		EstrategiaIndice* estrategiaIndice= new EstrategiaIndice();
+		RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,buffer,unAlmacenamiento,estrategiaIndice);
+		return rAlmacenamiento;
+
+
+	return rAlmacenamiento;
 }

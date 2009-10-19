@@ -16,6 +16,7 @@ public:
 	virtual ~RegistroMemoria();
 	void serializar();
 	void hidratar();
+
 };
 
 #endif /* REGISTROMEMORIA_H_ */
