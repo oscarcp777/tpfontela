@@ -9,7 +9,7 @@
 #include "Buffer.h"
 
 
-Buffer::Buffer() {
+Buffer::Buffer():Almacenamiento() {
 	datos = new char[TAM_BUFFER];
 	memset(datos,0,sizeof(char)*TAM_BUFFER);
 	posicionActual = 0;
@@ -22,7 +22,9 @@ std::string Buffer::toString(){
 	std::string buffer = datos;
 	return buffer;
 }
-
+std::string Buffer::getClass(){
+	return "Buffer";
+}
 void Buffer::abrir(){
 	posicionActual = 0;
 }

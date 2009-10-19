@@ -17,7 +17,7 @@ public:
 	Buffer();
 	virtual ~Buffer();
 	std::string toString();
-
+	std::string getClass();
 	void abrir();
 	void cerrar();
 

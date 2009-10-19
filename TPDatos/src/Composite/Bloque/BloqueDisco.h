@@ -12,6 +12,7 @@ class BloqueDisco : public Bloque{
 public:
 	BloqueDisco(int tamanio);
 	virtual ~BloqueDisco();
+
 };
 
 #endif /* BLOQUEDISCO_H_ */

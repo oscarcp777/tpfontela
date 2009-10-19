@@ -8,12 +8,16 @@
 #ifndef ESTRATEGIARECURSO_H_
 #define ESTRATEGIARECURSO_H_
 #include "../Object/Object.h"
+#include "../Almacenamiento/Almacenamiento.h"
+#include "../Estrategy/EstrategiaAlmacenamiento.h"
 
 class EstrategiaRecurso :public Object{
 public:
 	EstrategiaRecurso();
 	virtual ~EstrategiaRecurso();
 	std::string toString();
+	virtual int escribirArchivo(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento)=0;
+
 };
 
 #endif /* ESTRATEGIARECURSO_H_ */

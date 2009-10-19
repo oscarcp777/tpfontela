@@ -15,6 +15,9 @@ EstrategiaRecursoEscrituraDiferida::EstrategiaRecursoEscrituraDiferida() {
 EstrategiaRecursoEscrituraDiferida::~EstrategiaRecursoEscrituraDiferida() {
 	// TODO Auto-generated destructor stub
 }
+int EstrategiaRecursoEscrituraDiferida::escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento){
+	return 0;
+}
 std::string EstrategiaRecursoEscrituraDiferida::toString(){
    	return "EstrategiaRecursoEscrituraDiferida";
    }

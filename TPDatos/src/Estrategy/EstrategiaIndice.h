@@ -13,6 +13,7 @@ public:
 	EstrategiaIndice();
 	virtual ~EstrategiaIndice();
 	std::string toString();
+
 };
 
 #endif /* ESTRATEGIAINDICE_H_ */

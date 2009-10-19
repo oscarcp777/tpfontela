@@ -11,9 +11,11 @@ Compuesto::Compuesto() {
 	// TODO Auto-generated constructor stub
 
 }
+std::string Compuesto::toString(){
+   return "Compuesto";
+}
 void Compuesto::agregarComponente(Componente* componente){
 		this->listaDeComponetes.push_back(componente);
-
 }
 Compuesto::~Compuesto() {
 	int i=0;

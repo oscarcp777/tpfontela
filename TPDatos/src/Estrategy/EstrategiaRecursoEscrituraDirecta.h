@@ -15,6 +15,7 @@ public:
 	EstrategiaRecursoEscrituraDirecta();
 	virtual ~EstrategiaRecursoEscrituraDirecta();
 	std::string toString();
+	int escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento);
 };
 
 #endif /* ESTRATEGIARECURSOESCRITURADIRECTA_H_ */

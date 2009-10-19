@@ -28,9 +28,19 @@ public:
 	FabricaAbstracta* getFabrica(std::string clave);
 	static FabricaDeRecursosDeAlmacenamiento* obtenerInstancia();
 	virtual ~FabricaDeRecursosDeAlmacenamiento();
-
-	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento);
+	 /**
+	     * recurso de almacenamiento para guardar en archivos con texto, registros y en bloques con registros  en disco
+	 */
 	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivo(std::string estrategiaAlmacenamiento,int tamanio);
+	 /**
+	   * recurso de almacenamiento para guardar en archivos de texto en buffer
+	  */
+	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnBuffer(std::string estrategiaAlmacenamiento,int tamanio);
+	 /**
+	  * recurso de almacenamiento para guardar en archivos con registros y en bloques con registros
+	  *  en buffer y en disco
+	*/
+	RecursoDeAlmacenamiento* RecursoDeAlmacenamientoEnArchivoConBuffer(std::string estrategiaAlmacenamiento,int tamanio);
 };
 
 #endif /* FABRICADERECURSOSDEALMACENAMIENTO_H_ */

@@ -16,6 +16,7 @@ public:
 	virtual ~RegistroDisco();
 	void serializar();
 	void hidratar();
+
 };
 
 #endif /* REGISTRODISCO_H_ */
