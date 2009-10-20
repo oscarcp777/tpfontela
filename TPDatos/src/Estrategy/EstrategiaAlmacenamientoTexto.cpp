@@ -61,17 +61,6 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 	return registro;
 }
 
-//std::string EstrategiaAlmacenamientoTexto::getMetaData(Componente* componente){
-//	 std::string metaData="";
-//	 std::map<std::string,std::string>::iterator it;
-//
-//	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-//
-//		 metaData+= it->first + DELIMITADOR;
-//	 }
-//	 metaData+="\n";
-//	 return metaData;
-//}
 
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 

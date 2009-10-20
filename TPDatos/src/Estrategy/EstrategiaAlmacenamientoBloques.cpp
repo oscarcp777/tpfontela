@@ -98,20 +98,6 @@ std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* compone
 		  return registro;
 }
 
-//std::string EstrategiaAlmacenamientoBloques::getMetaData(Componente* componente){
-//	std::stringstream flujo;
-//	std::string metaData="";
-//	std::string aux="";
-//	std::map<std::string,std::string>::iterator it;
-//
-//	for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-//
-//		aux+= it->first + DELIMITADOR;
-//	}
-//	flujo<< aux.length();
-//	metaData+= flujo.str()+DELIMITADOR+aux;
-//	return metaData;
-//}
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 

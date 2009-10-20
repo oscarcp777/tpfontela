@@ -60,17 +60,6 @@ void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde,
 
 }
 
-//std::string EstrategiaAlmacenamientoRegistros::getMetaData(Componente* componente){
-//	 std::string metaData="";
-//	 std::map<std::string,std::string>::iterator it;
-//
-//	 for( it=componente->iteratorCampos() ; it != componente->finIteratorCampos(); ++it ){
-//
-//		 metaData+= it->first + DELIMITADOR;
-//	 }
-//
-//	 return metaData;
-//}
 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
