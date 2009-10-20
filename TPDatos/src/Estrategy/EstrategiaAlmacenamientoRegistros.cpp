@@ -60,6 +60,10 @@ void EstrategiaAlmacenamientoRegistros::agregarComponente(Almacenamiento* donde,
 
 }
 
+void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente){
+
+}
+
 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
 
@@ -72,18 +76,17 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* component
     int i = 0;
     vector<string> tokens;
     vector<string> tags;
-	Archivo* archivo=(Archivo*)donde;
-	 vector<string>::iterator the_iterator;
+	vector<string>::iterator the_iterator;
 
-	archivo->abrir();
-	archivo->irAlPrincipio();
-	metaData = archivo->leerMetadata();
+	donde->abrir();
+	donde->irAlPrincipio();
+	metaData = donde->leerMetadata();
 	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
 
-	while(!archivo->fin() && !encontrado){
+	while(!donde->fin() && !encontrado){
 		i=0;
 		tokens.clear();
-		archivo->leer(buffer,donde->getTamanio());
+		donde->leer(buffer,donde->getTamanio());
 		datos="";
 		datos=buffer;
 		//std::cout<<"DATOS del registro: "<<datos<<std::endl;
@@ -109,7 +112,7 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* component
 
 	// Libero el buffer
 	delete[] buffer;
-	archivo->cerrar();
+
 
 
 }

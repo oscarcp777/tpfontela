@@ -17,6 +17,7 @@ Buffer::Buffer():Almacenamiento() {
 
 Buffer::~Buffer() {
 	// TODO Auto-generated destructor stub
+	delete(this->datos);
 }
 std::string Buffer::toString(){
 	std::string buffer = datos;
@@ -29,6 +30,18 @@ void Buffer::abrir(){
 	posicionActual = 0;
 }
 
+void Buffer::irAlPrincipio(){
+	posicionActual = 0;
+}
+
+std::string Buffer::leerMetadata(){
+	return "nada";
+}
+
+void Buffer::escribirMetadata(std::string metadata){
+	this->metaData = metadata;
+
+}
 
 void Buffer::guardar(std::string registro){
 	std::string temp = this->datos;
@@ -106,6 +119,5 @@ bool Buffer::fin() {
 }
 
 void Buffer::cerrar(){
-	delete(this->datos);
 	this->posicionActual = 0;
 }

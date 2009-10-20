@@ -15,16 +15,16 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main6() {
+int main4() {
 
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 	RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55);
 
-		recurso->leerArchivo("../TPDatos/files/","Bloques");
+		recurso->leerArchivo("../files/","archivoBloques");
 		Alumno* alumno = new Alumno();
-		recurso->busquedaSecuencial(alumno,"85440");
+		recurso->busquedaSecuencial(alumno,"85689");
 		std::cout<<"resultados busqueda: "<<std::endl;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
 		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
