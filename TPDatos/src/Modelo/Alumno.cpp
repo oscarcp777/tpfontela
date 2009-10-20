@@ -51,7 +51,7 @@ void Alumno::setNombre(std::string nombre)
 }
 
 
-void Alumno::serializar(){
+void Alumno::serializarObjeto(){
 
 	this->setAtributo("Nombre",this->nombre);
 
@@ -60,12 +60,17 @@ void Alumno::serializar(){
 	this->setAtributo("Padron",flujo2.str());
 }
 
-void Alumno::hidratar(){
+void Alumno::hidratarObjeto(){
 	this->nombre = this->getAtributo("Nombre");
 	this->padron = atoi((this->getAtributo("Padron")).c_str());
 }
 
-
+std::string Alumno::getClaveObjeto(){
+	std::string llave;
+	llave.append("Nombre");
+	llave.append("Padron");
+	return llave;
+}
 
 
 

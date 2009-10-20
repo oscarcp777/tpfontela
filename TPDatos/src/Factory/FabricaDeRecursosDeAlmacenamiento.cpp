@@ -47,7 +47,6 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::RecursoDeAlmacenamie
 	Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
 	archivo->setTamanio(tamanio);
 	archivo->setTipoArchivo(estrategiaAlmacenamiento);
-	std::cout<<"toString ;"<<archivo->toString()<<std::endl;
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice= new EstrategiaIndice();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);

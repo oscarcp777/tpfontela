@@ -25,8 +25,9 @@ public:
 	std::string getNombre() const;
 	void setNombre(std::string nombre);
 
-	void serializar();
-	void hidratar();
+	void serializarObjeto();
+	void hidratarObjeto();
+	std::string getClaveObjeto();
 
 
 

@@ -16,11 +16,10 @@ class Componente :public Object {
 private:
 	int tamanio;
 	int id;
-	std::string clave;
 	int posicionActual;
 protected:
 	std::map<std::string ,std::string> mapaAtributos;
-
+	std::string clave;
 public:
 
 	virtual	void serializar() =0;
