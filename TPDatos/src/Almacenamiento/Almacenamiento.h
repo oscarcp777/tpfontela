@@ -25,7 +25,7 @@ class Almacenamiento:public Object{
 private:
     Compuesto *compuesto;
     std::string nombreArchivo;
-    std::string ruta;
+
     int tamanio;
     std::string tipoArchivo;
 
@@ -37,13 +37,13 @@ public:
     std::string toString();
     virtual std::string getClass();
     void agregarComponente(Componente *componente);
-    std::string getNombreArchivo();
-    std::string getRuta();
-    std::string getPath();
+
     void setNombreArchivo(std::string nombreArchivo);
     void setRuta(std::string ruta);
     int getTamanio();
     void setTamanio(int tamanio);
+    void setTipoArchivo(std::string tipoArchivo);
+    std::string getTipoArchivo();
 
     virtual void guardar(std::string registro) = 0;
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
@@ -54,16 +54,13 @@ public:
     virtual void cerrar() = 0;
 
 
-    std::string getTipoArchivo();
-
-    void setTipoArchivo(std::string tipoArchivo);
-
     int getExisteMetaData();
     virtual std::string leerMetadata();
     virtual void escribirMetadata(std::string metadata);
 
 protected:
 	std::fstream  archivo;
+	std::string ruta;
 	int metadataSize;
 	std::string metaData;
 
