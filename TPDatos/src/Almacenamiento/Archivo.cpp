@@ -17,7 +17,7 @@ void Archivo::abrir(){
 
 	if(this->getTipoArchivo().compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0){
 		//intenta abrir el archivo en modo lectura - escritura
-		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
+		this->archivo.open(this->ruta.c_str(),ios::out|ios::in);
 
 		  if (this->archivo.is_open()){
 			  if (this->metadataSize == -1)
@@ -31,11 +31,11 @@ void Archivo::abrir(){
 			  this->archivo.clear();
 
 		    //crea el archivo
-			  this->archivo.open(this->getPath().c_str(),ios::out);
+			  this->archivo.open(this->ruta.c_str(),ios::out);
 			  this->archivo.close();
 
 		    //reabre el archivo para lectura - escritura
-			  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
+			  this->archivo.open(this->ruta.c_str(),ios::out|ios::in);
 
 		    if (!this->archivo.is_open()){
 		      // si no se pudo crear el archivo arroja una excepción/
@@ -47,7 +47,7 @@ void Archivo::abrir(){
 
 	}else{
 		  /* abre el archivo en modo lectura - escritura binario*/
-		  this->archivo.open(this->getPath().c_str(),
+		  this->archivo.open(this->ruta.c_str(),
 		                                ios::in |ios::out |ios::binary);
 
 		  /* determina si tuvo éxito la apertura del archivo */
@@ -60,12 +60,12 @@ void Archivo::abrir(){
 		    this->archivo.clear();
 
 		    /* crea el archivo */
-		    this->archivo.open(this->getPath().c_str(),
+		    this->archivo.open(this->ruta.c_str(),
 		                                  ios::out | ios::binary);
 		    this->archivo.close();
 
 		    /* reabre el archivo para lectura - escritura binario */
-		    this->archivo.open(this->getPath().c_str(),
+		    this->archivo.open(this->ruta.c_str(),
 		                                  ios::in|ios::out|ios::binary);
 
 		    /* verifica que haya podido crear el archivo */

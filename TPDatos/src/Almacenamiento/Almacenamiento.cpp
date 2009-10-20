@@ -36,18 +36,6 @@ void Almacenamiento::setTamanio(int tamanio)
 	this->tamanio = tamanio;
 }
 
-std::string Almacenamiento::getPath(){
-	return this->ruta+this->nombreArchivo;
-}
-std::string Almacenamiento::getNombreArchivo()
-{
-	return nombreArchivo;
-}
-
-std::string Almacenamiento::getRuta()
-{
-	return ruta;
-}
 
 void Almacenamiento::setNombreArchivo(std::string nombreArchivo)
 {
