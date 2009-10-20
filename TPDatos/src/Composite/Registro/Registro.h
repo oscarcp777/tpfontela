@@ -13,8 +13,13 @@ class Registro : public Componente{
 public:
 	Registro();
 	virtual ~Registro();
-	virtual void serializar() =0;
-	virtual void hidratar() =0;
+
+
+	void serializar();
+	void hidratar();
+	virtual std::string getClaveObjeto() = 0;
+	virtual void serializarObjeto() =0;
+	virtual void hidratarObjeto() =0;
 	void setAtributo(std::string etiqueta, std::string valor);
 	std::string getAtributo(std::string etiqueta);
     std::string getDatosRegistro();

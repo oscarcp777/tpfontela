@@ -17,7 +17,15 @@ Registro::~Registro() {
 	// TODO Auto-generated destructor stub
 }
 
+void Registro::serializar(){
+	this->setClave(this->getClaveObjeto());
+	this->serializarObjeto();
+	std::cout<< "Clave: " << this->clave <<std::endl;
+}
 
+void Registro::hidratar(){
+	this->hidratarObjeto();
+}
 
 
 void Registro::setAtributo(std::string etiqueta, std::string valor){
