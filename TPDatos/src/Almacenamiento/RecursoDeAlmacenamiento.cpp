@@ -54,22 +54,28 @@ int RecursoDeAlmacenamiento::escribirArchivo(std::string ruta,std::string nombre
 int RecursoDeAlmacenamiento::cargarComponente(Componente* componente){
 	Almacenamiento* almacenamiento=NULL;
 	vector<Almacenamiento*>::iterator the_iterator;
-		the_iterator =  this->almacenamientos.begin();
-		while( the_iterator != this->almacenamientos.end() ) {
-			 almacenamiento=(Almacenamiento*)*the_iterator;
-			componente->setTamanio(almacenamiento->getTamanio());
-			this->estrategiaAlmacenamiento->agregarComponente(almacenamiento, componente);
-			++the_iterator;
-		}
+	the_iterator =  this->almacenamientos.begin();
+	while( the_iterator != this->almacenamientos.end() ) {
+		almacenamiento=(Almacenamiento*)*the_iterator;
+		componente->setTamanio(almacenamiento->getTamanio());
+		this->estrategiaAlmacenamiento->agregarComponente(almacenamiento, componente);
+		++the_iterator;
+	}
 
 
 
 	return 0;
 }
 
-
-//void RecursoDeAlmacenamiento::crearArchivo(){
-//	this->estrategiaAlmacenamiento->guardar(this->almacenamiento);
+//int RecursoDeAlmacenamiento::descargarComponente(Componente* componente){
+//	Almacenamiento* almacenamiento=NULL;
+//	vector<Almacenamiento*>::iterator the_iterator;
+//	the_iterator =  this->almacenamientos.begin();
+//	while( the_iterator != this->almacenamientos.end() ) {
+//		almacenamiento=(Almacenamiento*)*the_iterator;
+//		this->estrategiaAlmacenamiento->agregarComponente(almacenamiento, componente);
+//		++the_iterator;
+//	}
 //}
 
 

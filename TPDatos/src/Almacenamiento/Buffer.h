@@ -20,12 +20,17 @@ public:
 	std::string getClass();
 	void abrir();
 	void cerrar();
+	void irAlPrincipio();
+	bool fin();
+
+	std::string leerMetadata();
+	void escribirMetadata(std::string metadata);
 
 	void guardar(std::string registro);
 	void guardar(const char* registro,int tamanioRegistro);
 	std::string leer ();
 	void leer(void* datos, int tamanio);
-	bool fin();
+
 
 private:
 	char* datos;

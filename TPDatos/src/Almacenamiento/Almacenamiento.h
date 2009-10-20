@@ -38,6 +38,8 @@ public:
     virtual std::string getClass();
     void agregarComponente(Componente *componente);
 
+    virtual void irAlPrincipio() = 0;
+    virtual bool fin() = 0;
     void setNombreArchivo(std::string nombreArchivo);
     void setRuta(std::string ruta);
     int getTamanio();
@@ -55,14 +57,16 @@ public:
 
 
     int getExisteMetaData();
-    virtual std::string leerMetadata();
-    virtual void escribirMetadata(std::string metadata);
+    virtual std::string leerMetadata() = 0;
+    virtual void escribirMetadata(std::string metadata) = 0;
 
 protected:
 	std::fstream  archivo;
 	std::string ruta;
 	int metadataSize;
 	std::string metaData;
+
+	std::string getPath();
 
 };
 

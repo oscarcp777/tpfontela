@@ -81,6 +81,10 @@ void EstrategiaAlmacenamientoBloques::agregarComponente(Almacenamiento* donde, C
 
 }
 
+void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente){
+
+}
+
 
 
 std::string EstrategiaAlmacenamientoBloques::toString(){
@@ -117,17 +121,15 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 
     vector<string> tokens;
     vector<string> tags;
-	Archivo* archivo=(Archivo*)donde;
-	 vector<string>::iterator the_iterator;
-	archivo->abrir();
-	archivo->irAlPrincipio();
+	vector<string>::iterator the_iterator;
+	donde->irAlPrincipio();
 
-	metaData = archivo->leerMetadata();
+	metaData = donde->leerMetadata();
 	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
-	while(!archivo->fin()  && !encontrado ){
+	while(!donde->fin()  && !encontrado ){
 		i=0;
 		cantCaracteresLeidos=0;
-		archivo->leer(buffer,donde->getTamanio());
+		donde->leer(buffer,donde->getTamanio());
 		datos="";
 		datos=buffer;
 		//std::cout<<"DATOS del bloque: "<<datos<<std::endl;
@@ -169,5 +171,5 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 	}
 	// Libero el buffer
 	delete[] buffer;
-	archivo->cerrar();
+
 }

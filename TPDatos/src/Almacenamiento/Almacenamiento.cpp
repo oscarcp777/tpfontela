@@ -36,6 +36,9 @@ void Almacenamiento::setTamanio(int tamanio)
 	this->tamanio = tamanio;
 }
 
+std::string Almacenamiento::getPath(){
+	return this->ruta+this->nombreArchivo;
+}
 
 void Almacenamiento::setNombreArchivo(std::string nombreArchivo)
 {
@@ -49,7 +52,6 @@ void Almacenamiento::setRuta(std::string ruta)
 
 
 void Almacenamiento::agregarComponente(Componente* componente){
-	std::cout<<"lllego 3"<<this->toString()<<std::endl;
 	this->compuesto->agregarComponente(componente);
 
 }
