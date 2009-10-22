@@ -125,14 +125,16 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente,
 	donde->irAlPrincipio();
 
 	metaData = donde->leerMetadata();
+	std::cout<<"metaData "<<metaData<<std::endl;
 	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
 	while(!donde->fin()  && !encontrado ){
 		i=0;
 		cantCaracteresLeidos=0;
 		donde->leer(buffer,donde->getTamanio());
+		//std::cout<<"buffer: "<<buffer<<std::endl;
 		datos="";
 		datos=buffer;
-		//std::cout<<"DATOS del bloque: "<<datos<<std::endl;
+		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
 
 		auxString = datos;
 		while(cantCaracteresLeidos != (int)datos.length() && !encontrado){
