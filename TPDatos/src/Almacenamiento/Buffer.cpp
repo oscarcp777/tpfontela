@@ -35,10 +35,11 @@ void Buffer::irAlPrincipio(){
 }
 
 std::string Buffer::leerMetadata(){
-	return "nada";
+	return this->metaData;
 }
 
 void Buffer::escribirMetadata(std::string metadata){
+	this->metadataSize = metadata.length();
 	this->metaData = metadata;
 
 }
@@ -69,6 +70,7 @@ void Buffer::guardar(const char* registro,int tamanioRegistro){
 			}
 			temp+= aux;
 			memcpy(this->datos,temp.c_str(),temp.length());
+			//std::cout<<"this->datos: "<< this->datos<<std::endl;
 		}
 		else {
 			/* arroja una excepción porque el registro no entra */
@@ -82,24 +84,29 @@ std::string Buffer::leer(){
 	std::string aux2 = "";
 	std::string caracter = "\n";
 	std::string vacio = "";
-	int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual);
+	int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual+1);
 //	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
 //	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
-//	std::cout<<"aux.length(): "<< aux.length()<<std::endl;
-	aux2 = aux.substr(this->posicionActual,posBarraN);
-	this->posicionActual+= aux2.length();
-
-	return aux2;
+	aux2 = aux.substr(this->posicionActual,posBarraN-this->posicionActual);
+	this->posicionActual+= aux2.length()+1;
+	//en la siguiente linea borro el ultimo caracter, que es el \n (para no devolverlo)
+	return aux2.replace(aux2.length(),1,vacio.c_str());
 
 }
 
 void Buffer::leer(void* datos, int tamanio){
 	//std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
-	std::string aux = this->datos;
+	std::string aux = "";
+	std::string subAux = "";
+	aux = this->datos;
+	//std::cout<<"this->datos: "<< this->datos<<std::endl;
+	//std::cout<<"aux: "<< aux<<std::endl;
 
 	if(this->posicionActual+tamanio <= TAM_BUFFER){
-		memcpy(datos, (void*)aux.substr(this->posicionActual,this->posicionActual+tamanio).c_str(), tamanio);
+		subAux = aux.substr(this->posicionActual,tamanio);
+		memcpy(datos, subAux.c_str(), subAux.length());
 		this->posicionActual += tamanio;
+
 	}
 	else{
 		memcpy(datos, (void*)aux.substr(this->posicionActual,aux.length()).c_str(), aux.length()-this->posicionActual);
@@ -111,7 +118,7 @@ bool Buffer::fin() {
 
   bool fin = false;
   std::string aux = this->datos;
-
+  //std::cout<<"aux.length() en FIN "<<aux.length()<<std::endl;
   if(this->posicionActual == (int)aux.length())
 	  fin = true;
 
@@ -120,4 +127,5 @@ bool Buffer::fin() {
 
 void Buffer::cerrar(){
 	this->posicionActual = 0;
+	delete(this->datos);
 }
