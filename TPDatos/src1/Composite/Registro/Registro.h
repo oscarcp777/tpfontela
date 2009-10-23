@@ -15,21 +15,20 @@ public:
 	virtual ~Registro();
 
 
-	void serializar();
-	void hidratar();
+	void serializar(string tipo);
+	void hidratar(string tipo);
 	void clear();
-	virtual std::string getClaveObjeto() = 0;
+
+	virtual string getClaveObjeto() = 0;
 	virtual void serializarBinario() =0;
 	virtual void hidratarBinario() =0;
-	int setAtributo(std::string etiqueta, const void* campo, int tamanio);
+	virtual void serializarTexto() =0;
+	virtual void hidratarTexto() =0;
+
+	int setAtributo(string etiqueta, const void* campo, int tamanio = -1);
 	int getAtributo(void* campo, int tamanio = -1);
 
-
-private:
-	std::string datosRegistro;
-
-
-
+	void Init();
 
 };
 

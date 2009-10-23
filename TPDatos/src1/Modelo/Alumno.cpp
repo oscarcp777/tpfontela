@@ -49,6 +49,9 @@ void Alumno::setNombre(std::string nombre)
 {
 	this->nombre = nombre;
 }
+void Alumno::Init(){
+	Registro::Init();
+}
 
 
 void Alumno::serializarBinario(){
@@ -68,6 +71,27 @@ void Alumno::hidratarBinario(){
 	this->getAtributo(&this->padron,sizeof(this->padron));
 	this->getAtributo(&this->dni,sizeof(this->dni));
 
+}
+
+void Alumno::serializarTexto(){
+
+	this->setAtributo("Nombre",this->nombre.c_str());
+	std::stringstream flujo2;
+	flujo2<<this->padron;
+
+	this->setAtributo("Padron",(flujo2.str()).c_str());
+}
+
+void Alumno::hidratarTexto(){
+	this->clear();
+	char aux1[20];
+	memset(aux1,0,20);
+	this->getAtributo(aux1);
+	this->nombre = aux1;
+	char aux2[10];
+	memset(aux2,0,10);
+	this->getAtributo(aux2);
+	this->padron = atoi(aux2);
 }
 
 std::string Alumno::getClaveObjeto(){

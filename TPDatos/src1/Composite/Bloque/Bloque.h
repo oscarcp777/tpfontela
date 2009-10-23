@@ -16,8 +16,8 @@ public:
 	Bloque(int tamanio);
 	virtual ~Bloque();
 
-   	void serializar();
-    void hidratar();
+   	void serializar(string tipo = "");
+    void hidratar(string tipo = "");
 
 };
 

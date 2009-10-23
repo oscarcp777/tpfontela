@@ -34,7 +34,7 @@ Bloque::~Bloque() {
 }
 
 
-void Bloque::serializar(){
+void Bloque::serializar(string tipo){
 	std::list<Componente*>::iterator iteraRegistros = this->iteratorListaDeComponetes();
 	int i=0;
 	int len;
@@ -70,6 +70,6 @@ void Bloque::serializar(){
 
 }
 
-void Bloque::hidratar(){
+void Bloque::hidratar(string tipo){
 
 }

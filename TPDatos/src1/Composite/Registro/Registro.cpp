@@ -18,15 +18,21 @@ Registro::~Registro() {
 	// TODO Auto-generated destructor stub
 }
 
-void Registro::serializar(){
+void Registro::serializar(string tipo){
 	this->setClave(this->getClaveObjeto());
 	this->buffer = new char[this->getTamanio()];  //setea el tamanio maximo del buffer de registro
-	this->serializarBinario();
+	if (tipo.compare(BINARIO))
+		this->serializarBinario();
+	if (tipo.compare(TEXTO) == 0)
+		this->serializarTexto();
 	std::cout<< "Clave: " << this->clave <<std::endl;
 }
 
-void Registro::hidratar(){
-	this->hidratarBinario();
+void Registro::hidratar(string tipo){
+	if (tipo.compare(BINARIO) == 0)
+		this->hidratarBinario();
+	if (tipo.compare(TEXTO) == 0)
+		this->hidratarTexto();
 }
 
 
@@ -89,6 +95,11 @@ int Registro::getAtributo(void* campo, int tamanio){
 //		((char*)campo)[len] = 0;
 //	}
 	return len;
+}
+
+//Para que funcionen pruebas unitarias
+void Registro::Init(){
+	this->buffer = new char[500];  //setea el tamanio maximo del buffer de registro
 }
 
 void Registro::clear(){
