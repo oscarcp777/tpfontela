@@ -6,13 +6,33 @@
  */
 
 #include "Almacenamiento.h"
+using namespace std;
 Almacenamiento::Almacenamiento() {
 	this->compuesto= new Compuesto();
 	this->metaData = "";
 	this->metadataSize = -1;
 
 }
- std::string Almacenamiento::getClass(){
+int Almacenamiento::getCantidadRegistrosEnMemoria()
+   {
+       return cantidadRegistrosEnMemoria;
+   }
+
+   void Almacenamiento::setCantidadRegistrosEnMemoria(int cantidadRegistrosEnMemoria)
+   {
+       this->cantidadRegistrosEnMemoria = cantidadRegistrosEnMemoria;
+   }
+string Almacenamiento::getClavePrimaria()
+    {
+        return clavePrimaria;
+    }
+
+    void Almacenamiento::setClavePrimaria(string clavePrimaria)
+    {
+        this->clavePrimaria = clavePrimaria;
+    }
+
+string Almacenamiento::getClass(){
 	 return "Almacenamiento";
  }
 std::string Almacenamiento::getTipoArchivo()

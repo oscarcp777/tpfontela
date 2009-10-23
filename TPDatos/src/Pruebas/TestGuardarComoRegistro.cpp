@@ -26,7 +26,8 @@ int main1() {
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,30);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,30,
+									"../files/","archivoBloques","padron",INDEXADO_BSHARP);
 
 	Alumno* alumno1 = new Alumno(31993745,"Daniel Sivori",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
@@ -36,7 +37,6 @@ int main1() {
 	recurso->cargarComponente(alumno2);
 	recurso->cargarComponente(alumno3);
 
-	recurso->escribirArchivo("../files/","archivoRegistros");
 	cout << endl;
 	cout << "Archivo guardado" << endl;
 

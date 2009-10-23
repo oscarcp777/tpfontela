@@ -26,10 +26,8 @@ int main00() {
 
 
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0);
+				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoTexto");
 
-
-		recurso->leerArchivo("../files/","archivoTexto");
 		Alumno* alumno = new Alumno();
 		recurso->busquedaSecuencial(alumno, "86534");
 

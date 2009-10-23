@@ -20,9 +20,8 @@ int main4() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 	RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55);
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoRegistros");
 
-		recurso->leerArchivo("../files/","archivoBloques");
 		Alumno* alumno = new Alumno();
 		recurso->busquedaSecuencial(alumno,"85689");
 		std::cout<<"resultados busqueda: "<<std::endl;

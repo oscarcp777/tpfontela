@@ -20,7 +20,7 @@ int main() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->RecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55);
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","miBuffer");
 
 		Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);

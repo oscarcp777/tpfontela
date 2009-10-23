@@ -24,7 +24,7 @@ int main3() {
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,30);
+				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoRegistros");
 
 		recurso->leerArchivo("../files/","archivoRegistros");
 

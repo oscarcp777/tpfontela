@@ -9,7 +9,6 @@
 #define FABRICABUFFER_H_
 
 #include "FabricaAbstracta.h"
-#include "../Composite/Componente.h"
 
 class FabricaBuffer: public FabricaAbstracta {
 public:

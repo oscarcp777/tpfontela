@@ -19,4 +19,6 @@
 #define ALMACENAMIENTO_ARCHIVO 0
 #define ALMACENAMIENTO_BUFFER 1
 #define TAM_BUFFER 1024
+#define INDEXADO_HASH_EXTENSIBLE "indexadoHashExtensible"
+#define INDEXADO_BSHARP "indexadoBSharp"
 #endif /* DEFINE_H_ */
