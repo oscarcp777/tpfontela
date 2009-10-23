@@ -20,7 +20,9 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* estra
 	this->estrategiaRecurso = estrategiaRecurso;
 	this->estrategiaIndice=estrategiaIndice;
 }
+RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(){
 
+}
 
 RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 

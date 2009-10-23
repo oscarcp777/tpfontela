@@ -18,24 +18,24 @@
 #include <string.h>
 #include <fstream>
 #include <sstream>
-
+using namespace std;
 class Almacenamiento:public Object{
 
 
 private:
     Compuesto *compuesto;
-    std::string nombreArchivo;
-
+    string nombreArchivo;
+    int cantidadRegistrosEnMemoria;
     int tamanio;
-    std::string tipoArchivo;
-
+    string tipoArchivo;
+    string clavePrimaria;
 public:
 
     Almacenamiento();
     virtual ~Almacenamiento();
     Compuesto *getCompuesto();
-    std::string toString();
-    virtual std::string getClass();
+   string toString();
+    virtual string getClass();
     void agregarComponente(Componente *componente);
 
     virtual void irAlPrincipio() = 0;
@@ -45,28 +45,30 @@ public:
     int getTamanio();
     void setTamanio(int tamanio);
     void setTipoArchivo(std::string tipoArchivo);
-    std::string getTipoArchivo();
+   string getTipoArchivo();
 
     virtual void guardar(std::string registro) = 0;
     virtual void guardar(const char* registro,int tamanioRegistro) = 0;
-   // virtual std::string leer () = 0;
-    virtual void leer(void* datos, int tamanio) = 0;
-
-    virtual void abrir() = 0;
-    virtual void cerrar() = 0;
-
-
+    virtual void leer(void *datos, int tamanio) =0;
+    virtual void abrir() =0;
+    virtual void cerrar() =0;
     int getExisteMetaData();
-    virtual std::string leerMetadata() = 0;
-    virtual void escribirMetadata(std::string metadata) = 0;
+    virtual string leerMetadata() =0;
+    virtual void escribirMetadata(std::string metadata) =0;
+    int getCantidadRegistrosEnMemoria();
+
+    void setCantidadRegistrosEnMemoria(int cantidadRegistrosEnMemoria);
+    string getClavePrimaria() ;
+
+    void setClavePrimaria(string clavePrimaria);
 
 protected:
-	std::fstream  archivo;
-	std::string ruta;
+	fstream  archivo;
+	string ruta;
 	int metadataSize;
-	std::string metaData;
+	string metaData;
 
-	std::string getPath();
+	string getPath();
 
 };
 

@@ -21,7 +21,8 @@ int main2() {
 	 */
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0,
+									"../files/","archivoBloques","padron",INDEXADO_BSHARP);
 
 	Alumno* alumno1 = new Alumno(31993745,"Santiago Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
