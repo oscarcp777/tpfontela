@@ -27,8 +27,12 @@ public:
 
 	void serializarBinario();
 	void hidratarBinario();
+	void serializarTexto();
+	void hidratarTexto();
 	std::string getClaveObjeto();
 
+	//para pruebas unitarias
+	void Init();
 
 
 

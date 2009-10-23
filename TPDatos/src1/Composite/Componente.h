@@ -20,21 +20,21 @@ private:
     int id;
     int posicionActual;
 protected:
-    std::string clave;
+    string clave;
     char *buffer;
     int tamanioBuffer;
     int nextByte;
 public:
-    virtual void serializar() =0;
-    virtual void hidratar() =0;
+    virtual void serializar(string tipo) =0;
+    virtual void hidratar(string tipo) =0;
     Componente();
     virtual ~Componente();
     int getTamanio();
     void setTamanio(int tamanio);
-    std::string getClave() const;
+    string getClave() const;
 
 
-    void setClave(std::string clave);
+    void setClave(string clave);
 
     int getPosicionActual() const;
     void setPosicionActual(int posicionActual);

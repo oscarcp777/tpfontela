@@ -45,7 +45,7 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
 void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
 
 
-		componente->serializar();				//genera el buffer (registro) en binario
+		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);   //agrega el componente a la lista de componentes
 	    donde->guardar();						//el almacenamiento guarda el ultimo componente agregado a la lista
 

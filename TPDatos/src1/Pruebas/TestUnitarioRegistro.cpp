@@ -9,10 +9,10 @@
 using namespace std;
 
 
-int main45() {
+int main1() {
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-
+	alumno1->Init();
 	alumno1->serializarBinario();
 	alumno1->setNombre("");
 	alumno1->setPadron(0);

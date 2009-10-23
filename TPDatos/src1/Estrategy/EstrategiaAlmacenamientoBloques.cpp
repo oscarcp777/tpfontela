@@ -50,7 +50,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 	//no esta terminado, hasta ahora por cada registro agrega un bloque
 
-			componente->serializar();		//genera el buffer (registro) en binario
+			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
 		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
 			if ( pos > 0){
 		    	//el registro entra en algun bloque existente
