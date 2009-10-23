@@ -35,8 +35,7 @@ public:
 
 
     void setClave(std::string clave);
-    virtual std::string getDatosRegistro() =0;
-    virtual void setDatosRegistro(std::string datosRegistro) =0;
+
     int getPosicionActual() const;
     void setPosicionActual(int posicionActual);
     int getId() const;

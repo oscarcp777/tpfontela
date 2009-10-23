@@ -40,7 +40,7 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 
 void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
 	std::string datos=this->generarRegistro(componente);
-	componente->setDatosRegistro(datos);
+
 	donde->agregarComponente(componente);
 
 }

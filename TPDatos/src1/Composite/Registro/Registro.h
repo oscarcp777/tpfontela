@@ -23,8 +23,7 @@ public:
 	virtual void hidratarBinario() =0;
 	int setAtributo(std::string etiqueta, const void* campo, int tamanio);
 	int getAtributo(void* campo, int tamanio = -1);
-    std::string getDatosRegistro();
-    void setDatosRegistro(std::string datosRegistro);
+
 
 private:
 	std::string datosRegistro;

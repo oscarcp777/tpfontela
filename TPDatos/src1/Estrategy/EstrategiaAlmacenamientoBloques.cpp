@@ -40,8 +40,47 @@ void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
 
 }
 
+int EstrategiaAlmacenamientoBloques::posicionarEnBloque(int tamanioRegistro){
+	return -1;
+}
+
+
 
 void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Componente* componente){
+
+	//no esta terminado, hasta ahora por cada registro agrega un bloque
+
+			componente->serializar();		//genera el buffer (registro) en binario
+		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
+			if ( pos > 0){
+		    	//el registro entra en algun bloque existente
+
+				//implementar leer(int) lee un registro o bloque de buffer o archivo
+				//desde la pos especificada
+					//donde->leer(pos)
+
+		    }else{
+		    	//necesito un nuevo bloque
+		    	Bloque* bloque = new Bloque(donde->getTamanio());
+		    	//agrego registro a lista del bloque
+		    	bloque->agregarComponente(componente);
+		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
+		    	bloque->serializar();
+		    	//agrego bloque a lista de componentes
+		    	donde->agregarComponente(bloque);
+		    	//guardo en almacenamiento el ultimo bloque agregado
+		    	donde->guardar();
+
+		    	//falta guardar en un archivo el bloque con un id y su espacio libre
+		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
+		    }
+
+
+
+
+
+
+
 //	Bloque* bloque = NULL;
 //	int i=0;
 //
@@ -91,16 +130,6 @@ std::string EstrategiaAlmacenamientoBloques::toString(){
    	return "EstrategiaAlmacenamientoBloques";
    }
 
-//std::string EstrategiaAlmacenamientoBloques::generarRegistro(Componente* componente){
-//
-//		  std::stringstream flujo;
-//		  std::string aux="";
-//		  std::string registro="";
-//		  aux = EstrategiaAlmacenamiento::generarRegistro(componente);
-//		  flujo<< aux.length();
-//		  registro += flujo.str()+DELIMITADOR+ aux;
-//		  return registro;
-//}
 
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){

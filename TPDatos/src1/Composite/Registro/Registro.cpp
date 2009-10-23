@@ -9,7 +9,6 @@
 
 
 Registro::Registro() {
-	this->buffer = new char[500];
 	this->nextByte = 0;
 	this->tamanioBuffer = 0;
 
@@ -21,6 +20,7 @@ Registro::~Registro() {
 
 void Registro::serializar(){
 	this->setClave(this->getClaveObjeto());
+	this->buffer = new char[this->getTamanio()];  //setea el tamanio maximo del buffer de registro
 	this->serializarBinario();
 	std::cout<< "Clave: " << this->clave <<std::endl;
 }
@@ -95,13 +95,5 @@ void Registro::clear(){
 	this->nextByte = 0;
 }
 
-std::string Registro::getDatosRegistro()
-{
-	return datosRegistro;
-}
 
-void Registro::setDatosRegistro(std::string datosRegistro)
-{
-	this->datosRegistro = datosRegistro;
-}
 
