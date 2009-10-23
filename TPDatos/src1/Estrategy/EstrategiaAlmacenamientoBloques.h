@@ -23,7 +23,8 @@ public:
     void quitarComponente(Almacenamiento* donde, Componente* componente);
     void busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave);
 
-
+private:
+	int posicionarEnBloque(int tamanioRegistro);
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOBLOQUES_H_ */

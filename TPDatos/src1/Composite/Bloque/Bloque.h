@@ -13,12 +13,11 @@
 
 class Bloque : public Componente , public Compuesto{
 public:
-	Bloque(int tamanio,int id);
+	Bloque(int tamanio);
 	virtual ~Bloque();
-	std::string getDatosRegistro();
-    void setDatosRegistro(std::string datosRegistro);
+
    	void serializar();
-     void hidratar();
+    void hidratar();
 
 };
 

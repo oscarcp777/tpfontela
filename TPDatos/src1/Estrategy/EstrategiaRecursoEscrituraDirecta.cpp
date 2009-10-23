@@ -23,9 +23,13 @@ int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& a
 	estrategiaAlmacenamiento->altaComponente(archivo, componente);
 	archivo->cerrar();
 	//guardo en el buffer
-	estrategiaAlmacenamiento->altaComponente(almacenamientos.at(ALMACENAMIENTO_BUFFER), componente);
+	Almacenamiento* buffer=   almacenamientos.at(ALMACENAMIENTO_BUFFER);
+	buffer->abrir();
+	estrategiaAlmacenamiento->altaComponente(buffer, componente);
+	buffer->cerrar();
 	return 0;
 }
+
 std::string EstrategiaRecursoEscrituraDirecta::toString(){
 	return "EstrategiaRecursoEscrituraDirecta";
 }

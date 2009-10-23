@@ -7,11 +7,14 @@
 
 #include "Bloque.h"
 #include <list>
-Bloque::Bloque(int tamanio, int id) {
+Bloque::Bloque(int tamanio) {
 
 	// TODO Auto-generated constructor stub
 	this->setTamanio(tamanio);
-	this->setId(id);
+	this->nextByte = 0;
+	this->tamanioBuffer = 0;
+	this->buffer = new char[tamanio];
+
 }
 
 Bloque::~Bloque() {
@@ -30,30 +33,40 @@ Bloque::~Bloque() {
 //				}
 }
 
-std::string Bloque::getDatosRegistro()
-{
+
+void Bloque::serializar(){
 	std::list<Componente*>::iterator iteraRegistros = this->iteratorListaDeComponetes();
 	int i=0;
+	int len;
 	Componente* componente;
-	std::string datosBloque = "";
 
 
+	//ir al ultimo registro agregado
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
-		datosBloque += componente->getDatosRegistro();
 		iteraRegistros++;
 		i++;
 	}
 
-	return datosBloque;
-}
+	len = componente->getTamanioBuffer();
 
-void Bloque::setDatosRegistro(std::string datosRegistro)
-{
-	//this->datosRegistro = datosRegistro;
-}
+	int start = this->nextByte;
+	this->nextByte += sizeof(int) + 1;
+	//agrego al buffer del bloque el tamanio del registro
+	memcpy(&this->buffer[start],&len,sizeof(int));
+	this->buffer[start + sizeof(int)] = Define::DELIMITADOR1;
 
-void Bloque::serializar(){
+	//copio el buffer del registro en el bloque
+	start = this->nextByte;
+	this->nextByte += len ;
+	memcpy(&this->buffer[start],componente->getBuffer(),len);
+	//this->buffer[start + len] = Define::DELIMITADOR1;
+
+
+	this->tamanioBuffer = this->nextByte;
+	cout<<"El buffer contiene: ";
+	for (int i = 0; i < this->tamanioBuffer; i++)
+		cout<<this->buffer[i];
 
 }
 
