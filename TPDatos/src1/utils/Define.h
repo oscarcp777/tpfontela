@@ -21,6 +21,7 @@
 #define TAM_BUFFER 1024
 #define INDEXADO_HASH_EXTENSIBLE "indexadoHashExtensible"
 #define INDEXADO_BSHARP "indexadoBSharp"
+#define METADATA "MetaData"
 
 class Define{
 public:
