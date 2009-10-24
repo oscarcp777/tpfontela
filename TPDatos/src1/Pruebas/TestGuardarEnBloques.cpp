@@ -37,7 +37,8 @@ int main12() {
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
-
+	recurso->alta(alumno3);
+	recurso->alta(alumno4);
 	cout<<std::endl<< "Archivo guardado" << endl;
 
 	/**
