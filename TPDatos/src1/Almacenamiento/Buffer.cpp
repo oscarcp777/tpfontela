@@ -14,7 +14,9 @@ Buffer::Buffer():Almacenamiento() {
 	memset(datos,0,sizeof(char)*TAM_BUFFER);
 	posicionActual = 0;
 }
+void Buffer::crear(){
 
+}
 Buffer::~Buffer() {
 	// TODO Auto-generated destructor stub
 	delete(this->datos);

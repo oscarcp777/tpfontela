@@ -6,7 +6,9 @@
  */
 
 #include "Registro.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 Registro::Registro() {
 	this->nextByte = 0;

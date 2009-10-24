@@ -27,7 +27,7 @@ public:
 
 	void abrir();
 	void cerrar();
-
+    void crear();
     void guardar(std::string registro);
     /*
       pre : archivoRegistros ha sido creado con crear() y registro es un puntero

@@ -13,71 +13,65 @@ using namespace std;
 Archivo::Archivo():Almacenamiento(){
 
 }
+void Archivo::crear(){
+	if(this->getTipoArchivo().compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0){
+			    //si no hubo éxito en la apertura...
+			    //limpia los flags de control de estado del archivo
+				  this->archivo.clear();
+
+			    //crea el archivo
+				  this->archivo.open(this->getPath().c_str(),ios::out);
+				  this->archivo.close();
+
+			    //reabre el archivo para lectura - escritura
+				  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
+
+			    if (!this->archivo.is_open()){
+			      // si no se pudo crear el archivo arroja una excepción/
+			      cout<<"El archivo no pudo ser abierto "<<endl;
+			      throw std::ios_base::failure("El archivo no pudo ser abierto");
+			    }
+
+		}else{
+				/* limpia los flags de control de estado del archivo */
+			    this->archivo.clear();
+
+			    /* crea el archivo */
+			    this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
+			    this->archivo.close();
+
+			    /* reabre el archivo para lectura - escritura binario */
+			    this->archivo.open(this->getPath().c_str(),ios::in|ios::out|ios::binary);
+
+			    /* verifica que haya podido crear el archivo */
+			    if (! this->archivo.is_open()){
+			    	 cout<<"El archivo no pudo ser abierto "<<endl;
+			      /* arroja una excepción */
+			      throw string("El archivo no pudo ser abierto");
+			    }
+
+		}
+}
 void Archivo::abrir(){
 
 	if(this->getTipoArchivo().compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0){
 		//intenta abrir el archivo en modo lectura - escritura
 		this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
 
-		  if (this->archivo.is_open()){
-			  if (this->metadataSize == -1)
-				  this->metaData = this->leerMetadata();
-		  }
-		  else
-		  {
-			  cout<<"No Existe Metadata"<<endl;
-		    //si no hubo éxito en la apertura...
-		    //limpia los flags de control de estado del archivo
-			  this->archivo.clear();
-
-		    //crea el archivo
-			  this->archivo.open(this->getPath().c_str(),ios::out);
-			  this->archivo.close();
-
-		    //reabre el archivo para lectura - escritura
-			  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
-
 		    if (!this->archivo.is_open()){
 		      // si no se pudo crear el archivo arroja una excepción/
 		      cout<<"El archivo no pudo ser abierto "<<endl;
 		      throw std::ios_base::failure("El archivo no pudo ser abierto");
 		    }
-		  }
-
-
 	}else{
 		  /* abre el archivo en modo lectura - escritura binario*/
-		  this->archivo.open(this->getPath().c_str(),
-		                                ios::in |ios::out |ios::binary);
-
-		  /* determina si tuvo éxito la apertura del archivo */
-		  if (this->archivo.is_open()) {
-			 // if (this->metadataSize == -1)
-			 	//  this->metaData = this->leerMetadata();
-		  }else{
-			  cout<<"No Existe Metadata"<<endl;
-			  cout<<"Archivo: "<< this->getPath();
-			/* limpia los flags de control de estado del archivo */
-		    this->archivo.clear();
-
-		    /* crea el archivo */
-		    this->archivo.open(this->getPath().c_str(),
-		                                  ios::out | ios::binary);
-		    this->archivo.close();
-
-		    /* reabre el archivo para lectura - escritura binario */
-		    this->archivo.open(this->getPath().c_str(),
-		                                  ios::in|ios::out|ios::binary);
-
+		  this->archivo.open(this->getPath().c_str(),ios::in |ios::out |ios::binary);
 		    /* verifica que haya podido crear el archivo */
 		    if (! this->archivo.is_open()){
 		    	 cout<<"El archivo no pudo ser abierto "<<endl;
 		      /* arroja una excepción */
 		      throw string("El archivo no pudo ser abierto");
 		    }
-		  }
-
-
 	}
 
 }

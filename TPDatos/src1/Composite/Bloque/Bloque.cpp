@@ -7,6 +7,9 @@
 
 #include "Bloque.h"
 #include <list>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 Bloque::Bloque(int tamanio) {
 
 	// TODO Auto-generated constructor stub
