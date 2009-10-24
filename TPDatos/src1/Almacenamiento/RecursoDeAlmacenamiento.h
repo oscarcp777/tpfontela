@@ -12,9 +12,10 @@
 #include "../Estrategy/EstrategiaIndice.h"
 #include "../Composite/Componente.h"
 #include "../Composite/Compuesto.h"
+#include <map>
 #ifndef RECURSOSALMACENAMIENTO_H_
 #define RECURSOSALMACENAMIENTO_H_
-
+using namespace std;
 class RecursoDeAlmacenamiento :public Object{
 	private:
 
@@ -27,25 +28,25 @@ public:
 	RecursoDeAlmacenamiento();
 	RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,Almacenamiento* archivo,Almacenamiento* buffer,  EstrategiaRecurso* estrategiaRecurso,EstrategiaIndice* estrategiaIndice );
 	virtual ~RecursoDeAlmacenamiento();
-	void crearArchivo();
 	void busquedaSecuencial(Componente* componente, std::string clave);
 
 	/**
-	 * guarda el archivo especificado con los datos cargados de los registros
-	 * en caso de no tener registros genera el archivo vacio
-	 * return : en caso de error devulve -1
+	 *este metodo se encarga de persistir el registro en le archivo
 	 */
     int alta(Componente* componente);
     /**
-     * levantaa memoria los registros de este archivo que recibe por parametro
-     * return : en caso de error devulve -1
+     * Elimina un registro del archivo
      */
-    int leerArchivo(std::string ruta,std::string nombreArchivo);
-
+    int baja(Componente* componente);
     /**
-     *este metodo carga en el compuesto el registro que se le pasa por parametro
+     * modifica un registro ya existente
      */
-    int cargarComponente(Componente* componente);
+    int modificion(Componente* componente);
+    /**
+     *pre: ninguna
+     *post: este metodo se encarga de la busquedas de registros
+     */
+    int buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,map<string,void*> &camposDeBusqueda);
 
 
 
