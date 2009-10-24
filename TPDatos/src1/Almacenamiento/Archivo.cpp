@@ -51,6 +51,7 @@ void Archivo::crear(){
 			    }
 
 		}
+	this->getMetadata()->crearArchivo();
 }
 void Archivo::abrir(){
 
