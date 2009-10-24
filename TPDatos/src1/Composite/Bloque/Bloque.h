@@ -18,6 +18,8 @@ public:
 
    	void serializar(string tipo = "");
     void hidratar(string tipo = "");
+    Componente* obtenerNuevaInstancia();
+    int compareTo(std::string clave);
 
 };
 

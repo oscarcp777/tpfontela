@@ -16,7 +16,7 @@ Bloque::Bloque(int tamanio) {
 	this->setTamanio(tamanio);
 	this->nextByte = 0;
 	this->tamanioBuffer = 0;
-	this->buffer = new char[tamanio];
+
 
 }
 
@@ -75,4 +75,11 @@ void Bloque::serializar(string tipo){
 
 void Bloque::hidratar(string tipo){
 
+}
+
+Componente* Bloque::obtenerNuevaInstancia(){
+	return NULL;
+}
+int Bloque::compareTo(std::string clave){
+	return -1;
 }

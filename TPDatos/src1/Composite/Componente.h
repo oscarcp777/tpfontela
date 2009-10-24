@@ -27,6 +27,8 @@ protected:
 public:
     virtual void serializar(string tipo) =0;
     virtual void hidratar(string tipo) =0;
+    virtual Componente* obtenerNuevaInstancia() = 0;
+    virtual int compareTo(std::string clave) = 0;
     Componente();
     virtual ~Componente();
     int getTamanio();

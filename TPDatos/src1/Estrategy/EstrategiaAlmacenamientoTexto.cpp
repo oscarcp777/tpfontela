@@ -64,7 +64,7 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 }
 
 
-void EstrategiaAlmacenamientoTexto::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 //		std::string datos="";
 //	    std::string valor="";

@@ -61,7 +61,7 @@ void Buffer::guardar(std::string registro){
 
 }
 
-void Buffer::guardar(){
+void Buffer::guardar(int pos){
 
 	int i=1;
 	std::list<Componente*>::iterator iteraComponentes;
@@ -74,14 +74,19 @@ void Buffer::guardar(){
 		i++;
 	}
 
-	//verifico que lo que voy a escribir entre en el espacio que queda de buffer
-	if((*iteraComponentes)->getTamanioBuffer() <= TAM_BUFFER - this->posicionActual){
-		memcpy(&this->datos[this->posicionActual],(*iteraComponentes)->getBuffer(),this->getTamanio());
-		this->posicionActual+=this->getTamanio();
-	}
-	else {
-		throw std::string("El registro no entra en el buffer");
-	}
+	if(pos < 0){
+		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
+		if((*iteraComponentes)->getTamanioBuffer() <= TAM_BUFFER - this->posicionActual){
+
+			memcpy(&this->datos[this->posicionActual],(*iteraComponentes)->getBuffer(),this->getTamanio());
+			this->posicionActual+=this->getTamanio();}
+		else {
+			throw std::string("El registro no entra en el buffer");
+		}
+	}else
+		memcpy(&this->datos[pos],(*iteraComponentes)->getBuffer(),this->getTamanio());
+
+
 }
 
 std::string Buffer::leer(){
@@ -121,7 +126,18 @@ void Buffer::leer(void* datos, int tamanio){
 }
 
 void Buffer::leer(Componente* componente, int pos){
+	//std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
+	std::string aux = "";
+	std::string subAux = "";
+	aux = this->datos;
+	this->posicionActual = pos;
+	//std::cout<<"this->datos: "<< this->datos<<std::endl;
+	//std::cout<<"aux: "<< aux<<std::endl;
 
+	if(this->posicionActual+this->getTamanio() <= TAM_BUFFER){
+		subAux = aux.substr(this->posicionActual,this->getTamanio());
+		memcpy(componente->getBuffer(), subAux.c_str(), subAux.length());
+	}
 }
 
 
@@ -138,5 +154,4 @@ bool Buffer::fin() {
 
 void Buffer::cerrar(){
 	this->posicionActual = 0;
-	delete(this->datos);
 }

@@ -36,7 +36,7 @@ public:
 
       registro : puntero hacia el registro a ser escrito en el archivo.
     */
-    void guardar();
+    void guardar(int pos = -1);
 
 
     /*
@@ -45,7 +45,7 @@ public:
       post: lee del archivo el registro en la posición actual.
       registro : puntero hacia el registro donde colocar la lectura.
     */
-    void leer(void* datos, int tamanio);
+    //void leer(void* datos, int tamanio);
 
     void leer(Componente* componente, int pos);
     /*
@@ -85,7 +85,7 @@ public:
       void irAlFinal();
 
 
-      void leer(std::string& datos);
+      //void leer(std::string& datos);
 
 
 };

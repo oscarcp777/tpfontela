@@ -24,6 +24,8 @@ public:
 	virtual void hidratarBinario() =0;
 	virtual void serializarTexto() =0;
 	virtual void hidratarTexto() =0;
+    virtual Componente* obtenerNuevaInstancia() =0;
+    virtual int compareTo(std::string clave) = 0;
 
 	int setAtributo(string etiqueta, const void* campo, int tamanio = -1);
 	int getAtributo(void* campo, int tamanio = -1);

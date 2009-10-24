@@ -56,6 +56,8 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
 	archivo->getMetadata()->setNombreArchivo(ruta+nombreArchivo);
+	//archivo->crear();
+	//archivo->cerrar();
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);

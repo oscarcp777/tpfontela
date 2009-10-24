@@ -46,7 +46,7 @@ public:
      *pre: ninguna
      *post: este metodo se encarga de la busquedas de registros
      */
-    int buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,map<string,void*> &camposDeBusqueda);
+    int buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave);
 
 
 

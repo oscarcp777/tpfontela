@@ -41,7 +41,7 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 
-
+	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
 	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
 	return 0;
 }
@@ -51,14 +51,21 @@ int RecursoDeAlmacenamiento::baja(Componente* componente){
 int RecursoDeAlmacenamiento::modificion(Componente* componente){
 	return 0;
 }
-int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,map<string,void*> &camposDeBusqueda){
+int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave){
+	Almacenamiento* almacenamiento=   almacenamientos.at(0);
+	componente->setTamanio(almacenamiento->getTamanio());
+	almacenamiento->abrir();
+	this->estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, almacenamiento, clave);
+	almacenamiento->cerrar();
 	return 0;
 }
 void RecursoDeAlmacenamiento::busquedaSecuencial(Componente* componente, std::string clave){
-	Almacenamiento* almacenamiento=   almacenamientos.at(0);
-	almacenamiento->abrir();
-	this->estrategiaAlmacenamiento->busquedaSecuencial(componente, almacenamiento, clave);
-	almacenamiento->cerrar();
+
+//	Almacenamiento* almacenamiento=   almacenamientos.at(0);
+//	componente->setTamanio(almacenamiento->getTamanio());
+//	almacenamiento->abrir();
+//	this->estrategiaAlmacenamiento->busquedaSecuencial(componente, almacenamiento, clave);
+//	almacenamiento->cerrar();
 }
 
 std::string RecursoDeAlmacenamiento::toString(){
