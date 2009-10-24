@@ -49,7 +49,7 @@ public:
 
     virtual void guardar(std::string registro) = 0;
     virtual void guardar() = 0;
-
+    virtual void crear() = 0;
     virtual void leer(void *datos, int tamanio) =0;
     virtual void abrir() =0;
     virtual void cerrar() =0;

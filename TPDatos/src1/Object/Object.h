@@ -9,6 +9,10 @@
 #define OBJECT_H_
 #include <iostream>
 #include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+
 class Object {
 public:
 	Object();

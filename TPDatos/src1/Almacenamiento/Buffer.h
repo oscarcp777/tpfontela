@@ -22,7 +22,7 @@ public:
 	void cerrar();
 	void irAlPrincipio();
 	bool fin();
-
+	void crear();
 	std::string leerMetadata();
 	void escribirMetadata(std::string metadata);
 
