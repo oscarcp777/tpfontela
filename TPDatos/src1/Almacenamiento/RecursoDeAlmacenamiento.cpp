@@ -38,12 +38,6 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 	delete this->estrategiaIndice ;
 }
 
-int RecursoDeAlmacenamiento::leerArchivo(std::string ruta,std::string nombreArchivo){
-	Almacenamiento* almacenamiento=   this->almacenamientos.at(ALMACENAMIENTO_ARCHIVO);
-	almacenamiento->setNombreArchivo(nombreArchivo);
-	almacenamiento->setRuta(ruta);
-	return 0;
-}
 
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 
@@ -51,35 +45,15 @@ int RecursoDeAlmacenamiento::alta(Componente* componente){
 	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
 	return 0;
 }
-
-int RecursoDeAlmacenamiento::cargarComponente(Componente* componente){
-	Almacenamiento* almacenamiento=NULL;
-	vector<Almacenamiento*>::iterator the_iterator;
-	the_iterator =  this->almacenamientos.begin();
-	while( the_iterator != this->almacenamientos.end() ) {
-		almacenamiento=(Almacenamiento*)*the_iterator;
-
-		this->estrategiaAlmacenamiento->altaComponente(almacenamiento, componente);
-		++the_iterator;
-	}
-
-
-
+int RecursoDeAlmacenamiento::baja(Componente* componente){
+  return 0;
+}
+int RecursoDeAlmacenamiento::modificion(Componente* componente){
 	return 0;
 }
-
-//int RecursoDeAlmacenamiento::descargarComponente(Componente* componente){
-//	Almacenamiento* almacenamiento=NULL;
-//	vector<Almacenamiento*>::iterator the_iterator;
-//	the_iterator =  this->almacenamientos.begin();
-//	while( the_iterator != this->almacenamientos.end() ) {
-//		almacenamiento=(Almacenamiento*)*the_iterator;
-//		this->estrategiaAlmacenamiento->agregarComponente(almacenamiento, componente);
-//		++the_iterator;
-//	}
-//}
-
-
+int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,map<string,void*> &camposDeBusqueda){
+	return 0;
+}
 void RecursoDeAlmacenamiento::busquedaSecuencial(Componente* componente, std::string clave){
 	Almacenamiento* almacenamiento=   almacenamientos.at(0);
 	almacenamiento->abrir();
