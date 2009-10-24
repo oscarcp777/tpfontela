@@ -14,6 +14,7 @@
 #include "../Composite/Componente.h"
 #include "../utils/Define.h"
 #include "../Object/Object.h"
+#include "Metadata.h"
 #include <stdio.h>
 #include <string.h>
 #include <fstream>
@@ -54,8 +55,7 @@ public:
     virtual void abrir() =0;
     virtual void cerrar() =0;
     int getExisteMetaData();
-    virtual string leerMetadata() =0;
-    virtual void escribirMetadata(std::string metadata) =0;
+    Metadata* getMetadata();
     int getCantidadRegistrosEnMemoria();
 
     void setCantidadRegistrosEnMemoria(int cantidadRegistrosEnMemoria);
@@ -63,11 +63,11 @@ public:
 
     void setClavePrimaria(string clavePrimaria);
 
+
 protected:
 	fstream  archivo;
 	string ruta;
-	int metadataSize;
-	string metaData;
+	Metadata* metaData;
 
 	string getPath();
 

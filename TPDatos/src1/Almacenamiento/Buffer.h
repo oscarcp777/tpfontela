@@ -23,9 +23,6 @@ public:
 	void irAlPrincipio();
 	bool fin();
 	void crear();
-	std::string leerMetadata();
-	void escribirMetadata(std::string metadata);
-
 	void guardar(std::string registro);
 	void guardar();
 	std::string leer ();

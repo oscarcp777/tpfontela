@@ -49,6 +49,6 @@ int main109() {
 //	otroBuffer->cerrar();
 //	unBuffer->cerrar();
 //	delete(datos);
-//	return 0;
+	return 0;
 
 }

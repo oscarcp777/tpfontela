@@ -36,15 +36,15 @@ void Buffer::irAlPrincipio(){
 	posicionActual = 0;
 }
 
-std::string Buffer::leerMetadata(){
-	return this->metaData;
-}
-
-void Buffer::escribirMetadata(std::string metadata){
-	this->metadataSize = metadata.length();
-	this->metaData = metadata;
-
-}
+//std::string Buffer::leerMetadata(){
+//	return this->metaData;
+//}
+//
+//void Buffer::escribirMetadata(std::string metadata){
+//	this->metadataSize = metadata.length();
+//	this->metaData = metadata;
+//
+//}
 
 void Buffer::guardar(std::string registro){
 	std::string temp = this->datos;
