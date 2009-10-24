@@ -27,6 +27,7 @@ int Componente::getTamanio(){
 void Componente::setTamanio(int tamanio)
 {
     this->tamanio = tamanio;
+    this->buffer = new char[tamanio];
 }
 
 
@@ -68,8 +69,9 @@ char *Componente::getBuffer() const
 
 void Componente::setBuffer(char *buffer)
 {
-	this->buffer = buffer;
-	this->nextByte = strlen(buffer);
+	memcpy(&this->buffer[0],buffer,sizeof(char)*this->getTamanio());
+	this->nextByte = 0;
+	this->tamanioBuffer = strlen(buffer);
 }
 
 int Componente::getTamanioBuffer() const

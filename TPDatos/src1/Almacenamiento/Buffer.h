@@ -24,7 +24,7 @@ public:
 	bool fin();
 	void crear();
 	void guardar(std::string registro);
-	void guardar();
+	void guardar(int pos = -1);
 	std::string leer ();
 	void leer(Componente* componente, int pos);
 	void leer(void* datos, int tamanio);

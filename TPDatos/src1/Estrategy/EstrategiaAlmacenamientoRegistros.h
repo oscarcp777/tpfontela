@@ -19,7 +19,7 @@ public:
 
     void altaComponente(Almacenamiento* donde, Componente* componente);
     void quitarComponente(Almacenamiento* donde, Componente* componente);
-    void busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave);
+    void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave);
 
 };
 

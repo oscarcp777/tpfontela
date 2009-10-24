@@ -56,9 +56,25 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 }
 
 
-void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
-	// Creo buffer de tamanio length.
+	int pos = 0;
+	while (!donde->fin()){
+		donde->leer(componente, pos);
+		componente->hidratar(BINARIO);
+		if (componente->compareTo(clave) == 0){
+			std::cout<<"ENTRO AL  componente->compareTo(clave) == 0"<<std::endl;
+			std::cout<<"componente->getBufer "<<componente->getBuffer()<<std::endl;
+			resultadoDeLABusqueda.push_back(componente);
+			componente = componente->obtenerNuevaInstancia();
+			componente->setTamanio(donde->getTamanio());
+		}
+		pos += donde->getTamanio();
+	}
+
+
+
+// Creo buffer de tamanio length.
 //	char* buffer = new char[donde->getTamanio() + 1];
 //	bool encontrado = false;
 //	std::string datos="";

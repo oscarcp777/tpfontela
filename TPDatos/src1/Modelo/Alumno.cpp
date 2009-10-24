@@ -95,13 +95,23 @@ void Alumno::hidratarTexto(){
 	this->padron = atoi(aux2);
 }
 
+Registro* Alumno::obtenerNuevaInstancia(){
+	std::cout<<"nombre "<<this->getNombre()<<std::endl;
+					std::cout<<"dni "<<this->getPadron()<<std::endl;
+					std::cout<<"padron "<<this->getDni()<<std::endl;
+	return new Alumno();
+}
+
 std::string Alumno::getClaveObjeto(){
 	std::string llave;
 	llave.append("Nombre");
 	llave.append("Padron");
 	return llave;
 }
-
+int Alumno::compareTo(std::string clave){
+	//TODO
+	return 0;
+}
 
 
 Alumno::~Alumno() {

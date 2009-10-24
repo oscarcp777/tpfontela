@@ -55,13 +55,14 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
 		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
-			if ( pos > 0){
+			if ( pos >= 0){
 		    	//el registro entra en algun bloque existente
 
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
 				donde->leer(bloque,pos);
 			}
+
 		    	//agrego registro a lista del bloque
 		    	bloque->agregarComponente(componente);
 		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
@@ -69,7 +70,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 		    	//agrego bloque a lista de componentes
 		    	donde->agregarComponente(bloque);
 		    	//guardo en almacenamiento el ultimo bloque agregado
-		    	donde->guardar();
+		      	donde->guardar(pos);
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
@@ -132,7 +133,7 @@ std::string EstrategiaAlmacenamientoBloques::toString(){
 
 
 
-void EstrategiaAlmacenamientoBloques::busquedaSecuencial(Componente* componente, Almacenamiento* donde,std::string clave){
+void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 	// Creo buffer de tamanio length.
 //	char* buffer = new char[donde->getTamanio() + 1];

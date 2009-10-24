@@ -22,8 +22,7 @@ Registro::~Registro() {
 
 void Registro::serializar(string tipo){
 	this->setClave(this->getClaveObjeto());
-	this->buffer = new char[this->getTamanio()];  //setea el tamanio maximo del buffer de registro
-	if (tipo.compare(BINARIO))
+	if (tipo.compare(BINARIO)==0)
 		this->serializarBinario();
 	if (tipo.compare(TEXTO) == 0)
 		this->serializarTexto();
@@ -63,12 +62,12 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 	memcpy(&this->buffer[start],campo,len);
 	this->buffer[start + len] = Define::DELIMITADOR1;
 	this->tamanioBuffer = this->nextByte;
-
+	cout<<"Tamanio buffer: "<< this->tamanioBuffer << endl;
 	cout<<"El buffer contiene: ";
 	for (int i = 0; i < this->tamanioBuffer; i++)
 		cout<<this->buffer[i];
 
-	cout<<""<<endl;;
+	cout<<""<<endl;
 	cout<<"Su tamanio es: "<<this->tamanioBuffer<<endl;
 	return len;
 
@@ -78,6 +77,8 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 int Registro::getAtributo(void* campo, int tamanio){
 //return this->mapaAtributos[etiqueta];
 	int len = -1;
+	cout<<"NextByte: "<<this->nextByte<<endl;
+	cout<<"this->getBuffer(): "<<this->getBuffer()<<endl;
 	int start = this->nextByte;
 	for (int i = start; i < this->tamanioBuffer; i++){
 		if (this->buffer[i] == Define::DELIMITADOR1){

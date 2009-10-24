@@ -129,7 +129,7 @@ void Archivo::guardar(std::string registro){
 	}
 
 }
-void Archivo::guardar(){
+void Archivo::guardar(int pos){
 	int i=1;
 	std::list<Componente*>::iterator iteraComponentes;
 	std::string metaData;
@@ -146,7 +146,10 @@ void Archivo::guardar(){
 	}
 	if (this->archivo.is_open()) {
 
-		this->irAlFinal();
+		if (pos < 0)
+			this->irAlFinal();
+		else
+			this->archivo.seekp(pos);
 		this->archivo.write((*iteraComponentes)->getBuffer(),	this->getTamanio());
 
 		//		if (  this->archivo.fail())
@@ -174,52 +177,62 @@ bool Archivo::fin() {
 }
 
 
-void Archivo::leer(void* datos, int tamanio) {
-
-  /* verifica que el archivo esté abierto */
-  if (this->archivo.is_open()) {
-
-    /* lee del archivo un registro */
-	this->archivo.read(static_cast<char*>(datos),tamanio);
-
-
-    /* chequea si se ha producido un error */
-    if (this->archivo.fail())
-      /* arroja una excepción ante la imposibilidad de leer un reg */
-      throw string("No se pudo leer correctamente el registro");
-  }
-  else {
-    /* arroja una excepción porque el archivo no está abierto */
-    throw string("El archivo no está abierto");
-  }
-}
+//void Archivo::leer(void* datos, int tamanio) {
+//
+//  /* verifica que el archivo esté abierto */
+//  if (this->archivo.is_open()) {
+//
+//    /* lee del archivo un registro */
+//	this->archivo.read(static_cast<char*>(datos),tamanio);
+//
+//
+//    /* chequea si se ha producido un error */
+//    if (this->archivo.fail())
+//      /* arroja una excepción ante la imposibilidad de leer un reg */
+//      throw string("No se pudo leer correctamente el registro");
+//  }
+//  else {
+//    /* arroja una excepción porque el archivo no está abierto */
+//    throw string("El archivo no está abierto");
+//  }
+//}
 
 void Archivo::leer(Componente* componente, int pos){
 
+		char* bufferAux = new char [this->getTamanio()];
 	  if (this->archivo.is_open()) {
 		  this->archivo.seekg(pos);
-		  this->archivo.read(componente->getBuffer(),this->getTamanio());
+		  this->archivo.seekp(pos);
+		  //this->archivo.read(bufferAux,this->getTamanio());
+		  this->archivo.read(bufferAux,this->getTamanio());
+		  componente->setBuffer(bufferAux);
+		  cout<<"bufferaux "<<bufferAux<<endl;
+
 	  }
+	  else {
+	      /* arroja una excepción porque el archivo no está abierto */
+	      throw string("El archivo no está abierto");
+	    }
 }
 
-void Archivo::leer(std::string& datos){
-
-  /* verifica que el archivo esté abierto */
-  if (this->archivo.is_open()) {
-
-    /* lee del archivo una linea */
-   std::getline(this->archivo,datos);
-
-    /* chequea si se ha producido un error */
-    if (this->archivo.fail())
-      /* arroja una excepción ante la imposibilidad de leer un reg */
-      throw string("No se pudo leer correctamente el registro");
-  }
-  else {
-    /* arroja una excepción porque el archivo no está abierto */
-    throw string("El archivo no está abierto");
-  }
-}
+//void Archivo::leer(std::string& datos){
+//
+//  /* verifica que el archivo esté abierto */
+//  if (this->archivo.is_open()) {
+//
+//    /* lee del archivo una linea */
+//   std::getline(this->archivo,datos);
+//
+//    /* chequea si se ha producido un error */
+//    if (this->archivo.fail())
+//      /* arroja una excepción ante la imposibilidad de leer un reg */
+//      throw string("No se pudo leer correctamente el registro");
+//  }
+//  else {
+//    /* arroja una excepción porque el archivo no está abierto */
+//    throw string("El archivo no está abierto");
+//  }
+//}
 
 Archivo::~Archivo() {
 

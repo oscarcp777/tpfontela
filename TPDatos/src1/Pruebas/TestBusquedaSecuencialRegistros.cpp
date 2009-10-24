@@ -13,10 +13,11 @@
 #include "../Factory/FabricaDeRecursosDeAlmacenamiento.h"
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 #include <vector>
+#include <list>
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main3() {
+int main() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -24,15 +25,24 @@ int main3() {
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoRegistros");
+				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
+									"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP);
 
-
+			std::list<Componente*> listaAlumnos;
+			list<Componente*>::iterator iter;
 			Alumno* alumno = new Alumno();
-			recurso->busquedaSecuencial(alumno,"85689");
-			std::cout<<std::endl;
-			std::cout<<"resultados busqueda: "<<std::endl;
-			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-			std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+
+			recurso->buscar(listaAlumnos,alumno,"85440");
+			iter = listaAlumnos.begin();
+
+
+//			while(iter != listaAlumnos.end()){
+//				alumno = (Alumno*) *iter;
+//				std::cout<<"nombre "<<alumno->getNombre()<<std::endl;
+//				std::cout<<"dni "<<alumno->getPadron()<<std::endl;
+//				std::cout<<"padron "<<alumno->getDni()<<std::endl;
+//				iter++;
+//			}
 
 			delete recurso;
 			delete fabricaDeRecursos;
