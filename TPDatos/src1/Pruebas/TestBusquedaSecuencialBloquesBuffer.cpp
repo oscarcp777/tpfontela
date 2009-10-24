@@ -23,9 +23,9 @@ int main33() {
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","miBuffer");
 
 		Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
-		Alumno* alumno4 = new Alumno(31993745,"A",9,8,8,8);
+//		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+//		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+//		Alumno* alumno4 = new Alumno(31993745,"A",9,8,8,8);
 
 
 		recurso->alta(alumno1);

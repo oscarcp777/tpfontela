@@ -20,7 +20,7 @@ EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
 
 std::string EstrategiaAlmacenamiento::generarMetadata(Componente* componente){
 //	 std::stringstream flujo;
-//	 std::string metaData="";
+	 std::string metaData="";
 //	 std::string aux="";
 //	 std::map<std::string,std::string>::iterator it;
 //
@@ -31,7 +31,7 @@ std::string EstrategiaAlmacenamiento::generarMetadata(Componente* componente){
 //	 flujo<< aux.length();
 //	// metaData+= flujo.str()+DELIMITADOR+aux;
 //	 metaData = aux;
-//	 return metaData;
+	 return metaData;
 }
 
 std::string EstrategiaAlmacenamiento::toString(){

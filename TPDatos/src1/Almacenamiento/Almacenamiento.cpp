@@ -9,8 +9,8 @@
 using namespace std;
 Almacenamiento::Almacenamiento() {
 	this->compuesto= new Compuesto();
-	this->metaData = "";
-	this->metadataSize = -1;
+	this->metaData = new Metadata();
+
 
 }
 int Almacenamiento::getCantidadRegistrosEnMemoria()
@@ -85,22 +85,15 @@ Compuesto* Almacenamiento::getCompuesto()
 
 int Almacenamiento::getExisteMetaData()
 {
-	if (this->metadataSize == -1)
+	if (this->metaData->getSize() == -1)
 		return 0;
 	else
 		return 1;
 }
 
-
-std::string Almacenamiento::leerMetadata(){
-	return "nada";
-}
-
-void Almacenamiento::escribirMetadata(std::string metadata){
-	this->metaData = metadata;
-
-}
-
 std::string Almacenamiento::toString(){
 	return "Almacenamiento";
+}
+Metadata* Almacenamiento::getMetadata(){
+	return this->metaData;
 }

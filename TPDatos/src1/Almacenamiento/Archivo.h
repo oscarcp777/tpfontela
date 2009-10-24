@@ -83,8 +83,6 @@ public:
       void irAlFinal();
 
 
-      std::string leerMetadata();
-      void escribirMetadata(std::string metadata);
       void leer(std::string& datos);
 
 
