@@ -69,6 +69,7 @@ char *Componente::getBuffer() const
 void Componente::setBuffer(char *buffer)
 {
 	this->buffer = buffer;
+	this->nextByte = strlen(buffer);
 }
 
 int Componente::getTamanioBuffer() const

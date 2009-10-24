@@ -194,6 +194,14 @@ void Archivo::leer(void* datos, int tamanio) {
   }
 }
 
+void Archivo::leer(Componente* componente, int pos){
+
+	  if (this->archivo.is_open()) {
+		  this->archivo.seekg(pos);
+		  this->archivo.read(componente->getBuffer(),this->getTamanio());
+	  }
+}
+
 void Archivo::leer(std::string& datos){
 
   /* verifica que el archivo esté abierto */

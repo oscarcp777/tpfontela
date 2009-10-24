@@ -50,18 +50,18 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 	//no esta terminado, hasta ahora por cada registro agrega un bloque
 
+			//necesito un nuevo bloque
+			Bloque* bloque = new Bloque(donde->getTamanio());
+
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
 		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
 			if ( pos > 0){
 		    	//el registro entra en algun bloque existente
 
-				//implementar leer(int) lee un registro o bloque de buffer o archivo
-				//desde la pos especificada
-					//donde->leer(pos)
-
-		    }else{
-		    	//necesito un nuevo bloque
-		    	Bloque* bloque = new Bloque(donde->getTamanio());
+				//lee el archivo desde la pos especificada y guarda en el bloque
+				//el buffer leido
+				donde->leer(bloque,pos);
+			}
 		    	//agrego registro a lista del bloque
 		    	bloque->agregarComponente(componente);
 		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
@@ -73,7 +73,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
-		    }
+
 
 
 

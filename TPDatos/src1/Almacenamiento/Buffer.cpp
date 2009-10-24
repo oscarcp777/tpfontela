@@ -120,6 +120,11 @@ void Buffer::leer(void* datos, int tamanio){
 	}
 }
 
+void Buffer::leer(Componente* componente, int pos){
+
+}
+
+
 bool Buffer::fin() {
 
   bool fin = false;

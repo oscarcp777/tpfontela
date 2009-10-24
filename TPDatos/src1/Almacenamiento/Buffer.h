@@ -26,6 +26,7 @@ public:
 	void guardar(std::string registro);
 	void guardar();
 	std::string leer ();
+	void leer(Componente* componente, int pos);
 	void leer(void* datos, int tamanio);
 
 
