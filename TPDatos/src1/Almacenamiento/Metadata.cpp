@@ -91,11 +91,11 @@ int Metadata::getSize(){
     	this->archivo.clear();
 
     	/* crea el archivo */
-    	this->archivo.open(this->nombreArchivo.c_str(),ios::out | ios::binary);
+    	this->archivo.open(this->nombreArchivo.c_str(),ios::out);
     	this->archivo.close();
 
     	/* reabre el archivo para lectura - escritura binario */
-    	this->archivo.open(this->nombreArchivo.c_str(),ios::in|ios::out|ios::binary);
+    	this->archivo.open(this->nombreArchivo.c_str(),ios::in|ios::out);
 
     	/* verifica que haya podido crear el archivo */
     	if (! this->archivo.is_open()){
@@ -109,7 +109,7 @@ int Metadata::getSize(){
     void Metadata::abrirArchivo(){
 
     	/* abre el archivo en modo lectura - escritura binario*/
-    	this->archivo.open(this->nombreArchivo.c_str(),ios::in |ios::out |ios::binary);
+    	this->archivo.open(this->nombreArchivo.c_str(),ios::in |ios::out);
     	/* verifica que haya podido crear el archivo */
     	if (! this->archivo.is_open()){
     		cout<<"El archivo no pudo ser abierto "<<endl;
@@ -123,3 +123,54 @@ int Metadata::getSize(){
     	this->archivo.close();
 
     }
+
+    void Metadata::guardarPrimeraLinea(std::string registro){
+    	/* verifica que el archivo esta abierto */
+        	if (this->archivo.is_open()) {
+        		this->irAlPrincipio();
+        		//intenta escribir la cadena en el archivo
+        		this->archivo << registro;
+
+        		if (archivo.fail())
+        			// si se produjo un error, arroja una excepción
+        			throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
+        	} else {
+        		/* arroja una excepción porque el archivo no está abierto */
+        		throw string("El archivo no esta abierto");
+        	}
+    }
+
+    void Metadata::guardar(std::string registro){
+    	/* verifica que el archivo esta abierto */
+    	if (this->archivo.is_open()) {
+    		this->irAlFinal();
+    		//intenta escribir la cadena en el archivo
+    		this->archivo << registro;
+
+    		if (archivo.fail())
+    			// si se produjo un error, arroja una excepción
+    			throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
+    	} else {
+    		/* arroja una excepción porque el archivo no está abierto */
+    		throw string("El archivo no esta abierto");
+    	}
+
+    }
+    void Metadata::irAlPrincipio() {
+    	this->archivo.tellg();
+    	this->archivo.clear();
+    	this->archivo.seekg(0);
+    	this->archivo.seekp(0);
+    	this->archivo.tellg();
+    }
+
+
+    void Metadata::irAlFinal() {
+    	this->archivo.tellg();
+    	this->archivo.clear();
+    	this->archivo.seekg(0, ios::end);
+    	this->archivo.seekp(0, ios::end);
+    	this->archivo.tellg();
+    }
+
+

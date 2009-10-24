@@ -42,6 +42,13 @@ public:public:
     void abrirArchivo();
     void cerrarArchivo();
     void crearArchivo();
+    void escribirArchivo(const void* registro, int tamanio);
+    void irAlPrincipio();
+    void irAlFinal();
+    void guardar(std::string registro);
+    void guardarPrimeraLinea(std::string registro);
+
+
 
 
 };
