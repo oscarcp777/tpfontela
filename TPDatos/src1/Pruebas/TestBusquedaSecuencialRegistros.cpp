@@ -26,7 +26,6 @@ int main3() {
 		RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoRegistros");
 
-		recurso->leerArchivo("../files/","archivoRegistros");
 
 			Alumno* alumno = new Alumno();
 			recurso->busquedaSecuencial(alumno,"85689");

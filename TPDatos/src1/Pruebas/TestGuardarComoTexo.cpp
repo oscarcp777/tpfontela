@@ -28,9 +28,9 @@ int main2() {
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
-	recurso->cargarComponente(alumno1);
-	recurso->cargarComponente(alumno2);
-	recurso->cargarComponente(alumno3);
+	recurso->alta(alumno1);
+	recurso->alta(alumno2);
+	recurso->alta(alumno3);
 
 	//recurso->alta("../files/","archivoTexto");
 	cout<<endl << "Archivo guardado" << endl;
