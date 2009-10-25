@@ -59,7 +59,9 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 	int pos = 0;
+
 	char* bufferAux = new char [donde->getTamanio()];
+	componente->setTamanio(donde->getTamanio());
 	while (!donde->fin()){
 		donde->leer(bufferAux, pos);
 		componente->setBuffer(bufferAux);
@@ -69,7 +71,9 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(donde->getTamanio());
 		}
+		memset(bufferAux,0,donde->getTamanio());
 		pos += donde->getTamanio();
+
 	}
 
 	delete bufferAux;

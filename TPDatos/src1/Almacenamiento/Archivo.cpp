@@ -136,19 +136,14 @@ bool Archivo::fin() {
 void Archivo::leer(char* buffer, int pos){
 
 
-	  if (this->archivo.is_open()) {
-		  this->archivo.seekg(pos);
-		  //this->archivo.seekp(pos);
-		  //this->archivo.read(bufferAux,this->getTamanio());
-		  this->archivo.read(buffer,this->getTamanio());
-
-
-
-	  }
-	  else {
-	      /* arroja una excepción porque el archivo no está abierto */
-	      throw string("El archivo no está abierto");
-	    }
+	if (this->archivo.is_open()) {
+		this->archivo.seekg(pos);
+		this->archivo.read(buffer,this->getTamanio());
+	}
+	else {
+		/* arroja una excepción porque el archivo no está abierto */
+		throw string("El archivo no está abierto");
+	}
 
 }
 

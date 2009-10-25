@@ -11,7 +11,7 @@
 
 Buffer::Buffer():Almacenamiento() {
 	datos = new char[TAM_BUFFER];
-	memset(datos,0,sizeof(char)*TAM_BUFFER);
+	//memset(datos,0,sizeof(char)*TAM_BUFFER);
 	posicionActual = 0;
 	posicionActualLectura = 0;
 	cantElementos = 0;
@@ -31,7 +31,7 @@ std::string Buffer::getClass(){
 	return "Buffer";
 }
 void Buffer::abrir(){
-	posicionActual = 0;
+	//posicionActual = 0;
 }
 
 void Buffer::irAlPrincipio(){
@@ -56,14 +56,28 @@ void Buffer::guardar(std::string registro){
 
 void Buffer::guardar(char* buffer, int pos){
 
-
+	//cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
+	cout<<"Registro a guardar: "<<buffer<<endl;
 	if(pos < 0){
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 		if(this->getTamanio() <= TAM_BUFFER - this->posicionActual){
 
 			memcpy(&this->datos[this->posicionActual],buffer,this->getTamanio());
 			this->posicionActual+=this->getTamanio();
+
 			this->cantElementos++;
+//			cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
+//			for(int i = 0 ; i< strlen(buffer) ; i++){
+//				cout<<i<<": "<<this->datos[i];
+//
+//			}
+//			cout<<"Desde posicion actual : "<<this->posicionActual<<endl;
+//			for(int i = this->posicionActual ; i< this->posicionActual+strlen(buffer) ; i++){
+//							cout<<i<<": "<<this->datos[i];
+//
+//						}
+//			this->posicionActual+=this->getTamanio();
+
 		}
 		else {
 			throw std::string("El registro no entra en el buffer");
@@ -78,13 +92,9 @@ void Buffer::guardar(char* buffer, int pos){
 
 
 void Buffer::leer(char* buffer, int pos){
-	std::string aux = "";
-	std::string subAux = "";
-	aux = this->datos;
 
 	if(pos+this->getTamanio() <= TAM_BUFFER){
-		subAux = aux.substr(pos,this->getTamanio());
-		memcpy(buffer,&this->datos[0],this->getTamanio());
+		memcpy(buffer,&this->datos[pos],this->getTamanio());
 		this->posicionActualLectura = pos + this->getTamanio();
 	}
 
