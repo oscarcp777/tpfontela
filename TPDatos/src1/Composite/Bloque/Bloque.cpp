@@ -80,6 +80,6 @@ void Bloque::hidratar(string tipo){
 Componente* Bloque::obtenerNuevaInstancia(){
 	return NULL;
 }
-int Bloque::compareTo(std::string clave){
+int Bloque::compareTo(std::string clave,int num){
 	return -1;
 }

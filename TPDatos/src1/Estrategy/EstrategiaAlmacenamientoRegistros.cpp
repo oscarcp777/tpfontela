@@ -59,14 +59,21 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 	int pos = 0;
-
+	vector<string> vecClaves;
 	char* bufferAux = new char [donde->getTamanio()];
 	componente->setTamanio(donde->getTamanio());
+	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
 	while (!donde->fin()){
 		donde->leer(bufferAux, pos);
 		componente->setBuffer(bufferAux);
 		componente->hidratar(BINARIO);
-		if (componente->compareTo(clave) == 0){
+
+		for( int i = 0; i<(int)vecClaves.size(); i++){
+			//TODO osky tiene que devolver la posicion de la etiqueda
+			//y tenemos que hacer varios compareTo......
+			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
+		}
+		if (componente->compareTo(clave,0) == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(donde->getTamanio());
