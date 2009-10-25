@@ -17,7 +17,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main() {
+int main456() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -25,7 +25,7 @@ int main() {
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,500,
+				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
 									"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP);
 
 			std::list<Componente*> listaAlumnos;
