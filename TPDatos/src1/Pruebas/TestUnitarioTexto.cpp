@@ -9,7 +9,7 @@
 using namespace std;
 
 
-int main12() {
+int main142() {
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	alumno1->Init();

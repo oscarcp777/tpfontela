@@ -24,15 +24,15 @@ public:
 	bool fin();
 	void crear();
 	void guardar(std::string registro);
-	void guardar(int pos = -1);
-	std::string leer ();
-	void leer(Componente* componente, int pos);
-	void leer(void* datos, int tamanio);
+	void guardar(char* buffer, int pos = -1);
+	void leer(char* buffer, int pos);
 
 
 private:
 	char* datos;
 	int posicionActual;
+	int posicionActualLectura;
+	int cantElementos;
 };
 
 #endif /* BUFFER_H_ */

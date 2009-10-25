@@ -24,3 +24,12 @@ EstrategiaRecursoUnAlmacenamiento::~EstrategiaRecursoUnAlmacenamiento() {
 std::string EstrategiaRecursoUnAlmacenamiento::toString(){
 	return "EstrategiaRecursoUnAlmacenamiento";
 }
+
+void EstrategiaRecursoUnAlmacenamiento::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
+		Almacenamiento* almacenamiento=   almacenamientos.at(0);
+		componente->setTamanio(almacenamiento->getTamanio());
+		almacenamiento->abrir();
+		estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, almacenamiento, clave);
+		almacenamiento->cerrar();
+
+}

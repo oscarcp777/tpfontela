@@ -15,7 +15,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main1() {
+int main123() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -30,12 +30,12 @@ int main1() {
 					"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP);
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-	//Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-	//Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
 	recurso->alta(alumno1);
-	//recurso->alta(alumno2);
-	//recurso->alta(alumno3);
+	recurso->alta(alumno2);
+	recurso->alta(alumno3);
 
 	cout << endl;
 	cout << "Archivo guardado" << endl;

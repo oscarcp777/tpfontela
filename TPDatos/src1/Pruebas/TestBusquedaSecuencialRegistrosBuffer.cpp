@@ -1,5 +1,5 @@
 /*
- * TestBusquedaSecuencialRegistros.cpp
+ * TestBusquedaSecuencialRegistrosBuffer.cpp
  *
  *  Created on: 17/10/2009
  *      Author: richy
@@ -17,7 +17,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main() {
+int main79() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -25,8 +25,18 @@ int main() {
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,500,
-									"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP);
+				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,"padron");
+
+			Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
+			//Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+			//Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+
+			recurso->alta(alumno1);
+			//recurso->alta(alumno2);
+			//recurso->alta(alumno3);
+
+			cout << endl;
+			cout << "Buffer guardado" << endl;
 
 			std::list<Componente*> listaAlumnos;
 			list<Componente*>::iterator iter;
@@ -48,5 +58,3 @@ int main() {
 			delete fabricaDeRecursos;
 			return 0;
 }
-
-

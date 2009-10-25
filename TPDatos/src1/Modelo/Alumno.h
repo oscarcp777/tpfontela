@@ -18,11 +18,11 @@ public:
 	Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3);
 	Alumno();
 	virtual ~Alumno();
-	int getPadron() const;
+	int getPadron();
 	void setPadron(int padron);
-	int getDni() const;
+	int getDni();
 	void setDni(int dni);
-	std::string getNombre() const;
+	std::string getNombre();
 	void setNombre(std::string nombre);
 
 	void serializarBinario();

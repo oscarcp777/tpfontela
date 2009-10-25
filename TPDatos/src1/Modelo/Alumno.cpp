@@ -21,7 +21,7 @@ Alumno::Alumno() {
 
 }
 
-int Alumno::getPadron() const
+int Alumno::getPadron()
 {
 	return padron;
 }
@@ -31,7 +31,7 @@ void Alumno::setPadron(int padron)
 	this->padron = padron;
 }
 
-int Alumno::getDni() const
+int Alumno::getDni()
 {
 	return dni;
 }
@@ -41,8 +41,7 @@ void Alumno::setDni(int dni)
 	this->dni = dni;
 }
 
-std::string Alumno::getNombre() const
-{
+std::string Alumno::getNombre(){
 	return nombre;
 }
 
@@ -72,6 +71,7 @@ void Alumno::hidratarBinario(){
 	this->getAtributo(&this->padron,sizeof(this->padron));
 	this->getAtributo(&this->dni,sizeof(this->dni));
 
+
 }
 
 void Alumno::serializarTexto(){
@@ -96,9 +96,6 @@ void Alumno::hidratarTexto(){
 }
 
 Registro* Alumno::obtenerNuevaInstancia(){
-	std::cout<<"nombre "<<this->getNombre()<<std::endl;
-					std::cout<<"dni "<<this->getPadron()<<std::endl;
-					std::cout<<"padron "<<this->getDni()<<std::endl;
 	return new Alumno();
 }
 

@@ -36,7 +36,7 @@ public:
 
       registro : puntero hacia el registro a ser escrito en el archivo.
     */
-    void guardar(int pos = -1);
+    void guardar(char* buffer, int pos = -1);
 
 
     /*
@@ -47,7 +47,7 @@ public:
     */
     //void leer(void* datos, int tamanio);
 
-    void leer(Componente* componente, int pos);
+    void leer(char* buffer, int pos);
     /*
       pre : archivoRegistros ha sido creado con crear().
       post: devuelve true si se ha llegado al fin del archivo, es decir no se puede

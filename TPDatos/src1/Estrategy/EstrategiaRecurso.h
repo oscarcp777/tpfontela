@@ -17,7 +17,7 @@ public:
 	virtual ~EstrategiaRecurso();
 	std::string toString();
 	virtual int altaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente)=0;
-
+	virtual void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave) =0;
 };
 
 #endif /* ESTRATEGIARECURSO_H_ */

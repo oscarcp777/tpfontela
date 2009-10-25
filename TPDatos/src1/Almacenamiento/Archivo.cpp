@@ -81,37 +81,7 @@ void Archivo::cerrar(){
 
 }
 
-//std::string Archivo::leerMetadata(){
-////	unsigned short metaDataSize;
-//	std::string datos = "";
-////
-////	this->archivo.read((char*)&metaDataSize,sizeof(metaDataSize));
-////	this->metadataSize = metaDataSize;
-////
-////	char* buffer = new char[metaDataSize];
-////	memset(buffer,' ',metaDataSize);
-////	this->leer(buffer,this->metadataSize);
-////	datos = buffer;
-////	delete buffer;
-////
-////	std::cout<<"Metadata: " << datos <<endl;
-//	return datos;
-//}
 
-//void Archivo::escribirMetadata(std::string metadata){
-////	unsigned short metaDataSize;
-////	std::stringstream flujo;
-////	int tamanio = metadata.length();
-////
-////	this->metadataSize = tamanio;
-////	metaDataSize = tamanio;
-////	this->guardar((char*)&metaDataSize,sizeof(metaDataSize));
-////
-////	//flujo<< tamanio;
-////	this->metaData = /*flujo.str() + DELIMITADOR +*/ metadata;
-////	this->guardar(this->metaData.c_str(),this->metaData.length());
-//
-//}
 
 void Archivo::guardar(std::string registro){
 	/* verifica que el archivo esta abierto */
@@ -129,36 +99,20 @@ void Archivo::guardar(std::string registro){
 	}
 
 }
-void Archivo::guardar(int pos){
-	int i=1;
-	std::list<Componente*>::iterator iteraComponentes;
-	std::string metaData;
+void Archivo::guardar(char* buffer, int pos){
 
-	iteraComponentes = this->getCompuesto()->iteratorListaDeComponetes();
-	//	if(donde->getExisteMetaData() == 0){
-	//		metaData = this->generarMetadata((Componente*)*((Bloque*)*iteraComponentes)->iteratorListaDeComponetes());
-	//		donde->escribirMetadata(metaData);
-	//	}
-
-	while(i<this->getCompuesto()->getCantidadDeElelmentos()){
-		iteraComponentes++;
-		i++;
-	}
 	if (this->archivo.is_open()) {
 
 		if (pos < 0)
 			this->irAlFinal();
-		else
+		else{
 			this->archivo.seekp(pos);
-		this->archivo.write((*iteraComponentes)->getBuffer(),	this->getTamanio());
+			//this->archivo.seekg(pos);
+		}
 
-		//		if (  this->archivo.fail())
-		//			/* arroja una excepción ante la imposibilidad de escribir el reg */
-		//			throw string("No se pudo escribir correctamente el registro");
-		//		}
-		//		else {
-		//			/* arroja una excepción porque el archivo no está abierto */
-		//			throw string("El archivo no está abierto");
+		this->archivo.write(buffer,this->getTamanio());
+
+
 	}
 
 }
@@ -177,62 +131,27 @@ bool Archivo::fin() {
 }
 
 
-//void Archivo::leer(void* datos, int tamanio) {
-//
-//  /* verifica que el archivo esté abierto */
-//  if (this->archivo.is_open()) {
-//
-//    /* lee del archivo un registro */
-//	this->archivo.read(static_cast<char*>(datos),tamanio);
-//
-//
-//    /* chequea si se ha producido un error */
-//    if (this->archivo.fail())
-//      /* arroja una excepción ante la imposibilidad de leer un reg */
-//      throw string("No se pudo leer correctamente el registro");
-//  }
-//  else {
-//    /* arroja una excepción porque el archivo no está abierto */
-//    throw string("El archivo no está abierto");
-//  }
-//}
 
-void Archivo::leer(Componente* componente, int pos){
 
-		char* bufferAux = new char [this->getTamanio()];
+void Archivo::leer(char* buffer, int pos){
+
+
 	  if (this->archivo.is_open()) {
 		  this->archivo.seekg(pos);
-		  this->archivo.seekp(pos);
+		  //this->archivo.seekp(pos);
 		  //this->archivo.read(bufferAux,this->getTamanio());
-		  this->archivo.read(bufferAux,this->getTamanio());
-		  componente->setBuffer(bufferAux);
-		  cout<<"bufferaux "<<bufferAux<<endl;
+		  this->archivo.read(buffer,this->getTamanio());
+
+
 
 	  }
 	  else {
 	      /* arroja una excepción porque el archivo no está abierto */
 	      throw string("El archivo no está abierto");
 	    }
+
 }
 
-//void Archivo::leer(std::string& datos){
-//
-//  /* verifica que el archivo esté abierto */
-//  if (this->archivo.is_open()) {
-//
-//    /* lee del archivo una linea */
-//   std::getline(this->archivo,datos);
-//
-//    /* chequea si se ha producido un error */
-//    if (this->archivo.fail())
-//      /* arroja una excepción ante la imposibilidad de leer un reg */
-//      throw string("No se pudo leer correctamente el registro");
-//  }
-//  else {
-//    /* arroja una excepción porque el archivo no está abierto */
-//    throw string("El archivo no está abierto");
-//  }
-//}
 
 Archivo::~Archivo() {
 

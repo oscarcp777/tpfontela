@@ -33,3 +33,8 @@ int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& a
 std::string EstrategiaRecursoEscrituraDirecta::toString(){
 	return "EstrategiaRecursoEscrituraDirecta";
 }
+
+void EstrategiaRecursoEscrituraDirecta::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
+
+
+}
