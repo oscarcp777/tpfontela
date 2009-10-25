@@ -105,8 +105,21 @@ std::string Alumno::getClaveObjeto(){
 	llave.append("Padron");
 	return llave;
 }
-int Alumno::compareTo(std::string clave){
-	//TODO
+int Alumno::compareTo(std::string clave, int num){
+	switch(num){
+	case 0:
+			std::cout<<"case 0 NOMBRE "<<clave<<std::endl;
+			break;
+	case 1:
+			std::cout<<"case 1 PADRON "<<clave<<std::endl;
+			break;
+
+	case 2:
+			std::cout<<"case 0 DNI "<<clave<<std::endl;
+			break;
+
+
+	}
 	return 0;
 }
 

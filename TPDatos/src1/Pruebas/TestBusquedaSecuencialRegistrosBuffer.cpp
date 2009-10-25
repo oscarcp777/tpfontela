@@ -42,7 +42,7 @@ int main() {
 			list<Componente*>::iterator iter;
 			Alumno* alumno = new Alumno();
 
-			recurso->buscar(listaAlumnos,alumno,"85440");
+			recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
 			iter = listaAlumnos.begin();
 
 

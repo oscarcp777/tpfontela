@@ -29,10 +29,9 @@ public:
 	void hidratarBinario();
 	void serializarTexto();
 	void hidratarTexto();
-	int compareTo(std::string clave);
+	int compareTo(std::string clave, int num);
 	Registro* obtenerNuevaInstancia();
 	std::string getClaveObjeto();
-
 	//para pruebas unitarias
 	void Init();
 
