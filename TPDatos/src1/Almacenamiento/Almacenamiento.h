@@ -50,11 +50,11 @@ public:
 
     virtual void guardar(std::string registro) = 0;
 
-    virtual void guardar(int pos = -1) = 0;
+    virtual void guardar(char* buffer, int pos = -1) = 0;
     virtual void crear() = 0;
     //virtual void leer(void *datos, int tamanio) =0;
 
-    virtual void leer(Componente* componente, int pos) = 0;
+    virtual void leer(char* buffer, int pos) = 0;
     virtual void abrir() =0;
     virtual void cerrar() =0;
     int getExisteMetaData();

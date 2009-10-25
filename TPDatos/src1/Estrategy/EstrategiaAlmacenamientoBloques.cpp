@@ -52,7 +52,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 			//necesito un nuevo bloque
 			Bloque* bloque = new Bloque(donde->getTamanio());
-
+			char* bufferAux = new char [donde->getTamanio()];
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
 		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
 			if ( pos >= 0){
@@ -60,7 +60,8 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
-				donde->leer(bloque,pos);
+				donde->leer(bufferAux,pos);
+				bloque->setBuffer(bufferAux);
 			}
 
 		    	//agrego registro a lista del bloque
@@ -69,8 +70,9 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 		    	bloque->serializar();
 		    	//agrego bloque a lista de componentes
 		    	donde->agregarComponente(bloque);
-		    	//guardo en almacenamiento el ultimo bloque agregado
-		      	donde->guardar(pos);
+
+	    	 	//guardo en almacenamiento el ultimo bloque agregado
+		      	donde->guardar(bloque->getBuffer(),pos);
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()

@@ -13,6 +13,8 @@ Buffer::Buffer():Almacenamiento() {
 	datos = new char[TAM_BUFFER];
 	memset(datos,0,sizeof(char)*TAM_BUFFER);
 	posicionActual = 0;
+	posicionActualLectura = 0;
+	cantElementos = 0;
 }
 void Buffer::crear(){
 
@@ -36,15 +38,6 @@ void Buffer::irAlPrincipio(){
 	posicionActual = 0;
 }
 
-//std::string Buffer::leerMetadata(){
-//	return this->metaData;
-//}
-//
-//void Buffer::escribirMetadata(std::string metadata){
-//	this->metadataSize = metadata.length();
-//	this->metaData = metadata;
-//
-//}
 
 void Buffer::guardar(std::string registro){
 	std::string temp = this->datos;
@@ -61,97 +54,52 @@ void Buffer::guardar(std::string registro){
 
 }
 
-void Buffer::guardar(int pos){
+void Buffer::guardar(char* buffer, int pos){
 
-	int i=1;
-	std::list<Componente*>::iterator iteraComponentes;
-	std::string metaData;
-
-	iteraComponentes = this->getCompuesto()->iteratorListaDeComponetes();
-
-	while(i<this->getCompuesto()->getCantidadDeElelmentos()){
-		iteraComponentes++;
-		i++;
-	}
 
 	if(pos < 0){
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
-		if((*iteraComponentes)->getTamanioBuffer() <= TAM_BUFFER - this->posicionActual){
+		if(this->getTamanio() <= TAM_BUFFER - this->posicionActual){
 
-			memcpy(&this->datos[this->posicionActual],(*iteraComponentes)->getBuffer(),this->getTamanio());
-			this->posicionActual+=this->getTamanio();}
+			memcpy(&this->datos[this->posicionActual],buffer,this->getTamanio());
+			this->posicionActual+=this->getTamanio();
+			this->cantElementos++;
+		}
 		else {
 			throw std::string("El registro no entra en el buffer");
 		}
-	}else
-		memcpy(&this->datos[pos],(*iteraComponentes)->getBuffer(),this->getTamanio());
+	}else{
+		memcpy(&this->datos[pos],buffer,this->getTamanio());
+		this->cantElementos++;
+	}
 
 
 }
 
-std::string Buffer::leer(){
 
-	std::string aux = this->datos;
-	std::string aux2 = "";
-	std::string caracter = "\n";
-	std::string vacio = "";
-	int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual+1);
-//	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
-//	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
-	aux2 = aux.substr(this->posicionActual,posBarraN-this->posicionActual);
-	this->posicionActual+= aux2.length()+1;
-	//en la siguiente linea borro el ultimo caracter, que es el \n (para no devolverlo)
-	return aux2.replace(aux2.length(),1,vacio.c_str());
-
-}
-
-void Buffer::leer(void* datos, int tamanio){
-	//std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
+void Buffer::leer(char* buffer, int pos){
 	std::string aux = "";
 	std::string subAux = "";
 	aux = this->datos;
-	//std::cout<<"this->datos: "<< this->datos<<std::endl;
-	//std::cout<<"aux: "<< aux<<std::endl;
 
-	if(this->posicionActual+tamanio <= TAM_BUFFER){
-		subAux = aux.substr(this->posicionActual,tamanio);
-		memcpy(datos, subAux.c_str(), subAux.length());
-		this->posicionActual += tamanio;
-
+	if(pos+this->getTamanio() <= TAM_BUFFER){
+		subAux = aux.substr(pos,this->getTamanio());
+		memcpy(buffer,&this->datos[0],this->getTamanio());
+		this->posicionActualLectura = pos + this->getTamanio();
 	}
-	else{
-		memcpy(datos, (void*)aux.substr(this->posicionActual,aux.length()).c_str(), aux.length()-this->posicionActual);
-		this->posicionActual += tamanio;
-	}
-}
 
-void Buffer::leer(Componente* componente, int pos){
-	//std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
-	std::string aux = "";
-	std::string subAux = "";
-	aux = this->datos;
-	this->posicionActual = pos;
-	//std::cout<<"this->datos: "<< this->datos<<std::endl;
-	//std::cout<<"aux: "<< aux<<std::endl;
-
-	if(this->posicionActual+this->getTamanio() <= TAM_BUFFER){
-		subAux = aux.substr(this->posicionActual,this->getTamanio());
-		memcpy(componente->getBuffer(), subAux.c_str(), subAux.length());
-	}
 }
 
 
 bool Buffer::fin() {
 
   bool fin = false;
-  std::string aux = this->datos;
-  //std::cout<<"aux.length() en FIN "<<aux.length()<<std::endl;
-  if(this->posicionActual == (int)aux.length())
+
+  if(this->posicionActualLectura == this->getTamanio()*cantElementos)
 	  fin = true;
 
   return fin;
 }
 
 void Buffer::cerrar(){
-	this->posicionActual = 0;
 }

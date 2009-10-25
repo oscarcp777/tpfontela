@@ -16,6 +16,7 @@ public:
 	virtual ~EstrategiaRecursoEscrituraDiferida();
 	std::string toString();
 	int escribirArchivo(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento);
+	void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave);
 
 };
 

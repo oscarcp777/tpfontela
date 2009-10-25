@@ -71,7 +71,7 @@ void Componente::setBuffer(char *buffer)
 {
 	memcpy(&this->buffer[0],buffer,sizeof(char)*this->getTamanio());
 	this->nextByte = 0;
-	this->tamanioBuffer = strlen(buffer);
+	this->tamanioBuffer = this->tamanio;
 }
 
 int Componente::getTamanioBuffer() const

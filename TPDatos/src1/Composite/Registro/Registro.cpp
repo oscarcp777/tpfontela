@@ -40,7 +40,7 @@ void Registro::hidratar(string tipo){
 int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 //this->mapaAtributos[etiqueta]=valor;
 	short len;
-	cout<<"Tamanio: "<<tamanio<<endl;
+	//cout<<"Tamanio: "<<tamanio<<endl;
 	//cout<<"Delimitador: "<<delim<<endl;
 	if (tamanio >= 0) len = tamanio;
 	else len = strlen((char*)campo);
@@ -53,7 +53,7 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 //		return -1;
 //	}
 	if (len > this->getTamanio()){
-		cout <<  "El registro no entra en la estructura establecida" << endl;
+		//cout <<  "El registro no entra en la estructura establecida" << endl;
 		return -1;
 	}
 	int start = this->nextByte;
@@ -62,23 +62,15 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 	memcpy(&this->buffer[start],campo,len);
 	this->buffer[start + len] = Define::DELIMITADOR1;
 	this->tamanioBuffer = this->nextByte;
-	cout<<"Tamanio buffer: "<< this->tamanioBuffer << endl;
-	cout<<"El buffer contiene: ";
-	for (int i = 0; i < this->tamanioBuffer; i++)
-		cout<<this->buffer[i];
 
-	cout<<""<<endl;
-	cout<<"Su tamanio es: "<<this->tamanioBuffer<<endl;
 	return len;
 
 
 }
 
 int Registro::getAtributo(void* campo, int tamanio){
-//return this->mapaAtributos[etiqueta];
+
 	int len = -1;
-	cout<<"NextByte: "<<this->nextByte<<endl;
-	cout<<"this->getBuffer(): "<<this->getBuffer()<<endl;
 	int start = this->nextByte;
 	for (int i = start; i < this->tamanioBuffer; i++){
 		if (this->buffer[i] == Define::DELIMITADOR1){
@@ -86,7 +78,6 @@ int Registro::getAtributo(void* campo, int tamanio){
 			break;
 		}
 	}
-	cout<<"Len: "<<len<<endl;
 	if (len == -1){
 		cout << "No encontro delimitador"<<endl;
 		return -1;

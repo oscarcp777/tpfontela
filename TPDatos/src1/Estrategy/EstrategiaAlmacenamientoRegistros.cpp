@@ -46,8 +46,8 @@ void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Co
 
 
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
-	    donde->agregarComponente(componente);   //agrega el componente a la lista de componentes
-	    donde->guardar();						//el almacenamiento guarda el ultimo componente agregado a la lista
+	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
+	    donde->guardar(componente->getBuffer());		//el almacenamiento guarda el ultimo componente agregado a la lista
 
 }
 
@@ -59,12 +59,12 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 	int pos = 0;
+	char* bufferAux = new char [donde->getTamanio()];
 	while (!donde->fin()){
-		donde->leer(componente, pos);
+		donde->leer(bufferAux, pos);
+		componente->setBuffer(bufferAux);
 		componente->hidratar(BINARIO);
 		if (componente->compareTo(clave) == 0){
-			std::cout<<"ENTRO AL  componente->compareTo(clave) == 0"<<std::endl;
-			std::cout<<"componente->getBufer "<<componente->getBuffer()<<std::endl;
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(donde->getTamanio());
@@ -72,6 +72,7 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 		pos += donde->getTamanio();
 	}
 
+	delete bufferAux;
 
 
 // Creo buffer de tamanio length.
