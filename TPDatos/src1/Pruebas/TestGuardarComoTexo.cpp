@@ -19,12 +19,12 @@ int main2() {
 	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
-
+	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0,
-									"../files/","archivoBloques","padron",INDEXADO_BSHARP);
+									"../files/","archivoBloques","padron",INDEXADO_BSHARP,alumno1);
 
-	Alumno* alumno1 = new Alumno(31993745,"Santiago Donikian",85689,8,8,8);
+
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 

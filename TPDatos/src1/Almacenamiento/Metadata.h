@@ -11,45 +11,70 @@
 #include <stdio.h>
 
 #include "../utils/Define.h"
+#include "../utils/StringUtils.h"
+#include "Archivo.h"
 #ifndef METADATA_H_
 #define METADATA_H_
 
 using namespace std;
 
-class Metadata {
-private:
-    string nombreArchivo;
-    string contenido;
-    map<string,string> mapaAtributosFijos;
-    map<string,string> mapaAtributosVariables;
+class Metadata:public Archivo{
 
+private:
+    string primerRegistro;
+    string segundoRegistro;
+    string tercerRegistro;
+    vector<string> mapaAtributosFijos;
+    map<int,int> mapaTamanioBloques;
+    vector<string> vectorAtributosVariables;
     vector<string> atributosRegistro;
     int metadataSize;
-    fstream  archivo;
-
-public:public:
+public:
 	Metadata();
 	virtual ~Metadata();
 	int getSize();
-	string leer();
-	void escribir(std::string dato);
+	void getPosicionBloque(int tamanioBuscado,vector<int>& posiciones);
+	void hidratarMetadata();
 	string getContenido();
-    string getNombreArchivo();
-    void setAtributoFijos(string clave,string valor);
-    void setAtributoVariable(string clave,string valor);
     void setMetadataSize(int metadataSize);
-    void setNombreArchivo(string nombreArchivo);
-    void abrirArchivo();
-    void cerrarArchivo();
-    void crearArchivo();
-    void escribirArchivo(const void* registro, int tamanio);
-    void irAlPrincipio();
-    void irAlFinal();
-    void guardar(std::string registro);
-    void guardarPrimeraLinea(std::string registro);
+    void leerMetadata();
+     void escribirMetadata(string estrAlmacenamiento,int tamanio,string clavePrimaria,string tipoIndexacion,string nombreAtributos);
+    string getValorAtributosFijos(string clave);
+    int getEspacioLibreEnBloque(int bloque);
+    int getMetadataSize()
+    {
+        return metadataSize;
+    }
 
+    string getPrimerRegistro()
+    {
+        return primerRegistro;
+    }
 
+    string getSegundoRegistro()
+    {
+        return segundoRegistro;
+    }
 
+    string getTercerRegistro()
+    {
+        return tercerRegistro;
+    }
+
+    void setPrimerRegistro(string primerRegistro)
+    {
+        this->primerRegistro = primerRegistro;
+    }
+
+    void setSegundoRegistro(string segundoRegistro)
+    {
+        this->segundoRegistro = segundoRegistro;
+    }
+
+    void setTercerRegistro(string tercerRegistro)
+    {
+        this->tercerRegistro = tercerRegistro;
+    }
 
 };
 

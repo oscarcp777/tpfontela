@@ -47,17 +47,25 @@ FabricaDeRecursosDeAlmacenamiento::FabricaDeRecursosDeAlmacenamiento() {
 
 
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmacenamientoEnArchivo(string estrategiaAlmacenamiento,int tamanio,string ruta,
-		string nombreArchivo,string clavePrimaria,string tipoIndexacion){
+		string nombreArchivo,string clavePrimaria,string tipoIndexacion,Componente* componente){
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
 	Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+	Metadata* metadata=new Metadata();
 	archivo->setTamanio(tamanio);
 	archivo->setTipoArchivo(estrategiaAlmacenamiento);
 	archivo->setRuta(ruta);
+	metadata->setRuta(ruta);
+	metadata->setNombreArchivo(nombreArchivo+METADATA);
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
-	archivo->getMetadata()->setNombreArchivo(ruta+nombreArchivo);
-	//archivo->crear();
-	//archivo->cerrar();
+
+	archivo->crear();
+	metadata->crear();
+	metadata->abrir();
+	metadata->escribirMetadata(estrategiaAlmacenamiento,tamanio,clavePrimaria,tipoIndexacion,componente->getNombreAtributos());
+	metadata->hidratarMetadata();
+	metadata->cerrar();
+	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);
@@ -77,10 +85,11 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 
 
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmacenamientoEnArchivoConBuffer(string estrategiaAlmacenamiento,int tamanio,string ruta
-		,int cantidadRegistrosEnMemoria,string nombreArchivo,string clavePrimaria,string tipoIndexacion){
+		,int cantidadRegistrosEnMemoria,string nombreArchivo,string clavePrimaria,string tipoIndexacion,Componente* componente){
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
 	Buffer* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
 	Archivo* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+	Metadata* metadata=new Metadata();
 	buffer->setTamanio(tamanio);
 	buffer->setClavePrimaria(clavePrimaria);
 	buffer->setCantidadRegistrosEnMemoria(cantidadRegistrosEnMemoria);
@@ -89,7 +98,15 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	archivo->setRuta(ruta);
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
-
+	archivo->crear();
+	metadata->setRuta(ruta);
+	metadata->setNombreArchivo(nombreArchivo+METADATA);
+	metadata->crear();
+	metadata->abrir();
+	metadata->escribirMetadata(estrategiaAlmacenamiento,tamanio,clavePrimaria,tipoIndexacion,componente->getNombreAtributos());
+	metadata->hidratarMetadata();
+	metadata->cerrar();
+	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoEscrituraDirecta* unAlmacenamiento=new EstrategiaRecursoEscrituraDirecta();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,buffer,unAlmacenamiento,estrategiaIndice);
@@ -99,21 +116,53 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	return rAlmacenamiento;
 }
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::abrirRecursoDeAlmacenamientoEnArchivo(string ruta,string nombreArchivo){
-
-	/*    EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
-		Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
-		archivo->setTamanio(tamanio);
-		archivo->setTipoArchivo(estrategiaAlmacenamiento);
-		archivo->setRuta(ruta);
-		archivo->setNombreArchivo(nombreArchivo);
-		archivo->setClavePrimaria(clavePrimaria);
-		EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
-		EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
-		RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);*/
-		return new RecursoDeAlmacenamiento();
+	Metadata* metadata=new Metadata();
+	metadata->setRuta(ruta);
+	metadata->setNombreArchivo(nombreArchivo+METADATA);
+	metadata->abrir();
+	metadata->hidratarMetadata();
+	metadata->cerrar();
+	string estrategiaAlmacenamiento= metadata->getValorAtributosFijos(ESTRATEGIA_ALMACENAMIENTO);
+	string clavePrimaria= metadata->getValorAtributosFijos(CLAVE_PRIMARIA);
+	string tipoIndexacion=metadata->getValorAtributosFijos(TIPO_INDEXACION);
+	int tamanio=atoi(metadata->getValorAtributosFijos(TAMANIO).c_str());
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+	Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+	archivo->setTamanio(tamanio);
+	archivo->setTipoArchivo(estrategiaAlmacenamiento);
+	archivo->setRuta(ruta);
+	archivo->setNombreArchivo(nombreArchivo);
+	archivo->setClavePrimaria(clavePrimaria);
+	estrategiaAlmac->setMetadata(metadata);
+	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
+	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);
+	return rAlmacenamiento;
 
 
 }
 RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::abrirRecursoDeAlmacenamientoEnArchivoConBuffer(string ruta,string nombreArchivo,int cantidadRegistrosEnMemoria){
-	return new RecursoDeAlmacenamiento();
+	Metadata* metadata=new Metadata();
+	metadata->setRuta(ruta);
+	metadata->setNombreArchivo(nombreArchivo+METADATA);
+	metadata->abrir();
+	string estrategiaAlmacenamiento= metadata->getValorAtributosFijos(ESTRATEGIA_ALMACENAMIENTO);
+	string clavePrimaria= metadata->getValorAtributosFijos(CLAVE_PRIMARIA);
+	string tipoIndexacion=metadata->getValorAtributosFijos(TIPO_INDEXACION);
+	int tamanio=atoi(metadata->getValorAtributosFijos(TAMANIO).c_str());
+	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
+	Almacenamiento* archivo=(Archivo*)this->getFabrica(ARCHIVO)->fabricar();
+	Buffer* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
+	buffer->setTamanio(tamanio);
+	buffer->setClavePrimaria(clavePrimaria);
+	buffer->setCantidadRegistrosEnMemoria(cantidadRegistrosEnMemoria);
+	archivo->setTamanio(tamanio);
+	archivo->setTipoArchivo(estrategiaAlmacenamiento);
+	archivo->setRuta(ruta);
+	archivo->setNombreArchivo(nombreArchivo);
+	archivo->setClavePrimaria(clavePrimaria);
+	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
+	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,buffer,unAlmacenamiento,estrategiaIndice);
+	return rAlmacenamiento;
 }

@@ -24,13 +24,14 @@ int main456() {
 		 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
+	    Alumno* alumno = new Alumno();
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
-									"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP);
+				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,500,
+									"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP,alumno);
 
 			std::list<Componente*> listaAlumnos;
 			list<Componente*>::iterator iter;
-			Alumno* alumno = new Alumno();
+
 
 			recurso->buscar(listaAlumnos,alumno,"85440");
 			iter = listaAlumnos.begin();

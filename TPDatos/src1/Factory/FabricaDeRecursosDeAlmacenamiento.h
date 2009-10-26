@@ -6,7 +6,7 @@
  */
 #include <iostream>
 #include "../Composite/Componente.h"
-
+#include "../Almacenamiento/Metadata.h"
 #ifndef FABRICADERECURSOSDEALMACENAMIENTO_H_
 #define FABRICADERECURSOSDEALMACENAMIENTO_H_
 #include <map>
@@ -52,9 +52,10 @@ public:
 	 *                        Ejemplo: "dni padron apellido"
 	 *
 	 *   string tipoIndexacion: tipo de indexacion a selecionar pudiendo ser : INDEXADO_BSHARP O INDEXADO_HASH_EXTENSIBLE
+	 *   Componente* componente: instancia del componente que va ser persistido como registro debera tener implemetado el metodo serializar
 	 */
 	RecursoDeAlmacenamiento* crearRecursoDeAlmacenamientoEnArchivo(string estrategiaAlmacenamiento,int tamanio,string ruta,
-			string nombreArchivo,string clavePrimaria,string tipoIndexacion);
+			string nombreArchivo,string clavePrimaria,string tipoIndexacion,Componente* componente);
 	/**
 	 * pre: ninguna
 	 * post:  este metodo se encarga de crear un  recurso de almacenamiento para :
@@ -96,9 +97,10 @@ public:
 	 *                        en caso de que esta este conformada por mas de un campo debera ingresarse separados por espacios
 	 *                        Ejemplo: "dni padron apellido"
 	 *   string tipoIndexacion: tipo de indexacion a selecionar pudiendo ser : INDEXADO_BSHARP# O INDEXADO_HASH_EXTENSIBLE
+	 *    Componente* componente: instancia del componente que va ser persistido como registro debera tener implemetado el metodo serializar
 	 */
 	RecursoDeAlmacenamiento* crearRecursoDeAlmacenamientoEnArchivoConBuffer(string estrategiaAlmacenamiento,int tamanio,string ruta,int cantidadRegistrosEnMemoria
-			,string nombreArchivo,string clavePrimaria,string tipoIndexacion);
+			,string nombreArchivo,string clavePrimaria,string tipoIndexacion,Componente* componente);
 
 	/**
 	 *
