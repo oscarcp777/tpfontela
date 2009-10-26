@@ -9,7 +9,6 @@
 using namespace std;
 Almacenamiento::Almacenamiento() {
 	this->compuesto= new Compuesto();
-	this->metaData = new Metadata();
 
 
 }
@@ -83,17 +82,8 @@ Compuesto* Almacenamiento::getCompuesto()
 	return compuesto;
 }
 
-int Almacenamiento::getExisteMetaData()
-{
-	if (this->metaData->getSize() == -1)
-		return 0;
-	else
-		return 1;
-}
+
 
 std::string Almacenamiento::toString(){
 	return "Almacenamiento";
-}
-Metadata* Almacenamiento::getMetadata(){
-	return this->metaData;
 }

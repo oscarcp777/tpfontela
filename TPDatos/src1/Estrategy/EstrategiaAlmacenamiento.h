@@ -11,6 +11,7 @@
 #include "../Almacenamiento/Almacenamiento.h"
 #include "../utils/Define.h"
 #include "../Almacenamiento/Archivo.h"
+#include "../Almacenamiento/Metadata.h"
 #include "../Composite/Bloque/Bloque.h"
 #include "../Composite/Registro/Registro.h"
 #include "../utils/StringUtils.h"
@@ -26,10 +27,20 @@ public:
 	virtual void altaComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void quitarComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave) = 0;
+    Metadata *getMetadata()
+    {
+        return metadata;
+    }
+
+    void setMetadata(Metadata *metadata)
+    {
+        this->metadata = metadata;
+    }
 
 protected:
 
 	std::string generarMetadata(Componente* componente);
+	Metadata* metadata;
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTO_H_ */

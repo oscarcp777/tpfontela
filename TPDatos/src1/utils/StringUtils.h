@@ -24,6 +24,7 @@ public:
 	static std::string actualizarCadena(string cadena,char char_reemplazable);
 	static void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );
 	static int contadorTag(std::string cadena);
+	static  std::string convertirAString( int numero);
 
 private:
 

@@ -22,16 +22,6 @@ void Archivo::crear(){
 			    //crea el archivo
 				  this->archivo.open(this->getPath().c_str(),ios::out);
 				  this->archivo.close();
-
-			    //reabre el archivo para lectura - escritura
-				  this->archivo.open(this->getPath().c_str(),ios::out|ios::in);
-
-			    if (!this->archivo.is_open()){
-			      // si no se pudo crear el archivo arroja una excepción/
-			      cout<<"El archivo no pudo ser abierto "<<endl;
-			      throw std::ios_base::failure("El archivo no pudo ser abierto");
-			    }
-
 		}else{
 				/* limpia los flags de control de estado del archivo */
 			    this->archivo.clear();
@@ -40,18 +30,7 @@ void Archivo::crear(){
 			    this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
 			    this->archivo.close();
 
-			    /* reabre el archivo para lectura - escritura binario */
-			    this->archivo.open(this->getPath().c_str(),ios::in|ios::out|ios::binary);
-
-			    /* verifica que haya podido crear el archivo */
-			    if (! this->archivo.is_open()){
-			    	 cout<<"El archivo no pudo ser abierto "<<endl;
-			      /* arroja una excepción */
-			      throw string("El archivo no pudo ser abierto");
-			    }
-
 		}
-	this->getMetadata()->crearArchivo();
 }
 void Archivo::abrir(){
 
@@ -116,7 +95,23 @@ void Archivo::guardar(char* buffer, int pos){
 	}
 
 }
+void Archivo::guardar(char* buffer, int pos,int tamanio){
 
+	if (this->archivo.is_open()) {
+
+		if (pos < 0)
+			this->irAlFinal();
+		else{
+			this->archivo.seekp(pos);
+			//this->archivo.seekg(pos);
+		}
+
+		this->archivo.write(buffer,tamanio);
+
+
+	}
+
+}
 bool Archivo::fin() {
 
   /* para comprobar el fin lee un char del buffer, sin retirarlo y lo
@@ -136,14 +131,35 @@ bool Archivo::fin() {
 void Archivo::leer(char* buffer, int pos){
 
 
-	if (this->archivo.is_open()) {
-		this->archivo.seekg(pos);
-		this->archivo.read(buffer,this->getTamanio());
-	}
-	else {
-		/* arroja una excepción porque el archivo no está abierto */
-		throw string("El archivo no está abierto");
-	}
+	  if (this->archivo.is_open()) {
+		  if(pos>=0)
+		  this->archivo.seekg(pos);
+		  this->archivo.read(buffer,this->getTamanio());
+
+
+
+	  }
+	  else {
+	      /* arroja una excepción porque el archivo no está abierto */
+	      throw string("El archivo no está abierto");
+	    }
+
+}
+void Archivo::leer(char* buffer, int pos,int tamanio){
+
+
+	  if (this->archivo.is_open()) {
+		  if(pos>=0)
+		  this->archivo.seekg(pos);
+		  this->archivo.read(buffer,tamanio);
+
+
+
+	  }
+	  else {
+	      /* arroja una excepción porque el archivo no está abierto */
+	      throw string("El archivo no está abierto");
+	    }
 
 }
 
@@ -215,4 +231,30 @@ void Archivo::posicionarse(long int posicion,int tamanioRegistro) {
   else
     /* arroja una excepción porque el archivo no está abierto */
     throw string("El archivo no está abierto");
+}
+int Archivo::leerRegistroVariable(string& registro,int posicion){
+	int tamanioRegistro=0;
+	this->leer((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
+//	std::cout<<"tamanioRegistro: " << tamanioRegistro <<endl;
+//	std::cout<<"sizeof(tamanioRegistro): " << sizeof(tamanioRegistro) <<endl;
+//	std::cout<<"posicion1: " << this->archivo.tellg() <<endl;
+	char* buffer = new char[tamanioRegistro];
+	memset(buffer,0,tamanioRegistro);
+	this->leer(buffer,-1,tamanioRegistro);
+	registro=buffer;
+	registro= registro.substr(0,tamanioRegistro);
+	std::cout<<"Metadata: " << registro <<endl;
+//	std::cout<<"Metadata: " << buffer <<endl;
+//	std::cout<<"posicion2: " << this->archivo.tellg() <<endl;
+//	std::cout<<"posicion2: " << this->archivo.tellp() <<endl;
+	delete buffer;
+	return this->archivo.tellp();
+}
+
+
+void Archivo::escribirRegistroVariable(string registro,int posicion){
+	int tamanioRegistro;
+	tamanioRegistro =registro.length();
+	this->guardar((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
+	this->guardar((char*)registro.c_str(),posicion,tamanioRegistro);
 }

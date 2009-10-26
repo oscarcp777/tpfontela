@@ -14,7 +14,7 @@
 #include "../Composite/Componente.h"
 #include "../utils/Define.h"
 #include "../Object/Object.h"
-#include "Metadata.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <fstream>
@@ -57,8 +57,6 @@ public:
     virtual void leer(char* buffer, int pos) = 0;
     virtual void abrir() =0;
     virtual void cerrar() =0;
-    int getExisteMetaData();
-    Metadata* getMetadata();
     int getCantidadRegistrosEnMemoria();
 
     void setCantidadRegistrosEnMemoria(int cantidadRegistrosEnMemoria);
@@ -70,8 +68,6 @@ public:
 protected:
 	fstream  archivo;
 	string ruta;
-	Metadata* metaData;
-
 	string getPath();
 
 };

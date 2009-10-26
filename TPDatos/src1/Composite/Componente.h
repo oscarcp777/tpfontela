@@ -11,7 +11,7 @@
 
 #include "../Object/Object.h"
 #include "../utils/Define.h"
-#include <map>
+#include <vector>
 using namespace std;
 class Componente :public Object {
 
@@ -24,6 +24,7 @@ protected:
     char *buffer;
     int tamanioBuffer;
     int nextByte;
+    vector<string> estiquetas;
 public:
     virtual void serializar(string tipo) =0;
     virtual void hidratar(string tipo) =0;
@@ -37,7 +38,7 @@ public:
 
 
     void setClave(string clave);
-
+    string getNombreAtributos();
     int getPosicionActual() const;
     void setPosicionActual(int posicionActual);
     int getId() const;

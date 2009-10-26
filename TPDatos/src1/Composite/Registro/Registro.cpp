@@ -38,7 +38,7 @@ void Registro::hidratar(string tipo){
 
 
 int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
-//this->mapaAtributos[etiqueta]=valor;
+	this->estiquetas.push_back(etiqueta);
 	short len;
 	//cout<<"Tamanio: "<<tamanio<<endl;
 	//cout<<"Delimitador: "<<delim<<endl;
