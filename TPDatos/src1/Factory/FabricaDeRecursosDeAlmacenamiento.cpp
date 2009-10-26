@@ -63,6 +63,8 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	metadata->crear();
 	metadata->abrir();
 	metadata->escribirMetadata(estrategiaAlmacenamiento,tamanio,clavePrimaria,tipoIndexacion,componente->getNombreAtributos());
+	metadata->cerrar();
+	metadata->abrir();
 	metadata->hidratarMetadata();
 	metadata->cerrar();
 	estrategiaAlmac->setMetadata(metadata);
@@ -104,6 +106,8 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	metadata->crear();
 	metadata->abrir();
 	metadata->escribirMetadata(estrategiaAlmacenamiento,tamanio,clavePrimaria,tipoIndexacion,componente->getNombreAtributos());
+	metadata->cerrar();
+	metadata->abrir();
 	metadata->hidratarMetadata();
 	metadata->cerrar();
 	estrategiaAlmac->setMetadata(metadata);

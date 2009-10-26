@@ -9,7 +9,7 @@
 #include "../Modelo/Alumno.h"
 using namespace std;
 
-int main(){
+int main232323(){
     Metadata* metadata= new Metadata();
     vector<int> vec;
     metadata->setNombreArchivo("metadata");
@@ -48,5 +48,6 @@ int main(){
 //    delete alumno2;
     metadata->cerrar();
     delete metadata;
-   cout<<"se escribio el archivo"<<endl;
+   cout<<"s,e escribio el archivo"<<endl;
+   return 0;
 }
