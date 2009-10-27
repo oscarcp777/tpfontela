@@ -36,14 +36,15 @@ int main1234() {
 	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
 					iter = listaAlumnos.begin();
 
-
-					while(iter != listaAlumnos.end()){
-						alumno = (Alumno*) *iter;
-						std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-						std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-						std::cout<<"padron: "<<alumno->getDni()<<std::endl;
-						iter++;
-					}
+	std::cout<<"Alumnos Encontrados: "<<std::endl;
+	while(iter != listaAlumnos.end()){
+		alumno = (Alumno*) *iter;
+		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+		std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+		std::cout<<std::endl;
+		iter++;
+	}
 
 	delete recurso;
 	delete fabricaDeRecursos;
