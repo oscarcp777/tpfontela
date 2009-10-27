@@ -31,5 +31,4 @@ void EstrategiaRecursoUnAlmacenamiento::busquedaSecuencial(EstrategiaAlmacenamie
 		almacenamiento->abrir();
 		estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, almacenamiento, clave);
 		almacenamiento->cerrar();
-
 }

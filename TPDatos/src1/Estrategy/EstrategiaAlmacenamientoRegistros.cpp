@@ -68,11 +68,11 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 		componente->setBuffer(bufferAux);
 		componente->hidratar(BINARIO);
 
-		for( int i = 0; i<(int)vecClaves.size(); i++){
-			//TODO osky tiene que devolver la posicion de la etiqueda
-			//y tenemos que hacer varios compareTo......
-			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
-		}
+//		for( int i = 0; i<(int)vecClaves.size(); i++){
+//			//TODO osky tiene que devolver la posicion de la etiqueda
+//			//y tenemos que hacer varios compareTo......
+//			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
+//		}
 		if (componente->compareTo(clave,0) == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();

@@ -20,7 +20,7 @@ public:
 	std::list<Componente*>::iterator iteratorListaDeComponetes();
     int getCantidadDeElelmentos();
    void agregarComponente(Componente* componente);
-
+   void removerComponente(Componente* componente);
 };
 
 #endif /* COMPUESTO_H_ */
