@@ -1,5 +1,5 @@
 /*
- * TestBusquedaSecuencialTexto.cpp
+ * TestBusquedaSecuencialTextoArchivo.cpp
  *
  *  Created on: 17/10/2009
  *      Author: richy

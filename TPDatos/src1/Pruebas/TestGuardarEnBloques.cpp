@@ -16,7 +16,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main23434() {
+int main089() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -33,12 +33,12 @@ int main23434() {
 
 
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-	//Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 	//Alumno* alumno4 = new Alumno(31993745,"D",8,8,8,8);
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
-	//recurso->alta(alumno3);
+	recurso->alta(alumno3);
 	//recurso->alta(alumno4);
 	cout<<std::endl<< "Archivo guardado" << endl;
 

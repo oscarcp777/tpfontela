@@ -1,5 +1,5 @@
 /*
- * TestBusquedaSecuencialBloques.cpp
+ * TestBusquedaSecuencialBloquesArchivo.cpp
  *
  *  Created on: 12/10/2009
  *      Author: oscar
@@ -15,18 +15,29 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main4() {
+int main6456(){
 
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
-	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoRegistros");
+	Alumno* alumno = new Alumno();
 
-		Alumno* alumno = new Alumno();
-		recurso->busquedaSecuencial(alumno,"85689");
-		std::cout<<"resultados busqueda: "<<std::endl;
+	RecursoDeAlmacenamiento* recurso=
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
+
+	std::list<Componente*> listaAlumnos;
+	list<Componente*>::iterator iter;
+
+	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+	iter = listaAlumnos.begin();
+
+	while(iter != listaAlumnos.end()){
+		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+		iter++;
+	}
+
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
