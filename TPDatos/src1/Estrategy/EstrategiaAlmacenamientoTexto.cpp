@@ -69,69 +69,51 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
 	vector<string> vecClaves;
+	string aux;
+	int posCaracterIgual = -1;
+	string etiquetaCampo = "";
+	string campo = "";
+	int resCompare = 0;
 	string bufferAux ="";
 	componente->setTamanio(donde->getTamanio());
 	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
+	vector<string> vecCampos ((int)vecClaves.size());
+	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
+
+	for( int i = 0; i<(int)vecClaves.size(); i++){
+			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
+			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
+			campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
+//			std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
+//			std::cout<<"campo: "<<campo<<std::endl;
+//			cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
+			vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
+			vecCampos[i]= campo;
+//			std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
+//			std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
+//			std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
+		}
+
 
 	while (!donde->fin()){
+		resCompare = 0;
 		donde->leer(bufferAux);
-		cout<<"bufferAux: "<<bufferAux<<endl;
+		//cout<<"bufferAux: "<<bufferAux<<endl;
 		componente->setBuffer((char*)bufferAux.c_str());
 		componente->hidratar(TEXTO);
-		/*
-		for( int i = 0; i<(int)vecClaves.size(); i++){
-			//TODO osky tiene que devolver la posicion de la etiqueda
-			//y tenemos que hacer varios compareTo......
-			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
-		}*/
-		if (componente->compareTo(clave,0) == 0){
+
+		for(int k = 0; k< (int)vecCampos.size();k++){
+			if(resCompare == 0)//solo compara si la comparacion anterior dio =
+				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+		}
+
+		//cout<<"resCompare: "<<resCompare<<endl;
+		if (resCompare == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(donde->getTamanio());
 		}
 		bufferAux = "";
 	}
-
-//		std::string datos="";
-//	    std::string valor="";
-//	    std::string metaData="";
-//	    int i = 0;
-//	    bool encontrado = false;
-//	    vector<string> tokens;
-//	    vector<string> tags;
-//		Archivo* archivo=(Archivo*)donde;
-//		 vector<string>::iterator the_iterator;
-//
-//		archivo->abrir();
-//		archivo->irAlPrincipio();
-//		metaData = archivo->leerMetadata();
-//		StringUtils::Tokenize(metaData,tags,DELIMITADOR);
-//		while(!archivo->fin() && !encontrado){
-//			i=0;
-//			tokens.clear();
-//			archivo->leer(datos);
-//			//std::cout<<"DATOS de la linea: "<<datos<<std::endl;
-//
-//			StringUtils::Tokenize(datos,tokens,DELIMITADOR);
-//			the_iterator = tokens.begin();
-//			while( the_iterator != tokens.end() ) {
-//				valor = *the_iterator;
-//				++the_iterator;
-//				//cout<<"tag: "<<tags.at(i);
-//				//cout<<"  dato: "<<valor<<endl;
-//				componente->cargarAtributo(tags.at(i),valor);
-//
-//				if(valor.compare(clave) == 0)
-//					encontrado = true;
-//
-//				i++;
-//			}
-//			if(encontrado)
-//				componente->hidratar();
-//
-//		}
-//
-//		archivo->cerrar();
-
 
 }

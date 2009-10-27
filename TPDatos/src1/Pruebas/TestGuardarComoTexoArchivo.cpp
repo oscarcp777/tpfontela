@@ -9,7 +9,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main4656() {
+int main3543() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -20,36 +20,37 @@ int main4656() {
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
 	Alumno* alumno = new Alumno();
-	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,50,
-					"../TP0Datos/files/","archivoTexto","padron",INDEXADO_BSHARP,alumno1);
+					"../TP0Datos/files/","archivoTexto","padron",INDEXADO_BSHARP,alumno);
 
 
-	std::list<Componente*> listaAlumnos;
-	list<Componente*>::iterator iter;
+	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
+	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	Alumno* alumno4 = new Alumno(93850169,"Perez",80000,8,7,4);
+	Alumno* alumno5 = new Alumno(93853439,"Daniel Sivori",86524,8,7,4);
+	Alumno* alumno6 = new Alumno(93850130,"Perez",84029,8,7,4);
+	Alumno* alumno7 = new Alumno(31850139,"Garcia",86531,8,7,4);
+	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
+	Alumno* alumno9 = new Alumno(10850139,"Garcia",86745,8,7,4);
+	Alumno* alumno10 = new Alumno(23850139,"Diego Maradroga",87890,8,7,4);
+
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
 	recurso->alta(alumno3);
+	recurso->alta(alumno4);
+	recurso->alta(alumno5);
+	recurso->alta(alumno6);
+	recurso->alta(alumno7);
+	recurso->alta(alumno8);
+	recurso->alta(alumno9);
+	recurso->alta(alumno10);
 
-	//recurso->alta("../files/","archivoTexto");
+
 	cout<<endl << "Archivo guardado" << endl;
-
-	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
-					iter = listaAlumnos.begin();
-
-
-					while(iter != listaAlumnos.end()){
-						alumno = (Alumno*) *iter;
-						std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-						std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-						std::cout<<"padron: "<<alumno->getDni()<<std::endl;
-						iter++;
-					}
 
 	delete recurso;
 	delete fabricaDeRecursos;
