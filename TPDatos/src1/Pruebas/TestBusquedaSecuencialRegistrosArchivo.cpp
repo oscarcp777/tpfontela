@@ -14,7 +14,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main1234() {
+int main() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -33,7 +33,7 @@ int main1234() {
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
 
-	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+	recurso->buscar(listaAlumnos,alumno,"DNI=93850139");
 					iter = listaAlumnos.begin();
 
 	std::cout<<"Alumnos Encontrados: "<<std::endl;

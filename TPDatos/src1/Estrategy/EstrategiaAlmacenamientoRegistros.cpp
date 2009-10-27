@@ -60,20 +60,43 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 
 	int pos = 0;
 	vector<string> vecClaves;
+	string aux;
+	int posCaracterIgual = -1;
+	string etiquetaCampo = "";
+	string campo = "";
+	int resCompare = 0;
 	char* bufferAux = new char [donde->getTamanio()];
 	componente->setTamanio(donde->getTamanio());
 	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
+	vector<string> vecCampos ((int)vecClaves.size());
+	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
+
+	for( int i = 0; i<(int)vecClaves.size(); i++){
+			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
+			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
+			campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
+//			std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
+//			std::cout<<"campo: "<<campo<<std::endl;
+//			cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
+			vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
+			vecCampos[i]= campo;
+//			std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
+//			std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
+//			std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
+		}
+
 	while (!donde->fin()){
+		resCompare = 0;
 		donde->leer(bufferAux, pos);
 		componente->setBuffer(bufferAux);
 		componente->hidratar(BINARIO);
 
-//		for( int i = 0; i<(int)vecClaves.size(); i++){
-//			//TODO osky tiene que devolver la posicion de la etiqueda
-//			//y tenemos que hacer varios compareTo......
-//			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
-//		}
-		if (componente->compareTo(clave,0) == 0){
+		for(int k = 0; k< (int)vecCampos.size();k++){
+			if(resCompare == 0)//solo compara si la comparacion anterior dio =
+				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+		}
+		//cout<<"resCompare: "<<resCompare<<endl;
+		if (resCompare == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(donde->getTamanio());
@@ -84,54 +107,5 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 	}
 
 	delete bufferAux;
-
-
-// Creo buffer de tamanio length.
-//	char* buffer = new char[donde->getTamanio() + 1];
-//	bool encontrado = false;
-//	std::string datos="";
-//    std::string valor="" ;
-//    std::string metaData="";
-//    int i = 0;
-//    vector<string> tokens;
-//    vector<string> tags;
-//	vector<string>::iterator the_iterator;
-//
-//	donde->abrir();
-//	donde->irAlPrincipio();
-//	metaData = donde->leerMetadata();
-//	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
-//
-//	while(!donde->fin() && !encontrado){
-//		i=0;
-//		tokens.clear();
-//		donde->leer(buffer,donde->getTamanio());
-//		datos="";
-//		datos=buffer;
-//		//std::cout<<"DATOS del registro: "<<datos<<std::endl;
-//
-//		StringUtils::Tokenize(datos,tokens,DELIMITADOR);
-//		the_iterator = tokens.begin();
-//		while( the_iterator != tokens.end() ) {
-//			valor = *the_iterator;
-//			++the_iterator;
-//			//cout<<"tag: "<<tags.at(i);
-//			//cout<<"  dato: "<<valor<<endl;
-//			componente->cargarAtributo(tags.at(i),valor);
-//
-//			if(valor.compare(clave) == 0)
-//				encontrado = true;
-//
-//			i++;
-//		}
-//		if(encontrado)
-//			componente->hidratar();
-//
-//		}
-//
-//	// Libero el buffer
-//	delete[] buffer;
-
-
 
 }
