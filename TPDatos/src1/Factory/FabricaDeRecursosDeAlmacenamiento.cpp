@@ -58,9 +58,12 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	metadata->setNombreArchivo(nombreArchivo+METADATA);
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
-
 	archivo->crear();
 	metadata->crear();
+
+	Registro* registro=(Registro*)componente;
+	registro->setTamanio(tamanio);
+	registro->serializarTexto();
 	metadata->abrir();
 	metadata->escribirMetadata(estrategiaAlmacenamiento,tamanio,clavePrimaria,tipoIndexacion,componente->getNombreAtributos());
 	metadata->cerrar();
@@ -100,6 +103,9 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	archivo->setRuta(ruta);
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
+	Registro* registro=(Registro*)componente;
+	registro->setTamanio(tamanio);
+	registro->serializarTexto();
 	archivo->crear();
 	metadata->setRuta(ruta);
 	metadata->setNombreArchivo(nombreArchivo+METADATA);

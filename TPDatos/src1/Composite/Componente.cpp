@@ -86,14 +86,13 @@ void Componente::setTamanioBuffer(int tamanioBuffer)
 }
 string Componente::getNombreAtributos(){
 	vector<string>::iterator the_iterator;
-	string nombreAtributos="padron|dni|nombre|apellido|direccion|pais|cuidad";
+	string nombreAtributos="";
 	     	string valor ="";
 	     	the_iterator = this->estiquetas.begin();
 	     	while( the_iterator !=  this->estiquetas.end() ) {
 	     		valor = *the_iterator;
 	     		nombreAtributos=nombreAtributos+valor+DELIMITADOR;
 	     		++the_iterator;
-               cout<<nombreAtributos<<endl;
 	     	}
 
 	     	return nombreAtributos;
