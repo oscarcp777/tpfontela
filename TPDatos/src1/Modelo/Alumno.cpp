@@ -78,9 +78,12 @@ void Alumno::serializarTexto(){
 
 	this->setAtributo("Nombre",this->nombre.c_str());
 	std::stringstream flujo2;
+	std::stringstream flujo;
 	flujo2<<this->padron;
-
 	this->setAtributo("Padron",(flujo2.str()).c_str());
+
+	flujo<<this->dni;
+	this->setAtributo("DNI",(flujo.str()).c_str());
 }
 
 void Alumno::hidratarTexto(){
@@ -89,10 +92,17 @@ void Alumno::hidratarTexto(){
 	memset(aux1,0,20);
 	this->getAtributo(aux1);
 	this->nombre = aux1;
+
 	char aux2[10];
 	memset(aux2,0,10);
 	this->getAtributo(aux2);
 	this->padron = atoi(aux2);
+
+	char aux3[20];
+	memset(aux3,0,20);
+	this->getAtributo(aux3);
+	this->dni = atof(aux3);
+
 }
 
 Registro* Alumno::obtenerNuevaInstancia(){
@@ -108,14 +118,14 @@ std::string Alumno::getClaveObjeto(){
 int Alumno::compareTo(std::string clave, int num){
 	switch(num){
 	case 0:
-			std::cout<<"case 0 NOMBRE "<<clave<<std::endl;
+			//std::cout<<"case 0 NOMBRE "<<clave<<std::endl;
 			break;
 	case 1:
-			std::cout<<"case 1 PADRON "<<clave<<std::endl;
+			//std::cout<<"case 1 PADRON "<<clave<<std::endl;
 			break;
 
 	case 2:
-			std::cout<<"case 0 DNI "<<clave<<std::endl;
+			//std::cout<<"case 0 DNI "<<clave<<std::endl;
 			break;
 
 

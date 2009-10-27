@@ -39,10 +39,12 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 }
 
 void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
-	std::string datos=this->generarRegistro(componente);
-
+	componente->serializar(TEXTO);
 	donde->agregarComponente(componente);
-
+	string bufferString = "";
+	 bufferString = componente->getBuffer();
+	cout<<"bufferString: "<<bufferString<<endl;
+	donde->guardar(bufferString);
 }
 
 void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente){
@@ -65,6 +67,30 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 
 
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
+
+	vector<string> vecClaves;
+	string bufferAux ="";
+	componente->setTamanio(donde->getTamanio());
+	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
+
+	while (!donde->fin()){
+		donde->leer(bufferAux);
+		cout<<"bufferAux: "<<bufferAux<<endl;
+		componente->setBuffer((char*)bufferAux.c_str());
+		componente->hidratar(TEXTO);
+		/*
+		for( int i = 0; i<(int)vecClaves.size(); i++){
+			//TODO osky tiene que devolver la posicion de la etiqueda
+			//y tenemos que hacer varios compareTo......
+			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
+		}*/
+		if (componente->compareTo(clave,0) == 0){
+			resultadoDeLABusqueda.push_back(componente);
+			componente = componente->obtenerNuevaInstancia();
+			componente->setTamanio(donde->getTamanio());
+		}
+		bufferAux = "";
+	}
 
 //		std::string datos="";
 //	    std::string valor="";

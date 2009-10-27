@@ -25,6 +25,7 @@ public:
 	void crear();
 	void guardar(std::string registro);
 	void guardar(char* buffer, int pos = -1);
+	void leer(std::string& datos);
 	void leer(char* buffer, int pos);
 
 
@@ -33,6 +34,10 @@ private:
 	int posicionActual;
 	int posicionActualLectura;
 	int cantElementos;
+	int cantLineas;
+	int cantlineasLeidas;
+	bool binario;
+	bool texto;
 };
 
 #endif /* BUFFER_H_ */

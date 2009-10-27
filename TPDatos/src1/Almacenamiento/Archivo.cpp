@@ -64,20 +64,21 @@ void Archivo::cerrar(){
 
 void Archivo::guardar(std::string registro){
 	/* verifica que el archivo esta abierto */
-	if (this->archivo.is_open()) {
-		this->irAlFinal();
-		//intenta escribir la cadena en el archivo
-		this->archivo << registro;
+		if (this->archivo.is_open()) {
+			this->irAlFinal();
+			//intenta escribir la cadena en el archivo
+			this->archivo.flush();
+			this->archivo << registro<<endl;
 
-		if (archivo.fail())
-			// si se produjo un error, arroja una excepción
-			throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
-	} else {
-		/* arroja una excepción porque el archivo no está abierto */
-		throw string("El archivo no esta abierto");
-	}
-
+			if (archivo.fail())
+				// si se produjo un error, arroja una excepción
+				throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
+		} else {
+			/* arroja una excepción porque el archivo no está abierto */
+			throw string("El archivo no esta abierto");
+		}
 }
+
 void Archivo::guardar(char* buffer, int pos){
 
 	if (this->archivo.is_open()) {
@@ -125,7 +126,24 @@ bool Archivo::fin() {
   return esEof;
 }
 
+void Archivo::leer(std::string& datos){
 
+  /* verifica que el archivo esté abierto */
+  if (this->archivo.is_open()) {
+
+    /* lee del archivo una linea */
+   std::getline(this->archivo,datos);
+
+    /* chequea si se ha producido un error */
+    if (this->archivo.fail())
+      /* arroja una excepción ante la imposibilidad de leer un reg */
+      throw string("No se pudo leer correctamente el registro");
+  }
+  else {
+    /* arroja una excepción porque el archivo no está abierto */
+    throw string("El archivo no está abierto");
+  }
+}
 
 
 void Archivo::leer(char* buffer, int pos){

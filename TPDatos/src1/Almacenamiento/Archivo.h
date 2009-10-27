@@ -38,6 +38,7 @@ public:
     */
     void guardar(char* buffer, int pos = -1);
     void guardar(char* buffer, int pos ,int tamanio);
+    void leer(std::string& datos);
     void leer(char* buffer, int pos,int tamanio);
     int leerRegistroVariable(string& registro,int posicion=-1);
     void escribirRegistroVariable(string registro,int posicion=-1);
