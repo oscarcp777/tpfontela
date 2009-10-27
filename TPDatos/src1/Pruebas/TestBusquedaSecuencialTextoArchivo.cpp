@@ -16,32 +16,35 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main00() {
+int main() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
 		 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 		 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 		 */
-
+	Alumno* alumno = new Alumno();
 
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../files/","archivoTexto");
+				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoTexto");
 
-		Alumno* alumno = new Alumno();
-		recurso->busquedaSecuencial(alumno, "86534");
+		std::list<Componente*> listaAlumnos;
+			list<Componente*>::iterator iter;
 
-		std::cout<<std::endl;
-		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
-		/**
-		 * el metodo toString lo implementan todos los que hereden de object entonces
-		 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
-		 * la fabrica
-		 */
+			recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
+							iter = listaAlumnos.begin();
 
+			std::cout<<"Alumnos Encontrados: "<<std::endl;
+			while(iter != listaAlumnos.end()){
+				alumno = (Alumno*) *iter;
+				std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+				std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
+				std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+				std::cout<<std::endl;
+				iter++;
+			}
 
-		delete recurso;
-		delete fabricaDeRecursos;
-		return 0;
+			delete recurso;
+			delete fabricaDeRecursos;
+			return 0;
 }
