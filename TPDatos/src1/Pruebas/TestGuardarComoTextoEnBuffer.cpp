@@ -1,11 +1,9 @@
 /*
- * guardarComoRegistro.cpp
+ * TestGuardarComoTextoEnBuffer.cpp
  *
- *  Created on: 11/10/2009
+ *  Created on: 12/10/2009
  *      Author: oscar
  */
-
-
 #include <iostream>
 #include "../Object/Object.h"
 #include "../utils/Define.h"
@@ -15,7 +13,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main35436() {
+int main54657() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -25,25 +23,37 @@ int main35436() {
 	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
+	Alumno* alumno = new Alumno();
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
-	Alumno* alumno4 = new Alumno(28903174,"Daniel Sivori",84026,8,7,4);
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
-					"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP,alumno1);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"padron");
 
-
+	std::list<Componente*> listaAlumnos;
+	list<Componente*>::iterator iter;
 
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
 	recurso->alta(alumno3);
-	recurso->alta(alumno4);
 
-	cout << endl;
-	cout << "Archivo guardado" << endl;
+	//recurso->alta("../files/","archivoTexto");
+	cout<<endl << "guardado en Buffer" << endl;
+
+	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+				iter = listaAlumnos.begin();
+
+
+				while(iter != listaAlumnos.end()){
+					alumno = (Alumno*) *iter;
+					std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+					std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
+					std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+					iter++;
+				}
+
 
 	delete recurso;
 	delete fabricaDeRecursos;

@@ -15,6 +15,10 @@ Buffer::Buffer():Almacenamiento() {
 	posicionActual = 0;
 	posicionActualLectura = 0;
 	cantElementos = 0;
+	cantLineas = 0;
+	cantlineasLeidas = 0;
+	texto = 0;
+	binario = 0;
 }
 void Buffer::crear(){
 
@@ -41,22 +45,26 @@ void Buffer::irAlPrincipio(){
 
 void Buffer::guardar(std::string registro){
 	std::string temp = this->datos;
+	if(this->texto == 0)
+		this->texto = true;
 	//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 	if((int)registro.length() <= TAM_BUFFER - (int)temp.length()){
-		temp+= registro;
+		temp+= registro+"\n";
 		memcpy(this->datos,temp.c_str(),temp.length());
+		this->cantLineas++;
 		//this->posicionActual=temp.length();
 	}
 	else {
 		/* arroja una excepción porque el registro no entra */
 		throw std::string("El registro no entra en el buffer");
 	}
-
 }
 
 void Buffer::guardar(char* buffer, int pos){
 
 	//cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
+	if(this->binario == 0)
+		this->binario = true;
 	cout<<"Registro a guardar: "<<buffer<<endl;
 	if(pos < 0){
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
@@ -89,7 +97,20 @@ void Buffer::guardar(char* buffer, int pos){
 
 
 }
-
+void Buffer::leer(std::string& datos){
+		std::string aux = this->datos;
+		std::string aux2 = "";
+		std::string caracter = "\n";
+		std::string vacio = "";
+		int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual+1);
+	//	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
+	//	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
+		aux2 = aux.substr(this->posicionActual,posBarraN-this->posicionActual);
+		this->posicionActual+= aux2.length()+1;
+		//en la siguiente linea borro el ultimo caracter, que es el \n (para no devolverlo)
+		datos= aux2.replace(aux2.length(),1,vacio.c_str());
+		this->cantlineasLeidas++;
+}
 
 void Buffer::leer(char* buffer, int pos){
 
@@ -104,9 +125,15 @@ void Buffer::leer(char* buffer, int pos){
 bool Buffer::fin() {
 
   bool fin = false;
+  if(this->binario == true){
+	  if(this->posicionActualLectura == this->getTamanio()*cantElementos)
+		  fin = true;
+  }
+  else if(this->texto == true){
+	  if(this->cantlineasLeidas == this->cantLineas)
+		  fin = true;
 
-  if(this->posicionActualLectura == this->getTamanio()*cantElementos)
-	  fin = true;
+  }
 
   return fin;
 }

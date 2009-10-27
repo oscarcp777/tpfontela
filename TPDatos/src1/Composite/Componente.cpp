@@ -28,6 +28,7 @@ void Componente::setTamanio(int tamanio)
 {
     this->tamanio = tamanio;
     this->buffer = new char[tamanio];
+    memset(this->buffer,0,tamanio);
 }
 
 

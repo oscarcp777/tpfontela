@@ -9,7 +9,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main2() {
+int main4656() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -19,14 +19,18 @@ int main2() {
 	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
+	Alumno* alumno = new Alumno();
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
+		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,0,
-									"../files/","archivoBloques","padron",INDEXADO_BSHARP,alumno1);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,50,
+					"../TP0Datos/files/","archivoTexto","padron",INDEXADO_BSHARP,alumno1);
 
 
-	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	std::list<Componente*> listaAlumnos;
+	list<Componente*>::iterator iter;
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
@@ -35,6 +39,17 @@ int main2() {
 	//recurso->alta("../files/","archivoTexto");
 	cout<<endl << "Archivo guardado" << endl;
 
+	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+					iter = listaAlumnos.begin();
+
+
+					while(iter != listaAlumnos.end()){
+						alumno = (Alumno*) *iter;
+						std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
+						std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
+						std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+						iter++;
+					}
 
 	delete recurso;
 	delete fabricaDeRecursos;
