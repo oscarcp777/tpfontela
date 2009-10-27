@@ -41,6 +41,7 @@ public:
      void escribirMetadata(string estrAlmacenamiento,int tamanio,string clavePrimaria,string tipoIndexacion,string nombreAtributos);
     string getValorAtributosFijos(string clave);
     int getEspacioLibreEnBloque(int bloque);
+    int getNumeroEtiqueta(std::string etiqueta);
     int getMetadataSize()
     {
         return metadataSize;

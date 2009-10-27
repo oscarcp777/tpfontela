@@ -40,7 +40,7 @@ void Bloque::serializar(string tipo){
 		iteraRegistros++;
 		i++;
 	}
-
+	cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
 	len = componente->getTamanioBuffer();
 
 	int start = this->nextByte;

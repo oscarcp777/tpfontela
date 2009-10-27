@@ -119,5 +119,19 @@ void Metadata::leerMetadata(){
 	this->leerRegistroVariable(this->tercerRegistro,-1);
 	cout<<"Posicion del tercer registro"<<this->metadataSize<<endl;
 }
+int Metadata::getNumeroEtiqueta(std::string etiqueta){
+	int i = 0;
+	bool encontrado = false;
+
+	while(i < (int)this->atributosRegistro.size() && encontrado == false){
+		if(etiqueta.compare(this->atributosRegistro.at(i).c_str()) == 0){
+			encontrado = true;
+			return i;
+		}
+		i++;
+	}
+	return -1; //si no lo encontro devuelve -1
+
+}
 
 

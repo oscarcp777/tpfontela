@@ -116,21 +116,28 @@ std::string Alumno::getClaveObjeto(){
 	return llave;
 }
 int Alumno::compareTo(std::string clave, int num){
+	int valor = -1;
+	int aux = 0;
+
 	switch(num){
 	case 0:
-			//std::cout<<"case 0 NOMBRE "<<clave<<std::endl;
+			valor = this->nombre.compare(clave.c_str());
 			break;
 	case 1:
-			//std::cout<<"case 1 PADRON "<<clave<<std::endl;
+			aux = atoi(clave.c_str());
+			if(this->padron == aux)
+				valor = 0;
 			break;
 
 	case 2:
-			//std::cout<<"case 0 DNI "<<clave<<std::endl;
+			aux = atof(clave.c_str());
+			if(this->dni == aux)
+				valor = 0;
 			break;
 
 
 	}
-	return 0;
+	return valor;
 }
 
 

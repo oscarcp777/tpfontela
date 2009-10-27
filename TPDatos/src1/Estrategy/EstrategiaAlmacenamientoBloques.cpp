@@ -134,26 +134,40 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 
 	int pos = 0;
 	vector<string> vecClaves;
+	string aux;
+	int posCaracterIgual = -1;
+	string etiquetaCampo = "";
+	string campo = "";
+	int resCompare = 0;
 	char* bufferAux = new char [donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
+	vector<string> vecCampos ((int)vecClaves.size());
+	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
 
+	for( int i = 0; i<(int)vecClaves.size(); i++){
+		posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
+		etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
+		campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
+//		std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
+//		std::cout<<"campo: "<<campo<<std::endl;
+//		cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
+		vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
+		vecCampos[i]= campo;
+//		std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
+//		std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
+//		std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
+	}
 
 	while (!donde->fin()){
+		resCompare = 0;
 		Bloque* bloque = new Bloque(donde->getTamanio());
 		donde->leer(bufferAux, pos);
 		bloque->setBuffer(bufferAux);
 		bloque->agregarComponente(componente);
-		bloque->hidratar();//TODO
-		//		for( int i = 0; i<(int)vecClaves.size(); i++){
-		//			//TODO osky tiene que devolver la posicion de la etiqueda
-		//			//y tenemos que hacer varios compareTo......
-		//			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
-		//		}
+		bloque->hidratar();
 		memset(bufferAux,0,donde->getTamanio());
 		pos += donde->getTamanio();
-
-
 
 		//recorro la lista de componentes del bloque para comparar con la clave y
 		//si tiene la clave agrego a la lista que me pasan por parametro
@@ -162,7 +176,12 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 
 		while (i<bloque->getCantidadDeElelmentos()){
 			componente = (Componente*)*iteraRegistros;
-			if (componente->compareTo(clave,0) == 0){
+			for(int k = 0; k< (int)vecCampos.size();k++){
+				if(resCompare == 0)//solo compara si la comparacion anterior dio =
+				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+			}
+
+			if ( resCompare == 0){
 				resultadoDeLABusqueda.push_back(componente);
 			}
 			bloque->removerComponente(componente);
