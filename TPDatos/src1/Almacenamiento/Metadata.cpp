@@ -25,11 +25,16 @@ void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,st
    string almacenamiento=CLAVE_ALMACENAMIENTO+estrAlmacenamiento;
    string tamanio=CLAVE_TAMANIO+StringUtils::convertirAString(tamanioAGuardar);
    string clave=CLAVE_TAG_PRIMARIA+clavePrimaria;
-   string bloques=PRIMER_BLOQUE+StringUtils::convertirAString(tamanioAGuardar);
    string indice=CLAVE_INDEXACION+tipoIndexacion;
+   string espacioLibre="";
+   if(estrAlmacenamiento.compare(ESTRATEGIA_ALMACENAMIENTO_BLOQUES)==0){
+   espacioLibre=PRIMER_BLOQUE+StringUtils::convertirAString(tamanioAGuardar);
+   }else{
+	 espacioLibre=PRIMER_REGISTRO;
+   }
    this->escribirRegistroVariable(almacenamiento+tamanio+clave+indice);
    this->escribirRegistroVariable(nombreAtributos);
-   this->escribirRegistroVariable(bloques);
+   this->escribirRegistroVariable(espacioLibre);
 }
 void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	map<int,int>::iterator it;

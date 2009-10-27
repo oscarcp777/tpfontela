@@ -16,7 +16,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main109() {
+int main23434() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -29,7 +29,7 @@ int main109() {
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55,
-									"../TP0Datos/files/","archivoBloques","padron",INDEXADO_BSHARP,alumno1);
+									"../TPDatos/files/","archivoBloques","padron",INDEXADO_BSHARP,alumno1);
 
 
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);

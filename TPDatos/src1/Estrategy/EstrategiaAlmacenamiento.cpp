@@ -13,7 +13,7 @@ EstrategiaAlmacenamiento::EstrategiaAlmacenamiento() {
 }
 
 EstrategiaAlmacenamiento::~EstrategiaAlmacenamiento() {
-	// TODO Auto-generated destructor stub
+	delete this->metadata;
 }
 
 
