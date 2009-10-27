@@ -54,17 +54,29 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 			//necesito un nuevo bloque
 			Bloque* bloque = new Bloque(donde->getTamanio());
 			char* bufferAux = new char [donde->getTamanio()];
+			vector<int> vecPosiciones (2);
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
-		    int pos = this->posicionarEnBloque(componente->getTamanioBuffer());
-			if ( pos >= 0){
-		    	//el registro entra en algun bloque existente
 
+
+		    this->metadata->getPosicionBloque(29/*strlen(componente->getBuffer())*/,vecPosiciones);
+			int posicionBloque = vecPosiciones.at(0);
+			int posicionAPartirDeDondeEscribo = vecPosiciones.at(1);
+			cout<<"posicionInicioBloque: "<<posicionBloque<<endl;
+			cout<<"posicionEnElBloqueAPartirDeDondeEscribo: "<<posicionAPartirDeDondeEscribo<<endl;
+
+			//DECIRLE A OSKY QUE APENAS CREA LA METADATA (POR PRIMERA VEZ) QUE PONGA -1 -1 EN EL MAPA
+			//ASI NO ENTRA A ESTE IF Y LA PRIMERA VEZ QUE ESCRIBE GENERA UN NUEVO BLOQUE
+			//PARA VOLVER A COMO ESTABA ANTES CAMBIAR posicionBloque POR pos
+		    if ( posicionBloque >/*=*/ 0){
+		    	//si pos es >= 0 el registro entra en algun bloque existente
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
-				donde->leer(bufferAux,pos);
+				donde->leer(bufferAux,posicionBloque);
 				bloque->setBuffer(bufferAux);
+				bloque->hidratar(BINARIO);
 			}
 
+		    //si no entro al if es porque pos = -1 y tengo que guardar en un nuevo bloque
 		    	//agrego registro a lista del bloque
 		    	bloque->agregarComponente(componente);
 		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
@@ -73,49 +85,16 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 		    	donde->agregarComponente(bloque);
 
 	    	 	//guardo en almacenamiento el ultimo bloque agregado
-		      	donde->guardar(bloque->getBuffer(),pos);
+		      	donde->guardar(bloque->getBuffer(),posicionBloque);
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
 
+				cout<<endl;
+		      	cout<<endl;
 
-//	Bloque* bloque = NULL;
-//	int i=0;
-//
-//	std::string registro = generarRegistro(componente);
-//	componente->setDatosRegistro(registro);
-//	int cargado = 0;
-//
-//	if(donde->getCompuesto()->getCantidadDeElelmentos() == 0){
-//		bloque = new Bloque(donde->getTamanio(),donde->getCompuesto()->getCantidadDeElelmentos()+1);
-//		donde->getCompuesto()->agregarComponente(bloque);
-//	}
-//	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-//
-//
-//	while(cargado == 0){
-//		i++;
-//		bloque = (Bloque*)*iter;
-//		int length=(int)registro.length();
-//		//componente->setId(bloque->getCantidadDeElelmentos()+1);
-//		if(bloque->getTamanio()-bloque->getPosicionActual()>length){
-//			bloque->agregarComponente(componente);
-//			bloque->setPosicionActual(bloque->getPosicionActual()+registro.length());
-//			cargado = 1;
-//		}else{
-//			if(i<donde->getCompuesto()->getCantidadDeElelmentos())
-//				iter++;
-//			else{
-//				bloque = new Bloque(donde->getTamanio(),donde->getCompuesto()->getCantidadDeElelmentos()+1);
-//				donde->getCompuesto()->agregarComponente(bloque);
-//				bloque->agregarComponente(componente);
-//				bloque->setPosicionActual(bloque->getPosicionActual()+registro.length());
-//				cargado = 1;
-//			}
-//
-//		}
-//	}
-
+		      	delete bloque;
+		      	delete bufferAux;
 }
 
 void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente){

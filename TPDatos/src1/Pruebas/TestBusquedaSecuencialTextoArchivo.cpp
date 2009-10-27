@@ -16,7 +16,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main() {
+int main35235() {
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 		/**
@@ -29,7 +29,7 @@ int main() {
 				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoTexto");
 
 		std::list<Componente*> listaAlumnos;
-			list<Componente*>::iterator iter;
+		list<Componente*>::iterator iter;
 
 			recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
 							iter = listaAlumnos.begin();
