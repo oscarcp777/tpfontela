@@ -1,10 +1,9 @@
 /*
- * GuardarEnBloques.cpp
+ * guardarComoRegistroArchivo.cpp
  *
  *  Created on: 11/10/2009
- *      Author: richy
+ *      Author: oscar
  */
-
 
 
 #include <iostream>
@@ -16,7 +15,7 @@
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
 using namespace std;
 
-int main089() {
+int main35436() {
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
 	 */
@@ -27,31 +26,24 @@ int main089() {
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55,
-									"../TPDatos/files/","archivoBloques","padron",INDEXADO_BSHARP,alumno1);
-
-
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
-	//Alumno* alumno4 = new Alumno(31993745,"D",8,8,8,8);
+	Alumno* alumno4 = new Alumno(28903174,"Daniel Sivori",84026,8,7,4);
+
+	RecursoDeAlmacenamiento* recurso=
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
+					"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP,alumno1);
+
+
+
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);
 	recurso->alta(alumno3);
-	//recurso->alta(alumno4);
-	cout<<std::endl<< "Archivo guardado" << endl;
+	recurso->alta(alumno4);
 
-
-
-
-
-	/**
-	 * el metodo toString lo implementan todos los que hereden de object entonces
-	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
-	 * la fabrica
-	 */
-
+	cout << endl;
+	cout << "Archivo guardado" << endl;
 
 	delete recurso;
 	delete fabricaDeRecursos;
