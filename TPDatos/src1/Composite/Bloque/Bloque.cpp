@@ -55,11 +55,11 @@ void Bloque::serializar(string tipo){
 	memcpy(&this->buffer[start],componente->getBuffer(),len);
 	//this->buffer[start + len] = Define::DELIMITADOR1;
 
-
-	this->tamanioBuffer = this->nextByte;
-	cout<<"El buffer contiene: ";
-	for (int i = 0; i < this->tamanioBuffer; i++)
-		cout<<this->buffer[i];
+//
+//	this->tamanioBuffer = this->nextByte;
+//	cout<<"El buffer contiene: ";
+//	for (int i = 0; i < this->tamanioBuffer; i++)
+//		cout<<this->buffer[i];
 
 }
 

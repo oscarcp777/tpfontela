@@ -37,21 +37,44 @@ void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,st
    this->escribirRegistroVariable(espacioLibre);
 }
 void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
+	bool seEncontroLugar = false;
 	map<int,int>::iterator it;
 	int tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
 	int porcentajeLibre=tamanioBloque*PORCENTAJE_ESPACIO_LIBRE_BLOQUE;
 	int posicionBloque=0,posicionAEscribir=0;
-	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
 
-		if(tamanioBuscado<(it->second-porcentajeLibre)){
-			posicionBloque=it->first*tamanioBloque;
-			posiciones.push_back(posicionBloque);
+	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it/*PORQUE PRIMERO INCREMENTAS Y DESPUES CORRES EL CODIGO*/ ){
+
+		//cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		//cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+
+		if(tamanioBuscado<(it->second-porcentajeLibre) && seEncontroLugar == false){
+			posicionBloque=it->first;
+			//posiciones.push_back(posicionBloque);
+			posiciones[0] = posicionBloque;
 			posicionAEscribir=tamanioBloque-it->second;
-			posiciones.push_back(posicionAEscribir);
-			this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
-			return;
+			//posiciones.push_back(posicionAEscribir);
+			posiciones[1] = posicionAEscribir;
+			//¿seEncontroLugar¿¿¿???? ESTA BIEN LA SIGUIENTE LINEA?=¿?¿?¿?¿? no es this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
+			//this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
+			this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
+			seEncontroLugar = true;
 
 		}
+	}
+	if(seEncontroLugar == false){
+		//si no entro al if anterior (dentro del for) es porque no habia mas espacio en ningun bloque
+		//entonces abria que instanciar uno nuevo, pero tengo que guardar en el mapaTamanioBloque
+		//el nuevo bloque instanciado y restarle el tamanio que se va a escribir en el
+		//SI DEVUELVO -1 EN EL VECTOR cuando sale de este metodo instancia un nuevo bloque porque no entra
+		//al primer if
+
+		//guardo la posicion del nuevo bloque y le resto el tamaño de registro
+		this->mapaTamanioBloques[tamanioBloque*this->mapaTamanioBloques.size()] = tamanioBloque - tamanioBuscado;
+
+		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
+		posiciones[0] = -1;
+		posiciones[1] = 0;
 
 	}
 
@@ -83,7 +106,7 @@ void Metadata::hidratarMetadata(){
 	StringUtils::Tokenize(this->tercerRegistro,this->vectorAtributosVariables,DELIMITADOR);
 	if(this->getValorAtributosFijos(ESTRATEGIA_ALMACENAMIENTO).compare(ESTRATEGIA_ALMACENAMIENTO_BLOQUES)==0){
 		size=this->vectorAtributosVariables.size()/2;
-		cout<<size<<endl;
+		//cout<<"size: "<<size<<endl;
 		for(i=0;i<size;i++){
 			num=StringUtils::convertirAString(i);
 			valor= StringUtils::getValorTag(num,this->vectorAtributosVariables);
@@ -97,7 +120,8 @@ void Metadata::hidratarMetadata(){
 
 	//    mostarVector(this->atributosRegistro);
 	//    mostarVector(this->mapaAtributosFijos);
-	//    mostarVector(this->vectorAtributosVariables);
+	    mostarVector(this->vectorAtributosVariables);
+
 
 }
 
