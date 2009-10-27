@@ -35,6 +35,9 @@ std::string EstrategiaRecursoEscrituraDirecta::toString(){
 }
 
 void EstrategiaRecursoEscrituraDirecta::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
-
-
+	Almacenamiento* buffer=   almacenamientos.at(ALMACENAMIENTO_BUFFER);
+	componente->setTamanio(buffer->getTamanio());
+	buffer->abrir();
+	estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, buffer, clave);
+	buffer->cerrar();
 }

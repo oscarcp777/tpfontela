@@ -17,6 +17,9 @@ std::string Compuesto::toString(){
 void Compuesto::agregarComponente(Componente* componente){
 		this->listaDeComponetes.push_back(componente);
 }
+void Compuesto::removerComponente(Componente* componente){
+	this->listaDeComponetes.remove(componente);
+}
 Compuesto::~Compuesto() {
 	int i=0;
 	std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();

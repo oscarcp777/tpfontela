@@ -6,6 +6,7 @@
  */
 
 #include "EstrategiaAlmacenamientoBloques.h"
+#include "../Composite/Bloque/Bloque.h"
 #include "stdlib.h"
 using namespace std;
 EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
@@ -78,12 +79,6 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
 
 
-
-
-
-
-
-
 //	Bloque* bloque = NULL;
 //	int i=0;
 //
@@ -137,73 +132,44 @@ std::string EstrategiaAlmacenamientoBloques::toString(){
 
 void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
 
-	// Creo buffer de tamanio length.
-//	char* buffer = new char[donde->getTamanio() + 1];
-//	int tam = 0;
-//	int cantCaracteresLeidos=0;
-//	int i = 0;
-//	int posDelimitador=0;
-//	int dif = 0;
-//    std::string datos="";
-//    std::string valor="" ;
-//    std::string auxString="";
-//    std::string metaData="";
-//    bool encontrado = false;
-//    int k= 0;
-//
-//    vector<string> tokens;
-//    vector<string> tags;
-//	vector<string>::iterator the_iterator;
-//	donde->irAlPrincipio();
-//
-//	metaData = donde->leerMetadata();
-//	std::cout<<"metaData "<<metaData<<std::endl;
-//	StringUtils::Tokenize(metaData,tags,DELIMITADOR);
-//	while(!donde->fin()  && !encontrado ){
-//		i=0;
-//		cantCaracteresLeidos=0;
-//		donde->leer(buffer,donde->getTamanio());
-//		//std::cout<<"buffer: "<<buffer<<std::endl;
-//		datos="";
-//		datos=buffer;
-//		std::cout<<"DATOS del bloque: "<<datos<<std::endl;
-//
-//		auxString = datos;
-//		while(cantCaracteresLeidos != (int)datos.length() && !encontrado){
-//			k=0;
-//			tokens.clear();
-//			posDelimitador = datos.find_first_of(DELIMITADOR,cantCaracteresLeidos);
-//			auxString = datos.substr(cantCaracteresLeidos,cantCaracteresLeidos+posDelimitador);
-//
-//			dif = posDelimitador - cantCaracteresLeidos;
-//			cantCaracteresLeidos+= dif+1;
-//			tam = atoi(auxString.c_str());
-//
-//			auxString="";
-//			auxString = datos.substr(posDelimitador +1,tam);
-//
-//			cantCaracteresLeidos+= tam;
-//			//std::cout<<"string: "<<auxString<<std::endl;
-//			StringUtils::Tokenize(auxString,tokens,DELIMITADOR);
-//			the_iterator = tokens.begin();
-//			while( the_iterator != tokens.end() ) {
-//				valor = *the_iterator;
-//				++the_iterator;
-//				//cout<<"tag: "<<tags.at(k);
-//				//cout<<"  dato: "<<valor<<endl;
-//				componente->cargarAtributo(tags.at(k),valor);
-//
-//				if(valor.compare(clave) == 0)
-//					encontrado = true;
-//
-//				k++;
-//			}
-//			if(encontrado)
-//				componente->hidratar();
-//
-//		}
-//	}
-//	// Libero el buffer
-//	delete[] buffer;
+	int pos = 0;
+	vector<string> vecClaves;
+	char* bufferAux = new char [donde->getTamanio()];
+	memset(bufferAux,0,donde->getTamanio());
+	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
 
+
+	while (!donde->fin()){
+		Bloque* bloque = new Bloque(donde->getTamanio());
+		donde->leer(bufferAux, pos);
+		bloque->setBuffer(bufferAux);
+		bloque->agregarComponente(componente);
+		bloque->hidratar();//TODO
+		//		for( int i = 0; i<(int)vecClaves.size(); i++){
+		//			//TODO osky tiene que devolver la posicion de la etiqueda
+		//			//y tenemos que hacer varios compareTo......
+		//			std::cout<<"vecClaves[i]: "<<vecClaves.at(i)<<std::endl;
+		//		}
+		memset(bufferAux,0,donde->getTamanio());
+		pos += donde->getTamanio();
+
+
+
+		//recorro la lista de componentes del bloque para comparar con la clave y
+		//si tiene la clave agrego a la lista que me pasan por parametro
+		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
+		int i=0;
+
+		while (i<bloque->getCantidadDeElelmentos()){
+			componente = (Componente*)*iteraRegistros;
+			if (componente->compareTo(clave,0) == 0){
+				resultadoDeLABusqueda.push_back(componente);
+			}
+			bloque->removerComponente(componente);
+			iteraRegistros++;
+			i++;
+		}
+		delete bloque;
+	}
+	delete bufferAux;
 }

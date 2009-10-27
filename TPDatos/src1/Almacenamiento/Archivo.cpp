@@ -154,8 +154,6 @@ void Archivo::leer(char* buffer, int pos){
 		  this->archivo.seekg(pos);
 		  this->archivo.read(buffer,this->getTamanio());
 
-
-
 	  }
 	  else {
 	      /* arroja una excepción porque el archivo no está abierto */
