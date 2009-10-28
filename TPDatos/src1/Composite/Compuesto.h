@@ -21,6 +21,7 @@ public:
     int getCantidadDeElelmentos();
    void agregarComponente(Componente* componente);
    void removerComponente(Componente* componente);
+   void vaciarListaComponentes();
 };
 
 #endif /* COMPUESTO_H_ */

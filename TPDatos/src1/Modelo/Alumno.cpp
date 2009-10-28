@@ -70,8 +70,6 @@ void Alumno::hidratarBinario(){
 	this->nombre = aux;
 	this->getAtributo(&this->padron,sizeof(this->padron));
 	this->getAtributo(&this->dni,sizeof(this->dni));
-
-
 }
 
 void Alumno::serializarTexto(){

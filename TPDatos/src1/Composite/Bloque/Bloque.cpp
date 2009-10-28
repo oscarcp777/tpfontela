@@ -26,7 +26,6 @@ Bloque::~Bloque() {
 
 }
 
-
 void Bloque::serializar(string tipo){
 	std::list<Componente*>::iterator iteraRegistros = this->iteratorListaDeComponetes();
 	int i=0;
@@ -76,6 +75,7 @@ void Bloque::hidratar(string tipo){
 	std::string datosBuffer = "";
 	std::string auxString = "";
 	//ir al ultimo registro  agregado EN REALIDAD TIENE UN SOLO ELEMENTO ASIQUE ES LO MISMO QUE OBTENER EL ULTIMO
+
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
 		iteraRegistros++;
@@ -95,7 +95,7 @@ void Bloque::hidratar(string tipo){
 			}
 		}
 		if(encontroDelimitador){
-			cout<<"Encontro delimitador en posicion: "<< len+start<<endl;
+			//cout<<"Encontro delimitador en posicion: "<< len+start<<endl;
 			//cout<<"Agrego "<<j<<" registro a la lista del bloque"<<endl;
 			this->nextByte += len +1;
 			//cout<<"start "<<start<<endl;
