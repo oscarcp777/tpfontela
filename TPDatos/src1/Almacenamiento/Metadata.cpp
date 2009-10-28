@@ -21,6 +21,28 @@ Metadata::Metadata() {
 Metadata::~Metadata() {
 
 }
+void Metadata::guardarMapaAtributosVariables(){
+	map<int,int>::iterator it;
+	string registro="";
+	int tamanioRegistro=0;
+	string clave;
+	string valor;
+	string sep="=";
+	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
+		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		clave=StringUtils::convertirAString(it->first);
+		valor=StringUtils::convertirAString(it->second);
+		registro=registro+clave+sep+DELIMITADOR+valor+DELIMITADOR;
+	}
+	cout<<registro<<endl;
+	cout<<this->metadataSize<<endl;
+	tamanioRegistro =registro.length();
+	this->abrir();
+	this->guardar((char*)&tamanioRegistro,this->metadataSize,sizeof(tamanioRegistro));
+	this->guardar((char*)registro.c_str(),this->metadataSize+sizeof(tamanioRegistro),tamanioRegistro);
+	this->cerrar();
+}
 void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,string clavePrimaria,string tipoIndexacion,string nombreAtributos){
 	string almacenamiento=CLAVE_ALMACENAMIENTO+estrAlmacenamiento;
 	string tamanio=CLAVE_TAMANIO+StringUtils::convertirAString(tamanioAGuardar);
@@ -46,6 +68,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 		posiciones.push_back(-1);
 		posiciones.push_back(0);
+		this->guardarMapaAtributosVariables();
 		return;
 
 	}
@@ -54,7 +77,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
 		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
 		cout<<"cont  :"<<cont<<endl;
-        cont++;
+		cont++;
 		if(tamanioBuscado<(it->second-porcentajeLibre)){
 			posicionBloque=it->first*tamanioBloque;
 			posiciones.push_back(posicionBloque);
@@ -63,6 +86,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 			//¿seEncontroLugar¿¿¿???? ESTA BIEN LA SIGUIENTE LINEA?=¿?¿?¿?¿? no es this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
 			//this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
 			this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
+			this->guardarMapaAtributosVariables();
 			return;
 		}
 	}
@@ -70,7 +94,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 	posiciones.push_back(-1);
 	posiciones.push_back(0);
-
+	this->guardarMapaAtributosVariables();
 }
 void mostarVector( vector<string> vec){
 	vector<string>::iterator the_iterator;

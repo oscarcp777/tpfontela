@@ -104,9 +104,10 @@ void Archivo::guardar(char* buffer, int pos,int tamanio){
 			this->irAlFinal();
 		else{
 			this->archivo.seekp(pos);
-			//this->archivo.seekg(pos);
+		//	this->archivo.seekg(pos);
 		}
-
+       cout<<"guardo :"<<buffer<<endl;
+       cout<<"en la posicion :"<<this->archivo.tellg()<<endl;
 		this->archivo.write(buffer,tamanio);
 
 
@@ -268,9 +269,15 @@ int Archivo::leerRegistroVariable(string& registro,int posicion){
 }
 
 
-void Archivo::escribirRegistroVariable(string registro,int posicion){
+void Archivo::escribirRegistroVariable(string registro){
 	int tamanioRegistro;
 	tamanioRegistro =registro.length();
-	this->guardar((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
-	this->guardar((char*)registro.c_str(),posicion,tamanioRegistro);
+	this->guardar((char*)&tamanioRegistro,-1,sizeof(tamanioRegistro));
+	this->guardar((char*)registro.c_str(),-1,tamanioRegistro);
+}
+void Archivo::escribirRegistroVariableConPosicion(string registro,int pos){
+	int tamanioRegistro;
+	tamanioRegistro =registro.length();
+	this->guardar((char*)&tamanioRegistro,pos,sizeof(tamanioRegistro));
+	this->guardar((char*)registro.c_str(),pos+sizeof(tamanioRegistro),tamanioRegistro);
 }
