@@ -29,8 +29,8 @@ void Metadata::guardarMapaAtributosVariables(){
 	string valor;
 	string sep="=";
 	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
-		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
-		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		//cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		//cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
 		clave=StringUtils::convertirAString(it->first);
 		valor=StringUtils::convertirAString(it->second);
 		registro=registro+clave+sep+DELIMITADOR+valor+DELIMITADOR;
@@ -74,8 +74,8 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	}
 	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
 
-		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
-		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
 		//cout<<"cont  :"<<cont<<endl;
         cont++;
 		if(tamanioBuscado<(it->second-porcentajeLibre)){

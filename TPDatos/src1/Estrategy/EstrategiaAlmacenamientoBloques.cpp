@@ -55,21 +55,29 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 			Bloque* bloque = new Bloque(donde->getTamanio());
 			char* bufferAux = new char [donde->getTamanio()];
 			vector<int> vecPosiciones;
+			int cantCaracteresRegistro = 0;
 			vecPosiciones.clear();
+
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
 			iBorrar++;
-			cout<<"Entro "<<iBorrar<<" veces"<<endl;
 
-		    this->metadata->getPosicionBloque(34/*strlen(componente->getBuffer())*/,vecPosiciones);
+			cout<<"Entro "<<iBorrar<<" veces"<<endl;
+			for( int j=0 ; j< donde->getTamanio(); j++){
+				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
+				if (componente->getBuffer()[j] == Define::DELIMITADOR1){
+					cantCaracteresRegistro = j;
+				}
+
+			}
+			cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
+			cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
+			cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
+			this->metadata->getPosicionBloque(cantCaracteresRegistro ,vecPosiciones);
 			int posicionBloque = vecPosiciones.at(0);
 
 			int posicionAPartirDeDondeEscribo = vecPosiciones.at(1);
 			cout<<"posicionInicioBloque: "<<posicionBloque<<endl;
 			cout<<"posicionEnElBloqueAPartirDeDondeEscribo: "<<posicionAPartirDeDondeEscribo<<endl;
-
-			//DECIRLE A OSKY QUE APENAS CREA LA METADATA (POR PRIMERA VEZ) QUE PONGA -1 -1 EN EL MAPA
-			//ASI NO ENTRA A ESTE IF Y LA PRIMERA VEZ QUE ESCRIBE GENERA UN NUEVO BLOQUE
-			//PARA VOLVER A COMO ESTABA ANTES CAMBIAR posicionBloque POR pos
 
 		    if ( posicionBloque >= 0){
 		    	//si pos es >= 0 el registro entra en algun bloque existente
