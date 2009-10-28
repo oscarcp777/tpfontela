@@ -41,7 +41,8 @@ public:
     void leer(std::string& datos);
     void leer(char* buffer, int pos,int tamanio);
     int leerRegistroVariable(string& registro,int posicion=-1);
-    void escribirRegistroVariable(string registro,int posicion=-1);
+    void escribirRegistroVariable(string registro);
+    void escribirRegistroVariableConPosicion(string registro,int pos);
     /*
       pre : archivoRegistros ha sido creado con crear() y registro es un puntero
             a un struct del tamaño correspondiente al de los registros del archivo.
