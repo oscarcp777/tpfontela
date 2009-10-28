@@ -22,61 +22,54 @@ Metadata::~Metadata() {
 
 }
 void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,string clavePrimaria,string tipoIndexacion,string nombreAtributos){
-   string almacenamiento=CLAVE_ALMACENAMIENTO+estrAlmacenamiento;
-   string tamanio=CLAVE_TAMANIO+StringUtils::convertirAString(tamanioAGuardar);
-   string clave=CLAVE_TAG_PRIMARIA+clavePrimaria;
-   string indice=CLAVE_INDEXACION+tipoIndexacion;
-   string espacioLibre="";
-   if(estrAlmacenamiento.compare(ESTRATEGIA_ALMACENAMIENTO_BLOQUES)==0){
-   espacioLibre=PRIMER_BLOQUE+StringUtils::convertirAString(tamanioAGuardar);
-   }else{
-	 espacioLibre=PRIMER_REGISTRO;
-   }
-   this->escribirRegistroVariable(almacenamiento+tamanio+clave+indice);
-   this->escribirRegistroVariable(nombreAtributos);
-   this->escribirRegistroVariable(espacioLibre);
+	string almacenamiento=CLAVE_ALMACENAMIENTO+estrAlmacenamiento;
+	string tamanio=CLAVE_TAMANIO+StringUtils::convertirAString(tamanioAGuardar);
+	string clave=CLAVE_TAG_PRIMARIA+clavePrimaria;
+	string indice=CLAVE_INDEXACION+tipoIndexacion;
+	this->escribirRegistroVariable(almacenamiento+tamanio+clave+indice);
+	this->escribirRegistroVariable(nombreAtributos);
+	this->escribirRegistroVariable(PRIMER_REGISTRO);
 }
 void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
-	bool seEncontroLugar = false;
+	cout<<"tamanio mapa2"<<this->mapaTamanioBloques.size()<<endl;
+
+	int cont=0;
 	map<int,int>::iterator it;
 	int tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
 	int porcentajeLibre=tamanioBloque*PORCENTAJE_ESPACIO_LIBRE_BLOQUE;
 	int posicionBloque=0,posicionAEscribir=0;
 
-	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it/*PORQUE PRIMERO INCREMENTAS Y DESPUES CORRES EL CODIGO*/ ){
+	if(this->mapaTamanioBloques.size() == 0&&tamanioBuscado<tamanioBloque){
+		//guardo la posicion del nuevo bloque y le resto el tamaño de registro
+		this->mapaTamanioBloques[0] = tamanioBloque - tamanioBuscado;
 
-		//cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
-		//cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
+		posiciones.push_back(-1);
+		posiciones.push_back(0);
+		return;
 
-		if(tamanioBuscado<(it->second-porcentajeLibre) && seEncontroLugar == false){
-			posicionBloque=it->first;
-			//posiciones.push_back(posicionBloque);
-			posiciones[0] = posicionBloque;
+	}
+	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
+
+		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		cout<<"cont  :"<<cont<<endl;
+        cont++;
+		if(tamanioBuscado<(it->second-porcentajeLibre)){
+			posicionBloque=it->first*tamanioBloque;
+			posiciones.push_back(posicionBloque);
 			posicionAEscribir=tamanioBloque-it->second;
-			//posiciones.push_back(posicionAEscribir);
-			posiciones[1] = posicionAEscribir;
+			posiciones.push_back(posicionAEscribir);
 			//¿seEncontroLugar¿¿¿???? ESTA BIEN LA SIGUIENTE LINEA?=¿?¿?¿?¿? no es this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
 			//this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
 			this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
-			seEncontroLugar = true;
-
+			return;
 		}
 	}
-	if(seEncontroLugar == false){
-		//si no entro al if anterior (dentro del for) es porque no habia mas espacio en ningun bloque
-		//entonces abria que instanciar uno nuevo, pero tengo que guardar en el mapaTamanioBloque
-		//el nuevo bloque instanciado y restarle el tamanio que se va a escribir en el
-		//SI DEVUELVO -1 EN EL VECTOR cuando sale de este metodo instancia un nuevo bloque porque no entra
-		//al primer if
-
-		//guardo la posicion del nuevo bloque y le resto el tamaño de registro
-		this->mapaTamanioBloques[tamanioBloque*this->mapaTamanioBloques.size()] = tamanioBloque - tamanioBuscado;
-
-		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
-		posiciones[0] = -1;
-		posiciones[1] = 0;
-
-	}
+	this->mapaTamanioBloques[cont]=tamanioBloque;
+	//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
+	posiciones.push_back(-1);
+	posiciones.push_back(0);
 
 }
 void mostarVector( vector<string> vec){
@@ -120,7 +113,9 @@ void Metadata::hidratarMetadata(){
 
 	//    mostarVector(this->atributosRegistro);
 	//    mostarVector(this->mapaAtributosFijos);
-	    mostarVector(this->vectorAtributosVariables);
+	cout<<this->vectorAtributosVariables.size()<<endl;
+	cout<<"tamanio mapa"<<this->mapaTamanioBloques.size()<<endl;
+	mostarVector(this->vectorAtributosVariables);
 
 
 }

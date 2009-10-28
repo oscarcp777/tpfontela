@@ -42,6 +42,7 @@ public:
     string getValorAtributosFijos(string clave);
     int getEspacioLibreEnBloque(int bloque);
     int getNumeroEtiqueta(std::string etiqueta);
+    void guardarMapaAtributosVariables();
     int getMetadataSize()
     {
         return metadataSize;
