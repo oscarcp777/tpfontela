@@ -53,7 +53,7 @@ void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,st
 	this->escribirRegistroVariable(PRIMER_REGISTRO);
 }
 void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
-	cout<<"tamanio mapa2"<<this->mapaTamanioBloques.size()<<endl;
+	//cout<<"tamanio mapa2"<<this->mapaTamanioBloques.size()<<endl;
 
 	int cont=0;
 	map<int,int>::iterator it;
@@ -76,8 +76,8 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 
 		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
 		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
-		cout<<"cont  :"<<cont<<endl;
-		cont++;
+		//cout<<"cont  :"<<cont<<endl;
+        cont++;
 		if(tamanioBuscado<(it->second-porcentajeLibre)){
 			posicionBloque=it->first*tamanioBloque;
 			posiciones.push_back(posicionBloque);
@@ -90,7 +90,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 			return;
 		}
 	}
-	this->mapaTamanioBloques[cont]=tamanioBloque;
+	this->mapaTamanioBloques[cont]=tamanioBloque-tamanioBuscado;
 	//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 	posiciones.push_back(-1);
 	posiciones.push_back(0);

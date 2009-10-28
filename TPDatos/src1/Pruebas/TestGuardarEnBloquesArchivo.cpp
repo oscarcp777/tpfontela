@@ -28,14 +28,14 @@ int main() {
 	 */
 	Alumno* alumno = new Alumno();
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,90,
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,80,
 									"../TP0Datos/files/","archivoBloques","padron",INDEXADO_BSHARP,alumno);
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceress",86534,8,7,4);
-	Alumno* alumno4 = new Alumno(93850169,"Rodrigo Perezz",80000,8,7,4);
-//	Alumno* alumno5 = new Alumno(93853439,"Daniel Sivori",86524,8,7,4);
+	Alumno* alumno4 = new Alumno(93850169,"Rodrigo PerezS",80000,8,7,4);
+//	Alumno* alumno5 = new Alumno(93853439,"Daniel SivoriS",86524,8,7,4);
 //	Alumno* alumno6 = new Alumno(93850139,"Perez",84029,8,7,4);
 //	Alumno* alumno7 = new Alumno(31850139,"Garcia",86531,8,7,4);
 //	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
@@ -65,7 +65,16 @@ int main() {
 	 * la fabrica
 	 */
 
-
+	delete alumno1;
+	delete alumno2;
+	delete alumno3;
+	delete alumno4;
+//	delete alumno5;
+//	delete alumno6;
+//	delete alumno7;
+//	delete alumno8;
+//	delete alumno9;
+//	delete alumno10;
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
