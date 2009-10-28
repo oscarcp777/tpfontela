@@ -35,26 +35,29 @@ void Bloque::serializar(string tipo){
 
 
 	//ir al ultimo registro agregado
+	//cout<<"this->getCantidadDeElelmentos() "<<this->getCantidadDeElelmentos()<<endl;
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
+
+		//cout<<"componente->getBuffer() : "<<componente->getBuffer()<<endl;
+		len = componente->getTamanioBuffer();
+
+		int start = this->nextByte;
+		this->nextByte += sizeof(int) + 1;
+		//agrego al buffer del bloque el tamanio del registro
+		memcpy(&this->buffer[start],&len,sizeof(int));
+		this->buffer[start + sizeof(int)] = Define::DELIMITADOR1;
+
+		//copio el buffer del registro en el bloque
+		start = this->nextByte;
+		this->nextByte += len ;
+		//cout<< "Empieza a grabar el registro en: "<<start<<endl;
+		memcpy(&this->buffer[start],componente->getBuffer(),len);
+		//this->buffer[start + len] = Define::DELIMITADOR1;
+
 		iteraRegistros++;
 		i++;
 	}
-	cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
-	len = componente->getTamanioBuffer();
-
-	int start = this->nextByte;
-	this->nextByte += sizeof(int) + 1;
-	//agrego al buffer del bloque el tamanio del registro
-	memcpy(&this->buffer[start],&len,sizeof(int));
-	this->buffer[start + sizeof(int)] = Define::DELIMITADOR1;
-
-	//copio el buffer del registro en el bloque
-	start = this->nextByte;
-	this->nextByte += len ;
-	memcpy(&this->buffer[start],componente->getBuffer(),len);
-	//this->buffer[start + len] = Define::DELIMITADOR1;
-
 //
 //	this->tamanioBuffer = this->nextByte;
 //	cout<<"El buffer contiene: ";
@@ -79,7 +82,7 @@ void Bloque::hidratar(string tipo){
 		i++;
 	}
 	this->listaDeComponetes.remove(componente);
-
+	//int j = 1;
 	while(this->nextByte < this->getTamanio()){
 		encontroDelimitador = false;
 		int len = -1;
@@ -92,12 +95,18 @@ void Bloque::hidratar(string tipo){
 			}
 		}
 		if(encontroDelimitador){
+			//cout<<"Agrego "<<j<<" registro a la lista del bloque"<<endl;
 			this->nextByte += len +1;
+			cout<<"start "<<start<<endl;
+			cout<<"len "<<len<<endl;
 			memcpy(&tamanioRegistro,&this->buffer[start],len);
 			buffer = new char[tamanioRegistro];
+			cout<<"Tamaño registro "<<tamanioRegistro<<endl;
+			//cout<<"Next byte "<<nextByte<<endl;
 			start = this->nextByte;
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(tamanioRegistro);
+
 			memcpy(buffer,&this->buffer[start],tamanioRegistro);
 
 			componente->setBuffer(buffer);
@@ -109,6 +118,7 @@ void Bloque::hidratar(string tipo){
 		else
 			this->nextByte = this->getTamanio();
 	}
+	this->nextByte = 0;
 //	while (cantCaracteresLeidos < (int)strlen(this->buffer) ){
 //		std::cout<<"DATOS del bloque: "<<datosBuffer<<std::endl;
 //

@@ -45,7 +45,7 @@ int EstrategiaAlmacenamientoBloques::posicionarEnBloque(int tamanioRegistro){
 	return -1;
 }
 
-
+int iBorrar = 0;
 
 void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Componente* componente){
 
@@ -54,12 +54,15 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 			//necesito un nuevo bloque
 			Bloque* bloque = new Bloque(donde->getTamanio());
 			char* bufferAux = new char [donde->getTamanio()];
-			vector<int> vecPosiciones (2);
+			vector<int> vecPosiciones;
+			vecPosiciones.clear();
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
+			iBorrar++;
+			cout<<"Entro "<<iBorrar<<" veces"<<endl;
 
-
-		    this->metadata->getPosicionBloque(29/*strlen(componente->getBuffer())*/,vecPosiciones);
+		    this->metadata->getPosicionBloque(34/*strlen(componente->getBuffer())*/,vecPosiciones);
 			int posicionBloque = vecPosiciones.at(0);
+
 			int posicionAPartirDeDondeEscribo = vecPosiciones.at(1);
 			cout<<"posicionInicioBloque: "<<posicionBloque<<endl;
 			cout<<"posicionEnElBloqueAPartirDeDondeEscribo: "<<posicionAPartirDeDondeEscribo<<endl;
@@ -67,18 +70,25 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 			//DECIRLE A OSKY QUE APENAS CREA LA METADATA (POR PRIMERA VEZ) QUE PONGA -1 -1 EN EL MAPA
 			//ASI NO ENTRA A ESTE IF Y LA PRIMERA VEZ QUE ESCRIBE GENERA UN NUEVO BLOQUE
 			//PARA VOLVER A COMO ESTABA ANTES CAMBIAR posicionBloque POR pos
-		    if ( posicionBloque >/*=*/ 0){
+
+		    if ( posicionBloque >= 0){
 		    	//si pos es >= 0 el registro entra en algun bloque existente
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
+		    	cout<<"entro aL if (o sea guarda en un bloque existente)"<<endl;
 				donde->leer(bufferAux,posicionBloque);
-				bloque->setBuffer(bufferAux);
-				bloque->hidratar(BINARIO);
-			}
 
+				bloque->setBuffer(bufferAux);
+				bloque->agregarComponente(componente);
+				bloque->hidratar(BINARIO);
+				bloque->agregarComponente(componente);
+				//cout<<"bloque->getBuffer()"<<bloque->getBuffer()<<endl;
+			}else
+				bloque->agregarComponente(componente);
 		    //si no entro al if es porque pos = -1 y tengo que guardar en un nuevo bloque
 		    	//agrego registro a lista del bloque
-		    	bloque->agregarComponente(componente);
+
+		    	//cout<<"Cantidad elementos lista: "<<bloque->getCantidadDeElelmentos()<<endl;
 		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
 		    	bloque->serializar();
 		    	//agrego bloque a lista de componentes
@@ -144,7 +154,8 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 		donde->leer(bufferAux, pos);
 		bloque->setBuffer(bufferAux);
 		bloque->agregarComponente(componente);
-		bloque->hidratar();
+		bloque->hidratar(BINARIO);
+
 		memset(bufferAux,0,donde->getTamanio());
 		pos += donde->getTamanio();
 

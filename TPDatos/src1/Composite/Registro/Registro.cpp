@@ -26,7 +26,7 @@ void Registro::serializar(string tipo){
 		this->serializarBinario();
 	if (tipo.compare(TEXTO) == 0)
 		this->serializarTexto();
-	std::cout<< "Clave: " << this->clave <<std::endl;
+	//std::cout<< "Clave: " << this->clave <<std::endl;
 }
 
 void Registro::hidratar(string tipo){

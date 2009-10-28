@@ -15,7 +15,7 @@
 #include "../utils/StringUtils.h"
 using namespace std;
 
-int main3435(){
+int main345(){
 
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
@@ -27,7 +27,7 @@ int main3435(){
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
 
-	recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
+	recurso->buscar(listaAlumnos,alumno,"Padron=85689");
 	iter = listaAlumnos.begin();
 
 	std::cout<<"Alumnos Encontrados: "<<std::endl;
