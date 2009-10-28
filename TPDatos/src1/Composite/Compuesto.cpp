@@ -38,3 +38,8 @@ int Compuesto::getCantidadDeElelmentos(){
 std::list<Componente*>::iterator  Compuesto::iteratorListaDeComponetes(){
 	return this->listaDeComponetes.begin();
 }
+void Compuesto::vaciarListaComponentes(){
+
+	this->listaDeComponetes.clear();
+
+}

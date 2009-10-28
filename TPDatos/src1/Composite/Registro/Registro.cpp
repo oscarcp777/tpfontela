@@ -71,7 +71,7 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 int Registro::getAtributo(void* campo, int tamanio){
 
 	int len = -1;
-	cout<<"nextByte EN Registro::getAtributo: "<<this->nextByte<<endl;
+	//cout<<"nextByte EN Registro::getAtributo: "<<this->nextByte<<endl;
 	int start = this->nextByte;
 	for (int i = start; i < this->tamanioBuffer; i++){
 		if (this->buffer[i] == Define::DELIMITADOR1){

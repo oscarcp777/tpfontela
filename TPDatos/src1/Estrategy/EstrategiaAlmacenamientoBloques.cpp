@@ -7,6 +7,7 @@
 
 #include "EstrategiaAlmacenamientoBloques.h"
 #include "../Composite/Bloque/Bloque.h"
+#include "../Modelo/Alumno.h"
 #include "stdlib.h"
 using namespace std;
 EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
@@ -83,7 +84,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 		    	//si pos es >= 0 el registro entra en algun bloque existente
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
-		    	cout<<"entro aL if (o sea guarda en un bloque existente)"<<endl;
+		    	//cout<<"entro aL if (o sea guarda en un bloque existente)"<<endl;
 				donde->leer(bufferAux,posicionBloque);
 
 				bloque->setBuffer(bufferAux);
@@ -156,9 +157,8 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 //		std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
 	}
 
+	Bloque* bloque = new Bloque(donde->getTamanio());
 	while (!donde->fin()){
-		resCompare = 0;
-		Bloque* bloque = new Bloque(donde->getTamanio());
 		donde->leer(bufferAux, pos);
 		bloque->setBuffer(bufferAux);
 		bloque->agregarComponente(componente);
@@ -171,22 +171,30 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 		//si tiene la clave agrego a la lista que me pasan por parametro
 		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
 		int i=0;
-
+		cout<<"bloque->getCantidadDeElelmentos(): "<<bloque->getCantidadDeElelmentos()<<endl;
 		while (i<bloque->getCantidadDeElelmentos()){
+			resCompare = 0;
 			componente = (Componente*)*iteraRegistros;
 			for(int k = 0; k< (int)vecCampos.size();k++){
 				if(resCompare == 0)//solo compara si la comparacion anterior dio =
 				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
 			}
-
-			if ( resCompare == 0){
+			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
+			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
+			cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+			if (resCompare == 0){
 				resultadoDeLABusqueda.push_back(componente);
+				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
+				bloque->removerComponente(componente);
+				i--;
+				iteraRegistros--;
 			}
-			bloque->removerComponente(componente);
+
 			iteraRegistros++;
 			i++;
 		}
-		delete bloque;
+		bloque->vaciarListaComponentes();
 	}
 	delete bufferAux;
+	delete bloque;
 }

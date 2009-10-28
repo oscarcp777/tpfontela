@@ -21,6 +21,7 @@ public:
     Componente* obtenerNuevaInstancia();
     int compareTo(std::string clave,int num);
 
+
 };
 
 #endif /* BLOQUE_H_ */
