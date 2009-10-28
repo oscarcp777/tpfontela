@@ -50,7 +50,7 @@ void Bloque::serializar(string tipo){
 
 		//copio el buffer del registro en el bloque
 		start = this->nextByte;
-		this->nextByte += len ;
+		this->nextByte += len+1 ;
 		//cout<< "Empieza a grabar el registro en: "<<start<<endl;
 		memcpy(&this->buffer[start],componente->getBuffer(),len);
 		//this->buffer[start + len] = Define::DELIMITADOR1;
@@ -95,14 +95,15 @@ void Bloque::hidratar(string tipo){
 			}
 		}
 		if(encontroDelimitador){
+			cout<<"Encontro delimitador en posicion: "<< len+start<<endl;
 			//cout<<"Agrego "<<j<<" registro a la lista del bloque"<<endl;
 			this->nextByte += len +1;
-			cout<<"start "<<start<<endl;
-			cout<<"len "<<len<<endl;
+			//cout<<"start "<<start<<endl;
+			//cout<<"len "<<len<<endl;
 			memcpy(&tamanioRegistro,&this->buffer[start],len);
 			buffer = new char[tamanioRegistro];
-			cout<<"Tamaño registro "<<tamanioRegistro<<endl;
-			//cout<<"Next byte "<<nextByte<<endl;
+			//cout<<"Tamaño registro "<<tamanioRegistro<<endl;
+			//cout<<"Next byte 1:  "<<nextByte<<endl;
 			start = this->nextByte;
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(tamanioRegistro);
@@ -113,50 +114,13 @@ void Bloque::hidratar(string tipo){
 			componente->hidratar(BINARIO);
 			this->agregarComponente(componente);
 			this->nextByte += tamanioRegistro +1;
+
 			delete buffer;
 		}
 		else
 			this->nextByte = this->getTamanio();
 	}
 	this->nextByte = 0;
-//	while (cantCaracteresLeidos < (int)strlen(this->buffer) ){
-//		std::cout<<"DATOS del bloque: "<<datosBuffer<<std::endl;
-//
-//			//obtengo la posicion del delimitador
-//			posDelimitador = datosBuffer.find_first_of(DELIMITADOR,cantCaracteresLeidos);
-//
-//			cout<<"posDelimitador: "<<posDelimitador<<endl;
-//			//obtengo el string hasta el delimitador (seria el numero de caracteres que tengo que leer despues)
-//			auxString = datosBuffer.substr(cantCaracteresLeidos,cantCaracteresLeidos+posDelimitador);
-//			std::cout<<"auxString: "<<auxString<<std::endl;
-//			//lei cantidad de caracteres hasta el delimitador
-//			cantCaracteresLeidos += auxString.length()+1;
-//			//dejo guardado en datos buffer a partir de uno mas del pipe en adelante
-//			datosBuffer = datosBuffer.substr(posDelimitador+1);
-//			std::cout<<"datosBuffer: "<<datosBuffer<<std::endl;
-//			//tamanio tiene el numerito de caracteres que ocupa el registro
-//			tamanio = atoi(auxString.c_str());
-//			//obtengo los datos del registro
-//			auxString ="";
-//			auxString = datosBuffer.substr(0, tamanio);
-//			std::cout<<"auxString: "<<auxString<<std::endl;
-//			// lei tamanio de cantidad de caracteres
-//			cantCaracteresLeidos += tamanio;
-//			//dejo guardado en datos buffer a partir de uno mas del pipe en adelante
-//			datosBuffer = datosBuffer.substr(tamanio+1);
-//			std::cout<<"datosBuffer: "<<datosBuffer<<std::endl;
-
-
-//			donde->leer(bufferAux, pos);
-//			componente->setBuffer(bufferAux);
-//			componente->hidratar(BINARIO);
-//
-//			if (componente->compareTo(clave,0) == 0){
-//				resultadoDeLABusqueda.push_back(componente);
-//				componente = componente->obtenerNuevaInstancia();
-//				componente->setTamanio(donde->getTamanio());
-//			}
-//		}
 }
 
 Componente* Bloque::obtenerNuevaInstancia(){
