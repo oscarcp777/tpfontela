@@ -51,7 +51,7 @@ void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Co
 
 }
 
-void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente){
+void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
 
 }
 

@@ -47,7 +47,7 @@ void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compon
 	donde->guardar(bufferString);
 }
 
-void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente){
+void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
 
 }
 
