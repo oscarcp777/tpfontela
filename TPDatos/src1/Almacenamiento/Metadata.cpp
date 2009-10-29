@@ -16,10 +16,60 @@ using namespace std;
 Metadata::Metadata() {
 	this->metadataSize = -1;
 	this->setTipoArchivo(ESTRATEGIA_ALMACENAMIENTO);
+	this->vectorAtributosVariables.push_back("-1");
 }
 
 Metadata::~Metadata() {
 
+}
+void Metadata::guardarVectorAtributosVariables(){
+	vector<string>::iterator the_iterator;
+	string valor ;
+	int tamanioRegistro=0;
+	string registro="-1|";
+	the_iterator = this->vectorAtributosVariables.begin();
+	while( the_iterator != this->vectorAtributosVariables.end() ) {
+		valor = *the_iterator;
+//		cout<<"valor :"<<valor<<endl;
+		if(valor.compare("-1")!=0){
+			registro=registro+valor+DELIMITADOR;
+		}
+		++the_iterator;
+
+	}
+	cout<<registro<<endl;
+	tamanioRegistro =registro.length();
+	this->abrir();
+	this->guardar((char*)&tamanioRegistro,this->metadataSize,sizeof(tamanioRegistro));
+	this->guardar((char*)registro.c_str(),this->metadataSize+sizeof(tamanioRegistro),tamanioRegistro);
+	this->cerrar();
+
+}
+int Metadata::getPosicionLibreRegistro(){
+	vector<string>::iterator the_iterator;
+	string valor ;
+	int retorno=-1;
+	bool isEncontro=false;
+	the_iterator = this->vectorAtributosVariables.begin();
+	while( the_iterator != this->vectorAtributosVariables.end() ) {
+		valor = *the_iterator;
+//		cout<<"valor :"<<valor<<endl;
+		if(atoi(valor.c_str())>=0&&!isEncontro){
+			retorno=atoi(valor.c_str());
+			*the_iterator="-1";
+         isEncontro=true;
+		}
+		++the_iterator;
+
+	}
+	if(isEncontro)
+	this->guardarVectorAtributosVariables();
+
+	return retorno;
+}
+void Metadata::setPosicionLibreRegistro(int posicionRegistroLibre){
+	this->vectorAtributosVariables.push_back(StringUtils::convertirAString(posicionRegistroLibre));
+	this->guardarVectorAtributosVariables();
 }
 void Metadata::guardarMapaAtributosVariables(){
 	map<int,int>::iterator it;
@@ -35,8 +85,6 @@ void Metadata::guardarMapaAtributosVariables(){
 		valor=StringUtils::convertirAString(it->second);
 		registro=registro+clave+sep+DELIMITADOR+valor+DELIMITADOR;
 	}
-	cout<<registro<<endl;
-	cout<<this->metadataSize<<endl;
 	tamanioRegistro =registro.length();
 	this->abrir();
 	this->guardar((char*)&tamanioRegistro,this->metadataSize,sizeof(tamanioRegistro));
@@ -74,10 +122,10 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	}
 	for( it=this->mapaTamanioBloques.begin(); it != this->mapaTamanioBloques.end(); ++it ){
 
-//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
-//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
 		//cout<<"cont  :"<<cont<<endl;
-        cont++;
+		cont++;
 		if(tamanioBuscado<(it->second-porcentajeLibre)){
 			posicionBloque=it->first*tamanioBloque;
 			posiciones.push_back(posicionBloque);
@@ -114,6 +162,9 @@ string Metadata::getValorAtributosFijos(string clave){
 int Metadata::getEspacioLibreEnBloque(int bloque){
 	return  this->mapaTamanioBloques[bloque];
 }
+void Metadata::hidratarMetadataEnBuffer(string registroAtributos){
+	StringUtils::Tokenize(registroAtributos,this->vectorAtributosVariables,DELIMITADOR);
+}
 void Metadata::hidratarMetadata(){
 	int i=0,size=0,espacio=0;
 	string valor="", num="";
@@ -137,9 +188,9 @@ void Metadata::hidratarMetadata(){
 
 	//    mostarVector(this->atributosRegistro);
 	//    mostarVector(this->mapaAtributosFijos);
-	cout<<this->vectorAtributosVariables.size()<<endl;
-	cout<<"tamanio mapa"<<this->mapaTamanioBloques.size()<<endl;
-	mostarVector(this->vectorAtributosVariables);
+//	cout<<this->vectorAtributosVariables.size()<<endl;
+//	cout<<"tamanio mapa"<<this->mapaTamanioBloques.size()<<endl;
+//	mostarVector(this->vectorAtributosVariables);
 
 
 }
@@ -160,7 +211,7 @@ void Metadata::leerMetadata(){
 	this->leerRegistroVariable(this->primerRegistro,-1);
 	this->metadataSize=this->leerRegistroVariable(this->segundoRegistro,-1);
 	this->leerRegistroVariable(this->tercerRegistro,-1);
-	cout<<"Posicion del tercer registro"<<this->metadataSize<<endl;
+//	cout<<"Posicion del tercer registro"<<this->metadataSize<<endl;
 }
 int Metadata::getNumeroEtiqueta(std::string etiqueta){
 	int i = 0;

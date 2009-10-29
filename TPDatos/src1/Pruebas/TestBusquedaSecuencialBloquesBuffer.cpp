@@ -19,14 +19,14 @@ using namespace std;
 int main987(){
 
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
-
 	Alumno* alumno = new Alumno();
-	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55,"padron");
-
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
+	RecursoDeAlmacenamiento* recurso=
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55,"padron",alumno1);
+
+
 
 	recurso->alta(alumno1);
 	recurso->alta(alumno2);

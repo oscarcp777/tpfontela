@@ -43,6 +43,12 @@ public:
     int getEspacioLibreEnBloque(int bloque);
     int getNumeroEtiqueta(std::string etiqueta);
     void guardarMapaAtributosVariables();
+    int getPosicionLibreRegistro();
+    void setPosicionLibreRegistro(int posicionRegistroLibre);
+    void guardarVectorAtributosVariables();
+    void hidratarMetadataEnBuffer(string registroAtributos);
+
+
     int getMetadataSize()
     {
         return metadataSize;

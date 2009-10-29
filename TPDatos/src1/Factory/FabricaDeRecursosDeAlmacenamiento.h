@@ -73,8 +73,9 @@ public:
 	 *   string clavePrimaria: nombre del campo del registro que se usara como clave primaria de los registros que se persitiran en el archivo,
 	 *                        en caso de que esta este conformada por mas de un campo debera ingresarse separados por espacios
 	 *                        Ejemplo: "dni padron apellido"
+	 *   Componente* componente: instancia del componente que va ser persistido como registro debera tener implemetado el metodo serializar
 	 */
-	RecursoDeAlmacenamiento* crearRecursoDeAlmacenamientoEnBuffer(string estrategiaAlmacenamiento,int tamanio,string clavePrimaria);
+	RecursoDeAlmacenamiento* crearRecursoDeAlmacenamientoEnBuffer(string estrategiaAlmacenamiento,int tamanio,string clavePrimaria,Componente* componente);
 	/**
 	 * pre: ninguna
 	 * post:  este metodo se encarga de crear un  recurso de almacenamiento para :
