@@ -77,11 +77,19 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	return rAlmacenamiento;
 }
 
-RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmacenamientoEnBuffer(string estrategiaAlmacenamiento,int tamanio,string clavePrimaria){
+RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmacenamientoEnBuffer(string estrategiaAlmacenamiento,int tamanio,
+		string clavePrimaria,Componente* componente){
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
 	Almacenamiento* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
+	Metadata* metadata=new Metadata();
 	buffer->setTamanio(tamanio);
 	buffer->setClavePrimaria(clavePrimaria);
+	metadata->setPosicionLibreRegistro(-1);
+	Registro* registro=(Registro*)componente;
+	registro->setTamanio(tamanio);
+	registro->serializarTexto();
+	metadata->hidratarMetadataEnBuffer(componente->getNombreAtributos());
+	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, NULL,buffer,unAlmacenamiento,NULL);
 	return rAlmacenamiento;

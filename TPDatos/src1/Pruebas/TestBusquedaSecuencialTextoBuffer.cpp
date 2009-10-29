@@ -29,7 +29,7 @@ int main54657() {
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"padron");
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"padron",alumno1);
 
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;

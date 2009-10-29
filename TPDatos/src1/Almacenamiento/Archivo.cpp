@@ -106,8 +106,6 @@ void Archivo::guardar(char* buffer, int pos,int tamanio){
 			this->archivo.seekp(pos);
 		//	this->archivo.seekg(pos);
 		}
-       cout<<"guardo :"<<buffer<<endl;
-       cout<<"en la posicion :"<<this->archivo.tellg()<<endl;
 		this->archivo.write(buffer,tamanio);
 
 
@@ -260,7 +258,7 @@ int Archivo::leerRegistroVariable(string& registro,int posicion){
 	this->leer(buffer,-1,tamanioRegistro);
 	registro=buffer;
 	registro= registro.substr(0,tamanioRegistro);
-	std::cout<<"Metadata: " << registro <<endl;
+//	std::cout<<"Metadata: " << registro <<endl;
 //	std::cout<<"Metadata: " << buffer <<endl;
 //	std::cout<<"posicion2: " << this->archivo.tellg() <<endl;
 //	std::cout<<"posicion2: " << this->archivo.tellp() <<endl;
