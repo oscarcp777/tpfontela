@@ -62,17 +62,25 @@ void Archivo::cerrar(){
 
 
 
-void Archivo::guardar(std::string registro){
+void Archivo::guardar(std::string registro, int pos){
 	/* verifica que el archivo esta abierto */
 		if (this->archivo.is_open()) {
-			this->irAlFinal();
+
+			if(pos >=0){
+				this->archivo.seekp(pos);
+			}
+			else
+				this->irAlFinal();
+
 			//intenta escribir la cadena en el archivo
 			this->archivo.flush();
 			this->archivo << registro<<endl;
 
+
 			if (archivo.fail())
 				// si se produjo un error, arroja una excepción
 				throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
+
 		} else {
 			/* arroja una excepción porque el archivo no está abierto */
 			throw string("El archivo no esta abierto");

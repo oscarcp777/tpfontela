@@ -43,7 +43,7 @@ void Buffer::irAlPrincipio(){
 }
 
 
-void Buffer::guardar(std::string registro){
+void Buffer::guardar(std::string registro, int pos){
 	std::string temp = this->datos;
 	if(this->texto == 0)
 		this->texto = true;

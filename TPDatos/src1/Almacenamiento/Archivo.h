@@ -28,7 +28,7 @@ public:
 	void abrir();
 	void cerrar();
     void crear();
-    void guardar(std::string registro);
+    void guardar(std::string registro, int pos);
     /*
       pre : archivoRegistros ha sido creado con crear() y registro es un puntero
             a un struct del tamaño correspondiente al de los registros del archivo.
