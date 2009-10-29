@@ -211,7 +211,7 @@ void Metadata::leerMetadata(){
 	this->leerRegistroVariable(this->primerRegistro,-1);
 	this->metadataSize=this->leerRegistroVariable(this->segundoRegistro,-1);
 	this->leerRegistroVariable(this->tercerRegistro,-1);
-//	cout<<"Posicion del tercer registro"<<this->metadataSize<<endl;
+	cout<<"Posicion del tercer registro"<<this->tercerRegistro<<endl;
 }
 int Metadata::getNumeroEtiqueta(std::string etiqueta){
 	int i = 0;
