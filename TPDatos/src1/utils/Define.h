@@ -11,7 +11,7 @@
 #define CLAVE_ALMACENAMIENTO "almacenamiento=|"
 #define CLAVE_TAG_PRIMARIA "|clavePrimaria=|"
 #define PRIMER_BLOQUE "0=|"
-#define PRIMER_REGISTRO "|0|"
+#define PRIMER_REGISTRO "-1"
 #define PORCENTAJE_ESPACIO_LIBRE_BLOQUE 0.1
 #define ESTRATEGIA_ALMACENAMIENTO_TEXTO "estrategiaAlmacTexto"
 #define ESTRATEGIA_ALMACENAMIENTO_REGISTROS "estrategiaAlmacRegistros"
