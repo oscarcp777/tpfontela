@@ -39,12 +39,13 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 }
 
 void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
+	int pos = -1;
 	componente->serializar(TEXTO);
 	donde->agregarComponente(componente);
 	string bufferString = "";
-	 bufferString = componente->getBuffer();
+	bufferString = componente->getBuffer();
 	cout<<"bufferString: "<<bufferString<<endl;
-	donde->guardar(bufferString);
+	donde->guardar(bufferString, pos); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
 }
 
 void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){

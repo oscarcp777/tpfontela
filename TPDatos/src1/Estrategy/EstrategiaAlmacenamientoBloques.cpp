@@ -50,8 +50,6 @@ int iBorrar = 0;
 
 void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Componente* componente){
 
-	//no esta terminado, hasta ahora por cada registro agrega un bloque
-
 			//necesito un nuevo bloque
 			Bloque* bloque = new Bloque(donde->getTamanio());
 			char* bufferAux = new char [donde->getTamanio()];
@@ -118,7 +116,7 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
 	cout<<"EstrategiaAlmacenamientoBloques::quitarComponente: clave comp. a quitar: "<<clave;
-	int pos = 0;
+	int pos = 0; //TODO esto se inicializa en -1, lo pongo en 0 para probar ahora
 	char* bufferAux = new char[donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	int j=0;
@@ -176,9 +174,8 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
 				bloque->removerComponente(componente);
 				borrado = true;
-				return;
-				//j--;
-				//iteraRegistros--;
+				j--;
+				iteraRegistros--;
 			}
 
 			iteraRegistros++;
@@ -186,9 +183,9 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 		}
 
 		if(borrado == true){
-			//si lo encontro vuelvo a guardar el bloque, sino NO porque queda como estaba
+			//si lo encontro vuelvo a guardar el bloque sin el componente borrado, sino NO porque queda como estaba
 			bloque->serializar();
-			//agrego bloque a lista de componentes
+			//agrego bloque a lista de componentes del almacenamiento
 			donde->agregarComponente(bloque);
 			//guardo en almacenamiento el ultimo bloque agregado
 			donde->guardar(bloque->getBuffer(),pos);

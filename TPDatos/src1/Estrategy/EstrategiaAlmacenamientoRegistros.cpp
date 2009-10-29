@@ -43,12 +43,11 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
 
 
 void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
-
-
+		int posAEscribir = this->metadata->getPosicionLibreRegistro();
+		cout<<"posAEscribir: "<<posAEscribir<<endl;
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
-	    donde->guardar(componente->getBuffer());		//el almacenamiento guarda el ultimo componente agregado a la lista
-
+	   	donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
 }
 
 void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
