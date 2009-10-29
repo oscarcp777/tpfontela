@@ -16,7 +16,6 @@ using namespace std;
 Metadata::Metadata() {
 	this->metadataSize = -1;
 	this->setTipoArchivo(ESTRATEGIA_ALMACENAMIENTO);
-	this->vectorAtributosVariables.push_back("-1");
 }
 
 Metadata::~Metadata() {
