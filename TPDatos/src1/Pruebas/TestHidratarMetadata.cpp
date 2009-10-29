@@ -9,7 +9,7 @@
 #include "../Modelo/Alumno.h"
 using namespace std;
 
-int main(){
+int main134124(){
 	Metadata* metadata= new Metadata();
 	metadata->setNombreArchivo("archivoRegistrosMetaData");
 	metadata->setRuta("../TPDatos/files/");
