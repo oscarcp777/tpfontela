@@ -64,7 +64,6 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 			cout<<"Entro "<<iBorrar<<" veces"<<endl;
 			for( int j=0 ; j< donde->getTamanio(); j++){
 				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
-				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
 				if (componente->getBuffer()[j] == Define::DELIMITADOR1){
 					cantCaracteresRegistro = j;
 				}
@@ -143,7 +142,6 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 		bloque->hidratar(BINARIO);
 
 		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
-		cout<<"bloque->getCantidadDeElelmentos(): "<<bloque->getCantidadDeElelmentos()<<endl;
 		//recorro la lista de componentes del bloque y comparo con la clave si la encuentro
 		//borro el componente y salgo del while
 		while (borrado == false && j<bloque->getCantidadDeElelmentos()){
@@ -154,7 +152,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 
 			if (resCompare == 0){
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
-				componente->serializar(BINARIO);
+
 				for( int x=0 ; x< donde->getTamanio(); x++){
 					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
 					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
@@ -249,7 +247,6 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 		//si tiene la clave agrego a la lista que me pasan por parametro
 		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
 		int i=0;
-		cout<<"bloque->getCantidadDeElelmentos(): "<<bloque->getCantidadDeElelmentos()<<endl;
 		while (i<bloque->getCantidadDeElelmentos()){
 			resCompare = 0;
 			componente = (Componente*)*iteraRegistros;

@@ -16,8 +16,8 @@ Bloque::Bloque(int tamanio) {
 	this->setTamanio(tamanio);
 	this->nextByte = 0;
 	this->tamanioBuffer = 0;
-	 this->buffer = new char[tamanio];
-	    memset(this->buffer,0,tamanio);
+	this->buffer = new char[tamanio];
+	 memset(this->buffer,0,tamanio);
 
 
 }
@@ -35,6 +35,7 @@ void Bloque::serializar(string tipo){
 
 	//ir al ultimo registro agregado
 	//cout<<"this->getCantidadDeElelmentos() "<<this->getCantidadDeElelmentos()<<endl;
+	memset(this->getBuffer(),0,this->getTamanio());
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
 
@@ -50,6 +51,7 @@ void Bloque::serializar(string tipo){
 		//copio el buffer del registro en el bloque
 		start = this->nextByte;
 		this->nextByte += len+1 ;
+		//cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
 		//cout<< "Empieza a grabar el registro en: "<<start<<endl;
 		memcpy(&this->buffer[start],componente->getBuffer(),len);
 		//this->buffer[start + len] = Define::DELIMITADOR1;
@@ -82,7 +84,7 @@ void Bloque::hidratar(string tipo){
 		i++;
 	}
 	this->listaDeComponetes.remove(componente);
-	//int j = 1;
+
 	while(this->nextByte < this->getTamanio()){
 		encontroDelimitador = false;
 		int len = -1;

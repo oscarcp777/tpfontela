@@ -26,8 +26,16 @@ void Metadata::actualizarMapaAtributosVariables(int posicion,int espacioLiberado
 	int tamanioBloque,indice,espacioLibre;
 	tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
 	 indice=posicion/tamanioBloque;
+	 cout<<" metadata       indice "<<indice<<endl;
 	 espacioLibre=this->mapaTamanioBloques[indice];
+	 cout<<"espacioLibre: "<<espacioLibre<<endl;
+	 cout<<"espacioLiberado"<<espacioLiberado<<endl;
 	 this->mapaTamanioBloques[indice]=espacioLibre+espacioLiberado;
+	 cout<<"this->mapaTamanioBloques[indice]"<<this->mapaTamanioBloques[indice]<<endl;
+	 //escribir a disco :P :P :P GIL!!
+	 if(this->archivo)
+	 this->guardarMapaAtributosVariables();
+
 }
 void Metadata::guardarVectorAtributosVariables(){
 	vector<string>::iterator the_iterator;
