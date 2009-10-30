@@ -21,7 +21,7 @@ Registro::~Registro() {
 }
 
 void Registro::serializar(string tipo){
-	this->setClave(this->getClaveObjeto());
+	//this->setClave(this->getClaveObjeto());
 	if (tipo.compare(BINARIO)==0)
 		this->serializarBinario();
 	if (tipo.compare(TEXTO) == 0)
@@ -36,6 +36,9 @@ void Registro::hidratar(string tipo){
 		this->hidratarTexto();
 }
 
+string Registro::getClave(){
+	return this->getClaveObjeto();
+}
 
 int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 	this->estiquetas.push_back(etiqueta);

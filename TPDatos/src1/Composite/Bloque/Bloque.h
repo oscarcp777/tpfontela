@@ -18,6 +18,7 @@ public:
 
    	void serializar(string tipo = "");
     void hidratar(string tipo = "");
+    string getClave();
     Componente* obtenerNuevaInstancia();
     int compareTo(std::string clave,int num);
 
