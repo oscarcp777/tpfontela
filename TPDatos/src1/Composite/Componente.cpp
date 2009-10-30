@@ -32,10 +32,10 @@ void Componente::setTamanio(int tamanio)
 }
 
 
-std::string Componente::getClave() const
-{
-	return clave;
-}
+//std::string Componente::getClave()
+//{
+//	return clave;
+//}
 
 void Componente::setClave(std::string clave)
 {

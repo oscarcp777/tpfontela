@@ -17,6 +17,7 @@ public:
 
 	void serializar(string tipo);
 	void hidratar(string tipo);
+	string getClave();
 	void clear();
 
 	virtual string getClaveObjeto() = 0;

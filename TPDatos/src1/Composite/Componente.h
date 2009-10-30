@@ -34,7 +34,7 @@ public:
     virtual ~Componente();
     int getTamanio();
     void setTamanio(int tamanio);
-    string getClave() const;
+    virtual string getClave() =0 ;
 
 
     void setClave(string clave);

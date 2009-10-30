@@ -123,6 +123,10 @@ void Bloque::hidratar(string tipo){
 	this->nextByte = 0;
 }
 
+string Bloque::getClave(){
+	return clave;
+}
+
 Componente* Bloque::obtenerNuevaInstancia(){
 	return NULL;
 }
