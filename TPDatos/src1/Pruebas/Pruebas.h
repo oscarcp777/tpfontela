@@ -32,6 +32,7 @@ public:
 	int testGuardarComoTexoArchivo();
 	int testGuardarEnBloquesArchivo();
 	int testQuitarComponenteBloquesArchivo();
+	int testQuitarComponenteRegistrosArchivo();
 	void seleccionarTest(int numPrueba);
 };
 #endif /* PRUEBAS_H_ */
