@@ -166,8 +166,10 @@ string Metadata::getValorAtributosFijos(string clave){
 int Metadata::getEspacioLibreEnBloque(int bloque){
 	return  this->mapaTamanioBloques[bloque];
 }
-void Metadata::hidratarMetadataEnBuffer(string registroAtributos){
-	StringUtils::Tokenize(registroAtributos,this->vectorAtributosVariables,DELIMITADOR);
+void Metadata::hidratarMetadataEnBuffer(string registroAtributos,int tamanio){
+	this->mapaAtributosFijos.push_back("tamanio=");
+	this->mapaAtributosFijos.push_back(StringUtils::convertirAString(tamanio));
+	StringUtils::Tokenize(registroAtributos,this->atributosRegistro,DELIMITADOR);
 }
 void Metadata::hidratarMetadata(){
 	int i=0,size=0,espacio=0;

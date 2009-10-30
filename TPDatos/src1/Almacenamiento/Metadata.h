@@ -47,7 +47,7 @@ public:
     int getPosicionLibreRegistro();
     void setPosicionLibreRegistro(int posicionRegistroLibre);
     void guardarVectorAtributosVariables();
-    void hidratarMetadataEnBuffer(string registroAtributos);
+    void hidratarMetadataEnBuffer(string registroAtributos,int tamanio);
     bool isArchivo()
     {
         return archivo;
