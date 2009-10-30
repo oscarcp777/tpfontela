@@ -57,7 +57,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 		Alumno* alumno = new Alumno();
 		Alumno* alumno1 = new Alumno(31993745,"Santy",85689,8,8,8);
-		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
+		Alumno* alumno2 = new Alumno(31440400,"Dubini",85440,6,6,7);
 		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 		Alumno* alumno4 = new Alumno(93850169,"Rodrigo Perez",80000,8,7,4);
 		Alumno* alumno5 = new Alumno(93853439,"Daniel Sivori",86524,8,7,4);
@@ -66,7 +66,8 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
 		Alumno* alumno9 = new Alumno(10850139,"Garcia",86745,8,7,4);
 		Alumno* alumno10 = new Alumno(2385013,"Don",87890,8,7,4);
-		Alumno* alumno11 = new Alumno(2385022,"Jan",87811,8,7,4);
+
+
 
 		RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,120,"Padron",alumno);
@@ -83,7 +84,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		recurso->alta(alumno8);
 		recurso->alta(alumno9);
 		recurso->alta(alumno10);
-		recurso->alta(alumno11);
+
 
 		cout << endl;
 		cout << "Buffer guardado" << endl;
@@ -113,7 +114,6 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		delete alumno8;
 		delete alumno9;
 		delete alumno10;
-		delete alumno11;
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -487,7 +487,8 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
 
-	recurso->baja(alumno);
+	//recurso->baja(alumno);
+	recurso->alta(alumno);
 
 
 
@@ -500,12 +501,11 @@ int Pruebas::testQuitarComponenteRegistrosArchivo(){
 
 
 	Alumno* alumno = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-	//Alumno* alumno2 = new Alumno(31993745,"PEPE PONPIN",85689,8,8,8);
 
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoRegistros");
 
-	//recurso->alta(alumno2);
+
 	recurso->baja(alumno);
 
 
