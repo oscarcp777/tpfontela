@@ -29,7 +29,7 @@ int main34345() {
 	Alumno* alumno = new Alumno();
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
-					"../TPDatos/files/","archivoRegistros","padron",INDEXADO_BSHARP,alumno);
+					"../TP0Datos/files/","archivoRegistros","padron",INDEXADO_BSHARP,alumno);
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
