@@ -108,10 +108,9 @@ Registro* Alumno::obtenerNuevaInstancia(){
 }
 
 std::string Alumno::getClaveObjeto(){
-	std::string llave;
-	llave.append("Nombre");
-	llave.append("Padron");
-	return llave;
+	std::stringstream flujo;
+	flujo<<this->padron;
+	return flujo.str();;
 }
 int Alumno::compareTo(std::string clave, int num){
 	int valor = -1;
