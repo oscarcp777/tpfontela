@@ -15,10 +15,10 @@ int main545(){
 	IndexadoBSharp bt(bTreeSize,4);
 	char nArch[]="testbt.dat";
 	char ruta[]="../files/";
-    string valor="A";
+    char valor[5]="A";
 	bt.abrir(nArch,ruta);
-
-	int resultado = 0;//bt.buscar((=valor.c_str());
+    char* pchar=valor;
+	int resultado = bt.buscar(pchar);
 	if(resultado == 20)
 		cout<<"BUSQUEDA PERFECTA CAPO!!"<<endl;
 	else

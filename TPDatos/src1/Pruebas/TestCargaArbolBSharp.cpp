@@ -15,9 +15,11 @@ const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 
 const int bTreeSize = 4;
 
-int main8(){
+int main344(){
 	int j=0;
 	char letra[2] = "";
+	 char valor[5]="A";
+	 char* pchar=valor;
 	IndexadoBSharp bt(bTreeSize,4);
 	char nArch[]="testbt.dat";
 	char ruta[]="../files/";
@@ -35,7 +37,7 @@ int main8(){
 	}
 	bt.close();
 	bt.abrir(nArch,ruta);
-	int resultado = bt.buscar("A");
+	int resultado = bt.buscar(pchar);
 	if(resultado == 20)
 		cout<<"BUSQUEDA PERFECTA CAPO!!"<<endl;
 	else
