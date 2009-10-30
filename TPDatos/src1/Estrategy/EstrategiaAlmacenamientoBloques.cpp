@@ -129,7 +129,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 	int j=0;
 	bool borrado = false;
 	int resCompare = -1;
-
+	int cantCaracteresRegistro= 0;
 	//Busco En Indice La Posicion Del Bloque Que Contiene El Registro Con Esa Clave
 	//pos = BuscoEnIndiceLaPosicionDelBloqueQueContieneElRegistroConEsaClave();
 	//¿? si no se encuentra en el indice tengo que hacer busqueda secuencial??
@@ -154,7 +154,21 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 
 			if (resCompare == 0){
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
+				componente->serializar(BINARIO);
+				for( int x=0 ; x< donde->getTamanio(); x++){
+					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
+					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
+					if (componente->getBuffer()[x] == Define::DELIMITADOR1){
+						cantCaracteresRegistro = x;
+					}
+
+				}
+				cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
+				cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
+				cout<<"cantCaracteresRegistro reg a borrar: "<<cantCaracteresRegistro<<endl;
 				cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+				cout<<"pos bloque a actualizar tamaño libre "<<pos<<endl;
+				this->metadata->actualizarMapaAtributosVariables(pos,cantCaracteresRegistro);
 				bloque->removerComponente(componente);
 				borrado = true;
 				j--;

@@ -21,6 +21,7 @@ void Pruebas::imprimirOrdenPruebas(){
 	cout<<"8: Guardar Como Texo Archivo"<<endl;
 	cout<<"9: Guardar En Bloques Archivo"<<endl;
 	cout<<"10: Quitar Componente Bloques Archivo"<<endl;
+	cout<<"11: Quitar Componente Registros Archivo"<<endl;
 }
 
 
@@ -481,11 +482,30 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
 
-	Alumno* alumno = new Alumno(31440400,"Dubini",85440,6,6,7);
+	Alumno* alumno = new Alumno(31993745,"Santy",85689,8,8,8);
 
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
 
+	recurso->baja(alumno);
+
+
+
+	delete recurso;
+	delete fabricaDeRecursos;
+	return 0;
+}
+int Pruebas::testQuitarComponenteRegistrosArchivo(){
+	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
+
+
+	Alumno* alumno = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
+	//Alumno* alumno2 = new Alumno(31993745,"PEPE PONPIN",85689,8,8,8);
+
+	RecursoDeAlmacenamiento* recurso=
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoRegistros");
+
+	//recurso->alta(alumno2);
 	recurso->baja(alumno);
 
 
@@ -534,6 +554,10 @@ void Pruebas::seleccionarTest(int numPrueba){
 			break;
 	case 10:
 			this->testQuitarComponenteBloquesArchivo();
+			break;
+
+	case 11:
+			this->testQuitarComponenteRegistrosArchivo();
 			break;
 	default :
 			cout<<"NUMERO DE PRUEBA INVALIDO"<<endl;
