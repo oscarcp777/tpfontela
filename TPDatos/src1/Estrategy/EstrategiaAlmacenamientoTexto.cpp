@@ -38,7 +38,7 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 
 }
 
-void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
+int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
 	int pos = -1;
 	componente->serializar(TEXTO);
 	donde->agregarComponente(componente);
@@ -46,9 +46,11 @@ void EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compon
 	bufferString = componente->getBuffer();
 	cout<<"bufferString: "<<bufferString<<endl;
 	donde->guardar(bufferString, pos); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
+	return pos;
 }
 
-void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
+void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente){
+	//string clave = "LALALA";
 	//int pos = 0; // = IndiceBuscarComponente(clave);
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)

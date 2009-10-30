@@ -46,7 +46,9 @@ int RecursoDeAlmacenamiento::alta(Componente* componente){
 	return 0;
 }
 int RecursoDeAlmacenamiento::baja(Componente* componente){
-  return 0;
+	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
+	this->estrategiaRecurso->bajaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
+	return 0;
 }
 int RecursoDeAlmacenamiento::modificion(Componente* componente){
 	return 0;
