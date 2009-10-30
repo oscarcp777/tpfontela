@@ -1,5 +1,5 @@
 /*
- * TestCargaArbolBSharp.cpp
+ * TestUnitarioCargaArbol.cpp
  *
  *  Created on: 28/10/2009
  *      Author: santiago
@@ -15,34 +15,32 @@ const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 
 const int bTreeSize = 4;
 
-int main2343(){
-	int j=0;
+int main11(){
 	char letra[2] = "";
-	 char valor[5]="A";
-	 char* pchar=valor;
+	char valor[5]="A";
+	char* pchar=valor;
 	IndexadoBSharp bt(bTreeSize,4);
 	char nArch[]="testbt.dat";
-	char ruta[]="../TP0Datos/files/";
+	char ruta[]="../files/";
 
 	bt.crear(nArch,ruta);
-	bt.abrir(nArch,ruta);
+	bt.abrir();
 
 	for (int i = 0; i<26; i++){
 		memcpy(letra,keys,sizeof(char));
-		bt.insertar(letra,j);
-		j+=4;
+		bt.insertar(letra,i);
 		bt.imprimir(cout);
 		keys++;
 
 	}
-	bt.close();
-	bt.abrir(nArch,ruta);
+	bt.cerrar();
+	bt.abrir();
 	int resultado = bt.buscar(pchar);
-	if(resultado == 20)
+	if(resultado == 4)
 		cout<<"BUSQUEDA PERFECTA CAPO!!"<<endl;
 	else
 		cout<<"El resultado dio: "<<resultado<<endl;
-	bt.close();
+	bt.cerrar();
 
-return 1;
+	return 1;
 }

@@ -19,7 +19,7 @@
 
 const int bTreeSize = 4;
 
-int main1(){
+int main(){
 
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
@@ -58,7 +58,12 @@ int main1(){
 //	recurso->alta(alumno8);
 //	recurso->alta(alumno9);
 //	recurso->alta(alumno10);
-
+	std::list<Componente*> listaAlumnos;
+	int encontro = recurso->buscar(listaAlumnos,alumno1,"");
+	if (encontro == 0)
+		cout<<"MUY GROSSSOOO.."<<endl;
+	else
+		cout<<"encontro: "<<encontro<<endl;
 	cout << endl;
 	cout << "Archivo guardado" << endl;
 
