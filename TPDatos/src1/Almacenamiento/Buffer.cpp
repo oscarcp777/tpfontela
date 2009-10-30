@@ -43,14 +43,16 @@ void Buffer::irAlPrincipio(){
 }
 
 
-void Buffer::guardar(std::string registro, int pos){
+int Buffer::guardar(std::string registro, int pos){
 	std::string temp = this->datos;
+	int dir = -1;
 	if(this->texto == 0)
 		this->texto = true;
 	//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 	if((int)registro.length() <= TAM_BUFFER - (int)temp.length()){
 		temp+= registro+"\n";
 		memcpy(this->datos,temp.c_str(),temp.length());
+		dir = cantLineas;
 		this->cantLineas++;
 		//this->posicionActual=temp.length();
 	}
@@ -58,6 +60,7 @@ void Buffer::guardar(std::string registro, int pos){
 		/* arroja una excepción porque el registro no entra */
 		throw std::string("El registro no entra en el buffer");
 	}
+	return dir;
 }
 
 int Buffer::guardar(char* buffer, int pos){

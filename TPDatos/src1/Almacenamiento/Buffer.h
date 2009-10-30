@@ -23,7 +23,7 @@ public:
 	void irAlPrincipio();
 	bool fin();
 	void crear();
-	void guardar(std::string registro, int pos);
+	int guardar(std::string registro, int pos);
 	int guardar(char* buffer, int pos = -1);
 	void leer(std::string& datos);
 	void leer(char* buffer, int pos);

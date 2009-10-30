@@ -104,7 +104,7 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 		    	donde->agregarComponente(bloque);
 
 	    	 	//guardo en almacenamiento el ultimo bloque agregado
-		      	donde->guardar(bloque->getBuffer(),posicionBloque);
+		    	posicionBloque = donde->guardar(bloque->getBuffer(),posicionBloque);
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
 		    	//este espacio es igual a: donde->getTamanio() - bloque->getTamanioBuffer()
