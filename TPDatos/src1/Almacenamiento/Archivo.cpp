@@ -66,8 +66,9 @@ void Archivo::cerrar(){
 
 
 
-void Archivo::guardar(std::string registro, int pos){
+int Archivo::guardar(std::string registro, int pos){
 	/* verifica que el archivo esta abierto */
+	int dir = -1;
 		if (this->archivo.is_open()) {
 
 			if(pos >=0){
@@ -77,6 +78,7 @@ void Archivo::guardar(std::string registro, int pos){
 				this->irAlFinal();
 
 			//intenta escribir la cadena en el archivo
+			dir = this->archivo.tellg();
 			this->archivo.flush();
 			this->archivo << registro<<endl;
 
@@ -89,10 +91,11 @@ void Archivo::guardar(std::string registro, int pos){
 			/* arroja una excepción porque el archivo no está abierto */
 			throw string("El archivo no esta abierto");
 		}
+		return dir;
 }
 
 int Archivo::guardar(char* buffer, int pos){
-     int dir=0;
+     int dir=-1;
 	if (this->archivo.is_open()) {
 
 		if (pos < 0)

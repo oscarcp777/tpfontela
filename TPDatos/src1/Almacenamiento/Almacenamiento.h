@@ -48,7 +48,7 @@ public:
     void setTipoArchivo(std::string tipoArchivo);
    string getTipoArchivo();
 
-    virtual void guardar(std::string registro, int pos) = 0;
+    virtual int guardar(std::string registro, int pos) = 0;
 
     virtual int guardar(char* buffer, int pos = -1) = 0;
     virtual void crear() = 0;

@@ -45,7 +45,7 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 	string bufferString = "";
 	bufferString = componente->getBuffer();
 	cout<<"bufferString: "<<bufferString<<endl;
-	donde->guardar(bufferString, pos); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
+	pos = donde->guardar(bufferString, pos); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
 	return pos;
 }
 

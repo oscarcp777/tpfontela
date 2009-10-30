@@ -48,7 +48,7 @@ int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Com
 		cout<<"posAEscribir: "<<posAEscribir<<endl;
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
-	   	donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
+	    posAEscribir = donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
 	   	return posAEscribir;
 }
 
