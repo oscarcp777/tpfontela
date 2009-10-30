@@ -118,40 +118,22 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 }
 
 void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente){
-	string clave = "LALALA";
-	cout<<"EstrategiaAlmacenamientoBloques::quitarComponente: clave comp. a quitar: "<<clave;
+	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+	string clave = componente->getClave();
+	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	cout<<"numEtiquta "<<numEtiquta<<endl;
+	cout<<"componente->getClave() "<<componente->getClave()<<endl;
 	int pos = 0; //TODO esto se inicializa en -1, lo pongo en 0 para probar ahora
 	char* bufferAux = new char[donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	int j=0;
 	bool borrado = false;
-	vector<string> vecClaves;
-	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
-	vector<string> vecCampos ((int)vecClaves.size());
-	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
-	int posCaracterIgual = -1;
-	string etiquetaCampo = "";
-	string campo = "";
-	int resCompare = 0;
+	int resCompare = -1;
 
 	//Busco En Indice La Posicion Del Bloque Que Contiene El Registro Con Esa Clave
 	//pos = BuscoEnIndiceLaPosicionDelBloqueQueContieneElRegistroConEsaClave();
 	//¿? si no se encuentra en el indice tengo que hacer busqueda secuencial??
 	if(pos >= 0){
-		for( int i = 0; i<(int)vecClaves.size(); i++){
-			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
-			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
-			campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
-			//		std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
-			//		std::cout<<"campo: "<<campo<<std::endl;
-			//		cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
-			vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
-			vecCampos[i]= campo;
-			//		std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
-			//		std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
-			//		std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
-		}
-
 		//leo en esa pos
 		Bloque* bloque = new Bloque(donde->getTamanio());
 		donde->leer(bufferAux,pos);
@@ -165,17 +147,14 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 		//recorro la lista de componentes del bloque y comparo con la clave si la encuentro
 		//borro el componente y salgo del while
 		while (borrado == false && j<bloque->getCantidadDeElelmentos()){
-			resCompare = 0;
 			componente = (Componente*)*iteraRegistros;
-			for(int k = 0; k< (int)vecCampos.size();k++){
-				if(resCompare == 0)//solo compara si la comparacion anterior dio =
-					resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
-			}
+			resCompare+=componente->compareTo(clave,numEtiquta);
 			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
 			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
-			cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+
 			if (resCompare == 0){
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
+				cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
 				bloque->removerComponente(componente);
 				borrado = true;
 				j--;

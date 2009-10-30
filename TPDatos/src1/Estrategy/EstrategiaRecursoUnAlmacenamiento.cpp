@@ -12,7 +12,7 @@ int EstrategiaRecursoUnAlmacenamiento::altaComponente(vector<Almacenamiento*>& a
 	almacenamiento->abrir();
 	int pos = estrategiaAlmacenamiento->altaComponente(almacenamiento, componente);
 	almacenamiento->cerrar();
-	cout<<"LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa@@@@@@: "<<pos<<endl;
+	cout<<"EstrategiaRecursoUnAlmacenamiento pos que devuelve donde se escribio: "<<pos<<endl;
 	return pos;
 }
 int EstrategiaRecursoUnAlmacenamiento::bajaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
