@@ -41,6 +41,7 @@ public:
     void leerMetadata();
      void escribirMetadata(string estrAlmacenamiento,int tamanio,string clavePrimaria,string tipoIndexacion,string nombreAtributos);
     string getValorAtributosFijos(string clave);
+    string getClavePrimaria();
     int getEspacioLibreEnBloque(int bloque);
     int getNumeroEtiqueta(std::string etiqueta);
     void guardarMapaAtributosVariables();
