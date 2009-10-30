@@ -34,7 +34,7 @@ int main(){
 	Alumno* alumno = new Alumno();
 	RecursoDeAlmacenamiento* recurso=
 		fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
-				"../files/","archivoRegistros","Padron",INDEXADO_BSHARP,alumno);
+				"./","archivoRegistros","Padron",INDEXADO_BSHARP,alumno);
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
@@ -58,19 +58,24 @@ int main(){
 //	recurso->alta(alumno8);
 //	recurso->alta(alumno9);
 //	recurso->alta(alumno10);
+
+	cout<<"ESTA ACAAA"<<endl;
 	std::list<Componente*> listaAlumnos;
 	int encontro = recurso->buscar(listaAlumnos,alumno1,"");
 	if (encontro == 0)
 		cout<<"MUY GROSSSOOO.."<<endl;
 	else
 		cout<<"encontro: "<<encontro<<endl;
-	cout << endl;
-	cout << "Archivo guardado" << endl;
 
 
+	//cout << endl;
+	//cout << "Archivo guardado" << endl;
+
+	delete alumno1;
+	delete alumno2;
 	delete recurso;
 	delete fabricaDeRecursos;
-	return 0;
+
 
 	return 1;
 }
