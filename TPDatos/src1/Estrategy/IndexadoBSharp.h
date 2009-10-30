@@ -22,9 +22,9 @@ public:
 	IndexadoBSharp(int orden, int tamanioLlave);
 	virtual ~IndexadoBSharp();
 
-	int abrir(char* nombre, char* ruta);
+	int abrir();
 	int crear(char* nombre, char* ruta);
-	int close();
+	int cerrar();
 	int insertar(char* key, int dir);
 	int remover(char* key, int dir=-1);
 	int buscar(char* key, int dir=-1);
@@ -44,6 +44,7 @@ protected:
 	//nodos[1] es nivel 1, etc (ver buscarHoja)
 	int tamanioRegistro;
 
+	int tamanioLlave;
 
 	NodeBSharp* buscarHoja(char* key);  //FindLeaf
 	NodeBSharp* nuevoNodo();

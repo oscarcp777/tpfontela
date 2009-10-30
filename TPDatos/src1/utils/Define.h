@@ -29,6 +29,7 @@
 #define INDEXADO_HASH_EXTENSIBLE "indexadoHashExtensible"
 #define INDEXADO_BSHARP "indexadoBSharp"
 #define METADATA "MetaData"
+#define INDICE_PRIMARIO "IndPrim"
 #define ESTRATEGIA_ALMACENAMIENTO "almacenamiento"
 #define TIPO_INDEXACION "indexacion"
 #define CLAVE_INDEXACION "|indexacion=|"

@@ -18,3 +18,8 @@ EstrategiaIndice::~EstrategiaIndice() {
 std::string EstrategiaIndice::toString(){
    	return "EstrategiaIndice";
    }
+int EstrategiaIndice::setArchivo(char* nombre, char* ruta){
+	this->archivoIndice->setNombreArchivo(nombre);
+	this->archivoIndice->setRuta(ruta);
+
+}

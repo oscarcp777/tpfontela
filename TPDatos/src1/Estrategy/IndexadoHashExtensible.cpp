@@ -15,7 +15,7 @@ IndexadoHashExtensible::IndexadoHashExtensible() {
 IndexadoHashExtensible::~IndexadoHashExtensible() {
 	// TODO Auto-generated destructor stub
 }
-int IndexadoHashExtensible::abrir(char* nombre, char* ruta){
+int IndexadoHashExtensible::abrir(){
 	return 1;
 }
 
@@ -23,7 +23,7 @@ int IndexadoHashExtensible::crear(char* nombre, char* ruta){
 	return 1;
 }
 
-int IndexadoHashExtensible::close(){
+int IndexadoHashExtensible::cerrar(){
 	return 1;
 }
 

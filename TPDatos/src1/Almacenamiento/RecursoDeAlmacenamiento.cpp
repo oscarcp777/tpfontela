@@ -42,7 +42,10 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
+	int dir = this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
+	this->estrategiaIndice->abrir();
+	this->estrategiaIndice->insertar((char*)componente->getClave().c_str(),dir);
+	this->estrategiaIndice->cerrar();
 	return 0;
 }
 int RecursoDeAlmacenamiento::baja(Componente* componente){

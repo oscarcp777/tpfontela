@@ -7,9 +7,10 @@
 
 #include "NodeBSharp.h"
 
-NodeBSharp::NodeBSharp(int maxKeys):numKeys(0),keys(0),direcciones(0) {
+NodeBSharp::NodeBSharp(int maxKeys, int tamanioLlave):numKeys(0),keys(0),direcciones(0) {
 	// TODO Auto-generated constructor stub
 	//this->clear();
+	this->tamanioLlave = tamanioLlave;
 	this->maxKeys = maxKeys+1;
 	this->init();
 	this->keys = new char*[this->maxKeys];
@@ -64,7 +65,10 @@ int NodeBSharp::insert(char* key, int dir){
 		this->keys[i+1] = this->keys[i];
 		this->direcciones[i+1] = this->direcciones[i];
 	}
-	this->keys[i+1] = strdup(key);
+	keys[i+1]=new char(this->tamanioLlave);
+	memset(keys[i+1],0,this->tamanioLlave);
+	memcpy(this->keys[i+1],key,strlen(key));
+	//this->keys[i+1] = strdup(key);
 	this->direcciones[i+1] = dir;
 	this->numKeys++;
 
@@ -72,6 +76,7 @@ int NodeBSharp::insert(char* key, int dir){
 
 	return 1;
 }
+
 int NodeBSharp::remover(char* key, int dir){
 	int indice = this->encontrar(key,dir);
 	if (indice < 0 ) return 0; //no esta en el indice la key
@@ -136,11 +141,14 @@ int NodeBSharp::actualizarKey(char* viejaKey, char* nuevaKey, int dir){
 int NodeBSharp::serializar(char* buffer){
 	int nextByte = 0;
 	memcpy(&buffer[nextByte],&this->numKeys,sizeof(this->numKeys));
-	nextByte+=sizeof(this->numKeys);
+	nextByte+=sizeof(int);
 
 	for (int i = 0; i<this->numKeys; i++){
-		memcpy(&buffer[nextByte],&this->keys[i],sizeof(this->keys[i]));
-		nextByte+=sizeof(this->keys[i]);
+		//char aux[10];
+		//memcpy(aux,this->keys[i],strlen(this->keys[i]));
+
+		memcpy(&buffer[nextByte],this->keys[i],this->tamanioLlave);
+		nextByte+=this->tamanioLlave;
 		memcpy(&buffer[nextByte],&this->direcciones[i],sizeof(this->direcciones[i]));
 		nextByte+=sizeof(this->direcciones[i]);
 	}
@@ -156,8 +164,10 @@ int NodeBSharp::hidratar(char* buffer){
 	memcpy(&this->numKeys,&buffer[nextByte],sizeof(this->numKeys));
 	nextByte+=sizeof(int);
 	for (int i = 0; i<this->numKeys; i++){
-		memcpy(&this->keys[i],&buffer[nextByte],4);
-		nextByte+=sizeof(this->keys[i]);
+		keys[i]=new char(this->tamanioLlave);
+		memset(keys[i],0,this->tamanioLlave);
+		memcpy(this->keys[i],&buffer[nextByte],this->tamanioLlave);
+		nextByte+=this->tamanioLlave;
 		memcpy(&this->direcciones[i],&buffer[nextByte],sizeof(int));
 		nextByte+=sizeof(this->direcciones[i]);
 	}
