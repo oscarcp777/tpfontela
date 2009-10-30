@@ -35,7 +35,7 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
+		recurso->buscar(listaAlumnos,alumno,"Nombre=Oscar Caceres");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
@@ -482,10 +482,12 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 
 
 	Alumno* alumno = new Alumno(31440400,"Dubini",85440,6,6,7);
+
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
 
 	recurso->baja(alumno);
+
 
 
 	delete recurso;

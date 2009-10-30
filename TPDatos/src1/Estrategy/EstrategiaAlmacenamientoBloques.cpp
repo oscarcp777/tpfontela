@@ -148,7 +148,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 		//borro el componente y salgo del while
 		while (borrado == false && j<bloque->getCantidadDeElelmentos()){
 			componente = (Componente*)*iteraRegistros;
-			resCompare+=componente->compareTo(clave,numEtiquta);
+			resCompare=componente->compareTo(clave,numEtiquta);
 			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
 			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
 
@@ -173,11 +173,15 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 			//guardo en almacenamiento el ultimo bloque agregado
 			donde->guardar(bloque->getBuffer(),pos);
 		}
+
 		delete bloque;
 		delete bufferAux;
 		//delete vecCampos; se tienen que borrar estos vectores?? porque creo que hacen new cuando le pasas la cantidad de elementos por parametro
 		//delete vecClaves;
 	}
+	else
+		cout<<"no se encontro el componente"<<endl;
+
 }
 
 
