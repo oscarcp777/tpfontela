@@ -89,7 +89,7 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	Registro* registro=(Registro*)componente;
 	registro->setTamanio(tamanio);
 	registro->serializarTexto();
-	metadata->hidratarMetadataEnBuffer(componente->getNombreAtributos());
+	metadata->hidratarMetadataEnBuffer(componente->getNombreAtributos(), tamanio);
 	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, NULL,buffer,unAlmacenamiento,NULL);
