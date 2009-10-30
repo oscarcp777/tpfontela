@@ -73,6 +73,9 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	string nomAux = nombreArchivo + INDICE_PRIMARIO;
+	estrategiaIndice->crear((char*)nomAux.c_str(),(char*)ruta.c_str());
+	estrategiaIndice->setArchivo((char*)nomAux.c_str(),(char*)ruta.c_str());
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);
 	return rAlmacenamiento;
 }
@@ -128,6 +131,9 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoEscrituraDirecta* unAlmacenamiento=new EstrategiaRecursoEscrituraDirecta();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	string nomAux = nombreArchivo + INDICE_PRIMARIO;
+	estrategiaIndice->crear((char*)nomAux.c_str(),(char*)ruta.c_str());
+	estrategiaIndice->setArchivo((char*)nomAux.c_str(),(char*)ruta.c_str());
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,buffer,unAlmacenamiento,estrategiaIndice);
 	return rAlmacenamiento;
 
@@ -155,6 +161,8 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::abrirRecursoDeAlmace
 	estrategiaAlmac->setMetadata(metadata);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	string nomAux = nombreArchivo + INDICE_PRIMARIO;
+	estrategiaIndice->setArchivo((char*)nomAux.c_str(),(char*)ruta.c_str());
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,NULL,unAlmacenamiento,estrategiaIndice);
 	return rAlmacenamiento;
 
@@ -182,6 +190,8 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::abrirRecursoDeAlmace
 	archivo->setClavePrimaria(clavePrimaria);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
+	string nomAux = nombreArchivo + INDICE_PRIMARIO;
+	estrategiaIndice->setArchivo((char*)nomAux.c_str(),(char*)ruta.c_str());
 	RecursoDeAlmacenamiento* rAlmacenamiento= new RecursoDeAlmacenamiento(estrategiaAlmac, archivo,buffer,unAlmacenamiento,estrategiaIndice);
 	return rAlmacenamiento;
 }

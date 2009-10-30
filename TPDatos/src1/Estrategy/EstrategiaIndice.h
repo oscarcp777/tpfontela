@@ -14,10 +14,11 @@ class EstrategiaIndice :public Object{
 public:
 	EstrategiaIndice();
 	virtual ~EstrategiaIndice();
+	virtual int setArchivo(char* nombre, char* ruta);
 
-	virtual int abrir(char* nombre, char* ruta) =0;
+	virtual int abrir() =0;
 	virtual int crear(char* nombre, char* ruta) =0;
-	virtual int close() =0;
+	virtual int cerrar() =0;
 	virtual int insertar(char* key, int dir) =0;
 	virtual int remover(char* key, int dir=-1) =0;
 	virtual int buscar(char* key, int dir=-1) =0;

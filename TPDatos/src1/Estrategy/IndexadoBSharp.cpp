@@ -8,12 +8,12 @@
 #include "IndexadoBSharp.h"
 const int PROF_MAXIMA = 5;
 
-IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden) {
+IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden, tamanioLlave) {
 	// TODO Auto-generated constructor stub
 	this->orden = orden;
 
 	this->tamanioRegistro = sizeof(int)+this->orden*tamanioLlave+this->orden*sizeof(int);
-
+	this->tamanioLlave = tamanioLlave;
 	this->archivoIndice = new Archivo();
 	this->archivoIndice->setTamanio(this->tamanioRegistro);
 
@@ -30,7 +30,7 @@ IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden) {
 
 IndexadoBSharp::~IndexadoBSharp() {
 	// TODO Auto-generated destructor stub
-	close();
+	cerrar();
 	delete this->nodos;
 }
 
@@ -48,7 +48,7 @@ NodeBSharp* IndexadoBSharp::buscarHoja(char* key){  //FindLeaf
 
 NodeBSharp* IndexadoBSharp::nuevoNodo(){
 	//crea un nuevo nodo y lo inserta en el arbol y setea su direccion
-	NodeBSharp* nuevoNodo = new NodeBSharp(this->orden);
+	NodeBSharp* nuevoNodo = new NodeBSharp(this->orden,this->tamanioLlave);
 	nuevoNodo->serializar(this->buffer);
 	int dir = this->archivoIndice->guardar(this->buffer);
 	nuevoNodo->setDir(dir);
@@ -56,8 +56,8 @@ NodeBSharp* IndexadoBSharp::nuevoNodo(){
 }
 
 NodeBSharp* IndexadoBSharp::leerNodo(int dir){ 		//Fetch
-	NodeBSharp* nuevoNodo = new NodeBSharp(this->orden);
-
+	NodeBSharp* nuevoNodo = new NodeBSharp(this->orden,this->tamanioLlave);
+	memset(this->buffer,0,this->tamanioRegistro);
 	this->archivoIndice->leer(this->buffer,dir);
 	nuevoNodo->hidratar(this->buffer);
 	nuevoNodo->setDir(dir);
@@ -96,12 +96,11 @@ int IndexadoBSharp::leerProfundidad(char* buffer){
 
 //---------------------------
 
-int IndexadoBSharp::abrir(char* nombre, char* ruta){
+int IndexadoBSharp::abrir(){
 
-	this->archivoIndice->setNombreArchivo(nombre);
-	this->archivoIndice->setRuta(ruta);
 	this->archivoIndice->abrir();
 	this->tamanioMetadata = this->leerProfundidad(this->buffer);
+	memset(this->buffer,0,this->tamanioRegistro);
 	this->archivoIndice->leer(this->buffer,this->tamanioMetadata);
 	this->raiz.hidratar(this->buffer);
 	//this->profundidad = 1;
@@ -122,7 +121,7 @@ int IndexadoBSharp::crear(char* nombre, char* ruta){
 	return 1;
 }
 
-int IndexadoBSharp::close(){
+int IndexadoBSharp::cerrar(){
 
 	this->archivoIndice->irAlPrincipio();
 	this->tamanioMetadata = this->escribirProfundidad(this->buffer);
@@ -134,7 +133,6 @@ int IndexadoBSharp::close(){
 
 int IndexadoBSharp::insertar(char* key, int dir){
 
-	dir += this->tamanioMetadata;
 	int resultado; int nivel = this->profundidad -1;
 	int nuevoTamanio = 0;
 	char* claveAnterior, *claveMayor;

@@ -14,9 +14,9 @@ class IndexadoHashExtensible: public EstrategiaIndice {
 public:
 	IndexadoHashExtensible();
 	virtual ~IndexadoHashExtensible();
-	int abrir(char* nombre, char* ruta);
+	int abrir();
 	int crear(char* nombre, char* ruta);
-	int close();
+	int cerrar();
 	int insertar(char* key, int dir);
 	int remover(char* key, int dir=-1);
 	int buscar(char* key, int dir=-1);

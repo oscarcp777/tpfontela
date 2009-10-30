@@ -11,11 +11,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include "../utils/Define.h"
 using namespace std;
 
 class NodeBSharp {
 public:
-	NodeBSharp(int maxKeys);
+	NodeBSharp(int maxKeys, int tamanioLlave);
 	virtual ~NodeBSharp();
 
 	//Insertar y remover devuelven
@@ -87,6 +88,7 @@ protected:
 	char* * keys;
 	int *direcciones;
 	int maxKeys;
+	int tamanioLlave;
 
 
 	int nodoSiguiente;   //direccion del siguiente nodo en el mismo nivel

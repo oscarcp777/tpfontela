@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main(){
+int main32(){
 	Pruebas* prueba = new Pruebas();
 	int numPrueba;
 	cout<<"Ingrese el numero de la prueba seleccionada:"<<endl;
