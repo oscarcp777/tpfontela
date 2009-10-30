@@ -48,7 +48,7 @@ int EstrategiaAlmacenamientoBloques::posicionarEnBloque(int tamanioRegistro){
 
 int iBorrar = 0;
 
-void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Componente* componente){
+int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Componente* componente){
 
 			//necesito un nuevo bloque
 			Bloque* bloque = new Bloque(donde->getTamanio());
@@ -114,9 +114,11 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 
 		      	delete bloque;
 		      	delete bufferAux;
+		      	return posicionBloque;
 }
 
-void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
+void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente){
+	string clave = "LALALA";
 	cout<<"EstrategiaAlmacenamientoBloques::quitarComponente: clave comp. a quitar: "<<clave;
 	int pos = 0; //TODO esto se inicializa en -1, lo pongo en 0 para probar ahora
 	char* bufferAux = new char[donde->getTamanio()];

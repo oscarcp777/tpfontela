@@ -473,6 +473,21 @@ int Pruebas::testGuardarEnBloquesArchivo(){
 		delete fabricaDeRecursos;
 		return 0;
 }
+int Pruebas::testQuitarComponenteBloquesArchivo(){
+	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
+
+			Alumno* alumno = new Alumno();
+
+			RecursoDeAlmacenamiento* recurso=
+					fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
+
+			recurso->baja(alumno);
+
+
+			delete recurso;
+			delete fabricaDeRecursos;
+			return 0;
+}
 void Pruebas::seleccionarTest(int numPrueba){
 
 	switch(numPrueba){

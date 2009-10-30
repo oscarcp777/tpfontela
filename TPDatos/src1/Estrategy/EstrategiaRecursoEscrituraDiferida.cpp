@@ -21,7 +21,12 @@ int EstrategiaRecursoEscrituraDiferida::escribirArchivo(vector<Almacenamiento*>&
 std::string EstrategiaRecursoEscrituraDiferida::toString(){
    	return "EstrategiaRecursoEscrituraDiferida";
    }
-
+int EstrategiaRecursoEscrituraDiferida::altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
+	return 0;
+}
+int EstrategiaRecursoEscrituraDiferida::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
+	return 0;
+}
 void EstrategiaRecursoEscrituraDiferida::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
 
 

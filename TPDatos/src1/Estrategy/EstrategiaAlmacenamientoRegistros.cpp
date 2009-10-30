@@ -43,16 +43,18 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
 
 
 
-void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
+int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
 		int posAEscribir = this->metadata->getPosicionLibreRegistro();
 		cout<<"posAEscribir: "<<posAEscribir<<endl;
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
 	   	donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
+	   	return posAEscribir;
 }
 
-void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
+void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente){
 	int pos = 0; // = IndiceBuscarComponente(clave);
+	string clave = "LALALA";
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
 	this->metadata->setPosicionLibreRegistro(pos);
