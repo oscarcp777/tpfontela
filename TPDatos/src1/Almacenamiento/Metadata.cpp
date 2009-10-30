@@ -15,6 +15,7 @@ using namespace std;
 
 Metadata::Metadata() {
 	this->metadataSize = -1;
+	this->archivo=true;
 	this->setTipoArchivo(ESTRATEGIA_ALMACENAMIENTO);
 }
 
@@ -61,13 +62,14 @@ int Metadata::getPosicionLibreRegistro(){
 		++the_iterator;
 
 	}
-	if(isEncontro)
+	if(isEncontro&&this->archivo)
 	this->guardarVectorAtributosVariables();
 
 	return retorno;
 }
 void Metadata::setPosicionLibreRegistro(int posicionRegistroLibre){
 	this->vectorAtributosVariables.push_back(StringUtils::convertirAString(posicionRegistroLibre));
+	if(this->archivo)
 	this->guardarVectorAtributosVariables();
 }
 void Metadata::guardarMapaAtributosVariables(){
@@ -115,6 +117,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 		posiciones.push_back(-1);
 		posiciones.push_back(0);
+		if(this->archivo)
 		this->guardarMapaAtributosVariables();
 		return;
 
@@ -133,6 +136,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 			//¿seEncontroLugar¿¿¿???? ESTA BIEN LA SIGUIENTE LINEA?=¿?¿?¿?¿? no es this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
 			//this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
 			this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
+			if(this->archivo)
 			this->guardarMapaAtributosVariables();
 			return;
 		}
@@ -141,6 +145,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 	posiciones.push_back(-1);
 	posiciones.push_back(0);
+	if(this->archivo)
 	this->guardarMapaAtributosVariables();
 }
 void mostarVector( vector<string> vec){

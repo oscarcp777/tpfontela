@@ -29,6 +29,7 @@ private:
     vector<string> vectorAtributosVariables;
     vector<string> atributosRegistro;
     int metadataSize;
+    bool archivo;
 public:
 	Metadata();
 	virtual ~Metadata();
@@ -47,7 +48,15 @@ public:
     void setPosicionLibreRegistro(int posicionRegistroLibre);
     void guardarVectorAtributosVariables();
     void hidratarMetadataEnBuffer(string registroAtributos);
+    bool isArchivo()
+    {
+        return archivo;
+    }
 
+    void setArchivo(bool archivo)
+    {
+        this->archivo = archivo;
+    }
 
     int getMetadataSize()
     {
