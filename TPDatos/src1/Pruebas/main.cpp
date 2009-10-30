@@ -9,13 +9,14 @@
 
 using namespace std;
 
-int main5465(){
+int main(){
 	Pruebas* prueba = new Pruebas();
 	int numPrueba;
 	cout<<"Ingrese el numero de la prueba seleccionada:"<<endl;
 	prueba->imprimirOrdenPruebas();
 	cin>>numPrueba;
 	prueba->seleccionarTest(numPrueba);
+
 	return 0;
 
 }

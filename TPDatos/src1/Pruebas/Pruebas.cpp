@@ -34,7 +34,7 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"DNI=44850139");
+		recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
@@ -54,12 +54,11 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 		Alumno* alumno = new Alumno();
-		Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
+		Alumno* alumno1 = new Alumno(31993745,"Santy",85689,8,8,8);
 		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 		Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,55,"padron",alumno1);
-
+				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,120,"padron",alumno);
 
 
 		recurso->alta(alumno1);
@@ -75,6 +74,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		recurso->buscar(listaAlumnos,alumno,"Padron=85440");
 		iter = listaAlumnos.begin();
 
+		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 		while(iter != listaAlumnos.end()){
 			alumno = (Alumno*) *iter;
 			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
@@ -108,10 +108,10 @@ int Pruebas::testBusquedaSecuencialRegistrosArchivo(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"DNI=31440400");
+		recurso->buscar(listaAlumnos,alumno,"Nombre=Perez");
 						iter = listaAlumnos.begin();
 
-		std::cout<<"Alumnos Encontrados: "<<std::endl;
+		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 		while(iter != listaAlumnos.end()){
 			alumno = (Alumno*) *iter;
 			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
@@ -133,11 +133,12 @@ int Pruebas::testBusquedaSecuencialRegistrosBuffer(){
 	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
+	Alumno* alumno = new Alumno();
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,"padron",alumno1);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,"padron",alumno);
 
 
 
@@ -150,12 +151,11 @@ int Pruebas::testBusquedaSecuencialRegistrosBuffer(){
 
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
-	Alumno* alumno = new Alumno();
 
-	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+	recurso->buscar(listaAlumnos,alumno,"Padron=85440");
 	iter = listaAlumnos.begin();
 
-
+	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
@@ -184,10 +184,10 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
 
-	recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
+	recurso->buscar(listaAlumnos,alumno,"Nombre=Perez");
 	iter = listaAlumnos.begin();
 
-	std::cout<<"Alumnos Encontrados: "<<std::endl;
+	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
@@ -217,7 +217,7 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"padron",alumno1);
+			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"padron",alumno);
 
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
@@ -230,10 +230,10 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	//recurso->alta("../files/","archivoTexto");
 	cout<<endl << "guardado en Buffer" << endl;
 
-	recurso->buscar(listaAlumnos,alumno,"padron=85440|nombre=Oscar");
+	recurso->buscar(listaAlumnos,alumno,"Padron=85440");
 	iter = listaAlumnos.begin();
 
-
+	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
