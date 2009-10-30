@@ -57,8 +57,8 @@ int RecursoDeAlmacenamiento::modificion(Componente* componente){
 	return 0;
 }
 int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave){
-	this->estrategiaRecurso->busquedaSecuencial(this->estrategiaAlmacenamiento,resultadoDeLABusqueda,componente, this->almacenamientos, clave);
-	return 0;
+	//this->estrategiaRecurso->busquedaSecuencial(this->estrategiaAlmacenamiento,resultadoDeLABusqueda,componente, this->almacenamientos, clave);
+	return this->estrategiaIndice->buscar((char*)componente->getClave().c_str());
 }
 void RecursoDeAlmacenamiento::busquedaSecuencial(Componente* componente, std::string clave){
 
