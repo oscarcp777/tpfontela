@@ -82,6 +82,7 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
 	Almacenamiento* buffer=(Buffer*)this->getFabrica(BUFFER)->fabricar();
 	Metadata* metadata=new Metadata();
+	metadata->setArchivo(false);
 	buffer->setTamanio(tamanio);
 	buffer->setClavePrimaria(clavePrimaria);
 	metadata->setPosicionLibreRegistro(-1);
