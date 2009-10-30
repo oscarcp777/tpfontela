@@ -7,6 +7,7 @@
 
 #include "EstrategiaAlmacenamientoRegistros.h"
 #include "../Modelo/Alumno.h"
+#include "../Modelo/Alumno.h"
 
 EstrategiaAlmacenamientoRegistros::EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated constructor stub
@@ -97,8 +98,12 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 		for(int k = 0; k< (int)vecCampos.size();k++){
 			if(resCompare == 0)//solo compara si la comparacion anterior dio =
 				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+//			cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
+//			cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
 		}
-		//cout<<"resCompare: "<<resCompare<<endl;
+		cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+//		cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
+//		cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
 		if (resCompare == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();

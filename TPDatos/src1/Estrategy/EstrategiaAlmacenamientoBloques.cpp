@@ -58,10 +58,12 @@ void EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Comp
 			vecPosiciones.clear();
 
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
+			//cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
 			iBorrar++;
 
 			cout<<"Entro "<<iBorrar<<" veces"<<endl;
 			for( int j=0 ; j< donde->getTamanio(); j++){
+				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
 				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
 				if (componente->getBuffer()[j] == Define::DELIMITADOR1){
 					cantCaracteresRegistro = j;
@@ -254,11 +256,15 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 			componente = (Componente*)*iteraRegistros;
 			for(int k = 0; k< (int)vecCampos.size();k++){
 				if(resCompare == 0)//solo compara si la comparacion anterior dio =
-				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+					resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+//				cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
+//				cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
 			}
 			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
 			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
 			cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+//			cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
+//			cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
 			if (resCompare == 0){
 				resultadoDeLABusqueda.push_back(componente);
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente

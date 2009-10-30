@@ -25,7 +25,7 @@
 #define COMPUESTO "compuesto"
 #define ALMACENAMIENTO_ARCHIVO 0
 #define ALMACENAMIENTO_BUFFER 1
-#define TAM_BUFFER 1024
+#define TAM_BUFFER 32768 // 2 a la 15 :P
 #define INDEXADO_HASH_EXTENSIBLE "indexadoHashExtensible"
 #define INDEXADO_BSHARP "indexadoBSharp"
 #define METADATA "MetaData"
