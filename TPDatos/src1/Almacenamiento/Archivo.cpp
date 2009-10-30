@@ -92,7 +92,7 @@ void Archivo::guardar(std::string registro, int pos){
 }
 
 int Archivo::guardar(char* buffer, int pos){
-
+     int dir=0;
 	if (this->archivo.is_open()) {
 
 		if (pos < 0)
@@ -106,7 +106,7 @@ int Archivo::guardar(char* buffer, int pos){
 		return dir;
 
 	}
-
+ return dir;
 }
 void Archivo::guardar(char* buffer, int pos,int tamanio){
 

@@ -162,7 +162,9 @@ void mostarVector( vector<string> vec){
 string Metadata::getValorAtributosFijos(string clave){
 	return StringUtils::getValorTag(clave,this->mapaAtributosFijos);
 }
-
+string Metadata::getClavePrimaria(){
+	return StringUtils::getValorTag(CLAVE_PRIMARIA,this->mapaAtributosFijos);
+}
 int Metadata::getEspacioLibreEnBloque(int bloque){
 	return  this->mapaTamanioBloques[bloque];
 }
