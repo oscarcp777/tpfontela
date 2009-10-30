@@ -50,7 +50,7 @@ public:
 
     virtual void guardar(std::string registro, int pos) = 0;
 
-    virtual void guardar(char* buffer, int pos = -1) = 0;
+    virtual int guardar(char* buffer, int pos = -1) = 0;
     virtual void crear() = 0;
     //virtual void leer(void *datos, int tamanio) =0;
     virtual void leer(std::string& datos)=0;

@@ -60,7 +60,7 @@ void Buffer::guardar(std::string registro, int pos){
 	}
 }
 
-void Buffer::guardar(char* buffer, int pos){
+int Buffer::guardar(char* buffer, int pos){
 
 	//cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
 	if(this->binario == 0)
@@ -69,11 +69,12 @@ void Buffer::guardar(char* buffer, int pos){
 	if(pos < 0){
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 		if(this->getTamanio() <= TAM_BUFFER - this->posicionActual){
-
+			int dir = this->posicionActual;
 			memcpy(&this->datos[this->posicionActual],buffer,this->getTamanio());
 			this->posicionActual+=this->getTamanio();
 
 			this->cantElementos++;
+			return dir;
 //			cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
 //			for(int i = 0 ; i< strlen(buffer) ; i++){
 //				cout<<i<<": "<<this->datos[i];
@@ -93,6 +94,7 @@ void Buffer::guardar(char* buffer, int pos){
 	}else{
 		memcpy(&this->datos[pos],buffer,this->getTamanio());
 		this->cantElementos++;
+		return pos;
 	}
 
 

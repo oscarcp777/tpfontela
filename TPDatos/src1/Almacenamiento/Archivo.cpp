@@ -25,10 +25,14 @@ void Archivo::crear(){
 		}else{
 				/* limpia los flags de control de estado del archivo */
 			    this->archivo.clear();
-
+			    cout<<"Path: "<<this->getPath().c_str()<<endl;
 			    /* crea el archivo */
 			    this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
-			    this->archivo.close();
+			    if (! this->archivo.is_open())
+			    		    	 cout<<"El archivo no pudo ser creado "<<endl;
+			    else
+								 this->archivo.close();
+
 
 		}
 }
@@ -87,7 +91,7 @@ void Archivo::guardar(std::string registro, int pos){
 		}
 }
 
-void Archivo::guardar(char* buffer, int pos){
+int Archivo::guardar(char* buffer, int pos){
 
 	if (this->archivo.is_open()) {
 
@@ -97,9 +101,9 @@ void Archivo::guardar(char* buffer, int pos){
 			this->archivo.seekp(pos);
 			//this->archivo.seekg(pos);
 		}
-
+		int dir = this->archivo.tellg();
 		this->archivo.write(buffer,this->getTamanio());
-
+		return dir;
 
 	}
 
