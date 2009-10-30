@@ -51,7 +51,11 @@ void EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Co
 }
 
 void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, string clave){
-
+	int pos = 0; // = IndiceBuscarComponente(clave);
+	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
+	//se escribe en esta posicion)
+	this->metadata->setPosicionLibreRegistro(pos);
+	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
 
 
