@@ -22,6 +22,13 @@ Metadata::Metadata() {
 Metadata::~Metadata() {
 
 }
+void Metadata::actualizarMapaAtributosVariables(int posicion,int espacioLiberado){
+	int tamanioBloque,indice,espacioLibre;
+	tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
+	 indice=posicion/tamanioBloque;
+	 espacioLibre=this->mapaTamanioBloques[indice];
+	 this->mapaTamanioBloques[indice]=espacioLibre+espacioLiberado;
+}
 void Metadata::guardarVectorAtributosVariables(){
 	vector<string>::iterator the_iterator;
 	string valor ;
