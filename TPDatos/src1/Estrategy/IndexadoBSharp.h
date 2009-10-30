@@ -9,11 +9,48 @@
 #define INDEXADOBSHARP_H_
 
 #include "EstrategiaIndice.h"
+#include "NodeBSharp.h"
 
+
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+
+using namespace std;
 class IndexadoBSharp: public EstrategiaIndice {
 public:
-	IndexadoBSharp();
+	IndexadoBSharp(int orden, int tamanioLlave);
 	virtual ~IndexadoBSharp();
+
+	int abrir(char* nombre, char* ruta);
+	int crear(char* nombre, char* ruta);
+	int close();
+	int insertar(char* key, int dir);
+	int remover(char* key, int dir=-1);
+	int buscar(char* key, int dir=-1);
+
+	void imprimir(ostream &);
+	void imprimir(ostream &, int dirNodo, int nivel);
+
+protected:
+
+
+	NodeBSharp raiz;
+	int profundidad;
+	int orden;
+	int cantidadNodos;
+	int tamanioMetadata;
+	NodeBSharp** nodos; //nodos disponibles
+	//nodos[1] es nivel 1, etc (ver buscarHoja)
+	int tamanioRegistro;
+
+
+	NodeBSharp* buscarHoja(char* key);  //FindLeaf
+	NodeBSharp* nuevoNodo();
+	NodeBSharp* leerNodo(int dir); 		//Fetch
+	int escribirNodo(NodeBSharp* nodo); //Store
+	int escribirProfundidad(char* buffer);
+	int leerProfundidad(char* buffer);
 };
 
 #endif /* INDEXADOBSHARP_H_ */

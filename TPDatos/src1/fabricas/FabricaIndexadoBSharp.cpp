@@ -16,6 +16,6 @@ FabricaIndexadoBSharp::~FabricaIndexadoBSharp() {
 	// TODO Auto-generated destructor stub
 }
 Object* FabricaIndexadoBSharp::fabricar(){
-	return new IndexadoBSharp();
+	return new IndexadoBSharp(5,100); //ordenArbol,tamaño llave
 
 }

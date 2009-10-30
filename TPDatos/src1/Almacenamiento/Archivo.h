@@ -36,7 +36,7 @@ public:
 
       registro : puntero hacia el registro a ser escrito en el archivo.
     */
-    void guardar(char* buffer, int pos = -1);
+    int guardar(char* buffer, int pos = -1);
     void guardar(char* buffer, int pos ,int tamanio);
     void leer(std::string& datos);
     void leer(char* buffer, int pos,int tamanio);
