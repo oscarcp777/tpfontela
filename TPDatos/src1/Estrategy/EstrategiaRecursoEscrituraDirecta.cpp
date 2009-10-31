@@ -30,7 +30,7 @@ int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& a
 	return 0;
 }
 
-int EstrategiaRecursoEscrituraDirecta::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
+int EstrategiaRecursoEscrituraDirecta::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente, int pos){
 	return 0;
 }
 std::string EstrategiaRecursoEscrituraDirecta::toString(){

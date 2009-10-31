@@ -44,22 +44,34 @@ void Buffer::irAlPrincipio(){
 
 
 int Buffer::guardar(std::string registro, int pos){
-	std::string temp = this->datos;
+
 	int dir = -1;
 	if(this->texto == 0)
 		this->texto = true;
-	//verifico que lo que voy a escribir entre en el espacio que queda de buffer
-	if((int)registro.length() <= TAM_BUFFER - (int)temp.length()){
-		temp+= registro+"\n";
-		memcpy(this->datos,temp.c_str(),temp.length());
-		dir = cantLineas;
+
+	if(pos<0){
+		//si pos<0 copio al final del bufer
+		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
+		string temp = this->datos;
+		if((int)registro.length() <= TAM_BUFFER - (int)temp.length()){
+			temp+= registro+"\n";
+			dir = strlen(this->datos);
+			memcpy(this->datos,temp.c_str(),temp.length());
+			this->cantLineas++;
+			//this->posicionActual=temp.length();
+		}
+		else /* arroja una excepción porque el registro no entra */
+			throw std::string("El registro no entra en el buffer");
+
+	}
+	else{
+		registro+= "\n";
+		memcpy(&this->datos[pos],registro.c_str(),registro.length());
+		dir = pos;
 		this->cantLineas++;
-		//this->posicionActual=temp.length();
+
 	}
-	else {
-		/* arroja una excepción porque el registro no entra */
-		throw std::string("El registro no entra en el buffer");
-	}
+	cout<<"this->datos desdpues de escribir el registro "<<this->datos<<endl;
 	return dir;
 }
 
@@ -102,19 +114,26 @@ int Buffer::guardar(char* buffer, int pos){
 
 
 }
-void Buffer::leer(std::string& datos){
+
+void Buffer::leer(std::string& datos, int pos){
+	if(pos>=0){
+		this->posicionActual = pos;
 		std::string aux = this->datos;
 		std::string aux2 = "";
 		std::string caracter = "\n";
 		std::string vacio = "";
 		int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual+1);
-	//	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
-	//	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
+		//	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
+		//	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
+
 		aux2 = aux.substr(this->posicionActual,posBarraN-this->posicionActual);
 		this->posicionActual+= aux2.length()+1;
 		//en la siguiente linea borro el ultimo caracter, que es el \n (para no devolverlo)
 		datos= aux2.replace(aux2.length(),1,vacio.c_str());
 		this->cantlineasLeidas++;
+	}
+	else
+		cout<<"posicion incorrecta para leer buffer, pos:"<<pos<<endl;
 }
 
 void Buffer::leer(char* buffer, int pos){

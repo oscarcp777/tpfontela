@@ -43,25 +43,29 @@ int RecursoDeAlmacenamiento::alta(Componente* componente){
 
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
 	int dir = this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
-	this->estrategiaIndice->abrir();
-	this->estrategiaIndice->insertar((char*)componente->getClave().c_str(),dir);
-	this->estrategiaIndice->cerrar();
+//	this->estrategiaIndice->abrir();
+//	this->estrategiaIndice->insertar((char*)componente->getClave().c_str(),dir);
+//	this->estrategiaIndice->cerrar();
 	return 0;
 }
 int RecursoDeAlmacenamiento::baja(Componente* componente){
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	this->estrategiaRecurso->bajaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
+//	this->estrategiaIndice->abrir();
+//	int pos = this->estrategiaIndice->buscar((char*)componente->getClave().c_str());
+//	this->estrategiaIndice->cerrar();
+	int pos = 0;
+	this->estrategiaRecurso->bajaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,pos);
 	return 0;
 }
 int RecursoDeAlmacenamiento::modificion(Componente* componente){
 	return 0;
 }
 int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave){
-	//this->estrategiaRecurso->busquedaSecuencial(this->estrategiaAlmacenamiento,resultadoDeLABusqueda,componente, this->almacenamientos, clave);
-	this->estrategiaIndice->abrir();
-	int aux = this->estrategiaIndice->buscar((char*)componente->getClave().c_str());
-	this->estrategiaIndice->cerrar();
-	return aux;
+	this->estrategiaRecurso->busquedaSecuencial(this->estrategiaAlmacenamiento,resultadoDeLABusqueda,componente, this->almacenamientos, clave);
+//	this->estrategiaIndice->abrir();
+//	int aux = this->estrategiaIndice->buscar((char*)componente->getClave().c_str());
+//	this->estrategiaIndice->cerrar();
+	return 0;//aux;
 }
 void RecursoDeAlmacenamiento::busquedaSecuencial(Componente* componente, std::string clave){
 

@@ -6,6 +6,7 @@
  */
 
 #include "EstrategiaAlmacenamientoTexto.h"
+#include "../Modelo/Alumno.h"
 
 EstrategiaAlmacenamientoTexto::EstrategiaAlmacenamientoTexto() {
 	// TODO Auto-generated constructor stub
@@ -39,24 +40,50 @@ void EstrategiaAlmacenamientoTexto::guardar(Almacenamiento* donde){
 }
 
 int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Componente* componente){
-	int pos = -1;
+	vector<int> vecPosiciones;
+	int cantCaracteresRegistro = 0;
+	int tamanioLibre = 0;
+	vecPosiciones.clear();
 	componente->serializar(TEXTO);
 	donde->agregarComponente(componente);
 	string bufferString = "";
 	bufferString = componente->getBuffer();
 	cout<<"bufferString: "<<bufferString<<endl;
-	pos = donde->guardar(bufferString, pos); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
-	return pos;
+	cantCaracteresRegistro = bufferString.length();
+	this->metadata->getPosicionLibreEnTexto(cantCaracteresRegistro ,vecPosiciones);
+	int posicionAEscribir = vecPosiciones.at(0);
+	tamanioLibre = vecPosiciones.at(1);
+	cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
+	cout<<"posicionAEscribir: "<<posicionAEscribir<<endl;
+	cout<<"tamanioLibre: "<<tamanioLibre<<endl;
+	if(posicionAEscribir != -1){
+		while((int)bufferString.length() < tamanioLibre){
+			bufferString+=" ";
+		}
+	}
+	posicionAEscribir = donde->guardar(bufferString, posicionAEscribir); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
+	return posicionAEscribir;
 }
 
-void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente){
-	//string clave = "LALALA";
-	//int pos = 0; // = IndiceBuscarComponente(clave);
+void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
-	//this->metadata->setPosicionLineaLibre(pos);
+	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+	string clave = componente->getClave();
+	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	cout<<"numEtiquta "<<numEtiquta<<endl;
+	cout<<"componente->getClave() "<<componente->getClave()<<endl;
+	string registro = "";
+	donde->leer(registro,pos);
+	cout<<"pos "<<pos<<endl;
+	cout<<"registro leido en pos: "<<registro<<endl;
+	componente->hidratar(registro);
+	cout<<"nombre registro a borrar: "<<((Alumno*)componente)->getNombre()<<endl;
+	cout<<"registro.length() "<<registro.length()<<endl;
+	this->metadata->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
+
 
 
 
@@ -86,7 +113,7 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
 	vector<string> vecCampos ((int)vecClaves.size());
 	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
-
+	int pos = 0;
 	for( int i = 0; i<(int)vecClaves.size(); i++){
 			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
 			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
@@ -101,11 +128,10 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 //			std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
 		}
 
-
 	while (!donde->fin()){
 		resCompare = 0;
-		donde->leer(bufferAux);
-		//cout<<"bufferAux: "<<bufferAux<<endl;
+		donde->leer(bufferAux, pos);
+		pos += bufferAux.length() + 1;
 		componente->setBuffer((char*)bufferAux.c_str());
 		componente->hidratar(TEXTO);
 
