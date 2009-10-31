@@ -50,10 +50,11 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 	EstrategiaIndice* estrategiaIndice=this->estrategiaIndices.at(0);
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
+	string clave=componente->getClave();
 	int dir = this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
 	estrategiaIndice->abrir();
-	cout<<((Registro*)componente)->getClave()<<endl;
-	estrategiaIndice->insertar((char*)componente->getClave().c_str(),dir);
+	cout<<componente->getClave()<<endl;
+	estrategiaIndice->insertar((char*)clave.c_str(),dir);
 	estrategiaIndice->cerrar();
 	return 0;
 }
