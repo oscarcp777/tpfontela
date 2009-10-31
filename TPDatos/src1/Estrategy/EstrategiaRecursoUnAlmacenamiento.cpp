@@ -14,10 +14,10 @@ int EstrategiaRecursoUnAlmacenamiento::altaComponente(vector<Almacenamiento*>& a
 	almacenamiento->cerrar();
 	return pos;
 }
-int EstrategiaRecursoUnAlmacenamiento::bajaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
+int EstrategiaRecursoUnAlmacenamiento::bajaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente, int pos){
 	Almacenamiento* almacenamiento=   almacenamientos.at(0);
 	almacenamiento->abrir();
-	estrategiaAlmacenamiento->quitarComponente(almacenamiento, componente);
+	estrategiaAlmacenamiento->quitarComponente(almacenamiento, componente, pos);
 	almacenamiento->cerrar();
 	return 0;
 }

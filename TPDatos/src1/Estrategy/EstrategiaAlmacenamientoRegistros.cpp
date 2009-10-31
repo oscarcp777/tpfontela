@@ -52,8 +52,7 @@ int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Com
 	   	return posAEscribir;
 }
 
-void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente){
-	int pos = 0; // = IndiceBuscarComponente(clave);
+void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
 	string clave = componente->getClave();
 	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;

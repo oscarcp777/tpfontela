@@ -295,11 +295,11 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	recurso->alta(alumno8);
 	recurso->alta(alumno9);
 	recurso->alta(alumno10);
+	recurso->baja(alumno1);
 
-	//recurso->alta("../files/","archivoTexto");
 	cout<<endl << "guardado en Buffer" << endl;
 
-	recurso->buscar(listaAlumnos,alumno,"Padron=80000");
+	recurso->buscar(listaAlumnos,alumno,"Padron=85689");
 	iter = listaAlumnos.begin();
 
 	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;

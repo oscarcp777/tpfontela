@@ -35,6 +35,7 @@
 #define CLAVE_INDEXACION "|indexacion=|"
 #define TAMANIO "tamanio"
 #define CLAVE_PRIMARIA "clavePrimaria"
+#define MAX_LINEA 2000
 class Define{
 public:
 	static const char DELIMITADOR1 = '|';

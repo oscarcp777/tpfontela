@@ -18,7 +18,7 @@ public:
     void guardar(Almacenamiento* donde);
     std::string generarRegistro(Componente* componente);
     int altaComponente(Almacenamiento* donde, Componente* componente);
-    void quitarComponente(Almacenamiento* donde, Componente* componente);
+    void quitarComponente(Almacenamiento* donde, Componente* componente, int pos);
     void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde, std::string clave);
 
 };

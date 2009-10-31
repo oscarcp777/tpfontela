@@ -116,13 +116,12 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 		      	return posicionBloque;
 }
 
-void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente){
+void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
 	string clave = componente->getClave();
 	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
 	cout<<"numEtiquta "<<numEtiquta<<endl;
 	cout<<"componente->getClave() "<<componente->getClave()<<endl;
-	int pos = 0; //TODO esto se inicializa en -1, lo pongo en 0 para probar ahora
 	char* bufferAux = new char[donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	int j=0;
