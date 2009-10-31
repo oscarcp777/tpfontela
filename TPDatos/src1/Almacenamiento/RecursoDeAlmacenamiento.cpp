@@ -52,6 +52,7 @@ int RecursoDeAlmacenamiento::alta(Componente* componente){
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
 	int dir = this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
 	estrategiaIndice->abrir();
+	cout<<((Registro*)componente)->getClave()<<endl;
 	estrategiaIndice->insertar((char*)componente->getClave().c_str(),dir);
 	estrategiaIndice->cerrar();
 	return 0;
@@ -99,5 +100,7 @@ std::string RecursoDeAlmacenamiento::toString(){
 	return devolver;
 }
 void RecursoDeAlmacenamiento::cerrar(){
+	this->estrategiaAlmacenamiento->getMetadata()->abrir();
 	this->estrategiaAlmacenamiento->getMetadata()->actualizarMetadata(this->almacenamientos.at(0)->getTipoArchivo());
+	this->estrategiaAlmacenamiento->getMetadata()->cerrar();
 }
