@@ -85,3 +85,6 @@ std::string RecursoDeAlmacenamiento::toString(){
 			estrategiaRecurso+"\n";
 	return devolver;
 }
+void RecursoDeAlmacenamiento::cerrar(){
+  this->estrategiaAlmacenamiento->getMetadata()->actualizarMetadata(this->almacenamientos.at(0)->getTipoArchivo());
+}

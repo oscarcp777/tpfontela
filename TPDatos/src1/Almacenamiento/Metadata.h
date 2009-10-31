@@ -31,6 +31,7 @@ private:
     vector<string> atributosRegistro;
     int metadataSize;
     bool archivo;
+    string tipo;
 public:
 	Metadata();
 	virtual ~Metadata();
@@ -53,6 +54,17 @@ public:
     void actualizarMapaAtributosVariables(int posicion,int espacioLiberado);
     void setPosicionLibreEnTexto(int posicionEnDisco,int espacioOcupado);
     void getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posiciones);
+    void actualizarMetadata(string estrategiaAlmacenamiento);
+    string getTipo() const
+    {
+        return tipo;
+    }
+
+    void setTipo(string tipo)
+    {
+        this->tipo = tipo;
+    }
+
     bool isArchivo()
     {
         return archivo;

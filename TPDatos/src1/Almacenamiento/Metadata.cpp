@@ -22,6 +22,14 @@ Metadata::Metadata() {
 Metadata::~Metadata() {
 
 }
+void  Metadata::actualizarMetadata(string estrategiaAlmacenamiento){
+	  if(estrategiaAlmacenamiento.compare(ESTRATEGIA_ALMACENAMIENTO_BLOQUES)==0)
+       this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
+	  if(estrategiaAlmacenamiento.compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0)
+       this->guardarMapaAtributosVariables(this->mapaPosicionesAInsertarTexto);
+	  if(estrategiaAlmacenamiento.compare(ESTRATEGIA_ALMACENAMIENTO_REGISTROS)==0)
+       this->guardarVectorAtributosVariables();
+}
 void Metadata::actualizarMapaAtributosVariables(int posicion,int espacioLiberado){
 	int tamanioBloque,indice,espacioLibre;
 	tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
@@ -33,8 +41,7 @@ void Metadata::actualizarMapaAtributosVariables(int posicion,int espacioLiberado
 	this->mapaTamanioBloques[indice]=espacioLibre+espacioLiberado;
 	cout<<"this->mapaTamanioBloques[indice]"<<this->mapaTamanioBloques[indice]<<endl;
 	//escribir a disco :P :P :P GIL!!
-	if(this->archivo)
-		this->guardarMapaAtributosVariables( this->mapaTamanioBloques);
+
 
 }
 void Metadata::guardarVectorAtributosVariables(){
@@ -77,15 +84,12 @@ int Metadata::getPosicionLibreRegistro(){
 		++the_iterator;
 
 	}
-	if(isEncontro&&this->archivo)
-		this->guardarVectorAtributosVariables();
+
 
 	return retorno;
 }
 void Metadata::setPosicionLibreRegistro(int posicionRegistroLibre){
 	this->vectorAtributosVariables.push_back(StringUtils::convertirAString(posicionRegistroLibre));
-	if(this->archivo)
-		this->guardarVectorAtributosVariables();
 }
 void Metadata::guardarMapaAtributosVariables(map<int,int> mapaAtributosVariables){
 	map<int,int>::iterator it;
@@ -117,6 +121,7 @@ void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,st
 	this->escribirRegistroVariable(PRIMER_REGISTRO);
 }
 void Metadata::setPosicionLibreEnTexto(int posicionEnDisco,int espacioOcupado){
+	this->mapaPosicionesAInsertarTexto[posicionEnDisco]=espacioOcupado;
 
 }
 void Metadata::getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posiciones){
@@ -131,8 +136,6 @@ void Metadata::getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posicione
 			break;
 		}
 	}
-	if(this->archivo)
-		this->guardarMapaAtributosVariables(this->mapaPosicionesAInsertarTexto);
 	//devuelvo -1 en el vector de posiciones por que no hay espacio libre
 	posiciones.push_back(-1);
 	posiciones.push_back(0);
@@ -153,8 +156,6 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
 		posiciones.push_back(-1);
 		posiciones.push_back(0);
-		if(this->archivo)
-			this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
 		return;
 
 	}
@@ -183,8 +184,6 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		posiciones.push_back(-1);
 		posiciones.push_back(0);
 	}
-	if(this->archivo)
-		this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
 }
 void mostarVector( vector<string> vec){
 	vector<string>::iterator the_iterator;

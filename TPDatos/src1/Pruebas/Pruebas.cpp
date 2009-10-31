@@ -48,7 +48,7 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 			std::cout<<std::endl;
 			iter++;
 		}
-
+        recurso->cerrar();
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -103,7 +103,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 			std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 			iter++;
 		}
-
+		recurso->cerrar();
 		delete alumno1;
 		delete alumno2;
 		delete alumno3;
@@ -151,7 +151,7 @@ int Pruebas::testBusquedaSecuencialRegistrosArchivo(){
 			std::cout<<std::endl;
 			iter++;
 		}
-
+		recurso->cerrar();
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -208,7 +208,7 @@ int Pruebas::testBusquedaSecuencialRegistrosBuffer(){
 		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
-
+	recurso->cerrar();
 	delete alumno1;
 	delete alumno2;
 	delete alumno3;
@@ -251,7 +251,7 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 		std::cout<<std::endl;
 		iter++;
 	}
-
+	recurso->cerrar();
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -310,7 +310,7 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
-
+	recurso->cerrar();
 	delete alumno1;
 	delete alumno2;
 	delete alumno3;
@@ -366,7 +366,7 @@ int Pruebas::testGuardarComoRegistroArchivo(){
 
 		cout << endl;
 		cout << "Archivo guardado" << endl;
-
+		recurso->cerrar();
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -413,7 +413,7 @@ int Pruebas::testGuardarComoTexoArchivo(){
 
 
 	cout<<endl << "Archivo guardado" << endl;
-
+	recurso->cerrar();
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -463,7 +463,7 @@ int Pruebas::testGuardarEnBloquesArchivo(){
 		 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
 		 * la fabrica
 		 */
-
+		recurso->cerrar();
 		delete alumno1;
 		delete alumno2;
 		delete alumno3;
@@ -491,7 +491,7 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 	recurso->alta(alumno);
 
 
-
+	recurso->cerrar();
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -509,7 +509,7 @@ int Pruebas::testQuitarComponenteRegistrosArchivo(){
 	recurso->baja(alumno);
 
 
-
+	recurso->cerrar();
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
