@@ -48,14 +48,14 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 	donde->agregarComponente(componente);
 	string bufferString = "";
 	bufferString = componente->getBuffer();
-	cout<<"bufferString: "<<bufferString<<endl;
+	//cout<<"bufferString: "<<bufferString<<endl;
 	cantCaracteresRegistro = bufferString.length();
 	this->metadata->getPosicionLibreEnTexto(cantCaracteresRegistro ,vecPosiciones);
 	int posicionAEscribir = vecPosiciones.at(0);
 	tamanioLibre = vecPosiciones.at(1);
-	cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
-	cout<<"posicionAEscribir: "<<posicionAEscribir<<endl;
-	cout<<"tamanioLibre: "<<tamanioLibre<<endl;
+	//cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
+	//cout<<"posicionAEscribir: "<<posicionAEscribir<<endl;
+	//cout<<"tamanioLibre: "<<tamanioLibre<<endl;
 	if(posicionAEscribir != -1){
 		while((int)bufferString.length() < tamanioLibre){
 			bufferString+=" ";
@@ -70,16 +70,16 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	//se escribe en esta posicion)
 	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
 	string clave = componente->getClave();
-	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
-	cout<<"numEtiquta "<<numEtiquta<<endl;
-	cout<<"componente->getClave() "<<componente->getClave()<<endl;
+	//cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	//cout<<"numEtiquta "<<numEtiquta<<endl;
+	//cout<<"componente->getClave() "<<componente->getClave()<<endl;
 	string registro = "";
 	donde->leer(registro,pos);
-	cout<<"pos "<<pos<<endl;
-	cout<<"registro leido en pos: "<<registro<<endl;
+	//cout<<"pos "<<pos<<endl;
+	//cout<<"registro leido en pos: "<<registro<<endl;
 	componente->hidratar(registro);
-	cout<<"nombre registro a borrar: "<<((Alumno*)componente)->getNombre()<<endl;
-	cout<<"registro.length() "<<registro.length()<<endl;
+	//cout<<"nombre registro a borrar: "<<((Alumno*)componente)->getNombre()<<endl;
+	//cout<<"registro.length() "<<registro.length()<<endl;
 	this->metadata->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }

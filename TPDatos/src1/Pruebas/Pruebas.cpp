@@ -277,6 +277,7 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
 	Alumno* alumno9 = new Alumno(10850139,"Garcia",86745,8,7,4);
 	Alumno* alumno10 = new Alumno(2385013,"Don",87890,8,7,4);
+	Alumno* alumno11 = new Alumno(2385011,"TOPO MAN",87230,8,7,4);
 
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnBuffer(ESTRATEGIA_ALMACENAMIENTO_TEXTO,40,"Padron",alumno);
@@ -296,10 +297,11 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	recurso->alta(alumno9);
 	recurso->alta(alumno10);
 	recurso->baja(alumno1);
+	recurso->alta(alumno11);
 
 	cout<<endl << "guardado en Buffer" << endl;
 
-	recurso->buscar(listaAlumnos,alumno,"Padron=85689");
+	recurso->buscar(listaAlumnos,alumno,"Padron=87230");
 	iter = listaAlumnos.begin();
 
 	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
@@ -398,6 +400,7 @@ int Pruebas::testGuardarComoTexoArchivo(){
 	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
 	Alumno* alumno9 = new Alumno(10850139,"Garcia",86745,8,7,4);
 	Alumno* alumno10 = new Alumno(23850139,"Diego Maradroga",87890,8,7,4);
+	Alumno* alumno11 = new Alumno(23850139,"Maja",87890,8,7,4);
 
 
 	recurso->alta(alumno1);
@@ -410,7 +413,8 @@ int Pruebas::testGuardarComoTexoArchivo(){
 	recurso->alta(alumno8);
 	recurso->alta(alumno9);
 	recurso->alta(alumno10);
-
+	recurso->baja(alumno1);
+	recurso->alta(alumno11);
 
 	cout<<endl << "Archivo guardado" << endl;
 	recurso->cerrar();

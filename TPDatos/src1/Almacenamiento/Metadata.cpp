@@ -129,7 +129,7 @@ void Metadata::getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posicione
 	for( it=this->mapaPosicionesAInsertarTexto.begin(); it != this->mapaPosicionesAInsertarTexto.end(); ++it ){
 		//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
 		//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
-		if(tamanioBuscado<(it->second)){
+		if(tamanioBuscado<=(it->second)){
 			posiciones.push_back(it->first);
 			posiciones.push_back(it->second);
 			this->mapaTamanioBloques[it->first]=-1;

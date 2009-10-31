@@ -65,6 +65,7 @@ int Buffer::guardar(std::string registro, int pos){
 
 	}
 	else{
+		cout<<"registro en guardar buffer: "<<registro<<endl;
 		registro+= "\n";
 		memcpy(&this->datos[pos],registro.c_str(),registro.length());
 		dir = pos;
