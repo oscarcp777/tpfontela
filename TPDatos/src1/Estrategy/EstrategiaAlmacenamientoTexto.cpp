@@ -61,6 +61,13 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 			bufferString+=" ";
 		}
 	}
+	 if(DEBUG == 0){
+		 if(posicionAEscribir == -1)
+			 cout<<"registro "<<bufferString<<" guardado en la ultima posicion "<<endl;
+		 else
+			 cout<<"registro "<<bufferString<<" guardado en la pos "<<posicionAEscribir<<endl;
+
+	 }
 	posicionAEscribir = donde->guardar(bufferString, posicionAEscribir); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
 	return posicionAEscribir;
 }
@@ -78,7 +85,7 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	//cout<<"pos "<<pos<<endl;
 	//cout<<"registro leido en pos: "<<registro<<endl;
 	componente->hidratar(registro);
-	//cout<<"nombre registro a borrar: "<<((Alumno*)componente)->getNombre()<<endl;
+	cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
 	//cout<<"registro.length() "<<registro.length()<<endl;
 	this->metadata->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)

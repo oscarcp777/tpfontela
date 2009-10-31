@@ -36,6 +36,7 @@
 #define TAMANIO "tamanio"
 #define CLAVE_PRIMARIA "clavePrimaria"
 #define MAX_LINEA 2000
+#define DEBUG 0
 class Define{
 public:
 	static const char DELIMITADOR1 = '|';

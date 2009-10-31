@@ -45,9 +45,14 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
 
 int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
 		int posAEscribir = this->metadata->getPosicionLibreRegistro();
-		cout<<"posAEscribir: "<<posAEscribir<<endl;
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
+	    if(DEBUG == 0){
+	    	if(posAEscribir == -1)
+	    		cout<<"registro guardado en la ultima posicion "<<endl;
+	    	else
+	    		cout<<"registro guardado en la pos "<<posAEscribir<<endl;
+	    }
 	    posAEscribir = donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
 	   	return posAEscribir;
 }
@@ -107,7 +112,7 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 //			cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
 //			cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
 		}
-		cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+//		cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
 //		cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
 //		cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
 		if (resCompare == 0){
