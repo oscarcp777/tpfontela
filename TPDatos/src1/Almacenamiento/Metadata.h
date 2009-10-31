@@ -26,6 +26,7 @@ private:
     string tercerRegistro;
     vector<string> mapaAtributosFijos;
     map<int,int> mapaTamanioBloques;
+    map<int,int> mapaPosicionesAInsertarTexto;
     vector<string> vectorAtributosVariables;
     vector<string> atributosRegistro;
     int metadataSize;
@@ -44,12 +45,14 @@ public:
     string getClavePrimaria();
     int getEspacioLibreEnBloque(int bloque);
     int getNumeroEtiqueta(std::string etiqueta);
-    void guardarMapaAtributosVariables();
+    void guardarMapaAtributosVariables(map<int,int> mapaAtributosVariables);
     int getPosicionLibreRegistro();
     void setPosicionLibreRegistro(int posicionRegistroLibre);
     void guardarVectorAtributosVariables();
     void hidratarMetadataEnBuffer(string registroAtributos,int tamanio);
     void actualizarMapaAtributosVariables(int posicion,int espacioLiberado);
+    void setPosicionLibreEnTexto(int posicionEnDisco,int espacioOcupado);
+    void getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posiciones);
     bool isArchivo()
     {
         return archivo;
