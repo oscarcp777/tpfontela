@@ -75,7 +75,7 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
-	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+//	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
 	string clave = componente->getClave();
 	//cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
 	//cout<<"numEtiquta "<<numEtiquta<<endl;

@@ -10,6 +10,7 @@
 
 #include "EstrategiaIndice.h"
 #include <map>
+using namespace std;
 class EstrategiaIndiceBuffer: public EstrategiaIndice {
 private:
         map<char*,int> indiceClavesBuffer;
