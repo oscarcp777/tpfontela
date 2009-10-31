@@ -61,10 +61,8 @@ void Metadata::guardarVectorAtributosVariables(){
 	}
 	cout<<registro<<endl;
 	tamanioRegistro =registro.length();
-	this->abrir();
 	this->guardar((char*)&tamanioRegistro,this->metadataSize,sizeof(tamanioRegistro));
 	this->guardar((char*)registro.c_str(),this->metadataSize+sizeof(tamanioRegistro),tamanioRegistro);
-	this->cerrar();
 
 }
 int Metadata::getPosicionLibreRegistro(){
@@ -106,10 +104,9 @@ void Metadata::guardarMapaAtributosVariables(map<int,int> mapaAtributosVariables
 		}
 	}
 	tamanioRegistro =registro.length();
-	this->abrir();
+
 	this->guardar((char*)&tamanioRegistro,this->metadataSize,sizeof(tamanioRegistro));
 	this->guardar((char*)registro.c_str(),this->metadataSize+sizeof(tamanioRegistro),tamanioRegistro);
-	this->cerrar();
 }
 void Metadata::escribirMetadata(string estrAlmacenamiento,int tamanioAGuardar,string clavePrimaria,string tipoIndexacion,string nombreAtributos){
 	string almacenamiento=CLAVE_ALMACENAMIENTO+estrAlmacenamiento;
