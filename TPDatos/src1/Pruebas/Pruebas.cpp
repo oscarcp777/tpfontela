@@ -491,8 +491,8 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
 
-	//recurso->baja(alumno);
-	recurso->alta(alumno);
+	recurso->baja(alumno);
+	//recurso->alta(alumno);
 
 
 	recurso->cerrar();
