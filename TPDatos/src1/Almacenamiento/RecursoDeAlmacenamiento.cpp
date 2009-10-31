@@ -19,9 +19,9 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* estra
 		this->almacenamientos.push_back(buffer);
 	this->estrategiaAlmacenamiento = estrategiaAlmacenamiento;
 	this->estrategiaRecurso = estrategiaRecurso;
-	if(archivo!=NULL)
+	if(estrategiaIndice!=NULL)
 		this->estrategiaIndices.push_back(estrategiaIndice);
-	if(buffer!=NULL)
+	if(estrategiaIndiceBuffer!=NULL)
 		this->estrategiaIndices.push_back(estrategiaIndiceBuffer);
 }
 RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(){
