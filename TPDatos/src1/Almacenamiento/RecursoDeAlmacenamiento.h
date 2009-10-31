@@ -47,8 +47,11 @@ public:
      *post: este metodo se encarga de la busquedas de registros
      */
     int buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave);
-
-
+    /**
+     *pre :ninguna
+     *este metodo se encarga de actualizar la metadata del recurso de lamacenamineto
+     */
+     void cerrar();
 
 };
 
