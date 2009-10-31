@@ -10,6 +10,7 @@
 #include "../Estrategy/EstrategiaRecurso.h"
 #include "../Estrategy/EstrategiaAlmacenamiento.h"
 #include "../Estrategy/EstrategiaIndice.h"
+#include "../Estrategy/EstrategiaIndiceBuffer.h"
 #include "../Composite/Componente.h"
 #include "../Composite/Compuesto.h"
 #include <map>
@@ -22,11 +23,12 @@ class RecursoDeAlmacenamiento :public Object{
 	vector<Almacenamiento*> almacenamientos;
 	EstrategiaAlmacenamiento* estrategiaAlmacenamiento;
 	EstrategiaRecurso* estrategiaRecurso;
-	EstrategiaIndice* estrategiaIndice;
+	vector<EstrategiaIndice*> estrategiaIndices;
 public:
 	std::string toString();
 	RecursoDeAlmacenamiento();
-	RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,Almacenamiento* archivo,Almacenamiento* buffer,  EstrategiaRecurso* estrategiaRecurso,EstrategiaIndice* estrategiaIndice );
+	RecursoDeAlmacenamiento(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,Almacenamiento* archivo,Almacenamiento* buffer,  EstrategiaRecurso* estrategiaRecurso,
+			               EstrategiaIndice* estrategiaIndice ,EstrategiaIndiceBuffer* estrategiaIndiceBuffer);
 	virtual ~RecursoDeAlmacenamiento();
 	void busquedaSecuencial(Componente* componente, std::string clave);
 

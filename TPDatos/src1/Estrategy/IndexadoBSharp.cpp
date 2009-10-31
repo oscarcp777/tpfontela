@@ -9,7 +9,7 @@
 const int PROF_MAXIMA = 5;
 
 IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden, tamanioLlave) {
-	// TODO Auto-generated constructor stub
+
 	this->orden = orden;
 
 	this->tamanioRegistro = sizeof(int)+this->orden*tamanioLlave+this->orden*sizeof(int);
@@ -29,7 +29,7 @@ IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden, tamanio
 }
 
 IndexadoBSharp::~IndexadoBSharp() {
-	// TODO Auto-generated destructor stub
+
 	cerrar();
 	delete this->nodos;
 }

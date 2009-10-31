@@ -21,5 +21,5 @@ std::string EstrategiaIndice::toString(){
 int EstrategiaIndice::setArchivo(char* nombre, char* ruta){
 	this->archivoIndice->setNombreArchivo(nombre);
 	this->archivoIndice->setRuta(ruta);
-
+   return 0;
 }

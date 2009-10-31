@@ -9,6 +9,7 @@
 #include "../Almacenamiento/Metadata.h"
 #ifndef FABRICADERECURSOSDEALMACENAMIENTO_H_
 #define FABRICADERECURSOSDEALMACENAMIENTO_H_
+#include "../Estrategy/EstrategiaIndiceBuffer.h"
 #include <map>
 #include "../fabricas/FabricaAbstracta.h"
 #include "../Almacenamiento/RecursoDeAlmacenamiento.h"
