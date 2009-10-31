@@ -25,16 +25,16 @@ Metadata::~Metadata() {
 void Metadata::actualizarMapaAtributosVariables(int posicion,int espacioLiberado){
 	int tamanioBloque,indice,espacioLibre;
 	tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
-	 indice=posicion/tamanioBloque;
-	 cout<<" metadata       indice "<<indice<<endl;
-	 espacioLibre=this->mapaTamanioBloques[indice];
-	 cout<<"espacioLibre: "<<espacioLibre<<endl;
-	 cout<<"espacioLiberado"<<espacioLiberado<<endl;
-	 this->mapaTamanioBloques[indice]=espacioLibre+espacioLiberado;
-	 cout<<"this->mapaTamanioBloques[indice]"<<this->mapaTamanioBloques[indice]<<endl;
-	 //escribir a disco :P :P :P GIL!!
-	 if(this->archivo)
-	 this->guardarMapaAtributosVariables( this->mapaTamanioBloques);
+	indice=posicion/tamanioBloque;
+	cout<<" metadata       indice "<<indice<<endl;
+	espacioLibre=this->mapaTamanioBloques[indice];
+	cout<<"espacioLibre: "<<espacioLibre<<endl;
+	cout<<"espacioLiberado"<<espacioLiberado<<endl;
+	this->mapaTamanioBloques[indice]=espacioLibre+espacioLiberado;
+	cout<<"this->mapaTamanioBloques[indice]"<<this->mapaTamanioBloques[indice]<<endl;
+	//escribir a disco :P :P :P GIL!!
+	if(this->archivo)
+		this->guardarMapaAtributosVariables( this->mapaTamanioBloques);
 
 }
 void Metadata::guardarVectorAtributosVariables(){
@@ -45,7 +45,7 @@ void Metadata::guardarVectorAtributosVariables(){
 	the_iterator = this->vectorAtributosVariables.begin();
 	while( the_iterator != this->vectorAtributosVariables.end() ) {
 		valor = *the_iterator;
-//		cout<<"valor :"<<valor<<endl;
+		//		cout<<"valor :"<<valor<<endl;
 		if(valor.compare("-1")!=0){
 			registro=registro+valor+DELIMITADOR;
 		}
@@ -68,24 +68,24 @@ int Metadata::getPosicionLibreRegistro(){
 	the_iterator = this->vectorAtributosVariables.begin();
 	while( the_iterator != this->vectorAtributosVariables.end() ) {
 		valor = *the_iterator;
-//		cout<<"valor :"<<valor<<endl;
+		//		cout<<"valor :"<<valor<<endl;
 		if(atoi(valor.c_str())>=0&&!isEncontro){
 			retorno=atoi(valor.c_str());
 			*the_iterator="-1";
-         isEncontro=true;
+			isEncontro=true;
 		}
 		++the_iterator;
 
 	}
 	if(isEncontro&&this->archivo)
-	this->guardarVectorAtributosVariables();
+		this->guardarVectorAtributosVariables();
 
 	return retorno;
 }
 void Metadata::setPosicionLibreRegistro(int posicionRegistroLibre){
 	this->vectorAtributosVariables.push_back(StringUtils::convertirAString(posicionRegistroLibre));
 	if(this->archivo)
-	this->guardarVectorAtributosVariables();
+		this->guardarVectorAtributosVariables();
 }
 void Metadata::guardarMapaAtributosVariables(map<int,int> mapaAtributosVariables){
 	map<int,int>::iterator it;
@@ -96,9 +96,9 @@ void Metadata::guardarMapaAtributosVariables(map<int,int> mapaAtributosVariables
 	string sep="=";
 	for( it=mapaAtributosVariables.begin(); it != mapaAtributosVariables.end(); ++it ){
 		if(it->second>0){
-		clave=StringUtils::convertirAString(it->first);
-		valor=StringUtils::convertirAString(it->second);
-		registro=registro+clave+sep+DELIMITADOR+valor+DELIMITADOR;
+			clave=StringUtils::convertirAString(it->first);
+			valor=StringUtils::convertirAString(it->second);
+			registro=registro+clave+sep+DELIMITADOR+valor+DELIMITADOR;
 		}
 	}
 	tamanioRegistro =registro.length();
@@ -120,26 +120,26 @@ void Metadata::setPosicionLibreEnTexto(int posicionEnDisco,int espacioOcupado){
 
 }
 void Metadata::getPosicionLibreEnTexto(int tamanioBuscado,vector<int>& posiciones){
-		map<int,int>::iterator it;
-		for( it=this->mapaPosicionesAInsertarTexto.begin(); it != this->mapaPosicionesAInsertarTexto.end(); ++it ){
-			//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
-			//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
-			if(tamanioBuscado<(it->second)){
-				posiciones.push_back(it->first);
-				posiciones.push_back(it->second);
-				this->mapaTamanioBloques[it->first]=-1;
-                break;
-			}
+	map<int,int>::iterator it;
+	for( it=this->mapaPosicionesAInsertarTexto.begin(); it != this->mapaPosicionesAInsertarTexto.end(); ++it ){
+		//		cout<<"it->first (posicion inicio bloque) "<<it->first<<endl;
+		//		cout<<"it->second (espacio libre en bloque)"<<it->second<<endl;
+		if(tamanioBuscado<(it->second)){
+			posiciones.push_back(it->first);
+			posiciones.push_back(it->second);
+			this->mapaTamanioBloques[it->first]=-1;
+			break;
 		}
-		if(this->archivo)
+	}
+	if(this->archivo)
 		this->guardarMapaAtributosVariables(this->mapaPosicionesAInsertarTexto);
-		//devuelvo -1 en el vector de posiciones por que no hay espacio libre
-		posiciones.push_back(-1);
-		posiciones.push_back(0);
+	//devuelvo -1 en el vector de posiciones por que no hay espacio libre
+	posiciones.push_back(-1);
+	posiciones.push_back(0);
 }
 void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 	//cout<<"tamanio mapa2"<<this->mapaTamanioBloques.size()<<endl;
-    bool encontro=false;
+	bool encontro=false;
 	int cont=0;
 	map<int,int>::iterator it;
 	int tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
@@ -154,7 +154,7 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 		posiciones.push_back(-1);
 		posiciones.push_back(0);
 		if(this->archivo)
-		this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
+			this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
 		return;
 
 	}
@@ -173,18 +173,18 @@ void Metadata::getPosicionBloque(int tamanioBuscado,vector<int>& posiciones){
 			//this->mapaTamanioBloques[it->first]=posicionAEscribir+tamanioBuscado;
 			this->mapaTamanioBloques[it->first]=it->second-tamanioBuscado;
 			encontro=true;
-            break;
+			break;
 		}
 	}
 
-    if(!encontro){
-	this->mapaTamanioBloques[cont]=tamanioBloque-tamanioBuscado;
-	//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
-	posiciones.push_back(-1);
-	posiciones.push_back(0);
-    }
+	if(!encontro){
+		this->mapaTamanioBloques[cont]=tamanioBloque-tamanioBuscado;
+		//devuelvo -1 en el vector de posiciones para que en la estrategia genere un nuevo bloque
+		posiciones.push_back(-1);
+		posiciones.push_back(0);
+	}
 	if(this->archivo)
-	this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
+		this->guardarMapaAtributosVariables(this->mapaTamanioBloques);
 }
 void mostarVector( vector<string> vec){
 	vector<string>::iterator the_iterator;
@@ -212,7 +212,7 @@ void Metadata::hidratarMetadataEnBuffer(string registroAtributos,int tamanio){
 	StringUtils::Tokenize(registroAtributos,this->atributosRegistro,DELIMITADOR);
 }
 void Metadata::hidratarMetadata(){
-	int i=0,size=0,espacio=0;
+	int i=0,size=0,espacio=0,cont=0;
 	string valor="", num="";
 	this->leerMetadata();
 	StringUtils::Tokenize(this->primerRegistro,this->mapaAtributosFijos,DELIMITADOR);
@@ -231,24 +231,25 @@ void Metadata::hidratarMetadata(){
 		}
 	}
 	if(this->getValorAtributosFijos(ESTRATEGIA_ALMACENAMIENTO).compare(ESTRATEGIA_ALMACENAMIENTO_TEXTO)==0){
-			size=this->vectorAtributosVariables.size()/2;
-			//cout<<"size: "<<size<<endl;
-			for(i=0;i<size;i++){
-
-				num=StringUtils::convertirAString(i);
-				valor= StringUtils::getValorTag(num,this->vectorAtributosVariables);
-				cout<<valor<<endl;
-				espacio=atoi(valor.c_str());
-				cout<<espacio<<endl;
-				this->mapaPosicionesAInsertarTexto[i]=espacio;
-			}
+		size=this->vectorAtributosVariables.size()/2;
+		//cout<<"size: "<<size<<endl;
+		for(i=0;i<size;i++){
+			num=StringUtils::convertirAString(this->vectorAtributosVariables.at(cont));
+			valor= StringUtils::getValorTag(num,this->vectorAtributosVariables);
+			cout<<valor<<endl;
+			espacio=atoi(valor.c_str());
+			cout<<espacio<<endl;
+			this->mapaPosicionesAInsertarTexto[atoi(num.c_str())]=espacio;
+			cont++;
+			cont++;
 		}
+	}
 
 	//    mostarVector(this->atributosRegistro);
 	//    mostarVector(this->mapaAtributosFijos);
-//	cout<<this->vectorAtributosVariables.size()<<endl;
-//	cout<<"tamanio mapa"<<this->mapaTamanioBloques.size()<<endl;
-//	mostarVector(this->vectorAtributosVariables);
+	//	cout<<this->vectorAtributosVariables.size()<<endl;
+	//	cout<<"tamanio mapa"<<this->mapaTamanioBloques.size()<<endl;
+	//	mostarVector(this->vectorAtributosVariables);
 
 
 }
