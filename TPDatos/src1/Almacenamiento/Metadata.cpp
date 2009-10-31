@@ -234,7 +234,7 @@ void Metadata::hidratarMetadata(){
 		size=this->vectorAtributosVariables.size()/2;
 		//cout<<"size: "<<size<<endl;
 		for(i=0;i<size;i++){
-			num=StringUtils::convertirAString(this->vectorAtributosVariables.at(cont));
+			num=this->vectorAtributosVariables.at(cont);
 			valor= StringUtils::getValorTag(num,this->vectorAtributosVariables);
 			cout<<valor<<endl;
 			espacio=atoi(valor.c_str());
