@@ -53,6 +53,7 @@ int Buffer::guardar(std::string registro, int pos){
 		//si pos<0 copio al final del bufer
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 		string temp = this->datos;
+
 		if((int)registro.length() <= TAM_BUFFER - (int)temp.length()){
 			temp+= registro+"\n";
 			dir = strlen(this->datos);
@@ -65,24 +66,23 @@ int Buffer::guardar(std::string registro, int pos){
 
 	}
 	else{
-		cout<<"registro en guardar buffer: "<<registro<<endl;
 		registro+= "\n";
 		memcpy(&this->datos[pos],registro.c_str(),registro.length());
 		dir = pos;
 		this->cantLineas++;
 
 	}
-	cout<<"this->datos desdpues de escribir el registro "<<this->datos<<endl;
+	//cout<<"this->datos desdpues de escribir el registro "<<this->datos<<endl;
 	return dir;
 }
 
 int Buffer::guardar(char* buffer, int pos){
 
-	//cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
 	if(this->binario == 0)
 		this->binario = true;
-	cout<<"Registro a guardar: "<<buffer<<endl;
+
 	if(pos < 0){
+
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
 		if(this->getTamanio() <= TAM_BUFFER - this->posicionActual){
 			int dir = this->posicionActual;
@@ -91,18 +91,6 @@ int Buffer::guardar(char* buffer, int pos){
 
 			this->cantElementos++;
 			return dir;
-//			cout<<"Posicion actual buffer: "<<this->posicionActual<<endl;
-//			for(int i = 0 ; i< strlen(buffer) ; i++){
-//				cout<<i<<": "<<this->datos[i];
-//
-//			}
-//			cout<<"Desde posicion actual : "<<this->posicionActual<<endl;
-//			for(int i = this->posicionActual ; i< this->posicionActual+strlen(buffer) ; i++){
-//							cout<<i<<": "<<this->datos[i];
-//
-//						}
-//			this->posicionActual+=this->getTamanio();
-
 		}
 		else {
 			throw std::string("El registro no entra en el buffer");

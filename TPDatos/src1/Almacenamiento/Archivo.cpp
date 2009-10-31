@@ -95,6 +95,7 @@ int Archivo::guardar(std::string registro, int pos){
 }
 
 int Archivo::guardar(char* buffer, int pos){
+
      int dir=-1;
 	if (this->archivo.is_open()) {
 
@@ -105,6 +106,7 @@ int Archivo::guardar(char* buffer, int pos){
 			//this->archivo.seekg(pos);
 		}
 		int dir = this->archivo.tellg();
+
 		this->archivo.write(buffer,this->getTamanio());
 		return dir;
 
@@ -148,11 +150,9 @@ void Archivo::leer(std::string& datos, int pos){
 	  if(pos>=0)
 		  /* lee del archivo una linea */
 		  this->archivo.seekg(pos);
-		  cout<<"tellg1: "<<this->archivo.tellg()<<endl;
 		  this->archivo.getline((char*)&linea, MAX_LINEA, '\n');
 		  datos = linea;
-		  cout<<"datos: "<<datos<<endl;
-	  /* chequea si se ha producido un error */
+		  /* chequea si se ha producido un error */
 	  if (this->archivo.fail())
 		  /* arroja una excepción ante la imposibilidad de leer un reg */
 		  throw string("No se pudo leer correctamente el registro");
