@@ -66,6 +66,8 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
+	if(DEBUG == 0)
+			cout<<"registro borrardo de la pos "<<pos<<endl;
 	this->metadata->setPosicionLibreRegistro(pos);
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }

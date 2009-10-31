@@ -120,9 +120,9 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
 	string clave = componente->getClave();
-	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
-	cout<<"numEtiquta "<<numEtiquta<<endl;
-	cout<<"componente->getClave() "<<componente->getClave()<<endl;
+	//cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	//cout<<"numEtiquta "<<numEtiquta<<endl;
+	//cout<<"componente->getClave() "<<componente->getClave()<<endl;
 	char* bufferAux = new char[donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	int j=0;
@@ -163,9 +163,9 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 				}
 				cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
 				cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
-				cout<<"cantCaracteresRegistro reg a borrar: "<<cantCaracteresRegistro<<endl;
-				cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
-				cout<<"pos bloque a actualizar tamaño libre "<<pos<<endl;
+				//cout<<"cantCaracteresRegistro reg a borrar: "<<cantCaracteresRegistro<<endl;
+				//cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+				//cout<<"pos bloque a actualizar tamaño libre "<<pos<<endl;
 				this->metadata->actualizarMapaAtributosVariables(pos,cantCaracteresRegistro);
 				bloque->removerComponente(componente);
 				borrado = true;
@@ -184,6 +184,8 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 			donde->agregarComponente(bloque);
 			//guardo en almacenamiento el ultimo bloque agregado
 			donde->guardar(bloque->getBuffer(),pos);
+			if(DEBUG == 0)
+					cout<<"registro borrardo del bloque "<<pos<<endl;
 		}
 
 		delete bloque;

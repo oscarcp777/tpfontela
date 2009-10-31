@@ -85,7 +85,8 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	//cout<<"pos "<<pos<<endl;
 	//cout<<"registro leido en pos: "<<registro<<endl;
 	componente->hidratar(registro);
-	cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
+	if(DEBUG == 0)
+		cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
 	//cout<<"registro.length() "<<registro.length()<<endl;
 	this->metadata->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
