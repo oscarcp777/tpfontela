@@ -103,9 +103,9 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 	    	 	//guardo en almacenamiento el ultimo bloque agregado
 		    	if(DEBUG == 0){
 		    		if(posicionBloque == -1)
-		    			cout<<"registro guardado en nuevo bloque "<<endl;
+		    			cout<<"registro guardado en nuevo bloque "<<"tamanio "<<bloque->getTamanio()<<endl;
 		    		else
-		    			cout<<"registro guardado en el bloque "<<posicionBloque<<endl;
+		    			cout<<"registro guardado en el bloque "<<posicionBloque<<"tamanio "<<bloque->getTamanio()<<endl;
 		    	}
 		    	posicionBloque = donde->guardar(bloque->getBuffer(),posicionBloque);
 
@@ -185,7 +185,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 			//guardo en almacenamiento el ultimo bloque agregado
 			donde->guardar(bloque->getBuffer(),pos);
 			if(DEBUG == 0)
-					cout<<"registro borrardo del bloque "<<pos<<endl;
+					cout<<"registro borrardo del bloque "<<pos<<"tamanio "<<bloque->getTamanio()<<endl;
 		}
 
 		delete bloque;

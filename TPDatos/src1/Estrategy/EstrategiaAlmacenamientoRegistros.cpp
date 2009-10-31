@@ -49,9 +49,9 @@ int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Com
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
 	    if(DEBUG == 0){
 	    	if(posAEscribir == -1)
-	    		cout<<"registro guardado en la ultima posicion "<<endl;
+	    		cout<<"registro guardado en la ultima posicion, tamaño "<<componente->getTamanio()<<endl;
 	    	else
-	    		cout<<"registro guardado en la pos "<<posAEscribir<<endl;
+	    		cout<<"registro guardado en la pos "<<posAEscribir<<" tamaño "<<componente->getTamanio()<<endl;
 	    }
 	    posAEscribir = donde->guardar(componente->getBuffer(),posAEscribir); //guarda en almacenamiento si pos es < 0 guarda al final
 	   	return posAEscribir;
@@ -67,7 +67,7 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
 	if(DEBUG == 0)
-			cout<<"registro borrardo de la pos "<<pos<<endl;
+			cout<<"registro borrardo de la pos "<<pos<<" tamaño "<<componente->getTamanio()<<endl;
 	this->metadata->setPosicionLibreRegistro(pos);
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
