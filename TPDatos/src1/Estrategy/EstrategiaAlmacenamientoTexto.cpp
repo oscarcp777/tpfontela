@@ -108,33 +108,13 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 }
 
 
-void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
+void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
 	vector<string> vecClaves;
-	string aux;
-	int posCaracterIgual = -1;
-	string etiquetaCampo = "";
-	string campo = "";
 	int resCompare = 0;
 	string bufferAux ="";
 	componente->setTamanio(donde->getTamanio());
-	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
-	vector<string> vecCampos ((int)vecClaves.size());
-	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
 	int pos = 0;
-	for( int i = 0; i<(int)vecClaves.size(); i++){
-			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
-			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
-			campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
-//			std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
-//			std::cout<<"campo: "<<campo<<std::endl;
-//			cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
-			vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
-			vecCampos[i]= campo;
-//			std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
-//			std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
-//			std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
-		}
 
 	while (!donde->fin()){
 		resCompare = 0;
@@ -158,6 +138,6 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 	}
 
 }
-void EstrategiaAlmacenamientoTexto::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave){
+void EstrategiaAlmacenamientoTexto::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
 }

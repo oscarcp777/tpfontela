@@ -63,6 +63,6 @@ void EstrategiaRecursoEscrituraDirecta::busquedaSecuencial(EstrategiaAlmacenamie
 	Almacenamiento* buffer=   almacenamientos.at(ALMACENAMIENTO_BUFFER);
 	componente->setTamanio(buffer->getTamanio());
 	buffer->abrir();
-	estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, buffer, clave);
+	//estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, buffer, clave);
 	buffer->cerrar();
 }

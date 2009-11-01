@@ -37,15 +37,15 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"Padron=85440|Nombre=Daniel Sivori");
+		recurso->buscar(listaAlumnos,alumno,"Padron=85440");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
 		while(iter != listaAlumnos.end()){
 			alumno = (Alumno*) *iter;
 			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-			std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-			std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+			std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+			std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 			std::cout<<std::endl;
 			iter++;
 		}
@@ -101,8 +101,8 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		while(iter != listaAlumnos.end()){
 			alumno = (Alumno*) *iter;
 			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-			std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-			std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+			std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+			std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 			iter++;
 		}
 		delete alumno;
@@ -148,8 +148,8 @@ int Pruebas::testBusquedaSecuencialRegistrosArchivo(){
 		while(iter != listaAlumnos.end()){
 			alumno = (Alumno*) *iter;
 			std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-			std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-			std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+			std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+			std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 			std::cout<<std::endl;
 			iter++;
 		}
@@ -207,8 +207,8 @@ int Pruebas::testBusquedaSecuencialRegistrosBuffer(){
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-		std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
 	delete alumno;
@@ -249,8 +249,8 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-		std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 		std::cout<<std::endl;
 		iter++;
 	}
@@ -312,8 +312,8 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 	while(iter != listaAlumnos.end()){
 		alumno = (Alumno*) *iter;
 		std::cout<<"nombre: "<<alumno->getNombre()<<std::endl;
-		std::cout<<"dni: "<<alumno->getPadron()<<std::endl;
-		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
+		std::cout<<"padron: "<<alumno->getPadron()<<std::endl;
+		std::cout<<"dni: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
 	delete alumno;

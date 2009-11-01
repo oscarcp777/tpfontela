@@ -88,23 +88,23 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 			estrategiaIndice->abrir();
 			int pos = estrategiaIndice->buscar((char*)campoclavePrimaria.c_str());
 			cout<<" registro encontrado posicion :"<<pos<<endl;
-			estrategiaAlmacenamiento->hidratarComponente(almacenamientos.at(0),resultadoDeLABusqueda,componente,pos,campoclavePrimaria,numClavePrimaria);
+			estrategiaAlmacenamiento->hidratarComponente(almacenamientos.at(0),resultadoDeLABusqueda,componente,pos,vecCampos,vecEtiquetasCampos);
 			estrategiaIndice->cerrar();
 
 
 		}
 		else{
 			cout<<" else claves: "<<claves<<endl;
-			estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente,almacenamientos.at(0),claves);
+			estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente,almacenamientos.at(0),vecCampos,vecEtiquetasCampos);
 
 		}
 		almacenamientos.at(0)->cerrar();
 
 }
 void EstrategiaRecursoUnAlmacenamiento::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
-	Almacenamiento* almacenamiento=   almacenamientos.at(0);
-	componente->setTamanio(almacenamiento->getTamanio());
-	almacenamiento->abrir();
-	estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, almacenamiento, clave);
-	almacenamiento->cerrar();
+//	Almacenamiento* almacenamiento=   almacenamientos.at(0);
+//	componente->setTamanio(almacenamiento->getTamanio());
+//	almacenamiento->abrir();
+//	estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente, almacenamiento, vecCampos);
+//	almacenamiento->cerrar();
 }
