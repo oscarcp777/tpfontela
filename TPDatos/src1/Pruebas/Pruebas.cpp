@@ -94,7 +94,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno," Nombre= Garcia apellido= caceres");
+		recurso->buscar(listaAlumnos,alumno,"Padron=85440|Nombre=Garcia");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
