@@ -15,8 +15,6 @@ public:
 	std::string toString();
 	EstrategiaAlmacenamientoRegistros();
 	virtual ~EstrategiaAlmacenamientoRegistros();
-    void guardar(Almacenamiento* donde);
-
     int altaComponente(Almacenamiento* donde, Componente* componente);
     void quitarComponente(Almacenamiento* donde, Componente* componente, int pos);
     void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos);

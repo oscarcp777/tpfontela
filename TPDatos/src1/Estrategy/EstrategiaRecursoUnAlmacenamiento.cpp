@@ -57,8 +57,8 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 		vector<string> vecCampos ((int)vecClaves.size());
 		vector<int> vecEtiquetasCampos ((int)vecClaves.size());
 		cout<<" claves para buscar: "<<claves<<endl;
-		cout<<"etiqueta clave primaria: "<<estrategiaAlmacenamiento->getMetadata()->getClavePrimaria()<<endl;
-		string etiquetaClavePrimaria = estrategiaAlmacenamiento->getMetadata()->getClavePrimaria();
+		cout<<"etiqueta clave primaria: "<<almacenamientos.at(0)->getMetadata()->getClavePrimaria()<<endl;
+		string etiquetaClavePrimaria = almacenamientos.at(0)->getMetadata()->getClavePrimaria();
 		string campoclavePrimaria = "";
 		tieneClavePrimaria = claves.find(etiquetaClavePrimaria,0);
 		cout<<" tieneClavePrimaria: "<<tieneClavePrimaria<<endl;
@@ -72,7 +72,7 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 //			std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
 //			std::cout<<"campo: "<<campo<<std::endl;
 //			cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaCampo)<<endl;
-			vecEtiquetasCampos[i] = estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaCampo);
+			vecEtiquetasCampos[i] = almacenamientos.at(0)->getMetadata()->getNumeroEtiqueta(etiquetaCampo);
 			vecCampos[i]= campo;
 			std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
 			std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
@@ -82,7 +82,7 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 		almacenamientos.at(0)->abrir();
 		if(tieneClavePrimaria == 0){
 			std::cout<<"campoclavePrimaria: "<<campoclavePrimaria<<std::endl;
-			int numClavePrimaria = estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaClavePrimaria);
+			int numClavePrimaria = almacenamientos.at(0)->getMetadata()->getNumeroEtiqueta(etiquetaClavePrimaria);
 			cout<<"numClavePrimaria "<<numClavePrimaria<<endl;
 			EstrategiaIndice* estrategiaIndice=indices.at(0);
 			estrategiaIndice->abrir();

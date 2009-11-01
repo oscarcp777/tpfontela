@@ -11,7 +11,6 @@
 #include "../Almacenamiento/Almacenamiento.h"
 #include "../utils/Define.h"
 #include "../Almacenamiento/Archivo.h"
-#include "../Almacenamiento/Metadata.h"
 #include "../Composite/Bloque/Bloque.h"
 #include "../Composite/Registro/Registro.h"
 #include "../utils/StringUtils.h"
@@ -23,26 +22,11 @@ class EstrategiaAlmacenamiento :public Object{
 public:
 	EstrategiaAlmacenamiento();
 	virtual ~EstrategiaAlmacenamiento();
-	virtual void guardar(Almacenamiento* donde) = 0;
 	std::string toString();
 	virtual int altaComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void quitarComponente(Almacenamiento* donde, Componente* componente, int pos) = 0;
 	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos) = 0;
-	virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos)=0;
-	Metadata *getMetadata()
-    {
-        return metadata;
-    }
-
-    void setMetadata(Metadata *metadata)
-    {
-        this->metadata = metadata;
-    }
-
-protected:
-
-	std::string generarMetadata(Componente* componente);
-	Metadata* metadata;
+virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos)=0;
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTO_H_ */

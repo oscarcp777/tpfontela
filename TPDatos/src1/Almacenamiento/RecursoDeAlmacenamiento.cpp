@@ -50,7 +50,9 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,this->estrategiaIndices);
+	vector<Almacenamiento*> vec1=this->almacenamientos;
+	vector<EstrategiaIndice*> vec2=this->estrategiaIndices;
+	this->estrategiaRecurso->altaComponente(vec1,this->estrategiaAlmacenamiento, componente,vec2);
 
 	return 0;
 }
@@ -90,7 +92,7 @@ std::string RecursoDeAlmacenamiento::toString(){
 	return devolver;
 }
 void RecursoDeAlmacenamiento::cerrar(){
-	this->estrategiaAlmacenamiento->getMetadata()->abrir();
-	this->estrategiaAlmacenamiento->getMetadata()->actualizarMetadata(this->almacenamientos.at(0)->getTipoArchivo());
-	this->estrategiaAlmacenamiento->getMetadata()->cerrar();
+	this->almacenamientos.at(0)->getMetadata()->abrir();
+	this->almacenamientos.at(0)->getMetadata()->actualizarMetadata(this->almacenamientos.at(0)->getTipoArchivo());
+	this->almacenamientos.at(0)->getMetadata()->cerrar();
 }

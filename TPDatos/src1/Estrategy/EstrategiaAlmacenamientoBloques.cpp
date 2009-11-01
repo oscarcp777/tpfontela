@@ -19,28 +19,6 @@ EstrategiaAlmacenamientoBloques::~EstrategiaAlmacenamientoBloques() {
 	// TODO Auto-generated destructor stub
 }
 
-void EstrategiaAlmacenamientoBloques::guardar(Almacenamiento* donde){
-//	int i=1;
-//	std::list<Componente*>::iterator iteraBloques;
-//	Bloque* bloque;
-//	std::string metaData;
-//
-//	iteraBloques = donde->getCompuesto()->iteratorListaDeComponetes();
-//	if(donde->getExisteMetaData() == 0){
-//		metaData = this->generarMetadata((Componente*)*((Bloque*)*iteraBloques)->iteratorListaDeComponetes());
-//		donde->escribirMetadata(metaData);
-//	}
-//
-//	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
-//		bloque = (Bloque*)*iteraBloques;
-//		donde->guardar(bloque->getDatosRegistro().c_str(),bloque->getTamanio());
-//		iteraBloques++;
-//		i++;
-//	}
-
-
-
-}
 
 int EstrategiaAlmacenamientoBloques::posicionarEnBloque(int tamanioRegistro){
 	return -1;
@@ -70,7 +48,7 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 			cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
 			cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
 			//cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
-			this->metadata->getPosicionBloque(cantCaracteresRegistro ,vecPosiciones);
+			donde->getMetadata()->getPosicionBloque(cantCaracteresRegistro ,vecPosiciones);
 			int posicionBloque = vecPosiciones.at(0);
 
 			//int posicionAPartirDeDondeEscribo = vecPosiciones.at(1);
@@ -118,12 +96,9 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 }
 
 void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
-	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
 	string clave = componente->getClave();
-	//cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
-	//cout<<"numEtiquta "<<numEtiquta<<endl;
-	//cout<<"componente->getClave() "<<componente->getClave()<<endl;
-	char* bufferAux = new char[donde->getTamanio()];
+   char* bufferAux = new char[donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
 	int j=0;
 	bool borrado = false;
@@ -166,7 +141,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 				//cout<<"cantCaracteresRegistro reg a borrar: "<<cantCaracteresRegistro<<endl;
 				//cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
 				//cout<<"pos bloque a actualizar tamaño libre "<<pos<<endl;
-				this->metadata->actualizarMapaAtributosVariables(pos,cantCaracteresRegistro);
+				donde->getMetadata()->actualizarMapaAtributosVariables(pos,cantCaracteresRegistro);
 				bloque->removerComponente(componente);
 				borrado = true;
 				j--;
