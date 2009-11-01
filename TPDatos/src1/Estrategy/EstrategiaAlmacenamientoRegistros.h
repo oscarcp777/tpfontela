@@ -19,8 +19,8 @@ public:
 
     int altaComponente(Almacenamiento* donde, Componente* componente);
     void quitarComponente(Almacenamiento* donde, Componente* componente, int pos);
-    void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave);
-    void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave);
+    void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos);
+    void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos);
 };
 
 #endif /* ESTRATEGIAALMACENAMIENTOREGISTROS_H_ */

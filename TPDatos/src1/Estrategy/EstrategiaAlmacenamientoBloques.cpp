@@ -206,34 +206,11 @@ std::string EstrategiaAlmacenamientoBloques::toString(){
 
 
 
-void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave){
-
+void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 	int pos = 0;
-	vector<string> vecClaves;
-	string aux;
-	int posCaracterIgual = -1;
-	string etiquetaCampo = "";
-	string campo = "";
 	int resCompare = 0;
 	char* bufferAux = new char [donde->getTamanio()];
 	memset(bufferAux,0,donde->getTamanio());
-	StringUtils::Tokenize(clave,vecClaves,DELIMITADOR);
-	vector<string> vecCampos ((int)vecClaves.size());
-	vector<int> vecEtiquetasCampos ((int)vecClaves.size());
-
-	for( int i = 0; i<(int)vecClaves.size(); i++){
-		posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
-		etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
-		campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
-//		std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
-//		std::cout<<"campo: "<<campo<<std::endl;
-//		cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<this->metadata->getNumeroEtiqueta(etiquetaCampo)<<endl;
-		vecEtiquetasCampos[i] = this->metadata->getNumeroEtiqueta(etiquetaCampo);
-		vecCampos[i]= campo;
-//		std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
-//		std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
-//		std::cout<<"vecEtiquetasCampos[i]: "<<vecCampos[i]<<endl;
-	}
 
 	Bloque* bloque = new Bloque(donde->getTamanio());
 	while (!donde->fin()){
@@ -277,7 +254,7 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 	delete bufferAux;
 	delete bloque;
 }
-void EstrategiaAlmacenamientoBloques::hidratarComponente(Almacenamiento* donde, list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave){
+void EstrategiaAlmacenamientoBloques::hidratarComponente(Almacenamiento* donde, list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
 		int resCompare = -1;
 		char* bufferAux = new char [donde->getTamanio()];
@@ -294,10 +271,14 @@ void EstrategiaAlmacenamientoBloques::hidratarComponente(Almacenamiento* donde, 
 		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
 		int i=0;
 		while (i<bloque->getCantidadDeElelmentos() && encontrado==false){
-			resCompare = -1;
+			resCompare = 0;
 			componente = (Componente*)*iteraRegistros;
-			resCompare = componente->compareTo(clavePrimaria,numEtiquetaClave);
-
+			for(int k = 0; k< (int)vecCampos.size();k++){
+				if(resCompare == 0)//solo compara si la comparacion anterior dio =
+					resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+				//				cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
+				//				cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
+			}
 			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
 			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
 			//	cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;

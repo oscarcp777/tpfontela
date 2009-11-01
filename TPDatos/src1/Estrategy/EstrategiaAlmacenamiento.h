@@ -17,6 +17,7 @@
 #include "../utils/StringUtils.h"
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 class EstrategiaAlmacenamiento :public Object{
 public:
@@ -26,8 +27,8 @@ public:
 	std::string toString();
 	virtual int altaComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void quitarComponente(Almacenamiento* donde, Componente* componente, int pos) = 0;
-	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave) = 0;
-	virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos, string clavePrimaria, int numEtiquetaClave)=0;
+	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos) = 0;
+	virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos)=0;
 	Metadata *getMetadata()
     {
         return metadata;
