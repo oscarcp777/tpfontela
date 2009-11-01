@@ -19,7 +19,7 @@
 
 const int bTreeSize = 4;
 
-int main364(){
+int main446546(){
 
 	/**
 	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
@@ -70,7 +70,7 @@ int main364(){
 
 	//cout << endl;
 	//cout << "Archivo guardado" << endl;
-
+	delete alumno;
 	delete alumno1;
 	delete alumno2;
 	delete alumno3;

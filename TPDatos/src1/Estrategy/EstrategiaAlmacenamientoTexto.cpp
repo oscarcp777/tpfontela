@@ -158,3 +158,6 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 	}
 
 }
+void EstrategiaAlmacenamientoTexto::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave){
+
+}

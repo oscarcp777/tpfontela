@@ -47,16 +47,59 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 		vector<Almacenamiento*> almacenamientos,
 		vector<EstrategiaIndice*> indices,
 		string claves){
-	vector<string> vec;
-	StringUtils::Tokenize(claves,vec," ");
-	string clave=StringUtils::getValorTag(estrategiaAlmacenamiento->getMetadata()->getClavePrimaria(),vec);
-	EstrategiaIndice* estrategiaIndice=indices.at(0);
-	//this->estrategiaRecurso->busquedaSecuencial(this->estrategiaAlmacenamiento,resultadoDeLABusqueda,componente, this->almacenamientos, clave);
-	estrategiaIndice->abrir();
-	cout<<" clave "<<clave<<endl;
-	int aux = estrategiaIndice->buscar((char*)clave.c_str());
-	estrategiaIndice->cerrar();
-	cout<<" registro encontrado posicion :"<<aux<<endl;
+
+		vector<string> vecClaves;
+		int tieneClavePrimaria = -1;
+		int posCaracterIgual = -1;
+		string etiquetaCampo = "";
+		string campo = "";
+		StringUtils::Tokenize(claves,vecClaves,DELIMITADOR);
+		vector<string> vecCampos ((int)vecClaves.size());
+		vector<int> vecEtiquetasCampos ((int)vecClaves.size());
+		cout<<" claves para buscar: "<<claves<<endl;
+		cout<<"etiqueta clave primaria: "<<estrategiaAlmacenamiento->getMetadata()->getClavePrimaria()<<endl;
+		string etiquetaClavePrimaria = estrategiaAlmacenamiento->getMetadata()->getClavePrimaria();
+		string campoclavePrimaria = "";
+		tieneClavePrimaria = claves.find(etiquetaClavePrimaria,0);
+		cout<<" tieneClavePrimaria: "<<tieneClavePrimaria<<endl;
+
+		for( int i = 0; i<(int)vecClaves.size(); i++){
+			posCaracterIgual = vecClaves.at(i).find_first_of('=',0);
+			etiquetaCampo = vecClaves.at(i).substr(0,posCaracterIgual);
+			campo = vecClaves.at(i).substr(posCaracterIgual+1,vecClaves.at(i).length());
+			if(etiquetaCampo.compare(etiquetaClavePrimaria) == 0)
+				campoclavePrimaria = campo;
+//			std::cout<<"etiquetaCampo: "<<etiquetaCampo<<std::endl;
+//			std::cout<<"campo: "<<campo<<std::endl;
+//			cout<<"this->metadata->getNumeroEtiqueta(etiquetaCampo): "<<estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaCampo)<<endl;
+			vecEtiquetasCampos[i] = estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaCampo);
+			vecCampos[i]= campo;
+			std::cout<<"vecEtiquetasCampos[i]: "<<vecEtiquetasCampos.at(i)<<std::endl;
+			std::cout<<"vecCampos[i]: "<<vecCampos.at(i)<<std::endl;
+		}
+
+		//Si el string claves que me pasan por parametro contiene la clave primaria, busco en el arbol, sino busco secuencialmente
+		almacenamientos.at(0)->abrir();
+		if(tieneClavePrimaria == 0){
+			std::cout<<"campoclavePrimaria: "<<campoclavePrimaria<<std::endl;
+			int numClavePrimaria = estrategiaAlmacenamiento->getMetadata()->getNumeroEtiqueta(etiquetaClavePrimaria);
+			cout<<"numClavePrimaria "<<numClavePrimaria<<endl;
+			EstrategiaIndice* estrategiaIndice=indices.at(0);
+			estrategiaIndice->abrir();
+			int pos = estrategiaIndice->buscar((char*)campoclavePrimaria.c_str());
+			cout<<" registro encontrado posicion :"<<pos<<endl;
+			estrategiaAlmacenamiento->hidratarComponente(almacenamientos.at(0),resultadoDeLABusqueda,componente,pos,campoclavePrimaria,numClavePrimaria);
+			estrategiaIndice->cerrar();
+
+
+		}
+		else{
+			cout<<" else claves: "<<claves<<endl;
+			estrategiaAlmacenamiento->busquedaSecuencial(resultadoDeLABusqueda,componente,almacenamientos.at(0),claves);
+
+		}
+		almacenamientos.at(0)->cerrar();
+
 }
 void EstrategiaRecursoUnAlmacenamiento::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
 	Almacenamiento* almacenamiento=   almacenamientos.at(0);

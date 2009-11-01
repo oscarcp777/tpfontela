@@ -28,15 +28,16 @@ void Pruebas::imprimirOrdenPruebas(){
 int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
-		Alumno* alumno = new Alumno();
-
+//		Alumno* alumno = new Alumno();
+	//	Alumno* alumno = new Alumno(31440400,"Dubini",85440,6,6,7);
+		Alumno* alumno = new Alumno(93853439,"Daniel Sivori",86524,8,7,4);
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
+				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TPDatos/files/","archivoBloques");
 
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"Nombre=Oscar Caceres");
+		recurso->buscar(listaAlumnos,alumno,"Padron=85440|Nombre=Daniel Sivori");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
@@ -49,6 +50,7 @@ int Pruebas::testBusquedaSecuencialBloquesArchivo(){
 			iter++;
 		}
         recurso->cerrar();
+        delete alumno;
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -92,7 +94,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 		std::list<Componente*> listaAlumnos;
 		list<Componente*>::iterator iter;
 
-		recurso->buscar(listaAlumnos,alumno,"Nombre=Garcia");
+		recurso->buscar(listaAlumnos,alumno," Nombre= Garcia apellido= caceres");
 		iter = listaAlumnos.begin();
 
 		std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;
@@ -103,7 +105,7 @@ int Pruebas::testBusquedaSecuencialBloquesBuffer(){
 			std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 			iter++;
 		}
-		recurso->cerrar();
+		delete alumno;
 		delete alumno1;
 		delete alumno2;
 		delete alumno3;
@@ -133,7 +135,7 @@ int Pruebas::testBusquedaSecuencialRegistrosArchivo(){
 		Alumno* alumno = new Alumno();
 
 		RecursoDeAlmacenamiento* recurso=
-				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoRegistros");
+				fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TPDatos/files/","archivoRegistros");
 
 
 		std::list<Componente*> listaAlumnos;
@@ -152,6 +154,7 @@ int Pruebas::testBusquedaSecuencialRegistrosArchivo(){
 			iter++;
 		}
 		recurso->cerrar();
+		delete alumno;
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -208,7 +211,7 @@ int Pruebas::testBusquedaSecuencialRegistrosBuffer(){
 		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
-	recurso->cerrar();
+	delete alumno;
 	delete alumno1;
 	delete alumno2;
 	delete alumno3;
@@ -234,7 +237,7 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 	Alumno* alumno = new Alumno();
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoTexto");
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TPDatos/files/","archivoTexto");
 
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
@@ -252,6 +255,7 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 		iter++;
 	}
 	recurso->cerrar();
+	delete alumno;
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -312,7 +316,7 @@ int Pruebas::testBusquedaSecuencialTextoBuffer(){
 		std::cout<<"padron: "<<alumno->getDni()<<std::endl;
 		iter++;
 	}
-	recurso->cerrar();
+	delete alumno;
 	delete alumno1;
 	delete alumno2;
 	delete alumno3;
@@ -341,7 +345,7 @@ int Pruebas::testGuardarComoRegistroArchivo(){
 		Alumno* alumno = new Alumno();
 		RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
-						"../TP0Datos/files/","archivoRegistros","Padron",INDEXADO_BSHARP,alumno);
+						"../TPDatos/files/","archivoRegistros","Padron",INDEXADO_BSHARP,alumno);
 
 		Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 		Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
@@ -369,6 +373,17 @@ int Pruebas::testGuardarComoRegistroArchivo(){
 		cout << endl;
 		cout << "Archivo guardado" << endl;
 		recurso->cerrar();
+		delete alumno;
+		delete alumno1;
+		delete alumno2;
+		delete alumno3;
+		delete alumno4;
+		delete alumno5;
+		delete alumno6;
+		delete alumno7;
+		delete alumno8;
+		delete alumno9;
+		delete alumno10;
 		delete recurso;
 		delete fabricaDeRecursos;
 		return 0;
@@ -387,7 +402,7 @@ int Pruebas::testGuardarComoTexoArchivo(){
 
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,50,
-					"../TP0Datos/files/","archivoTexto","Padron",INDEXADO_BSHARP,alumno);
+					"../TPDatos/files/","archivoTexto","Padron",INDEXADO_BSHARP,alumno);
 
 
 	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
@@ -418,6 +433,17 @@ int Pruebas::testGuardarComoTexoArchivo(){
 
 	cout<<endl << "Archivo guardado" << endl;
 	recurso->cerrar();
+	delete alumno;
+			delete alumno1;
+			delete alumno2;
+			delete alumno3;
+			delete alumno4;
+			delete alumno5;
+			delete alumno6;
+			delete alumno7;
+			delete alumno8;
+			delete alumno9;
+			delete alumno10;
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -436,7 +462,7 @@ int Pruebas::testGuardarEnBloquesArchivo(){
 		Alumno* alumno = new Alumno();
 		RecursoDeAlmacenamiento* recurso=
 				fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_BLOQUES,120,
-										"../TP0Datos/files/","archivoBloques","Padron",INDEXADO_BSHARP,alumno);
+										"../TPDatos/files/","archivoBloques","Padron",INDEXADO_BSHARP,alumno);
 
 		Alumno* alumno1 = new Alumno(31993745,"Santy",85689,8,8,8);
 		Alumno* alumno2 = new Alumno(31440400,"Dubini",85440,6,6,7);
@@ -468,6 +494,7 @@ int Pruebas::testGuardarEnBloquesArchivo(){
 		 * la fabrica
 		 */
 		recurso->cerrar();
+		delete alumno;
 		delete alumno1;
 		delete alumno2;
 		delete alumno3;
@@ -489,13 +516,14 @@ int Pruebas::testQuitarComponenteBloquesArchivo(){
 	Alumno* alumno = new Alumno(31993745,"Santy",85689,8,8,8);
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoBloques");
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TPDatos/files/","archivoBloques");
 
 	recurso->baja(alumno);
 	//recurso->alta(alumno);
 
 
 	recurso->cerrar();
+	delete alumno;
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
@@ -507,13 +535,14 @@ int Pruebas::testQuitarComponenteRegistrosArchivo(){
 	Alumno* alumno = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
 
 	RecursoDeAlmacenamiento* recurso=
-			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TP0Datos/files/","archivoRegistros");
+			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("../TPDatos/files/","archivoRegistros");
 
 
 	recurso->baja(alumno);
 
 
 	recurso->cerrar();
+	delete alumno;
 	delete recurso;
 	delete fabricaDeRecursos;
 	return 0;
