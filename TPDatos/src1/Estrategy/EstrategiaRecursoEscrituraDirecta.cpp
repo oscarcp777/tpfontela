@@ -15,6 +15,15 @@ EstrategiaRecursoEscrituraDirecta::EstrategiaRecursoEscrituraDirecta() {
 EstrategiaRecursoEscrituraDirecta::~EstrategiaRecursoEscrituraDirecta() {
 	// TODO Auto-generated destructor stub
 }
+void EstrategiaRecursoEscrituraDirecta::buscar(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,
+			list<Componente*> &resultadoDeLABusqueda,
+			Componente* componente,
+			vector<Almacenamiento*> almacenamientos,
+			vector<EstrategiaIndice*> indices,
+			string claves)
+{
+
+}
 int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices){
 	int i=0;
 

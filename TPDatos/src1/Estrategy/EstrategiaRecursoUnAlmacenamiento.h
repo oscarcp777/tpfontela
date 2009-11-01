@@ -17,6 +17,12 @@ public:
 	std::string toString();
 	int altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices);
 	int bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente, vector<EstrategiaIndice*> indices);
+	void buscar(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,
+				list<Componente*> &resultadoDeLABusqueda,
+				Componente* componente,
+				vector<Almacenamiento*> almacenamientos,
+				vector<EstrategiaIndice*> indices,
+				string claves);
 	void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave);
 };
 
