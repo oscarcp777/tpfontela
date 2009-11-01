@@ -15,10 +15,15 @@ NodeBSharp::NodeBSharp(int maxKeys, int tamanioLlave):numKeys(0),keys(0),direcci
 	this->init();
 	this->keys = new char*[this->maxKeys];
 	this->direcciones = new int[this->maxKeys];
+	for(int i=0;i<this->maxKeys;i++){
+		this->keys[i]=new char(this->tamanioLlave);
+	}
 }
 
 NodeBSharp::~NodeBSharp() {
 	// TODO Auto-generated destructor stub
+	delete keys;
+	delete direcciones;
 }
 
 //Protected metods---------------
@@ -59,14 +64,14 @@ int NodeBSharp::insert(char* key, int dir){
 	int indice = this->encontrar(key);
 	if(indice>=0) return 0; //key ya esta en arbol
 	if (this->numKeys == this->maxKeys) return 0; //sin lugar para mas keys
-	keys[this->numKeys]=new char(this->tamanioLlave);
+
 	for(i = this->numKeys-1; i>=0; i--){
 		//if (key > this->keys[i]) break; //insertar en ubicacion i+1
 		if (strcmp(key,this->keys[i])>0) break; //insertar en ubicacion i+1
-		strcpy(this->keys[i+1], this->keys[i]);
+		this->keys[i+1] = this->keys[i];
 		this->direcciones[i+1] = this->direcciones[i];
 	}
-
+	keys[i+1]=new char(this->tamanioLlave);
 	memset(keys[i+1],0,this->tamanioLlave);
 	memcpy(this->keys[i+1],key,strlen(key));
 	//this->keys[i+1] = strdup(key);
@@ -82,7 +87,7 @@ int NodeBSharp::remover(char* key, int dir){
 	int indice = this->encontrar(key,dir);
 	if (indice < 0 ) return 0; //no esta en el indice la key
 	for (int i = indice; i < this->numKeys; i++){
-		strcpy(this->keys[i],this->keys[i+1]);
+		this->keys[i] = this->keys[i+1];
 		this->direcciones[i] = this->direcciones[i+1];
 	}
 	this->numKeys--;
@@ -122,7 +127,7 @@ int NodeBSharp::merge(NodeBSharp* desdeNodo){		//mueve desde el nodo
 	if (this->numKeys + desdeNodo->numKeys > this->maxKeys-1) return 0;
 	//mueve keys y direcciones desde desdeNodo a aca
 	for(int i = 0; i < desdeNodo->numKeys; i++){
-		strcpy(this->keys[this->numKeys+i], desdeNodo->keys[i]);
+		this->keys[this->numKeys+i] = desdeNodo->keys[i];
 		this->direcciones[this->numKeys+i] = desdeNodo->direcciones[i];
 	}
 	//ajustar numero de keys
@@ -141,9 +146,10 @@ int NodeBSharp::actualizarKey(char* viejaKey, char* nuevaKey, int dir){
 
 int NodeBSharp::serializar(char* buffer){
 	int nextByte = 0;
-	memcpy(&buffer[nextByte],&this->numKeys,sizeof(this->numKeys));
+	memcpy(&buffer[nextByte],&this->numKeys,sizeof(int));
 	nextByte+=sizeof(int);
-
+	memcpy(&buffer[nextByte],&this->nodoSiguiente,sizeof(int));
+	nextByte+=sizeof(int);
 	for (int i = 0; i<this->numKeys; i++){
 		//char aux[10];
 		//memcpy(aux,this->keys[i],strlen(this->keys[i]));
@@ -162,10 +168,12 @@ int NodeBSharp::serializar(char* buffer){
 
 int NodeBSharp::hidratar(char* buffer){
 	int nextByte = 0;
-	memcpy(&this->numKeys,&buffer[nextByte],sizeof(this->numKeys));
+	memcpy(&this->numKeys,&buffer[nextByte],sizeof(int));
+	nextByte+=sizeof(int);
+	memcpy(&this->nodoSiguiente,&buffer[nextByte],sizeof(int));
 	nextByte+=sizeof(int);
 	for (int i = 0; i<this->numKeys; i++){
-		keys[i]=new char(this->tamanioLlave);
+		//keys[i]=new char(this->tamanioLlave);
 		memset(keys[i],0,this->tamanioLlave);
 		memcpy(this->keys[i],&buffer[nextByte],this->tamanioLlave);
 		nextByte+=this->tamanioLlave;
@@ -194,6 +202,7 @@ void NodeBSharp::imprimir(ostream & stream){
 	for(int i = 0; i<this->numKeys; i++){
 		stream << "\tKey["<<i<<"] "<<this->keys[i] << " direccion "<<this->direcciones[i]<<endl;
 	}
+	stream<<"\t\tApunta a direccion: "<<this->nodoSiguiente<<endl;
 }
 
 
