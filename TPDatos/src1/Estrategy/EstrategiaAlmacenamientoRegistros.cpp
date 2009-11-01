@@ -76,7 +76,6 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
 	int pos = 0;
-	int posCaracterIgual = -1;
 	int resCompare = 0;
 	char* bufferAux = new char [donde->getTamanio()];
 	componente->setTamanio(donde->getTamanio());
@@ -110,5 +109,27 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 
 }
 void EstrategiaAlmacenamientoRegistros::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
+		int resCompare = 0;
+		char* bufferAux = new char [donde->getTamanio()];
+		componente->setTamanio(donde->getTamanio());
 
+		donde->leer(bufferAux, pos);
+		componente->setBuffer(bufferAux);
+		componente->hidratar(BINARIO);
+
+		for(int k = 0; k< (int)vecCampos.size();k++){
+			if(resCompare == 0)//solo compara si la comparacion anterior dio =
+				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+			//			cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
+			//			cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
+		}
+		//		cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+		//		cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
+		//		cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
+		if (resCompare == 0){
+			resultadoDeLABusqueda.push_back(componente);
+		}
+
+
+		delete bufferAux;
 }

@@ -242,7 +242,7 @@ int Pruebas::testBusquedaSecuencialTextoArchivo(){
 	std::list<Componente*> listaAlumnos;
 	list<Componente*>::iterator iter;
 
-	recurso->buscar(listaAlumnos,alumno,"Nombre=Perez");
+	recurso->buscar(listaAlumnos,alumno,"Padron=85440|Nombre=Perez");
 	iter = listaAlumnos.begin();
 
 	std::cout<<"Cantidad alumnos Encontrados: "<<listaAlumnos.size()<<std::endl;

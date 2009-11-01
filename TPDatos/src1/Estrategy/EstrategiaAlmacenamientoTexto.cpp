@@ -110,7 +110,6 @@ std::string EstrategiaAlmacenamientoTexto::generarRegistro(Componente* component
 
 void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
-	vector<string> vecClaves;
 	int resCompare = 0;
 	string bufferAux ="";
 	componente->setTamanio(donde->getTamanio());
@@ -139,5 +138,23 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 
 }
 void EstrategiaAlmacenamientoTexto::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
+	int resCompare = 0;
+	string bufferAux ="";
+	componente->setTamanio(donde->getTamanio());
+
+	donde->leer(bufferAux, pos);
+	componente->setBuffer((char*)bufferAux.c_str());
+	componente->hidratar(TEXTO);
+
+	for(int k = 0; k< (int)vecCampos.size();k++){
+		if(resCompare == 0)//solo compara si la comparacion anterior dio =
+			resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
+	}
+
+	//cout<<"resCompare: "<<resCompare<<endl;
+	if (resCompare == 0){
+		resultadoDeLABusqueda.push_back(componente);
+	}
+
 
 }
