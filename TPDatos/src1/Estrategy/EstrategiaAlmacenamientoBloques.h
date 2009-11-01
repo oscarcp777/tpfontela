@@ -17,7 +17,6 @@ public:
 	std::string toString();
 	EstrategiaAlmacenamientoBloques();
 	virtual ~EstrategiaAlmacenamientoBloques();
-    void guardar(Almacenamiento* donde);
     std::string generarRegistro(Componente* componente);
     int altaComponente(Almacenamiento* donde, Componente* componente);
     void quitarComponente(Almacenamiento* donde, Componente* componente, int pos);

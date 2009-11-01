@@ -50,7 +50,7 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 	bufferString = componente->getBuffer();
 	//cout<<"bufferString: "<<bufferString<<endl;
 	cantCaracteresRegistro = bufferString.length();
-	this->metadata->getPosicionLibreEnTexto(cantCaracteresRegistro ,vecPosiciones);
+	donde->getMetadata()->getPosicionLibreEnTexto(cantCaracteresRegistro ,vecPosiciones);
 	int posicionAEscribir = vecPosiciones.at(0);
 	tamanioLibre = vecPosiciones.at(1);
 	//cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
@@ -75,9 +75,9 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
 	//se escribe en esta posicion)
-//	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+//	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
 	string clave = componente->getClave();
-	//cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	//cout<<"donde->getMetadata()->getClavePrimaria() "<<donde->getMetadata()->getClavePrimaria()<<endl;
 	//cout<<"numEtiquta "<<numEtiquta<<endl;
 	//cout<<"componente->getClave() "<<componente->getClave()<<endl;
 	string registro = "";
@@ -88,7 +88,7 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	if(DEBUG == 0)
 		cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
 	//cout<<"registro.length() "<<registro.length()<<endl;
-	this->metadata->setPosicionLibreEnTexto(pos,(int)registro.length());
+	donde->getMetadata()->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
 

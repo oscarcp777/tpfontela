@@ -15,13 +15,13 @@ const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 
 const int bTreeSize = 4;
 
-int main435(){
+int main546756(){
 	char letra[2] = "";
 	char valor[5]="A";
 	char* pchar=valor;
 	IndexadoBSharp bt(bTreeSize,4);
 	char nArch[]="testbt.dat";
-	char ruta[]="../TPDatos/files/";
+	char ruta[]="../TP0Datos/files/";
 
 	bt.crear(nArch,ruta);
 	bt.abrir();

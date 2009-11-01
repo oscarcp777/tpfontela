@@ -18,24 +18,7 @@ EstrategiaAlmacenamientoRegistros::~EstrategiaAlmacenamientoRegistros() {
 	// TODO Auto-generated destructor stub
 }
 
-void EstrategiaAlmacenamientoRegistros::guardar(Almacenamiento* donde){
 
-//	std::string metaData;
-//	int i=1;
-//	std::list<Componente*>::iterator iter = donde->getCompuesto()->iteratorListaDeComponetes();
-//	Componente* componente;
-//	if(donde->getExisteMetaData() == 0){
-//		metaData = this->generarMetadata((Componente*)*iter);
-//		donde->escribirMetadata(metaData);
-//	}
-//	while(i<=donde->getCompuesto()->getCantidadDeElelmentos()){
-//		componente = (Componente*)*iter;
-//		donde->guardar(componente->getDatosRegistro().c_str(),donde->getTamanio());
-//		iter++;
-//		i++;
-//	}
-
-}
 
 std::string EstrategiaAlmacenamientoRegistros::toString(){
    	return "EstrategiaAlmacenamientoRegistros";
@@ -44,7 +27,7 @@ std::string EstrategiaAlmacenamientoRegistros::toString(){
 
 
 int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Componente* componente){
-		int posAEscribir = this->metadata->getPosicionLibreRegistro();
+		int posAEscribir = donde->getMetadata()->getPosicionLibreRegistro();
 		componente->serializar(BINARIO);				//genera el buffer (registro) en binario
 	    donde->agregarComponente(componente);  			//agrega el componente a la lista de componentes
 	    if(DEBUG == 0){
@@ -58,9 +41,9 @@ int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Com
 }
 
 void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
-	int numEtiquta = this->metadata->getNumeroEtiqueta(this->metadata->getClavePrimaria());
+	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
 	string clave = componente->getClave();
-	cout<<"this->metadata->getClavePrimaria() "<<this->metadata->getClavePrimaria()<<endl;
+	cout<<"donde->getMetadata()->getClavePrimaria() "<<donde->getMetadata()->getClavePrimaria()<<endl;
 	cout<<"numEtiquta "<<numEtiquta<<endl;
 	cout<<"componente->getClave() "<<componente->getClave()<<endl;
 
@@ -68,7 +51,7 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 	//se escribe en esta posicion)
 	if(DEBUG == 0)
 			cout<<"registro borrardo de la pos "<<pos<<" tamaño "<<componente->getTamanio()<<endl;
-	this->metadata->setPosicionLibreRegistro(pos);
+	donde->getMetadata()->setPosicionLibreRegistro(pos);
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
 
