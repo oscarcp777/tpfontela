@@ -12,7 +12,7 @@ IndexadoBSharp::IndexadoBSharp(int orden, int tamanioLlave) :raiz(orden, tamanio
 
 	this->orden = orden;
 
-	this->tamanioRegistro = sizeof(int)+this->orden*tamanioLlave+this->orden*sizeof(int);
+	this->tamanioRegistro = sizeof(int)+sizeof(int)+this->orden*tamanioLlave+this->orden*sizeof(int);
 	this->tamanioLlave = tamanioLlave;
 	this->archivoIndice = new Archivo();
 	this->archivoIndice->setTamanio(this->tamanioRegistro);
@@ -67,13 +67,7 @@ NodeBSharp* IndexadoBSharp::leerNodo(int dir){ 		//Fetch
 int IndexadoBSharp::escribirNodo(NodeBSharp* nodo){ //Store
 
 	nodo->serializar(this->buffer);
-//	cout<<"tamanio buffer: "<<this->archivoIndice->getTamanio()<<endl;
-//	for (int i = 0; i< this->archivoIndice->getTamanio();i++){
-//		cout<<"Buffer["<<i<<"]: "<<this->buffer[i];
-//	}
-	this->archivoIndice->guardar(this->buffer,nodo->getDir());
-
-	return 1;
+	return this->archivoIndice->guardar(this->buffer,nodo->getDir());
 }
 
 int IndexadoBSharp::escribirProfundidad(char* buffer){
@@ -160,8 +154,14 @@ int IndexadoBSharp::insertar(char* key, int dir){
 		//splitear el nodo
 		nuevoNodo = this->nuevoNodo();
 		nodoActual->split(nuevoNodo);
+
+		if(nuevoNodo->getDir()!=nodoActual->getNodoSiguiente())
+			nuevoNodo->setNodoSiguiente(nodoActual->getNodoSiguiente());
+		nodoActual->setNodoSiguiente(nuevoNodo->getDir());
+
 		this->escribirNodo(nodoActual);
 		this->escribirNodo(nuevoNodo);
+
 		nivel--; //ir al nivel del padre
 		if (nivel < 0) break;
 		//hacer nuevoNodo padre del nodoActual
@@ -208,6 +208,7 @@ int IndexadoBSharp::buscar(char* key, int dir){
 void IndexadoBSharp::imprimir(ostream & stream){
 
 	stream <<"Arbol B de profundidad " <<this->profundidad<<" es "<<endl;
+	cout<<"Dir Raiz: "<<this->raiz.getDir()<<endl;
 	this->raiz.imprimir(stream);
 	if (this->profundidad >1)
 		for(int i = 0; i<this->raiz.getNumKeys();i++){

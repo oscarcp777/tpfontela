@@ -35,9 +35,17 @@ public:
 	int buscar(char* key, int dir = -1, int exacto = 1);
 
 	void imprimir(ostream &);
+    int getNodoSiguiente() const
+    {
+        return nodoSiguiente;
+    }
 
+    void setNodoSiguiente(int nodoSiguiente)
+    {
+        this->nodoSiguiente = nodoSiguiente;
+    }
 
-	void clear(){
+    void clear(){
 		this->numKeys = 0;
 		this->dir = -1;
 	}
