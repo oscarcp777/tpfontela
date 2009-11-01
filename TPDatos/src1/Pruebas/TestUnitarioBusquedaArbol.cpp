@@ -12,9 +12,9 @@
 const int bTreeSize = 4;
 
 int main111(){
-	IndexadoBSharp bt(bTreeSize,4);
+	IndexadoBSharp bt(bTreeSize,10);
 	char nArch[]="testbt.dat";
-	char ruta[]="../files/";
+	char ruta[]="../TPDatos/files/";
     char valor[5]="A";
     bt.setArchivo(nArch,ruta);
 	bt.abrir();
