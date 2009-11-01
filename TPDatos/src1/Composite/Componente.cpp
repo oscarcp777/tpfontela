@@ -13,6 +13,10 @@ Componente::Componente() {
 	// TODO Auto-generated constructor stub
 	this->tamanio = 999;
 	this->posicionActual = 0;
+
+
+
+
 	this->buffer=NULL;
 
 }
