@@ -48,23 +48,16 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 
 
 int RecursoDeAlmacenamiento::alta(Componente* componente){
-	EstrategiaIndice* estrategiaIndice=this->estrategiaIndices.at(0);
+
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	string clave=componente->getClave();
-	int dir = this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente);
-	estrategiaIndice->abrir();
-	cout<<componente->getClave()<<endl;
-	estrategiaIndice->insertar((char*)clave.c_str(),dir);
-	estrategiaIndice->cerrar();
+	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,this->estrategiaIndices);
+
 	return 0;
 }
 int RecursoDeAlmacenamiento::baja(Componente* componente){
-	EstrategiaIndice* estrategiaIndice=this->estrategiaIndices.at(0);
+
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	estrategiaIndice->abrir();
-	int pos = estrategiaIndice->buscar((char*)componente->getClave().c_str());
-	estrategiaIndice->cerrar();
-	this->estrategiaRecurso->bajaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,pos);
+	this->estrategiaRecurso->bajaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,this->estrategiaIndices);
 	return 0;
 }
 int RecursoDeAlmacenamiento::modificion(Componente* componente){
