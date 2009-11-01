@@ -13,11 +13,13 @@ Componente::Componente() {
 	// TODO Auto-generated constructor stub
 	this->tamanio = 999;
 	this->posicionActual = 0;
+	this->buffer=NULL;
 
 }
 
 Componente::~Componente() {
-
+	if(this->buffer==NULL)
+   delete this->buffer;
 }
 
 int Componente::getTamanio(){
@@ -27,6 +29,7 @@ int Componente::getTamanio(){
 void Componente::setTamanio(int tamanio)
 {
     this->tamanio = tamanio;
+	if(this->buffer==NULL)
     this->buffer = new char[tamanio];
     memset(this->buffer,0,tamanio);
 }

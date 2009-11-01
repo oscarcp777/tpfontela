@@ -15,22 +15,35 @@ EstrategiaRecursoEscrituraDirecta::EstrategiaRecursoEscrituraDirecta() {
 EstrategiaRecursoEscrituraDirecta::~EstrategiaRecursoEscrituraDirecta() {
 	// TODO Auto-generated destructor stub
 }
-int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente){
+int EstrategiaRecursoEscrituraDirecta::altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices){
+	int i=0;
 
-	// guardo en el archivo
-	Almacenamiento* archivo=   almacenamientos.at(ALMACENAMIENTO_ARCHIVO);
-	archivo->abrir();
-	estrategiaAlmacenamiento->altaComponente(archivo, componente);
-	archivo->cerrar();
-	//guardo en el buffer
-	Almacenamiento* buffer=   almacenamientos.at(ALMACENAMIENTO_BUFFER);
-	buffer->abrir();
-	estrategiaAlmacenamiento->altaComponente(buffer, componente);
-	buffer->cerrar();
+	for(i=0;i<2;i++){
+		Almacenamiento* almacenamiento=   almacenamientos.at(i);
+		EstrategiaIndice* estrategiaIndice=indices.at(i);
+		string clave=componente->getClave();
+		almacenamiento->abrir();
+		int pos = estrategiaAlmacenamiento->altaComponente(almacenamiento, componente);
+		almacenamiento->cerrar();
+		estrategiaIndice->abrir();
+		estrategiaIndice->insertar((char*)clave.c_str(),pos);
+		estrategiaIndice->cerrar();
+	}
 	return 0;
 }
 
-int EstrategiaRecursoEscrituraDirecta::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente, int pos){
+int EstrategiaRecursoEscrituraDirecta::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices){
+	int i=0;
+	for(i=0;i<2;i++){
+		Almacenamiento* almacenamiento=   almacenamientos.at(i);
+		EstrategiaIndice* estrategiaIndice=indices.at(i);
+		estrategiaIndice->abrir();
+		int pos = estrategiaIndice->buscar((char*)componente->getClave().c_str());
+		estrategiaIndice->cerrar();
+		almacenamiento->abrir();
+		estrategiaAlmacenamiento->quitarComponente(almacenamiento, componente, pos);
+		almacenamiento->cerrar();
+	}
 	return 0;
 }
 std::string EstrategiaRecursoEscrituraDirecta::toString(){
