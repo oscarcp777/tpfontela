@@ -15,6 +15,12 @@ public:
 	EstrategiaRecursoEscrituraDirecta();
 	virtual ~EstrategiaRecursoEscrituraDirecta();
 	std::string toString();
+	void buscar(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,
+				list<Componente*> &resultadoDeLABusqueda,
+				Componente* componente,
+				vector<Almacenamiento*> almacenamientos,
+				vector<EstrategiaIndice*> indices,
+				std::string claves);
 	int altaComponente(vector<Almacenamiento*>& almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices);
 	int bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices);
 	void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave);
