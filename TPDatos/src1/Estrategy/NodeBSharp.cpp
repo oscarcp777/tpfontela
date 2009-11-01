@@ -59,13 +59,14 @@ int NodeBSharp::insert(char* key, int dir){
 	int indice = this->encontrar(key);
 	if(indice>=0) return 0; //key ya esta en arbol
 	if (this->numKeys == this->maxKeys) return 0; //sin lugar para mas keys
+	keys[this->numKeys]=new char(this->tamanioLlave);
 	for(i = this->numKeys-1; i>=0; i--){
 		//if (key > this->keys[i]) break; //insertar en ubicacion i+1
 		if (strcmp(key,this->keys[i])>0) break; //insertar en ubicacion i+1
-		this->keys[i+1] = this->keys[i];
+		strcpy(this->keys[i+1], this->keys[i]);
 		this->direcciones[i+1] = this->direcciones[i];
 	}
-	keys[i+1]=new char(this->tamanioLlave);
+
 	memset(keys[i+1],0,this->tamanioLlave);
 	memcpy(this->keys[i+1],key,strlen(key));
 	//this->keys[i+1] = strdup(key);
@@ -81,7 +82,7 @@ int NodeBSharp::remover(char* key, int dir){
 	int indice = this->encontrar(key,dir);
 	if (indice < 0 ) return 0; //no esta en el indice la key
 	for (int i = indice; i < this->numKeys; i++){
-		this->keys[i] = this->keys[i+1];
+		strcpy(this->keys[i],this->keys[i+1]);
 		this->direcciones[i] = this->direcciones[i+1];
 	}
 	this->numKeys--;
@@ -121,7 +122,7 @@ int NodeBSharp::merge(NodeBSharp* desdeNodo){		//mueve desde el nodo
 	if (this->numKeys + desdeNodo->numKeys > this->maxKeys-1) return 0;
 	//mueve keys y direcciones desde desdeNodo a aca
 	for(int i = 0; i < desdeNodo->numKeys; i++){
-		this->keys[this->numKeys+i] = desdeNodo->keys[i];
+		strcpy(this->keys[this->numKeys+i], desdeNodo->keys[i]);
 		this->direcciones[this->numKeys+i] = desdeNodo->direcciones[i];
 	}
 	//ajustar numero de keys
@@ -171,9 +172,9 @@ int NodeBSharp::hidratar(char* buffer){
 		memcpy(&this->direcciones[i],&buffer[nextByte],sizeof(int));
 		nextByte+=sizeof(this->direcciones[i]);
 	}
-	for (int j=0;j<this->numKeys;j++){
-			cout<<this->keys[j]<<endl;
-		}
+//	for (int j=0;j<this->numKeys;j++){
+//			cout<<this->keys[j]<<endl;
+//		}
 
 	return 1;
 }
