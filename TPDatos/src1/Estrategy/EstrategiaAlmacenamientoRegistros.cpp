@@ -130,3 +130,6 @@ void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &re
 	delete bufferAux;
 
 }
+void EstrategiaAlmacenamientoRegistros::hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave){
+
+}

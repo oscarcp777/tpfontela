@@ -27,7 +27,8 @@ public:
 	virtual int altaComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void quitarComponente(Almacenamiento* donde, Componente* componente, int pos) = 0;
 	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,std::string clave) = 0;
-    Metadata *getMetadata()
+	virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos, string clavePrimaria, int numEtiquetaClave)=0;
+	Metadata *getMetadata()
     {
         return metadata;
     }

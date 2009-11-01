@@ -241,10 +241,6 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 		bloque->setBuffer(bufferAux);
 		bloque->agregarComponente(componente);
 		bloque->hidratar(BINARIO);
-
-		memset(bufferAux,0,donde->getTamanio());
-		pos += donde->getTamanio();
-
 		//recorro la lista de componentes del bloque para comparar con la clave y
 		//si tiene la clave agrego a la lista que me pasan por parametro
 		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
@@ -275,7 +271,51 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 			i++;
 		}
 		bloque->vaciarListaComponentes();
+		memset(bufferAux,0,donde->getTamanio());
+		pos += donde->getTamanio();
 	}
 	delete bufferAux;
 	delete bloque;
+}
+void EstrategiaAlmacenamientoBloques::hidratarComponente(Almacenamiento* donde, list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,string clavePrimaria, int numEtiquetaClave){
+
+		int resCompare = -1;
+		char* bufferAux = new char [donde->getTamanio()];
+
+		memset(bufferAux,0,donde->getTamanio());
+		bool encontrado = false;
+		Bloque* bloque = new Bloque(donde->getTamanio());
+		donde->leer(bufferAux, pos);
+		bloque->setBuffer(bufferAux);
+		bloque->agregarComponente(componente);
+		bloque->hidratar(BINARIO);
+		//recorro la lista de componentes del bloque para comparar con la clave y
+		//si tiene la clave agrego a la lista que me pasan por parametro
+		std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
+		int i=0;
+		while (i<bloque->getCantidadDeElelmentos() && encontrado==false){
+			resCompare = -1;
+			componente = (Componente*)*iteraRegistros;
+			resCompare = componente->compareTo(clavePrimaria,numEtiquetaClave);
+
+			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
+			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
+			//	cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
+			//			cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
+			//			cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
+			if (resCompare == 0){
+				resultadoDeLABusqueda.push_back(componente);
+				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
+				encontrado = true;
+				bloque->removerComponente(componente);
+				i--;
+				iteraRegistros--;
+			}
+
+			iteraRegistros++;
+			i++;
+		}
+
+		delete bufferAux;
+		delete bloque;
 }
