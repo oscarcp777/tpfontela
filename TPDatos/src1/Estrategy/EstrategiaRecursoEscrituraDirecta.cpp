@@ -48,7 +48,6 @@ void EstrategiaRecursoEscrituraDirecta::buscar(EstrategiaAlmacenamiento* estrate
 			//Si el string claves que me pasan por parametro contiene la clave primaria, busco en el arbol, sino busco secuencialmente
 			almacenamientos.at(1)->abrir();
 			if(tieneClavePrimaria == 0){
-				int numClavePrimaria = almacenamientos.at(1)->getMetadata()->getNumeroEtiqueta(etiquetaClavePrimaria);
 				EstrategiaIndice* estrategiaIndice=indices.at(1);
 				estrategiaIndice->abrir();
 				int pos = estrategiaIndice->buscar((char*)campoclavePrimaria.c_str());

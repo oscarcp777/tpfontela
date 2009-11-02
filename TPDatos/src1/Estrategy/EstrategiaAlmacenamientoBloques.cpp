@@ -238,7 +238,7 @@ int EstrategiaAlmacenamientoBloques::actualizarComponente(Almacenamiento* donde,
 		}
 		else
 			cout<<"el componente a modificar no existe"<<endl;
-	return 0;
+	return pos;
 }
 
 std::string EstrategiaAlmacenamientoBloques::toString(){

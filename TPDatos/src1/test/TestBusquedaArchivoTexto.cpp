@@ -23,7 +23,6 @@ FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacena
 	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
 	 */
 	Alumno* alumno = new Alumno();
-
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("./","archivoTexto");
 

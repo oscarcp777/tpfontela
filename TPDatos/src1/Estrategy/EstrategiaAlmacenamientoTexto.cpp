@@ -83,8 +83,8 @@ int EstrategiaAlmacenamientoTexto::actualizarComponente(Almacenamiento* donde, C
 	componente->serializar(TEXTO);
 	bufferString = componente->getBuffer();
 	cout<<"bufferString "<<bufferString<<endl;
-	donde->guardar(bufferString, -1); //agrego al final
-	return 0;
+	int nuevaPosicion = donde->guardar(bufferString, -1); //agrego al final
+	return nuevaPosicion;
 }
 
 
