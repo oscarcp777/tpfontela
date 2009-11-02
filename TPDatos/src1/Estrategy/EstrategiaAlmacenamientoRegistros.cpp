@@ -57,6 +57,9 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 
 int EstrategiaAlmacenamientoRegistros::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	cout<<"modificar el componente en la posicion: "<<pos<<endl;
+	componente->serializar(BINARIO);
+	donde->agregarComponente(componente);
+	donde->guardar(componente->getBuffer(),pos);
 	return 0;
 }
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){

@@ -94,6 +94,14 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 
 int EstrategiaAlmacenamientoTexto::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
 	cout<<"modificar el componente en la posicion: "<<pos<<endl;
+	string registro = "";
+	donde->leer(registro,pos);
+	donde->getMetadata()->setPosicionLibreEnTexto(pos,(int)registro.length());
+	string bufferString = "";
+	componente->serializar(TEXTO);
+	bufferString = componente->getBuffer();
+	cout<<"bufferString "<<bufferString<<endl;
+	donde->guardar(bufferString, -1); //agrego al final
 	return 0;
 }
 
