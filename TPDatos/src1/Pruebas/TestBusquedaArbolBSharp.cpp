@@ -36,16 +36,16 @@ int main446546(){
 		fabricaDeRecursos->crearRecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_REGISTROS,40,
 				"./","archivoRegistros","Padron",INDEXADO_BSHARP,alumno);
 
-	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689,8,8,8);
-	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440,6,6,7);
-	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534,8,7,4);
-	Alumno* alumno4 = new Alumno(93850169,"Perez",80000,8,7,4);
-	Alumno* alumno5 = new Alumno(93853439,"Daniel Sivori",86524,8,7,4);
-	Alumno* alumno6 = new Alumno(93850130,"Perez",84029,8,7,4);
-	Alumno* alumno7 = new Alumno(31850139,"Garcia",86531,8,7,4);
-	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934,8,7,4);
-	Alumno* alumno9 = new Alumno(10850139,"Garcia",86745,8,7,4);
-	Alumno* alumno10 = new Alumno(23850139,"Diego Maradroga",87890,8,7,4);
+	Alumno* alumno1 = new Alumno(31993745,"Santy Donikian",85689);
+	Alumno* alumno2 = new Alumno(31440400,"Richard Dubini",85440);
+	Alumno* alumno3 = new Alumno(93850139,"Oscar Caceres",86534);
+	Alumno* alumno4 = new Alumno(93850169,"Perez",80000);
+	Alumno* alumno5 = new Alumno(93853439,"Daniel Sivori",86524);
+	Alumno* alumno6 = new Alumno(93850130,"Perez",84029);
+	Alumno* alumno7 = new Alumno(31850139,"Garcia",86531);
+	Alumno* alumno8 = new Alumno(44850139,"Oscar Rigeri",86934);
+	Alumno* alumno9 = new Alumno(10850139,"Garcia",86745);
+	Alumno* alumno10 = new Alumno(23850139,"Diego Maradroga",87890);
 
 
 	recurso->alta(alumno1);

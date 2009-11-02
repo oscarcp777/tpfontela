@@ -20,7 +20,7 @@
 class Pruebas{
 
 public:
-	Pruebas();
+	Pruebas();/*
 	void imprimirOrdenPruebas();
 	int testBusquedaSecuencialBloquesArchivo();
 	int testBusquedaSecuencialBloquesBuffer();
@@ -33,6 +33,6 @@ public:
 	int testGuardarEnBloquesArchivo();
 	int testQuitarComponenteBloquesArchivo();
 	int testQuitarComponenteRegistrosArchivo();
-	void seleccionarTest(int numPrueba);
+	void seleccionarTest(int numPrueba);*/
 };
 #endif /* PRUEBAS_H_ */
