@@ -14,7 +14,7 @@ class EstrategiaAlmacenamientoTexto: public EstrategiaAlmacenamiento {
 public:
 	std::string toString();
 	EstrategiaAlmacenamientoTexto();
-	virtual ~EstrategiaAlmacenamientoTexto();
+	 ~EstrategiaAlmacenamientoTexto();
     void guardar(Almacenamiento* donde);
     std::string generarRegistro(Componente* componente);
     int altaComponente(Almacenamiento* donde, Componente* componente);

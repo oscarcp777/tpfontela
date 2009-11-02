@@ -84,7 +84,6 @@ void EstrategiaRecursoUnAlmacenamiento::buscar(EstrategiaAlmacenamiento* estrate
 		//Si el string claves que me pasan por parametro contiene la clave primaria, busco en el arbol, sino busco secuencialmente
 		almacenamientos.at(0)->abrir();
 		if(tieneClavePrimaria == 0){
-			int numClavePrimaria = almacenamientos.at(0)->getMetadata()->getNumeroEtiqueta(etiquetaClavePrimaria);
 			EstrategiaIndice* estrategiaIndice=indices.at(0);
 			estrategiaIndice->abrir();
 			int pos = estrategiaIndice->buscar((char*)campoclavePrimaria.c_str());

@@ -48,6 +48,6 @@ void TestBusquedaArchivoRegistros::ejecutarTest(){
 			}
 			recurso->cerrar();
 			delete alumno;
-			delete recurso;
+		   delete recurso;
 			delete fabricaDeRecursos;
 }
