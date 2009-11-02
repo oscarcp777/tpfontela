@@ -1,38 +1,108 @@
-////============================================================================
-//// Name        : TPDatos.cpp
-//// Author      : richy
-//// Version     :
-//// Copyright   : Your copyright notice
-//// Description : Hello World in C++, Ansi-style
-////============================================================================
-//
-//#include <iostream>
-//#include "Object/Object.h"
-//#include "utils/Define.h"
-//#include "Composite/Componente.h"
-//#include "Factory/FabricaDeRecursosDeAlmacenamiento.h"
-//#include "Almacenamiento/RecursoDeAlmacenamiento.h"
-//using namespace std;
-//
-//int main() {
-//	/**
-//	 * obtengo la instancia de la fabrica para que inicilize una sola vez el mapa de objetos
-//	 */
-//	FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
-//	/**
-//	 * le paso los parametros de los objetos con los los que quiero que me construya el recurso de almacenamiento
-//	 * que son constantes que las defini en el Define.h (me parecio que quedaba mejor que un enum)
-//	 */
-//	RecursoDeAlmacenamiento* recurso=
-//			fabricaDeRecursos->RecursoDeAlmacenamientoEnArchivo(ESTRATEGIA_ALMACENAMIENTO_TEXTO,ARCHIVO,new Componente(100));
-//
-//	/**
-//	 * el metodo toString lo implementan todos los que hereden de object entonces
-//	 * llamando el toString llama a todos los tostring de los objetos que componen el tostring asi veo si cargo bien
-//	 * la fabrica
-//	 */
-//	cout << "VEO QUE CARGO LA FABRICA DE RECURSOS :" <<recurso->toString()<< endl;
-//	cout << "!!!NOS VAN A ROMPER EL ORTO EN DATOS LALALA!!!" << endl; // prints !!!Hello World!!!
-//	delete recurso;
-//	return 0;
-//}
+/*
+ * main.cpp
+ *
+ *  Created on: 29/10/2009
+ *      Author: richy
+ */
+#include "Pruebas/Pruebas.h"
+#include "test/AbstractTest.h"
+#include "test/TestGuardarComoArchivoRegistros.h"
+#include "test/TestGuardarComoArchivoTexto.h"
+#include "test/TestGuardarComoArchivoBloques.h"
+#include "test/TestBusquedaArchivoTexto.h"
+#include "test/TestBusquedaArchivoRegistros.h"
+#include "test/TestBusquedaArchivoBloques.h"
+#include "test/TestRegistrosEnBuffer.h"
+#include "test/TestBloquesEnBuffer.h"
+#include "test/TestTextoEnBuffer.h"
+#include "test/TestEliminarComponenteArchivoTexto.h"
+#include "test/TestEliminarComponenteArchivoRegistros.h"
+#include "test/TestEliminarComponenteArchivoBloques.h"
+using namespace std;
+
+void imprimirOrdenPruebas(){
+	cout<<"1: Guardar un archivo con registros fijos"<<endl;
+	cout<<"2: Guardar un archivo de texto"<<endl;
+	cout<<"3: Guardar un archivo de bloques con registros variables"<<endl;
+	cout<<"4: Busqueda en archivo de texto"<<endl;
+	cout<<"5: Busqueda en archivo con registros fijos"<<endl;
+	cout<<"6: Busqueda en archivo de bloques con registros variables"<<endl;
+	cout<<"7: Busqueda de registros fijos en Buffer"<<endl;
+	cout<<"8: Busqueda de bloques con registros variables en Buffer"<<endl;
+	cout<<"9: Busqueda Texto Buffer"<<endl;
+	cout<<"10: Eliminar Componente de archivo de texto"<<endl;
+	cout<<"11: Eliminar Componente  de archivo con registros fijos"<<endl;
+	cout<<"12: Eliminar Componente  de archivo de bloques con registros variables"<<endl;
+}
+
+AbstractTest* seleccionarTest(int numPrueba){
+
+	switch(numPrueba){
+
+	case 1:
+		return new TestGuardarComoArchivoRegistros();
+		break;
+
+	case 2:
+		return new TestGuardarComoArchivoTexto();
+		break;
+
+	case 3:
+		return new TestGuardarComoArchivoBloques();
+		break;
+
+	case 4:
+		return new TestBusquedaArchivoTexto();
+		break;
+
+	case 5:
+		return new TestBusquedaArchivoRegistros();
+		break;
+
+	case 6:
+		return new TestBusquedaArchivoBloques();
+		break;
+
+	case 7:
+		return new TestRegistrosEnBuffer();
+		break;
+
+	case 8:
+		return  new TestBloquesEnBuffer();
+		break;
+
+	case 9:
+		return new TestTextoEnBuffer();
+		break;
+
+	case 10:
+		return new TestEliminarComponenteArchivoTexto();
+		break;
+
+	case 11:
+		return new TestEliminarComponenteArchivoRegistros();
+		break;
+
+	case 12:
+		return new TestEliminarComponenteArchivoBloques();
+		break;
+
+	default :
+		cout<<"NUMERO DE PRUEBA INVALIDO"<<endl;
+		return NULL;
+
+	}
+}
+
+
+int main(){
+
+	int numPrueba;
+	cout<<"Ingrese el numero de la prueba seleccionada:"<<endl;
+	imprimirOrdenPruebas();
+	cin>>numPrueba;
+	AbstractTest* test=seleccionarTest(numPrueba);
+	test->ejecutarTest();
+	return 0;
+
+}

@@ -15,7 +15,7 @@
 
 class Alumno : public Registro  {
 public:
-	Alumno(double dni, std::string nombre, int padron,int n1,int n2, int n3);
+	Alumno(double dni, std::string nombre, int padron);
 	Alumno();
 	virtual ~Alumno();
 	int getPadron();
