@@ -20,6 +20,7 @@ public:
 	virtual int crear(char* nombre, char* ruta) =0;
 	virtual int cerrar() =0;
 	virtual int insertar(char* key, int dir) =0;
+	virtual int modificar(char* key, int dir) =0;
 	virtual int remover(char* key, int dir=-1) =0;
 	virtual int buscar(char* key, int dir=-1) =0;
 

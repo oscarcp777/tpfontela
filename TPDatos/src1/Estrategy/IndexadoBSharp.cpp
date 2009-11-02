@@ -190,11 +190,18 @@ int IndexadoBSharp::insertar(char* key, int dir){
 	return 1;
 }
 
+int IndexadoBSharp::modificar(char* key, int dir){
+	NodeBSharp* nodoActual;
+	nodoActual = this->buscarHoja(key);
+	nodoActual->modificarDireccion(key,dir);
 
+	return 1;
+}
 
 
 int IndexadoBSharp::remover(char* key, int dir){
-		return 1;
+	this->modificar(key,-1);
+	return 1;
 }
 
 int IndexadoBSharp::buscar(char* key, int dir){
