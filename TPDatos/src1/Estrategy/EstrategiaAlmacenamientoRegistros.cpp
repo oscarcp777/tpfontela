@@ -55,7 +55,10 @@ void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, 
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
 
-
+int EstrategiaAlmacenamientoRegistros::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
+	cout<<"modificar el componente en la posicion: "<<pos<<endl;
+	return 0;
+}
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 
 	int pos = 0;

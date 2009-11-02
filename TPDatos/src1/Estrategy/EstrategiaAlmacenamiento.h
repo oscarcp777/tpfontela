@@ -25,6 +25,7 @@ public:
 	std::string toString();
 	virtual int altaComponente(Almacenamiento* donde, Componente* componente) = 0;
 	virtual void quitarComponente(Almacenamiento* donde, Componente* componente, int pos) = 0;
+	virtual int actualizarComponente(Almacenamiento* donde, Componente* componente, int pos) = 0;
 	virtual void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos) = 0;
 virtual void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos)=0;
 };

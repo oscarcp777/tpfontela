@@ -85,6 +85,7 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	EstrategiaAlmacenamiento* estrategiaAlmac=( EstrategiaAlmacenamiento* )this->getFabrica(estrategiaAlmacenamiento)->fabricar();
 	Almacenamiento* buffer=(Almacenamiento*)this->getFabrica(BUFFER)->fabricar();
 	Metadata* metadata=new Metadata();
+	metadata->setIsArchivo(false);
 	buffer->setTamanio(tamanio);
 	buffer->setClavePrimaria(clavePrimaria);
 	metadata->setPosicionLibreRegistro(-1);
@@ -129,6 +130,14 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::crearRecursoDeAlmace
 	metadata->hidratarMetadata();
 	metadata->cerrar();
 	archivo->setMetadata(metadata);
+	Metadata* metadataBuffer=new Metadata();
+	metadataBuffer->setPosicionLibreRegistro(-1);
+	metadataBuffer->setIsArchivo(false);
+	metadataBuffer->setPrimerRegistro(metadata->getPrimerRegistro());
+	metadataBuffer->setSegundoRegistro(metadata->getSegundoRegistro());
+	metadataBuffer->setTercerRegistro(metadata->getTercerRegistro());
+	metadataBuffer->hidratarMetadata();
+	buffer->setMetadata(metadataBuffer);
 	EstrategiaRecursoEscrituraDirecta* unAlmacenamiento=new EstrategiaRecursoEscrituraDirecta();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
 	string nomAux = nombreArchivo + INDICE_PRIMARIO;
@@ -189,6 +198,14 @@ RecursoDeAlmacenamiento* FabricaDeRecursosDeAlmacenamiento::abrirRecursoDeAlmace
 	archivo->setRuta(ruta);
 	archivo->setNombreArchivo(nombreArchivo);
 	archivo->setClavePrimaria(clavePrimaria);
+	Metadata* metadataBuffer=new Metadata();
+	metadataBuffer->setPosicionLibreRegistro(-1);
+	metadataBuffer->setIsArchivo(false);
+	metadataBuffer->setPrimerRegistro(metadata->getPrimerRegistro());
+	metadataBuffer->setSegundoRegistro(metadata->getSegundoRegistro());
+	metadataBuffer->setTercerRegistro(metadata->getTercerRegistro());
+	metadataBuffer->hidratarMetadata();
+	buffer->setMetadata(metadataBuffer);
 	EstrategiaRecursoUnAlmacenamiento* unAlmacenamiento=new EstrategiaRecursoUnAlmacenamiento();
 	EstrategiaIndice* estrategiaIndice=(EstrategiaIndice*)this->getFabrica(tipoIndexacion)->fabricar();
 	string nomAux = nombreArchivo + INDICE_PRIMARIO;

@@ -17,6 +17,7 @@ public:
 	virtual ~EstrategiaAlmacenamientoRegistros();
     int altaComponente(Almacenamiento* donde, Componente* componente);
     void quitarComponente(Almacenamiento* donde, Componente* componente, int pos);
+    int actualizarComponente(Almacenamiento* donde, Componente* componente, int pos);
     void busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos);
     void hidratarComponente(Almacenamiento* donde,list<Componente*> &resultadoDeLABusqueda,Componente* componente,int pos,vector<string> vecCampos, vector<int> vecEtiquetasCampos);
 };

@@ -92,7 +92,10 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
 
-
+int EstrategiaAlmacenamientoTexto::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
+	cout<<"modificar el componente en la posicion: "<<pos<<endl;
+	return 0;
+}
 
 
 std::string EstrategiaAlmacenamientoTexto::toString(){
