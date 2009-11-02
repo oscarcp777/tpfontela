@@ -23,7 +23,7 @@ public:
 	Archivo();
 	std::string toString();
 	std::string getClass();
-	virtual ~Archivo();
+    ~Archivo();
 
 	void abrir();
 	void cerrar();

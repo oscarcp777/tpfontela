@@ -21,16 +21,16 @@ void Compuesto::removerComponente(Componente* componente){
 	this->listaDeComponetes.remove(componente);
 }
 Compuesto::~Compuesto() {
-	int i=0;
-	std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();
-			Componente* componente;
-
-			while(i<this->getCantidadDeElelmentos()){
-				componente = (Componente*)*iter;
-				delete componente;
-				iter++;
-				i++;
-			}
+//	int i=0;
+//	std::list<Componente*>::iterator iter = this->listaDeComponetes.begin();
+//			Componente* componente;
+//			cout<<"borro Compuesto"<<endl;
+//			while(i<this->getCantidadDeElelmentos()){
+//				componente = (Componente*)*iter;
+//				delete componente;
+//				iter++;
+//				i++;
+//			}
 }
 int Compuesto::getCantidadDeElelmentos(){
 	return this->listaDeComponetes.size();

@@ -31,17 +31,23 @@ RecursoDeAlmacenamiento::RecursoDeAlmacenamiento(){
 RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 
 	vector<Almacenamiento*>::iterator the_iterator;
+	vector<EstrategiaIndice*>::iterator the_iterator2;
 	the_iterator =  this->almacenamientos.begin();
+	the_iterator2=this->estrategiaIndices.begin();
+	Almacenamiento* alma;
+	EstrategiaIndice* indice;
 	while( the_iterator != this->almacenamientos.end() ) {
-		delete *the_iterator;
+		alma=*the_iterator;
+		delete alma;
 		++the_iterator;
 	}
 
 	delete this->estrategiaAlmacenamiento ;
 	delete this->estrategiaRecurso ;
-	vector<EstrategiaIndice*>::iterator the_iterator2;
+
 	while( the_iterator2 != this->estrategiaIndices.end() ) {
-		delete *the_iterator2;
+		indice=*the_iterator2;
+		delete indice;
 		++the_iterator2;
 	}
 }
