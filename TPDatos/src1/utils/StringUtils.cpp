@@ -81,7 +81,7 @@ int StringUtils::contadorTag(std::string cadena){
 
 
     }
-// 	std::cout<<cadenaSinEspacios<< endl;
+
 
 	return cont;
 }
@@ -105,7 +105,7 @@ string StringUtils::trimPorTag(std::string cadena){
 
 
     }
-// 	std::cout<<cadenaSinEspacios<< endl;
+
 
 	return cadenaSinEspacios;
 }
@@ -117,10 +117,6 @@ string caracter;
 	while ( It != cadena.end() ){
 
 		caracter = *It;
-		/*
-		std::cout<<"***********************caracter "<<caracter<<"*************"<<endl;
-		std::cout<<"***********************COMPARE "<<caracter.compare("\t")<<endl;
-		system("PAUSE");*/
 
 		if(caracter.compare(" ") == 0){
 			//si el caracter es un espacio leo el siguiente
@@ -134,9 +130,6 @@ string caracter;
 				caracter = *It;
 				}
 				cadenaSinEspacios+=*It;
-				//std::cout<<"despues del while"<<endl;
-				//std::cout<<"caracter "<<*It<<endl;
-				//system("PAUSE");
 				It++;
 
 			}
@@ -145,9 +138,6 @@ string caracter;
 				It--;
 				//si no era otro espacio copio el caracter
 				cadenaSinEspacios+=*It;
-				//std::cout<<"1er else"<<endl;
-				//std::cout<<"caracter "<<*It<<endl;
-				//system("PAUSE");
 				It++;
 				}
 
@@ -169,9 +159,6 @@ string caracter;
 				caracter = *It;
 				}
 				cadenaSinEspacios+=*It;
-				//std::cout<<"despues del while"<<endl;
-				//std::cout<<"caracter "<<*It<<endl;
-				//system("PAUSE");
 				It++;
 			}
 		}
@@ -179,13 +166,8 @@ string caracter;
 		else{
 			//si no es un espacio ni tab ni enter directamente se la asigno a la cadena
 			cadenaSinEspacios+=*It;
-			//std::cout<<"2do else"<<endl;
-			//std::cout<<"caracter "<<*It<<endl;
-			//system("PAUSE");
 			It++;
 		}
-	//std::cout<<"CADENA TEMPORAL: "<<endl;
-	//std::cout<<cadenaSinEspacios<<endl;
 
     }
 

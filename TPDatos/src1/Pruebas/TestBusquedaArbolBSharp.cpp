@@ -59,17 +59,14 @@ int main446546(){
 	recurso->alta(alumno9);
 	recurso->alta(alumno10);
 
-	cout<<"ESTA ACAAA"<<endl;
 	std::list<Componente*> listaAlumnos;
 	int encontro = recurso->buscar(listaAlumnos,alumno5,"");
 	if (encontro == 0)
-		cout<<"MUY GROSSSOOO.."<<endl;
+		cout<<"Busqueda Correcta"<<endl;
 	else
 		cout<<"encontro: "<<encontro<<endl;
 
 
-	//cout << endl;
-	//cout << "Archivo guardado" << endl;
 	delete alumno;
 	delete alumno1;
 	delete alumno2;

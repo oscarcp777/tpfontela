@@ -72,7 +72,6 @@ int Buffer::guardar(std::string registro, int pos){
 		this->cantLineas++;
 
 	}
-	//cout<<"this->datos desdpues de escribir el registro "<<this->datos<<endl;
 	return dir;
 }
 
@@ -112,8 +111,6 @@ void Buffer::leer(std::string& datos, int pos){
 		std::string caracter = "\n";
 		std::string vacio = "";
 		int posBarraN = aux.find_first_of(caracter.c_str(),this->posicionActual+1);
-		//	std::cout<<"pos actual: "<< this->posicionActual<<std::endl;
-		//	std::cout<<"posBarraN: "<< posBarraN<<std::endl;
 
 		aux2 = aux.substr(this->posicionActual,posBarraN-this->posicionActual);
 		this->posicionActual+= aux2.length()+1;

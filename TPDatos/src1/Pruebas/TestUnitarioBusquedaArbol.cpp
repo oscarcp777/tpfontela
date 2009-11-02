@@ -21,7 +21,7 @@ int main111(){
     char* pchar=valor;
 	int resultado = bt.buscar(pchar);
 	if(resultado == 4)
-		cout<<"BUSQUEDA PERFECTA CAPO!!"<<endl;
+		cout<<"BUSQUEDA CORRECTA"<<endl;
 	else
 		cout<<"El resultado dio: "<<resultado<<endl;
 	bt.cerrar();

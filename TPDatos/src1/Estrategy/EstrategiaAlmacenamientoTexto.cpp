@@ -48,26 +48,15 @@ int EstrategiaAlmacenamientoTexto::altaComponente(Almacenamiento* donde, Compone
 	donde->agregarComponente(componente);
 	string bufferString = "";
 	bufferString = componente->getBuffer();
-	//cout<<"bufferString: "<<bufferString<<endl;
 	cantCaracteresRegistro = bufferString.length();
 	donde->getMetadata()->getPosicionLibreEnTexto(cantCaracteresRegistro ,vecPosiciones);
 	int posicionAEscribir = vecPosiciones.at(0);
 	tamanioLibre = vecPosiciones.at(1);
-	//cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
-	//cout<<"posicionAEscribir: "<<posicionAEscribir<<endl;
-	//cout<<"tamanioLibre: "<<tamanioLibre<<endl;
 	if(posicionAEscribir != -1){
 		while((int)bufferString.length() < tamanioLibre){
 			bufferString+=" ";
 		}
 	}
-	 if(DEBUG == 0){
-		 if(posicionAEscribir == -1)
-			 cout<<"registro "<<bufferString<<" guardado en la ultima posicion "<<endl;
-		 else
-			 cout<<"registro "<<bufferString<<" guardado en la pos "<<posicionAEscribir<<endl;
-
-	 }
 	posicionAEscribir = donde->guardar(bufferString, posicionAEscribir); //si pos=-1 guarda al final, sino se para en la linea pos y escribe
 	return posicionAEscribir;
 }
@@ -77,17 +66,10 @@ void EstrategiaAlmacenamientoTexto::quitarComponente(Almacenamiento* donde, Comp
 	//se escribe en esta posicion)
 //	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
 	string clave = componente->getClave();
-	//cout<<"donde->getMetadata()->getClavePrimaria() "<<donde->getMetadata()->getClavePrimaria()<<endl;
-	//cout<<"numEtiquta "<<numEtiquta<<endl;
-	//cout<<"componente->getClave() "<<componente->getClave()<<endl;
 	string registro = "";
 	donde->leer(registro,pos);
-	//cout<<"pos "<<pos<<endl;
-	//cout<<"registro leido en pos: "<<registro<<endl;
 	componente->hidratar(registro);
-	if(DEBUG == 0)
-		cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
-	//cout<<"registro.length() "<<registro.length()<<endl;
+	cout<<"registro borrardo: "<<registro<< " de la pos "<<pos<<endl;
 	donde->getMetadata()->setPosicionLibreEnTexto(pos,(int)registro.length());
 	//TODO actualizar indice..... o actualizar cuando hago IndiceBuscarComponente(clave)
 }
@@ -138,7 +120,7 @@ void EstrategiaAlmacenamientoTexto::busquedaSecuencial(list<Componente*> &result
 				resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
 		}
 
-		//cout<<"resCompare: "<<resCompare<<endl;
+
 		if (resCompare == 0){
 			resultadoDeLABusqueda.push_back(componente);
 			componente = componente->obtenerNuevaInstancia();
@@ -162,7 +144,6 @@ void EstrategiaAlmacenamientoTexto::hidratarComponente(Almacenamiento* donde,lis
 			resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
 	}
 
-	//cout<<"resCompare: "<<resCompare<<endl;
 	if (resCompare == 0){
 		resultadoDeLABusqueda.push_back(componente);
 	}

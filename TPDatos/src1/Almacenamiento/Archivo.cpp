@@ -25,7 +25,6 @@ void Archivo::crear(){
 		}else{
 				/* limpia los flags de control de estado del archivo */
 			    this->archivo.clear();
-			    cout<<"Path: "<<this->getPath().c_str()<<endl;
 			    /* crea el archivo */
 			    this->archivo.open(this->getPath().c_str(),ios::out | ios::binary);
 			    if (! this->archivo.is_open())
@@ -269,9 +268,6 @@ void Archivo::posicionarse(long int posicion,int tamanioRegistro) {
 int Archivo::leerRegistroVariable(string& registro,int posicion){
 	int tamanioRegistro=0;
 	this->leer((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
-//	std::cout<<"tamanioRegistro: " << tamanioRegistro <<endl;
-//	std::cout<<"sizeof(tamanioRegistro): " << sizeof(tamanioRegistro) <<endl;
-//	std::cout<<"posicion1: " << this->archivo.tellg() <<endl;
 	char* buffer = new char[tamanioRegistro];
 	memset(buffer,0,tamanioRegistro);
 	this->leer(buffer,-1,tamanioRegistro);

@@ -160,9 +160,6 @@ int NodeBSharp::serializar(char* buffer){
 		nextByte+=sizeof(this->direcciones[i]);
 	}
 
-//	for (int i = 0; i< nextByte;i++){
-//		cout<<"Buffer["<<i<<"]: "<<buffer[i];
-//	}
 	return 1;
 }
 
@@ -180,9 +177,6 @@ int NodeBSharp::hidratar(char* buffer){
 		memcpy(&this->direcciones[i],&buffer[nextByte],sizeof(int));
 		nextByte+=sizeof(this->direcciones[i]);
 	}
-//	for (int j=0;j<this->numKeys;j++){
-//			cout<<this->keys[j]<<endl;
-//		}
 
 	return 1;
 }
