@@ -36,7 +36,7 @@ int EstrategiaAlmacenamientoRegistros::altaComponente(Almacenamiento* donde, Com
 }
 
 void EstrategiaAlmacenamientoRegistros::quitarComponente(Almacenamiento* donde, Componente* componente, int pos){
-	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
+
 	string clave = componente->getClave();
 
 	//guardo en metadata la posicion del componente a borrar (luego en el alta de un nuevo componente
@@ -51,7 +51,7 @@ int EstrategiaAlmacenamientoRegistros::actualizarComponente(Almacenamiento* dond
 	componente->serializar(BINARIO);
 	donde->agregarComponente(componente);
 	donde->guardar(componente->getBuffer(),pos);
-	return 0;
+	return pos;
 }
 void EstrategiaAlmacenamientoRegistros::busquedaSecuencial(list<Componente*> &resultadoDeLABusqueda, Componente* componente, Almacenamiento* donde,vector<string> vecCampos, vector<int> vecEtiquetasCampos){
 

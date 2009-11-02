@@ -18,6 +18,9 @@
 #include "test/TestEliminarComponenteArchivoTexto.h"
 #include "test/TestEliminarComponenteArchivoRegistros.h"
 #include "test/TestEliminarComponenteArchivoBloques.h"
+#include "test/TestActualizarRegistroArchivoBloques.h"
+#include "test/TestActualizarRegistroArchivoTexto.h"
+#include "test/TestActualizarRegistroArchivoRegistros.h"
 using namespace std;
 
 void imprimirOrdenPruebas(){
@@ -33,6 +36,9 @@ void imprimirOrdenPruebas(){
 	cout<<"10: Eliminar Componente de archivo de texto"<<endl;
 	cout<<"11: Eliminar Componente  de archivo con registros fijos"<<endl;
 	cout<<"12: Eliminar Componente  de archivo de bloques con registros variables"<<endl;
+	cout<<"13: Modificar Componente  de archivo de bloques con registros variables"<<endl;
+	cout<<"14: Modificar Componente  de archivo de texto"<<endl;
+	cout<<"15: Modificar Componente  de archivo de registros"<<endl;
 }
 
 AbstractTest* seleccionarTest(int numPrueba){
@@ -86,7 +92,15 @@ AbstractTest* seleccionarTest(int numPrueba){
 	case 12:
 		return new TestEliminarComponenteArchivoBloques();
 		break;
-
+	case 13:
+			return new TestActualizarRegistroArchivoBloques();
+			break;
+	case 14:
+			return new TestActualizarRegistroArchivoTexto();
+			break;
+	case 15:
+			return new TestActualizarRegistroArchivoRegistros();
+			break;
 	default :
 		cout<<"NUMERO DE PRUEBA INVALIDO"<<endl;
 		return NULL;

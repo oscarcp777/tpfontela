@@ -18,8 +18,7 @@ TestBusquedaArchivoBloques::~TestBusquedaArchivoBloques() {
 void TestBusquedaArchivoBloques::ejecutarTest(){
 FabricaDeRecursosDeAlmacenamiento* fabricaDeRecursos=FabricaDeRecursosDeAlmacenamiento::obtenerInstancia();
 
-//		Alumno* alumno = new Alumno();
-//	Alumno* alumno = new Alumno(31440400,"Dubini",85440,6,6,7);
+
 	Alumno* alumno = new Alumno(93853439,"Daniel Sivori",86524);
 	RecursoDeAlmacenamiento* recurso=
 			fabricaDeRecursos->abrirRecursoDeAlmacenamientoEnArchivo("./","archivoBloques");
