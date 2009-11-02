@@ -21,12 +21,11 @@ Registro::~Registro() {
 }
 
 void Registro::serializar(string tipo){
-	//this->setClave(this->getClaveObjeto());
 	if (tipo.compare(BINARIO)==0)
 		this->serializarBinario();
 	if (tipo.compare(TEXTO) == 0)
 		this->serializarTexto();
-	//std::cout<< "Clave: " << this->clave <<std::endl;
+
 }
 
 void Registro::hidratar(string tipo){
@@ -43,20 +42,10 @@ string Registro::getClave(){
 int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 	this->estiquetas.push_back(etiqueta);
 	short len;
-	//cout<<"Tamanio: "<<tamanio<<endl;
-	//cout<<"Delimitador: "<<delim<<endl;
 	if (tamanio >= 0) len = tamanio;
 	else len = strlen((char*)campo);
 
-//	short aux = (short)strlen((char*)campo);
-//	cout<<"Len: "<<len<<endl;
-//	cout<<"Aux: "<<aux<<endl;
-//	if (len > (short)strlen((char*)campo)){
-//		cout<<"Campo muy chico!!"<<endl;
-//		return -1;
-//	}
 	if (len > this->getTamanio()){
-		//cout <<  "El registro no entra en la estructura establecida" << endl;
 		return -1;
 	}
 	int start = this->nextByte;
@@ -74,7 +63,6 @@ int Registro::setAtributo(std::string etiqueta,const void* campo, int tamanio){
 int Registro::getAtributo(void* campo, int tamanio){
 
 	int len = -1;
-	//cout<<"nextByte EN Registro::getAtributo: "<<this->nextByte<<endl;
 	int start = this->nextByte;
 	for (int i = start; i < this->tamanioBuffer; i++){
 		if (this->buffer[i] == Define::DELIMITADOR1){

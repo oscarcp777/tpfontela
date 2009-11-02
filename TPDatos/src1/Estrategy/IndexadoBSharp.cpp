@@ -132,7 +132,6 @@ int IndexadoBSharp::insertar(char* key, int dir){
 	char* claveAnterior, *claveMayor;
 	NodeBSharp* nodoActual, *nuevoNodo, * nodoPadre;
 	nodoActual = this->buscarHoja(key);
-	//cout<<"clave mayor nodo: "<< nodoActual->claveMayor()<<endl;
 	//if(key > nodoActual->claveMayor())
 	if (nodoActual->getNumKeys()!=0)
 		if(strcmp(key,nodoActual->claveMayor())>0)
@@ -195,7 +194,7 @@ int IndexadoBSharp::insertar(char* key, int dir){
 
 
 int IndexadoBSharp::remover(char* key, int dir){
-	return 1;
+		return 1;
 }
 
 int IndexadoBSharp::buscar(char* key, int dir){
@@ -208,7 +207,6 @@ int IndexadoBSharp::buscar(char* key, int dir){
 void IndexadoBSharp::imprimir(ostream & stream){
 
 	stream <<"Arbol B de profundidad " <<this->profundidad<<" es "<<endl;
-	cout<<"Dir Raiz: "<<this->raiz.getDir()<<endl;
 	this->raiz.imprimir(stream);
 	if (this->profundidad >1)
 		for(int i = 0; i<this->raiz.getNumKeys();i++){

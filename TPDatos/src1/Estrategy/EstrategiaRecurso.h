@@ -26,7 +26,7 @@ public:
 			vector<EstrategiaIndice*> indices,
 			string claves)=0;
 	virtual int actualizarComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices)=0;
-	virtual void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave) =0;
+
 };
 
 #endif /* ESTRATEGIARECURSO_H_ */

@@ -34,13 +34,10 @@ void Bloque::serializar(string tipo){
 
 
 	//ir al ultimo registro agregado
-	//cout<<"this->getCantidadDeElelmentos() "<<this->getCantidadDeElelmentos()<<endl;
 	memset(this->getBuffer(),0,this->getTamanio());
-	cout<<"getCantidadDeElelmentos(): "<<getCantidadDeElelmentos()<<endl;
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
 
-		//cout<<"componente->getBuffer() : "<<componente->getBuffer()<<endl;
 		len = componente->getTamanioBuffer();
 
 		int start = this->nextByte;
@@ -52,20 +49,13 @@ void Bloque::serializar(string tipo){
 		//copio el buffer del registro en el bloque
 		start = this->nextByte;
 		this->nextByte += len+1 ;
-		//cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
-		//cout<< "Empieza a grabar el registro en: "<<start<<endl;
-		cout<<"componente clave: "<<componente->getClave()<<endl;
 		memcpy(&this->buffer[start],componente->getBuffer(),len);
 		//this->buffer[start + len] = Define::DELIMITADOR1;
 
 		iteraRegistros++;
 		i++;
 	}
-//
-//	this->tamanioBuffer = this->nextByte;
-//	cout<<"El buffer contiene: ";
-//	for (int i = 0; i < this->tamanioBuffer; i++)
-//		cout<<this->buffer[i];
+
 
 }
 
@@ -99,15 +89,9 @@ void Bloque::hidratar(string tipo){
 			}
 		}
 		if(encontroDelimitador){
-			//cout<<"Encontro delimitador en posicion: "<< len+start<<endl;
-			//cout<<"Agrego "<<j<<" registro a la lista del bloque"<<endl;
 			this->nextByte += len +1;
-			//cout<<"start "<<start<<endl;
-			//cout<<"len "<<len<<endl;
 			memcpy(&tamanioRegistro,&this->buffer[start],len);
 			buffer = new char[tamanioRegistro];
-			//cout<<"Tamaño registro "<<tamanioRegistro<<endl;
-			//cout<<"Next byte 1:  "<<nextByte<<endl;
 			start = this->nextByte;
 			componente = componente->obtenerNuevaInstancia();
 			componente->setTamanio(tamanioRegistro);

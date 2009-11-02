@@ -35,10 +35,10 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 			vecPosiciones.clear();
 
 			componente->serializar(BINARIO);	//genera el buffer (registro) en binario
-			//cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
+
 
 			for( int j=0 ; j< donde->getTamanio(); j++){
-				//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
+
 				if (componente->getBuffer()[j] == Define::DELIMITADOR1){
 					cantCaracteresRegistro = j;
 				}
@@ -46,44 +46,35 @@ int EstrategiaAlmacenamientoBloques::altaComponente(Almacenamiento* donde, Compo
 			}
 			cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
 			cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
-			//cout<<"cantCaracteresRegistro: "<<cantCaracteresRegistro<<endl;
+
 			donde->getMetadata()->getPosicionBloque(cantCaracteresRegistro ,vecPosiciones);
 			int posicionBloque = vecPosiciones.at(0);
 
-			//int posicionAPartirDeDondeEscribo = vecPosiciones.at(1);
-			//cout<<"posicionInicioBloque: "<<posicionBloque<<endl;
-			//cout<<"posicionEnElBloqueAPartirDeDondeEscribo: "<<posicionAPartirDeDondeEscribo<<endl;
 
 		    if ( posicionBloque >= 0){
 		    	//si pos es >= 0 el registro entra en algun bloque existente
 				//lee el archivo desde la pos especificada y guarda en el bloque
 				//el buffer leido
-		    	//cout<<"entro aL if (o sea guarda en un bloque existente)"<<endl;
+
 				donde->leer(bufferAux,posicionBloque);
 
 				bloque->setBuffer(bufferAux);
 				bloque->agregarComponente(componente);
 				bloque->hidratar(BINARIO);
 				bloque->agregarComponente(componente);
-				//cout<<"bloque->getBuffer()"<<bloque->getBuffer()<<endl;
+
 			}else
 				bloque->agregarComponente(componente);
 		    //si no entro al if es porque pos = -1 y tengo que guardar en un nuevo bloque
 		    	//agrego registro a lista del bloque
 
-		    	//cout<<"Cantidad elementos lista: "<<bloque->getCantidadDeElelmentos()<<endl;
+
 		    	//agrego al buffer del bloque dicho registro anteponiendo su tamanio
 		    	bloque->serializar();
 		    	//agrego bloque a lista de componentes
 		    	donde->agregarComponente(bloque);
 
 	    	 	//guardo en almacenamiento el ultimo bloque agregado
-		    	if(DEBUG == 0){
-		    		if(posicionBloque == -1)
-		    			cout<<"registro guardado en nuevo bloque "<<"tamanio "<<bloque->getTamanio()<<endl;
-		    		else
-		    			cout<<"registro guardado en el bloque "<<posicionBloque<<"tamanio "<<bloque->getTamanio()<<endl;
-		    	}
 		    	posicionBloque = donde->guardar(bloque->getBuffer(),posicionBloque);
 
 		    	//falta guardar en un archivo el bloque con un id y su espacio libre
@@ -128,8 +119,6 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
 
 				for( int x=0 ; x< donde->getTamanio(); x++){
-					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
-					//cout<<"componente->getBuffer()[j]: "<<componente->getBuffer()[j]<<endl;
 					if (componente->getBuffer()[x] == Define::DELIMITADOR1){
 						cantCaracteresRegistro = x;
 					}
@@ -137,9 +126,6 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 				}
 				cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
 				cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
-				//cout<<"cantCaracteresRegistro reg a borrar: "<<cantCaracteresRegistro<<endl;
-				//cout<<"Se borra el componente con nombre: "<<((Alumno*)componente)->getNombre()<<endl;
-				//cout<<"pos bloque a actualizar tamaño libre "<<pos<<endl;
 				donde->getMetadata()->actualizarMapaAtributosVariables(pos,cantCaracteresRegistro);
 				bloque->removerComponente(componente);
 				borrado = true;
@@ -158,8 +144,7 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 			donde->agregarComponente(bloque);
 			//guardo en almacenamiento el ultimo bloque agregado
 			donde->guardar(bloque->getBuffer(),pos);
-			if(DEBUG == 0)
-					cout<<"registro borrardo del bloque "<<pos<<"tamanio "<<bloque->getTamanio()<<endl;
+
 		}
 
 		delete bloque;
@@ -173,7 +158,6 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 }
 
 int EstrategiaAlmacenamientoBloques::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
-	cout<<"modificar el componente en la posicion: "<<pos<<endl;
 
 	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
 		string clave = componente->getClave();

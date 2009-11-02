@@ -31,7 +31,3 @@ int EstrategiaRecursoEscrituraDiferida::actualizarComponente(vector<Almacenamien
 
 	return 0;
 }
-void EstrategiaRecursoEscrituraDiferida::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
-
-
-}
