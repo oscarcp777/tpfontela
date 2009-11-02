@@ -194,6 +194,7 @@ int IndexadoBSharp::modificar(char* key, int dir){
 	NodeBSharp* nodoActual;
 	nodoActual = this->buscarHoja(key);
 	nodoActual->modificarDireccion(key,dir);
+	this->escribirNodo(nodoActual);
 
 	return 1;
 }
