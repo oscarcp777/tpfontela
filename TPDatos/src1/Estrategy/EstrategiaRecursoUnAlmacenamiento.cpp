@@ -31,6 +31,17 @@ int EstrategiaRecursoUnAlmacenamiento::bajaComponente(vector<Almacenamiento*>& a
 	almacenamiento->cerrar();
 	return 0;
 }
+int EstrategiaRecursoUnAlmacenamiento::actualizarComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices){
+	Almacenamiento* almacenamiento=   almacenamientos.at(0);
+	EstrategiaIndice* estrategiaIndice=indices.at(0);
+	estrategiaIndice->abrir();
+	int pos = estrategiaIndice->buscar((char*)componente->getClave().c_str());
+	estrategiaIndice->cerrar();
+	almacenamiento->abrir();
+	estrategiaAlmacenamiento->actualizarComponente(almacenamiento, componente, pos);
+	almacenamiento->cerrar();
+	return 0;
+}
 EstrategiaRecursoUnAlmacenamiento::EstrategiaRecursoUnAlmacenamiento() {
 
 }

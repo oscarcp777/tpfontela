@@ -23,6 +23,7 @@ public:
 				vector<Almacenamiento*> almacenamientos,
 				vector<EstrategiaIndice*> indices,
 				string claves);
+	int actualizarComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices);
 	void busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave);
 };
 

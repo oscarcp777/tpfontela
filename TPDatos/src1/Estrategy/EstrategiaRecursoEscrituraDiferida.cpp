@@ -27,6 +27,10 @@ int EstrategiaRecursoEscrituraDiferida::altaComponente(vector<Almacenamiento*>& 
 int EstrategiaRecursoEscrituraDiferida::bajaComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente, int pos){
 	return 0;
 }
+int EstrategiaRecursoEscrituraDiferida::actualizarComponente(vector<Almacenamiento*> &almacenamientos,EstrategiaAlmacenamiento* estrategiaAlmacenamiento, Componente* componente,vector<EstrategiaIndice*> indices){
+
+	return 0;
+}
 void EstrategiaRecursoEscrituraDiferida::busquedaSecuencial(EstrategiaAlmacenamiento* estrategiaAlmacenamiento,list<Componente*> &resultadoDeLABusqueda, Componente* componente, vector<Almacenamiento*> almacenamientos,std::string clave){
 
 

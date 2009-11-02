@@ -33,6 +33,7 @@ private:
 	fstream  archivo;
 	string ruta;
 	string nombreArchivo;
+	bool isArchivo;
 public:
 	  void setNombreArchivo(string nombreArchivo);
 	    void setRuta(string ruta);
@@ -67,7 +68,18 @@ public:
     void leer(char* buffer, int pos,int tamanio);
     void guardar(char* buffer, int pos ,int tamanio);
     void irAlFinal();
-	string getTipo() const
+    void actualizarMapaBloques(int posicionBloque ,int tamanioASumar);
+    bool getIsArchivo() const
+    {
+        return isArchivo;
+    }
+
+    void setIsArchivo(bool isArchivo)
+    {
+        this->isArchivo = isArchivo;
+    }
+
+    string getTipo() const
 			{
 		return tipo;
 			}

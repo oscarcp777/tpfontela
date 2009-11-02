@@ -36,6 +36,7 @@ void Bloque::serializar(string tipo){
 	//ir al ultimo registro agregado
 	//cout<<"this->getCantidadDeElelmentos() "<<this->getCantidadDeElelmentos()<<endl;
 	memset(this->getBuffer(),0,this->getTamanio());
+	cout<<"getCantidadDeElelmentos(): "<<getCantidadDeElelmentos()<<endl;
 	while (i<this->getCantidadDeElelmentos()){
 		componente = (Componente*)*iteraRegistros;
 
@@ -53,6 +54,7 @@ void Bloque::serializar(string tipo){
 		this->nextByte += len+1 ;
 		//cout<<"componente->getBuffer(): "<<componente->getBuffer()<<endl;
 		//cout<< "Empieza a grabar el registro en: "<<start<<endl;
+		cout<<"componente clave: "<<componente->getClave()<<endl;
 		memcpy(&this->buffer[start],componente->getBuffer(),len);
 		//this->buffer[start + len] = Define::DELIMITADOR1;
 

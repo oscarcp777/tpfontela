@@ -50,9 +50,7 @@ RecursoDeAlmacenamiento::~RecursoDeAlmacenamiento() {
 int RecursoDeAlmacenamiento::alta(Componente* componente){
 
 	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
-	vector<Almacenamiento*> vec1=this->almacenamientos;
-	vector<EstrategiaIndice*> vec2=this->estrategiaIndices;
-	this->estrategiaRecurso->altaComponente(vec1,this->estrategiaAlmacenamiento, componente,vec2);
+	this->estrategiaRecurso->altaComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,this->estrategiaIndices);
 
 	return 0;
 }
@@ -63,6 +61,8 @@ int RecursoDeAlmacenamiento::baja(Componente* componente){
 	return 0;
 }
 int RecursoDeAlmacenamiento::modificion(Componente* componente){
+	componente->setTamanio(this->almacenamientos.at(0)->getTamanio());
+	this->estrategiaRecurso->actualizarComponente(this->almacenamientos,this->estrategiaAlmacenamiento, componente,this->estrategiaIndices);
 	return 0;
 }
 int RecursoDeAlmacenamiento::buscar(list<Componente*> &resultadoDeLABusqueda,Componente* componente,std::string clave){

@@ -15,10 +15,16 @@ using namespace std;
 
 Metadata::Metadata() {
 	this->metadataSize = -1;
+	this->isArchivo=true;
 }
 
 Metadata::~Metadata() {
 
+}
+void Metadata::actualizarMapaBloques(int posicionBloque ,int tamanioASumar){
+	int tamanioBloque=atoi(StringUtils::getValorTag(TAMANIO,this->mapaAtributosFijos).c_str());
+	int pos=posicionBloque/tamanioBloque;
+	this->mapaTamanioBloques[pos]=this->mapaTamanioBloques[pos]+tamanioASumar;
 }
 
 std::string Metadata::getPath(){
@@ -265,7 +271,9 @@ void Metadata::hidratarMetadataEnBuffer(string registroAtributos,int tamanio){
 void Metadata::hidratarMetadata(){
 	int i=0,size=0,espacio=0,cont=0;
 	string valor="", num="";
+	if(this->isArchivo)
 	this->leerMetadata();
+
 	StringUtils::Tokenize(this->primerRegistro,this->mapaAtributosFijos,DELIMITADOR);
 	StringUtils::Tokenize(this->segundoRegistro,this->atributosRegistro,DELIMITADOR);
 	StringUtils::Tokenize(this->tercerRegistro,this->vectorAtributosVariables,DELIMITADOR);

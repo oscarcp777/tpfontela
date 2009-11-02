@@ -7,7 +7,6 @@
 
 #include "EstrategiaAlmacenamientoBloques.h"
 #include "../Composite/Bloque/Bloque.h"
-#include "../Modelo/Alumno.h"
 #include "stdlib.h"
 using namespace std;
 EstrategiaAlmacenamientoBloques::EstrategiaAlmacenamientoBloques() {
@@ -169,11 +168,94 @@ void EstrategiaAlmacenamientoBloques::quitarComponente(Almacenamiento* donde, Co
 		//delete vecClaves;
 	}
 	else
-		cout<<"no se encontro el componente"<<endl;
+		cout<<"el componente a borrar no existe"<<endl;
 
 }
 
+int EstrategiaAlmacenamientoBloques::actualizarComponente(Almacenamiento* donde, Componente* componente, int pos){
+	cout<<"modificar el componente en la posicion: "<<pos<<endl;
 
+	int numEtiquta = donde->getMetadata()->getNumeroEtiqueta(donde->getMetadata()->getClavePrimaria());
+		string clave = componente->getClave();
+	   char* bufferAux = new char[donde->getTamanio()];
+		memset(bufferAux,0,donde->getTamanio());
+		int j=0;
+		bool modificado = false;
+		int resCompare = -1;
+		int cantCaracteresRegistro= 0;
+		//Busco En Indice La Posicion Del Bloque Que Contiene El Registro Con Esa Clave
+		//pos = BuscoEnIndiceLaPosicionDelBloqueQueContieneElRegistroConEsaClave();
+		//¿? si no se encuentra en el indice tengo que hacer busqueda secuencial??
+		if(pos >= 0){
+			Componente* unComponente = componente->obtenerNuevaInstancia();
+			unComponente->setTamanio(donde->getTamanio());
+			//leo en esa pos
+			Bloque* bloque = new Bloque(donde->getTamanio());
+			donde->leer(bufferAux,pos);
+			bloque->setBuffer(bufferAux);
+			//agrego el componente para que pueda crear nuevas instancias
+			bloque->agregarComponente(unComponente);
+			bloque->hidratar(BINARIO);
+
+			std::list<Componente*>::iterator iteraRegistros = bloque->iteratorListaDeComponetes();
+			//recorro la lista de componentes del bloque y comparo con la clave si la encuentro
+			//borro el componente y salgo del while
+			while (modificado == false && j<bloque->getCantidadDeElelmentos()){
+				unComponente = (Componente*)*iteraRegistros;
+				resCompare=unComponente->compareTo(clave,numEtiquta);
+				//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
+				//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
+
+				if (resCompare == 0){
+					//para no hacer el proximo codigo feo tendria que implementar un clone en componente
+
+					for( int x=0 ; x< donde->getTamanio(); x++){
+						if (unComponente->getBuffer()[x] == Define::DELIMITADOR1){
+							cantCaracteresRegistro = x;
+						}
+
+					}
+					cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
+					cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
+
+
+					donde->getMetadata()->actualizarMapaBloques(pos,cantCaracteresRegistro);
+					bloque->removerComponente(unComponente);
+					componente->serializar(BINARIO);
+					for( int x=0 ; x< donde->getTamanio(); x++){
+						if (componente->getBuffer()[x] == Define::DELIMITADOR1){
+							cantCaracteresRegistro = x;
+						}
+
+					}
+					cantCaracteresRegistro++; //le sumo 1 porque empieza en 0 el for entonces tiene uno menos
+					cantCaracteresRegistro += 5; // le sumo 5 pq le agrego un int adelante (4bits) mas un pipe
+					donde->getMetadata()->actualizarMapaBloques(pos,-cantCaracteresRegistro);
+					bloque->agregarComponente(componente);
+					modificado = true;
+				}
+
+				iteraRegistros++;
+				j++;
+			}
+
+			if(modificado == true){
+				//si lo encontro vuelvo a guardar el bloque sin el componente borrado, sino NO porque queda como estaba
+				bloque->serializar();
+				//agrego bloque a lista de componentes del almacenamiento
+				donde->agregarComponente(bloque);
+				//guardo en almacenamiento el ultimo bloque agregado
+				donde->guardar(bloque->getBuffer(),pos);
+
+			}
+
+			delete bloque;
+			delete bufferAux;
+		}
+		else
+			cout<<"el componente a modificar no existe"<<endl;
+	return 0;
+}
 
 std::string EstrategiaAlmacenamientoBloques::toString(){
    	return "EstrategiaAlmacenamientoBloques";
@@ -203,14 +285,8 @@ void EstrategiaAlmacenamientoBloques::busquedaSecuencial(list<Componente*> &resu
 			for(int k = 0; k< (int)vecCampos.size();k++){
 				if(resCompare == 0)//solo compara si la comparacion anterior dio =
 					resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
-//				cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
-//				cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
 			}
-			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
-			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
-		//	cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
-//			cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
-//			cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
+
 			if (resCompare == 0){
 				resultadoDeLABusqueda.push_back(componente);
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
@@ -251,14 +327,10 @@ void EstrategiaAlmacenamientoBloques::hidratarComponente(Almacenamiento* donde, 
 			for(int k = 0; k< (int)vecCampos.size();k++){
 				if(resCompare == 0)//solo compara si la comparacion anterior dio =
 					resCompare+=componente->compareTo(vecCampos.at(k),vecEtiquetasCampos.at(k));
-				//				cout<<"vecCampos.at(k): "<<vecCampos.at(k)<<endl;
-				//				cout<<"vecEtiquetasCampos.at(k): "<<vecEtiquetasCampos.at(k)<<endl;
 			}
 			//la siguiente linea queda solo para probar la busqueda, despues borrarla y borrar
 			//tambien el #include Alumno que esta en esta clase ES SOLO PARA PROBAR
-			//	cout<<"nombre: "<<((Alumno*)componente)->getNombre()<<endl;
-			//			cout<<"padron: "<<((Alumno*)componente)->getPadron()<<endl;
-			//			cout<<"dni: "<<((Alumno*)componente)->getDni()<<endl;
+
 			if (resCompare == 0){
 				resultadoDeLABusqueda.push_back(componente);
 				//para no hacer el proximo codigo feo tendria que implementar un clone en componente
