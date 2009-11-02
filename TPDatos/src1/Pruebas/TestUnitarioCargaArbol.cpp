@@ -29,7 +29,7 @@ string k="79900";
 
 
 
-int main(){
+int main4564(){
 
 	char letra[2] = "";
 	char valor[5]="A";
@@ -76,7 +76,7 @@ int main(){
 	}
 	bt->cerrar();
 	bt->abrir();
-	int resultado = bt->buscar("A");
+	int resultado = bt->buscar(pchar);
 	if(resultado == 4)
 		cout<<"BUSQUEDA CORRECTA"<<endl;
 	else
