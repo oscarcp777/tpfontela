@@ -38,3 +38,8 @@ int EstrategiaIndiceBuffer::remover(char* key, int dir){
 int EstrategiaIndiceBuffer::buscar(char* key, int dir){
 	return this->indiceClavesBuffer[key];
 }
+
+int EstrategiaIndiceBuffer::modificar(char* key, int dir){
+	this->indiceClavesBuffer[key]=dir;
+	return 1;
+}

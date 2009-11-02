@@ -199,4 +199,13 @@ void NodeBSharp::imprimir(ostream & stream){
 	stream<<"\t\tApunta a direccion: "<<this->nodoSiguiente<<endl;
 }
 
+void NodeBSharp::modificarDireccion(char* key,int dir){
+	for(int i = 0; i < this->numKeys; i++){
+			if (strcmp(this->keys[i],key)==0){ //exact match
+				this->direcciones[i]=dir;
+			}
+
+		}
+}
+
 

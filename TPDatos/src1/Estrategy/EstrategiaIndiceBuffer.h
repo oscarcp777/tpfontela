@@ -21,6 +21,7 @@ public:
 	 int crear(char* nombre, char* ruta);
 	 int cerrar();
 	 int insertar(char* key, int dir);
+	 int modificar(char* key, int dir);
 	 int remover(char* key, int dir=-1);
 	 int buscar(char* key, int dir=-1);
 

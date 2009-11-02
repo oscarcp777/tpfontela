@@ -31,6 +31,10 @@ int IndexadoHashExtensible::insertar(char* key, int dir){
 	return 1;
 }
 
+int IndexadoHashExtensible::modificar(char* key, int dir){
+	return 1;
+}
+
 int IndexadoHashExtensible::remover(char* key, int dir){
 	return 1;
 }
