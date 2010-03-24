@@ -13,21 +13,6 @@
 
 using namespace std;
 class Buffer: public Storage {
-public:
-	Buffer();
-	virtual ~Buffer();
-	std::string toString();
-	std::string getClass();
-	void abrir();
-	void cerrar();
-	void irAlPrincipio();
-	bool fin();
-	void crear();
-	int guardar(std::string registro, int pos);
-	int guardar(char* buffer, int pos = -1);
-	void leer(std::string& datos, int pos);
-	void leer(char* buffer, int pos);
-
 
 private:
 	char* datos;
@@ -38,6 +23,25 @@ private:
 	int cantlineasLeidas;
 	bool binario;
 	bool texto;
+	int size;
+
+public:
+	Buffer();
+	virtual ~Buffer();
+	std::string toString();
+	std::string getClass();
+	void open();
+	void close();
+	void irAlPrincipio();
+	bool fin();
+	void create();
+	int write(std::string registro, int pos);
+	int write(char* buffer, int pos = -1);
+	void read(std::string& datos, int pos);
+	void read(char* buffer, int pos);
+
+
+
 };
 
 #endif /* BUFFER_H_ */
