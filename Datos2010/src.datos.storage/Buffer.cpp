@@ -20,7 +20,7 @@ Buffer::Buffer():Storage() {
 	texto = 0;
 	binario = 0;
 }
-void Buffer::crear(){
+void Buffer::create(){
 
 }
 Buffer::~Buffer() {
@@ -34,7 +34,7 @@ std::string Buffer::toString(){
 std::string Buffer::getClass(){
 	return "Buffer";
 }
-void Buffer::abrir(){
+void Buffer::open(){
 	//posicionActual = 0;
 }
 
@@ -43,7 +43,7 @@ void Buffer::irAlPrincipio(){
 }
 
 
-int Buffer::guardar(std::string registro, int pos){
+int Buffer::write(std::string registro, int pos){
 
 	int dir = -1;
 	if(this->texto == 0)
@@ -75,7 +75,7 @@ int Buffer::guardar(std::string registro, int pos){
 	return dir;
 }
 
-int Buffer::guardar(char* buffer, int pos){
+int Buffer::write(char* buffer, int pos){
 
 	if(this->binario == 0)
 		this->binario = true;
@@ -83,10 +83,10 @@ int Buffer::guardar(char* buffer, int pos){
 	if(pos < 0){
 
 		//verifico que lo que voy a escribir entre en el espacio que queda de buffer
-		if(this->getTamanio() <= TAM_BUFFER - this->posicionActual){
+		if(this->size <= TAM_BUFFER - this->posicionActual){
 			int dir = this->posicionActual;
-			memcpy(&this->datos[this->posicionActual],buffer,this->getTamanio());
-			this->posicionActual+=this->getTamanio();
+			memcpy(&this->datos[this->posicionActual],buffer,this->size);
+			this->posicionActual+=this->size;
 
 			this->cantElementos++;
 			return dir;
@@ -95,7 +95,7 @@ int Buffer::guardar(char* buffer, int pos){
 			throw std::string("El registro no entra en el buffer");
 		}
 	}else{
-		memcpy(&this->datos[pos],buffer,this->getTamanio());
+		memcpy(&this->datos[pos],buffer,this->size);
 		this->cantElementos++;
 		return pos;
 	}
@@ -103,7 +103,7 @@ int Buffer::guardar(char* buffer, int pos){
 
 }
 
-void Buffer::leer(std::string& datos, int pos){
+void Buffer::read(std::string& datos, int pos){
 	if(pos>=0){
 		this->posicionActual = pos;
 		std::string aux = this->datos;
@@ -122,11 +122,11 @@ void Buffer::leer(std::string& datos, int pos){
 		cout<<"posicion incorrecta para leer buffer, pos:"<<pos<<endl;
 }
 
-void Buffer::leer(char* buffer, int pos){
+void Buffer::read(char* buffer, int pos){
 
-	if(pos+this->getTamanio() <= TAM_BUFFER){
-		memcpy(buffer,&this->datos[pos],this->getTamanio());
-		this->posicionActualLectura = pos + this->getTamanio();
+	if(pos+this->size <= TAM_BUFFER){
+		memcpy(buffer,&this->datos[pos],this->size);
+		this->posicionActualLectura = pos + this->size;
 	}
 
 }
@@ -136,7 +136,7 @@ bool Buffer::fin() {
 
   bool fin = false;
   if(this->binario == true){
-	  if(this->posicionActualLectura == this->getTamanio()*cantElementos)
+	  if(this->posicionActualLectura == this->size*cantElementos)
 		  fin = true;
   }
   else if(this->texto == true){
@@ -148,5 +148,5 @@ bool Buffer::fin() {
   return fin;
 }
 
-void Buffer::cerrar(){
+void Buffer::close(){
 }

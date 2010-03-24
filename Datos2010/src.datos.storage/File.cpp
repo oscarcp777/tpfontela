@@ -1,8 +1,8 @@
 /*
  * Archivo.cpp
  *
- *  Created on: 19/09/2009
- *      Author: richy
+ *  Created on: 24/03/2010
+ *      Author: Santiago
  */
 
 #include "File.h"
@@ -13,59 +13,51 @@ using namespace std;
 File::File():Storage(){
 
 }
-void File::crear(){
-	if(true){
-			    //si no hubo éxito en la apertura...
-			    //limpia los flags de control de estado del File
-				  this->file.clear();
 
-			    //crea el file
-				  this->file.open(this->getPath().c_str(),ios::out);
-				  this->file.close();
-		}else{
-				/* limpia los flags de control de estado del file */
-			    this->file.clear();
-			    /* crea el file */
-			    this->file.open(this->getPath().c_str(),ios::out | ios::binary);
-			    if (! this->file.is_open())
-			    		    	 cout<<"El file no pudo ser creado "<<endl;
-			    else
-								 this->file.close();
-
-
-		}
+fstream* File::getFile()
+{
+	return &file;
 }
-void File::abrir(){
 
-	if(true){
-		//intenta abrir el File en modo lectura - escritura
-		this->file.open(this->getPath().c_str(),ios::out|ios::in);
-
-		    if (!this->file.is_open()){
-		      // si no se pudo crear el file arroja una excepción/
-		      cout<<"El file no pudo ser abierto "<<endl;
-		      throw std::ios_base::failure("El file no pudo ser abierto");
-		    }
-	}else{
-		  /* abre el file en modo lectura - escritura binario*/
-		  this->file.open(this->getPath().c_str(),ios::in |ios::out |ios::binary);
-		    /* verifica que haya podido crear el file */
-		    if (! this->file.is_open()){
-		    	 cout<<"El file no pudo ser abierto "<<endl;
-		      /* arroja una excepción */
-		      throw string("El file no pudo ser abierto");
-		    }
-	}
-
+string File::getFileName()
+{
+	return fileName;
 }
-void File::cerrar(){
+
+
+
+//void File::create(string fileName){
+//	if(true){
+//			    //si no hubo éxito en la apertura...
+//			    //limpia los flags de control de estado del File
+//				  this->file.clear();
+//
+//			    //crea el file
+//				  this->file.open(this->getFileName().c_str(),ios::out);
+//				  this->file.close();
+//		}else{
+//				/* limpia los flags de control de estado del file */
+//			    this->file.clear();
+//			    /* crea el file */
+//			    this->file.open(this->getFileName().c_str(),ios::out | ios::binary);
+//			    if (! this->file.is_open())
+//			    		    	 cout<<"El file no pudo ser creado "<<endl;
+//			    else
+//								 this->file.close();
+//
+//
+//		}
+//}
+
+
+void File::close(){
 	this->file.close();
 
 }
 
 
 
-int File::guardar(std::string registro, int pos){
+int File::write(std::string registro, int pos){
 	/* verifica que el file esta abierto */
 	int dir = -1;
 		if (this->file.is_open()) {
@@ -79,10 +71,10 @@ int File::guardar(std::string registro, int pos){
 			//intenta escribir la cadena en el file
 			dir = this->file.tellg();
 			this->file.flush();
-			this->file << registro<<endl;
+		//	this->file << registro<<endl;
 
 
-			if (file.fail())
+			if (this->file.fail())
 				// si se produjo un error, arroja una excepción
 				throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
 
@@ -93,26 +85,26 @@ int File::guardar(std::string registro, int pos){
 		return dir;
 }
 
-int File::guardar(char* buffer, int pos){
-
-     int dir=-1;
-	if (this->file.is_open()) {
-
-		if (pos < 0)
-			this->irAlFinal();
-		else{
-			this->file.seekp(pos);
-			//this->file.seekg(pos);
-		}
-		int dir = this->file.tellg();
-
-		this->file.write(buffer,this->getTamanio());
-		return dir;
-
-	}
- return dir;
-}
-void File::guardar(char* buffer, int pos,int tamanio){
+//int File::write(char* buffer, int pos){
+//
+//     int dir=-1;
+//	if (this->file.is_open()) {
+//
+//		if (pos < 0)
+//			this->irAlFinal();
+//		else{
+//			this->file.seekp(pos);
+//			//this->file.seekg(pos);
+//		}
+//		int dir = this->file.tellg();
+//
+//		this->file.write(buffer,this->getSize());
+//		return dir;
+//
+//	}
+// return dir;
+//}
+void File::write(char* buffer, int pos,int tamanio){
 
 	if (this->file.is_open()) {
 
@@ -141,7 +133,7 @@ bool File::fin() {
   return esEof;
 }
 
-void File::leer(std::string& datos, int pos){
+void File::read(std::string& datos, int pos){
 	char linea[MAX_LINEA];
   /* verifica que el file esté abierto */
   if (this->file.is_open()) {
@@ -163,22 +155,22 @@ void File::leer(std::string& datos, int pos){
 }
 
 
-void File::leer(char* buffer, int pos){
-
-
-	  if (this->file.is_open()) {
-		  if(pos>=0)
-		  this->file.seekg(pos);
-		  this->file.read(buffer,this->getTamanio());
-
-	  }
-	  else {
-	      /* arroja una excepción porque el file no está abierto */
-	      throw string("El file no está abierto");
-	    }
-
-}
-void File::leer(char* buffer, int pos,int tamanio){
+//void File::read(char* buffer, int pos){
+//
+//
+//	  if (this->file.is_open()) {
+//		  if(pos>=0)
+//		  this->file.seekg(pos);
+//		  this->file.read(buffer,this->getSize());
+//
+//	  }
+//	  else {
+//	      /* arroja una excepción porque el file no está abierto */
+//	      throw string("El file no está abierto");
+//	    }
+//
+//}
+void File::read(char* buffer, int pos,int tamanio){
 
 
 	  if (this->file.is_open()) {
@@ -204,9 +196,6 @@ std::string File::toString(){
 	return "File";
 }
 
-std::string File::getClass(){
-	return "File";
-}
 
 
 /**
@@ -267,10 +256,10 @@ void File::posicionarse(long int posicion,int tamanioRegistro) {
 }
 int File::leerRegistroVariable(string& registro,int posicion){
 	int tamanioRegistro=0;
-	this->leer((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
+	this->read((char*)&tamanioRegistro,posicion,sizeof(tamanioRegistro));
 	char* buffer = new char[tamanioRegistro];
 	memset(buffer,0,tamanioRegistro);
-	this->leer(buffer,-1,tamanioRegistro);
+	this->read(buffer,-1,tamanioRegistro);
 	registro=buffer;
 	registro= registro.substr(0,tamanioRegistro);
 	delete buffer;
@@ -281,12 +270,12 @@ int File::leerRegistroVariable(string& registro,int posicion){
 void File::escribirRegistroVariable(string registro){
 	int tamanioRegistro;
 	tamanioRegistro =registro.length();
-	this->guardar((char*)&tamanioRegistro,-1,sizeof(tamanioRegistro));
-	this->guardar((char*)registro.c_str(),-1,tamanioRegistro);
+	this->write((char*)&tamanioRegistro,-1,sizeof(tamanioRegistro));
+	this->write((char*)registro.c_str(),-1,tamanioRegistro);
 }
 void File::escribirRegistroVariableConPosicion(string registro,int pos){
 	int tamanioRegistro;
 	tamanioRegistro =registro.length();
-	this->guardar((char*)&tamanioRegistro,pos,sizeof(tamanioRegistro));
-	this->guardar((char*)registro.c_str(),pos+sizeof(tamanioRegistro),tamanioRegistro);
+	this->write((char*)&tamanioRegistro,pos,sizeof(tamanioRegistro));
+	this->write((char*)registro.c_str(),pos+sizeof(tamanioRegistro),tamanioRegistro);
 }
