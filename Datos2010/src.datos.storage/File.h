@@ -12,7 +12,7 @@
 
 class File: public Storage {
 
-private:
+protected:
 	fstream file;
 	string fileName;
 
@@ -27,11 +27,22 @@ public:
 
     virtual void create(string fileName) =0;
     virtual void open(string fileName) =0;
-    void read(std::string & datos, int pos);
+    /**
+      * Escribe una cadena de caracteres al archivo en la posición del cursor.
+      * Luego de escribirlo, el cursor queda en la posición siguiente al último caracter de la cadena
+      *  Si no puede escribir, arroja una excepción
+      */
+    void read(std::string & datos);
     void read(char *buffer, int pos, int tamanio);
-//    void read(char *buffer, int pos);
-    int write(std::string registro, int pos);
-//    int write(char *buffer, int pos = -1);
+
+    /**
+      * Lee del archivo una cadena de caracteres a partir de la posición actual del cursor y hasta:
+      *  - Que se encuentre un fin de linea
+      *  - Se lean MAX_LENGTH caracteres
+      * El contenido leido se almacena en el parámetro "cadena"
+      * Retorna true si pudo leer una linea, o false en caso contrario
+      */
+    int write(std::string registro);
     void write(char *buffer, int pos, int tamanio);
     void close();
 

@@ -26,12 +26,23 @@ public:
 	Storage();
 	virtual ~Storage();
 
-	virtual void create() = 0;
-	virtual void open() =0;
-	virtual void read(std::string & datos, int pos) =0;
-    virtual void read(char *buffer, int pos) =0;
-	virtual int write(std::string registro, int pos) = 0;
-	virtual int write(char* buffer, int pos = -1) = 0;
+
+
+	 /**
+	   * Lee del archivo una cadena de caracteres a partir de la posición actual del cursor y hasta:
+	   *  - Que se encuentre un fin de linea
+	   *  - Se lean MAX_LENGTH caracteres
+	   * El contenido leido se almacena en el parámetro "cadena"
+	   * Retorna true si pudo leer una linea, o false en caso contrario
+	   */
+	virtual void read(std::string & datos) =0;
+
+    /**
+      * Escribe una cadena de caracteres al archivo en la posición del cursor.
+      * Luego de escribirlo, el cursor queda en la posición siguiente al último caracter de la cadena
+      *  Si no puede escribir, arroja una excepción
+      */
+	virtual int write(std::string registro) = 0;
 	virtual void close() =0;
 
 	string toString();
