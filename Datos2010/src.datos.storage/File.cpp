@@ -57,22 +57,12 @@ void File::close(){
 
 
 
-int File::write(std::string registro, int pos){
+int File::write(std::string registro){
 	/* verifica que el file esta abierto */
-	int dir = -1;
+
 		if (this->file.is_open()) {
-
-			if(pos >=0){
-				this->file.seekp(pos);
-			}
-			else
-				this->irAlFinal();
-
-			//intenta escribir la cadena en el file
-			dir = this->file.tellg();
-			this->file.flush();
-		//	this->file << registro<<endl;
-
+			this->irAlFinal();
+	   this->file << registro<<endl;
 
 			if (this->file.fail())
 				// si se produjo un error, arroja una excepción
@@ -82,7 +72,7 @@ int File::write(std::string registro, int pos){
 			/* arroja una excepción porque el file no está abierto */
 			throw string("El file no esta abierto");
 		}
-		return dir;
+		return 1;
 }
 
 //int File::write(char* buffer, int pos){
@@ -133,16 +123,12 @@ bool File::fin() {
   return esEof;
 }
 
-void File::read(std::string& datos, int pos){
-	char linea[MAX_LINEA];
+void File::read(std::string& datos){
+
   /* verifica que el file esté abierto */
   if (this->file.is_open()) {
-
-	  if(pos>=0)
 		  /* lee del file una linea */
-		  this->file.seekg(pos);
-		  this->file.getline((char*)&linea, MAX_LINEA, '\n');
-		  datos = linea;
+		  getline(this->file, datos);
 		  /* chequea si se ha producido un error */
 	  if (this->file.fail())
 		  /* arroja una excepción ante la imposibilidad de leer un reg */
