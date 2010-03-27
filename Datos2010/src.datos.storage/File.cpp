@@ -7,47 +7,12 @@
 
 #include "File.h"
 
-
-
 using namespace std;
+
+
 File::File():Storage(){
 
 }
-
-fstream* File::getFile()
-{
-	return &file;
-}
-
-string File::getFileName()
-{
-	return fileName;
-}
-
-
-
-//void File::create(string fileName){
-//	if(true){
-//			    //si no hubo éxito en la apertura...
-//			    //limpia los flags de control de estado del File
-//				  this->file.clear();
-//
-//			    //crea el file
-//				  this->file.open(this->getFileName().c_str(),ios::out);
-//				  this->file.close();
-//		}else{
-//				/* limpia los flags de control de estado del file */
-//			    this->file.clear();
-//			    /* crea el file */
-//			    this->file.open(this->getFileName().c_str(),ios::out | ios::binary);
-//			    if (! this->file.is_open())
-//			    		    	 cout<<"El file no pudo ser creado "<<endl;
-//			    else
-//								 this->file.close();
-//
-//
-//		}
-//}
 
 
 void File::close(){
@@ -58,21 +23,20 @@ void File::close(){
 
 
 int File::write(std::string registro){
-	/* verifica que el file esta abierto */
 
-		if (this->file.is_open()) {
-			this->irAlFinal();
-	   this->file << registro<<endl;
+	if (this->file.is_open()) {
+		this->irAlFinal();
+		this->file << registro<<endl;
 
-			if (this->file.fail())
-				// si se produjo un error, arroja una excepción
-				throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
+		if (this->file.fail())
+			// si se produjo un error, arroja una excepción
+			throw std::ios_base::failure("No se pudo escribir correctamente la cadena");
 
-		} else {
-			/* arroja una excepción porque el file no está abierto */
-			throw string("El file no esta abierto");
-		}
-		return 1;
+	} else {
+		/* arroja una excepción porque el file no está abierto */
+		throw string("El file no esta abierto");
+	}
+	return 1;
 }
 
 //int File::write(char* buffer, int pos){
@@ -102,7 +66,7 @@ void File::write(char* buffer, int pos,int tamanio){
 			this->irAlFinal();
 		else{
 			this->file.seekp(pos);
-		//	this->file.seekg(pos);
+			//	this->file.seekg(pos);
 		}
 		this->file.write(buffer,tamanio);
 
@@ -112,32 +76,32 @@ void File::write(char* buffer, int pos,int tamanio){
 }
 bool File::fin() {
 
-  /* para comprobar el fin lee un char del buffer, sin retirarlo y lo
+	/* para comprobar el fin lee un char del buffer, sin retirarlo y lo
      compara con el fin de file */
-  bool esEof = (this->file.peek() == char_traits<char>::eof());
+	bool esEof = (this->file.peek() == char_traits<char>::eof());
 
-  if (esEof)
-    /* si llegó al fin del file limpia los flags */
-    this->file.clear();
+	if (esEof)
+		/* si llegó al fin del file limpia los flags */
+		this->file.clear();
 
-  return esEof;
+	return esEof;
 }
 
 void File::read(std::string& datos){
 
-  /* verifica que el file esté abierto */
-  if (this->file.is_open()) {
-		  /* lee del file una linea */
-		  getline(this->file, datos);
-		  /* chequea si se ha producido un error */
-	  if (this->file.fail())
-		  /* arroja una excepción ante la imposibilidad de leer un reg */
-		  throw string("No se pudo leer correctamente el registro");
-  }
-  else {
-    /* arroja una excepción porque el file no está abierto */
-    throw string("El file no está abierto");
-  }
+	/* verifica que el file esté abierto */
+	if (this->file.is_open()) {
+		/* lee del file una linea */
+		getline(this->file, datos);
+		/* chequea si se ha producido un error */
+		if (this->file.fail())
+			/* arroja una excepción ante la imposibilidad de leer un reg */
+			throw string("No se pudo leer correctamente el registro");
+	}
+	else {
+		/* arroja una excepción porque el file no está abierto */
+		throw string("El file no está abierto");
+	}
 }
 
 
@@ -159,18 +123,18 @@ void File::read(std::string& datos){
 void File::read(char* buffer, int pos,int tamanio){
 
 
-	  if (this->file.is_open()) {
-		  if(pos>=0)
-		  this->file.seekg(pos);
-		  this->file.read(buffer,tamanio);
+	if (this->file.is_open()) {
+		if(pos>=0)
+			this->file.seekg(pos);
+		this->file.read(buffer,tamanio);
 
 
 
-	  }
-	  else {
-	      /* arroja una excepción porque el file no está abierto */
-	      throw string("El file no está abierto");
-	    }
+	}
+	else {
+		/* arroja una excepción porque el file no está abierto */
+		throw string("El file no está abierto");
+	}
 
 }
 
@@ -208,37 +172,37 @@ void File::irAlFinal() {
 /*----------------------------------------------------------------------------*/
 long int File::posicion(int tamanioRegistro) {
 
-  long int pos = 0;
+	long int pos = 0;
 
-  /* verifica que el file esté abierto */
-  if (this->file.is_open())
+	/* verifica que el file esté abierto */
+	if (this->file.is_open())
 
-    /* calcula el número de registro según la posición del byte actual */
-    pos = this->file.tellg() / tamanioRegistro;
+		/* calcula el número de registro según la posición del byte actual */
+		pos = this->file.tellg() / tamanioRegistro;
 
-  else
-    /* arroja una excepción porque el file no está abierto */
-    throw string("El file no está abierto");
+	else
+		/* arroja una excepción porque el file no está abierto */
+		throw string("El file no está abierto");
 
-  return pos;
+	return pos;
 }
 /*----------------------------------------------------------------------------*/
 void File::posicionarse(long int posicion,int tamanioRegistro) {
 
-  /* verifica que el file esté abierto */
-  if (this->file.is_open()) {
+	/* verifica que el file esté abierto */
+	if (this->file.is_open()) {
 
-    /* mueve la posición actual según sea el tamano del registro */
-	  this->file.seekg(posicion * tamanioRegistro,ios_base::beg);
+		/* mueve la posición actual según sea el tamano del registro */
+		this->file.seekg(posicion * tamanioRegistro,ios_base::beg);
 
-    /* chequea si se ha producido un error */
-    if (this->file.fail())
-      /* arroja una excepción ante la imposibilidad de leer un reg */
-      throw string("No se pudo posicionar correctamente el registro");
-  }
-  else
-    /* arroja una excepción porque el file no está abierto */
-    throw string("El file no está abierto");
+		/* chequea si se ha producido un error */
+		if (this->file.fail())
+			/* arroja una excepción ante la imposibilidad de leer un reg */
+			throw string("No se pudo posicionar correctamente el registro");
+	}
+	else
+		/* arroja una excepción porque el file no está abierto */
+		throw string("El file no está abierto");
 }
 int File::leerRegistroVariable(string& registro,int posicion){
 	int tamanioRegistro=0;
