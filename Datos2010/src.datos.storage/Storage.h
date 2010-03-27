@@ -49,7 +49,7 @@ public:
 
 	//evaluar existencia
     virtual void irAlPrincipio() = 0;
-    virtual bool fin() = 0;
+
 
 };
 

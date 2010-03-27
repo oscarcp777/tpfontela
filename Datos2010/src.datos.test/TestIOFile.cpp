@@ -20,6 +20,8 @@ TestIOFile::~TestIOFile() {
 
 void TestIOFile::runBinaryFileTest(){
 
+	//TODO reemplazar al char* buffer por un objeto Buffer
+
 	BinaryFile* bFile = new BinaryFile();
 	char* buffer = new char[BUFFER_SIZE];
 
@@ -39,9 +41,9 @@ void TestIOFile::runBinaryFileTest(){
 	//Escribiendo en disco
 	bFile->create("files/binaryTest");
 	//Bloque 1
-	bFile->write(&buffer[0],0,BLOCK_SIZE);
+	bFile->write(&buffer[0],BLOCK_SIZE);
 	//Bloque 2
-	bFile->write(&buffer[BLOCK_SIZE],BLOCK_SIZE,BLOCK_SIZE);
+	bFile->write(&buffer[BLOCK_SIZE],BLOCK_SIZE);
 	bFile->close();
 
 	//Vaciando Buffer
@@ -55,21 +57,22 @@ void TestIOFile::runBinaryFileTest(){
 	try{
 		bFile->open("files/binaryTest");
 		//Bloque 1
-		bFile->read(&buffer[0],0,BLOCK_SIZE);
+		bFile->read(&buffer[0],BLOCK_SIZE);
 		//Bloque 2
-		bFile->read(&buffer[BLOCK_SIZE],BLOCK_SIZE,BLOCK_SIZE);
+		bFile->read(&buffer[BLOCK_SIZE],BLOCK_SIZE);
 		bFile->close();
+
+		//Cargando del buffer
+		char aux[100];
+		memcpy(aux,&buffer[0],lenght);
+		outputData1 = aux;
+		cout << outputData1 << endl;
+		memcpy(&outputData2,&buffer[BLOCK_SIZE],sizeof(int));
+		cout << outputData2 << endl;
 
 	}catch (string& e){
 		cerr << e << endl;
 	}
-	//Cargando del buffer
-	char aux[100];
-	memcpy(aux,&buffer[0],lenght);
-	outputData1 = aux;
-	cout << outputData1 << endl;
-	memcpy(&outputData2,&buffer[BLOCK_SIZE],sizeof(int));
-	cout << outputData2 << endl;
 }
 
 void TestIOFile::runTextFileTest(){
