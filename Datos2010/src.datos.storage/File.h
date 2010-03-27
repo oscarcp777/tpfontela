@@ -16,10 +16,6 @@ protected:
 	fstream file;
 	string fileName;
 
-protected:
-	fstream* getFile();
-	string getFileName();
-
 public:
     File();
     ~File();
@@ -42,7 +38,7 @@ public:
       * El contenido leido se almacena en el parámetro "cadena"
       * Retorna true si pudo leer una linea, o false en caso contrario
       */
-    int write(std::string registro);
+    int  write(std::string registro);
     void write(char *buffer, int pos, int tamanio);
     void close();
 

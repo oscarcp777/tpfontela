@@ -14,17 +14,19 @@ class TextFile: public File {
 public:
 	TextFile();
 	virtual ~TextFile();
-	 /**
-	   * Abre el archivo ubicado en el path pasado (debe incluir nombre completo) en modo lectura/escritura.
-	   * Deja el cursor al comienzo del mismo.
-	   * En caso de no existir el archivo, lo crea.
-	   * Si no puede realizar la operación, arroja una excepción
-	   */
-	void open(string fileName);
+
 	/**
-	 *no se usa
+	 *deprecado
 	 */
 	void create(string fileName);
+	/**
+	 * Abre el archivo ubicado en el path pasado (debe incluir nombre completo) en modo lectura/escritura.
+	 * Deja el cursor al comienzo del mismo.
+	 * En caso de no existir el archivo, lo crea.
+	 * Si no puede realizar la operación, arroja una excepción
+	 */
+	void open(string fileName);
+
 };
 
 #endif /* TEXTFILE_H_ */
