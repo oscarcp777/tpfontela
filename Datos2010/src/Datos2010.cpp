@@ -10,8 +10,8 @@
 #include "../src.datos.storage/TextFile.h"
 using namespace std;
 
-int main() {
+int main2() {
 
-	cout << "!!!compila  malditos   !!!"<<endl << datos<<endl;
+	cout << "!!!compila  malditos   !!!"<<endl;
 	return 0;
 }
