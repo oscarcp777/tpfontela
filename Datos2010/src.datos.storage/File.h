@@ -29,7 +29,7 @@ public:
       *  Si no puede escribir, arroja una excepción
       */
     void read(std::string & datos);
-    void read(char *buffer, int pos, int tamanio);
+    void read(char *buffer, int tamanio, int pos=-1);
 
     /**
       * Lee del archivo una cadena de caracteres a partir de la posición actual del cursor y hasta:
@@ -39,17 +39,8 @@ public:
       * Retorna true si pudo leer una linea, o false en caso contrario
       */
     int  write(std::string registro);
-    void write(char *buffer, int pos, int tamanio);
+    void write(char *buffer, int tamanio, int pos=-1);
     void close();
-
-
-    int leerRegistroVariable(string & registro, int posicion = -1);
-    void escribirRegistroVariable(string registro);
-    void escribirRegistroVariableConPosicion(string registro, int pos);
-
-    bool fin();
-    long int posicion(int tamanioRegistro);
-    void posicionarse(long int posicion, int tamanioRegistro);
 
     std::string toString();
 
