@@ -127,9 +127,6 @@ void File::read(char* buffer, int pos,int tamanio){
 		if(pos>=0)
 			this->file.seekg(pos);
 		this->file.read(buffer,tamanio);
-
-
-
 	}
 	else {
 		/* arroja una excepción porque el file no está abierto */

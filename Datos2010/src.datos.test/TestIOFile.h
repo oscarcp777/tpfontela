@@ -9,6 +9,7 @@
 #define TESTIOFILE_H_
 
 #include "../src.datos.storage/BinaryFile.h"
+#include "../src.datos.storage/TextFile.h"
 
 class TestIOFile {
 public:
