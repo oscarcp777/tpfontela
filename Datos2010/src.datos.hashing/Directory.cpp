@@ -81,7 +81,7 @@ int Directory::close(){
 	int result;
 	result = this->pack();
 	if(result == -1) return 0;
-	this->directoryFile->reWind();//TODO falta hacer la clase fileBuffer
+	this->directoryFile->ReWind();//TODO falta hacer la clase fileBuffer
 	result = directoryFile->write();
 	if(result == -1) return 0;
 	return this->directoryFile->close() && this->bucketFile->close();

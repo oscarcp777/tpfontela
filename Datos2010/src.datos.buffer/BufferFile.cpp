@@ -30,9 +30,10 @@ int BufferFile::write(int addr){
 int BufferFile::create(char* name,int mode){
 	return 0;
 }
-int BufferFile::reWind(){
+int BufferFile::ReWind(){
 	return 0;
 }
 int BufferFile::append(){
 	return 0;
 }
+
