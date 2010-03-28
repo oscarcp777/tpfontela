@@ -151,26 +151,72 @@ int Directory::removeBucket(int bucketIndex, int bucketDepth){
 	//set all cells for this bucket to its buddy bucket
 	int fillBits = this->depth - bucketDepth;//number of bits to fill
 	int buddyIndex = bucketIndex^ (1<<(fillBits-1));
+	//flip low bit
+	int newBucketAddr = this->bucketAddr[buddyIndex];
+	int lowIndex = bucketIndex >> fillBits << fillBits;
+	//zero low bits
+	int highIndex = lowIndex + (1<<fillBits) -1;
+	//set low bits to 1
+	for(int i= lowIndex; i <= highIndex; i++)
+		this->bucketAddr[i] = newBucketAddr;
+	return 0;
 }
 
 int Directory::find(char* key){
+	//return bucketAddr for key
+	return this->bucketAddr[makeAddress(key,this->depth)];
+}
+
+int  Directory::pack() const{
+	//pack the buffer and return the number of bytes packed
+	int result,packsize;
+	this->directoryBuffer->clear();
+	packsize = this->directoryBuffer->pack(&this->depth, sizeof(int));
+	if(packsize == -1) return -1;
+	for(int i=0; i<this->numCells; i++){
+		result = this->directoryBuffer->pack(&this->bucketAddr[i],sizeof(int));
+		if(result == -1) return -1;
+		packsize += result;
+	}
+	return packsize;
+}
+int Directory::unPack(){
+	int result;
+	result = this->directoryBuffer->unPack(&this->depth, sizeof(int));
+	if(result == -1) return -1;
+	this->numCells = 1 << this->depth;
+	if(this->bucketAddr != 0) delete this->bucketAddr;
+	this->bucketAddr = new int[this->numCells];
+	for(int i = 0; i<this->numCells; i++){
+		result = this->directoryBuffer->unPack(&this->bucketAddr[i], sizeof(int));
+		if(result == -1) return -1;
+	}
 	return 0;
 }
 
 int Directory::storeBucket(Bucket* bucket){
-	return 0;
+	//update or append the bucket to the bucket file
+	int result;
+	result = this->theBucketBuffer->pack(*bucket);
+	if(result == -1) return -1;
+	int addr = bucket->bucketAddr;
+	if(addr != 0) return this->bucketFile->write(addr);
+	addr = this->bucketFile->append();
+	bucket->bucketAddr = addr;
+	return addr;
 }
 
 int Directory::loadBucket(Bucket* bucket, int bucketAddr){
-	return 0;
+	//read the bucket from file, and set bucketAddr field
+	int result;
+	result = this->bucketFile->read(bucketAddr);
+	if(result == -1) return 0;
+	result = this->theBucketBuffer->unPack(*bucket);
+	if(result == -1) return 0;
+	bucket->bucketAddr = bucketAddr;
+	return 1;
 }
 
 void Directory::print(){
 
-}
-int  Directory::pack() const{
-	return 0;
-}
-int Directory::unPack(){
-	return 0;
 }

@@ -15,8 +15,9 @@ public:
 	virtual ~BufferFile();
 	int open(char* name, int mode);
 	int close();
-	int read();
-	int write();
+	int read(int addr = -1);
+	int write(int addr = -1);
+	int append();
 	int create(char* name,int mode);
 	int reWind();
 };
