@@ -13,7 +13,6 @@ using namespace std;
 class BufferFile :public Object{
 protected:
 IOBuffer & getBuffer();
- fstream File;
  int HeaderSize;
  int ReadHeader();
  int WriteHeader();

@@ -20,6 +20,7 @@ public:
 private:
 	int keySize;
 	int maxKeys;
+	char *dummy; //space for dummy in pack and unpack
 
 	friend class Bucket;
 };

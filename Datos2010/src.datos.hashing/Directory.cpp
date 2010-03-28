@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include <fstream>
 #include <sstream>
+#include <string>
+
 
 const int maxKeySize = 12;
-using namespace std;
+//using namespace std;
 
 Directory::Directory(int maxBucketKeys) {
 	this->depth = 0;//depth of directory
@@ -34,14 +36,17 @@ Directory::~Directory() {
 }
 
 void makeNames(char* name, char*& dirName, char*& bktName){
-	//TODO nose el nombre de la libreria ostrstream :P
-//	ostrstream directoryName;
-//	directoryName<<name<<".dir"<<ends;
-//	dirName = strdup(directoryName.str());
-//	ostrstream bucketName;
-//	bucketName<<name<<".bkt"<<ends;
-//	bktName = strdup(bucketName.str());
+	//crea los nombres del archivo directory y del archivo de buckets
+	string  directoryName;
+	string bucketName;
 
+	directoryName = name;
+	directoryName+= ".dir";
+	dirName = (char*)directoryName.c_str();
+
+	bucketName = name;
+	bucketName+= ".bkt";
+	bktName = (char*)bucketName.c_str();
 }
 
 int Directory::open(char* name){

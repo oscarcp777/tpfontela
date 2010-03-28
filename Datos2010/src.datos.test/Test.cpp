@@ -9,6 +9,10 @@
 
 int main(){
 
+Test::~Test() {
+	// TODO Auto-generated destructor stub
+}
+int main567(){
 	TestIOFile* test = new TestIOFile();
 	test->runBinaryFileTest();
 	test->runTextFileTest();
