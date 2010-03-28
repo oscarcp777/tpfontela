@@ -6,14 +6,7 @@
  */
 
 #include "TestIOFile.h"
-#include "Test.h"
 
-Test::Test() {
-	// TODO Auto-generated destructor stub
-}
-Test::~Test() {
-	// TODO Auto-generated destructor stub
-}
 int main24235(){
 	TestIOFile* test = new TestIOFile();
 	test->runBinaryFileTest();
