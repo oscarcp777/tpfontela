@@ -15,3 +15,12 @@ LengthFieldBuffer::LengthFieldBuffer() {
 LengthFieldBuffer::~LengthFieldBuffer() {
 	// TODO Auto-generated destructor stub
 }
+int LengthFieldBuffer::clear(){
+	return 0;
+}
+int LengthFieldBuffer::pack(const void* field, unsigned int size){
+	return 0;
+}
+int LengthFieldBuffer::unPack(void* field, unsigned int maxBytes){
+	return 0;
+}

@@ -13,6 +13,9 @@ class LengthFieldBuffer {
 public:
 	LengthFieldBuffer();
 	virtual ~LengthFieldBuffer();
+	int clear();
+	int pack(const void* field, unsigned int size=-1);
+	int unPack(void* field, unsigned int maxBytes=-1);
 };
 
 #endif /* LENGTHFIELDBUFFER_H_ */
