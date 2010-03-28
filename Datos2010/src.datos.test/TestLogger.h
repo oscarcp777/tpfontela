@@ -8,7 +8,7 @@
 #ifndef TESTLOGGER_H_
 #define TESTLOGGER_H_
 
-#include "../src.datos.logger/Logger.h"
+
 
 class TestLogger {
 

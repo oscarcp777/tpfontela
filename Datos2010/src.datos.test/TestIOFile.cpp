@@ -83,5 +83,3 @@ void TestIOFile::runTextFileTest(){
 	text->write("esto es para vos nelson castro 3333");
 	text->close();
 }
-
-
