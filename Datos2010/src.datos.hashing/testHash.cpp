@@ -8,7 +8,7 @@
 #include "Hash.h"
 #include <string>
 
-int main234(){
+int main(){
 	int result;
 	string keys[15] = {"osky" , "nelson" , "santy", "dani", "richy", "caceres", "ramos", "donikian", "sivori", "dubini","maja","paucartambo","datos","hash","kit"};
 
@@ -16,6 +16,7 @@ int main234(){
 	string nombre = "archivoHash";
 	Directory dir(4);
 	result = dir.create((char*)nombre.c_str());
+
 	if(result == 0){
 		std::cout<<"borre los archivos e intente nuevamente"<<std::endl;
 		return 0;
