@@ -9,7 +9,7 @@
 #define DIRECTORY_H_
 
 
-
+#include "../src.datos.utils/Object.h"
 #include "LengthFieldBuffer.h"
 #include "BufferFile.h"
 
@@ -34,7 +34,7 @@ protected:
 	int doubleSize();//double the size of the directory
 	int collapse(); //collapse, halve the size
 	int insertBucket(int bucketAddr, int first, int last);
-	int removeBucket(int bucketIndex, int depth);
+	int removeBucket(int bucketIndex, int bucketDepth);
 	int find(char* key); //return bucketAddr for key
 	int storeBucket(Bucket* bucket); //update or append bucket from file
 	int loadBucket(Bucket* bucket, int bucketAddr);//load bucket from file
