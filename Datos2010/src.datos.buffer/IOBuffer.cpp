@@ -8,6 +8,7 @@
 #include "IOBuffer.h"
 
 IOBuffer::IOBuffer() {
+
 	// TODO Auto-generated constructor stub
 
 }
