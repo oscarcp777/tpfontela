@@ -218,5 +218,12 @@ int Directory::loadBucket(Bucket* bucket, int bucketAddr){
 }
 
 void Directory::print(){
+	std::cout<<"Directory depth: "<<this->depth<<"  size: "<<this->numCells<<std::endl;
+	for(int i=0; i<this->numCells; i++){
+		std::cout<<"bucket: "<<(void*)i<<"  addr: "<<this->bucketAddr[i]<<std::endl;
+		this->loadBucket(this->printBucket, this->bucketAddr[i]);
+		this->printBucket->print();
+	}
+	std::cout<<"end directory"<<endl;
 
 }
