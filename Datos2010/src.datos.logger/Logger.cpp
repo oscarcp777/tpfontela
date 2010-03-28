@@ -7,11 +7,31 @@
 
 #include "Logger.h"
 #include "time.h"
+#include "../src.datos.utils/Object.h"
 
 Logger* Logger::logger = NULL;
 
-Logger::Logger(){
+void Logger::open(fstream* file, string fileName){
 
+	file->open(fileName.c_str(), ios::in | ios::out);
+
+	if (!file->is_open()) {
+
+		file->clear();
+		file->open(fileName.c_str(), ios::out);
+		file->close();
+		file->open(fileName.c_str(), ios::in | ios::out);
+	}
+}
+
+void Logger::write(fstream* file, string cadena){
+
+	if (file->is_open()){
+
+
+		file->seekg(0, ios::end);
+		(*file) << cadena << std::endl;
+	}
 }
 
 std::string Logger::getTimeSystem(){
@@ -20,62 +40,61 @@ std::string Logger::getTimeSystem(){
 	struct tm* timeinfo;
 	time ( &rawtime );
 	timeinfo = localtime (&rawtime);
-	return asctime(timeinfo);
-}
 
-void Logger::open(fstream file, string fileName){
+	char* cadena = asctime(timeinfo);
 
-	file.open(fileName.c_str(), ios::in | ios::out);
+	this->temp = new char[25];
 
-	if (!this->file.is_open()) {
+	for(int i=0 ; i<24 ; i++){
 
-		this->file.clear();
-		this->file.open(fileName.c_str(), ios::out);
-		this->file.close();
-		this->file.open(fileName.c_str(), ios::in | ios::out);
+		(temp[i]) = *(cadena + i);
 	}
 
+	temp[24]='\0';
+
+	return temp;
 }
 
-void Logger::write(fstream file, string cadena){
+Logger::Logger(){
 
-	if (file.is_open()){
+	this->open(&this->fileInfo,PATH_INFO);
+	this->open(&this->fileDebug,PATH_DEBUG);
+	this->open(&this->fileError,PATH_ERROR);
 
-
-		file.seekg(0, ios::end);
-		file << cadena << endl;
-	}
 }
 
-Logger* Logger::getUnicaInstance(){
+Logger* Logger::getUnicaInstancia(){
 
 	if(!Logger::logger){
-		/*
-		 * Aca instancio el singleton y abró los archivos.
-		 */
-		Logger::logger = new Logger();
 
-		this->open(this->fileInfo,PATH_INFO);
-		this->open(this->fileDebug,PATH_DEBUG);
-		this->open(this->fileError,PATH_ERROR);
+		Logger::logger = new Logger();
 	}
 
 	return logger;
 }
 
-void Logger::setInfo(std::string cadena){
 
-	this->write(this->fileInfo,this->getTimeSystem() + this->cadena);
+void Logger::info(Object* object, std::string cadena){
+
+	string temp = this->getTimeSystem() + TAB + object->toString()+ cadena;
+	this->write(&this->fileInfo,temp);
+
 }
 
-void Logger::setDebug(std::string object, std::string cadena){
+void Logger::debug(Object* object, std::string cadena){
 
-	this->write(this->fileDebug,this->getTimeSystem() + object + cadena);
+	string temp = this->getTimeSystem() + TAB + object->toString() + TAB + cadena;
+	this->write(&this->fileDebug,temp);
+	if(DEBUG){
+
+		std::cout << temp << endl;
+	}
 }
 
-void Logger::setError(std::string object, std::string cadena){
+void Logger::error(Object* object, std::string cadena){
 
-	this->write(this->fileError,this->getTimeSystem() + object + cadena);
+	string temp = this->getTimeSystem() + TAB + object->toString() + TAB + cadena;
+	this->write(&this->fileError,temp);
 }
 /*
  * El logger se instancia al comienzo de la aplicacion
@@ -86,6 +105,7 @@ void Logger::setError(std::string object, std::string cadena){
 Logger::~Logger(){
 
 	//Cierra los archivos abiertos.
+	delete []this->temp;
 	this->fileInfo.close();
 	this->fileDebug.close();
 	this->fileError.close();

@@ -5,8 +5,17 @@
  *      Author: oscar
  */
 
+
 #ifndef DEFINE_H_
 #define DEFINE_H_
+
+#define PATH_INFO "files/info"
+#define PATH_DEBUG "files/debug"
+#define PATH_ERROR "files/error"
+#define TAB "	"
+#define DEBUG 0
+
+
 #define CLAVE_TAMANIO "|tamanio=|"
 #define CLAVE_ALMACENAMIENTO "almacenamiento=|"
 #define CLAVE_TAG_PRIMARIA "|clavePrimaria=|"
@@ -36,7 +45,7 @@
 #define TAMANIO "tamanio"
 #define CLAVE_PRIMARIA "clavePrimaria"
 #define MAX_LINEA 2000
-#define DEBUG 0
+
 class Define{
 public:
 	static const char DELIMITADOR1 = '|';

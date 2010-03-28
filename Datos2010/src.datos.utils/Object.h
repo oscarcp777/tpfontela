@@ -14,6 +14,9 @@
 #include <string>
 #include <stdio.h>
 #include <string.h>
+#include "Define.h"
+#include "../src.datos.logger/Logger.h"
+
 class Object {
 public:
 	Object();

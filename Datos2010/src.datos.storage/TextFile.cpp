@@ -8,35 +8,48 @@
 #include "TextFile.h"
 
 TextFile::TextFile() {
+
 }
 
 TextFile::~TextFile() {
+
 }
 
 void TextFile::create(string fileName){
 
 }
+
 void TextFile::open(string fileName){
-	  //intenta abrir el archivo en modo lectura - escritura
-	  this->file.open(fileName.c_str(), ios::in | ios::out);
 
-	  if (!this->file.is_open()) {
-	    //si no hubo éxito en la apertura...
-	    //limpia los flags de control de estado del archivo
-		  this->file.clear();
+	Logger* logger = Logger::getUnicaInstancia();
 
-	    //crea el archivo
-		  this->file.open(fileName.c_str(), ios::out);
-		  this->file.close();
+	logger->debug(this,"Se intenta abrir el archivo de texto en modo lectura-escritura");
+	this->file.open(fileName.c_str(), ios::in | ios::out);
 
-	    //reabre el archivo para lectura - escritura
-		  this->file.open(fileName.c_str(), ios::in | ios::out);
+	if (!this->file.is_open()){
+		logger->debug(this,"No se pudo abrir el archivo texto ... se limpian los flags de control del estado del archivo");
+		this->file.clear();
 
-	    if (!this->file.is_open())
-	      // si no se pudo crear el archivo arroja una excepción/
-	      throw ios_base::failure("El archivo no pudo ser abierto");
-	  }
-	  if (!this->file.is_open())
-	      // si no se pudo crear el archivo arroja una excepción/
-	      throw ios_base::failure("El archivo no pudo ser abierto");
+		logger->debug(this,"Se crea el archivo de texto");
+		this->file.open(fileName.c_str(), ios::out);
+		logger->debug(this,"Se cierra el archivo de texto para su utilizacion");
+		this->file.close();
+
+		logger->debug(this,"Se reabre el archivo texto para lectura - escritura");
+		this->file.open(fileName.c_str(), ios::in | ios::out);
+
+		if (!this->file.is_open()){
+
+			logger->debug(this,"No se pudo abrir el archivo de texto ... Se arroja una excepcion");
+			logger->error(this,"No se pudo abrir el archivo de texto ... Se arroja una excepcion");
+			throw ios_base::failure("El archivo texto no pudo ser abierto");
+		}
+	}
+
+	if (!this->file.is_open()){
+
+		logger->debug(this,"No se pudo abrir el archivo de texto ... Se arroja una excepcion");
+		logger->error(this,"No se pudo abrir el archivo de texto ... Se arroja una excepcion");
+		throw ios_base::failure("El archivo no pudo ser abierto");
+	}
 }

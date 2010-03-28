@@ -5,20 +5,15 @@
  *      Author: nelson
  */
 
-#include "Test.h"
+#include "TestIOFile.h"
 
-Test::Test() {
-	// TODO Auto-generated constructor stub
-
-}
-
-Test::~Test() {
-	// TODO Auto-generated destructor stub
-}
 int main(){
+
 	TestIOFile* test = new TestIOFile();
 	test->runBinaryFileTest();
-//	test->runTextFileTest();
+	test->runTextFileTest();
+
+	delete test;
 
 	return 0;
 }
