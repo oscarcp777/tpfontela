@@ -10,8 +10,8 @@
 
 
 #include "../src.datos.utils/Object.h"
-#include "LengthFieldBuffer.h"
-#include "BufferFile.h"
+#include "../src.datos.buffer/LengthFieldBuffer.h"
+#include "../src.datos.buffer/BufferFile.h"
 
 class Bucket;
 class BucketBuffer;
