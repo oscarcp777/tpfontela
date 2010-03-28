@@ -13,6 +13,12 @@ class BufferFile {
 public:
 	BufferFile();
 	virtual ~BufferFile();
+	int open(char* name, int mode);
+	int close();
+	int read();
+	int write();
+	int create(char* name,int mode);
+	int reWind();
 };
 
 #endif /* BUFFERFILE_H_ */

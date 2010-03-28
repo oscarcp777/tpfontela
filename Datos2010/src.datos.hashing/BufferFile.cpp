@@ -15,3 +15,21 @@ BufferFile::BufferFile() {
 BufferFile::~BufferFile() {
 	// TODO Auto-generated destructor stub
 }
+int BufferFile::open(char* name, int mode){
+	return 0;
+}
+int BufferFile::close(){
+	return 0;
+}
+int BufferFile::read(){
+	return 0;
+}
+int BufferFile::write(){
+	return 0;
+}
+int BufferFile::create(char* name,int mode){
+	return 0;
+}
+int BufferFile::reWind(){
+	return 0;
+}
