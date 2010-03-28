@@ -84,10 +84,4 @@ void TestIOFile::runTextFileTest(){
 	text->close();
 }
 
-int main(){
-	TestIOFile* test = new TestIOFile();
-	test->runBinaryFileTest();
-//	test->runTextFileTest();
 
-	return 0;
-}
