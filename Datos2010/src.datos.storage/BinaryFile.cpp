@@ -17,17 +17,34 @@ BinaryFile::~BinaryFile() {
 
 void BinaryFile::create(string fileName){
 
+	bool flag = false;
+	Logger* logger = Logger::getUnicaInstancia();
+	logger->debug(this,"Se intenta crear un archivo binario");
 	this->file.open(fileName.c_str(),ios::in |ios::out |ios::binary);
+
 	if (! this->file.is_open()){
+		flag = true;
+		logger->debug(this,"Se crea el archivo binario");
 		this->file.open(fileName.c_str(),ios::out | ios::binary);
 	}
 }
 
 void BinaryFile::open(string fileName){
 
+	bool flag = false;
+	Logger* logger = Logger::getUnicaInstancia();
+	logger->debug(this,"Se intenta abrir el archivo binario en modo lectura-escritura");
 	this->file.open(fileName.c_str(),ios::in |ios::out |ios::binary);
 	if (! this->file.is_open()){
+
+		logger->debug(this,"No se pudo abrir el archivo binario ... Se arroja una excepcion");
+		logger->error(this,"No se pudo abrir el archivo binario ... Se arroja una excepcion");
 		throw string("File not Found");
+	}
+
+	if(!flag){
+
+		logger->debug(this,"El archivo fue abierto con exito");
 	}
 
 }

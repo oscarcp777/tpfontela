@@ -6,15 +6,17 @@
  */
 
 #include "Storage.h"
-using namespace std;
+
 Storage::Storage() {
+}
+
+std::string Storage::toString(){
+
+	return "Storage";
 }
 
 Storage::~Storage() {
 
 }
 
-std::string Storage::toString(){
-	return "Storage";
-}
 

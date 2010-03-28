@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <iostream>
-#include "../src.datos.storage/TextFile.h"
+#include "../src.datos.logger/Logger.h"
 using namespace std;
 
 int main2() {

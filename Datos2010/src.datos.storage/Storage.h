@@ -18,13 +18,12 @@
 #include "../src.datos.utils/Define.h"
 using namespace std;
 
-
 class Storage:public Object{
 
 
 public:
 	Storage();
-	virtual ~Storage();
+	~Storage();
 
 
 
