@@ -8,21 +8,29 @@
 #ifndef BUFFERFILE_H_
 #define BUFFERFILE_H_
 #include "IOBuffer.h"
-
-class BufferFile {
+#include "../src.datos.utils/Object.h"
+using namespace std;
+class BufferFile :public Object{
+protected:
+IOBuffer & getBuffer();
+ fstream File;
+ int HeaderSize;
+ int ReadHeader();
+ int WriteHeader();
 public:
 	BufferFile(IOBuffer &);
 	BufferFile();
 	/**
 	 *lee un registro en el buffer
 	 *@autor oscar
-	 *@param
+	 *@return si se usa sin parametros retorna en siguiente registro del archivo
 	 *@return retorna la direccion del registro
 	 */
+	int read(int addr = -1);
+
 	virtual ~BufferFile();
 	int open(char* filename, int mode);
 	int close();
-	int read(int addr = -1);
 	int write(int addr = -1);
 	int append();
 	int create(char* filename,int mode);
