@@ -23,10 +23,10 @@ Directory::Directory(int maxBucketKeys) {
 	this->bucketAddr = new int[this->numCells]; //array of bucket addresses
 	this->maxBucketKeys = maxBucketKeys;
 	this->directoryBuffer = new LengthFieldBuffer();//TODO
-	this->directoryFile = new BufferFile(/* *directoryBuffer */);//TODO
+	//this->directoryFile = new BufferFile(*directoryBuffer);//TODO
 	this->currentBucket = new Bucket(*this, maxBucketKeys);
 	this->theBucketBuffer = new BucketBuffer(maxKeySize, maxBucketKeys);
-	this->bucketFile = new BufferFile(/* *theBucketBuffer */);
+	//this->bucketFile = new BufferFile(*theBucketBuffer );
 	this->printBucket = new Bucket(*this, maxBucketKeys);
 
 }
@@ -86,7 +86,7 @@ int Directory::close(){
 	int result;
 	result = this->pack();
 	if(result == -1) return 0;
-	this->directoryFile->ReWind();//TODO falta hacer la clase fileBuffer
+	this->directoryFile->reWind();//TODO falta hacer la clase fileBuffer
 	result = directoryFile->write();
 	if(result == -1) return 0;
 	return this->directoryFile->close() && this->bucketFile->close();
