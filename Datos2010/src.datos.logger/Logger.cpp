@@ -43,14 +43,12 @@ std::string Logger::getTimeSystem(){
 
 	char* cadena = asctime(timeinfo);
 
-	this->temp = new char[25];
-
-	for(int i=0 ; i<24 ; i++){
+	for(int i=0 ; i < (SIZE_SYSTEM_TIME - 1) ; i++){
 
 		(temp[i]) = *(cadena + i);
 	}
 
-	temp[24]='\0';
+	temp[SIZE_SYSTEM_TIME - 1]='\0';
 
 	return temp;
 }
@@ -60,6 +58,7 @@ Logger::Logger(){
 	this->open(&this->fileInfo,PATH_INFO);
 	this->open(&this->fileDebug,PATH_DEBUG);
 	this->open(&this->fileError,PATH_ERROR);
+	this->temp = new char[SIZE_SYSTEM_TIME];
 
 }
 

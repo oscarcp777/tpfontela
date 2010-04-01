@@ -13,6 +13,7 @@
 #define PATH_DEBUG "files/debug"
 #define PATH_ERROR "files/error"
 #define TAB "	"
+#define SIZE_SYSTEM_TIME 25
 #define DEBUG 0
 
 
