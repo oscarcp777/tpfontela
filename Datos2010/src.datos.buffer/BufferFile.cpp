@@ -7,53 +7,70 @@
 
 #include "BufferFile.h"
 
-BufferFile::BufferFile() {
 
-}
 
-BufferFile::BufferFile(IOBuffer & from) {
+BufferFile::BufferFile(IOBuffer & from):buffer(from) {
 	// TODO Auto-generated constructor stub
 
 }
+
 BufferFile::~BufferFile() {
 	// TODO Auto-generated destructor stub
 }
-int BufferFile::open(char* filename, int mode){
-	if(mode&ios::noreplace||mode&ios::trunc) return FALSE;
-    this->file.open(filename,mode|ios::in|ios::nocreate|ios::binary);
-    if(!file.good())return FALSE;
+int BufferFile::open(char* filename,ios_base::openmode  mode){
+    this->file.open(filename,mode|ios::in|ios::binary);
+    if(!file.good())return 0;
     file.seekg(0,ios::beg);file.seekp(0,ios::beg);
-    HeaderSize=ReadHeader();
-    if(!HeaderSize)return FALSE;
-    file.seekg(HeaderSize,ios::beg);file.seekp(HeaderSize,ios::beg);
+    headerSize=ReadHeader();
+    if(!headerSize)return 0;
+    file.seekg(headerSize,ios::beg);file.seekp(headerSize,ios::beg);
 	return file.good();
+}
+int BufferFile::create(char* name,ios_base::openmode mode){
+	if(!(mode&ios::out))return 0;
+	file.open(name,mode|ios::out|ios::binary);
+	if(!file.good()){
+		file.close();
+		return 0;
+	}
+	       headerSize=WriteHeader();
+		return headerSize!=0;
+
 }
 int BufferFile::close(){
     file.close();
-	return TRUE;
+	return 1;
+}
+int BufferFile::reWind(){
+    file.seekg(headerSize,ios::beg);file.seekp(headerSize,ios::beg);
+	return 1;
 }
 int BufferFile::read(int addr){
+	if(addr==-1)
+		return buffer.read(file);
+	else
+		return buffer.dRead(file,addr);
 	return 0;
 }
 int BufferFile::write(int addr){
+	if(addr==-1)
+			return buffer.write(file);
+		else
+			return buffer.dWrite(file,addr);
 	return 0;
 }
-int BufferFile::create(char* name,int mode){
-	if(!(mode&ios::out))return FALSE;
-	file.open(name,mode|ios::out|ios::nocreate|ios::binary);
-	if(!file.good()){
-		file.close();
-		return FALSE;
-	}
-	       HeaderSize=WriteHeader();
-		return HeaderSize!=0;
 
-}
-int BufferFile::ReWind(){
-    file.seekg(HeaderSize,ios::beg);file.seekp(HeaderSize,ios::beg);
-	return 1;
-}
+
 int BufferFile::append(){
-	return 0;
+	file.seekp(0,ios::end);
+	return buffer.write(file);
 }
-
+IOBuffer & BufferFile::getBuffer(){
+return buffer;
+}
+int BufferFile::WriteHeader(){
+	return buffer.writeHeader(file);
+}
+int BufferFile::ReadHeader(){
+	return buffer.readHeader(file);
+}

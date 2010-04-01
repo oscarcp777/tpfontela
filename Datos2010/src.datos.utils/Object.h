@@ -8,11 +8,10 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 #include <iostream>
-#include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include <stdio.h>
+#include <fstream>
 #include <string.h>
 #include "Define.h"
 #include "../src.datos.logger/Logger.h"
