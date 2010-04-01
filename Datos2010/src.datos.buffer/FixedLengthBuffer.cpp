@@ -67,7 +67,7 @@ int FixedLengthBuffer::readHeader(istream& stream){
 
 }
 
-int FixedLengthBuffer::writeHeader(ostream& stream){
+int FixedLengthBuffer::writeHeader(ostream& stream) const{
 	//write a buffer header to the beginning of the stream
 	//a header consists of the
 	//IOBUffer header
