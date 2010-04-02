@@ -7,6 +7,7 @@
 
 #ifndef TEXTINDEX_H_
 #define TEXTINDEX_H_
+#include "../src.datos.utils/Object.h"
 
 class TextIndex {
 public:
