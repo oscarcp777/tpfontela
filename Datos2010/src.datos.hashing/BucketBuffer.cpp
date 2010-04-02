@@ -8,10 +8,8 @@
 #include "BucketBuffer.h"
 #include "Bucket.h"
 
-BucketBuffer::BucketBuffer(int keySize, int maxKeys) {
-	// TODO Auto-generated constructor stub
-	this->keySize = keySize;
-	this->maxKeys = maxKeys;
+BucketBuffer::BucketBuffer(int keySize, int maxKeys):TextIndexBuffer(keySize,maxKeys,1,sizeof(int)) {
+	this->addField(sizeof(int));
 }
 
 BucketBuffer::~BucketBuffer() {
@@ -19,10 +17,16 @@ BucketBuffer::~BucketBuffer() {
 }
 
 int BucketBuffer::pack(const Bucket& bucket){
-	return 0;
+	int result;
+	result = TextIndexBuffer::pack(bucket);
+	if(result == -1) return -1;
+	return FixedFieldBuffer::pack(&bucket.depth);
+
 
 }
 int BucketBuffer::unPack(Bucket& bucket){
-	return 0;
-
+	int result;
+	result = TextIndexBuffer::unPack(bucket);
+	if(result == -1) return -1;
+	return FixedFieldBuffer::unPack(&bucket.depth);
 }

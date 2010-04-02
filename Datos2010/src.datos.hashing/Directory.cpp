@@ -8,6 +8,7 @@
 #include "Directory.h"
 #include "Bucket.h"
 #include "BucketBuffer.h"
+#include "../src.datos.buffer/BufferFile.h"
 #include <stdio.h>
 #include <fstream>
 #include <sstream>

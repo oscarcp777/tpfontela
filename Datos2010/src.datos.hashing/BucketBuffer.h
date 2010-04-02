@@ -7,20 +7,16 @@
 
 #ifndef BUCKETBUFFER_H_
 #define BUCKETBUFFER_H_
-
+#include "../src.datos.buffer/TextIndexBuffer.h"
 
 class Bucket;
 
-class BucketBuffer {
+class BucketBuffer: public TextIndexBuffer{
 public:
 	BucketBuffer(int keySize, int maxKeys);
 	virtual ~BucketBuffer();
 	int pack(const Bucket& bucket);
 	int unPack(Bucket& bucket);
-private:
-	int keySize;
-	int maxKeys;
-	char *dummy; //space for dummy in pack and unpack
 
 	friend class Bucket;
 };
