@@ -128,18 +128,50 @@ int FixedFieldBuffer::pack(const void* field, int size){
 }
 
 int FixedFieldBuffer::unPack(void* field, int maxBytes){
-	return 0;
+	this->packing = 0; //FALSE
+	if(this->nextField == this->numFields) //buffer is full
+		return -1;
+	int start = this->nextByte; //first byte to be unpacked
+	int packSize = this->fieldSize[this->nextField];
+	memcpy(field,&this->buffer[start],packSize);
+	this->nextByte += packSize;
+	this->nextField++;
+	if(this->nextField == this->numFields) this->clear(); //all fields unpacked
+	return packSize;
 
 }
 
-void FixedFieldBuffer::print(){}
+void FixedFieldBuffer::print(){
+	FixedLengthBuffer::print();
+	cout<<endl;
+	cout<<" \t max fields "<<this->maxFields<< " and actual"<<this->numFields<<endl;
+	for(int i=0; i<this->numFields; i++)
+		cout<<"\t field "<<i<<" size "<<this->fieldSize[i]<<endl;
+	this->buffer[this->bufferSize]=0;
+	cout<<" nextByte "<<this->nextByte<<endl;
+	cout<<" buffer '"<<this->buffer<<"'"<<endl;
+}
 
 int FixedFieldBuffer::init(int maxFields){
-	return 0;
+	this->clear();
+	if(maxFields <0) maxFields=0;
+	this->maxFields = maxFields;
+	this->fieldSize = new int[this->maxFields];
+	this->bufferSize = 0;
+	this->numFields = 0;
+	return 1;
 }
 
 int FixedFieldBuffer::init(int numFields, int* fieldSize){
-	return 0;
+	//initialize
+	this->initialized = 1; //TRUE
+	this->init(numFields);
+
+	//addd fields
+	for(int j=0; j<this->numFields; j++)
+		this->addField(fieldSize[j]);//EN EL LIBRO ESTA ASI PERO CREO QUE ESTA MAL this->addField(this->fieldSize[j]);
+
+	return 1;
 }
 FixedFieldBuffer::FixedFieldBuffer(const FixedFieldBuffer & ){
 
