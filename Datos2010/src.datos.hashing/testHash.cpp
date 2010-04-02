@@ -28,8 +28,9 @@ int main(){
 		result = dir.insert((char*)(keys[i]).c_str(),100+i);
 		if(result == 0)
 			std::cout<<" insert for "<<keys[i]<<" failed"<<std::endl;
+		dir.print();
 	}
-	dir.print();
+
 	return 1;
 
 }
