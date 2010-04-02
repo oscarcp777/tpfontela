@@ -27,6 +27,7 @@ public:
 	int remove(char* key);
 	int search(char* key);// return recAddr for key
 	void print();
+	int getDepth();
 protected:
 	int depth;
 	int numCells; //number of entries, = 2*depth
