@@ -42,6 +42,7 @@ protected:
 
 	friend class Directory;
 	friend class BucketBuffer;
+	friend class TextIndexBuffer;
 };
 
 #endif /* BUCKET_H_ */
