@@ -96,7 +96,7 @@ int Directory::close(){
 
 int Directory::insert(char* key, int recAddr){
  int found = search(key);
- if(found == -1) return currentBucket->instert(key,recAddr);
+ if(found == -1) return currentBucket->insert(key,recAddr);
  return 0; //key already exist
 }
 
