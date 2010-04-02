@@ -7,7 +7,7 @@
 
 #include "TestIOFile.h"
 
-int main24235(){
+int mainererter(){
 	TestIOFile* test = new TestIOFile();
 	test->runBinaryFileTest();
 	test->runTextFileTest();

@@ -8,8 +8,7 @@
 #include "Hash.h"
 #include <string>
 
-int main(){
-
+int main12345(){
 	int result;
 	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
 

@@ -55,9 +55,7 @@ std::string Logger::getTimeSystem(){
 
 Logger::Logger(){
 
-	this->open(&this->fileInfo,PATH_INFO);
-	this->open(&this->fileDebug,PATH_DEBUG);
-	this->open(&this->fileError,PATH_ERROR);
+	this->open(&this->file,PATH_LOGGER);
 	this->temp = new char[SIZE_SYSTEM_TIME];
 
 }
@@ -72,28 +70,27 @@ Logger* Logger::getUnicaInstancia(){
 	return logger;
 }
 
+void Logger::info(std::string object, std::string cadena){
 
-void Logger::info(Object* object, std::string cadena){
-
-	string temp = this->getTimeSystem() + TAB + object->toString()+ cadena;
-	this->write(&this->fileInfo,temp);
+	string temp = this->getTimeSystem() + TAB + object + TAB + INFO_FLAG + TAB + cadena;
+	this->write(&this->file,temp);
 
 }
 
-void Logger::debug(Object* object, std::string cadena){
+void Logger::debug(std::string object, std::string cadena){
 
-	string temp = this->getTimeSystem() + TAB + object->toString() + TAB + cadena;
-	this->write(&this->fileDebug,temp);
+	string temp = this->getTimeSystem() + TAB + object + TAB + DEBUG_FLAG + TAB + cadena;
+	this->write(&this->file,temp);
 	if(DEBUG){
 
 		std::cout << temp << endl;
 	}
 }
 
-void Logger::error(Object* object, std::string cadena){
+void Logger::error(std::string object, std::string cadena){
 
-	string temp = this->getTimeSystem() + TAB + object->toString() + TAB + cadena;
-	this->write(&this->fileError,temp);
+	string temp = this->getTimeSystem() + TAB + object + TAB + ERROR_FLAG + TAB + cadena;
+	this->write(&this->file,temp);
 }
 /*
  * El logger se instancia al comienzo de la aplicacion
@@ -105,8 +102,6 @@ Logger::~Logger(){
 
 	//Cierra los archivos abiertos.
 	delete []this->temp;
-	this->fileInfo.close();
-	this->fileDebug.close();
-	this->fileError.close();
+	this->file.close();
 
 }
