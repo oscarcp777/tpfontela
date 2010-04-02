@@ -233,7 +233,7 @@ void Directory::print(){
 		this->loadBucket(this->printBucket, this->bucketAddr[i]);
 		this->printBucket->print();
 	}
-	std::cout<<"end directory"<<endl;
+	std::cout<<"end directory**************************************************"<<endl;
 
 }
 int Directory::getDepth(){
