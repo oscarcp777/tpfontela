@@ -15,6 +15,11 @@
 #define TAB "	"
 #define SIZE_SYSTEM_TIME 25
 #define DEBUG 0
+#define EXT_DIRECTORY ".dir"
+#define EXT_BUCKET ".bkt"
+
+
+
 
 
 #define CLAVE_TAMANIO "|tamanio=|"

@@ -15,13 +15,13 @@
 
 class Bucket;
 class BucketBuffer;
-
+using namespace std;
 class Directory {
 public:
 	Directory(int maxBucketKeys = -1);
 	virtual ~Directory();
-	int open(char* name);
-	int create(char* name);
+	int open(string name);
+	int create(string name);
 	int close();
 	int insert(char* key, int recAddr);
 	int remove(char* key);

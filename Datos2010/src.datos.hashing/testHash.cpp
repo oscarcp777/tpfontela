@@ -16,7 +16,7 @@ int main(){
 
 	string nombre = "files/archivoHash";
 	Directory dir(4);
-	result = dir.create((char*)nombre.c_str());
+	result = dir.create(nombre);
 
 	if(result == 0){
 		std::cout<<"borre los archivos e intente nuevamente"<<std::endl;

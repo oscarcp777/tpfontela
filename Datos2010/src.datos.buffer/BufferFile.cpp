@@ -17,8 +17,8 @@ BufferFile::BufferFile(IOBuffer & from):buffer(from) {
 BufferFile::~BufferFile() {
 	// TODO Auto-generated destructor stub
 }
-int BufferFile::open(char* filename,ios_base::openmode  mode){
-    this->file.open(filename,mode|ios::in|ios::binary);
+int BufferFile::open(string filename,ios_base::openmode  mode){
+    this->file.open(filename.c_str(),mode|ios::in|ios::binary);
     if(!file.good())return 0;
     file.seekg(0,ios::beg);
     file.seekp(0,ios::beg);
@@ -28,9 +28,9 @@ int BufferFile::open(char* filename,ios_base::openmode  mode){
     file.seekp(headerSize,ios::beg);
 	return file.good();
 }
-int BufferFile::create(char* name,ios_base::openmode mode){
+int BufferFile::create(string name,ios_base::openmode mode){
 	if(!(mode&ios::out))return 0;
-	file.open(name,mode|ios::out|ios::binary);
+	file.open(name.c_str(),mode|ios::out|ios::binary);
 	if(!file.good()){
 		file.close();
 		return 0;
