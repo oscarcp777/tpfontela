@@ -97,7 +97,6 @@ int Directory::close(){
 int Directory::insert(char* key, int recAddr){
  int found = search(key);
  if(found == -1){
-	 cout<<"currentBucket->numKeys "<<currentBucket->numKeys<<endl;
 	 return currentBucket->insert(key,recAddr);
  }
 

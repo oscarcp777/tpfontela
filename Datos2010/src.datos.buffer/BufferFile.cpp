@@ -20,10 +20,12 @@ BufferFile::~BufferFile() {
 int BufferFile::open(char* filename,ios_base::openmode  mode){
     this->file.open(filename,mode|ios::in|ios::binary);
     if(!file.good())return 0;
-    file.seekg(0,ios::beg);file.seekp(0,ios::beg);
+    file.seekg(0,ios::beg);
+    file.seekp(0,ios::beg);
     headerSize=ReadHeader();
     if(!headerSize)return 0;
-    file.seekg(headerSize,ios::beg);file.seekp(headerSize,ios::beg);
+    file.seekg(headerSize,ios::beg);
+    file.seekp(headerSize,ios::beg);
 	return file.good();
 }
 int BufferFile::create(char* name,ios_base::openmode mode){
@@ -33,7 +35,9 @@ int BufferFile::create(char* name,ios_base::openmode mode){
 		file.close();
 		return 0;
 	}
-	       headerSize=WriteHeader();
+	    headerSize=WriteHeader();
+	    this->close();
+	    this->open(name, mode);
 		return headerSize!=0;
 
 }
