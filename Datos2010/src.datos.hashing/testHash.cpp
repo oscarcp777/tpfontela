@@ -32,6 +32,15 @@ int main(){
 		dir.print();
 	}
 
+	result = dir.remove((char*)keys[1].c_str());
+	if(result == 0)
+				std::cout<<" remove for failed"<<std::endl;
+	cout<<"se remueve la clave lee"<<endl;
+	dir.print();
+	cout<<"se cierra, se abre y se busca la clave peter"<<endl;
+	dir.close();
+	dir.open((char*)nombre.c_str());
+	cout<<"recAddrs de peter es "<< dir.search((char*)keys[9].c_str())<<endl;
 	return 1;
 
 }
