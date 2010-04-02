@@ -30,7 +30,7 @@ public:
 	int read(int addr = -1);
 	IOBuffer & getBuffer();
 	virtual ~BufferFile();
-	int open(string filename, ios_base::openmode mode);
+	int open(char* filename, ios_base::openmode mode);
 	int close();
 	int write(int addr = -1);
 	/**
@@ -39,7 +39,7 @@ public:
 	*@
 	 */
 	int append();
-	int create(string filename,ios_base::openmode mode);
+	int create(char* filename,ios_base::openmode mode);
 	/**
 	 * restablece al primer registro de datos
 	 */
