@@ -9,19 +9,19 @@
 #define BUCKET_H_
 
 #include "../src.datos.utils/Object.h"
+#include "../src.datos.buffer/TextIndex.h"
 #include "Hash.h"
 
 const int defaultMaxKeys = 100;
 
 class Directory;
 
-class Bucket {
+class Bucket: public TextIndex {
 
-public:
+protected:
 	Bucket(Directory & dir, int maxKeys = defaultMaxKeys);
 	virtual ~Bucket();
-protected:
-	int instert(char* key, int recAddr);
+	int insert(char* key, int recAddr);
 	int remove(char* key);
 	Bucket* split();
 	int newRange(int & newStart, int & newEnd);
@@ -34,15 +34,9 @@ protected:
 	int depth;
 	Directory  &dir;
 	int bucketAddr;
-	int maxKeys;
-	int numKeys;
-	char** keys;
-	int unique; //si es true, cada key tiene que ser unica
-	int* recAddrs;
 
 	friend class Directory;
 	friend class BucketBuffer;
-	friend class TextIndexBuffer;
 };
 
 #endif /* BUCKET_H_ */

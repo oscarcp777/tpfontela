@@ -10,7 +10,8 @@
 
 
 
-Bucket::Bucket(Directory & dir, int maxKeys): dir(dir) {
+
+Bucket::Bucket(Directory & dir, int maxKeys):TextIndex(maxKeys), dir(dir) {
 
 	this->bucketAddr = 0;
 	this->depth = 0;
@@ -22,7 +23,7 @@ int Bucket::find(const char* key){
 		else if(strcmp(keys[i],key)>0) return -1;//not found
 	return -1;//not found
 }
-int Bucket::instert(char* key, int recAddr){
+int Bucket::insert(char* key, int recAddr){
 	if (numKeys < maxKeys){
 		int i;
 		int index = find(key);
@@ -123,7 +124,7 @@ int Bucket::combine(Bucket* buddy, int buddyIndex){
 	//move keys from buddy to this
 	for(int i=0; i < buddy->numKeys; i++){
 	//insert the key of the budy into this
-		result = instert(buddy->keys[i], buddy->recAddrs[i]);
+		result = insert(buddy->keys[i], buddy->recAddrs[i]);
 		if(!result) return 0;
 	}
 	depth--;
@@ -152,8 +153,8 @@ int Bucket::redistribute(Bucket & newBucket){
 		if(bucketAddr != this->bucketAddr){//key belongs in the new bucket
 			//TODO no sirve el insert y remove de bucket porque hace mas cosas que el de text index
 			//solucionar, partir metodos y crear otros o NOSE
-			//newBucket.TextIndex::Insert(keys[i], recAddrs[i]);
-			//TextIndex::Remove(keys[i]);//delete key from this bucket
+			newBucket.TextIndex::insert(keys[i], recAddrs[i]);
+			TextIndex::remove(keys[i]);//delete key from this bucket
 
 		}
 	}

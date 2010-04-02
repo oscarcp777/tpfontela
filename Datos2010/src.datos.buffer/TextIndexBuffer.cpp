@@ -23,29 +23,29 @@ TextIndexBuffer::TextIndexBuffer(int keySize, int maxKeys, int extraFields, int 
 TextIndexBuffer::~TextIndexBuffer() {
 	// TODO Auto-generated destructor stub
 }
-int TextIndexBuffer::pack(const Bucket& bucket){
+int TextIndexBuffer::pack(const TextIndex& index){
 	int result;
 	this->clear();
-	result = FixedFieldBuffer::pack(&bucket.numKeys);
-	for(int i=0; i<bucket.numKeys; i++){
-		result = result && FixedFieldBuffer::pack(bucket.keys[i]);
-		result = result && FixedFieldBuffer::pack(&bucket.recAddrs[i]);
+	result = FixedFieldBuffer::pack(&index.numKeys);
+	for(int i=0; i<index.numKeys; i++){
+		result = result && FixedFieldBuffer::pack(index.keys[i]);
+		result = result && FixedFieldBuffer::pack(&index.recAddrs[i]);
 	}
-	for(int j=0; j<bucket.maxKeys-bucket.numKeys; j++){
+	for(int j=0; j<index.maxKeys-index.numKeys; j++){
 		result = result && FixedFieldBuffer::pack(this->dummy);
 		result = result && FixedFieldBuffer::pack(this->dummy);
 	}
 	return result;
 }
-int TextIndexBuffer::unPack(Bucket& bucket){
+int TextIndexBuffer::unPack(TextIndex& index){
 	int result;
-	result = FixedFieldBuffer::unPack(&bucket.numKeys);
-	for(int i=0; i<bucket.numKeys; i++){
-		bucket.keys[i] = new char[this->keySize];
-		result = result && FixedFieldBuffer::unPack(bucket.keys[i]);
-		result = result && FixedFieldBuffer::unPack(&bucket.recAddrs[i]);
+	result = FixedFieldBuffer::unPack(&index.numKeys);
+	for(int i=0; i<index.numKeys; i++){
+		index.keys[i] = new char[this->keySize];
+		result = result && FixedFieldBuffer::unPack(index.keys[i]);
+		result = result && FixedFieldBuffer::unPack(&index.recAddrs[i]);
 		}
-	for(int j=0; j<bucket.maxKeys-bucket.numKeys; j++){
+	for(int j=0; j<index.maxKeys-index.numKeys; j++){
 			result = result && FixedFieldBuffer::unPack(this->dummy);
 			result = result && FixedFieldBuffer::unPack(this->dummy);
 		}
