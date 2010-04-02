@@ -19,7 +19,7 @@ protected:
 
 
 public:
-	BufferFile(IOBuffer &);
+	BufferFile(IOBuffer & from);
 
 	/**
 	 *lee un registro en el buffer
