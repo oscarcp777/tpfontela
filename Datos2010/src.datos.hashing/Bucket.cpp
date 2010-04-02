@@ -151,8 +151,6 @@ int Bucket::redistribute(Bucket & newBucket){
 	for(int i= numKeys -1; i>=0; i--){
 		int bucketAddr = dir.find(keys[i]);//look up the bucket
 		if(bucketAddr != this->bucketAddr){//key belongs in the new bucket
-			//TODO no sirve el insert y remove de bucket porque hace mas cosas que el de text index
-			//solucionar, partir metodos y crear otros o NOSE
 			newBucket.TextIndex::insert(keys[i], recAddrs[i]);
 			TextIndex::remove(keys[i]);//delete key from this bucket
 
