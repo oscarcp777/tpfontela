@@ -9,17 +9,13 @@
 #ifndef DEFINE_H_
 #define DEFINE_H_
 
-#define PATH_INFO "files/info"
-#define PATH_DEBUG "files/debug"
-#define PATH_ERROR "files/error"
-#define TAB "	"
+#define PATH_LOGGER "files/logger"
+#define TAB "		"
+#define INFO_FLAG "INFO"
+#define DEBUG_FLAG "DEBUG"
+#define ERROR_FLAG "ERROR"
 #define SIZE_SYSTEM_TIME 25
 #define DEBUG 0
-#define EXT_DIRECTORY ".dir"
-#define EXT_BUCKET ".bkt"
-
-
-
 
 
 #define CLAVE_TAMANIO "|tamanio=|"

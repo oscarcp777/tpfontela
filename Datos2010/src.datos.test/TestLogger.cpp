@@ -16,18 +16,18 @@ TestLogger::TestLogger(){
 void TestLogger::testLoggerInfo(){
 
 
-	this->logger->info(this->file,"Esta es una info");
+	this->logger->info(this->file->toString(),"Esta es una info");
 }
 
 void TestLogger::testLoggerDebug(){
 
 
-	this->logger->debug(this->file,"este es un debug");
+	this->logger->debug(this->file->toString(),"este es un debug");
 }
 
 void TestLogger::testLoggerError(){
 
-	this->logger->error(this->file,"este es un error");
+	this->logger->error(this->file->toString(),"este es un error");
 }
 
 void TestLogger::runLoggerTest(){

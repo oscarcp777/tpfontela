@@ -20,9 +20,7 @@ class Logger{
 private:
 
 	static Logger* logger;
-	fstream fileInfo;
-	fstream fileDebug;
-	fstream fileError;
+	fstream file;
 	char* temp;
 
 	/*
@@ -55,20 +53,19 @@ public:
 	 */
 	static Logger* getUnicaInstancia();
 	/*
-	 * Escribe en el archivo de salida de informacion
-	 * la info seteada.
+	 * Escribe en el archivo de salida, la informacion del
+	 * programa.
 	 */
-	void info(Object* object, std::string cadena);
+	void info(std::string object, std::string cadena);
 	/*
-	 * Escribe en el archivo de salida de debug la informacion
-	 * seteada.
+	 * Escribe en el archivo de salida, el debug del programa
 	 */
-	void debug(Object* object, std::string cadena);
+	void debug(std::string object, std::string cadena);
 	/*
-	 * Escribe en el archivo de salida de error la informacion
-	 * de error seteada.
+	 * Escribe en el archivo de salida, el error que se produjo en la
+	 * ejecucion del programa.
 	 */
-	void error(Object* object, std::string cadena);
+	void error(std::string object, std::string cadena);
 	/*
 	 * Libera los recursos solicitados por el logger.
 	 */
