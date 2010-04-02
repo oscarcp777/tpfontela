@@ -26,31 +26,9 @@ int Bucket::find(const char* key){
 int Bucket::insert(char* key, int recAddr){
 
 	if (numKeys < maxKeys){
-		int i;
-		int index = find(key);
-
-		if(unique && index >=0){
-			// la clave esta adentro
-			dir.storeBucket(this);
-			return 0;
-		}
-		if( numKeys == maxKeys){
-			//no hay espacio para otra clave
-			dir.storeBucket(this);
-			return 0;
-		}
-		cout<<"INSERTANDO EN BUCKET ADDR "<<this->bucketAddr<<" cant actual keys "<<this->numKeys<<endl;
-		for(i= numKeys -1; i >= 0; i--){
-			if(strcmp(key,keys[i]) > 0) break; //insertar en i+1
-			keys[i+1] = keys[i];
-			recAddrs[i+1] = recAddrs[i];
-		}
-		keys[i+1] = strdup(key);
-		recAddrs[i+1]= recAddr;
-		cout<<"keys["<<i+1<<"] "<<keys[i+1]<<" recAddrs["<<i+1<<"] "<<recAddrs[i+1]<<endl;
-		numKeys++;
+		int result = TextIndex::insert(key,recAddr);
 		dir.storeBucket(this);
-		return 1;
+		return result;
 
 	}
 	else{
@@ -65,15 +43,9 @@ int Bucket::insert(char* key, int recAddr){
 
 int Bucket::remove(char* key){
 	//remover key y devolver su recAddr
-	int index = find(key);
-	if(index < 0) return 0; //la clave no esta
-	for(int i=index; i < numKeys; i++){
-		keys[i] = keys[i+1];
-		recAddrs[i] = recAddrs[i+1];
-
-	}
-	numKeys--;
-	tryCombine(); //attempt to combine with buddy
+	int result = TextIndex::remove(key);
+	if(!result) return 0; //key not in bucket
+	this->tryCombine(); //attempt to combine with buddy
 	dir.storeBucket(this);
 	return 1;
 }
