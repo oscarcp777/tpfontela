@@ -23,11 +23,11 @@ Directory::Directory(int maxBucketKeys) {
 	this->numCells = 1;// number of entries 2^depth
 	this->bucketAddr = new int[this->numCells]; //array of bucket addresses
 	this->maxBucketKeys = maxBucketKeys;
-	this->directoryBuffer = new LengthFieldBuffer();//TODO
-	//this->directoryFile = new BufferFile(*directoryBuffer);//TODO
+	this->directoryBuffer = new LengthFieldBuffer();
+	this->directoryFile = new BufferFile(*directoryBuffer);
 	this->currentBucket = new Bucket(*this, maxBucketKeys);
 	this->theBucketBuffer = new BucketBuffer(maxKeySize, maxBucketKeys);
-	//this->bucketFile = new BufferFile(*theBucketBuffer );
+	this->bucketFile = new BufferFile(*theBucketBuffer );
 	this->printBucket = new Bucket(*this, maxBucketKeys);
 
 }
@@ -55,13 +55,13 @@ int Directory::open(char* name){
 	char* directoryName;
 	char* bucketName;
 	makeNames(name, directoryName, bucketName);
-	result = this->directoryFile->open(directoryName, ios::in|ios::out);// TODO falta hacer la clase fileBuffer
+	result = this->directoryFile->open(directoryName, ios::in|ios::out);
 	if(!result) return 0;
-	result = this->directoryFile->read();//TODO falta hacer la clase fileBuffer
+	result = this->directoryFile->read();
 	if(result==-1) return 0;
 	result = this->unPack();
 	if(result == -1) return 0;
-	result = this->bucketFile->open(bucketName, ios::in|ios::out);//TODO falta hacer la clase fileBuffer
+	result = this->bucketFile->open(bucketName, ios::in|ios::out);
 	return result;
 }
 
@@ -71,9 +71,9 @@ int Directory::create(char* name){
 	char* directoryName;
 	char* bucketName;
 	makeNames(name,directoryName,bucketName);
-	result = this->directoryFile->create(directoryName,ios::in|ios::out);//TODO falta hacer la clase fileBuffer
+	result = this->directoryFile->create(directoryName,ios::in|ios::out);
 	if(!result) return 0;
-	result = this->bucketFile->create(bucketName, ios::in|ios::out);//TODO falta hacer la clase fileBuffer
+	result = this->bucketFile->create(bucketName, ios::in|ios::out);
 	if(!result) return 0;
 	//store the empty currenBucket in the bucketFile and add to directory
 	bucketAddr[0] = this->storeBucket(currentBucket);
@@ -87,7 +87,7 @@ int Directory::close(){
 	int result;
 	result = this->pack();
 	if(result == -1) return 0;
-	this->directoryFile->reWind();//TODO falta hacer la clase fileBuffer
+	this->directoryFile->reWind();
 	result = directoryFile->write();
 	if(result == -1) return 0;
 	return this->directoryFile->close() && this->bucketFile->close();
@@ -110,7 +110,7 @@ int Directory::search(char* key){
 	//return recAddr for key, also put current bucket into variable
 	int recAddr = this->find(key);
 	this->loadBucket(currentBucket,recAddr);
-	return recAddr;//TODO yo digo que es recAddr //pero el libro dice: currentBucket->search(key) pero no existe ese metodo para Bucket
+	return currentBucket->search(key);
 }
 
 int Directory::doubleSize(){
