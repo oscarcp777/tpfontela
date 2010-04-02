@@ -10,10 +10,10 @@
 
 int main(){
 	int result;
-	string keys[15] = {"osky" , "nelson" , "santy", "dani", "richy", "caceres", "ramos", "donikian", "sivori", "dubini","maja","paucartambo","datos","hash","kit"};
+	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
 
 
-	string nombre = "archivoHash";
+	string nombre = "files/archivoHash";
 	Directory dir(4);
 	result = dir.create((char*)nombre.c_str());
 
@@ -24,8 +24,8 @@ int main(){
 
 	const int numKeys = 15;
 	for(int i=0; i<numKeys; i++){
-		std::cout<<keys[i]<<" "<<(void*)hash((char*)(keys[i]).c_str())<<" "<<(void*)makeAddress((char*)(keys[i]).c_str(),16)<<std::endl;
-		result = dir.insert((char*)(keys[i]).c_str(), 100+i);
+		std::cout<<keys[i]<<" "<<hash((char*)(keys[i]).c_str())<<" "<<makeAddress((char*)(keys[i]).c_str(),16)<<std::endl;
+		result = dir.insert((char*)(keys[i]).c_str(),100+i);
 		if(result == 0)
 			std::cout<<" insert for "<<keys[i]<<" failed"<<std::endl;
 	}

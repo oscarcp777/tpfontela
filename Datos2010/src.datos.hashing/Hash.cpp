@@ -13,7 +13,7 @@ int hash(char* key){
 
 	//funcion de hash que propone en el libro, esta funcion se cambia adaptandola a nuestra conveniencia
 	for(int j=0 ; j<len ; j+=2)
-			sum = (sum + 100*( key[j] + key[j+1])) % 19937;
+			sum = (sum + 100* key[j] + key[j+1]) % 19937;
 
 	return sum;
 

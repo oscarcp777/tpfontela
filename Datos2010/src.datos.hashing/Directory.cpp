@@ -71,9 +71,9 @@ int Directory::create(char* name){
 	char* directoryName;
 	char* bucketName;
 	makeNames(name,directoryName,bucketName);
-	result = this->directoryFile->create(directoryName,ios::in|ios::out);
+	result = this->directoryFile->create(directoryName,ios::out);
 	if(!result) return 0;
-	result = this->bucketFile->create(bucketName, ios::in|ios::out);
+	result = this->bucketFile->create(bucketName,ios::out);
 	if(!result) return 0;
 	//store the empty currenBucket in the bucketFile and add to directory
 	bucketAddr[0] = this->storeBucket(currentBucket);
@@ -232,4 +232,7 @@ void Directory::print(){
 	}
 	std::cout<<"end directory"<<endl;
 
+}
+int Directory::getDepth(){
+	return this->depth;
 }

@@ -24,6 +24,7 @@ int Bucket::find(const char* key){
 	return -1;//not found
 }
 int Bucket::insert(char* key, int recAddr){
+
 	if (numKeys < maxKeys){
 		int i;
 		int index = find(key);
@@ -38,7 +39,7 @@ int Bucket::insert(char* key, int recAddr){
 			dir.storeBucket(this);
 			return 0;
 		}
-
+		cout<<"INSERTANDO EN BUCKET ADDR "<<this->bucketAddr<<" cant actual keys "<<this->numKeys<<endl;
 		for(i= numKeys -1; i >= 0; i--){
 			if(strcmp(key,keys[i]) > 0) break; //insertar en i+1
 			keys[i+1] = keys[i];
@@ -46,6 +47,7 @@ int Bucket::insert(char* key, int recAddr){
 		}
 		keys[i+1] = strdup(key);
 		recAddrs[i+1]= recAddr;
+		cout<<"keys["<<i+1<<"] "<<keys[i+1]<<" recAddrs["<<i+1<<"] "<<recAddrs[i+1]<<endl;
 		numKeys++;
 		dir.storeBucket(this);
 		return 1;
