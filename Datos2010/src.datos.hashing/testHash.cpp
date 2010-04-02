@@ -34,13 +34,27 @@ int main(){
 
 	result = dir.remove((char*)keys[1].c_str());
 	if(result == 0)
-				std::cout<<" remove for failed"<<std::endl;
+				std::cout<<" remove failed"<<std::endl;
 	cout<<"se remueve la clave lee"<<endl;
 	dir.print();
+
+
+
 	cout<<"se cierra, se abre y se busca la clave peter"<<endl;
 	dir.close();
 	dir.open((char*)nombre.c_str());
 	cout<<"recAddrs de peter es "<< dir.search((char*)keys[9].c_str())<<endl;
+
+
+	result = dir.remove((char*)keys[3].c_str());
+		if(result == 0)
+					std::cout<<" remove failed"<<std::endl;
+	result = dir.remove((char*)keys[6].c_str());
+		if(result == 0)
+			std::cout<<" remove failed"<<std::endl;
+
+	cout<<"se remueven las claves alan y elizrbeth"<<endl;
+	dir.print();
 	return 1;
 
 }
