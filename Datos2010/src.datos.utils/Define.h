@@ -16,7 +16,8 @@
 #define ERROR_FLAG "ERROR"
 #define SIZE_SYSTEM_TIME 25
 #define DEBUG 0
-
+#define EXT_DIR ".dir"
+#define EXT_BKT ".bkt"
 
 #define CLAVE_TAMANIO "|tamanio=|"
 #define CLAVE_ALMACENAMIENTO "almacenamiento=|"
