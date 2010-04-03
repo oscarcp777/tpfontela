@@ -25,34 +25,10 @@ class BTreeNode : SimpleIndex <keyType> {
 
 
 public:
-	//	BTreeNode(int maxKeys, int unique = 1);
-	//	virtual ~BTreeNode();
-	//
-	//	//Insertar y remover devuelven
-	//	//  0 para falla
-	//	// -1 para overflow
-	//	//  1 para exito
-	//	int insert(const keyType key, int recAddr);
-	//	int remove(const keyType key, int recAddr = -1);
-	//	char* largestKey(); 										//retorna el valor de la clave mayor
-	//	int split(BTreeNode<keyType>* newNode); 					//mover al nuevo nodo
-	//	int merge(BTreeNode<keyType>* fromNode);					//mueve desde el nodo
-	//	int updateKey(keyType oldKey, keyType newKey, int recAddr= -1);
-	//	int pack(IOBuffer& buffer) const;
-	//	int unpack(IOBuffer& buffer);
-	//	static int initBuffer (FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType));
-	//	void print(ostream & stream) const;
-
-
-	//	template <class keyType>
 	BTreeNode(int maxKeys, int unique = 1):SimpleIndex<keyType>(maxKeys+1, unique) { init(); }
 
-	//	template <class keyType>
 	~BTreeNode() { }
 
-
-
-	//	template <class keyType>
 	int  insert(const keyType key, int recAddr){
 		int result;
 		result = SimpleIndex<keyType>::insert(key, recAddr);
@@ -61,7 +37,6 @@ public:
 		return -1;
 	}
 
-	//	template <class keyType>
 	int  remove(const keyType key, int dir){
 		int result;
 		result = SimpleIndex<keyType>::remove(key, recAddr);
@@ -74,7 +49,6 @@ public:
 		return SimpleIndex<keyType>::search(key, recAddr, exact);
 	}
 
-	//	template <class keyType>
 	int  largestKey(){ 	   //retorna el valor de la clave mayor
 		if (this->numKeys > 0)
 			return this->keys[this->numKeys-1];
@@ -82,7 +56,6 @@ public:
 
 	}
 
-	//	template <class keyType>
 	int  split(BTreeNode* newNode){ 		//mover al nuevo nodo
 
 		if (this->numKeys < this->maxKeys) return 0; // chequea si hay suficiente num de claves
@@ -103,7 +76,6 @@ public:
 		return 1;
 	}
 
-	//	template <class keyType>
 	int  merge(BTreeNode* fromNode){		//mueve desde el nodo
 
 		//chequea si hay demasiadas claves
@@ -119,7 +91,6 @@ public:
 		return 1;
 	}
 
-	//	template <class keyType>
 	int  updateKey(keyType oldKey, keyType newKey, int recAddr = -1){
 
 		int recaddr = this->search(oldKey,recAddr);
@@ -129,7 +100,6 @@ public:
 		return 1;
 	}
 
-	//	template <class keyType>
 	int  pack(IOBuffer& buffer) const{
 		int result;
 		buffer.clear();
@@ -141,7 +111,6 @@ public:
 		return result;
 	}
 
-	//	template <class keyType>
 	int  unpack(IOBuffer& buffer){
 		int result;
 		result = buffer.unPack(&this->numKeys);
@@ -152,13 +121,11 @@ public:
 		return result;
 	}
 
-	//	template <class keyType>
 	void  print(ostream &) const{
 		SimpleIndex<keyType>::print(cout);
 	}
 
 	//Inicializa buffer para el nodo
-	//	template <class keyType>
 	static int initBuffer(FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType)){
 		buffer.addField(sizeof(int));
 		for (int i = 0; i < maxKeys; i++){
@@ -225,10 +192,8 @@ protected:
 	int recAddr;			//direccion de este nodo en el archivo del arbol
 	int minKeys;		 	//minimo numero de claves en un nodo
 	int maxBKeys;			//maximo number de claves en un nodo
-	//	int init();
 	void clear(){ this->numKeys = 0; recAddr = -1; }
 
-	//	template <class keyType>
 	int  init(){
 		this->nextNode = -1;
 		this->recAddr = -1;

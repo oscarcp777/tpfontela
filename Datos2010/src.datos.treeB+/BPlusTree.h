@@ -23,21 +23,7 @@ class BPlusTree{
 
 
 public:
-	//	BPlusTree(int order, int keySize = sizeof(keyType), int unique = 1);
-	//	virtual ~BPlusTree();
-	//
-	//	int open(char* name, int mode);
-	//	int create(char* name, int mode);
-	//	int close();
-	//	int insert(const keyType key, int recAddr);
-	//	int remove(const keyType key, int recAddr=-1);
-	//	int search(const keyType key, int recAddr=-1);
-	//	void print(ostream &);
-	//	void print(ostream &, int nodeAddr, int level);
 
-
-
-	//template <class keyType>
 	BPlusTree(int order, int keySize = sizeof(keyType), int unique = 1)
 	:buffer(1+2*order,sizeof(int)+sizeof(int)+this->order*keySize+this->order*sizeof(int)),
 	 bTreeFile(this->buffer),
@@ -52,14 +38,12 @@ public:
 
 	}
 
-	//template <class keyType>
 	~BPlusTree() {
 		close();
 		delete this->nodes;
 	}
 
 
-	//template <class keyType>
 	int  open(char* name, ios_base::openmode mode){
 
 		int result = this->bTreeFile.open(name,mode);
@@ -70,7 +54,6 @@ public:
 		return 1;
 	}
 
-	//template <class keyType>
 	int  create(char* name, ios_base::openmode mode){
 
 		int result = this->bTreeFile.create(name, mode);
@@ -80,7 +63,6 @@ public:
 		return result != -1;
 	}
 
-	//template <class keyType>
 	int  close(){
 
 		int result = this->bTreeFile.BufferFile::reWind();
@@ -90,7 +72,6 @@ public:
 		return this->bTreeFile.close();
 	}
 
-	//template <class keyType>
 	int  insert(const keyType key, int recAddr){
 
 		int result; int level = this->height -1;
@@ -151,13 +132,11 @@ public:
 			return 1;
 	}
 
-	//template <class keyType>
 	int  remove(const keyType key, int dir){
 		this->modificar(key,-1);
 		return 1;
 	}
 
-	//template <class keyType>
 	int  search(const keyType key, int dir){
 		BNode* nodoHoja;
 		nodoHoja = findLeaf(key);
@@ -165,7 +144,6 @@ public:
 		return 1;
 	}
 
-	//template <class keyType>
 	void  print(ostream & stream){
 
 		stream <<"Arbol B de profundidad " <<this->height<<" es "<<endl;
@@ -178,7 +156,6 @@ public:
 
 	}
 
-	//template <class keyType>
 	void  print(ostream & stream, int dirNodo, int nivel){
 
 		BNode* nodoActual = this->fetch(dirNodo);
@@ -200,20 +177,14 @@ protected:
 	typedef BTreeNode<keyType> BNode;
 	FixedFieldBuffer buffer;
 	RecordFile<BNode> bTreeFile;
-	//	BNode* findLeaf(const keyType key);
-	//	BNode* newNode();
-	//	BNode* fetch(int dir); 		//leer nodo
-	//	int store(BNode* nodo); //escribir nodo
-
 	BNode root;				//raiz
-	int height;					//profundidad arbol
+	int height;				//profundidad arbol
 	int order;
-	int poolSize;				//cantidad de nodos
+	int poolSize;			//cantidad de nodos
 	int metadataSize;
 	BNode** nodes; 			//nodos disponibles
 
 
-	//template <class keyType>
 	BTreeNode<keyType>*  findLeaf(const keyType key){  //FindLeaf
 
 		int recaddr, level;
@@ -224,7 +195,6 @@ protected:
 		return this->nodes[level-1];
 	}
 
-	//template <class keyType>
 	BTreeNode<keyType>*  newNode(){
 		//crea un nuevo nodo y lo inserta en el arbol y setea su direccion
 		BNode* newNode = new BNode(this->order);
@@ -233,7 +203,6 @@ protected:
 		return newNode;
 	}
 
-	//template <class keyType>
 	BTreeNode<keyType>*  fetch(int recAddr){ 		//Fetch
 		//carga este nodo desde el archivo en un nuevo nodo
 		BNode* newNode = new BNode(this->order);
@@ -243,19 +212,11 @@ protected:
 		return newNode;
 	}
 
-	//template <class keyType>
 	int  store(BNode* node){ //Store
 
 		return this->bTreeFile.write(*node,node->getRecAddr());
 	}
 
-
-
-
-
 };
-
-
-
 
 #endif /* BPLUSTREE_H_ */
