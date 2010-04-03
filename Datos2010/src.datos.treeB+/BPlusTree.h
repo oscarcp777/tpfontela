@@ -25,11 +25,10 @@ class BPlusTree{
 public:
 
 	BPlusTree(int order, int keySize = sizeof(keyType), int unique = 1)
-	:buffer(1+2*order,sizeof(int)+sizeof(int)+this->order*keySize+this->order*sizeof(int)),
+	:buffer(1+2*order,sizeof(int)+order*keySize+order*sizeof(int)),
 	 bTreeFile(this->buffer),
-	 root(order, keySize) {
-
-		this->height = 1;
+	 root(order) {
+ 		this->height = 1;
 		this->order = order;
 		this->poolSize = MAX_HEIGHT*2;
 		this->nodes = new BNode * [poolSize];
@@ -44,7 +43,7 @@ public:
 	}
 
 
-	int  open(char* name, ios_base::openmode mode){
+	int  open(string name, ios_base::openmode mode){
 
 		int result = this->bTreeFile.open(name,mode);
 		if (!result) return result;
@@ -54,7 +53,7 @@ public:
 		return 1;
 	}
 
-	int  create(char* name, ios_base::openmode mode){
+	int  create(string name, ios_base::openmode mode){
 
 		int result = this->bTreeFile.create(name, mode);
 		if (!result) return result;

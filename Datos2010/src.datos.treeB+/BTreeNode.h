@@ -34,7 +34,7 @@ public:
 		result = SimpleIndex<keyType>::insert(key, recAddr);
 		if (!result) return 0; //fallo insercion
 		if (this->numKeys >= this->maxKeys) return -1; //overflow nodo
-		return -1;
+		return 1;
 	}
 
 	int  remove(const keyType key, int dir){
@@ -104,6 +104,7 @@ public:
 		int result;
 		buffer.clear();
 		result = buffer.pack(&this->numKeys);
+//		result = buffer.pack(&this->nextNode);
 		for (int i = 0; i<this->numKeys; i++){
 			result = result && buffer.pack(&this->keys[i]);
 			result = result && buffer.pack(&this->recAddrs[i]);
@@ -114,6 +115,7 @@ public:
 	int  unpack(IOBuffer& buffer){
 		int result;
 		result = buffer.unPack(&this->numKeys);
+//		result = buffer.unPack(&this->nextNode);
 		for (int i = 0; i<this->numKeys; i++){
 			result = result && buffer.unPack(&this->keys[i]);
 			result = result && buffer.unPack(&this->recAddrs[i]);
@@ -122,7 +124,13 @@ public:
 	}
 
 	void  print(ostream &) const{
-		SimpleIndex<keyType>::print(cout);
+//		SimpleIndex<keyType>::print(cout);
+		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
+		for(int i = 0; i<this->numKeys; i++){
+			cout << "\tKey["<<i<<"] "<<this->keys[i] << " direccion "<<this->recAddrs[i]<<endl;
+		}
+		cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
+
 	}
 
 	//Inicializa buffer para el nodo
@@ -148,7 +156,7 @@ public:
 
 	int getNextNode() const
 	{
-		return nextNode;
+		return this->nextNode;
 	}
 
 	void setNextNode(int nextNode)
