@@ -24,7 +24,7 @@ public:
 	//	void print();
 
 	//	template <class keyType>
-	SimpleIndex(int maxKeys,int unique):
+	SimpleIndex(int maxKeys,int unique = 1):
 		numKeys(0),keys(0),recAddrs(0){
 		init(maxKeys,unique);
 	}

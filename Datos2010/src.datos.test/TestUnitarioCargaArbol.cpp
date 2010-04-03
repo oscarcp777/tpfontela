@@ -14,7 +14,7 @@ const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 
 const int bTreeSize = 4;
 
-int main1234(){
+int main(){
 
 	char letra;
 	//char valor[6]="M";
@@ -23,11 +23,11 @@ int main1234(){
 	//char nArch[]="testbt.dat";
 	string ruta="files/testbt.dat";
 
-	bt.create((char*)ruta.c_str(),ios::out);
-	bt.open((char*)ruta.c_str(),ios::in|ios::out);
+	bt.create(ruta,ios::out);
+//	bt.open(ruta,ios::in|ios::out);
 
 
-	for (int i = 0; i<2; i++){
+	for (int i = 0; i<26; i++){
 		memcpy(&letra,keys,sizeof(char));
 		bt.insert(letra,i);
 		bt.print(cout);
