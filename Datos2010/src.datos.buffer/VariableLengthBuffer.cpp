@@ -41,7 +41,7 @@ int VariableLengthBuffer::write(ostream& stream)const{
 	 int recaddr=stream.tellp();
 	 unsigned short bufferSize;
 	 bufferSize=this->bufferSize;
-	 stream.write((char*)&this->bufferSize,sizeof(this->bufferSize));
+	 stream.write((char*)&bufferSize,sizeof(bufferSize));
 	 if(!stream)return -1;
 	 stream.write(this->buffer,this->bufferSize);
 	 if(!stream.good())

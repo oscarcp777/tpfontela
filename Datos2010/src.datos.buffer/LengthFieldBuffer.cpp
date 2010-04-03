@@ -13,17 +13,12 @@ LengthFieldBuffer::LengthFieldBuffer(int maxBytes):VariableLengthBuffer(maxBytes
 }
 
 LengthFieldBuffer::~LengthFieldBuffer() {
-	VariableLengthBuffer::clear();
-}
-void LengthFieldBuffer::clear(){
 
 }
+void LengthFieldBuffer::clear(){
+	VariableLengthBuffer::clear();
+}
 int LengthFieldBuffer::pack(const void* field, int size){
-	char str1[]="Sample string";
-		  char str2[40];
-		  char str3[40];
-		  memcpy (str2,str1,strlen(str1)+1);
-		  memcpy (str3,"copy successful",16);
 	short len;// longitud de la cadena para ser embalado
 	if(size>=0)len=size;
 	else len=strlen((char*)field);
@@ -39,7 +34,7 @@ int LengthFieldBuffer::pack(const void* field, int size){
 int LengthFieldBuffer::unPack(void* field,  int maxBytes){
 
 	short len;// longitud de la cadena para ser embalado
-	if(this->nextByte>this->maxBytes)return -1;// no hay mas campos
+	if(this->nextByte>=this->bufferSize)return -1;// no hay mas campos
 	int start =this->nextByte;
 
 	memcpy(&len,&buffer[start],sizeof(len));

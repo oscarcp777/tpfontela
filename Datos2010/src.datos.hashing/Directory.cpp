@@ -50,30 +50,30 @@ void makeNames(char* name, char*& dirName, char*& bktName){
 	bktName = (char*)bucketName.c_str();
 }
 
-int Directory::open(char* name){
+int Directory::open(string name){
 	int result = 0;
-	char* directoryName;
-	char* bucketName;
-	makeNames(name, directoryName, bucketName);
-	result = this->directoryFile->open(directoryName, ios::in|ios::out);
+//	char* directoryName;
+//	char* bucketName;
+//	makeNames(name, directoryName, bucketName);
+	result = this->directoryFile->open(name+EXT_DIR, ios::in|ios::out);
 	if(!result) return 0;
 	result = this->directoryFile->read();
 	if(result==-1) return 0;
 	result = this->unPack();
 	if(result == -1) return 0;
-	result = this->bucketFile->open(bucketName, ios::in|ios::out);
+	result = this->bucketFile->open(name+EXT_BKT, ios::in|ios::out);
 	return result;
 }
 
-int Directory::create(char* name){
+int Directory::create(string name){
 	//create the two files, clear the directory, create a single bucket and add it to the directory and the bucket file
 	int result = 0;
-	char* directoryName;
-	char* bucketName;
-	makeNames(name,directoryName,bucketName);
-	result = this->directoryFile->create(directoryName,ios::out);
+//	char* directoryName;
+//	char* bucketName;
+//	makeNames(name,directoryName,bucketName);
+	result = this->directoryFile->create(name+EXT_DIR,ios::out);
 	if(!result) return 0;
-	result = this->bucketFile->create(bucketName,ios::out);
+	result = this->bucketFile->create(name+EXT_BKT,ios::out);
 	if(!result) return 0;
 	//store the empty currenBucket in the bucketFile and add to directory
 	bucketAddr[0] = this->storeBucket(currentBucket);
@@ -90,7 +90,9 @@ int Directory::close(){
 	this->directoryFile->reWind();
 	result = directoryFile->write();
 	if(result == -1) return 0;
-	return this->directoryFile->close() && this->bucketFile->close();
+	this->directoryFile->close();
+	this->bucketFile->close();
+	return  1 ;
 }
 
 
