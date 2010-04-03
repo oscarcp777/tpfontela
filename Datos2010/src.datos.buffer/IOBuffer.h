@@ -16,8 +16,8 @@ public:
 	IOBuffer(int maxBytes = 1000);
 	IOBuffer & operator = (const IOBuffer & buffer);
 	virtual void clear();//clear fields from buffer
-	virtual int pack(const void* field, int size/*=-1*/) = 0;//set the value of the next field of the buffer
-	virtual int unPack(void* field, int maxBytes/*=-1*/) = 0; //extract the value of the next field of the buffer
+	virtual int pack(const void* field, int size=-1) = 0;//set the value of the next field of the buffer
+	virtual int unPack(void* field, int maxBytes=-1) = 0; //extract the value of the next field of the buffer
 	virtual void print() ;
 	int init(int maxByte);
 	//the read and write methods return the address of the record sequential read and write operations
