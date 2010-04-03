@@ -8,7 +8,7 @@
 #include "Hash.h"
 #include <string>
 
-int main(){
+int main2535(){
 
 	int result;
 	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
@@ -29,45 +29,18 @@ int main(){
 		result = dir.insert((char*)(keys[i]).c_str(),100+i);
 		if(result == 0)
 			std::cout<<" insert for "<<keys[i]<<" failed"<<std::endl;
-		dir.print();
+
 	}
-
-	result = dir.remove((char*)keys[1].c_str());
-	if(result == 0)
-				std::cout<<" remove failed"<<std::endl;
-	cout<<"se remueve la clave lee"<<endl;
 	dir.print();
 
 
-
-	cout<<"se cierra, se abre y se busca la clave peter"<<endl;
+//	result = dir.remove((char*)keys[1].c_str());
+//	if(result == 0)
+//				std::cout<<" remove failed"<<std::endl;
+//	cout<<"se remueve la clave lee"<<endl;
+//	dir.print();
 	dir.close();
-	dir.open(nombre);
-	cout<<"recAddrs de peter es "<< dir.search((char*)keys[9].c_str())<<endl;
 
-
-	result = dir.remove((char*)keys[3].c_str());
-		if(result == 0)
-					std::cout<<" remove failed"<<std::endl;
-	result = dir.remove((char*)keys[6].c_str());
-		if(result == 0)
-			std::cout<<" remove failed"<<std::endl;
-
-	cout<<"se remueven las claves alan y elizrbeth"<<endl;
-	dir.print();
-	cout<<"recAddrs de mary es "<< dir.search((char*)keys[13].c_str())<<endl;
-
-	cout<<"se remueven la clave mary"<<endl;
-	result = dir.remove((char*)keys[13].c_str());
-		if(result == 0)
-					std::cout<<" remove failed"<<std::endl;
-		result = dir.remove((char*)keys[5].c_str());
-		if(result == 0)
-			std::cout<<" remove failed"<<std::endl;
-//		result = dir.remove((char*)keys[2].c_str());
-//		if(result == 0)
-//			std::cout<<" remove failed"<<std::endl;
-		dir.print();
 	return 1;
 
 }

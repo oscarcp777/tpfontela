@@ -90,9 +90,7 @@ int Directory::close(){
 	this->directoryFile->reWind();
 	result = directoryFile->write();
 	if(result == -1) return 0;
-	this->directoryFile->close();
-	this->bucketFile->close();
-	return  1 ;
+	return  this->directoryFile->close() && this->bucketFile->close();
 }
 
 
@@ -182,9 +180,13 @@ int  Directory::pack() const{
 	//pack the buffer and return the number of bytes packed
 	int result,packsize;
 	this->directoryBuffer->clear();
+	//std::cout<<" this->depth: "<<this->depth<<std::endl;
+	//std::cout<<" this->numCells: "<<this->numCells<<std::endl;
 	packsize = this->directoryBuffer->pack(&this->depth, sizeof(int));
 	if(packsize == -1) return -1;
 	for(int i=0; i<this->numCells; i++){
+		//std::cout<<" i en el for de pack(): "<<i<<std::endl;
+		//std::cout<<" this->bucketAddr[i]: "<<this->bucketAddr[i]<<std::endl;
 		result = this->directoryBuffer->pack(&this->bucketAddr[i],sizeof(int));
 		if(result == -1) return -1;
 		packsize += result;
@@ -196,6 +198,8 @@ int Directory::unPack(){
 	result = this->directoryBuffer->unPack(&this->depth, sizeof(int));
 	if(result == -1) return -1;
 	this->numCells = 1 << this->depth;
+	std::cout<<" en unPack this->depth: "<<this->depth<<std::endl;
+	std::cout<<" en unPack this->numCells: "<<this->numCells<<std::endl;
 	if(this->bucketAddr != 0) delete this->bucketAddr;
 	this->bucketAddr = new int[this->numCells];
 	for(int i = 0; i<this->numCells; i++){
@@ -213,6 +217,7 @@ int Directory::storeBucket(Bucket* bucket){
 	int addr = bucket->bucketAddr;
 	if(addr != 0) return this->bucketFile->write(addr);
 	addr = this->bucketFile->append();
+	cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2En stroeBucket su addr es: "<<addr<<endl;
 	bucket->bucketAddr = addr;
 	return addr;
 }

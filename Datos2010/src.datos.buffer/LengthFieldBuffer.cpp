@@ -27,7 +27,7 @@ int LengthFieldBuffer::pack(const void* field, int size){
 	if(this->nextByte>this->maxBytes){return -1;}
 
 	memcpy(&(this->buffer[start]),&len,sizeof(len));
-	memcpy(&this->buffer[start+sizeof(len)],&len,sizeof(len));
+	memcpy(&this->buffer[start+sizeof(len)],field,len);
 	this->bufferSize=this->nextByte;
 	return len;
 }

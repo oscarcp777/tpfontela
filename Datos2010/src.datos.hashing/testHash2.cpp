@@ -8,7 +8,7 @@
 #include "Hash.h"
 #include <string>
 
-int main3436(){
+int main(){
 	cout<<"se abre y se busca la clave peter"<<endl;
 	string nombre = "files/archivoHash";
 	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
@@ -17,9 +17,17 @@ int main3436(){
 	dir.open(nombre);
 	cout<<"recAddrs de peter es "<< dir.search((char*)keys[9].c_str())<<endl;
 	dir.print();
-	dir.close();
-/*
 
+	int result;
+
+	cout<<"se remueven la clave lee"<<endl;
+	result = dir.remove((char*)keys[1].c_str());
+			if(result == 0)
+						std::cout<<" remove failed"<<std::endl;
+	dir.print();
+
+
+	cout<<"se remueven las claves alan y elizrbeth"<<endl;
 	result = dir.remove((char*)keys[3].c_str());
 		if(result == 0)
 					std::cout<<" remove failed"<<std::endl;
@@ -27,20 +35,19 @@ int main3436(){
 		if(result == 0)
 			std::cout<<" remove failed"<<std::endl;
 
-	cout<<"se remueven las claves alan y elizrbeth"<<endl;
 	dir.print();
+
 	cout<<"recAddrs de mary es "<< dir.search((char*)keys[13].c_str())<<endl;
 
-	cout<<"se remueven la clave mary"<<endl;
+	cout<<"se remueven las claves mary y mike"<<endl;
 	result = dir.remove((char*)keys[13].c_str());
 		if(result == 0)
 					std::cout<<" remove failed"<<std::endl;
 		result = dir.remove((char*)keys[5].c_str());
 		if(result == 0)
 			std::cout<<" remove failed"<<std::endl;
-//		result = dir.remove((char*)keys[2].c_str());
-//		if(result == 0)
-//			std::cout<<" remove failed"<<std::endl;
-		dir.print();*/
+
+		dir.print();
+		dir.close();
 	return 1;
 }
