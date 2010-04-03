@@ -140,7 +140,7 @@ int Directory::collapse(){
 
 	int newSize = this->numCells/2;
 	int* newBucketAddr = new int[newSize];
-	for(int j=0; j<newSize; j+=2)
+	for(int j=0; j<newSize; j++)
 		newBucketAddr[j] = this->bucketAddr[j*2];
 	delete this->bucketAddr;
 	this->bucketAddr = newBucketAddr;
