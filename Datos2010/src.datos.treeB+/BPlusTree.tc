@@ -1,0 +1,209 @@
+/*
+ *  BPlusTree.cpp
+ *
+ *  Created on: 02/04/2010
+ *      Author: santiago
+ */
+
+
+#include "BPlusTree.h"
+#include "BTreeNode.tc"
+const int MAX_HEIGHT = 5;
+
+template <class keyType>
+BPlusTree<keyType>::BPlusTree(int order, int keySize, int unique)
+					:buffer(1+2*order,sizeof(int)+sizeof(int)+this->order*keySize+this->order*sizeof(int)),
+					 bTreeFile(this->buffer),
+					 root(order, keySize) {
+
+	this->height = 1;
+	this->order = order;
+	this->poolSize = MAX_HEIGHT*2;
+	this->nodes = new BNode * [poolSize];
+	BNode::initBuffer(this->buffer,this->order);
+	this->nodes[0] = &this->root;
+
+}
+
+template <class keyType>
+BPlusTree<keyType>::~BPlusTree() {
+	close();
+	delete this->nodes;
+}
+
+//Protected metods--------------
+
+template <class keyType>
+BTreeNode<keyType>* BPlusTree<keyType>::findLeaf(const keyType key){  //FindLeaf
+
+	int dir, nivel;
+	for(nivel = 1; nivel < this->height; nivel++){
+		dir = this->nodes[nivel-1]->search(key,-1,0);
+		this->nodes[nivel] = this->fetch(dir);
+	}
+	return this->nodes[nivel-1];
+}
+
+template <class keyType>
+BTreeNode<keyType>* BPlusTree<keyType>::newNode(){
+	//crea un nuevo nodo y lo inserta en el arbol y setea su direccion
+	BNode* nuevoNodo = new BNode(this->order,this->tamanioLlave);
+	nuevoNodo->pack(this->buffer);
+	int dir = this->bTreeFile->guardar(this->buffer);
+	nuevoNodo->setDir(dir);
+	return nuevoNodo;
+}
+
+template <class keyType>
+BTreeNode<keyType>* BPlusTree<keyType>::fetch(int dir){ 		//Fetch
+	BNode* nuevoNodo = new BNode(this->order,this->tamanioLlave);
+	memset(this->buffer,0,this->tamanioRegistro);
+	this->bTreeFile->leer(this->buffer,dir);
+	nuevoNodo->unpack(this->buffer);
+	nuevoNodo->setDir(dir);
+	return nuevoNodo;
+}
+
+template <class keyType>
+int BPlusTree<keyType>::store(BNode* nodo){ //Store
+
+	nodo->pack(this->buffer);
+	return this->bTreeFile->guardar(this->buffer,nodo->getDir());
+}
+
+//---------------------------
+
+template <class keyType>
+int BPlusTree<keyType>::open(char* name, int mode){
+
+	int result = this->bTreeFile.open(name,mode);
+	if (!result) return result;
+	//Carga raiz
+	this->bTreeFile.read(this->root);
+	this->height = 1; // TODO encontrar profundidad en el archivo
+	return 1;
+}
+
+template <class keyType>
+int BPlusTree<keyType>::create(char* name, int mode){
+
+	int result = this->bTreeFile.create(name, mode);
+	if (!result) return result;
+	//Agrega nodo raiz
+	result = this->bTreeFile.write(this->root);
+	return result != -1;
+}
+
+template <class keyType>
+int BPlusTree<keyType>::close(){
+
+	int result = this->bTreeFile.BufferFile::reWind();
+	if (!result) return result;
+	result = this->bTreeFile.write(this->root);
+	if (result == -1) return 0;
+	return this->bTreeFile.close();
+}
+
+template <class keyType>
+int BPlusTree<keyType>::insert(const keyType key, int recAddr){
+
+	int result; int level = this->height -1;
+	int newLargest = 0;
+	keyType prevKey, largestKey;
+	BNode* thisNode, *newNode, * parentNode;
+	thisNode = this->findLeaf(key);
+	//if(key > nodoActual->claveMayor())
+	if (thisNode->getNumKeys()!=0)
+		if(strcmp(key,thisNode->largestKey())>0)
+		{newLargest = 1; prevKey = thisNode->largestKey();}
+
+	result = thisNode->insert(key,recAddr);
+
+	if (newLargest)
+		for (int i = 0; i<this->height-1;i++){
+			this->nodes[i]->updateKey(prevKey,key);
+			if (i>0) this->store(this->nodes[i]);
+		}
+
+	while (result == -1){ //si hay overflow y no esta en la raiz
+		//recordar clave mayor
+		largestKey = thisNode->largestKey();
+		//splitear el nodo
+		newNode = this->newNode();
+		thisNode->split(newNode);
+
+		if(newNode->getDir()!=thisNode->getNextNode())
+			newNode->setNextNode(thisNode->getNextNode());
+		thisNode->setNextNode(newNode->getDir());
+
+		this->store(thisNode);
+		this->store(newNode);
+
+		level--; //ir al nivel del padre
+		if (level < 0) break;
+		//hacer nuevoNodo padre del nodoActual
+		parentNode = this->nodes[level];
+		result = parentNode->updateKey(largestKey,thisNode->largestKey());
+		result = parentNode->insert(newNode->largestKey(),newNode->getDir());
+
+		thisNode = parentNode;
+	}
+
+		this->store(thisNode);
+		if (level >= 0) return 1; //insertar completado
+		//sino hay que splitear la raiz
+		int newAddr =  this->bTreeFile.append(this->root);
+		//poner anterior raiz en archivo
+		//insertar 2 claves en la nueva raiz
+		this->root.getKeys()[0]= thisNode->largestKey();
+		this->root.getDirecciones()[0]=newAddr;
+		this->root.getKeys()[1]= newNode->largestKey();
+		this->root.getDirecciones()[1]=newNode->getDir();
+		this->root.setNumKeys(2);
+		this->height++;
+		return 1;
+}
+
+template <class keyType>
+int BPlusTree<keyType>::remove(const keyType key, int dir){
+	this->modificar(key,-1);
+	return 1;
+}
+
+template <class keyType>
+int BPlusTree<keyType>::search(const keyType key, int dir){
+	BNode* nodoHoja;
+	nodoHoja = findLeaf(key);
+	return nodoHoja->search(key,dir);
+	return 1;
+}
+
+template <class keyType>
+void BPlusTree<keyType>::print(ostream & stream){
+
+	stream <<"Arbol B de profundidad " <<this->height<<" es "<<endl;
+	this->root.print();
+	if (this->height >1)
+		for(int i = 0; i<this->root.getNumKeys();i++){
+			this->print(stream, this->root.recAddrs[i], 2);
+		}
+	stream << "end of Arbol B"<<endl;
+
+}
+
+template <class keyType>
+void BPlusTree<keyType>::print(ostream & stream, int dirNodo, int nivel){
+
+	BNode* nodoActual = this->fetch(dirNodo);
+	stream << "\nNodo en nivel "<<nivel<<" direccion " << dirNodo<< " ";
+	nodoActual->print(stream);
+	if (this->height > nivel){
+		nivel++;
+		for(int i = 0; i < nodoActual->getNumKeys(); i++){
+			this->print(stream, nodoActual->getDirecciones()[i], nivel);
+		}
+		stream << "final del nivel "<<nivel <<endl;
+	}
+
+
+}
