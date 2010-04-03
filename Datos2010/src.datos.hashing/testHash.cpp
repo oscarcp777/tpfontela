@@ -10,20 +10,20 @@
 
 int main(){
 
-//	int result;
-//	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
+	int result;
+	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};
 
 
 	string nombre = "files/archivoHash";
 	Directory dir(4);
-/*	result = dir.create(nombre);
+	result = dir.create(nombre);
 
 	if(result == 0){
 		std::cout<<"borre los archivos e intente nuevamente"<<std::endl;
 		return 0;
 	}
 
-	const int numKeys = 0;
+	const int numKeys = 15;
 	for(int i=0; i<numKeys; i++){
 		std::cout<<keys[i]<<" "<<hash((char*)(keys[i]).c_str())<<" "<<makeAddress((char*)(keys[i]).c_str(),dir.getDepth())<<std::endl;
 		result = dir.insert((char*)(keys[i]).c_str(),100+i);
@@ -31,11 +31,8 @@ int main(){
 			std::cout<<" insert for "<<keys[i]<<" failed"<<std::endl;
 		dir.print();
 	}
-	//dir.close();*/
-	dir.open(nombre);
-	dir.print();
-	dir.close();
-	/*result = dir.remove((char*)keys[1].c_str());
+
+	result = dir.remove((char*)keys[1].c_str());
 	if(result == 0)
 				std::cout<<" remove failed"<<std::endl;
 	cout<<"se remueve la clave lee"<<endl;
@@ -44,7 +41,7 @@ int main(){
 
 
 	cout<<"se cierra, se abre y se busca la clave peter"<<endl;
-
+	dir.close();
 	dir.open(nombre);
 	cout<<"recAddrs de peter es "<< dir.search((char*)keys[9].c_str())<<endl;
 
@@ -70,7 +67,7 @@ int main(){
 //		result = dir.remove((char*)keys[2].c_str());
 //		if(result == 0)
 //			std::cout<<" remove failed"<<std::endl;
-		dir.print();*/
+		dir.print();
 	return 1;
 
 }
