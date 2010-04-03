@@ -217,7 +217,7 @@ int Directory::storeBucket(Bucket* bucket){
 	int addr = bucket->bucketAddr;
 	if(addr != 0) return this->bucketFile->write(addr);
 	addr = this->bucketFile->append();
-	cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2En stroeBucket su addr es: "<<addr<<endl;
+	//cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2En stroeBucket su addr es: "<<addr<<endl;
 	bucket->bucketAddr = addr;
 	return addr;
 }

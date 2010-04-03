@@ -8,7 +8,7 @@
 #include "Hash.h"
 #include <string>
 
-int main(){
+int main708(){
 	cout<<"se abre y se busca la clave peter"<<endl;
 	string nombre = "files/archivoHash";
 	string keys[15] = {"bill" , "lee" , "pauline", "alan", "julie", "mike", "elizabeth", "mark", "ashley", "peter","joan","john","charles","mary","emily"};

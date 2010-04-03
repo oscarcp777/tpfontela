@@ -48,6 +48,26 @@
 </tool>
 </toolChain>
 </folderInfo>
+<folderInfo id="cdt.managedbuild.config.gnu.exe.debug.1952013282.839883006" name="/" resourcePath="hashExtensible">
+<toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.1344223966" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug" unusedChildren="">
+<tool id="cdt.managedbuild.tool.gnu.archiver.base.1438836571" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base.1231277660"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.883661687" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1441768325">
+<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.1677518875" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.627025847" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.407667537" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1951567645" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1995431833">
+<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.902921074" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
+<option id="gnu.c.compiler.exe.debug.option.debugging.level.891986990" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1559030422" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.2131018961" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1712181472"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.663937920" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.557605705"/>
+<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.1216576303" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug.1244971681">
+<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1053513937" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+</tool>
+</toolChain>
+</folderInfo>
 <folderInfo id="cdt.managedbuild.config.gnu.exe.debug.1952013282.1293468422" name="/" resourcePath="files">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.1421166963" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug" unusedChildren="">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
@@ -133,6 +153,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
+<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="hashExtensible"/>
 <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="files"/>
 <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src.datos.logger"/>
 <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src.datos.buffer"/>
