@@ -14,7 +14,7 @@ const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 
 const int bTreeSize = 4;
 
-int main(){
+int main232323(){
 
 	char letra;
 	//char valor[6]="M";

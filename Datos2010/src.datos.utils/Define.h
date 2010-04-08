@@ -9,6 +9,8 @@
 #ifndef DEFINE_H_
 #define DEFINE_H_
 
+typedef unsigned int INT_UNSIGNED;
+
 #define PATH_LOGGER "files/logger"
 #define TAB "		"
 #define INFO_FLAG "INFO"
@@ -18,6 +20,32 @@
 #define DEBUG 0
 #define EXT_DIR ".dir"
 #define EXT_BKT ".bkt"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #define CLAVE_TAMANIO "|tamanio=|"
 #define CLAVE_ALMACENAMIENTO "almacenamiento=|"

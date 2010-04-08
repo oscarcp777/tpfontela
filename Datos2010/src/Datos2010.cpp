@@ -7,11 +7,25 @@
 //============================================================================
 
 #include <iostream>
+#include <fstream>
 #include "../src.datos.logger/Logger.h"
+#include "../hashExtensible/Cube.h"
 using namespace std;
 
-int main2() {
+int main() {
+  fstream file;
+  METADATA_CUBE reg;
+  string nombre= "files/reg";
+//  reg.numberOfRecords=12;
+//  reg.sizeFree=2400;
+//  reg.sizeOfDispersion=8;
+//
+//            file.open(nombre.c_str(),ios::out|ios::binary);
+//            file.close();
+            file.open(nombre.c_str(),ios::in|ios::out|ios::binary);
+            file.read((char*)&reg,sizeof(METADATA_CUBE));
+            file.close();
 
-	cout << "!!!compila  malditos   !!!"<<endl;
+	cout << "!!!compila  malditos   !!!"<<reg.numberOfRecords<<reg.sizeFree<<reg.sizeOfDispersion<<endl;
 	return 0;
 }
