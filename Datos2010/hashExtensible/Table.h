@@ -7,49 +7,84 @@
 
 #ifndef TABLE_H_
 #define TABLE_H_
-
-
-#include "../src.datos.utils/Object.h"
-#include "../src.datos.buffer/LengthFieldBuffer.h"
-#include "../src.datos.buffer/BufferFile.h"
-
-class Cube;
-class CubeBuffer;
+#include "Record.h"
+#include "../src.datos.utils/Define.h"
+#include "Cube.h"
+#include "KeyPar.h"
+#include <list>
 using namespace std;
-class Table {
-public:
-	Table(int maxCubeKeys = -1);
-	virtual ~Table();
-	int open(string name);
-	int create(string name);
-	int close();
-	int insert(char* key, int recAddr);
-	int remove(char* key);
-	int search(char* key);// return recAddr for key
-	void print();
-	int getDepth();
-protected:
-	int depth;
-	int numCells; //number of entries, = 2*depth
-	int* cubeAddr; //array of Cube addresses
-	int doubleSize();//double the size of the Table
-	int collapse(); //collapse, halve the size
-	int insertCube(int cubeAddr, int first, int last);
-	int removeCube(int cubeIndex, int cubeDepth);
-	int find(char* key); //return cubeAddr for key
-	int storeCube(Cube* cube); //update or append Cube from file
-	int loadCube(Cube* cube, int cubeAddr);//load Cube from file
-	int maxCubeKeys;
-	BufferFile* tableFile;
-	LengthFieldBuffer* tableBuffer;
-	CubeBuffer* theCubeBuffer;
-	BufferFile* cubeFile;
-	int pack() const;
-	int unPack();
-	Cube* printCube;
-	Cube* currentCube;
+typedef struct metadataTable {
+	INT_UNSIGNED countsCubes;
+	INT_UNSIGNED sizeTable;
 
-	friend class Cube;
+}METADATA_TABLE;
+class Table {
+private:
+	INT_UNSIGNED countsCubes;
+	Cube* currentCube;
+	INT_UNSIGNED sizeTable;
+	list<INT_UNSIGNED> offsetCubesFree;
+	list<KeyPar*> element;
+public:
+	Table();
+	virtual ~Table();
+	int hash(int key);
+	int readTable(fstream* fileTable);
+	int writeTable(fstream* fileTable);
+	int duplicateTable();
+	int redispersableCubes(INT_UNSIGNED offsetCube);
+	int deleteCube(INT_UNSIGNED offsetCube);
+	Record* search(int key);
+	void print(fstream* output);
+	Cube* getNewCube(fstream* fileCubes);
+	Cube* getCurrentCube(INT_UNSIGNED offsetCube,fstream* fileCubo);
+
+
+	INT_UNSIGNED getCountsCubes() const
+    {
+        return countsCubes;
+    }
+
+    list<KeyPar*> getElement() const
+    {
+        return element;
+    }
+
+    list<INT_UNSIGNED> getOffsetCubesFree() const
+    {
+        return offsetCubesFree;
+    }
+
+    INT_UNSIGNED getSizeTable() const
+    {
+        return sizeTable;
+    }
+
+    void setCountsCubes(INT_UNSIGNED countsCubes)
+    {
+        this->countsCubes = countsCubes;
+    }
+
+    void setCurrentCube(Cube *currentCube)
+    {
+        this->currentCube = currentCube;
+    }
+
+    void setElement(list<KeyPar*> element)
+    {
+        this->element = element;
+    }
+
+    void setOffsetCubesFree(list<INT_UNSIGNED> offsetCubesFree)
+    {
+        this->offsetCubesFree = offsetCubesFree;
+    }
+
+    void setSizeTable(INT_UNSIGNED sizeTable)
+    {
+        this->sizeTable = sizeTable;
+    }
+
 };
 
 #endif /* TABLE_H_ */
