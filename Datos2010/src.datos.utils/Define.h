@@ -20,7 +20,8 @@ typedef unsigned int INT_UNSIGNED;
 #define DEBUG 0
 #define EXT_DIR ".dir"
 #define EXT_BKT ".bkt"
-
+#define PORCENT_FREE_CUBE 0.2
+#define SIZE_CUBE 128
 
 
 

@@ -22,6 +22,8 @@ int main() {
 //
 //            file.open(nombre.c_str(),ios::out|ios::binary);
 //            file.close();
+  int minimo=PORCENT_FREE_CUBE*SIZE_CUBE;
+  cout << "!!!compila  malditos   !!!"<<minimo<<endl;
             file.open(nombre.c_str(),ios::in|ios::out|ios::binary);
             file.read((char*)&reg,sizeof(METADATA_CUBE));
             file.close();

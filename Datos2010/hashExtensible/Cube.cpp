@@ -12,6 +12,7 @@
 
 Cube::Cube( INT_UNSIGNED sizeOfDispersion){
 	this->sizeOfDispersion=sizeOfDispersion;
+	this->sizeCube=SIZE_CUBE;
 }
 Cube::~Cube() {
 	// TODO Auto-generated destructor stub
@@ -24,9 +25,11 @@ int Cube::writeCube(fstream *fileCube, int offsetCube)
 
 
 
-bool Cube::hasSpace(int size)
-{
-	 return 1;
+bool Cube::hasSpace(int size){
+	// el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
+	//tiene que ser menor que el tamanio libre
+	int minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
+	return(this->sizeFree>minimumSpace);
 }
 
 

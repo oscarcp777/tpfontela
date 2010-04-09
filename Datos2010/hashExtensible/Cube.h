@@ -2,7 +2,7 @@
  * Bucket.h
  *
  *  Created on: 28/03/2010
- *      Author: Richard
+ *      Author: Oscar
  */
 
 #ifndef CUBE_H_
@@ -32,7 +32,13 @@ public:
 	Cube( INT_UNSIGNED sizeOfDispersion);
 	virtual ~Cube();
 	/**
-	 *verifica si hay espacio en el bloque para escribir el registro
+	 *verifica si hay el espacio minimo necesario para escribir en el bloque
+	 *verificando que se preserve un espacio de resguardo para las modificaciones
+	 *el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
+	 *tiene que ser menor que el tamanio libre
+	 *@autor Oscar
+	 *@argument size tamanio del registro que se quiere agregar
+	 *@return retorna true o false si hay el espacio minimo necesario o no
 	 */
 	bool hasSpace(int size);
 	int addRecord(Record* record);
