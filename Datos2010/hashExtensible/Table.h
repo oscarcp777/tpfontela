@@ -2,7 +2,7 @@
  * Table.h
  *
  *  Created on: 24/03/2010
- *      Author: Richard
+ *      Author: Oscar
  */
 
 #ifndef TABLE_H_
