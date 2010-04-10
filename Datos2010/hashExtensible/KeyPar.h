@@ -15,6 +15,7 @@ private:
 public:
 	KeyPar(INT_UNSIGNED position,INT_UNSIGNED offsetCube);
 	KeyPar();
+	KeyPar* clone();
 	virtual ~KeyPar();
 
 
