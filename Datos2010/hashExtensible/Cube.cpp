@@ -18,8 +18,9 @@ Cube::~Cube() {
 	// TODO Auto-generated destructor stub
 }
 
-int Cube::writeCube(fstream *fileCube, int offsetCube)
+int Cube::writeCube(BinaryFile *fileCube, int offsetCube)
 {
+
  return 1;
 }
 
@@ -34,7 +35,7 @@ bool Cube::hasSpace(int size){
 
 
 
-int Cube::readCube(fstream *fileCube, int offsetCube)
+int Cube::readCube(BinaryFile *fileCube, int offsetCube)
 {
 	 return 1;
 }
@@ -59,5 +60,7 @@ Record *Cube::searchRecord(Record *record)
 {
 	 return new Record();
 }
-
+int Cube::print(TextFile* output){
+return 1;
+}
 

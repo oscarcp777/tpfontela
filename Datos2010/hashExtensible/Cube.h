@@ -12,6 +12,8 @@
 #include <fstream>
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
+#include "../src.datos.storage/BinaryFile.h"
+#include "../src.datos.storage/TextFile.h"
 using namespace std;
 typedef struct metadataCube {
 	INT_UNSIGNED sizeFree;
@@ -44,9 +46,9 @@ public:
 	int addRecord(Record* record);
 	int deleteRecord(Record* record);
 	Record* searchRecord(Record* record);
-	int writeCube(fstream* fileCube,int offsetCube);
-	int readCube(fstream* fileCube,int offsetCube);
-	int print(fstream* output);
+	int writeCube(BinaryFile* fileCube,int offsetCube);
+	int readCube(BinaryFile* fileCube,int offsetCube);
+	int print(TextFile* output);
 
 
 
