@@ -28,7 +28,7 @@ int Cube::writeCube(fstream *fileCube, int offsetCube)
 bool Cube::hasSpace(int size){
 	// el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
 	//tiene que ser menor que el tamanio libre
-	int minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
+	INT_UNSIGNED minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
 	return(this->sizeFree>minimumSpace);
 }
 
