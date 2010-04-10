@@ -9,16 +9,13 @@
 #define RECORDFILE_H_
 
 #include "BufferFile.h"
+#include "FixedFieldBuffer.h"
 template <class RecType>
 class RecordFile: public BufferFile {
 public:
 
-//	int read(RecType&record,int recaddr=-1);
-//	int write(const RecType&record,int recaddr=-1);
-//	int append(const RecType &record);
 	RecordFile(IOBuffer& buffer):BufferFile(buffer){}
 
-//	template <class RecType>
 	int read(RecType&record,int recaddr = -1){
 		int readAddr,result;
 		readAddr=BufferFile::read(recaddr);
@@ -28,7 +25,10 @@ public:
 		return readAddr;
 	}
 
-//	template <class RecType>
+	int read(FixedFieldBuffer & buffer){
+		return buffer.read(file);
+	}
+
 	int append(const RecType &record){
 		int result;
 		result=record.pack(this->buffer);
@@ -36,13 +36,16 @@ public:
 		return BufferFile::append();
 	}
 
-//	template <class RecType>
 	int write(const RecType&record,int recaddr = -1){
 		int result;
 		result= record.pack(this->buffer);
 		if(!result) return -1;
 		return BufferFile::write(recaddr);
 
+	}
+
+	int write(FixedFieldBuffer & buffer){
+			return buffer.write(file);
 	}
 
 };

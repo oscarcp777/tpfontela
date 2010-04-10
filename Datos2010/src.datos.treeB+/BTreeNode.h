@@ -104,7 +104,7 @@ public:
 		int result;
 		buffer.clear();
 		result = buffer.pack(&this->numKeys);
-//		result = buffer.pack(&this->nextNode);
+		result = buffer.pack(&this->nextNode);
 		for (int i = 0; i<this->numKeys; i++){
 			result = result && buffer.pack(&this->keys[i]);
 			result = result && buffer.pack(&this->recAddrs[i]);
@@ -115,7 +115,7 @@ public:
 	int  unpack(IOBuffer& buffer){
 		int result;
 		result = buffer.unPack(&this->numKeys);
-//		result = buffer.unPack(&this->nextNode);
+		result = buffer.unPack(&this->nextNode);
 		for (int i = 0; i<this->numKeys; i++){
 			result = result && buffer.unPack(&this->keys[i]);
 			result = result && buffer.unPack(&this->recAddrs[i]);
@@ -124,7 +124,6 @@ public:
 	}
 
 	void  print(ostream &) const{
-//		SimpleIndex<keyType>::print(cout);
 		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
 		for(int i = 0; i<this->numKeys; i++){
 			cout << "\tKey["<<i<<"] "<<this->keys[i] << " direccion "<<this->recAddrs[i]<<endl;
@@ -135,6 +134,7 @@ public:
 
 	//Inicializa buffer para el nodo
 	static int initBuffer(FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType)){
+		buffer.addField(sizeof(int));
 		buffer.addField(sizeof(int));
 		for (int i = 0; i < maxKeys; i++){
 			buffer.addField(keySize);

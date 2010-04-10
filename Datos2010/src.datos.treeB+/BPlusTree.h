@@ -25,7 +25,7 @@ class BPlusTree{
 public:
 
 	BPlusTree(int order, int keySize = sizeof(keyType), int unique = 1)
-	:buffer(1+2*order,sizeof(int)+order*keySize+order*sizeof(int)),
+	:buffer(2+2*order,sizeof(int)+sizeof(int)+order*keySize+order*sizeof(int)),
 	 bTreeFile(this->buffer),
 	 root(order) {
  		this->height = 1;
@@ -47,15 +47,20 @@ public:
 
 		int result = this->bTreeFile.open(name,mode);
 		if (!result) return result;
+		//Leo profundidad
+		result = this->readHeight();
+		if (!result) return result;
 		//Carga raiz
 		this->bTreeFile.read(this->root);
-		this->height = 1; // TODO encontrar profundidad en el archivo
 		return 1;
 	}
 
 	int  create(string name, ios_base::openmode mode){
 
 		int result = this->bTreeFile.create(name, mode);
+		if (!result) return result;
+		//Escribo profundidad
+		result = this->writeHeight();
 		if (!result) return result;
 		//Agrega nodo raiz
 		result = this->bTreeFile.write(this->root);
@@ -65,6 +70,9 @@ public:
 	int  close(){
 
 		int result = this->bTreeFile.BufferFile::reWind();
+		if (!result) return result;
+		//Escribo profundidad
+		result = this->writeHeight();
 		if (!result) return result;
 		result = this->bTreeFile.write(this->root);
 		if (result == -1) return 0;
@@ -214,6 +222,23 @@ protected:
 	int  store(BNode* node){ //Store
 
 		return this->bTreeFile.write(*node,node->getRecAddr());
+	}
+
+	int readHeight(){
+		cout<<"Leo profundidad"<<endl;
+		FixedFieldBuffer buffer(1,sizeof(int));
+		buffer.addField(sizeof(int));
+		this->bTreeFile.read(buffer);
+		buffer.unPack(&this->height);
+		return this->height != 0;
+	}
+
+	int writeHeight(){
+		cout<<"Escribo profundidad"<<endl;
+		FixedFieldBuffer buffer(1,sizeof(int));
+		buffer.addField(sizeof(int));
+		buffer.pack(&this->height);
+		return this->bTreeFile.write(buffer);
 	}
 
 };
