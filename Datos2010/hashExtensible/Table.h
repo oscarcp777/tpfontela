@@ -10,7 +10,6 @@
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
 #include "Cube.h"
-#include "KeyPar.h"
 #include <vector>
 using namespace std;
 typedef struct metadataTable {
@@ -24,7 +23,7 @@ private:
 	Cube* currentCube;
 	INT_UNSIGNED sizeTable;
 	list<INT_UNSIGNED> offsetCubesFree;
-	vector<KeyPar*> element;
+	vector<int> element;
 public:
 	Table();
 	virtual ~Table();
@@ -33,6 +32,7 @@ public:
 	int writeTable(fstream* fileTable);
 	int duplicateTable();
 	int redispersableCubes(INT_UNSIGNED offsetCube);
+	int insert(int key, char* data);
 	int deleteCube(INT_UNSIGNED offsetCube);
 	Record* search(int key);
 	void print(fstream* output);
