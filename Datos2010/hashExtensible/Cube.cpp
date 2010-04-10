@@ -19,9 +19,19 @@ Cube::Cube( INT_UNSIGNED sizeOfDispersion, INT_UNSIGNED offset){
 Cube::~Cube() {
 	// TODO Auto-generated destructor stub
 }
-
+int Cube::loadMetadata(){
+    this->buffer->clear();
+    this->buffer->packField(&this->sizeFree,sizeof(this->sizeFree));
+    this->buffer->packField(&this->numberOfRecords,sizeof(this->numberOfRecords));
+    this->buffer->packField(&this->sizeOfDispersion,sizeof(this->sizeOfDispersion));
+    return 1;
+}
 int Cube::writeCube(BinaryFile *fileCube)
 {
+
+	//cargo la metadata en el buffer para despues escribirla
+    this->loadMetadata();
+
  return 1;
 }
 

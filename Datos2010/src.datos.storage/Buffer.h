@@ -7,39 +7,41 @@
 
 #ifndef BUFFER_H_
 #define BUFFER_H_
-
-#include "Storage.h"
 #include <stdio.h>
-
+#include <string.h>
+#include <stdlib.h>
+#include <iostream>
 using namespace std;
-class Buffer: public Storage {
+class Buffer{
 
 private:
-	char* datos;
-	int posicionActual;
-	int posicionActualLectura;
-	int cantElementos;
-	int cantLineas;
-	int cantlineasLeidas;
-	bool binario;
-	bool texto;
-	int size;
-
+	char* buffer; //character array to hold field values
+	int bufferSize; //sum of the sizes of packed fields
+	int maxBytes; //maximum number of characters in the buffer
+	int nextByte; //index of next byte to be packed/unpacked
 public:
-	Buffer();
+	Buffer(int maxBytes);
 	virtual ~Buffer();
-	std::string toString();
-	std::string getClass();
-	void open();
-	void close();
-	void irAlPrincipio();
-	bool fin();
-	void create();
-	int write(std::string registro, int pos);
-	int write(char* buffer, int pos = -1);
-	void read(std::string& datos, int pos);
-	void read(char* buffer, int pos);
+	/**
+	 * limpia los campos de buffer
+	 */
+	void clear();
+    void init();
+	/**
+	 *setea el valor al siguiente campo del buffer
+	 *si el size =-1 uso strlen(str) en la longitudes de la etiqueta
+	 *@oscar
+	 *@return retorna la cantidad de bytes del enpaquetado si -1 si hay error
+	 */
+	int packField(const void* field,int size=-1);
+	/**
+	 *extrae el valor al siguiente campo del buffer
+	 *@oscar
+	 *return reotrna el numero de bytes extraidos
 
+	 */
+	int unPackField(void* field,int size);
+	int print();
 
 
 };
