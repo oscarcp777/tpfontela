@@ -44,15 +44,6 @@ int Cube::readCube(BinaryFile *fileCube, int offsetCube)
 	 return 1;
 }
 
-
-
-int Cube::deleteRecord(Record *record)
-{
-	 return 1;
-}
-
-
-
 int Cube::addRecord(Record *record)
 {
 	 return 1;
@@ -60,7 +51,6 @@ int Cube::addRecord(Record *record)
 int Cube::remove(int key){
 	return 1;
 }
-
 
 Record *Cube::search(int key)
 {
