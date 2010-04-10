@@ -10,26 +10,31 @@
 
 
 
-Cube::Cube( INT_UNSIGNED sizeOfDispersion){
+Cube::Cube( INT_UNSIGNED sizeOfDispersion, INT_UNSIGNED offset){
+	this->offsetCube = offset;
 	this->sizeOfDispersion=sizeOfDispersion;
 	this->sizeCube=SIZE_CUBE;
+	this->sizeFree = SIZE_CUBE;
 }
 Cube::~Cube() {
 	// TODO Auto-generated destructor stub
 }
 
-int Cube::writeCube(BinaryFile *fileCube, int offsetCube)
+int Cube::writeCube(BinaryFile *fileCube)
 {
  return 1;
 }
 
+int Cube::redistribute(Cube* newCube){
+	return 1;
+}
 
 
 bool Cube::hasSpace(int size){
 	// el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
 	//tiene que ser menor que el tamanio libre
 	INT_UNSIGNED minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
-	return(this->sizeFree>minimumSpace);
+	return(this->sizeFree > minimumSpace);
 }
 
 
