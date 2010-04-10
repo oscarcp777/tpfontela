@@ -40,10 +40,11 @@ public:
 	int isTableDuplicate();
 	void collapse();
 	int deleteCube(INT_UNSIGNED offsetCube);
+	int close();
 	int createFiles(string fileName);
 	int openFiles(string fileName);
 	int readTable(fstream* fileTable);
-	int writeTable(fstream* fileTable);
+	int writeTable();
 	void print(fstream* output);
 
 	INT_UNSIGNED getCountsCubes() const
