@@ -13,6 +13,8 @@
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
+#include "../src.datos.storage/TextFile.h"
+#include "../src.datos.storage/Buffer.h"
 using namespace std;
 typedef struct metadataCube {
 	INT_UNSIGNED sizeFree;
@@ -28,7 +30,9 @@ private:
 	INT_UNSIGNED sizeFree;
 	list<Record*> records;
 	int sizeCube;
+	Buffer* buffer;
 	METADATA_CUBE metadata;//estructura donde se escribe y se lee la metada en un solo read
+	int loadMetadata();
 public:
 	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
 	virtual ~Cube();
@@ -48,7 +52,7 @@ public:
 	int writeCube(BinaryFile* fileCube);
 	int redistribute(Cube* newCube);
 	int readCube(BinaryFile* fileCube,int offsetCube);
-	int print(fstream* output);
+	int print(TextFile* output);
 
 
 
