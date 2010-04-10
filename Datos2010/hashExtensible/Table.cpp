@@ -27,6 +27,8 @@ int Table::readTable(fstream *fileTable)
 
 int Table::duplicateTable()
 {
+
+
 	return 1;
 }
 
