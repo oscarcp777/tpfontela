@@ -60,8 +60,9 @@ int Cube::addRecord(Record *record)
 
 
 
-Record *Cube::searchRecord(Record *record)
+Record *Cube::search(int key)
 {
+	//TODO buscar clave "key" y devolver un record
 	 return new Record();
 }
 

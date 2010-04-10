@@ -44,7 +44,7 @@ public:
 	bool hasSpace(int size);
 	int addRecord(Record* record);
 	int deleteRecord(Record* record);
-	Record* searchRecord(Record* record);
+	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
 	int redistribute(Cube* newCube);
 	int readCube(BinaryFile* fileCube,int offsetCube);

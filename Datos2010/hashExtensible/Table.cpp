@@ -10,7 +10,6 @@
 
 Table::Table() {
 
-
 }
 
 Table::~Table() {
@@ -19,13 +18,6 @@ Table::~Table() {
 int Table::hash(int key){
   return (key % this->sizeTable);
 }
-
-int Table::readTable(fstream *fileTable)
-{
-	return 1;
-}
-
-
 
 int Table::duplicateTable()
 {
@@ -82,16 +74,20 @@ int Table::insert(Record* record){
 	return 1;
 }
 
-int Table::redispersableCubes(INT_UNSIGNED offsetCube)
-{
-	return 1;
+int Table::loadCube(int offset){
+	int res = this->currentCube->readCube(fileCubes,offset);
+	return res;
 }
-
-
 
 Record *Table::search(int key)
 {
-	return new Record(0,0);
+	int index = this->hash(key);
+	int offset = this->element[index];
+	int result = this->loadCube(offset);
+	if(result)
+		return this->currentCube->search(key);
+	else
+		return NULL;
 }
 
 void Table::print(fstream *output)
@@ -100,29 +96,15 @@ void Table::print(fstream *output)
 }
 
 
-
-int Table::writeTable(fstream *fileTable)
+int Table::readTable(fstream *fileTable)
 {
 	return 1;
 }
 
 
-
-
-
-Cube *Table::getNewCube(fstream *fileCubes)
+int Table::writeTable(fstream *fileTable)
 {
-	return new Cube(0,0);
-}
-int Table::loadCube(int offset){
-	int res = this->currentCube->readCube(fileCubes,offset);
-	return res;
-}
-
-
-Cube *Table::getCurrentCube(INT_UNSIGNED offsetCube,fstream* fileCubo)
-{
-	return new Cube(0,0);
+	return 1;
 }
 
 int Table::deleteCube(INT_UNSIGNED offsetCube)
