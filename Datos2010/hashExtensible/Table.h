@@ -32,17 +32,15 @@ public:
 	Table();
 	virtual ~Table();
 	int hash(int key);
-	int readTable(fstream* fileTable);
-	int writeTable(fstream* fileTable);
 	int duplicateTable();
-	int redispersableCubes(INT_UNSIGNED offsetCube);
 	int insert(Record* record);
 	int loadCube(int offset);
-	int deleteCube(INT_UNSIGNED offsetCube);
 	Record* search(int key);
+
+	int deleteCube(INT_UNSIGNED offsetCube);
 	void print(fstream* output);
-	Cube* getNewCube(fstream* fileCubes);
-	Cube* getCurrentCube(INT_UNSIGNED offsetCube,fstream* fileCubo);
+	int readTable(fstream* fileTable);
+	int writeTable(fstream* fileTable);
 
 
 	INT_UNSIGNED getCountsCubes() const
