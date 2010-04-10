@@ -18,15 +18,15 @@ HashExtensible::~HashExtensible() {
 
 char *HashExtensible::search(int key)
 {
-	char var1='a';
-	char* var=&var1;
-	return var;
+	Record* record = this->table->search(key);
+	return record->getData();
 }
 
 
 
 int HashExtensible::open(string fileName)
 {
+	this->table->openFiles(fileName);
 	return 0;
 }
 
@@ -41,6 +41,10 @@ int HashExtensible::create(string fileName){
 
 int HashExtensible::insert(int key, char *data)
 {
+
+	Record* record = new Record(key,data);
+	this->table->insert(record);
+	delete record;
 	return 0;
 }
 
@@ -48,19 +52,21 @@ int HashExtensible::insert(int key, char *data)
 
 int HashExtensible::remove(int key)
 {
+	this->table->remove(key);
 	return 0;
 }
 
 
 
-void HashExtensible::print(fstream *output)
-{
+void HashExtensible::print(fstream *output){
+	//TODO
 }
 
 
 
 int HashExtensible::close()
 {
+	this->table->close();
 	return 0;
 }
 

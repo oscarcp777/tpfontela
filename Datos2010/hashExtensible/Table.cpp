@@ -31,6 +31,13 @@ int Table::openFiles(string fileName){
 	this->fileTable->open(fileName+EXT_TABLE);
 	return 0;
 }
+int Table::close(){
+	this->fileCubes->close();
+	this->fileCubesFree->close();
+	this->writeTable();
+	this->fileTable->close();
+	return 1;
+}
 
 int Table::hash(int key){
   return (key % this->sizeTable);
@@ -176,8 +183,9 @@ int Table::readTable(fstream *fileTable)
 }
 
 
-int Table::writeTable(fstream *fileTable)
+int Table::writeTable()
 {
+	//TODO escribir la tabla en el archivo
 	return 1;
 }
 
