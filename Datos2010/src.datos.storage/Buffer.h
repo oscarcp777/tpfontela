@@ -42,7 +42,19 @@ public:
 	 */
 	int unPackField(void* field,int size);
 	int print();
+    char *getData()
+    {
+        return buffer;
+    }
 
+    int getBufferSize() const
+    {
+        return bufferSize;
+    }
+    int setBufferSize(int bufferSize )
+       {
+           this->bufferSize= bufferSize;
+       }
 
 };
 

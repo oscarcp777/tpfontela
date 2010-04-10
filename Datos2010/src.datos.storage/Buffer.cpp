@@ -14,7 +14,7 @@ Buffer::Buffer(int maxBytes){
 	this->maxBytes = maxBytes;
 	this->buffer = new char[this->maxBytes];
 	this->bufferSize = 0;
-	this->clear();
+	this->init();
 }
 void Buffer::init(){
 	this->nextByte = 0;

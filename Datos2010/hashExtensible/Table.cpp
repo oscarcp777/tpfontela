@@ -12,6 +12,8 @@ Table::Table() {
 	this->fileCubes = new BinaryFile();
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
+	this->countsCubes = 16;
+	this->sizeTable = 32;
 }
 
 Table::~Table() {
@@ -29,6 +31,7 @@ int Table::openFiles(string fileName){
 	this->fileCubes->open(fileName+EXT_CUBE);
 	this->fileCubesFree->open(fileName+EXT_FREE_CUBE);
 	this->fileTable->open(fileName+EXT_TABLE);
+	this->readTable();
 	return 0;
 }
 int Table::close(){
@@ -177,15 +180,34 @@ int Table::deleteCube(INT_UNSIGNED offsetCube){
 	return 1;
 }
 
-int Table::readTable(fstream *fileTable)
-{
+int Table::readTable(){
+	Buffer* buffer= new Buffer(512);
+	buffer->setBufferSize(8);
+	this->fileTable->read(buffer->getData(),8);
+	int a=0,b=0;
+	buffer->unPackField(&a,sizeof(a));
+	buffer->unPackField(&b,sizeof(b));
+	cout<<"BUFFER"<<a<<b<<"FIN"<<endl;
 	return 1;
 }
 
 
-int Table::writeTable()
-{
-	//TODO escribir la tabla en el archivo
+int Table::writeTable(){
+	Buffer* buffer= new Buffer(4*this->element.size()+8);
+	int size = this->sizeTable;
+	int count = this->countsCubes;
+	int num;
+	buffer->packField(&size,sizeof(size));
+	buffer->packField(&count,sizeof(count));
+
+	for(unsigned int i=0; i<this->element.size(); i++){
+		num =this->element.at(i) ;
+		buffer->packField(&num,sizeof(num));
+
+	}
+
+	this->fileTable->write(buffer->getData(),buffer->getBufferSize());
+	delete buffer;
 	return 1;
 }
 
