@@ -46,15 +46,33 @@ int Table::insert(Record* record){
 		add =this->currentCube->addRecord(record);
 		if(add != 1){//si no agrego es porque no hay lugar
 
+			Cube* newCube;
 			if(this->currentCube->getSizeOfDispersion() == this->sizeTable){
 				//tamaño sispersion = tamaño tabla
 				this->duplicateTable();
+				this->currentCube->setSizeOfDispersion(this->sizeTable);
+				this->countsCubes++;
+				newCube = new Cube(this->sizeTable,this->countsCubes);
+				this->element[index] = this->countsCubes;
+
 			}
 			else{//tamaño sispersion <> tamaño tabla
-
+				unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
+				this->currentCube->setSizeOfDispersion(dispersionSize*2);
+				this->countsCubes++;
+				newCube = new Cube(dispersionSize*2,this->countsCubes);
+				for(unsigned int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion()){
+					this->element[i] = this->countsCubes;
+				}
+				for(int j = index; j>=0; j-=newCube->getSizeOfDispersion()){
+					this->element[j] = this->countsCubes;
+				}
 
 			}
-
+			//redistribuir y guardar los cubos en disco
+			this->currentCube->redistribute(newCube);
+			this->currentCube->writeCube(this->fileCubes);
+			newCube->writeCube(fileCubes);
 		}
 
 	}
@@ -94,7 +112,7 @@ int Table::writeTable(fstream *fileTable)
 
 Cube *Table::getNewCube(fstream *fileCubes)
 {
-	return new Cube(0);
+	return new Cube(0,0);
 }
 int Table::loadCube(int offset){
 	int res = this->currentCube->readCube(fileCubes,offset);
@@ -104,7 +122,7 @@ int Table::loadCube(int offset){
 
 Cube *Table::getCurrentCube(INT_UNSIGNED offsetCube,fstream* fileCubo)
 {
-	return new Cube(0);
+	return new Cube(0,0);
 }
 
 int Table::deleteCube(INT_UNSIGNED offsetCube)

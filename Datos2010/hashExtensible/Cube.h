@@ -30,7 +30,7 @@ private:
 	int sizeCube;
 	METADATA_CUBE metadata;//estructura donde se escribe y se lee la metada en un solo read
 public:
-	Cube( INT_UNSIGNED sizeOfDispersion);
+	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
 	virtual ~Cube();
 	/**
 	 *verifica si hay el espacio minimo necesario para escribir en el bloque
@@ -45,7 +45,8 @@ public:
 	int addRecord(Record* record);
 	int deleteRecord(Record* record);
 	Record* searchRecord(Record* record);
-	int writeCube(BinaryFile* fileCube,int offsetCube);
+	int writeCube(BinaryFile* fileCube);
+	int redistribute(Cube* newCube);
 	int readCube(BinaryFile* fileCube,int offsetCube);
 	int print(fstream* output);
 
