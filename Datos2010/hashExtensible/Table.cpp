@@ -15,9 +15,11 @@ Table::Table() {
 
 Table::~Table() {
 }
+
 int Table::hash(int key){
   return (key % this->sizeTable);
 }
+
 int Table::readTable(fstream *fileTable)
 {
 	return 1;
@@ -27,12 +29,40 @@ int Table::readTable(fstream *fileTable)
 
 int Table::duplicateTable()
 {
-
+	for(unsigned int i= 0 ; i< this->sizeTable; i++ ){
+		this->element[i+this->sizeTable] = this->element[i];
+	}
+	this->sizeTable = this->sizeTable*2;
 
 	return 1;
 }
 
+int Table::insert(Record* record){
+	int index = this->hash(record->getKey());
+	int offset = this->element[index];
+	int result = this->loadCube(this->currentCube,offset);
+	int add;
+	if(result == 1){//si pudo cargar el cubo
+		add =this->currentCube->addRecord(record);
+		if(add != 1){//si no agrego es porque no hay lugar
 
+			if(this->currentCube->getSizeOfDispersion() == this->sizeTable){
+				//tamaño sispersion = tamaño tabla
+				this->duplicateTable();
+			}
+			else{//tamaño sispersion <> tamaño tabla
+
+
+			}
+
+		}
+
+	}
+	else//no pudo cargar el cubo
+		return -1;
+
+	return 1;
+}
 
 int Table::redispersableCubes(INT_UNSIGNED offsetCube)
 {
