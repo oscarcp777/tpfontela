@@ -13,7 +13,6 @@
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
-#include "../src.datos.storage/TextFile.h"
 using namespace std;
 typedef struct metadataCube {
 	INT_UNSIGNED sizeFree;
@@ -48,7 +47,7 @@ public:
 	Record* searchRecord(Record* record);
 	int writeCube(BinaryFile* fileCube,int offsetCube);
 	int readCube(BinaryFile* fileCube,int offsetCube);
-	int print(TextFile* output);
+	int print(fstream* output);
 
 
 
@@ -85,7 +84,7 @@ public:
 		return sizeFree;
 	}
 
-	int getSizeOfDispersion() const
+	unsigned int getSizeOfDispersion() const
 	{
 		return sizeOfDispersion;
 	}

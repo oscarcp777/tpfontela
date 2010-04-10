@@ -20,7 +20,6 @@ Cube::~Cube() {
 
 int Cube::writeCube(BinaryFile *fileCube, int offsetCube)
 {
-
  return 1;
 }
 
@@ -60,7 +59,5 @@ Record *Cube::searchRecord(Record *record)
 {
 	 return new Record();
 }
-int Cube::print(TextFile* output){
-return 1;
-}
+
 

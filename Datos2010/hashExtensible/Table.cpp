@@ -40,7 +40,7 @@ int Table::duplicateTable()
 int Table::insert(Record* record){
 	int index = this->hash(record->getKey());
 	int offset = this->element[index];
-	int result = this->loadCube(this->currentCube,offset);
+	int result = this->loadCube(offset);
 	int add;
 	if(result == 1){//si pudo cargar el cubo
 		add =this->currentCube->addRecord(record);
@@ -96,7 +96,10 @@ Cube *Table::getNewCube(fstream *fileCubes)
 {
 	return new Cube(0);
 }
-
+int Table::loadCube(int offset){
+	int res = this->currentCube->readCube(fileCubes,offset);
+	return res;
+}
 
 
 Cube *Table::getCurrentCube(INT_UNSIGNED offsetCube,fstream* fileCubo)

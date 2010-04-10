@@ -10,14 +10,12 @@
 #include <fstream>
 #include <string>
 #include "Table.h"
-#include "../src.datos.storage/BinaryFile.h"
+
 
 using namespace std;
 class HashExtensible {
 private:
-	BinaryFile* fileTable;
-	BinaryFile* fileCubes;
-	BinaryFile* fileCubesFree;
+
 	Table* table;
 public:
 	HashExtensible();
@@ -31,39 +29,10 @@ public:
 	void print(fstream* output);
 
 
-	BinaryFile *getFileCubes() const
-    {
-        return fileCubes;
-    }
-
-	BinaryFile *getFileCubesFree() const
-    {
-        return fileCubesFree;
-    }
-
-	BinaryFile *getFileTable() const
-    {
-        return fileTable;
-    }
 
     Table *getTable() const
     {
         return table;
-    }
-
-    void setFileCubes(BinaryFile *fileCubes)
-    {
-        this->fileCubes = fileCubes;
-    }
-
-    void setFileCubesFree(BinaryFile *fileCubesFree)
-    {
-        this->fileCubesFree = fileCubesFree;
-    }
-
-    void setFileTable(BinaryFile *fileTable)
-    {
-        this->fileTable = fileTable;
     }
 
     void setTable(Table *table)

@@ -9,6 +9,7 @@
 #define TABLE_H_
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
+#include "../src.datos.storage/BinaryFile.h"
 #include "Cube.h"
 #include <vector>
 using namespace std;
@@ -19,6 +20,9 @@ typedef struct metadataTable {
 }METADATA_TABLE;
 class Table {
 private:
+	BinaryFile* fileTable;
+	BinaryFile* fileCubes;
+	BinaryFile* fileCubesFree;
 	INT_UNSIGNED countsCubes;
 	Cube* currentCube;
 	INT_UNSIGNED sizeTable;
@@ -32,7 +36,8 @@ public:
 	int writeTable(fstream* fileTable);
 	int duplicateTable();
 	int redispersableCubes(INT_UNSIGNED offsetCube);
-	int insert(int key, char* data);
+	int insert(Record* record);
+	int loadCube(int offset);
 	int deleteCube(INT_UNSIGNED offsetCube);
 	Record* search(int key);
 	void print(fstream* output);
@@ -73,6 +78,20 @@ public:
     void setSizeTable(INT_UNSIGNED sizeTable)
     {
         this->sizeTable = sizeTable;
+    }
+	BinaryFile *getFileCubes() const
+    {
+        return fileCubes;
+    }
+
+	BinaryFile *getFileCubesFree() const
+    {
+        return fileCubesFree;
+    }
+
+	BinaryFile *getFileTable() const
+    {
+        return fileTable;
     }
 
 };
