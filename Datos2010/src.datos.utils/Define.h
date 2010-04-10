@@ -18,8 +18,9 @@ typedef unsigned int INT_UNSIGNED;
 #define ERROR_FLAG "ERROR"
 #define SIZE_SYSTEM_TIME 25
 #define DEBUG 0
-#define EXT_DIR ".dir"
-#define EXT_BKT ".bkt"
+#define EXT_TABLE ".tbl"
+#define EXT_CUBE ".cb"
+#define EXT_FREE_CUBE ".fcb"
 #define PORCENT_FREE_CUBE 0.2
 #define SIZE_CUBE 128
 

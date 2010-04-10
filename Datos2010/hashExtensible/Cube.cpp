@@ -57,7 +57,9 @@ int Cube::addRecord(Record *record)
 {
 	 return 1;
 }
-
+int Cube::remove(int key){
+	return 1;
+}
 
 
 Record *Cube::search(int key)

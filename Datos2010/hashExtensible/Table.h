@@ -34,14 +34,17 @@ public:
 	int hash(int key);
 	int duplicateTable();
 	int insert(Record* record);
+	int remove(int key);
 	int loadCube(int offset);
 	Record* search(int key);
-
+	int isTableDuplicate();
+	void collapse();
 	int deleteCube(INT_UNSIGNED offsetCube);
-	void print(fstream* output);
+	int createFiles(string fileName);
+	int openFiles(string fileName);
 	int readTable(fstream* fileTable);
 	int writeTable(fstream* fileTable);
-
+	void print(fstream* output);
 
 	INT_UNSIGNED getCountsCubes() const
     {
