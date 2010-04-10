@@ -28,6 +28,6 @@ int main() {
             file.read((char*)&reg,sizeof(METADATA_CUBE));
             file.close();
 
-	cout << "!!!compila  malditos   !!!"<<reg.numberOfRecords<<reg.sizeFree<<reg.sizeOfDispersion<<endl;
+	cout << "!!!compila  malditos   !!!"<<reg.numberOfRecords<<"   "<<reg.sizeFree<<"   "<<reg.sizeOfDispersion<<endl;
 	return 0;
 }

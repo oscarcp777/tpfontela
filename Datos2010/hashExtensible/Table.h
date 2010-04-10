@@ -11,7 +11,7 @@
 #include "../src.datos.utils/Define.h"
 #include "Cube.h"
 #include "KeyPar.h"
-#include <list>
+#include <vector>
 using namespace std;
 typedef struct metadataTable {
 	INT_UNSIGNED countsCubes;
@@ -24,7 +24,7 @@ private:
 	Cube* currentCube;
 	INT_UNSIGNED sizeTable;
 	list<INT_UNSIGNED> offsetCubesFree;
-	list<KeyPar*> element;
+	vector<KeyPar*> element;
 public:
 	Table();
 	virtual ~Table();
@@ -42,12 +42,7 @@ public:
 
 	INT_UNSIGNED getCountsCubes() const
     {
-        return countsCubes;
-    }
-
-    list<KeyPar*> getElement() const
-    {
-        return element;
+		return countsCubes;
     }
 
     list<INT_UNSIGNED> getOffsetCubesFree() const
@@ -68,11 +63,6 @@ public:
     void setCurrentCube(Cube *currentCube)
     {
         this->currentCube = currentCube;
-    }
-
-    void setElement(list<KeyPar*> element)
-    {
-        this->element = element;
     }
 
     void setOffsetCubesFree(list<INT_UNSIGNED> offsetCubesFree)

@@ -19,3 +19,11 @@ KeyPar::KeyPar(INT_UNSIGNED position,INT_UNSIGNED offsetCube) {
 KeyPar::~KeyPar() {
 	// TODO Auto-generated destructor stub
 }
+
+KeyPar* KeyPar::clone(){
+	KeyPar* newKeyPar = new KeyPar();
+	newKeyPar->setOffsetCube(this->getOffsetCube());
+	newKeyPar->setPosition(this->getPosition());
+	return newKeyPar;
+
+}
