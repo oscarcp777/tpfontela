@@ -43,7 +43,7 @@ public:
 	int close();
 	int createFiles(string fileName);
 	int openFiles(string fileName);
-	int readTable(fstream* fileTable);
+	int readTable();
 	int writeTable();
 	void print(fstream* output);
 
