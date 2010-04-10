@@ -28,7 +28,6 @@ IOBuffer & IOBuffer::operator = (const IOBuffer & buffer){
 	void IOBuffer::clear(){
 		this->nextByte = 0;
 		this->packing = 1; //true
-		memset(this->buffer,0,this->bufferSize);
 	}
 	void IOBuffer::print(){
 		std::cout<<"maxBytes: "<<this->maxBytes<<" BufferSize "<<this->bufferSize;
