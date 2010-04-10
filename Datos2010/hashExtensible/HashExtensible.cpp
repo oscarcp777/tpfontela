@@ -8,12 +8,12 @@
 #include "HashExtensible.h"
 
 HashExtensible::HashExtensible() {
-	// TODO Auto-generated constructor stub
+	this->table = new Table();
 
 }
 
 HashExtensible::~HashExtensible() {
-	// TODO Auto-generated destructor stub
+	delete this->table;
 }
 
 char *HashExtensible::search(int key)
@@ -32,8 +32,8 @@ int HashExtensible::open(string fileName)
 
 
 
-int HashExtensible::create(string fileName)
-{
+int HashExtensible::create(string fileName){
+	this->table->createFiles(fileName);
 	return 0;
 }
 
