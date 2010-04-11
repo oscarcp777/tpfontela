@@ -21,7 +21,7 @@ void BinaryFile::create(string fileName){
 	Logger* logger = Logger::getUnicaInstancia();
 	logger->debug(this->toString(),"Se intenta crear un archivo binario");
 	this->name = fileName;
-	this->file.open(fileName.c_str(),ios::in |ios::out |ios::binary);
+	this->file.open(fileName.c_str(),ios::trunc|ios::in |ios::out |ios::binary);
 
 	if (! this->file.is_open()){
 		flag = true;

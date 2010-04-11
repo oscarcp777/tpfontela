@@ -13,13 +13,15 @@ Table::Table() {
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
 	this->currentCube = new Cube(1,0);
-	//TODO poner this->countsCubes = 1; this->sizeTable = 1;
-	this->countsCubes = 4;
-	this->sizeTable = 4;
-	this->offsetCubes.push_back(2);
-	this->offsetCubes.push_back(1);
-	this->offsetCubes.push_back(4);
-	this->offsetCubes.push_back(3);
+	this->countsCubes = 1;
+	this->sizeTable = 1;
+	this->offsetCubes.push_back(0);
+//	this->countsCubes = 4;
+//	this->sizeTable = 4;
+//	this->offsetCubes.push_back(2);
+//	this->offsetCubes.push_back(1);
+//	this->offsetCubes.push_back(4);
+//	this->offsetCubes.push_back(3);
 }
 
 Table::~Table() {
@@ -32,6 +34,7 @@ int Table::createFiles(string fileName){
 	this->fileCubes->create(fileName+EXT_CUBE);
 	this->fileCubesFree->create(fileName+EXT_FREE_CUBE);
 	this->fileTable->create(fileName+EXT_TABLE);
+	this->writeFirstCube();
 	return 0;
 }
 int Table::openFiles(string fileName){
@@ -57,9 +60,6 @@ int Table::close(){
 	return 1;
 }
 
-int Table::hash(int key){
-  return (key % this->sizeTable);
-}
 
 int Table::duplicateTable(){
 	for(unsigned int i= 0 ; i< this->sizeTable; i++ ){
@@ -128,13 +128,14 @@ int Table::insert(Record* record){
 			this->currentCube->writeCube(this->fileCubes);
 			newCube->writeCube(fileCubes);
 			delete newCube;
-
+			return 1;
 		}
 
 	}
 	else//no pudo cargar el cubo
 		return -1;
 
+	this->currentCube->writeCube(this->fileCubes);
 	return 1;
 }
 
@@ -211,7 +212,7 @@ void Table::collapse(){
 }
 void Table::print(fstream *output){
 	cout<<"*************TABLA*************"<<endl;
-	cout<<"tamaño tabla= "<<this->sizeTable<<"|| cant. Cubos="<<this->countsCubes<<endl;
+	cout<<"tamaño tabla= "<<this->sizeTable<<" || cant. Cubos="<<this->countsCubes<<endl;
 		for(unsigned int i=0; i<this->sizeTable; i++)
 			cout<<"["<<i<<"] = "<<this->offsetCubes[i]<<endl;
 
@@ -298,4 +299,7 @@ int Table::writeFreeCubes(){
 		delete buffer;
 		return 1;
 }
-
+int Table::writeFirstCube(){
+	this->currentCube->writeCube(this->fileCubes);
+	return 1;
+}

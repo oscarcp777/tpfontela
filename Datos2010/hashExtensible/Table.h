@@ -46,6 +46,7 @@ public:
 	int writeTable();
 	int readFreeCubes();
 	int writeFreeCubes();
+	int writeFirstCube();
 	void print(fstream* output);
 
 	INT_UNSIGNED getCountsCubes() const

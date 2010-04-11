@@ -76,6 +76,7 @@ int Cube::writeCube(BinaryFile *fileCube)
 
 	}
 	fileCube->write(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
+
 	return TRUE;
 }
 
