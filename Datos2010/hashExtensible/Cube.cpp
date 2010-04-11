@@ -73,7 +73,7 @@ bool Cube::hasSpace(int size){
 
 
 
-int Cube::readCube(BinaryFile *fileCube)
+int Cube::readCube(BinaryFile *fileCube, int offsetCube)
 {
 
 	return 1;
