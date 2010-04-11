@@ -36,6 +36,7 @@ private:
 	int loadMetadata();
 	int writeMetadata();
 	int getDiskPosition();
+	int addRecordList(Record* record);
 public:
 	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
 	virtual ~Cube();

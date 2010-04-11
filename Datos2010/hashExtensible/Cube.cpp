@@ -78,7 +78,10 @@ int Cube::writeCube(BinaryFile *fileCube)
 
 	return TRUE;
 }
-
+int Cube::addRecordList(Record* record){
+  this->records.push_back(record);
+  return TRUE;
+}
 int Cube::reallocate(Cube* newCube,int sizeTable){
 	list<Record*>::iterator iterRecord;
 		Record* record;
@@ -87,7 +90,8 @@ int Cube::reallocate(Cube* newCube,int sizeTable){
 			record = *iterRecord;
 			if(!this->offsetCube==Hash::hashMod(record->getKey(),sizeTable)){
 				this->records.erase(iterRecord);
-				newCube->getRecords().push_back(record);
+				newCube->addRecordList(record);
+				this->sizeFree=this->sizeFree-record->getSizeRecord();
 			}
 			iterRecord++;
 		}
