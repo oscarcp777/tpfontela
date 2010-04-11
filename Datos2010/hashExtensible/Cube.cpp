@@ -43,9 +43,7 @@ int Cube::getDiskPosition(){
 	return this->offsetCube*this->sizeCube;
 }
 int Cube::loadMetadata(){
-	this->buffer->setBufferSize(sizeof(int));
 	this->buffer->unPackField(&this->sizeFree,sizeof(this->sizeFree));
-	this->buffer->setBufferSize(this->sizeCube-this->sizeFree);
 	this->buffer->unPackField(&this->numberOfRecords,sizeof(this->numberOfRecords));
 	this->buffer->unPackField(&this->sizeOfDispersion,sizeof(this->sizeOfDispersion));
 	return 1;
