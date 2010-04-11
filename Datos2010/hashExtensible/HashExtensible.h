@@ -29,7 +29,6 @@ public:
 	void print(fstream* output);
 
 
-
     Table *getTable() const
     {
         return table;

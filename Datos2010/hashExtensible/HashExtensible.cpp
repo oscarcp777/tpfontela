@@ -62,8 +62,6 @@ void HashExtensible::print(fstream *output){
 	//TODO
 }
 
-
-
 int HashExtensible::close()
 {
 	this->table->close();
