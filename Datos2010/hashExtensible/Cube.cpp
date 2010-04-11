@@ -1,6 +1,5 @@
 /*
  * Cube.cpp
- *getSizeRecord
  *  Created on: 24/03/2010
  *      Author: Richard
  */
@@ -16,7 +15,7 @@ Cube::Cube( INT_UNSIGNED sizeOfDispersion, INT_UNSIGNED offset){
 	this->sizeCube=SIZE_CUBE;
 	this->sizeFree = SIZE_CUBE;
 	this->buffer= new Buffer(SIZE_CUBE);
-	this->numberOfRecords=0;
+
 }
 Cube::~Cube() {
 	delete this->buffer;
@@ -52,6 +51,7 @@ int Cube::loadMetadata(){
 }
 int Cube::writeMetadata(){
 	this->buffer->clear();
+	this->numberOfRecords=this->records.size();
 	this->buffer->packField(&this->sizeFree,sizeof(this->sizeFree));
 	this->buffer->packField(&this->numberOfRecords,sizeof(this->numberOfRecords));
 	this->buffer->packField(&this->sizeOfDispersion,sizeof(this->sizeOfDispersion));
@@ -68,7 +68,7 @@ int Cube::writeCube(BinaryFile *fileCube)
 	for (iterRecord=this->records.begin(); iterRecord!=this->records.end(); iterRecord++){
 
 		record=*iterRecord;
-		int size=record->getSizeRecord();
+		int size=record->getSizeDataRecord();
 		int key=record->getKey();
 		this->buffer->packField(&(size),sizeof(size));
 		this->buffer->packField(&key,sizeof(key));
@@ -112,7 +112,7 @@ int Cube::loadCube(BinaryFile *fileCube, int offsetCube)
 	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
 	this->loadMetadata();
 	Record* record;
-	for (INT_UNSIGNED var = 0; var < this->numberOfRecords; ++var) {
+	for (int var = 0; var < this->numberOfRecords; ++var) {
 		record=new Record();
 		int size=0;
 		int key=0;
@@ -136,6 +136,7 @@ int Cube::addRecord(Record *record)
 	if(recordFound==NULL){// si no lo encontro me fijo si hay espacio para el
 		if(this->hasSpace(record->getSizeRecord())){
 			this->records.push_back(record);
+			this->sizeFree=this->sizeFree-record->getSizeRecord();
 			return TRUE;
 		}else{
 			return FALSE;

@@ -23,7 +23,7 @@ public:
 	 *
 	 */
     int getSizeRecord();
-
+    int getSizeDataRecord();
 
 
     char *getData() const

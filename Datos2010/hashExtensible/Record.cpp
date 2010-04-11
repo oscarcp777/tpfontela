@@ -17,6 +17,9 @@ Record::Record(int key,char* data){
 Record::~Record() {
 	// TODO Auto-generated destructor stub
 }
-int Record::getSizeRecord(){
+int Record::getSizeDataRecord(){
     return sizeof(this->data);
+}
+int Record::getSizeRecord(){
+    return 2*sizeof(this->key)*sizeof(this->data);
 }
