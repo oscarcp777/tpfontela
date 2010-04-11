@@ -13,7 +13,7 @@
 #include <iostream>
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/RecordFile.h"
-#include "../src.datos.buffer/FixedFieldBuffer.h"
+#include "../src.datos.buffer/VariableFieldBuffer.h"
 #include "BTreeNode.h"
 
 using namespace std;
@@ -24,15 +24,16 @@ class BPlusTree{
 
 public:
 
-	BPlusTree(int order, int keySize = sizeof(keyType), int unique = 1)
-	:buffer(2+2*order,sizeof(int)+sizeof(int)+order*keySize+order*sizeof(int)),
+	BPlusTree(int blockSize, int keySize = sizeof(keyType), int unique = 1)
+	:buffer(blockSize),
 	 bTreeFile(this->buffer),
-	 root(order) {
+	 root(blockSize,keySize) {
  		this->height = 1;
-		this->order = order;
+		this->blockSize = blockSize;
 		this->poolSize = MAX_HEIGHT*2;
 		this->nodes = new BNode * [poolSize];
-		BNode::initBuffer(this->buffer,this->order);
+		this->keySize = keySize;
+//		BNode::initBuffer(this->buffer,this->order);
 		this->nodes[0] = &this->root;
 
 	}
@@ -79,7 +80,7 @@ public:
 		return this->bTreeFile.close();
 	}
 
-	int  insert(const keyType key, int recAddr){
+	int  insert(const keyType key, char* data){
 
 		int result; int level = this->height -1;
 		int newLargest = 0;
@@ -92,7 +93,7 @@ public:
 			if(key > thisNode->largestKey())
 			{newLargest = 1; prevKey = thisNode->largestKey();}
 
-		result = thisNode->insert(key,recAddr);
+		result = thisNode->insert(key,data);
 
 		if (newLargest)
 			for (int i = 0; i<this->height-1;i++){
@@ -119,7 +120,7 @@ public:
 			//hacer nuevoNodo padre del nodoActual
 			parentNode = this->nodes[level];
 			result = parentNode->updateKey(largestKey,thisNode->largestKey());
-			result = parentNode->insert(newNode->largestKey(),newNode->getRecAddr());
+			result = parentNode->insert(newNode->largestKey(),NULL,newNode->getRecAddr());
 
 			thisNode = parentNode;
 		}
@@ -182,11 +183,12 @@ public:
 
 protected:
 	typedef BTreeNode<keyType> BNode;
-	FixedFieldBuffer buffer;
+	VariableFieldBuffer buffer;
 	RecordFile<BNode> bTreeFile;
 	BNode root;				//raiz
 	int height;				//profundidad arbol
-	int order;
+	int blockSize;
+	int keySize;
 	int poolSize;			//cantidad de nodos
 	int metadataSize;
 	BNode** nodes; 			//nodos disponibles
@@ -197,14 +199,16 @@ protected:
 		int recaddr, level;
 		for(level = 1; level < this->height; level++){
 			recaddr = this->nodes[level-1]->search(key,-1,0);
-			this->nodes[level] = this->fetch(recaddr);
+			if (this->nodes[level]->getRecAddr() != recaddr)
+				this->nodes[level] = this->fetch(recaddr);
 		}
 		return this->nodes[level-1];
 	}
 
 	BTreeNode<keyType>*  newNode(){
 		//crea un nuevo nodo y lo inserta en el arbol y setea su direccion
-		BNode* newNode = new BNode(this->order);
+		//TODO agregar en metadata bloques libres y preguntar si hay para escribir un nodo ahi
+		BNode* newNode = new BNode(this->blockSize,this->keySize);
 		int recAddr = this->bTreeFile.append(*newNode);
 		newNode->setRecAddr(recAddr);
 		return newNode;
@@ -212,7 +216,7 @@ protected:
 
 	BTreeNode<keyType>*  fetch(int recAddr){ 		//Fetch
 		//carga este nodo desde el archivo en un nuevo nodo
-		BNode* newNode = new BNode(this->order);
+		BNode* newNode = new BNode(this->blockSize,this->keySize);
 		int result = this->bTreeFile.read(*newNode,recAddr);
 		if (result == -1) return NULL;
 		newNode->setRecAddr(result);

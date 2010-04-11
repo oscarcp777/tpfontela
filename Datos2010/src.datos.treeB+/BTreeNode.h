@@ -25,15 +25,27 @@ class BTreeNode : SimpleIndex <keyType> {
 
 
 public:
-	BTreeNode(int maxKeys, int unique = 1):SimpleIndex<keyType>(maxKeys+1, unique) { init(); }
+	BTreeNode(int maxSize,int keySize, int unique = 1):SimpleIndex<keyType>(maxSize/keySize+1, unique) { init(maxSize); }
 
 	~BTreeNode() { }
 
-	int  insert(const keyType key, int recAddr){
+	int  insert(const keyType key, char* data, int recAddr = -1){
 		int result;
 		result = SimpleIndex<keyType>::insert(key, recAddr);
-		if (!result) return 0; //fallo insercion
-		if (this->numKeys >= this->maxKeys) return -1; //overflow nodo
+		if (result == -1) return 0; //fallo insercion
+		if (data != NULL){
+			int i;
+			char* dat = new char[strlen(data)];
+			memcpy(dat,data,strlen(data));
+			for (i = this->numKeys-1; i>=result; i--) {
+				this->data[i+1]=this->data[i];
+			}
+			this->data[result] = dat;
+			if (this->freeSpace < strlen(data)) return -1;
+			this->freeSpace -= (strlen(data)+sizeof(short)); //data + short tamaño data
+			this->freeSpace -= (sizeof(keyType)+sizeof(short));  //key + short tamaño key
+		}
+//		if (this->numKeys >= this->maxKeys) return -1; //overflow nodo
 		return 1;
 	}
 
@@ -46,6 +58,9 @@ public:
 	}
 
 	int search(const keyType key,const int recAddr = -1, const int exact = 1)const{
+		//TODO cambiar para que devuelva un char*
+		//int index=find(key,recAddr,exact);
+		//return this->data[index];
 		return SimpleIndex<keyType>::search(key, recAddr, exact);
 	}
 
@@ -96,53 +111,72 @@ public:
 		int recaddr = this->search(oldKey,recAddr);
 		if (recaddr < 0) return 0; 		// clave y direccion no encontradas
 		this->remove(oldKey,recAddr);
-		this->insert(newKey,recaddr);
+		this->insert(newKey,NULL,recaddr);
 		return 1;
 	}
 
 	int  pack(IOBuffer& buffer) const{
 		int result;
 		buffer.clear();
+		result = buffer.pack(&this->freeSpace);
 		result = buffer.pack(&this->numKeys);
-		result = buffer.pack(&this->nextNode);
-		for (int i = 0; i<this->numKeys; i++){
-			result = result && buffer.pack(&this->keys[i]);
-			result = result && buffer.pack(&this->recAddrs[i]);
+		if (this->isLeaf){
+			result = buffer.pack(&this->nextNode);
+			for (int i = 0; i<this->numKeys; i++){
+				result = result && buffer.pack(&this->keys[i]);
+				result = result && buffer.pack(this->data[i]);
+			}
+		}else{
+			for (int i = 0; i<this->numKeys; i++){
+				result = result && buffer.pack(&this->keys[i]);
+				result = result && buffer.pack(&this->recAddrs[i]);
+			}
 		}
+
+
 		return result;
 	}
 
 	int  unpack(IOBuffer& buffer){
 		int result;
+		result = buffer.unPack(&this->freeSpace);
 		result = buffer.unPack(&this->numKeys);
-		result = buffer.unPack(&this->nextNode);
-		for (int i = 0; i<this->numKeys; i++){
-			result = result && buffer.unPack(&this->keys[i]);
-			result = result && buffer.unPack(&this->recAddrs[i]);
+		if (this->isLeaf){
+			result = buffer.unPack(&this->nextNode);
+			for (int i = 0; i<this->numKeys; i++){
+				result = result && buffer.pack(&this->keys[i]);
+				result = result && buffer.pack(this->data[i]);
+			}
+		}else{
+			for (int i = 0; i<this->numKeys; i++){
+				result = result && buffer.unPack(&this->keys[i]);
+				result = result && buffer.unPack(&this->recAddrs[i]);
+			}
 		}
+
 		return result;
 	}
 
 	void  print(ostream &) const{
 		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
 		for(int i = 0; i<this->numKeys; i++){
-			cout << "\tKey["<<i<<"] "<<this->keys[i] << " direccion "<<this->recAddrs[i]<<endl;
+			cout << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<<this->data[i]<<endl;
 		}
 		cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
 
 	}
 
 	//Inicializa buffer para el nodo
-	static int initBuffer(FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType)){
-		buffer.addField(sizeof(int));
-		buffer.addField(sizeof(int));
-		for (int i = 0; i < maxKeys; i++){
-			buffer.addField(keySize);
-			buffer.addField(sizeof(int));
-		}
-		return 1;
-
-	}
+//	static int initBuffer(FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType)){
+//		buffer.addField(sizeof(int));
+//		buffer.addField(sizeof(int));
+//		for (int i = 0; i < maxKeys; i++){
+//			buffer.addField(keySize);
+//			buffer.addField(sizeof(int));
+//		}
+//		return 1;
+//
+//	}
 
 	int getRecAddr() const
 	{
@@ -194,19 +228,35 @@ public:
 		this->numKeys = numKeys;
 	}
 
+	bool getIsLeaf()
+	{
+		return this->isLeaf;
+	}
+
+	void setIsLeaf(bool value)
+	{
+		this->isLeaf = value;
+	}
+
 
 protected:
 	int nextNode;   		//direccion del siguiente nodo en el mismo nivel
 	int recAddr;			//direccion de este nodo en el archivo del arbol
 	int minKeys;		 	//minimo numero de claves en un nodo
 	int maxBKeys;			//maximo number de claves en un nodo
+	bool isLeaf;			//Determina si el nodo es hoja o no
+	char** data;			//buffer con los datos ingresados
+	unsigned int freeSpace;
 	void clear(){ this->numKeys = 0; recAddr = -1; }
 
-	int  init(){
+	int  init(int maxSize){
+		this->freeSpace = maxSize*0.7-sizeof(short)*2-sizeof(int)-sizeof(keyType);
+		this->isLeaf = 1;
 		this->nextNode = -1;
 		this->recAddr = -1;
 		this->maxBKeys = this->maxKeys-1;
 		this->minKeys = this->maxBKeys / 2;
+		this->data = new char*[this->maxKeys];
 		return 1;
 	}
 
