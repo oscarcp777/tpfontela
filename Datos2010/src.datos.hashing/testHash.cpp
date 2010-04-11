@@ -5,7 +5,7 @@
  *      Author: richy
  */
 #include "Directory.h"
-#include "Hash.h"
+#include "../hashExtensible/Hash.h"
 #include <string>
 
 int main2535(){
@@ -25,7 +25,7 @@ int main2535(){
 
 	const int numKeys = 15;
 	for(int i=0; i<numKeys; i++){
-		std::cout<<keys[i]<<" "<<hash((char*)(keys[i]).c_str())<<" "<<makeAddress((char*)(keys[i]).c_str(),dir.getDepth())<<std::endl;
+		std::cout<<keys[i]<<" "<<Hash::hash((char*)(keys[i]).c_str())<<" "<<Hash::makeAddress((char*)(keys[i]).c_str(),dir.getDepth())<<std::endl;
 		result = dir.insert((char*)(keys[i]).c_str(),100+i);
 		if(result == 0)
 			std::cout<<" insert for "<<keys[i]<<" failed"<<std::endl;

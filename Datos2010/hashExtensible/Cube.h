@@ -15,6 +15,7 @@
 #include "../src.datos.storage/BinaryFile.h"
 #include "../src.datos.storage/TextFile.h"
 #include "../src.datos.storage/Buffer.h"
+#include "Hash.h"
 using namespace std;
 typedef struct metadataCube {
 	INT_UNSIGNED sizeFree;
@@ -52,7 +53,7 @@ public:
 	int remove(int key);
 	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
-	int redistribute(Cube* newCube);
+	int reallocate(Cube* newCube,int sizetable);
 	int loadCube(BinaryFile* fileCube,int offsetCube);
 	int print(TextFile* output);
     int clear();

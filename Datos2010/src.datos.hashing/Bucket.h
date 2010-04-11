@@ -10,7 +10,7 @@
 
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/TextIndex.h"
-#include "Hash.h"
+#include "../hashExtensible/Hash.h"
 
 const int defaultMaxKeys = 100;
 

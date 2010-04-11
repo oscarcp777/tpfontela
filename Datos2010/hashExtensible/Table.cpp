@@ -57,10 +57,6 @@ int Table::close(){
 	return 1;
 }
 
-int Table::hash(int key){
-  return (key % this->sizeTable);
-}
-
 int Table::duplicateTable(){
 	for(unsigned int i= 0 ; i< this->sizeTable; i++ ){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
@@ -71,7 +67,7 @@ int Table::duplicateTable(){
 }
 
 int Table::insert(Record* record){
-	int index = this->hash(record->getKey());
+	int index = Hash::hashMod(record->getKey(),this->sizeTable);
 	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	int add;
@@ -124,7 +120,7 @@ int Table::insert(Record* record){
 
 			}
 			//redistribuir y guardar los cubos en disco
-			this->currentCube->redistribute(newCube);
+			this->currentCube->reallocate(newCube,this->sizeTable);
 			this->currentCube->writeCube(this->fileCubes);
 			newCube->writeCube(fileCubes);
 			delete newCube;
@@ -145,8 +141,8 @@ int Table::loadCube(int offset){
 
 Record *Table::search(int key)
 {
-	int index = this->hash(key);
-	int offset = this->offsetCubes[index];
+	int index = Hash::hashMod(key,this->sizeTable);
+int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	if(result)
 		return this->currentCube->search(key);
@@ -154,7 +150,7 @@ Record *Table::search(int key)
 		return NULL;
 }
 int Table::remove(int key){
-	int index = this->hash(key);
+	int index = Hash::hashMod(key,this->sizeTable);
 	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	if(result){

@@ -5,7 +5,7 @@
  *      Author: richy
  */
 #include "Directory.h"
-#include "Hash.h"
+#include "../hashExtensible/Hash.h"
 #include <string>
 
 int main708(){

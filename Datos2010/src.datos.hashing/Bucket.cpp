@@ -70,7 +70,7 @@ int Bucket::findBuddy(){
 	if(dir.depth == 0) return -1; //no buddy, empty directory
 			//unless bucket depth == directory depth, there is no sinlge bucket to pait with
 	if(depth < dir.depth) return -1;
-	int sharedAddress = makeAddress(keys[0], depth);
+	int sharedAddress = Hash::makeAddress(keys[0], depth);
 	//address of any key
 	return sharedAddress ^ 1; //exclusive or with low bit
 
@@ -108,7 +108,7 @@ int Bucket::combine(Bucket* buddy, int buddyIndex){
 }
 int Bucket::newRange(int & newStart, int & newEnd){
 	//make a range for the new split bucket
-	int sharedAddr = makeAddress(keys[0],depth);
+	int sharedAddr = Hash::makeAddress(keys[0],depth);
 	int bitsToFill = dir.depth - (depth+1);
 	newStart = (sharedAddr << 1) | 1;
 	newEnd = newStart;
