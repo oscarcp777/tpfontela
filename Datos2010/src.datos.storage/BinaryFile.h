@@ -11,12 +11,16 @@
 #include "File.h"
 
 class BinaryFile: public File {
+private:
+	string name;
+
 public:
 	BinaryFile();
 	virtual ~BinaryFile();
 
 	void create(string fileName);
 	void open(string fileName);
+	void clear();
 
 };
 

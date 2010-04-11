@@ -51,7 +51,7 @@ public:
     {
         return bufferSize;
     }
-    int setBufferSize(int bufferSize )
+    void setBufferSize(int bufferSize )
        {
            this->bufferSize= bufferSize;
        }
