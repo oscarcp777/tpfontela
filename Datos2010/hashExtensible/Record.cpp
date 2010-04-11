@@ -18,5 +18,5 @@ Record::~Record() {
 	// TODO Auto-generated destructor stub
 }
 int Record::getSizeRecord(){
-    return sizeof(this->key)*2+sizeof(this->data);
+    return sizeof(this->data);
 }
