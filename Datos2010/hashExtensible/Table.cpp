@@ -12,7 +12,7 @@ Table::Table() {
 	this->fileCubes = new BinaryFile();
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
-	this->currentCube = NULL;
+	this->currentCube = new Cube(1,0);
 	//TODO poner this->countsCubes = 1; this->sizeTable = 1;
 	this->countsCubes = 4;
 	this->sizeTable = 4;
@@ -26,6 +26,7 @@ Table::~Table() {
 	delete this->fileCubes;
 	delete this->fileCubesFree;
 	delete this->fileTable;
+	delete this->currentCube;
 }
 int Table::createFiles(string fileName){
 	this->fileCubes->create(fileName+EXT_CUBE);
@@ -112,11 +113,7 @@ int Table::insert(Record* record){
 }
 
 int Table::loadCube(int offset){
-	if(this->currentCube != NULL)
-		delete this->currentCube;
-
-	this->currentCube = new Cube(this->sizeTable,offset);
-	int res = this->currentCube->readCube(fileCubes);
+	int res = this->currentCube->readCube(fileCubes,offset);
 	return res;
 }
 
