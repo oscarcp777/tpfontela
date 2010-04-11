@@ -15,7 +15,9 @@ File::File():Storage(){
 
 File::~File() {
 }
-
+void File::flush(){
+    this->file.flush();
+}
 void File::read(std::string& datos){
 
 	/* verifica que el file esté abierto */
