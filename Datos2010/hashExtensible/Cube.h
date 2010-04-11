@@ -26,7 +26,7 @@ typedef struct metadataCube {
 class Cube {
 private:
 	INT_UNSIGNED sizeOfDispersion;
-	INT_UNSIGNED numberOfRecords;
+	int numberOfRecords;
 	INT_UNSIGNED offsetCube;
 	INT_UNSIGNED sizeFree;
 	list<Record*> records;
@@ -69,7 +69,7 @@ public:
 
 	int getNumberOfRecords() const
 	{
-		return numberOfRecords;
+		return this->records.size();
 	}
 
 	int getOffsetCube() const
@@ -95,11 +95,6 @@ public:
 	unsigned int getSizeOfDispersion() const
 	{
 		return sizeOfDispersion;
-	}
-
-	void setNumberOfRecords(int numberOfRecords)
-	{
-		this->numberOfRecords = numberOfRecords;
 	}
 
 	void setOffsetCube(int offsetCube)
