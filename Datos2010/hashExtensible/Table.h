@@ -11,6 +11,7 @@
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
 #include "Cube.h"
+#include "Hash.h"
 #include <vector>
 using namespace std;
 typedef struct metadataTable {
@@ -31,7 +32,6 @@ private:
 public:
 	Table();
 	virtual ~Table();
-	int hash(int key);
 	int duplicateTable();
 	int insert(Record* record);
 	int remove(int key);

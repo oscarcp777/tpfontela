@@ -79,7 +79,19 @@ int Cube::writeCube(BinaryFile *fileCube)
 	return TRUE;
 }
 
-int Cube::redistribute(Cube* newCube){
+int Cube::reallocate(Cube* newCube,int sizeTable){
+	list<Record*>::iterator iterRecord;
+		Record* record;
+		int max=this->records.size();
+		for (int var = 0; var <= max; ++var) {
+			record = *iterRecord;
+			if(!this->offsetCube==Hash::hashMod(record->getKey(),sizeTable)){
+				this->records.erase(iterRecord);
+				newCube->getRecords().push_back(record);
+			}
+			iterRecord++;
+		}
+
 	return 1;
 }
 

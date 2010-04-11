@@ -173,7 +173,7 @@ int Directory::removeBucket(int bucketIndex, int bucketDepth){
 
 int Directory::find(char* key){
 	//return bucketAddr for key
-	return this->bucketAddr[makeAddress(key,this->depth)];
+	return this->bucketAddr[Hash::makeAddress(key,this->depth)];
 }
 
 int  Directory::pack() const{
