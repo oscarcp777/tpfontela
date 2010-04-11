@@ -41,7 +41,7 @@ public:
     int  write(std::string registro);
     void write(char *buffer, int tamanio, int pos=-1);
     void close();
-
+    void flush();
     std::string toString();
 
     void irAlPrincipio();

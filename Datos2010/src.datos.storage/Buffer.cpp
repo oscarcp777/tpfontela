@@ -39,7 +39,7 @@ int Buffer::packField(const void* field,int size){
 	return len;
 }
 int Buffer::unPackField(void* field,int size){
-	if(this->nextByte>=this->bufferSize)return -1;// no hay mas campos
+	if(this->nextByte>=this->maxBytes)return -1;// no hay mas campos
 	int start =this->nextByte;
 	this->nextByte+=size;
 	memcpy(field,&buffer[start],size);
