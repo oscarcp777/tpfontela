@@ -12,6 +12,7 @@ Table::Table() {
 	this->fileCubes = new BinaryFile();
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
+	//TODO poner this->countsCubes = 1; this->sizeTable = 1;
 	this->countsCubes = 4;
 	this->sizeTable = 4;
 	this->element.push_back(2);
@@ -41,9 +42,10 @@ int Table::openFiles(string fileName){
 int Table::close(){
 	this->fileCubes->close();
 	this->fileCubesFree->close();
-	this->fileTable->clear();//hace que el archivo se pise completo
+	this->fileTable->clear();//hace que el archivo se pise completo (es necesario por si se achica o agranda la table)
 	this->writeTable();
 	this->fileTable->close();
+	//TODO borrar el print
 	this->print(NULL);
 	return 1;
 }
