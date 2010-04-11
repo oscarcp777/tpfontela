@@ -113,7 +113,7 @@ int Table::insert(Record* record){
 }
 
 int Table::loadCube(int offset){
-	int res = this->currentCube->readCube(fileCubes,offset);
+	int res = this->currentCube->loadCube(fileCubes,offset);
 	return res;
 }
 

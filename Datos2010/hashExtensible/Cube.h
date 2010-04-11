@@ -33,6 +33,7 @@ private:
 	Buffer* buffer;
 	METADATA_CUBE metadata;//estructura donde se escribe y se lee la metada en un solo read
 	int loadMetadata();
+	int writeMetadata();
 	int getDiskPosition();
 public:
 	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
@@ -52,9 +53,9 @@ public:
 	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
 	int redistribute(Cube* newCube);
-	int readCube(BinaryFile* fileCube,int offsetCube);
+	int loadCube(BinaryFile* fileCube,int offsetCube);
 	int print(TextFile* output);
-
+    int clear();
 
 
 
