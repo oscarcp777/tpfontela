@@ -52,7 +52,7 @@ public:
 	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
 	int redistribute(Cube* newCube);
-	int readCube(BinaryFile* fileCube,int offsetCube);
+	int readCube(BinaryFile* fileCube);
 	int print(TextFile* output);
 
 
