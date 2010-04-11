@@ -75,7 +75,7 @@ int Cube::writeCube(BinaryFile *fileCube)
 
 	}
 	fileCube->write(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
-
+	fileCube->flush();
 	return TRUE;
 }
 int Cube::addRecordList(Record* record){
@@ -111,7 +111,8 @@ bool Cube::hasSpace(int size){
 
 int Cube::loadCube(BinaryFile *fileCube, int offsetCube)
 {
-	this->buffer->clear();
+
+	this->clear();
 	this->setOffsetCube(offsetCube);
 	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
 	this->loadMetadata();
@@ -160,7 +161,7 @@ int Cube::addRecord(Record *record)
 	return TRUE;
 }
 int Cube::remove(int key){
-	list<Record*>::iterator iterRecord;
+	list<Record*>::iterator iterRecord=this->records.begin();
 	int found=FALSE;
 	Record* record;
 	int max=this->records.size();
