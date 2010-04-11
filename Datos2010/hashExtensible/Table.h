@@ -44,6 +44,8 @@ public:
 	int openFiles(string fileName);
 	int readTable();
 	int writeTable();
+	int readFreeCubes();
+	int writeFreeCubes();
 	void print(fstream* output);
 
 	INT_UNSIGNED getCountsCubes() const
