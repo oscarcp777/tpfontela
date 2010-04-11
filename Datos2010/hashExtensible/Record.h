@@ -15,7 +15,14 @@ public:
 	Record(int key,char* data);
 	Record();
 	virtual ~Record();
-
+	/**
+	 * este metodo retorna el tamanio del registro entero en bytes , el tamanio que va a
+	 * ocupar en el archivo junato su metadata
+	 * @oscar
+	 * @return tamanio que va a ocupar en disco
+	 *
+	 */
+    int getSizeRecord();
 
 
 
