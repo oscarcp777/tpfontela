@@ -39,11 +39,16 @@ int Table::openFiles(string fileName){
 	this->fileCubesFree->open(fileName+EXT_FREE_CUBE);
 	this->fileTable->open(fileName+EXT_TABLE);
 	this->readTable();
+	this->readFreeCubes();
 	return 0;
 }
 int Table::close(){
 	this->fileCubes->close();
+
+	this->fileCubesFree->clear();//hace que el archivo se pise completo
+	this->writeFreeCubes();
 	this->fileCubesFree->close();
+
 	this->fileTable->clear();//hace que el archivo se pise completo (es necesario por si se achica o agranda la table)
 	this->writeTable();
 	this->fileTable->close();
@@ -226,7 +231,7 @@ int Table::readTable(){
 	this->fileTable->read(buffer->getData(),sizeof(int)*this->countsCubes,sizeof(int)*2);
 	for(unsigned int i=0; i<this->sizeTable; i++)
 		buffer->unPackField(&this->offsetCubes[i],sizeof(this->offsetCubes[i]));
-
+	delete buffer;
 	return 1;
 }
 
@@ -252,4 +257,39 @@ int Table::writeTable(){
 }
 
 
+int Table::readFreeCubes(){
+		Buffer* buffer= new Buffer(4);
+		buffer->setBufferSize(4);
+		this->fileCubesFree->read(buffer->getData(),sizeof(int));
+		int freeCubes = 0;
+		buffer->unPackField(&freeCubes,sizeof(freeCubes));
+		delete buffer;
+		if(freeCubes > 0){//si el archivo no esta vacio
+			buffer = new Buffer(sizeof(int)*freeCubes);
+			buffer->setBufferSize(sizeof(int)*freeCubes);
+			this->fileCubesFree->read(buffer->getData(),sizeof(int)*freeCubes,sizeof(int));
+			for(int i=0; i<freeCubes; i++)
+				buffer->unPackField(&this->offsetFreeCubes[i],sizeof(this->offsetFreeCubes[i]));
+
+			delete buffer;
+		}
+		return 1;
+}
+int Table::writeFreeCubes(){
+		Buffer* buffer= new Buffer(sizeof(int)*(this->offsetFreeCubes.size()+1));
+		buffer->setBufferSize(sizeof(int)*(this->offsetFreeCubes.size()+1));
+		int size = this->offsetFreeCubes.size();
+		int num;
+		buffer->packField(&size,sizeof(size));
+
+		for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++){
+			num =this->offsetFreeCubes.at(i) ;
+			buffer->packField(&num,sizeof(num));
+
+		}
+
+		this->fileCubesFree->write(buffer->getData(),buffer->getBufferSize(),0);
+		delete buffer;
+		return 1;
+}
 
