@@ -52,9 +52,13 @@ int Table::close(){
 	this->fileTable->clear();//hace que el archivo se pise completo (es necesario por si se achica o agranda la table)
 	this->writeTable();
 	this->fileTable->close();
-	//TODO borrar el print
-	this->print(NULL);
+
+	this->print(NULL);//TODO borrar el print
 	return 1;
+}
+
+int Table::hash(int key){
+  return (key % this->sizeTable);
 }
 
 int Table::duplicateTable(){
@@ -206,9 +210,15 @@ void Table::collapse(){
 
 }
 void Table::print(fstream *output){
-	cout<<"sizeTable: "<<this->sizeTable<<" countCubes:"<<this->countsCubes<<endl;
+	cout<<"*************TABLA*************"<<endl;
+	cout<<"tamaño tabla= "<<this->sizeTable<<"|| cant. Cubos="<<this->countsCubes<<endl;
 		for(unsigned int i=0; i<this->sizeTable; i++)
-			cout<<"this->element["<<i<<"] ="<<this->offsetCubes[i]<<endl;
+			cout<<"["<<i<<"] = "<<this->offsetCubes[i]<<endl;
+
+	cout<<"cant. Cubos libres= "<<this->offsetFreeCubes.size()<<endl;
+		for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++)
+			cout<<this->offsetFreeCubes[i]<<endl;
+	cout<<"*************FIN  TABLA*************"<<endl;
 }
 
 int Table::readTable(){
