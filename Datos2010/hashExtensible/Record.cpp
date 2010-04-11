@@ -11,15 +11,17 @@ Record::Record() {
 	// TODO Auto-generated constructor stub
 }
 Record::Record(int key,char* data){
-	this->key;
+	this->key =key;
 	this->data=data;
 }
 Record::~Record() {
 	// TODO Auto-generated destructor stub
 }
 int Record::getSizeDataRecord(){
-    return sizeof(this->data);
+	std::string cadena = this->data;
+    return cadena.length();
 }
 int Record::getSizeRecord(){
-    return 2*sizeof(this->key)*sizeof(this->data);
+	std::string cadena = this->data;
+    return 2*sizeof(this->key)+cadena.length();
 }
