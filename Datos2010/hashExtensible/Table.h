@@ -26,8 +26,8 @@ private:
 	INT_UNSIGNED countsCubes;
 	Cube* currentCube;
 	INT_UNSIGNED sizeTable;
-	list<INT_UNSIGNED> offsetCubesFree;
-	vector<int> element;
+	vector<int> offsetFreeCubes;
+	vector<int> offsetCubes;
 public:
 	Table();
 	virtual ~Table();
@@ -39,7 +39,6 @@ public:
 	Record* search(int key);
 	int isTableDuplicate();
 	void collapse();
-	int deleteCube(INT_UNSIGNED offsetCube);
 	int close();
 	int createFiles(string fileName);
 	int openFiles(string fileName);
@@ -50,11 +49,6 @@ public:
 	INT_UNSIGNED getCountsCubes() const
     {
 		return countsCubes;
-    }
-
-    list<INT_UNSIGNED> getOffsetCubesFree() const
-    {
-        return offsetCubesFree;
     }
 
     INT_UNSIGNED getSizeTable() const
@@ -72,10 +66,6 @@ public:
         this->currentCube = currentCube;
     }
 
-    void setOffsetCubesFree(list<INT_UNSIGNED> offsetCubesFree)
-    {
-        this->offsetCubesFree = offsetCubesFree;
-    }
 
     void setSizeTable(INT_UNSIGNED sizeTable)
     {

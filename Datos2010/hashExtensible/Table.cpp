@@ -16,10 +16,10 @@ Table::Table() {
 	//TODO poner this->countsCubes = 1; this->sizeTable = 1;
 	this->countsCubes = 4;
 	this->sizeTable = 4;
-	this->element.push_back(2);
-	this->element.push_back(1);
-	this->element.push_back(4);
-	this->element.push_back(3);
+	this->offsetCubes.push_back(2);
+	this->offsetCubes.push_back(1);
+	this->offsetCubes.push_back(4);
+	this->offsetCubes.push_back(3);
 }
 
 Table::~Table() {
@@ -58,7 +58,7 @@ int Table::hash(int key){
 
 int Table::duplicateTable(){
 	for(unsigned int i= 0 ; i< this->sizeTable; i++ ){
-		this->element.push_back(this->element[i]);
+		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
 
@@ -67,7 +67,7 @@ int Table::duplicateTable(){
 
 int Table::insert(Record* record){
 	int index = this->hash(record->getKey());
-	int offset = this->element[index];
+	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	int add;
 	if(result == 1){//si pudo cargar el cubo
@@ -75,25 +75,46 @@ int Table::insert(Record* record){
 		if(add != 1){//si no agrego es porque no hay lugar
 
 			Cube* newCube;
-			if(this->currentCube->getSizeOfDispersion() == this->sizeTable){
-				//tamaño sispersion = tamaño tabla
+			if(this->currentCube->getSizeOfDispersion() == this->sizeTable){//tamaño sispersion = tamaño tabla
 				this->duplicateTable();
 				this->currentCube->setSizeOfDispersion(this->sizeTable);
 				this->countsCubes++;
 				newCube = new Cube(this->sizeTable,this->countsCubes);
-				this->element[index] = this->countsCubes;
+
+				if(this->offsetFreeCubes.empty())//si no tengo cubos libres le asigno el numero siguiente
+					this->offsetCubes[index] = this->countsCubes;
+
+				else{//si tengo cubos libres le asigno el primero libre y lo borro de la lista
+					this->offsetCubes[index] = this->offsetFreeCubes.at(0);
+					vector<int>::iterator it = this->offsetFreeCubes.begin();
+					this->offsetFreeCubes.erase(it);
+				}
+
 
 			}
 			else{//tamaño sispersion <> tamaño tabla
 				unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
 				this->currentCube->setSizeOfDispersion(dispersionSize*2);
 				this->countsCubes++;
-				newCube = new Cube(dispersionSize*2,this->countsCubes);
+				int offsetNewCube;
+
+				if(this->offsetFreeCubes.empty())//si no tengo cubos libres le asigno el numero siguiente
+					offsetNewCube = this->countsCubes;
+
+				else{//si tengo cubos libres le asigno el primero libre y lo borro de la lista
+					offsetNewCube = this->offsetFreeCubes.at(0);
+					vector<int>::iterator it = this->offsetFreeCubes.begin();
+					this->offsetFreeCubes.erase(it);
+				}
+
+				newCube = new Cube(dispersionSize*2,offsetNewCube);
+
 				for(unsigned int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion()){
-					this->element[i] = newCube->getOffsetCube();
+					this->offsetCubes[i] = newCube->getOffsetCube();
 				}
 				for(int j = index; j>=0; j-=newCube->getSizeOfDispersion()){
-					this->element[j] = newCube->getOffsetCube();
+					this->offsetCubes[j] = newCube->getOffsetCube();
+
 				}
 
 			}
@@ -101,8 +122,8 @@ int Table::insert(Record* record){
 			this->currentCube->redistribute(newCube);
 			this->currentCube->writeCube(this->fileCubes);
 			newCube->writeCube(fileCubes);
-			//TODO delete newCube
-			//TODO delete this->currentCube
+			delete newCube;
+
 		}
 
 	}
@@ -113,14 +134,14 @@ int Table::insert(Record* record){
 }
 
 int Table::loadCube(int offset){
-	int res = this->currentCube->loadCube(fileCubes,offset);
+	int res = this->currentCube->readCube(fileCubes,offset);
 	return res;
 }
 
 Record *Table::search(int key)
 {
 	int index = this->hash(key);
-	int offset = this->element[index];
+	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	if(result)
 		return this->currentCube->search(key);
@@ -129,27 +150,28 @@ Record *Table::search(int key)
 }
 int Table::remove(int key){
 	int index = this->hash(key);
-	int offset = this->element[index];
+	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset);
 	if(result){
-
 		this->currentCube->remove(key);
 		if(this->currentCube->getNumberOfRecords() == 0){//si queda vacio
 			int indexUp = index - (this->currentCube->getSizeOfDispersion()/2);
 			int indexDown = index + (this->currentCube->getSizeOfDispersion()/2);
 			//comparo los indices dedsde el indice donde estaba (td/2) hacia arriba y hacia abajo
 			//si NO son iguales no puedo borrar el cubo por lo que queda vacio
-			if( this->element[indexUp] == this->element[indexDown]){
-				//TODO borrar el cubo y marcarlo como vacio como lo hago?? PENSAR
-				//this->currentCube->remove(); y poner en el archivo como bloque libre??
-				this->element[index] = this->element[indexUp];
-				this->loadCube(this->element[index]);
+			if( this->offsetCubes[indexUp] == this->offsetCubes[indexDown]){
+				//agrego el numero de cubo (offset) a la lista de cubos libres porque ya no se lo referencia mas
+				this->offsetFreeCubes.push_back(this->currentCube->getOffsetCube());
+
+				//actualizo la tabla
+				this->offsetCubes[index] = this->offsetCubes[indexUp];
+				this->loadCube(this->offsetCubes[index]);
 
 				for(unsigned int i = index; i<this->sizeTable; i+=this->currentCube->getSizeOfDispersion()){
-					this->element[i] = this->currentCube->getOffsetCube();
+					this->offsetCubes[i] = this->currentCube->getOffsetCube();
 				}
 				for(int j = index; j>=0; j-=this->currentCube->getSizeOfDispersion()){
-					this->element[j] = this->currentCube->getOffsetCube();
+					this->offsetCubes[j] = this->currentCube->getOffsetCube();
 				}
 				int sizeDisp = this->currentCube->getSizeOfDispersion();
 				this->currentCube->setSizeOfDispersion(sizeDisp/2);
@@ -170,26 +192,22 @@ int Table::remove(int key){
 	return 1;
 }
 int Table::isTableDuplicate(){
-	int num = this->element.size()/2;
+	int num = this->offsetCubes.size()/2;
 	for(int i=0; i<num; i++){
-		if(this->element.at(i) != this->element.at(num+i))
+		if(this->offsetCubes.at(i) != this->offsetCubes.at(num+i))
 			return 0;
 	}
 	return 1;
 }
 void Table::collapse(){
 	this->sizeTable = this->sizeTable/2;
-	this->element.resize(this->sizeTable);
+	this->offsetCubes.resize(this->sizeTable);
 
 }
 void Table::print(fstream *output){
 	cout<<"sizeTable: "<<this->sizeTable<<" countCubes:"<<this->countsCubes<<endl;
 		for(unsigned int i=0; i<this->sizeTable; i++)
-			cout<<"this->element["<<i<<"] ="<<this->element[i]<<endl;
-}
-
-int Table::deleteCube(INT_UNSIGNED offsetCube){
-	return 1;
+			cout<<"this->element["<<i<<"] ="<<this->offsetCubes[i]<<endl;
 }
 
 int Table::readTable(){
@@ -207,7 +225,7 @@ int Table::readTable(){
 	buffer->setBufferSize(sizeof(int)*this->countsCubes);
 	this->fileTable->read(buffer->getData(),sizeof(int)*this->countsCubes,sizeof(int)*2);
 	for(unsigned int i=0; i<this->sizeTable; i++)
-		buffer->unPackField(&this->element[i],sizeof(this->element[i]));
+		buffer->unPackField(&this->offsetCubes[i],sizeof(this->offsetCubes[i]));
 
 	return 1;
 }
@@ -223,7 +241,7 @@ int Table::writeTable(){
 	buffer->packField(&count,sizeof(count));
 
 	for(unsigned int i=0; i<this->sizeTable; i++){
-		num =this->element.at(i) ;
+		num =this->offsetCubes.at(i) ;
 		buffer->packField(&num,sizeof(num));
 
 	}
