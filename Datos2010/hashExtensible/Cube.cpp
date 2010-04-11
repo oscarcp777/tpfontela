@@ -19,7 +19,16 @@ Cube::Cube( INT_UNSIGNED sizeOfDispersion, INT_UNSIGNED offset){
 	this->numberOfRecords=0;
 }
 Cube::~Cube() {
-	// TODO Auto-generated destructor stub
+	delete this->buffer;
+	list<Record*>::iterator iterRecord;
+		Record* record;
+		for (iterRecord=this->records.begin(); iterRecord!=this->records.end(); iterRecord++){
+			record=*iterRecord;
+				delete record;
+		}
+}
+int Cube::getDiskPosition(){
+   return this->offsetCube*this->sizeCube;
 }
 int Cube::loadMetadata(){
 	this->buffer->clear();
@@ -46,7 +55,7 @@ int Cube::writeCube(BinaryFile *fileCube)
 		this->buffer->packField(record->getData(),sizeof(record->getData()));
 
 	}
-    fileCube->write(this->buffer->getData(),sizeof(record->getSizeRecord()),this->offsetCube*this->sizeCube);
+    fileCube->write(this->buffer->getData(),sizeof(record->getSizeRecord()),this->getDiskPosition());
 	return TRUE;
 }
 

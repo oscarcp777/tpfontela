@@ -33,6 +33,7 @@ private:
 	Buffer* buffer;
 	METADATA_CUBE metadata;//estructura donde se escribe y se lee la metada en un solo read
 	int loadMetadata();
+	int getDiskPosition();
 public:
 	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
 	virtual ~Cube();
