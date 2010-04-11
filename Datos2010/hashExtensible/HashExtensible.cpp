@@ -44,7 +44,6 @@ int HashExtensible::insert(int key, char *data)
 
 	Record* record = new Record(key,data);
 	this->table->insert(record);
-	delete record;
 	return 0;
 }
 

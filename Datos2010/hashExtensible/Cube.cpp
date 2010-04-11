@@ -108,12 +108,11 @@ bool Cube::hasSpace(int size){
 
 int Cube::loadCube(BinaryFile *fileCube, int offsetCube)
 {
-	this->clear();
 	this->setOffsetCube(offsetCube);
 	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
 	this->loadMetadata();
 	Record* record;
-	for (int var = 0; var < this->numberOfRecords; ++var) {
+	for (int var = 0; var < this->numberOfRecords; var++) {
 		record=new Record();
 		int size=0;
 		int key=0;
