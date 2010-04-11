@@ -191,10 +191,12 @@ int Table::remove(int key){
 				}
 			}
 		}
+		return 1;
 	}
 	else
 		return -1;
 
+	this->currentCube->writeCube(this->fileCubes);
 	return 1;
 }
 int Table::isTableDuplicate(){

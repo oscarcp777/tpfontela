@@ -83,15 +83,15 @@ int Cube::addRecordList(Record* record){
   return TRUE;
 }
 int Cube::reallocate(Cube* newCube,int sizeTable){
-	list<Record*>::iterator iterRecord;
+	list<Record*>::iterator iterRecord = this->records.begin();
 		Record* record;
 		int max=this->records.size();
-		for (int var = 0; var <= max; ++var) {
+		for (int var = 0; var < max; var++) {
 			record = *iterRecord;
-			if(!this->offsetCube==Hash::hashMod(record->getKey(),sizeTable)){
-				this->records.erase(iterRecord);
+			if(!((int)this->offsetCube == Hash::hashMod(record->getKey(),sizeTable))){
 				newCube->addRecordList(record);
-				this->sizeFree=this->sizeFree-record->getSizeRecord();
+				this->sizeFree = this->sizeFree+record->getSizeRecord();
+				this->records.erase(iterRecord);
 			}
 			iterRecord++;
 		}
@@ -109,9 +109,7 @@ bool Cube::hasSpace(int size){
 
 
 
-int Cube::loadCube(BinaryFile *fileCube, int offsetCube)
-{
-
+int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
 	this->clear();
 	this->setOffsetCube(offsetCube);
 	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
