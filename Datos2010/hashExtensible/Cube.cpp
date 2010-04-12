@@ -92,6 +92,7 @@ int Cube::reallocate(Cube* newCube,int sizeTable){
 				newCube->addRecordList(record);
 				this->sizeFree = this->sizeFree+record->getSizeRecord();
 				this->records.erase(iterRecord);
+				iterRecord--;
 			}
 			iterRecord++;
 		}
