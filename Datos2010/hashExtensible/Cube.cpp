@@ -80,11 +80,13 @@ int Cube::writeCube(BinaryFile *fileCube)
 }
 int Cube::addRecordList(Record* record){
   this->records.push_back(record);
+  this->sizeFree=this->sizeFree-record->getSizeRecord();
   return TRUE;
 }
-int Cube::reallocate(Cube* newCube,int sizeTable){
+int Cube::reallocate(Record* newRecord,Cube* newCube,int sizeTable){
 	list<Record*>::iterator iterRecord = this->records.begin();
 		Record* record;
+		this->records.push_back(newRecord);//agrego el nuevo registro que produjo el desborde asi lo distribuye
 		int max=this->records.size();
 		for (int var = 0; var < max; var++) {
 			record = *iterRecord;
