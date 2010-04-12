@@ -54,7 +54,7 @@ public:
 	int remove(int key);
 	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
-	int reallocate(Cube* newCube,int sizetable);
+	int reallocate(Record* newRecord,Cube* newCube,int sizetable);
 	int loadCube(BinaryFile* fileCube,int offsetCube);
 	int print(TextFile* output);
     int clear();

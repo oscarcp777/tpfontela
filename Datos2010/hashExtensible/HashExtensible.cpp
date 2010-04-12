@@ -19,7 +19,10 @@ HashExtensible::~HashExtensible() {
 char *HashExtensible::search(int key)
 {
 	Record* record = this->table->search(key);
-	return record->getData();
+	if(record != NULL)
+		return record->getData();
+	else
+		return NULL;
 }
 
 
