@@ -83,12 +83,11 @@ int Table::insert(Record* record){
 			if(this->currentCube->getSizeOfDispersion() == this->sizeTable){//tamaño sispersion = tamaño tabla
 				this->duplicateTable();
 				this->currentCube->setSizeOfDispersion(this->sizeTable);
-				this->countsCubes++;
 				newCube = new Cube(this->sizeTable,this->countsCubes);
 
 				int size = this->offsetFreeCubes.size();
 				if(size == 0)//si no tengo cubos libres le asigno el numero siguiente
-					this->offsetCubes[index] = this->countsCubes-1;
+					this->offsetCubes[index] = this->countsCubes;
 
 				else{
 					//si tengo cubos libres le asigno el primero libre y lo borro de la lista
@@ -129,6 +128,7 @@ int Table::insert(Record* record){
 			this->currentCube->reallocate(newCube,this->sizeTable);
 			this->currentCube->writeCube(this->fileCubes);
 			newCube->writeCube(fileCubes);
+			this->countsCubes++;
 			delete newCube;
 			return 1;
 		}
