@@ -242,11 +242,14 @@ int Table::readTable(){
 	this->countsCubes = count;
 	this->sizeTable = size;
 	delete buffer;
-	buffer = new Buffer(sizeof(int)*this->countsCubes);
-	buffer->setBufferSize(sizeof(int)*this->countsCubes);
-	this->fileTable->read(buffer->getData(),sizeof(int)*this->countsCubes,sizeof(int)*2);
+	buffer = new Buffer(sizeof(int)*this->sizeTable);
+	buffer->setBufferSize(sizeof(int)*this->sizeTable);
+
+	this->fileTable->read(buffer->getData(),sizeof(int)*this->sizeTable,sizeof(int)*2);
+
 	for(unsigned int i=0; i<this->sizeTable; i++)
 		buffer->unPackField(&this->offsetCubes[i],sizeof(this->offsetCubes[i]));
+
 	delete buffer;
 	return 1;
 }
@@ -263,6 +266,7 @@ int Table::writeTable(){
 
 	for(unsigned int i=0; i<this->sizeTable; i++){
 		num =this->offsetCubes.at(i) ;
+		//cout<<"num["<<i<<"] = "<<num<<endl;
 		buffer->packField(&num,sizeof(num));
 
 	}
@@ -280,6 +284,7 @@ int Table::readFreeCubes(){
 	int freeCubes = 0;
 	buffer->unPackField(&freeCubes,sizeof(freeCubes));
 	delete buffer;
+
 	if(freeCubes > 0){//si el archivo no esta vacio
 		buffer = new Buffer(sizeof(int)*freeCubes);
 		buffer->setBufferSize(sizeof(int)*freeCubes);
@@ -288,7 +293,9 @@ int Table::readFreeCubes(){
 			buffer->unPackField(&this->offsetFreeCubes[i],sizeof(this->offsetFreeCubes[i]));
 
 		delete buffer;
+		return 1;
 	}
+
 	return 1;
 }
 int Table::writeFreeCubes(){
