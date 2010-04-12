@@ -29,8 +29,7 @@ char *HashExtensible::search(int key)
 
 int HashExtensible::open(string fileName)
 {
-	this->table->openFiles(fileName);
-	return 0;
+	return this->table->openFiles(fileName);
 }
 
 
@@ -61,7 +60,7 @@ int HashExtensible::remove(int key)
 
 
 void HashExtensible::print(fstream *output){
-	//TODO
+	this->table->print(output);
 }
 
 int HashExtensible::close()
