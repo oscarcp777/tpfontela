@@ -86,14 +86,18 @@ int Table::insert(Record* record){
 				this->countsCubes++;
 				newCube = new Cube(this->sizeTable,this->countsCubes);
 
-				if(this->offsetFreeCubes.size() != 0){//si tengo cubos libres le asigno el primero libre y lo borro de la lista
+				int size = this->offsetFreeCubes.size();
+				if(size == 0)//si no tengo cubos libres le asigno el numero siguiente
+					this->offsetCubes[index] = this->countsCubes-1;
+
+				else{
+					//si tengo cubos libres le asigno el primero libre y lo borro de la lista
 					this->offsetCubes[index] = this->offsetFreeCubes.at(0);
 					vector<int>::iterator it = this->offsetFreeCubes.begin();
 					this->offsetFreeCubes.erase(it);
 				}
-				else //si no tengo cubos libres le asigno el numero siguiente
-					this->offsetCubes[index] = this->countsCubes;
 
+				cout<<"hola"<<endl;
 			}
 			else{//tamaño sispersion <> tamaño tabla
 				unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
@@ -102,7 +106,7 @@ int Table::insert(Record* record){
 				int offsetNewCube;
 
 				if(this->offsetFreeCubes.size() == 0)//si no tengo cubos libres le asigno el numero siguiente
-					offsetNewCube = this->countsCubes;
+					offsetNewCube = this->countsCubes-1;
 
 				else{//si tengo cubos libres le asigno el primero libre y lo borro de la lista
 					offsetNewCube = this->offsetFreeCubes.at(0);
@@ -112,13 +116,13 @@ int Table::insert(Record* record){
 
 				newCube = new Cube(dispersionSize*2,offsetNewCube);
 
-				for(unsigned int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion()){
+				for(unsigned int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion())
 					this->offsetCubes[i] = newCube->getOffsetCube();
-				}
-				for(int j = index; j>=0; j-=newCube->getSizeOfDispersion()){
+
+				for(int j = index; j>=0; j-=newCube->getSizeOfDispersion())
 					this->offsetCubes[j] = newCube->getOffsetCube();
 
-				}
+
 
 			}
 			//redistribuir y guardar los cubos en disco
@@ -128,12 +132,16 @@ int Table::insert(Record* record){
 			delete newCube;
 			return 1;
 		}
+		else{
+			this->currentCube->writeCube(this->fileCubes);
+		}
 
 	}
-	else//no pudo cargar el cubo
+	else{//no pudo cargar el cubo
 		return -1;
+	}
 
-	this->currentCube->writeCube(this->fileCubes);
+
 	return 1;
 }
 
