@@ -13,6 +13,7 @@ Buffer::Buffer(int maxBytes){
 	if(maxBytes < 0) maxBytes = 0;
 	this->maxBytes = maxBytes;
 	this->buffer = new char[this->maxBytes];
+	memset(this->buffer,0,this->maxBytes);
 	this->bufferSize = 0;
 	this->init();
 }

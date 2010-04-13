@@ -12,13 +12,14 @@
 using namespace std;
 void createHashTable(){
 	HashExtensible* hash = new HashExtensible();
-	hash->create("files/hash2");
+	hash->create("hash2");
+
 	string cadena = "Oscar Caceres Paredes";
 	string cadena2 = "Richard Marco Dubini";
 	string cadena3 = "santiago raul Donikian";
 	string cadena4 = "Nelson castro Arekipa";
 	string cadena5 = " Daniel pablo Sivori";
-	string cadena6 = "Diego armando maradona";
+	string cadena6 = "maradona";
 	string cadena7 = "pedro jose ladron de guevarra ortiz de orue";
 	string cadena8 = "juan paez";
 	string cadena9 = "boca rey de copas el mas grande de todos los tiempos y mas alla";
@@ -40,14 +41,18 @@ void createHashTable(){
 }
 void openHash(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hash2");
+	//hash->open("files/hash2");
+	hash->open("hash2");
+	cout<<"data encontrada : " <<hash->search(86534)<<endl;
+	cout<<"data encontrada : " <<hash->search(85440)<<endl;
+	cout<<"data encontrada : " <<hash->search(85789)<<endl;
+	cout<<"data encontrada : " <<hash->search(82289)<<endl;
+	cout<<"data encontrada : " <<hash->search(45739)<<endl;
+	cout<<"data encontrada : " <<hash->search(11739)<<endl;
+	cout<<"data encontrada : " <<hash->search(56739)<<endl;
+	cout<<"data encontrada : " <<hash->search(87346)<<endl;
 	cout<<"data encontrada : " <<hash->search(87345)<<endl;
-//	cout<<"data encontrada : " <<hash->search(98339)<<endl;
-//	cout<<"data encontrada : " <<hash->search(56739)<<endl;
-//	cout<<"data encontrada : " <<hash->search(11739)<<endl;
-//	cout<<"data encontrada : " <<hash->search(45739)<<endl;
-//	cout<<"data encontrada : " <<hash->search(82289)<<endl;
-//	cout<<"data encontrada : " <<hash->search(85440)<<endl;
+
 	hash->close();
 	delete hash;
 	cout<<"FIN PRUEBA "<<endl;
@@ -56,25 +61,6 @@ int main(){
 
 	//createHashTable();
 	openHash();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	return 0;
 }
