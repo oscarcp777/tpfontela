@@ -154,14 +154,14 @@ void Logger::info(std::string cadena){
 	}
 }
 
-void Logger::print(){
+void Logger::print(string fileName){
 
 	fstream result;
 	fstream logTemp;
 	string cadena;
 	int countFileTemp = this->coutFiles;
 	countFileTemp--;
-	this->open(&result,"files/result");
+	this->open(&result,"files/" + fileName);
 
 	/*
 	 * Leo todos los archivos parciales del logger
@@ -188,7 +188,23 @@ void Logger::print(){
 	}
 	result.close();
 }
+void Logger::search(string cadena){
 
+	this->print("temp");
+	fstream temp;
+	string linea;
+	this->open(&temp,PATH_TEMP);
+
+	while(!temp.eof()){
+		getline(temp,linea);
+		int flag = linea.find(cadena);
+		if(flag != -1){
+			std::cout << linea << std::endl;
+		}
+	}
+	temp.close();
+	remove(PATH_TEMP);
+}
 /*
  * El logger se instancia al comienzo de la aplicacion
  * por lo tanto cuando esta se termine llamara al destructor

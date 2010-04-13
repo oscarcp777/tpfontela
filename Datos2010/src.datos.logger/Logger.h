@@ -74,7 +74,12 @@ public:
 	/*
 	 * Muestra en un archivo, todo el logger
 	 */
-	void print();
+	void print(string fileName);
+	/*
+	 * Busca dentro del logger la cadena pedida. Retorna la linea donde
+	 * hay coincidencia mostrandola por salida estandar.
+	 */
+	void search(string cadena);
 	/*
 	 * Libera los recursos solicitados por el logger.
 	 */
