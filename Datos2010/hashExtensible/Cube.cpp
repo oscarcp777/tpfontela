@@ -9,7 +9,7 @@
 
 
 
-Cube::Cube( INT_UNSIGNED sizeOfDispersion, INT_UNSIGNED offset){
+Cube::Cube( int sizeOfDispersion, int offset){
 	this->offsetCube = offset;
 	this->sizeOfDispersion=sizeOfDispersion;
 	this->sizeCube=SIZE_CUBE;
@@ -106,7 +106,7 @@ int Cube::reallocate(Record* newRecord,Cube* newCube,int sizeTable){
 bool Cube::hasSpace(int size){
 	// el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
 	//tiene que ser menor que el tamanio libre
-	INT_UNSIGNED minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
+	int minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
 	return(this->sizeFree > minimumSpace);
 }
 

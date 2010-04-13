@@ -62,7 +62,7 @@ int Table::close(){
 
 
 int Table::duplicateTable(){
-	for(unsigned int i= 0 ; i< this->sizeTable; i++ ){
+	for(int i= 0 ; i< this->sizeTable; i++ ){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
@@ -115,7 +115,7 @@ int Table::insert(Record* record){
 
 				newCube = new Cube(dispersionSize*2,offsetNewCube);
 
-				for(unsigned int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion())
+				for(int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion())
 					this->offsetCubes[i] = newCube->getOffsetCube();
 
 				for(int j = index; j>=0; j-=newCube->getSizeOfDispersion())
@@ -179,7 +179,7 @@ int Table::remove(int key){
 				this->offsetCubes[index] = this->offsetCubes[indexUp];
 				this->loadCube(this->offsetCubes[index]);
 
-				for(unsigned int i = index; i<this->sizeTable; i+=this->currentCube->getSizeOfDispersion()){
+				for(int i = index; i<this->sizeTable; i+=this->currentCube->getSizeOfDispersion()){
 					this->offsetCubes[i] = this->currentCube->getOffsetCube();
 				}
 				for(int j = index; j>=0; j-=this->currentCube->getSizeOfDispersion()){
@@ -222,7 +222,7 @@ void Table::collapse(){
 void Table::print(fstream *output){
 	cout<<"*************TABLA*************"<<endl;
 	cout<<"tamaño tabla= "<<this->sizeTable<<" || cant. Cubos="<<this->countsCubes<<endl;
-	for(unsigned int i=0; i<this->sizeTable; i++)
+	for(int i=0; i<this->sizeTable; i++)
 		cout<<"["<<i<<"] = "<<this->offsetCubes[i]<<endl;
 
 	cout<<"cant. Cubos libres= "<<this->offsetFreeCubes.size()<<endl;
@@ -247,8 +247,11 @@ int Table::readTable(){
 
 	this->fileTable->read(buffer->getData(),sizeof(int)*this->sizeTable,sizeof(int)*2);
 
-	for(unsigned int i=0; i<this->sizeTable; i++)
-		buffer->unPackField(&this->offsetCubes[i],sizeof(this->offsetCubes[i]));
+	int num;
+	for(int i=0; i<this->sizeTable; i++){
+		buffer->unPackField(&num,sizeof(num));
+		this->offsetCubes.push_back(num);
+	}
 
 	delete buffer;
 	return 1;
@@ -264,7 +267,7 @@ int Table::writeTable(){
 	buffer->packField(&size,sizeof(size));
 	buffer->packField(&count,sizeof(count));
 
-	for(unsigned int i=0; i<this->sizeTable; i++){
+	for(int i=0; i<this->sizeTable; i++){
 		num =this->offsetCubes.at(i) ;
 		//cout<<"num["<<i<<"] = "<<num<<endl;
 		buffer->packField(&num,sizeof(num));
@@ -289,8 +292,12 @@ int Table::readFreeCubes(){
 		buffer = new Buffer(sizeof(int)*freeCubes);
 		buffer->setBufferSize(sizeof(int)*freeCubes);
 		this->fileCubesFree->read(buffer->getData(),sizeof(int)*freeCubes,sizeof(int));
-		for(int i=0; i<freeCubes; i++)
-			buffer->unPackField(&this->offsetFreeCubes[i],sizeof(this->offsetFreeCubes[i]));
+		int num;
+		for(int i=0; i<freeCubes; i++){
+			buffer->unPackField(&num,sizeof(num));
+			this->offsetFreeCubes.push_back(num);
+
+		}
 
 		delete buffer;
 		return 1;

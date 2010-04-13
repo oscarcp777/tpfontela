@@ -1,11 +1,9 @@
-//============================================================================
-// Name        : Datos2010.cpp
-// Author      : Oscar
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
+/*
+ * PruebaHash.cpp
+ *
+ *  Created on: 12/04/2010
+ *      Author: richy
+ */
 #include <iostream>
 #include <fstream>
 #include "../src.datos.storage/Buffer.h"
@@ -13,8 +11,8 @@
 #include "../hashExtensible/HashExtensible.h"
 using namespace std;
 
-int main326() {
-	HashExtensible* hash = new HashExtensible();
+int main(){
+//	HashExtensible* hash = new HashExtensible();
 //	hash->create("hash");
 //	string cadena = "Oscar Caceres";
 //	string cadena2 = "Richard Dubini";
@@ -35,19 +33,16 @@ int main326() {
 //	hash->insert(98339,(char*)cadena8.c_str());
 //	hash->insert(87345,(char*)cadena9.c_str());
 //	hash->print(NULL);
-//	cout<<"data key: "<<hash->search(56739)<<endl;
+//
 //	hash->close();
+//	cout<<"DESPUES DEL CLOSE "<<endl;
 //	delete hash;
 
-	cout<<hash->open("hash")<<"HOLAAA"<<endl;cout<<"LLEGO 1"<<endl;
-//	hash->print(NULL);
-//	cout<<"data key: "<<hash->search(11739)<<endl;
-//	//hash->remove(86534);
-
+	HashExtensible* hash = new HashExtensible();
+	hash->open("hash");
+	cout<<"data encontrada : " <<hash->search(85440)<<endl;
 	hash->close();
-	cout<<"LLEGO 2"<<endl;
 	delete hash;
-	cout<<"LLEGO 3"<<endl;
+	cout<<"FIN PRUEBA "<<endl;
 	return 0;
-
 }

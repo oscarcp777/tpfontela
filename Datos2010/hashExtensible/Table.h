@@ -15,8 +15,8 @@
 #include <vector>
 using namespace std;
 typedef struct metadataTable {
-	INT_UNSIGNED countsCubes;
-	INT_UNSIGNED sizeTable;
+	int countsCubes;
+	int sizeTable;
 
 }METADATA_TABLE;
 class Table {
@@ -24,9 +24,9 @@ private:
 	BinaryFile* fileTable;
 	BinaryFile* fileCubes;
 	BinaryFile* fileCubesFree;
-	INT_UNSIGNED countsCubes;
+	int countsCubes;
 	Cube* currentCube;
-	INT_UNSIGNED sizeTable;
+	int sizeTable;
 	vector<int> offsetFreeCubes;
 	vector<int> offsetCubes;
 public:
@@ -49,17 +49,17 @@ public:
 	int writeFirstCube();
 	void print(fstream* output);
 
-	INT_UNSIGNED getCountsCubes() const
+	int getCountsCubes() const
     {
 		return countsCubes;
     }
 
-    INT_UNSIGNED getSizeTable() const
+    int getSizeTable() const
     {
         return sizeTable;
     }
 
-    void setCountsCubes(INT_UNSIGNED countsCubes)
+    void setCountsCubes(int countsCubes)
     {
         this->countsCubes = countsCubes;
     }
@@ -70,7 +70,7 @@ public:
     }
 
 
-    void setSizeTable(INT_UNSIGNED sizeTable)
+    void setSizeTable(int sizeTable)
     {
         this->sizeTable = sizeTable;
     }

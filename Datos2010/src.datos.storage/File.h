@@ -30,6 +30,7 @@ public:
       */
     void read(std::string & datos);
     void read(char *buffer, int tamanio, int pos=-1);
+    void readInteger(int* num, int pos=-1);
 
     /**
       * Lee del archivo una cadena de caracteres a partir de la posición actual del cursor y hasta:
@@ -40,6 +41,7 @@ public:
       */
     int  write(std::string registro);
     void write(char *buffer, int tamanio, int pos=-1);
+    void writeInteger(int* num, int pos=-1);
     void close();
     void flush();
     std::string toString();

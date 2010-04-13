@@ -49,7 +49,20 @@ void File::read(char* buffer, int tamanio, int pos){
 	}
 
 }
-
+void File::readInteger(int* num, int pos){
+	if (this->file.is_open()) {
+			if(pos>=0)
+				this->file.seekg(pos);
+			this->file.read(reinterpret_cast<char*>(num),sizeof(num));
+			cout<<this->file.tellg()<<endl;
+			cout<<this->file.good()<<endl;
+			cout<<*num<<endl;
+		}
+		else {
+			/* arroja una excepción porque el file no está abierto */
+			throw string("File not open");
+		}
+}
 
 
 int File::write(std::string registro){
@@ -81,7 +94,17 @@ void File::write(char* buffer, int tamanio, int pos){
 	}
 
 }
+void File::writeInteger(int* num, int pos){
 
+	if (this->file.is_open()) {
+		if (pos >= 0)
+			this->file.seekp(pos);
+		this->file.write((char*)num,sizeof(num));
+
+
+	}
+
+}
 void File::close(){
 	this->file.close();
 
