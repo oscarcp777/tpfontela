@@ -15,7 +15,7 @@ Table::Table() {
 	this->currentCube = new Cube(1,0);
 	this->countsCubes = 1;
 	this->sizeTable = 1;
-	this->offsetCubes.push_back(0);
+	this->offsetCubes.size();
 	//	this->countsCubes = 4;
 	//	this->sizeTable = 4;
 	//	this->offsetCubes.push_back(2);
@@ -34,6 +34,7 @@ int Table::createFiles(string fileName){
 	this->fileCubes->create(fileName+EXT_CUBE);
 	this->fileCubesFree->create(fileName+EXT_FREE_CUBE);
 	this->fileTable->create(fileName+EXT_TABLE);
+	this->offsetCubes.push_back(0);
 	this->writeFirstCube();
 	return 0;
 }
@@ -245,9 +246,9 @@ int Table::readTable(){
 	buffer = new Buffer(sizeof(int)*this->sizeTable);
 	buffer->setBufferSize(sizeof(int)*this->sizeTable);
 
-	this->fileTable->read(buffer->getData(),sizeof(int)*this->sizeTable,sizeof(int)*2);
+	this->fileTable->read(buffer->getData(),buffer->getBufferSize());
 
-	int num;
+	int num=0;
 	for(int i=0; i<this->sizeTable; i++){
 		buffer->unPackField(&num,sizeof(num));
 		this->offsetCubes.push_back(num);

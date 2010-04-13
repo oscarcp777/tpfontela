@@ -39,9 +39,11 @@ void File::read(std::string& datos){
 void File::read(char* buffer, int tamanio, int pos){
 
 	if (this->file.is_open()) {
+		cout<<"Lee del archivo del ( "<<this->file.tellg()<<" || ";
 		if(pos>=0)
 			this->file.seekg(pos);
 		this->file.read(buffer,tamanio);
+		cout<<this->file.tellg()<<" )"<<endl;
 	}
 	else {
 		/* arroja una excepción porque el file no está abierto */

@@ -55,7 +55,7 @@ void BinaryFile::clear(){
 //		bool flag = false;
 //		Logger* logger = Logger::getUnicaInstancia();
 //		logger->debug(this->toString(),"Se intenta abrir el archivo binario en modo lectura-escritura");
-		cout<<"this->name.c_str() "<<this->name.c_str()<<endl;
+
 		this->file.open(this->name.c_str(),ios::trunc|ios::in|ios::out |ios::binary);
 //		if (! this->file.is_open()){
 
