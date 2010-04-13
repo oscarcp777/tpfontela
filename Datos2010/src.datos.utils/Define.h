@@ -11,7 +11,8 @@
 
 
 
-#define PATH_LOGGER "files/logger"
+#define PATH_LOGGER "files/log"
+#define PATH_CONFIG "files/config"
 #define TAB "		"
 #define INFO_FLAG "INFO"
 #define DEBUG_FLAG "DEBUG"

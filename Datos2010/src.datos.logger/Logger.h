@@ -13,15 +13,15 @@
 
 using namespace std;
 
-class Object;
-
 class Logger{
 
 private:
 
 	static Logger* logger;
 	fstream file;
-	char* temp;
+	char* date;
+	int sizeFile;
+	int coutFiles;
 
 	/*
 	 * Apertura de archivos, si el archivo esta creado, lo abre.
@@ -39,12 +39,21 @@ private:
 	/*
 	 * Retorna la fecha y hora del sistema.
 	 */
-	std::string getTimeSystem();
+	string getTimeSystem();
+	/*
+	 * Crea un archivo nuevo.
+	 */
+	void split(string cadena);
+	/*
+	 * Funcion auxiliar que convierte un numero entero al mismo
+	 * numero en una cadena de caracteres.
+	 */
+	string convertIntToString(int numero);
 	/*
 	 * Constructor privado, para que solo se instancie
 	 * mediante el metodo getInstacia.
 	 */
-	Logger();
+	Logger(int sizeFile = 512);
 
 public:
 	/*
@@ -53,19 +62,19 @@ public:
 	 */
 	static Logger* getUnicaInstancia();
 	/*
+	 * Setea el tamaño maximo del archivo, se recomienda inicializarlo
+	 * luego de pedir una instancia de logger y no modificarlo.
+	 */
+	void setSizeFile(int fileSize);
+	/*
 	 * Escribe en el archivo de salida, la informacion del
-	 * programa.
+	 * programa que se desea almacenar.
 	 */
-	void info(std::string object, std::string cadena);
+	void info(string cadena);
 	/*
-	 * Escribe en el archivo de salida, el debug del programa
+	 * Muestra en un archivo, todo el logger
 	 */
-	void debug(std::string object, std::string cadena);
-	/*
-	 * Escribe en el archivo de salida, el error que se produjo en la
-	 * ejecucion del programa.
-	 */
-	void error(std::string object, std::string cadena);
+	void print();
 	/*
 	 * Libera los recursos solicitados por el logger.
 	 */
