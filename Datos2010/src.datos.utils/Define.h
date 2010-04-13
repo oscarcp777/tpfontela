@@ -9,7 +9,7 @@
 #ifndef DEFINE_H_
 #define DEFINE_H_
 
-typedef unsigned int INT_UNSIGNED;
+
 
 #define PATH_LOGGER "files/logger"
 #define TAB "		"
