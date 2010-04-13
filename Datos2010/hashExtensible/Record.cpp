@@ -13,15 +13,18 @@ Record::Record() {
 Record::Record(int key,char* data){
 	this->key =key;
 	this->data=data;
+
 }
 Record::~Record() {
 	// TODO Auto-generated destructor stub
 }
+void Record::clear(){
+	this->data.clear();
+}
+
 int Record::getSizeDataRecord(){
-	std::string cadena = this->data;
-    return cadena.length();
+	return this->data.length();
 }
 int Record::getSizeRecord(){
-	std::string cadena = this->data;
-    return 2*sizeof(this->key)+cadena.length();
+	return 2*sizeof(this->key)+this->data.length();
 }

@@ -9,10 +9,11 @@
 #define RECORD_H_
 #include <string>
 
+
 class Record {
 private:
    int key;
-   char* data;
+   std::string data;
 public:
 	Record(int key,char* data);
 	Record();
@@ -26,11 +27,11 @@ public:
 	 */
     int getSizeRecord();
     int getSizeDataRecord();
+    void clear();
 
-
-    char *getData() const
+    char* getData() const
     {
-        return data;
+        return (char*)data.c_str();
     }
 
     int getKey() const
