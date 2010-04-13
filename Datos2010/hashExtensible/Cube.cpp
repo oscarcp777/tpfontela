@@ -85,14 +85,14 @@ int Cube::addRecordList(Record* record){
   this->sizeFree=this->sizeFree-record->getSizeRecord();
   return TRUE;
 }
-int Cube::reallocate(Record* newRecord,Cube* newCube,int sizeTable){
+int Cube::reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int sizeTable){
 	list<Record*>::iterator iterRecord = this->records.begin();
 		Record* record;
 		this->records.push_back(newRecord);//agrego el nuevo registro que produjo el desborde asi lo distribuye
 		int max=this->records.size();
 		for (int var = 0; var < max; var++) {
 			record = *iterRecord;
-			if(!((int)this->offsetCube == Hash::hashMod(record->getKey(),sizeTable))){
+			if(this->offsetCube != offsetCubes[Hash::hashMod(record->getKey(),sizeTable)]){
 				newCube->addRecordList(record);
 				this->sizeFree = this->sizeFree+record->getSizeRecord();
 				this->records.erase(iterRecord);

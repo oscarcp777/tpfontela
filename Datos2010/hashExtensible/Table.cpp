@@ -89,11 +89,12 @@ int Table::insert(Record* record){
 
 				int size = this->offsetFreeCubes.size();
 				if(size == 0)//si no tengo cubos libres le asigno el numero siguiente
-					this->offsetCubes[index+1] = this->countsCubes;
+					this->offsetCubes[index] = this->countsCubes;
 
 				else{
 					//si tengo cubos libres le asigno el primero libre y lo borro de la lista
-					this->offsetCubes[index+1] = this->offsetFreeCubes.at(0);
+					newCube->setOffsetCube(this->offsetFreeCubes.at(0));
+					this->offsetCubes[index] = this->offsetFreeCubes.at(0);
 					vector<int>::iterator it = this->offsetFreeCubes.begin();
 					this->offsetFreeCubes.erase(it);
 				}
@@ -107,7 +108,7 @@ int Table::insert(Record* record){
 				int offsetNewCube;
 
 				if(this->offsetFreeCubes.size() == 0)//si no tengo cubos libres le asigno el numero siguiente
-					offsetNewCube = this->countsCubes-1;
+					offsetNewCube = this->countsCubes;
 
 				else{//si tengo cubos libres le asigno el primero libre y lo borro de la lista
 					offsetNewCube = this->offsetFreeCubes.at(0);
@@ -127,7 +128,7 @@ int Table::insert(Record* record){
 
 			}
 			//redistribuir y guardar los cubos en disco
-			this->currentCube->reallocate(record,newCube,this->sizeTable);
+			this->currentCube->reallocate(this->offsetCubes,record,newCube,this->sizeTable);
 			this->currentCube->writeCube(this->fileCubes);
 			newCube->writeCube(fileCubes);
 			this->countsCubes++;
