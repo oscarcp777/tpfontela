@@ -27,6 +27,7 @@ public:
 	 */
 	void clear();
     void init();
+
 	/**
 	 *setea el valor al siguiente campo del buffer
 	 *si el size =-1 uso strlen(str) en la longitudes de la etiqueta

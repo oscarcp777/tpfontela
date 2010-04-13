@@ -18,17 +18,17 @@
 #include "Hash.h"
 using namespace std;
 typedef struct metadataCube {
-	INT_UNSIGNED sizeFree;
-	INT_UNSIGNED sizeOfDispersion;
-	INT_UNSIGNED numberOfRecords;
+	int sizeFree;
+	int sizeOfDispersion;
+	int numberOfRecords;
 
 }METADATA_CUBE;
 class Cube {
 private:
-	INT_UNSIGNED sizeOfDispersion;
+	int sizeOfDispersion;
 	int numberOfRecords;
-	INT_UNSIGNED offsetCube;
-	INT_UNSIGNED sizeFree;
+	int offsetCube;
+	int sizeFree;
 	list<Record*> records;
 	int sizeCube;
 	Buffer* buffer;
@@ -38,7 +38,7 @@ private:
 	int getDiskPosition();
 	int addRecordList(Record* record);
 public:
-	Cube( INT_UNSIGNED sizeOfDispersion,INT_UNSIGNED offset);
+	Cube( int sizeOfDispersion,int offset);
 	virtual ~Cube();
 	/**
 	 *verifica si hay el espacio minimo necesario para escribir en el bloque
@@ -93,7 +93,7 @@ public:
 		return sizeFree;
 	}
 
-	unsigned int getSizeOfDispersion() const
+	int getSizeOfDispersion() const
 	{
 		return sizeOfDispersion;
 	}
