@@ -57,7 +57,7 @@ void openHash(){
 	delete hash;
 	cout<<"FIN PRUEBA "<<endl;
 }
-int main(){
+int maindfgdfg(){
 
 	//createHashTable();
 	openHash();

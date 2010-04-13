@@ -13,7 +13,7 @@
 #include <iostream>
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/RecordFile.h"
-#include "../src.datos.buffer/VariableFieldBuffer.h"
+#include "../src.datos.buffer/FixedFieldBuffer.h"
 #include "BTreeNode.h"
 
 using namespace std;
@@ -183,7 +183,7 @@ public:
 
 protected:
 	typedef BTreeNode<keyType> BNode;
-	VariableFieldBuffer buffer;
+	FixedFieldBuffer buffer;
 	RecordFile<BNode> bTreeFile;
 	BNode root;				//raiz
 	int height;				//profundidad arbol
