@@ -6,6 +6,7 @@
 
 static void search(Logger* logger,string cadena){
 
+	logger->search(cadena);
 }
 
 static void insert(Logger* logger, string cadena){
@@ -13,9 +14,9 @@ static void insert(Logger* logger, string cadena){
 	logger->info(cadena);
 }
 
-static void print(Logger* logger){
+static void print(Logger* logger,string fileName){
 
-	logger->print();
+	logger->print(fileName);
 }
 
 static void help(){
@@ -29,7 +30,7 @@ static void help(){
 	printf(" 	-S, --print\t   Vuelca todos los datos de la estructura en un archivo de texto.\n");
 }
 
-static void parse_cmdline(Logger* logger,string cadena,int argc, char * const argv[]){
+static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 
 	int index;
 	char result;
@@ -37,21 +38,21 @@ static void parse_cmdline(Logger* logger,string cadena,int argc, char * const ar
 	struct option options[] = {
 			{"search", 1, NULL, 'B'},
 			{"insert", 1, NULL, 'I'},
-			{"print", 0, NULL, 'S'},
+			{"print", 1, NULL, 'S'},
 			{"help", 0, NULL, 'h'},
 	};
 
 	while ((result = getopt_long(argc, argv,
-			"BISh", options, &index)) != -1) {
+			"B:I:S:h", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				search(logger,cadena);
+				search(logger,optarg);
 				break;
 			case 'I':
-				insert(logger,cadena);
+				insert(logger,optarg);
 				break;
 			case 'S':
-				print(logger);
+				print(logger,optarg);
 				break;
 			case 'h':
 				help();
@@ -65,11 +66,6 @@ static void parse_cmdline(Logger* logger,string cadena,int argc, char * const ar
 int main(int argc, char * const argv[]){
 
 	Logger* logger = Logger::getUnicaInstancia();
-	fstream file;
-	string cadena;
-	file.open("files/dummy",ios::in| ios::out);
-	getline(file,cadena);
-	parse_cmdline(logger,cadena,argc,argv);
-	file.close();
+	parse_cmdline(logger,argc,argv);
 	return 0;
 }
