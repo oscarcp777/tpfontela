@@ -63,6 +63,7 @@ int Table::close(){
 
 
 int Table::duplicateTable(){
+	this->print(NULL);
 	for(int i= 0 ; i< this->sizeTable; i++ ){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}

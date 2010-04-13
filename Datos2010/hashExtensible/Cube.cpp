@@ -69,8 +69,10 @@ int Cube::writeCube(BinaryFile *fileCube)
 		record=*iterRecord;
 		int size=record->getSizeDataRecord();
 		int key=record->getKey();
+		//cout<<"en WRITE CUBE size a pack "<<size<<endl;
 		this->buffer->packField(&(size),sizeof(size));
 		this->buffer->packField(&key,sizeof(key));
+		//cout<<"en WRITE CUBE record->getData() "<<record->getData()<<endl;
 		this->buffer->packField(record->getData(),size);
 
 	}
@@ -118,17 +120,21 @@ int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
 	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
 	this->loadMetadata();
 	Record* record;
+	int size=0;
+	int key=0;
 	for (int var = 0; var < this->numberOfRecords; var++) {
 		record=new Record();
-		int size=0;
-		int key=0;
-
+		record->clear();
 		this->buffer->unPackField(&(size),sizeof(size));
 		this->buffer->unPackField(&key,sizeof(key));
-		char* data=new char[size];
+		//cout<<"en LOAD CUBE size a unPack "<<size<<endl;
+		char* data=new char[size*2];
+		memset(data,0,size*2);
 		this->buffer->unPackField(data,size);
+		//cout<<"en LOAD CUBE data "<<data<<endl;
 		record->setKey(key);
 		record->setData(data);
+		//cout<<"en LOAD CUBE record->getData() "<<record->getData()<<endl;
 		this->records.push_back(record);
 	}
 
