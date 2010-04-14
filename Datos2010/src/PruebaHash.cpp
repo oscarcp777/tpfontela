@@ -39,6 +39,38 @@ void createHashTable(){
 	delete hash;
 	cout<<"Borro todo bien "<<endl;
 }
+void createHashTable2(){
+	HashExtensible* hash = new HashExtensible();
+	hash->create("files/hash3");
+
+	//+123, +915, +629, +411, +200, +863, -629, +408, +34, +510, -863, +775
+	string cadena1 = "reg1";
+	string cadena2 = "reg2";
+	string cadena3 = "reg3";
+	string cadena4=  "reg4";
+	string cadena5 = "reg5";
+	string cadena6 = "reg6";
+	string cadena7 = "reg7";
+	string cadena8 = "reg8";
+	string cadena9 = "reg9";
+	string cadena10 = "re10";
+	hash->insert(123,(char*)cadena1.c_str());
+	hash->insert(915,(char*)cadena2.c_str());
+	hash->insert(629,(char*)cadena3.c_str());
+	hash->insert(411,(char*)cadena4.c_str());
+	hash->insert(200,(char*)cadena5.c_str());
+	hash->insert(863,(char*)cadena6.c_str());
+	hash->insert(408,(char*)cadena7.c_str());
+	hash->insert(34,(char*)cadena8.c_str());
+	hash->insert(510,(char*)cadena9.c_str());
+	hash->insert(775,(char*)cadena10.c_str());
+	hash->print(NULL);
+
+	hash->close();
+
+	delete hash;
+	cout<<"Borro todo bien "<<endl;
+}
 void openHash(){
 	HashExtensible* hash = new HashExtensible();
 	//hash->open("files/hash2");
@@ -57,10 +89,18 @@ void openHash(){
 	delete hash;
 	cout<<"FIN PRUEBA "<<endl;
 }
-int maindfgdfg(){
-
-	//createHashTable();
-	openHash();
+int main(){
+   /****************************************************/
+	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
+	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
+	 *     BYTES PARA SU DATA Y BYTES PARA UN 20% LIBRE EJEMPLO
+	 *     SI EL BLOQUE ES DE 60 BYTES NECESITA LIBRES 24 SOLO PARA SU
+	 *     METADATA Y RESGUARDO MAS EL TAMANIO DE LOS REGISTROS
+	 *   |4|4|4|-> METADATA PARA REGISTROS-> |4|4|4|4|4|4|4|4|4|4|4|4|4|4|4|     LIBRE ->|4|4|4|
+	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
+	 */
+	createHashTable2();
+	//openHash();
 
 	return 0;
 }
