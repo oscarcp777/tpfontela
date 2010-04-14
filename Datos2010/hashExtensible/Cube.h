@@ -39,7 +39,9 @@ private:
 	int getDiskPosition();
 	int addRecordList(Record* record);
 
+
 public:
+	int eraseRecordList(list<Record*>::iterator iterRecord,Record* record);
 	Cube( int sizeOfDispersion,int offset);
 	virtual ~Cube();
 	/**

@@ -131,11 +131,16 @@ int Table::insert(Record* record){
 		this->currentCube->addRecord(record);
 		this->currentCube->writeCube(this->fileCubes);
 	}else{
+		// duplico la table hasta encontar lugar para poner el nuevo registro
+		//y redistribuyo solo los registros del cubo que esta en overflow
 		while(this->existOverflow(offset,record)){
-			this->overFlowInCube(index);
+			this->overFlowInCube(index,offset);
 			index = Hash::hashMod(record->getKey(),this->sizeTable);
 		}
-
+		// cuando ya redistribui todo y ya se que hay lugar inserto el nuevo registro
+		int index = Hash::hashMod(record->getKey(),this->sizeTable);
+		int offset = this->offsetCubes[index];
+		this->loadCube(offset,this->currentCube);
 		this->currentCube->addRecord(record);
 		this->currentCube->writeCube(this->fileCubes);
 
@@ -144,10 +149,10 @@ int Table::insert(Record* record){
 	return 1;
 }
 bool Table::existOverflow(int offsetCube,Record*  record){
-	this->loadCube(offsetCube);
+	this->loadCube(offsetCube,this->currentCube);
 	return (!this->currentCube->hasSpace(record->getSizeRecord()));
 }
-int Table::overFlowInCube(int index){
+int Table::overFlowInCube(int index,int offsetCubeOverFlow ){
 	/*	Si no hay lugar
 			    1. Tamaño de dispersión = tamaño de tabla*/
 	if(this->currentCube->getSizeOfDispersion() == this->sizeTable){
@@ -159,35 +164,37 @@ int Table::overFlowInCube(int index){
 	}
 	/*Se vuelven a dispersar todos los elementos del cubo desbordado con el
 			nuevo tamaño de dispersión*/
-	this->reallocate();
+	this->reallocate(offsetCubeOverFlow);
 	return 1;
 }
-int Table::reallocate(){
+int Table::reallocate(int offsetCubeOverFlow){
 	//TODO aca habria que igual que en el reallocate del cubo disérsar todos los regostros del
 	// del bloque debordado solo esos y nos el que queremos ingresar por que eso lo hacemos depues
 	// cuanddo encontremos donde
-//	list<Record*>::iterator iterRecord = this->currentCube->getIteratorRecord();
-//	Record* record;
-//	int max=this->currentCube->getNumberOfRecords();
-//	for (int var = 0; var < max; var++) {
-//		record = *iterRecord;
-//		if(offsetCubeOverFlow != offsetCubes[Hash::hashMod(record->getKey(),this->sizeTable)]){
-//			newCube->addRecordList(record);
-//			this->sizeFree = this->sizeFree+record->getSizeRecord();
-//			this->records.erase(iterRecord);
-//			iterRecord--;
-//		}
-//		iterRecord++;
-//	}
-//
-//	this->currentCube->writeCube(this->fileCubes);
-//	newCube->writeCube(fileCubes);
-//	this->countsCubes++;
-//	delete newCube;
+	Cube* newCube= new Cube(0,0);
+	this->loadCube(offsetCubeOverFlow,this->currentCube);
+		list<Record*>::iterator iterRecord = this->currentCube->getIteratorRecord();
+		Record* record;
+		int max=this->currentCube->getNumberOfRecords();
+		for (int var = 0; var < max; var++) {
+			record = *iterRecord;
+			if(offsetCubeOverFlow != offsetCubes[Hash::hashMod(record->getKey(),this->sizeTable)]){
+				this->loadCube(offsetCubeOverFlow,newCube);
+				newCube->addRecordList(record);
+				newCube->setSizeFree( newCube->getSizeFree()+record->getSizeRecord());
+				this->currentCube->eraseRecordList(iterRecord,record);
+				iterRecord--;
+				newCube->writeCube(fileCubes);
+			}
+			iterRecord++;
+		}
+
+		this->currentCube->writeCube(this->fileCubes);
+		delete newCube;
 	return 1;
 }
-int Table::loadCube(int offset){
-	int res = this->currentCube->loadCube(fileCubes,offset);
+int Table::loadCube(int offset ,Cube* cube){
+	int res = cube->loadCube(fileCubes,offset);
 	return res;
 }
 
@@ -195,7 +202,7 @@ Record *Table::search(int key)
 {
 	int index = Hash::hashMod(key,this->sizeTable);
 	int offset = this->offsetCubes[index];
-	int result = this->loadCube(offset);
+	int result = this->loadCube(offset,this->currentCube);
 	if(result)
 		return this->currentCube->search(key);
 	else
@@ -204,7 +211,7 @@ Record *Table::search(int key)
 int Table::remove(int key){
 	int index = Hash::hashMod(key,this->sizeTable);
 	int offset = this->offsetCubes[index];
-	int result = this->loadCube(offset);
+	int result = this->loadCube(offset,this->currentCube);
 	if(result){
 		this->currentCube->remove(key);
 		if(this->currentCube->getNumberOfRecords() == 0){//si queda vacio
@@ -218,7 +225,7 @@ int Table::remove(int key){
 
 				//actualizo la tabla
 				this->offsetCubes[index] = this->offsetCubes[indexUp];
-				this->loadCube(this->offsetCubes[index]);
+				this->loadCube(this->offsetCubes[index],this->currentCube);
 
 				for(int i = index; i<this->sizeTable; i+=this->currentCube->getSizeOfDispersion()){
 					this->offsetCubes[i] = this->currentCube->getOffsetCube();

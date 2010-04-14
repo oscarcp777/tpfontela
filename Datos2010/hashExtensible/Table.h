@@ -35,12 +35,12 @@ public:
 	Table();
 	virtual ~Table();
 	bool existOverflow(int offsetCube,Record*  record);
-	int overFlowInCube(int index);
+	int overFlowInCube(int index,int offsetCubeOverFlow);
 	int reallocate();
 	int duplicateTable();
 	int insert(Record* record);
 	int remove(int key);
-	int loadCube(int offset);
+	int loadCube(int offset,Cube* cube);
 	Record* search(int key);
 	int isTableDuplicate();
 	void collapse();
