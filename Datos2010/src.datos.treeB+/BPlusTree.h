@@ -13,7 +13,7 @@
 #include <iostream>
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/RecordFile.h"
-#include "../src.datos.buffer/FixedFieldBuffer.h"
+#include "../src.datos.buffer/VariableFieldBuffer.h"
 #include "BTreeNode.h"
 
 using namespace std;
@@ -65,6 +65,7 @@ public:
 		if (!result) return result;
 		//Agrega nodo raiz
 		result = this->bTreeFile.write(this->root);
+		this->root.setRecAddr(result);
 		return result != -1;
 	}
 
@@ -119,6 +120,7 @@ public:
 			if (level < 0) break;
 			//hacer nuevoNodo padre del nodoActual
 			parentNode = this->nodes[level];
+			parentNode->setIsLeaf(0);
 			result = parentNode->updateKey(largestKey,thisNode->largestKey());
 			result = parentNode->insert(newNode->largestKey(),NULL,newNode->getRecAddr());
 
@@ -136,6 +138,7 @@ public:
 			this->root.getKeys()[1]= newNode->largestKey();
 			this->root.getRecAddrs()[1]=newNode->getRecAddr();
 			this->root.setNumKeys(2);
+			this->root.setIsLeaf(0);
 			this->height++;
 			return 1;
 	}
@@ -145,11 +148,11 @@ public:
 		return 1;
 	}
 
-	int  search(const keyType key, int dir){
+char* search(const keyType key, int dir = -1){
 		BNode* nodoHoja;
 		nodoHoja = findLeaf(key);
-		return nodoHoja->search(key,dir);
-		return 1;
+		int index = nodoHoja->search(key,dir);
+		return nodoHoja->getData[index];
 	}
 
 	void  print(ostream & stream){
@@ -164,17 +167,21 @@ public:
 
 	}
 
-	void  print(ostream & stream, int dirNodo, int nivel){
+	void  print(ostream & stream, int dirNodo, int level){
 
-		BNode* nodoActual = this->fetch(dirNodo);
-		stream << "\nNodo en nivel "<<nivel<<" direccion " << dirNodo<< " ";
-		nodoActual->print(stream);
-		if (this->height > nivel){
-			nivel++;
-			for(int i = 0; i < nodoActual->getNumKeys(); i++){
-				this->print(stream, nodoActual->getRecAddrs()[i], nivel);
+		BNode* currentNode = this->fetch(dirNodo);
+		if (level == this->height)
+			currentNode->setIsLeaf(1);
+		else
+			currentNode->setIsLeaf(0);
+		stream << "\nNodo en nivel "<<level<<" direccion " << dirNodo<< " ";
+		currentNode->print(stream);
+		if (this->height > level){
+			level++;
+			for(int i = 0; i < currentNode->getNumKeys(); i++){
+				this->print(stream, currentNode->getRecAddrs()[i], level);
 			}
-			stream << "final del nivel "<<nivel <<endl;
+			stream << "final del nivel "<<level <<endl;
 		}
 
 
@@ -183,7 +190,7 @@ public:
 
 protected:
 	typedef BTreeNode<keyType> BNode;
-	FixedFieldBuffer buffer;
+	VariableFieldBuffer buffer;
 	RecordFile<BNode> bTreeFile;
 	BNode root;				//raiz
 	int height;				//profundidad arbol
@@ -198,9 +205,14 @@ protected:
 
 		int recaddr, level;
 		for(level = 1; level < this->height; level++){
-			recaddr = this->nodes[level-1]->search(key,-1,0);
-			if (this->nodes[level]->getRecAddr() != recaddr)
+//			recaddr = this->nodes[level-1]->search(key,-1,0);
+			recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
+//			if (this->nodes[level]->getRecAddr() != recaddr)
 				this->nodes[level] = this->fetch(recaddr);
+			if (level + 1 == this->height)
+				this->nodes[level]->setIsLeaf(1);
+			else
+				this->nodes[level]->setIsLeaf(0);
 		}
 		return this->nodes[level-1];
 	}
@@ -214,7 +226,7 @@ protected:
 		return newNode;
 	}
 
-	BTreeNode<keyType>*  fetch(int recAddr){ 		//Fetch
+	BTreeNode<keyType>*  fetch(int recAddr){
 		//carga este nodo desde el archivo en un nuevo nodo
 		BNode* newNode = new BNode(this->blockSize,this->keySize);
 		int result = this->bTreeFile.read(*newNode,recAddr);

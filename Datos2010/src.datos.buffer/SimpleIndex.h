@@ -44,8 +44,8 @@ public:
 	int insert(const keyType key,int recAddr){
 		int i;
 		int index=find(key);
-		if(this->unique&& index>=0)return 0;
-		if(this->numKeys==this->maxKeys)return 0;
+		if(this->unique&& index>=0)return -1;
+		if(this->numKeys==this->maxKeys)return -1;
 		for (i = this->numKeys-1; i>=0; i--) {
 			if(key>this->keys[i])break;
 			this->keys[i+1]=this->keys[i];
@@ -55,7 +55,7 @@ public:
 		this->keys[i+1]=key;
 		this->recAddrs[i+1]=recAddr;
 		this->numKeys++;
-		return 1;
+		return i+1;
 
 
 
