@@ -36,7 +36,7 @@ public:
 	virtual ~Table();
 	bool existOverflow(int offsetCube,Record*  record);
 	int overFlowInCube(int index,int offsetCubeOverFlow);
-	int reallocate();
+	int reallocate(int offsetCubeOverFlow);
 	int duplicateTable();
 	int insert(Record* record);
 	int remove(int key);

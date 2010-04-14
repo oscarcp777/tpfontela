@@ -13,6 +13,7 @@ Cube::Cube( int sizeOfDispersion, int offset){
 	this->offsetCube = offset;
 	this->sizeOfDispersion=sizeOfDispersion;
 	this->sizeCube=SIZE_CUBE;
+	this->numberOfRecords = 0;
 	/*EL TAMANIO LIBRE DEL BLOQUE ES LO QUE QUEDA DE LO RESERVO PARA LA METADATA
 	 * Y EL PORCENTAJE DE ESPACIO LIBRE QUE GUARDO DE RESGUARDO PARA FUTURAS
 	 * MODIFICACIONES DE LO REGISTROS
@@ -90,11 +91,13 @@ int Cube::addRecordList(Record* record){
   this->sizeFree=this->sizeFree-record->getSizeRecord();
   return TRUE;
 }
-int eraseRecordList(list<Record*>::iterator iterRecord,Record* record ){
+
+int Cube::eraseRecordList(list<Record*>::iterator iterRecord,Record* record ){
 	this->records.erase(iterRecord);
-	  this->sizeFree=this->sizeFree+record->getSizeRecord();
-	  return TRUE;
+	this->sizeFree=this->sizeFree+record->getSizeRecord();
+	return TRUE;
 }
+
 int Cube::reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int sizeTable){
 	list<Record*>::iterator iterRecord = this->records.begin();
 		Record* record;
@@ -135,11 +138,11 @@ int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
 		this->buffer->unPackField(&(size),sizeof(size));
 		this->buffer->unPackField(&key,sizeof(key));
 		//*########################################
-		 /* aca el tamanio esta bien el rpimero que lee que es el tamanio de la data no de
-		  * todo el registro solo es necesario este size no el size*2
+		 /* TODO NECESITO QUE SEA EL DOBLE DE SIZE SINO SE FUMA PORQUE C++ AGREGA UN /0 QUE COME ESPACIO
+		  * PODRIA SER UN POCO MAS GRANDE QUE SIZE Y NO EL DOBLE PERO DEJA EL DOBLE QUE NO MOLESTA
 		  */
-		char* data=new char[size];
-		memset(data,0,size);
+		char* data=new char[size*2];
+		memset(data,0,size*2);
 		this->buffer->unPackField(data,size);
 		record->setKey(key);
 		record->setData(data);
@@ -197,8 +200,10 @@ Record *Cube::search(int key)
 	Record* record;
 	for (iterRecord=this->records.begin(); iterRecord!=this->records.end(); iterRecord++){
 		record=*iterRecord;
-		if(key==record->getKey())
+		if(key==record->getKey()){
+			cout<<"encontrado en cubo offset: "<<this->offsetCube<<endl;
 			return record;
+		}
 	}
 	return NULL;
 }
