@@ -15,7 +15,6 @@ using namespace std;
 #include<string>
 #include "Cubo.h"
 #include "RegistroClaveHash.h"
-Z
 class Tabla {
 private:
 	vector<int> offsetCubos;
