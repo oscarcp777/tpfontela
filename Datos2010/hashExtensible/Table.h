@@ -29,9 +29,14 @@ private:
 	int sizeTable;
 	vector<int> offsetFreeCubes;
 	vector<int> offsetCubes;
+	int diferentDispersionAndSizeTable(int index);
+	int equalsDispersionAndSizeTable(int index);
 public:
 	Table();
 	virtual ~Table();
+	bool existOverflow(int offsetCube,Record*  record);
+	int overFlowInCube(int index);
+	int reallocate();
 	int duplicateTable();
 	int insert(Record* record);
 	int remove(int key);

@@ -13,7 +13,12 @@ Cube::Cube( int sizeOfDispersion, int offset){
 	this->offsetCube = offset;
 	this->sizeOfDispersion=sizeOfDispersion;
 	this->sizeCube=SIZE_CUBE;
-	this->sizeFree = SIZE_CUBE;
+	/*EL TAMANIO LIBRE DEL BLOQUE ES LO QUE QUEDA DE LO RESERVO PARA LA METADATA
+	 * Y EL PORCENTAJE DE ESPACIO LIBRE QUE GUARDO DE RESGUARDO PARA FUTURAS
+	 * MODIFICACIONES DE LO REGISTROS
+	 */
+	int minumumSpaceFree=PORCENT_FREE_CUBE*this->sizeCube;
+	this->sizeFree =this->sizeCube- (minumumSpaceFree+SIZE_METADATA);
 	this->buffer= new Buffer(SIZE_CUBE);
 
 }
@@ -106,10 +111,7 @@ int Cube::reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int
 
 
 bool Cube::hasSpace(int size){
-	// el tamanio del registro mas el espacio minimo necesario que debe de tener el cubo
-	//tiene que ser menor que el tamanio libre
-	int minimumSpace=size+PORCENT_FREE_CUBE*SIZE_CUBE;
-	return(this->sizeFree > minimumSpace);
+	return(this->sizeFree >= size);
 }
 
 
@@ -127,14 +129,15 @@ int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
 		record->clear();
 		this->buffer->unPackField(&(size),sizeof(size));
 		this->buffer->unPackField(&key,sizeof(key));
-		//cout<<"en LOAD CUBE size a unPack "<<size<<endl;
-		char* data=new char[size*2];
-		memset(data,0,size*2);
+		//*########################################
+		 /* aca el tamanio esta bien el rpimero que lee que es el tamanio de la data no de
+		  * todo el registro solo es necesario este size no el size*2
+		  */
+		char* data=new char[size];
+		memset(data,0,size);
 		this->buffer->unPackField(data,size);
-		//cout<<"en LOAD CUBE data "<<data<<endl;
 		record->setKey(key);
 		record->setData(data);
-		//cout<<"en LOAD CUBE record->getData() "<<record->getData()<<endl;
 		this->records.push_back(record);
 	}
 
@@ -145,14 +148,11 @@ int Cube::addRecord(Record *record)
 {
 	int diferentSize=0;
 	Record* recordFound=this->search(record->getKey());
-	if(recordFound==NULL){// si no lo encontro me fijo si hay espacio para el
-		if(this->hasSpace(record->getSizeRecord())){
+	if(recordFound==NULL){
 			this->records.push_back(record);
 			this->sizeFree=this->sizeFree-record->getSizeRecord();
 			return TRUE;
-		}else{
-			return FALSE;
-		}
+
 	}else{// si lo encontro lo actualizo
 		if(record->getSizeRecord()>recordFound->getSizeRecord()){
 			diferentSize=record->getSizeRecord()-recordFound->getSizeRecord();

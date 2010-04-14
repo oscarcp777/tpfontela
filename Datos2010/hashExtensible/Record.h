@@ -8,8 +8,8 @@
 #ifndef RECORD_H_
 #define RECORD_H_
 #include <string>
-
-
+#include <iostream>
+using namespace std;
 class Record {
 private:
    int key;

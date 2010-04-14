@@ -38,6 +38,7 @@ private:
 	int writeMetadata();
 	int getDiskPosition();
 	int addRecordList(Record* record);
+
 public:
 	Cube( int sizeOfDispersion,int offset);
 	virtual ~Cube();
@@ -63,8 +64,9 @@ public:
 
 
 
-
-
+    list<Record*>::iterator getIteratorRecord(){
+    		return this->records.begin();
+    	}
 
 
 
