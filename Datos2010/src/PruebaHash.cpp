@@ -71,6 +71,15 @@ void createHashTable2(){
 	delete hash;
 	cout<<"Borro todo bien "<<endl;
 }
+void openHashTable2(){
+	HashExtensible* hash = new HashExtensible();
+	//hash->open("files/hash2");
+	hash->open("files/hash3");
+	cout<<"data encontrada : " <<hash->search(510)<<endl;
+	hash->close();
+	delete hash;
+	cout<<"FIN PRUEBA "<<endl;
+}
 void openHash(){
 	HashExtensible* hash = new HashExtensible();
 	//hash->open("files/hash2");
@@ -99,8 +108,8 @@ int main(){
 	 *   |4|4|4|-> METADATA PARA REGISTROS-> |4|4|4|4|4|4|4|4|4|4|4|4|4|4|4|     LIBRE ->|4|4|4|
 	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
 	 */
-	createHashTable2();
-	//openHash();
+	//createHashTable2();
+	openHashTable2();
 
 	return 0;
 }
