@@ -63,12 +63,12 @@ int Table::close(){
 
 
 int Table::duplicateTable(){
-	this->print(NULL);
+
 	for(int i= 0 ; i< this->sizeTable; i++ ){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
-
+	this->print(NULL);
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
@@ -76,7 +76,7 @@ int Table::diferentDispersionAndSizeTable(int index){
 	//tamaño sispersion <> tamaño tabla
 	unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
 	this->currentCube->setSizeOfDispersion(dispersionSize*2);
-	this->countsCubes++;
+	//this->countsCubes++;
 	int offsetNewCube;
 
 	if(this->offsetFreeCubes.size() == 0)//si no tengo cubos libres le asigno el numero siguiente
@@ -95,15 +95,19 @@ int Table::diferentDispersionAndSizeTable(int index){
 
 	for(int j = index; j>=0; j-=newCube->getSizeOfDispersion())
 		this->offsetCubes[j] = newCube->getOffsetCube();
-	newCube->writeCube(fileCubes);
-	delete newCube;
 
+	this->currentCube->writeCube(fileCubes);
+	newCube->writeCube(fileCubes);
+	this->countsCubes++;
+	delete newCube;
+	this->print(NULL);
 	return 1;
 }
 int Table::equalsDispersionAndSizeTable(int index){
 	Cube* newCube;
 	this->duplicateTable();
 	this->currentCube->setSizeOfDispersion(this->sizeTable);
+	cout<<"this->countsCubes "<<this->countsCubes<<endl;
 	newCube = new Cube(this->sizeTable,this->countsCubes);
 
 	int size = this->offsetFreeCubes.size();
@@ -117,6 +121,8 @@ int Table::equalsDispersionAndSizeTable(int index){
 		vector<int>::iterator it = this->offsetFreeCubes.begin();
 		this->offsetFreeCubes.erase(it);
 	}
+	this->countsCubes++;
+	this->currentCube->writeCube(fileCubes);
 	newCube->writeCube(fileCubes);
 	delete newCube;
 	return 1;
@@ -136,10 +142,12 @@ int Table::insert(Record* record){
 		while(this->existOverflow(offset,record)){
 			this->overFlowInCube(index,offset);
 			index = Hash::hashMod(record->getKey(),this->sizeTable);
+			offset = this->offsetCubes[index];
 		}
 		// cuando ya redistribui todo y ya se que hay lugar inserto el nuevo registro
-		int index = Hash::hashMod(record->getKey(),this->sizeTable);
-		int offset = this->offsetCubes[index];
+		this->print(NULL);
+		index = Hash::hashMod(record->getKey(),this->sizeTable);
+		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
 		this->currentCube->addRecord(record);
 		this->currentCube->writeCube(this->fileCubes);
@@ -155,6 +163,9 @@ bool Table::existOverflow(int offsetCube,Record*  record){
 int Table::overFlowInCube(int index,int offsetCubeOverFlow ){
 	/*	Si no hay lugar
 			    1. Tamaño de dispersión = tamaño de tabla*/
+	cout<<"this->currentCube->getSizeOfDispersion() "<<this->currentCube->getSizeOfDispersion() <<endl;
+	cout<<"this->currentCube->getOffsetCube() "<<this->currentCube->getOffsetCube() <<endl;
+	cout<<"this->sizeTable "<<this->sizeTable <<endl;
 	if(this->currentCube->getSizeOfDispersion() == this->sizeTable){
 		this->equalsDispersionAndSizeTable(index);
 	}
@@ -178,10 +189,14 @@ int Table::reallocate(int offsetCubeOverFlow){
 		int max=this->currentCube->getNumberOfRecords();
 		for (int var = 0; var < max; var++) {
 			record = *iterRecord;
-			if(offsetCubeOverFlow != offsetCubes[Hash::hashMod(record->getKey(),this->sizeTable)]){
-				this->loadCube(offsetCubeOverFlow,newCube);
+			int newOffset = this->offsetCubes[Hash::hashMod(record->getKey(),this->sizeTable)];
+			cout<<"offsetCubeOverFlow "<<offsetCubeOverFlow<<endl;
+			cout<<" newOffset "<<newOffset<<endl;
+
+			if(offsetCubeOverFlow != newOffset){
+				this->loadCube(newOffset,newCube);
 				newCube->addRecordList(record);
-				newCube->setSizeFree( newCube->getSizeFree()+record->getSizeRecord());
+				newCube->setSizeFree( newCube->getSizeFree()-record->getSizeRecord());
 				this->currentCube->eraseRecordList(iterRecord,record);
 				iterRecord--;
 				newCube->writeCube(fileCubes);

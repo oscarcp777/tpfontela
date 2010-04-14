@@ -37,7 +37,6 @@ private:
 	int loadMetadata();
 	int writeMetadata();
 	int getDiskPosition();
-	int addRecordList(Record* record);
 
 
 public:
@@ -62,6 +61,8 @@ public:
 	int loadCube(BinaryFile* fileCube,int offsetCube);
 	int print(TextFile* output);
     int clear();
+    int addRecordList(Record* record);
+
 
 
 
