@@ -90,6 +90,11 @@ int Cube::addRecordList(Record* record){
   this->sizeFree=this->sizeFree-record->getSizeRecord();
   return TRUE;
 }
+int eraseRecordList(list<Record*>::iterator iterRecord,Record* record ){
+	this->records.erase(iterRecord);
+	  this->sizeFree=this->sizeFree+record->getSizeRecord();
+	  return TRUE;
+}
 int Cube::reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int sizeTable){
 	list<Record*>::iterator iterRecord = this->records.begin();
 		Record* record;
