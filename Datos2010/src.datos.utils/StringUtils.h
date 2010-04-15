@@ -26,7 +26,16 @@ public:
 	static int contadorTag(std::string cadena);
 	static  std::string convertirAString( int numero);
 
-private:
+	/*
+	 * Metodos de la nueva version.
+	 *
+	 */
+	/*
+	 * Funcion que convierte un numero entero al mismo
+	 * numero en una cadena de caracteres.
+	 */
+	static string convertIntToString(int numero);
 
+	static string joinStringCmdLine(int argc, char* const argv[]);
 };
 #endif

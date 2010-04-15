@@ -2,7 +2,7 @@
  * Logger.cpp
  *
  *  Created on: 26/03/2010
- *      Author: nelson
+ *      Author: nelson ramos
  */
 
 #include "Logger.h"
@@ -10,6 +10,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "../src.datos.utils/Define.h"
+#include "../src.datos.utils/StringUtils.h"
 
 Logger* Logger::logger = NULL;
 
@@ -55,7 +56,7 @@ std::string Logger::getTimeSystem(){
 }
 void Logger::split(string cadena){
 
-	string numero = this->convertIntToString(this->coutFiles);
+	string numero = StringUtils::convertIntToString(this->coutFiles);
 	fstream newFile;
 	string newPath = PATH_LOGGER + numero;
 	rename(PATH_LOGGER,newPath.c_str());
@@ -66,26 +67,8 @@ void Logger::split(string cadena){
 	fstream config;
 	this->open(&config,PATH_CONFIG);
 	config.seekg(0,ios::beg);
-	config << this->convertIntToString(this->coutFiles) << std::endl;
+	config << StringUtils::convertIntToString(this->coutFiles) << std::endl;
 	config.close();
-}
-
-string Logger::convertIntToString(int numero){
-
-	string retorno;
-	int temp;
-	int tempCountFiles = numero;
-
-	while((tempCountFiles/ 10) != 0){
-		temp = tempCountFiles % 10;
-		tempCountFiles = tempCountFiles/10;
-		temp =temp + 48;
-		retorno = (char)temp + retorno;
-	}
-
-	tempCountFiles = tempCountFiles + 48;
-	retorno = (char)tempCountFiles + retorno ;
-	return retorno;
 }
 
 Logger::Logger(int sizeFile){
@@ -112,12 +95,11 @@ Logger::Logger(int sizeFile){
 
 	getline(config,cadena);
 	fileCount = atoi(cadena.c_str());
-	//Verificamos si el archivo se creo vacio, si es asi la variable toma
-	//el valor inicia 1.
+
 	if(fileCount==0){
 
 		fileCount = 1;
-		this->write(&config,this->convertIntToString(fileCount));
+		this->write(&config,StringUtils::convertIntToString(fileCount));
 	}
 
 	this->sizeFile = sizeFile - sizeTemp;
@@ -169,7 +151,7 @@ void Logger::print(string fileName){
 	 */
 	while(countFileTemp > 0){
 
-		this->open(&logTemp,PATH_LOGGER + this->convertIntToString(countFileTemp));
+		this->open(&logTemp,PATH_LOGGER + StringUtils::convertIntToString(countFileTemp));
 		while(!logTemp.eof()){
 			getline(logTemp,cadena);
 			if(cadena!=""){
@@ -179,7 +161,9 @@ void Logger::print(string fileName){
 		logTemp.close();
 		countFileTemp--;
 	}
-
+	//Cierro el archivo actual para posicionarme al comienzo de este
+	//para copiar el contenido en el archivo nuevo. No lo cierro para
+	//poder seguir escribiendo sobre este.
 	this->file.close();
 	this->open(&this->file,PATH_LOGGER);
 	while(!this->file.eof()){
@@ -188,29 +172,30 @@ void Logger::print(string fileName){
 	}
 	result.close();
 }
+
 void Logger::search(string cadena){
 
+	//Me genero un archivo nuevo con todo los log juntos
+	//para realizar la busqueda sobre este.
 	this->print("temp");
 	fstream temp;
 	string linea;
+	string lineaTemp;
+
 	this->open(&temp,PATH_TEMP);
 
 	while(!temp.eof()){
 		getline(temp,linea);
+		lineaTemp = linea;
 		int flag = linea.find(cadena);
 		if(flag != -1){
-			std::cout << linea << std::endl;
+			std::cout << lineaTemp << std::endl;
 		}
 	}
 	temp.close();
 	remove(PATH_TEMP);
 }
-/*
- * El logger se instancia al comienzo de la aplicacion
- * por lo tanto cuando esta se termine llamara al destructor
- * del logger automaticamente y es ahi donde se cierran los archivos
- * y liberan los recursos.
- */
+
 Logger::~Logger(){
 
 	//Cierra el archivos abierto.

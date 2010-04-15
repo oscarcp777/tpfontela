@@ -1,8 +1,7 @@
 
-#include "stdio.h"
-#include "stdlib.h"
 #include "Logger.h"
 #include "getopt.h"
+#include "../src.datos.utils/StringUtils.h"
 
 static void search(Logger* logger,string cadena){
 
@@ -46,10 +45,10 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 			"B:I:S:h", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				search(logger,optarg);
+				search(logger,StringUtils::joinStringCmdLine(argc,argv));
 				break;
 			case 'I':
-				insert(logger,optarg);
+				insert(logger,StringUtils::joinStringCmdLine(argc,argv));
 				break;
 			case 'S':
 				print(logger,optarg);
@@ -63,7 +62,7 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 	}
 }
 
-int main34(int argc, char * const argv[]){
+int main(int argc, char * const argv[]){
 
 	Logger* logger = Logger::getUnicaInstancia();
 	parse_cmdline(logger,argc,argv);
