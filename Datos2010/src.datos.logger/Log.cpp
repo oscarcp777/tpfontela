@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "getopt.h"
 #include "../src.datos.utils/StringUtils.h"
+#include "../src.datos.utils/ParserInput.h"
 
 static void search(Logger* logger,string cadena){
 
@@ -66,5 +67,12 @@ int main(int argc, char * const argv[]){
 
 	Logger* logger = Logger::getUnicaInstancia();
 	parse_cmdline(logger,argc,argv);
+
+	std::string cadena = "(12345;nelson ramos aruquipa)";
+	ParserInput parser(cadena);
+	std::cout << cadena.length()<< std::endl;
+	std::cout << parser.getKey() << std::endl;
+	std::cout << parser.getData() << std::endl;
+
 	return 0;
 }

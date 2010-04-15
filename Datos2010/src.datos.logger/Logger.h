@@ -25,8 +25,8 @@ private:
 
 	/*
 	 * Apertura del archivo, si este está creado lo abre,
-	 * si no esta creado lo crea y lo deja en uns estado
-	 * para su utilizacion.
+	 * si no esta creado lo crea y lo deja en un estado
+	 * valido para su utilizacion.
 	 *
 	 * @param	file: Archivo que se va a abrir.
 	 * @param	fileName: Nombre del archivo que se va a abrir.
