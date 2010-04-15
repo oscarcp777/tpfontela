@@ -31,6 +31,7 @@ private:
 	vector<int> offsetCubes;
 	int diferentDispersionAndSizeTable(int index);
 	int equalsDispersionAndSizeTable(int index);
+	int calculateIndex(int* indexUp, int* indexDown, int index);
 public:
 	Table();
 	virtual ~Table();

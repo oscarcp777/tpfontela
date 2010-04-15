@@ -57,7 +57,6 @@ public:
 	int remove(int key);
 	Record* search(int key);
 	int writeCube(BinaryFile* fileCube);
-	int reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int sizetable);
 	int loadCube(BinaryFile* fileCube,int offsetCube);
 	int print(TextFile* output);
     int clear();
@@ -76,7 +75,8 @@ public:
 
 	int getNumberOfRecords() const
 	{
-		return this->records.size();
+		int number=this->records.size();
+		return number;
 	}
 
 	int getOffsetCube() const

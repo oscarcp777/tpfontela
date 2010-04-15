@@ -27,6 +27,6 @@ int Record::getSizeDataRecord(){
 }
 int Record::getSizeRecord(){
 	int lenght=2*sizeof(this->key)+this->data.length();
-	cout<<" tamanio del registro "<<lenght<<endl;
+
 	return lenght;
 }
