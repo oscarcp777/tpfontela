@@ -42,9 +42,7 @@ void File::read(char* buffer, int tamanio, int pos){
 
 		if(pos>=0)
 			this->file.seekg(pos);
-		cout<<"Lee del archivo del ( "<<this->file.tellg()<<" || ";
 		this->file.read(buffer,tamanio);
-		cout<<this->file.tellg()<<" )"<<endl;
 	}
 	else {
 		/* arroja una excepción porque el file no está abierto */
@@ -57,9 +55,6 @@ void File::readInteger(int* num, int pos){
 			if(pos>=0)
 				this->file.seekg(pos);
 			this->file.read(reinterpret_cast<char*>(num),sizeof(num));
-			cout<<this->file.tellg()<<endl;
-			cout<<this->file.good()<<endl;
-			cout<<*num<<endl;
 		}
 		else {
 			/* arroja una excepción porque el file no está abierto */

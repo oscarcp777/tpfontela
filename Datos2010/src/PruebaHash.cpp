@@ -32,8 +32,6 @@ void createHashTable(){
 	hash->insert(56739,(char*)cadena7.c_str());
 	hash->insert(87346,(char*)cadena8.c_str());
 	hash->insert(87345,(char*)cadena9.c_str());
-	hash->print(NULL);
-
 	hash->close();
 
 	delete hash;
@@ -44,28 +42,32 @@ void createHashTable2(){
 	hash->create("files/hash3");
 
 	//+123, +915, +629, +411, +200, +863, -629, +408, +34, +510, -863, +775
-	string cadena1 = "reg1";
-	string cadena2 = "reg2";
-	string cadena3 = "reg3";
-	string cadena4=  "reg4";
-	string cadena5 = "reg5";
-	string cadena6 = "reg6";
-	string cadena7 = "reg7";
-	string cadena8 = "reg8";
-	string cadena9 = "reg9";
-	string cadena10 = "re10";
+	string cadena1 = "r123";
+	string cadena2 = "r915";
+	string cadena3 = "r629";
+	string cadena4=  "r411";
+	string cadena5 = "r200";
+	string cadena6 = "r863";
+	string cadena7 = "r408";
+	string cadena8 = "re34";
+	string cadena9 = "r510";
+	string cadena10 = "r775";
 	hash->insert(123,(char*)cadena1.c_str());
 	hash->insert(915,(char*)cadena2.c_str());
 	hash->insert(629,(char*)cadena3.c_str());
 	hash->insert(411,(char*)cadena4.c_str());
 	hash->insert(200,(char*)cadena5.c_str());
 	hash->insert(863,(char*)cadena6.c_str());
+	hash->remove(629);
 	hash->insert(408,(char*)cadena7.c_str());
 	hash->insert(34,(char*)cadena8.c_str());
 	hash->insert(510,(char*)cadena9.c_str());
+	hash->remove(863);
 	hash->insert(775,(char*)cadena10.c_str());
-	hash->print(NULL);
-
+	hash->remove(775);
+	hash->remove(200);
+	hash->remove(408);
+	hash->remove(34);
 	hash->close();
 
 	delete hash;
@@ -98,6 +100,17 @@ void openHash(){
 	delete hash;
 	cout<<"FIN PRUEBA "<<endl;
 }
+void colapsarTabla(){
+	HashExtensible* hash = new HashExtensible();
+	hash->open("files/hash3");
+	hash->print(NULL);
+		cout<<"data borrada : " <<hash->remove(915)<<endl;
+//	    cout<<"data borrada : " <<hash->remove(123)<<endl;
+
+		hash->close();
+		delete hash;
+		cout<<"FIN PRUEBA colapsar"<<endl;
+}
 int main(){
    /****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
@@ -109,7 +122,8 @@ int main(){
 	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
 	 */
 	//createHashTable2();
-	openHashTable2();
+	//openHashTable2();
+	colapsarTabla();
 
 	return 0;
 }

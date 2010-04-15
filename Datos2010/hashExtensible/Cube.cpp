@@ -75,10 +75,8 @@ int Cube::writeCube(BinaryFile *fileCube)
 		record=*iterRecord;
 		int size=record->getSizeDataRecord();
 		int key=record->getKey();
-		//cout<<"en WRITE CUBE size a pack "<<size<<endl;
 		this->buffer->packField(&(size),sizeof(size));
 		this->buffer->packField(&key,sizeof(key));
-		//cout<<"en WRITE CUBE record->getData() "<<record->getData()<<endl;
 		this->buffer->packField(record->getData(),size);
 
 	}
@@ -93,28 +91,9 @@ int Cube::addRecordList(Record* record){
 }
 
 int Cube::eraseRecordList(list<Record*>::iterator iterRecord,Record* record ){
-	this->records.erase(iterRecord);
 	this->sizeFree=this->sizeFree+record->getSizeRecord();
+	this->records.erase(iterRecord);
 	return TRUE;
-}
-
-int Cube::reallocate(vector<int> offsetCubes,Record* newRecord,Cube* newCube,int sizeTable){
-	list<Record*>::iterator iterRecord = this->records.begin();
-		Record* record;
-		this->records.push_back(newRecord);//agrego el nuevo registro que produjo el desborde asi lo distribuye
-		int max=this->records.size();
-		for (int var = 0; var < max; var++) {
-			record = *iterRecord;
-			if(this->offsetCube != offsetCubes[Hash::hashMod(record->getKey(),sizeTable)]){
-				newCube->addRecordList(record);
-				this->sizeFree = this->sizeFree+record->getSizeRecord();
-				this->records.erase(iterRecord);
-				iterRecord--;
-			}
-			iterRecord++;
-		}
-
-	return 1;
 }
 
 
@@ -180,12 +159,13 @@ int Cube::remove(int key){
 	int found=FALSE;
 	Record* record;
 	int max=this->records.size();
-	for (int var = 0; var <= max; ++var) {
+	for (int var = 0; var < max; ++var) {
 		record = *iterRecord;
 		if(key==record->getKey()){
 			found=TRUE;
-			delete record;
+			this->sizeFree += record->getSizeRecord();
 			this->records.erase(iterRecord);
+			delete record;
 			break;
 		}
 		iterRecord++;
@@ -201,7 +181,6 @@ Record *Cube::search(int key)
 	for (iterRecord=this->records.begin(); iterRecord!=this->records.end(); iterRecord++){
 		record=*iterRecord;
 		if(key==record->getKey()){
-			cout<<"encontrado en cubo offset: "<<this->offsetCube<<endl;
 			return record;
 		}
 	}
