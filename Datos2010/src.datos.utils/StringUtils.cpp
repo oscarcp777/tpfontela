@@ -206,3 +206,38 @@ std::string StringUtils::trimPalabra(std::string cadena){
   }
     return cadenaSinEspacios;
 }
+
+/*
+ *
+ */
+string StringUtils::convertIntToString(int numero){
+
+	string retorno;
+	int temp;
+	int tempCountFiles = numero;
+
+	while((tempCountFiles/ 10) != 0){
+		temp = tempCountFiles % 10;
+		tempCountFiles = tempCountFiles/10;
+		temp =temp + 48;
+		retorno = (char)temp + retorno;
+	}
+
+	tempCountFiles = tempCountFiles + 48;
+	retorno = (char)tempCountFiles + retorno ;
+	return retorno;
+}
+
+string StringUtils::joinStringCmdLine(int argc, char* const argv[]){
+
+	string retorno = "";
+	for(int i=2;i<argc;i++){
+
+		if(i == (argc-1)){
+			retorno = retorno + argv[i];
+		}else{
+			retorno = retorno + argv[i] + " ";
+		}
+	}
+	return retorno;
+}
