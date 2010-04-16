@@ -40,7 +40,7 @@ public:
 
 	~BPlusTree() {
 		close();
-		delete this->nodes;
+
 	}
 
 
@@ -78,6 +78,7 @@ public:
 		if (!result) return result;
 		result = this->bTreeFile.write(this->root);
 		if (result == -1) return 0;
+		delete this->nodes;
 		return this->bTreeFile.close();
 	}
 
@@ -169,11 +170,7 @@ char* search(const keyType key, int dir = -1){
 
 	void  print(ostream & stream, int dirNodo, int level){
 
-		BNode* currentNode = this->fetch(dirNodo);
-		if (level == this->height)
-			currentNode->setIsLeaf(1);
-		else
-			currentNode->setIsLeaf(0);
+		BNode* currentNode = this->fetch(dirNodo, level);
 		stream << "\nNodo en nivel "<<level<<" direccion " << dirNodo<< " ";
 		currentNode->print(stream);
 		if (this->height > level){
@@ -183,7 +180,7 @@ char* search(const keyType key, int dir = -1){
 			}
 			stream << "final del nivel "<<level <<endl;
 		}
-
+		delete currentNode;
 
 	}
 
@@ -208,7 +205,7 @@ protected:
 //			recaddr = this->nodes[level-1]->search(key,-1,0);
 			recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
 //			if (this->nodes[level]->getRecAddr() != recaddr)
-				this->nodes[level] = this->fetch(recaddr);
+				this->nodes[level] = this->fetch(recaddr,level+1);
 			if (level + 1 == this->height)
 				this->nodes[level]->setIsLeaf(1);
 			else
@@ -226,9 +223,13 @@ protected:
 		return newNode;
 	}
 
-	BTreeNode<keyType>*  fetch(int recAddr){
+	BTreeNode<keyType>*  fetch(int recAddr, int level){
 		//carga este nodo desde el archivo en un nuevo nodo
 		BNode* newNode = new BNode(this->blockSize,this->keySize);
+		if (level == this->height)
+			newNode->setIsLeaf(1);
+		else
+			newNode->setIsLeaf(0);
 		int result = this->bTreeFile.read(*newNode,recAddr);
 		if (result == -1) return NULL;
 		newNode->setRecAddr(result);
