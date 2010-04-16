@@ -21,7 +21,7 @@ void VariableFieldBuffer::clear(){
 int VariableFieldBuffer::pack(const void* field, int size){
 	short len;// longitud de la cadena para ser embalado
 	if(size>=0)len=size;
-	else len=strlen((char*)field);
+	else len=sizeof((char*)field);
 	int start =this->nextByte;
 	this->nextByte+=(len+sizeof(len));
 	if(this->nextByte>this->maxBytes){return -1;}
