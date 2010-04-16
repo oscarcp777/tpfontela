@@ -1,0 +1,25 @@
+/*
+ * EstrategiaIndice.cpp
+ *
+ *  Created on: 19/09/2009
+ *      Author: richy
+ */
+
+#include "EstrategiaIndice.h"
+
+EstrategiaIndice::EstrategiaIndice() {
+	// TODO Auto-generated constructor stub
+
+}
+
+EstrategiaIndice::~EstrategiaIndice() {
+	// TODO Auto-generated destructor stub
+}
+std::string EstrategiaIndice::toString(){
+   	return "EstrategiaIndice";
+   }
+int EstrategiaIndice::setArchivo(char* nombre, char* ruta){
+	this->archivoIndice->setNombreArchivo(nombre);
+	this->archivoIndice->setRuta(ruta);
+   return 0;
+}
