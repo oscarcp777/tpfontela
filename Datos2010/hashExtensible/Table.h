@@ -10,6 +10,7 @@
 #include "Record.h"
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
+#include "../src.datos.storage/TextFile.h"
 #include "Cube.h"
 #include "Hash.h"
 #include <vector>
@@ -23,6 +24,7 @@ class Table {
 private:
 	BinaryFile* fileTable;
 	BinaryFile* fileCubes;
+	TextFile* output;
 	BinaryFile* fileCubesFree;
 	int countsCubes;
 	Cube* currentCube;
@@ -32,6 +34,8 @@ private:
 	int diferentDispersionAndSizeTable(int index);
 	int equalsDispersionAndSizeTable(int index);
 	int calculateIndex(int* indexUp, int* indexDown, int index);
+	void printCubes();
+	string fileNameOutput;
 public:
 	Table();
 	virtual ~Table();
@@ -53,7 +57,7 @@ public:
 	int readFreeCubes();
 	int writeFreeCubes();
 	int writeFirstCube();
-	void print(fstream* output);
+	void print(string output,bool cubes);
 
 	int getCountsCubes() const
     {

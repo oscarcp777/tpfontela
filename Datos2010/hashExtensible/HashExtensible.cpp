@@ -63,8 +63,9 @@ return this->table->remove(key);
 
 
 
-void HashExtensible::print(fstream *output){
-	this->table->print(output);
+void HashExtensible::print(string fileName){
+
+	this->table->print(fileName,true);
 }
 
 int HashExtensible::close()

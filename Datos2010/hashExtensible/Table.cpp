@@ -13,9 +13,12 @@ Table::Table() {
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
 	this->currentCube = new Cube(1,0);
+	this->output=new TextFile();
 	this->countsCubes = 1;
 	this->sizeTable = 1;
 	this->offsetCubes.size();
+	this->fileNameOutput="files/hash";
+	this->output->open(this->fileNameOutput);
 	//	this->countsCubes = 4;
 	//	this->sizeTable = 4;
 	//	this->offsetCubes.push_back(2);
@@ -47,6 +50,8 @@ int Table::openFiles(string fileName){
 	return 0;
 }
 int Table::close(){
+	this->print(this->fileNameOutput,true);//TODO borrar el print
+  this->output->close();
 	this->fileCubes->close();
 
 	this->fileCubesFree->clear();//hace que el archivo se pise completo
@@ -57,7 +62,7 @@ int Table::close(){
 	this->writeTable();
 	this->fileTable->close();
 
-	this->print(NULL);//TODO borrar el print
+
 	return 1;
 }
 
@@ -68,7 +73,7 @@ int Table::duplicateTable(){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
-	this->print(NULL);
+	this->print(this->fileNameOutput,false);//TODO borrar el print
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
@@ -100,7 +105,7 @@ int Table::diferentDispersionAndSizeTable(int index){
 	newCube->writeCube(fileCubes);
 	this->countsCubes++;
 	delete newCube;
-	this->print(NULL);
+	this->print("hash",false);//TODO borrar el print
 	return 1;
 }
 int Table::equalsDispersionAndSizeTable(int index){
@@ -144,8 +149,9 @@ int Table::insert(Record* record){
 			index = Hash::hashMod(record->getKey(),this->sizeTable);
 			offset = this->offsetCubes[index];
 		}
+		cout<<"hola"<<endl;
 		// cuando ya redistribui todo y ya se que hay lugar inserto el nuevo registro
-		this->print(NULL);
+		this->print(this->fileNameOutput,false);//TODO borrar el print
 		index = Hash::hashMod(record->getKey(),this->sizeTable);
 		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
@@ -222,15 +228,15 @@ int Table::calculateIndex(int* indexUp, int* indexDown, int index){
 	int numberOfMovements=(this->currentCube->getSizeOfDispersion()/2);
 	(*indexUp) = index -numberOfMovements;
 	(*indexDown) = index + numberOfMovements;
-	  cout<<" indexUp"<<(*indexUp)<<endl;
-	  cout<<" indexDown"<<(*indexDown)<<endl;
+	cout<<" indexUp"<<(*indexUp)<<endl;
+	cout<<" indexDown"<<(*indexDown)<<endl;
 	if((*indexUp) < 0)
-			(*indexUp) = this->sizeTable + *indexUp;
+		(*indexUp) = this->sizeTable + *indexUp;
 
-     if((*indexDown) > this->sizeTable)
-	    	 (*indexDown) = (*indexDown) - this->sizeTable;
-     cout<<" indexUp"<<(*indexUp)<<endl;
-     cout<<" indexDown"<<(*indexDown)<<endl;
+	if((*indexDown) > this->sizeTable)
+		(*indexDown) = (*indexDown) - this->sizeTable;
+	cout<<" indexUp"<<(*indexUp)<<endl;
+	cout<<" indexDown"<<(*indexDown)<<endl;
 	return 1;
 }
 int Table::remove(int key){
@@ -239,8 +245,8 @@ int Table::remove(int key){
 	int result = this->loadCube(offset,this->currentCube);
 	if(result){
 		int goodDelete=this->currentCube->remove(key);
-           if(goodDelete==0)
-        	   return 0;
+		if(goodDelete==0)
+			return 0;
 		this->currentCube->writeCube(this->fileCubes);
 		if(this->currentCube->getNumberOfRecords() == 0){//si queda vacio
 			int indexUp;
@@ -273,18 +279,18 @@ int Table::remove(int key){
 			}
 			//guardo el cubo con su nuevo numero de dispersion
 			this->currentCube->writeCube(this->fileCubes);
-			this->print(NULL);
+			this->print(this->fileNameOutput,false);//TODO borrar el print
 			return 1;
 		}
 
 	}
 	else{
-		this->print(NULL);
+		this->print(this->fileNameOutput,false);//TODO borrar el print
 		return -1;
 	}
 
 	this->currentCube->writeCube(this->fileCubes);
-	this->print(NULL);
+	this->print(this->fileNameOutput,false);//TODO borrar el print
 	return 1;
 }
 int Table::isTableDuplicate(){
@@ -300,16 +306,59 @@ void Table::collapse(){
 	this->offsetCubes.resize(this->sizeTable);
 
 }
-void Table::print(fstream *output){
-	cout<<"*************TABLA*************"<<endl;
-	cout<<"tamaño tabla= "<<this->sizeTable<<" || cant. Cubos="<<this->countsCubes<<endl;
-	for(int i=0; i<this->sizeTable; i++)
-		cout<<"["<<i<<"] = "<<this->offsetCubes[i]<<endl;
+void Table::printCubes(){
+	string buffer;
+	cout<<"************* CUBOS *************"<<endl;
+	this->output->write("************* CUBOS *************");
+	for(int i=0; i<this->countsCubes; i++){
+		this->loadCube(i,this->currentCube);
+		this->currentCube->print(this->output);
+	}
+	cout<<"*************FIN  CUBOS *************"<<endl;
+	this->output->write("*************FIN CUBOS *************");
 
-	cout<<"cant. Cubos libres= "<<this->offsetFreeCubes.size()<<endl;
-	for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++)
-		cout<<this->offsetFreeCubes[i]<<endl;
+}
+void Table::print(string fileName,bool cubes){
+
+
+	string buffer;
+	this->output->write("*************TABLA*************");
+	cout<<"*************TABLA*************"<<endl;
+	buffer.append("tamaño tabla= ");
+	buffer.append(StringUtils::convertirAString(this->sizeTable));
+	buffer.append(" || cant. Cubos=");
+	buffer.append(StringUtils::convertirAString(this->countsCubes));
+	cout<<buffer<<endl;
+	this->output->write(buffer);
+	buffer.clear();
+	for(int i=0; i<this->sizeTable; i++){
+		buffer.append("[");
+		buffer.append(StringUtils::convertirAString(i));
+		buffer.append("] = ");
+		buffer.append(StringUtils::convertirAString(this->offsetCubes[i]));
+		cout<<buffer<<endl;
+		this->output->write(buffer);
+		buffer.clear();
+	}
+
+	buffer.append("cant. Cubos libres= :");
+	buffer.append(StringUtils::convertirAString(this->offsetFreeCubes.size()));
+	cout<<buffer<<endl;
+	this->output->write(buffer);
+	buffer.clear();
+	for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++){
+		buffer.append(StringUtils::convertirAString(this->offsetFreeCubes[i]));
+		buffer.append(" | ");
+
+	}
+	cout<<buffer<<endl;
+	this->output->write(buffer);
 	cout<<"*************FIN  TABLA*************"<<endl;
+	this->output->write("*************FIN  TABLA*************");
+	if(true){
+		this->printCubes();
+	}
+
 }
 
 int Table::readTable(){
