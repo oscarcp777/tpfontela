@@ -66,7 +66,6 @@ void File::readInteger(int* num, int pos){
 int File::write(std::string registro){
 
 	if (this->file.is_open()) {
-		this->irAlFinal();
 		this->file << registro<<endl;
 
 		if (this->file.fail())

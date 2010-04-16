@@ -63,7 +63,7 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 	}
 }
 
-int main(int argc, char * const argv[]){
+int main333(int argc, char * const argv[]){
 
 	Logger* logger = Logger::getUnicaInstancia();
 	parse_cmdline(logger,argc,argv);

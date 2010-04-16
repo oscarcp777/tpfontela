@@ -26,7 +26,7 @@ public:
 	int insert(int key,char* data);
 	int remove(int key);
 	char* search(int key);
-	void print(fstream* output);
+	void print(string fileName);
 
 
     Table *getTable() const

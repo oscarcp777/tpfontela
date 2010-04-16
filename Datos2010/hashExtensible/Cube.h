@@ -15,6 +15,7 @@
 #include "../src.datos.storage/BinaryFile.h"
 #include "../src.datos.storage/TextFile.h"
 #include "../src.datos.storage/Buffer.h"
+#include "../src.datos.utils/StringUtils.h"
 #include "Hash.h"
 #include <vector>
 using namespace std;

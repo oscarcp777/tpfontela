@@ -103,7 +103,7 @@ void openHash(){
 void colapsarTabla(){
 	HashExtensible* hash = new HashExtensible();
 	hash->open("files/hash3");
-	hash->print(NULL);
+	hash->print("files/hash");
 		cout<<"data borrada : " <<hash->remove(915)<<endl;
 //	    cout<<"data borrada : " <<hash->remove(123)<<endl;
 
@@ -111,7 +111,7 @@ void colapsarTabla(){
 		delete hash;
 		cout<<"FIN PRUEBA colapsar"<<endl;
 }
-int mainsdfsdf(){
+int main(){
    /****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
 	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
@@ -121,9 +121,9 @@ int mainsdfsdf(){
 	 *   |4|4|4|-> METADATA PARA REGISTROS-> |4|4|4|4|4|4|4|4|4|4|4|4|4|4|4|     LIBRE ->|4|4|4|
 	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
 	 */
-	//createHashTable2();
+	createHashTable2();
 	//openHashTable2();
-	colapsarTabla();
+	//colapsarTabla();
 
 	return 0;
 }

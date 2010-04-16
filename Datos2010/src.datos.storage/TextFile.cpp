@@ -24,14 +24,14 @@ void TextFile::open(string fileName){
 	//Logger* logger = Logger::getUnicaInstancia();
 
 	//logger->debug(this->toString(),"Se intenta abrir el archivo de texto en modo lectura-escritura");
-	this->file.open(fileName.c_str(), ios::in | ios::out);
+	this->file.open(fileName.c_str(),ios::app|ios::in|ios::trunc| ios::out);
 
 	if (!this->file.is_open()){
 		//logger->debug(this->toString(),"No se pudo abrir el archivo texto ... se limpian los flags de control del estado del archivo");
 		this->file.clear();
 
 		//logger->debug(this->toString(),"Se crea el archivo de texto");
-		this->file.open(fileName.c_str(), ios::out);
+		this->file.open(fileName.c_str(), ios::app|ios::out);
 		//logger->debug(this->toString(),"Se cierra el archivo de texto para su utilizacion");
 		this->file.close();
 
