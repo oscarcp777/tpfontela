@@ -54,7 +54,7 @@ public:
 			if (this->freeSpace < strlen(data)+sizeof(short)+this->keySize)
 				return -1;
 			else{
-				this->freeSpace -= (sizeof(keyType)+sizeof(short));  //key + short tamaño key
+				this->freeSpace -= (strlen(data)+sizeof(short));  //key + short tamaño key
 				this->freeSpace -= this->keySize;
 			}
 
@@ -100,9 +100,9 @@ public:
 			newNode->recAddrs[i-midpt] = this->recAddrs[i];
 			if (isLeaf){
 				newNode->data[i-midpt] = this->data[i];
-				newNode->freeSpace -= strlen(this->data[i])+sizeof(short);
+				newNode->freeSpace -= (strlen(this->data[i])+sizeof(short));
 				newNode->freeSpace -= this->keySize;
-				this->freeSpace += strlen(this->data[i])+sizeof(short);
+				this->freeSpace += (strlen(this->data[i])+sizeof(short));
 				this->freeSpace += this->keySize;
 			}
 		}
@@ -143,17 +143,17 @@ public:
 	int  pack(IOBuffer& buffer) const{
 		int result;
 		buffer.clear();
-		result = buffer.pack(&this->freeSpace);
 		result = buffer.pack(&this->numKeys);
-		result = buffer.pack(&this->nextNode);
 		if (this->isLeaf){
+			result = buffer.pack(&this->nextNode);
+			result = buffer.pack(&this->freeSpace);
 			for (int i = 0; i<this->numKeys; i++){
-				result = result && buffer.pack(&this->keys[i]);
-				result = result && buffer.pack(this->data[i]);
+				result = result && buffer.pack(&this->keys[i],sizeof(keyType));
+				result = result && buffer.pack(this->data[i],strlen(this->data[i]));
 			}
 		}else{
 			for (int i = 0; i<this->numKeys; i++){
-				result = result && buffer.pack(&this->keys[i]);
+				result = result && buffer.pack(&this->keys[i],sizeof(keyType));
 				result = result && buffer.pack(&this->recAddrs[i]);
 			}
 		}
@@ -166,10 +166,10 @@ public:
 		int result;
 		char auxData[this->freeSpace];
 		char* pAuxData = auxData;
-		result = buffer.unPack(&this->freeSpace);
 		result = buffer.unPack(&this->numKeys);
-		result = buffer.unPack(&this->nextNode);
 		if (this->isLeaf){
+			result = buffer.unPack(&this->nextNode);
+			result = buffer.unPack(&this->freeSpace);
 			for (int i = 0; i<this->numKeys; i++){
 				result = result && buffer.unPack(&this->keys[i]);
 				result = result && buffer.unPack(pAuxData);
@@ -303,7 +303,7 @@ protected:
 
 		//tamaño del bloque ocupado con datos de metadata del bloque, se resta al freeSpace en este init
 		//tamaño n.keys + n.keys + tamaño espacio libre + espacio libre + tamaño nod.sig. + nod.sig
-		int blockMetadataSize = sizeof(short)*3 + sizeof(int)*3;
+		int blockMetadataSize = sizeof(short)*3 + sizeof(int)*2 + sizeof(unsigned int);
 		//tamaño clave + clave
 		this->keySize = sizeof(short)+sizeof(keyType);
 		// 0,7 del bloque ocupado - metadata bloque
