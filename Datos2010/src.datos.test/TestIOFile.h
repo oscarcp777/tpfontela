@@ -17,6 +17,7 @@ public:
 	virtual ~TestIOFile();
 	void runBinaryFileTest();
 	void runTextFileTest();
+	void runBinaryFileTest2();
 };
 
 #endif /* TESTIOFILE_H_ */

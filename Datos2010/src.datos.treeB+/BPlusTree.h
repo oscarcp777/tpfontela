@@ -82,7 +82,7 @@ public:
 		return this->bTreeFile.close();
 	}
 
-	int  insert(const keyType key, char* data){
+	int  insert(const keyType key, const char* data){
 
 		int result; int level = this->height -1;
 		int newLargest = 0;
@@ -141,6 +141,7 @@ public:
 			this->root.setNumKeys(2);
 			this->root.setIsLeaf(0);
 			this->height++;
+			delete newNode;
 			return 1;
 	}
 
@@ -180,7 +181,7 @@ char* search(const keyType key, int dir = -1){
 			}
 			stream << "final del nivel "<<level <<endl;
 		}
-		delete currentNode;
+		//delete currentNode;
 
 	}
 
