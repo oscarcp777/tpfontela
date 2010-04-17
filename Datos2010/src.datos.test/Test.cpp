@@ -7,10 +7,10 @@
 
 #include "TestIOFile.h"
 
-int mainererter(){
+int main22(){
 	TestIOFile* test = new TestIOFile();
-	test->runBinaryFileTest();
-	test->runTextFileTest();
+	test->runBinaryFileTest2();
+	//test->runTextFileTest();
 
 	delete test;
 

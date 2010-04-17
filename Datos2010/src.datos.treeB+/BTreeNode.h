@@ -27,8 +27,16 @@ class BTreeNode : SimpleIndex <keyType> {
 public:
 	BTreeNode(int maxSize,int keySize, int unique = 1)
 	//(Tamaño bloque - metadata bloque)/tamaño clave       //ver init
-	:SimpleIndex<keyType>(((maxSize-sizeof(short)*3 - sizeof(int)*3)/(keySize+sizeof(short))), unique)
-	 { init(maxSize); }
+	:SimpleIndex<keyType>(((maxSize-sizeof(short)*3 - sizeof(int)*3)/(keySize+sizeof(short))), unique),
+	 data(0)
+	 {
+		//el array de punteros se inicializa con un max. de posibles referencias
+		//dado por el max. de claves posibles a insertar (es decir sin contar el
+		//tamaño del dato)
+		//this->data = new char*[this->maxKeys];
+		this->data = new char*[this->maxKeys];
+		init(maxSize);
+	 }
 
 	~BTreeNode() {
 		int i;
@@ -38,7 +46,7 @@ public:
 		delete this->data;
 	}
 
-	int  insert(const keyType key, char* data, int recAddr = -1){
+	int  insert(const keyType key, const char* data, int recAddr = -1){
 		int result;
 		result = SimpleIndex<keyType>::insert(key, recAddr);
 		if (result == -1) return 0; //fallo insercion
@@ -149,6 +157,8 @@ public:
 			result = buffer.pack(&this->freeSpace);
 			for (int i = 0; i<this->numKeys; i++){
 				result = result && buffer.pack(&this->keys[i],sizeof(keyType));
+//				int size = strlen(this->data[i]);
+//				cout<<size<<endl;
 				result = result && buffer.pack(this->data[i],strlen(this->data[i]));
 			}
 		}else{
@@ -164,18 +174,21 @@ public:
 
 	int  unpack(IOBuffer& buffer){
 		int result;
-		char auxData[this->freeSpace];
-		char* pAuxData = auxData;
-		result = buffer.unPack(&this->numKeys);
+		int size=this->freeSpace;
+		char auxData[size];
+		memset(auxData,0,size);
+		result = buffer.unPack(&this->numKeys,sizeof(int));
 		if (this->isLeaf){
-			result = buffer.unPack(&this->nextNode);
-			result = buffer.unPack(&this->freeSpace);
+			result = buffer.unPack(&this->nextNode,sizeof(int));
+			result = buffer.unPack(&this->freeSpace,sizeof(int));
 			for (int i = 0; i<this->numKeys; i++){
-				result = result && buffer.unPack(&this->keys[i]);
-				result = result && buffer.unPack(pAuxData);
-				int len = strlen(pAuxData);
+				result = result && buffer.unPack(&this->keys[i],sizeof(keyType));
+				result = result && buffer.unPack(auxData);
+				int len = strlen(auxData);
 				this->data[i] = new char[len];
-				memcpy(this->data[i],pAuxData,len);
+				memset(this->data[i],0,len);
+				memcpy(this->data[i],auxData,len);
+				memset(auxData,0,size);
 			}
 		}else{
 			for (int i = 0; i<this->numKeys; i++){
@@ -303,17 +316,14 @@ protected:
 
 		//tamaño del bloque ocupado con datos de metadata del bloque, se resta al freeSpace en este init
 		//tamaño n.keys + n.keys + tamaño espacio libre + espacio libre + tamaño nod.sig. + nod.sig
-		int blockMetadataSize = sizeof(short)*3 + sizeof(int)*2 + sizeof(unsigned int);
+		int blockMetadataSize = sizeof(short)*3 + sizeof(int)*3 ;
 		//tamaño clave + clave
 		this->keySize = sizeof(short)+sizeof(keyType);
 		// 0,7 del bloque ocupado - metadata bloque
 		this->freeSpace = maxSize*0.7 - blockMetadataSize;
 		//los nodos se inician como hojas
 		this->isLeaf = 1;
-		//el array de punteros se inicializa con un max. de posibles referencias
-		//dado por el max. de claves posibles a insertar (es decir sin contar el
-		//tamaño del dato)
-		this->data = new char*[this->maxKeys];
+
 		return 1;
 	}
 

@@ -23,11 +23,11 @@ int VariableFieldBuffer::pack(const void* field, int size){
 	if(size>=0)len=size;
 	else len=sizeof((char*)field);
 	int start =this->nextByte;
-	this->nextByte+=(len+sizeof(len));
+	this->nextByte+=(len+sizeof(short));
 	if(this->nextByte>this->maxBytes){return -1;}
 
-	memcpy(&(this->buffer[start]),&len,sizeof(len));
-	memcpy(&this->buffer[start+sizeof(len)],field,len);
+	memcpy(&(this->buffer[start]),&len,sizeof(short));
+	memcpy(&this->buffer[start+sizeof(short)],field,len);
 //	this->bufferSize=this->nextByte;
 	return len;
 }
@@ -37,11 +37,11 @@ int VariableFieldBuffer::unPack(void* field,  int maxBytes){
 	if(this->nextByte>=this->bufferSize)return -1;// no hay mas campos
 	int start =this->nextByte;
 
-	memcpy(&len,&buffer[start],sizeof(len));
+	memcpy(&len,&buffer[start],sizeof(short));
 	if(maxBytes!=-1&&len>maxBytes)return -1;//campo demasiado largo
-	this->nextByte+=len+sizeof(len);
+	this->nextByte+=len+sizeof(short);
 	if(this->nextByte>this->bufferSize)return -1;
-	memcpy(field,&buffer[start+sizeof(len)],len);
+	memcpy(field,&buffer[start+sizeof(short)],len);
 	if(maxBytes>len||maxBytes==-1)
 		((char*)field)[len]=0;//cero terminacion de la cadena
 	return len;
