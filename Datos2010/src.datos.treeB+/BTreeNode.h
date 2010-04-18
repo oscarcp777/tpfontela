@@ -51,19 +51,23 @@ public:
 
 	int  insert(const keyType key, const char* data, int recAddr = -1){
 		int result;
+
+
 		result = SimpleIndex<keyType>::insert(key, recAddr);
 		if (result == -1) return 0; //fallo insercion
 		if (this->isLeaf){
+			string dataAux = data;
 			int i;
-			char* dat = new char[strlen(data)];
-			memcpy(dat,data,strlen(data));
+			cout << dataAux.length() <<endl;
+			char* dat = new char[dataAux.length()];
+			memcpy(dat,data,dataAux.length());
 			for (i = this->numKeys-1; i>=result; i--) {
 				this->data[i+1]=this->data[i];
 			}
 			this->data[result] = dat;
-			this->freeSpace -= (strlen(data)+sizeof(short));  //key + short tamaño key
+			this->freeSpace -= (dataAux.length()+sizeof(short));  //key + short tamaño key
 			this->freeSpace -= this->keySize;
-			if (this->freeSpace < 0)
+			if (this->freeSpace <= 0)
 				return -1;
 
 		}else
@@ -85,7 +89,7 @@ public:
 		//return SimpleIndex<keyType>::search(key, recAddr, exact);
 	}
 
-	int  largestKey(){ 	   //retorna el valor de la clave mayor
+	keyType  largestKey(){ 	   //retorna el valor de la clave mayor
 		if (this->numKeys > 0)
 			return this->keys[this->numKeys-1];
 		else return this->keys[0];
