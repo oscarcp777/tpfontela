@@ -58,6 +58,7 @@ public:
 	int writeFreeCubes();
 	int writeFirstCube();
 	void print(string output,bool cubes);
+	bool isCreated(string fileName);
 
 	int getCountsCubes() const
     {

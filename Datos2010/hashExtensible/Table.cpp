@@ -17,14 +17,8 @@ Table::Table() {
 	this->countsCubes = 1;
 	this->sizeTable = 1;
 	this->offsetCubes.size();
-	this->fileNameOutput="files/hash";
-	this->output->open(this->fileNameOutput);
-	//	this->countsCubes = 4;
-	//	this->sizeTable = 4;
-	//	this->offsetCubes.push_back(2);
-	//	this->offsetCubes.push_back(1);
-	//	this->offsetCubes.push_back(4);
-	//	this->offsetCubes.push_back(3);
+
+
 }
 
 Table::~Table() {
@@ -32,6 +26,9 @@ Table::~Table() {
 	delete this->fileCubesFree;
 	delete this->fileTable;
 	delete this->currentCube;
+}
+bool Table::isCreated(string fileName){
+	return this->fileCubes->isCreated(fileName+EXT_CUBE) && this->fileCubesFree->isCreated(fileName+EXT_FREE_CUBE) && this->fileTable->isCreated(fileName+EXT_TABLE);
 }
 int Table::createFiles(string fileName){
 	this->fileCubes->create(fileName+EXT_CUBE);
@@ -50,8 +47,6 @@ int Table::openFiles(string fileName){
 	return 0;
 }
 int Table::close(){
-	this->print(this->fileNameOutput,true);//TODO borrar el print
-  this->output->close();
 	this->fileCubes->close();
 
 	this->fileCubesFree->clear();//hace que el archivo se pise completo
@@ -73,7 +68,6 @@ int Table::duplicateTable(){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
-	this->print(this->fileNameOutput,false);//TODO borrar el print
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
@@ -105,7 +99,6 @@ int Table::diferentDispersionAndSizeTable(int index){
 	newCube->writeCube(fileCubes);
 	this->countsCubes++;
 	delete newCube;
-	this->print("hash",false);//TODO borrar el print
 	return 1;
 }
 int Table::equalsDispersionAndSizeTable(int index){
@@ -151,7 +144,6 @@ int Table::insert(Record* record){
 		}
 		cout<<"hola"<<endl;
 		// cuando ya redistribui todo y ya se que hay lugar inserto el nuevo registro
-		this->print(this->fileNameOutput,false);//TODO borrar el print
 		index = Hash::hashMod(record->getKey(),this->sizeTable);
 		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
@@ -247,7 +239,7 @@ int Table::remove(int key){
 		int goodDelete=this->currentCube->remove(key);
 		if(goodDelete==0)
 			return 0;
-		this->currentCube->writeCube(this->fileCubes);
+		//TODO ESTA LINEA NO VA PROBAR this->currentCube->writeCube(this->fileCubes);
 		if(this->currentCube->getNumberOfRecords() == 0){//si queda vacio
 			int indexUp;
 			int indexDown;
@@ -279,18 +271,17 @@ int Table::remove(int key){
 			}
 			//guardo el cubo con su nuevo numero de dispersion
 			this->currentCube->writeCube(this->fileCubes);
-			this->print(this->fileNameOutput,false);//TODO borrar el print
 			return 1;
+		}else{
+			this->currentCube->writeCube(this->fileCubes);
 		}
 
 	}
 	else{
-		this->print(this->fileNameOutput,false);//TODO borrar el print
 		return -1;
 	}
 
 	this->currentCube->writeCube(this->fileCubes);
-	this->print(this->fileNameOutput,false);//TODO borrar el print
 	return 1;
 }
 int Table::isTableDuplicate(){
@@ -310,7 +301,7 @@ void Table::printCubes(){
 	string buffer;
 	cout<<"************* CUBOS *************"<<endl;
 	this->output->write("************* CUBOS *************");
-	for(int i=0; i<this->countsCubes; i++){
+	for(unsigned int i=0; i< (this->countsCubes + this->offsetFreeCubes.size()); i++){
 		this->loadCube(i,this->currentCube);
 		this->currentCube->print(this->output);
 	}
@@ -320,7 +311,7 @@ void Table::printCubes(){
 }
 void Table::print(string fileName,bool cubes){
 
-
+	this->output->open(fileName);
 	string buffer;
 	this->output->write("*************TABLA*************");
 	cout<<"*************TABLA*************"<<endl;
@@ -358,6 +349,7 @@ void Table::print(string fileName,bool cubes){
 	if(true){
 		this->printCubes();
 	}
+	this->output->close();
 
 }
 

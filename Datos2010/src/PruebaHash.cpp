@@ -73,6 +73,38 @@ void createHashTable2(){
 	delete hash;
 	cout<<"Borro todo bien "<<endl;
 }
+void createHashTable3(){
+	HashExtensible* hash = new HashExtensible();
+	hash->create("files/hash4");
+
+	//+123, +915, +629, +411, +200, +863, -629, +408, +34, +510, -863, +775
+	string cadena1 = "r123";
+	string cadena2 = "r915";
+	string cadena3 = "r629";
+	string cadena4=  "r411";
+	string cadena5 = "r200";
+	string cadena6 = "r863";
+	string cadena7 = "r408";
+	string cadena8 = "re34";
+	string cadena9 = "r510";
+	string cadena10 = "r775";
+	hash->insert(123,(char*)cadena1.c_str());
+	hash->insert(915,(char*)cadena2.c_str());
+	hash->insert(629,(char*)cadena3.c_str());
+	hash->insert(411,(char*)cadena4.c_str());
+	hash->insert(200,(char*)cadena5.c_str());
+	hash->insert(863,(char*)cadena6.c_str());
+	hash->remove(629);
+	hash->insert(408,(char*)cadena7.c_str());
+	hash->insert(34,(char*)cadena8.c_str());
+	hash->insert(510,(char*)cadena9.c_str());
+	hash->remove(863);
+	hash->insert(775,(char*)cadena10.c_str());
+	hash->close();
+
+	delete hash;
+	cout<<"Borro todo bien "<<endl;
+}
 void openHashTable2(){
 	HashExtensible* hash = new HashExtensible();
 	//hash->open("files/hash2");
@@ -102,16 +134,25 @@ void openHash(){
 }
 void colapsarTabla(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hash3");
-	hash->print("files/hash");
-		cout<<"data borrada : " <<hash->remove(915)<<endl;
-//	    cout<<"data borrada : " <<hash->remove(123)<<endl;
+	hash->open("files/hash4");
 
+	/*cout<<"data borrada : " <<hash->remove(2)<<endl;
+    cout<<"data borrada : " <<hash->remove(111)<<endl;
+    cout<<"data borrada : " <<hash->remove(129)<<endl;
+    cout<<"data borrada : " <<hash->remove(75)<<endl;
+    cout<<"data borrada : " <<hash->remove(923)<<endl;
+    cout<<"data borrada : " <<hash->remove(274)<<endl;
+    cout<<"data borrada : " <<hash->remove(423)<<endl;
+    cout<<"data borrada : " <<hash->remove(118)<<endl;
+    cout<<"data borrada : " <<hash->remove(275)<<endl;
+    cout<<"data borrada : " <<hash->remove(10)<<endl;*/
+
+    hash->print("files/hash");
 		hash->close();
 		delete hash;
 		cout<<"FIN PRUEBA colapsar"<<endl;
 }
-int mainsdfsdf(){
+int main4757(){
    /****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
 	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
@@ -121,9 +162,9 @@ int mainsdfsdf(){
 	 *   |4|4|4|-> METADATA PARA REGISTROS-> |4|4|4|4|4|4|4|4|4|4|4|4|4|4|4|     LIBRE ->|4|4|4|
 	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
 	 */
-	createHashTable2();
+	//createHashTable3();
 	//openHashTable2();
-	//colapsarTabla();
+	colapsarTabla();
 
 	return 0;
 }

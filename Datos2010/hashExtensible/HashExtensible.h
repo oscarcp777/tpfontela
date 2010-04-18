@@ -27,7 +27,7 @@ public:
 	int remove(int key);
 	char* search(int key);
 	void print(string fileName);
-
+	bool isCreated(string fileName);
 
     Table *getTable() const
     {

@@ -21,6 +21,7 @@ public:
 	void create(string fileName);
 	void open(string fileName);
 	void clear();
+	bool isCreated(string fileName);
 
 };
 
