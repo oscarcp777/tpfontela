@@ -45,6 +45,7 @@ int Cube::clear(){
 
 	return TRUE;
 }
+
 int Cube::print(TextFile* output){
 	string ouputCube="Cubo : ";
 	string offset=StringUtils::convertirAString(this->offsetCube);
