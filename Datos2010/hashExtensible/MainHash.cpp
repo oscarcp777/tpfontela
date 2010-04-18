@@ -59,7 +59,7 @@ void parse_cmdline(int argc, char * const argv[]){
 				hash->print(argv[3]);
 				break;
 			case 'M':
-				hash->insert(parser->getKey(),(char*)parser->getData().c_str());
+				hash->update(parser->getKey(),(char*)parser->getData().c_str());
 				break;
 			case 'Q':
 				hash->remove(parser->getKey());
@@ -77,8 +77,8 @@ void parse_cmdline(int argc, char * const argv[]){
 
 }
 
-int main(int argc, char * const argv[]){
+int main3333(int argc, char * const argv[]){
 	parse_cmdline(argc,argv);
-
+	return 0;
 }
 

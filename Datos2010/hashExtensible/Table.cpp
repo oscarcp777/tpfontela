@@ -154,6 +154,18 @@ int Table::insert(Record* record){
 	}
 	return 1;
 }
+int Table::update(Record* record){
+	int index = Hash::hashMod(record->getKey(),this->sizeTable);
+	int offset = this->offsetCubes[index];
+	this->loadCube(offset,this->currentCube);
+	//Si existe lo actualizo
+	if(this->currentCube->update(record)){
+		this->currentCube->writeCube(this->fileCubes);
+		return TRUE;
+	}
+
+	return FALSE;
+}
 bool Table::existOverflow(int offsetCube,Record*  record){
 	this->loadCube(offsetCube,this->currentCube);
 	return (!this->currentCube->hasSpace(record->getSizeRecord()));
@@ -220,15 +232,13 @@ int Table::calculateIndex(int* indexUp, int* indexDown, int index){
 	int numberOfMovements=(this->currentCube->getSizeOfDispersion()/2);
 	(*indexUp) = index -numberOfMovements;
 	(*indexDown) = index + numberOfMovements;
-	cout<<" indexUp"<<(*indexUp)<<endl;
-	cout<<" indexDown"<<(*indexDown)<<endl;
+
 	if((*indexUp) < 0)
 		(*indexUp) = this->sizeTable + *indexUp;
 
 	if((*indexDown) > this->sizeTable)
 		(*indexDown) = (*indexDown) - this->sizeTable;
-	cout<<" indexUp"<<(*indexUp)<<endl;
-	cout<<" indexDown"<<(*indexDown)<<endl;
+
 	return 1;
 }
 int Table::remove(int key){
@@ -240,13 +250,13 @@ int Table::remove(int key){
 		if(goodDelete==0)
 			return 0;
 		//TODO ESTA LINEA NO VA PROBAR this->currentCube->writeCube(this->fileCubes);
-		if(this->currentCube->getNumberOfRecords() == 0){//si queda vacio
+		if(this->currentCube->getNumberOfRecords() == 0 && this->countsCubes>1){//si queda vacio
 			int indexUp;
 			int indexDown;
 			this->calculateIndex(&indexUp, &indexDown,index);
 			//comparo los indices dedsde el indice donde estaba (td/2) hacia arriba y hacia abajo
 			//si NO son iguales no puedo borrar el cubo por lo que queda vacio
-			if( this->offsetCubes[indexUp] == this->offsetCubes[indexDown]){
+			if( this->offsetCubes[indexUp] == this->offsetCubes[indexDown] ){
 				//agrego el numero de cubo (offset) a la lista de cubos libres porque ya no se lo referencia mas
 				this->offsetFreeCubes.push_back(this->currentCube->getOffsetCube());
 				this->countsCubes--;

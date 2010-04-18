@@ -211,4 +211,14 @@ Record *Cube::search(int key)
 	return NULL;
 }
 
+int Cube::update(Record* record){
+	list<Record*>::iterator iterRecord;
+	Record* recordFound=this->search(record->getKey());
+		if(recordFound != NULL){
+			recordFound->setData(record->getData());
+			recordFound->setKey(record->getKey());
+			return TRUE;
+		}
+		return FALSE;
+}
 
