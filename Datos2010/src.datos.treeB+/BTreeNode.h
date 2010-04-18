@@ -27,7 +27,7 @@ class BTreeNode : SimpleIndex <keyType> {
 public:
 	BTreeNode(int maxSize,int keySize, int unique = 1)
 	//(Tamaño bloque - metadata bloque)/tamaño clave       //ver init
-	:SimpleIndex<keyType>(((maxSize-sizeof(short)*3 - sizeof(int)*3)/(keySize+sizeof(short))), unique),
+	:SimpleIndex<keyType>(((maxSize-sizeof(short) - sizeof(int))/(keySize+sizeof(short)+sizeof(int)+sizeof(short))), unique),
 	 data(0)
 	 {
 		//el array de punteros se inicializa con un max. de posibles referencias
@@ -35,6 +35,9 @@ public:
 		//tamaño del dato)
 		//this->data = new char*[this->maxKeys];
 		this->data = new char*[this->maxKeys];
+		for (int i = 0; i < this->maxKeys; i++) {
+			this->data[i]=NULL;
+		}
 		init(maxSize);
 	 }
 
@@ -58,14 +61,10 @@ public:
 				this->data[i+1]=this->data[i];
 			}
 			this->data[result] = dat;
-
-			if (this->freeSpace < strlen(data)+sizeof(short)+this->keySize)
+			this->freeSpace -= (strlen(data)+sizeof(short));  //key + short tamaño key
+			this->freeSpace -= this->keySize;
+			if (this->freeSpace < 0)
 				return -1;
-			else{
-				this->freeSpace -= (strlen(data)+sizeof(short));  //key + short tamaño key
-				this->freeSpace -= this->keySize;
-			}
-
 
 		}else
 			if (this->numKeys >= this->maxKeys) return -1; //overflow nodo
@@ -112,6 +111,7 @@ public:
 				newNode->freeSpace -= this->keySize;
 				this->freeSpace += (strlen(this->data[i])+sizeof(short));
 				this->freeSpace += this->keySize;
+				this->data[i] = NULL;
 			}
 		}
 		//setea el numero de claves en los 2 nodos
@@ -208,8 +208,11 @@ public:
 			else
 				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dir "<<this->recAddrs[i]<<endl;
 		}
-		cout<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
-		cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
+		if (isLeaf){
+			cout<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
+			cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
+
+		}
 
 	}
 
@@ -299,7 +302,7 @@ protected:
 	//array de punteros a los datos ingresados
 	char** data;
 	//en nodos hojas es el espacio libre del bloque
-	unsigned int freeSpace;
+	int freeSpace;
 	//tamaño que ocupa guardar cada key(se va restando por cada insert al freeSpace)
 	int keySize;
 

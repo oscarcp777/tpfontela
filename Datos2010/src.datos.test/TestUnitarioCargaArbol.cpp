@@ -22,7 +22,7 @@ int main(){
 	//BPlusTree<char> bt(4);
 
 
-	BPlusTree<int> bt(80);
+	BPlusTree<int> bt(100);
 	string ruta="files/testbt.dat";
 
 	bt.create(ruta,ios::out);
@@ -38,30 +38,30 @@ int main(){
 		keys++;
 
 	}
-	string a = "JAJAJAJAJJA";
-	string b = "JOJOOJOJOJO";
-	string c = "AAAAAAAAAAA";
-	string d = "TATATATATAT";
-	string e = "sSSSSSSSSSS";
-	string f = "OYYYYYYY";
-	string g = "LOLOLOLOLO";
-	string h = "MMMMMMMMMM";
-	bt.insert(27,a.c_str());
-	bt.print(cout);
-	bt.insert(28,b.c_str());
-	bt.print(cout);
-	bt.insert(29,c.c_str());
-	bt.print(cout);
-	bt.insert(30,d.c_str());
-	bt.print(cout);
-	bt.insert(31,e.c_str());
-	bt.print(cout);
-	bt.insert(32,f.c_str());
-	bt.print(cout);
-	bt.insert(33,g.c_str());
-	bt.print(cout);
-	bt.insert(34,h.c_str());
-	bt.print(cout);
+//	string a = "JAJAJAJAJJA";
+//	string b = "JOJOOJOJOJO";
+//	string c = "AAAAAAAAAAA";
+//	string d = "TATATATATAT";
+//	string e = "sSSSSSSSSSS";
+//	string f = "OYYYYYYY";
+//	string g = "LOLOLOLOLO";
+//	string h = "MMMMMMMMMM";
+//	bt.insert(27,a.c_str());
+//	bt.print(cout);
+//	bt.insert(28,b.c_str());
+//	bt.print(cout);
+//	bt.insert(29,c.c_str());
+//	bt.print(cout);
+//	bt.insert(30,d.c_str());
+//	bt.print(cout);
+//	bt.insert(31,e.c_str());
+//	bt.print(cout);
+//	bt.insert(32,f.c_str());
+//	bt.print(cout);
+//	bt.insert(33,g.c_str());
+//	bt.print(cout);
+//	bt.insert(34,h.c_str());
+//	bt.print(cout);
 	bt.close();
 
 

@@ -108,6 +108,7 @@ public:
 			largestKey = thisNode->largestKey();
 			//splitear el nodo
 			newNode = this->newNode();
+			newNode->setIsLeaf(thisNode->getIsLeaf());
 			thisNode->split(newNode);
 
 			if(newNode->getRecAddr()!=thisNode->getNextNode())

@@ -20,6 +20,7 @@ FixedLengthBuffer::~FixedLengthBuffer() {
 }
 void FixedLengthBuffer::clear(){
 	IOBuffer::clear();
+	memset(this->buffer,0,this->bufferSize);
 	this->buffer[0]=0;
 	this->packing = 1; //TRUE
 }
