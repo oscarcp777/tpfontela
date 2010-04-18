@@ -25,6 +25,7 @@ public:
 	int close();
 	int insert(int key,char* data);
 	int remove(int key);
+	int update(int key,char* data);
 	char* search(int key);
 	void print(string fileName);
 	bool isCreated(string fileName);

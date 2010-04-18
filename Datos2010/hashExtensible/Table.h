@@ -44,6 +44,7 @@ public:
 	int reallocate(int offsetCubeOverFlow);
 	int duplicateTable();
 	int insert(Record* record);
+	int update(Record* record);
 	int remove(int key);
 	int loadCube(int offset,Cube* cube);
 	Record* search(int key);

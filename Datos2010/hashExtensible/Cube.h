@@ -62,6 +62,7 @@ public:
 	int print(TextFile* output);
     int clear();
     int addRecordList(Record* record);
+    int update(Record* record);
 
 
 

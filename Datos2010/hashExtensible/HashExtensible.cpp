@@ -55,7 +55,15 @@ int HashExtensible::insert(int key, char *data)
 	return 1;
 }
 
-
+int HashExtensible::update(int key,char* data){
+	cout<<"########################################"<<endl;
+	cout<<"update el :"<<key<<endl;
+	cout<<"########################################"<<endl;
+	Record* record = new Record(key,data);
+	this->table->update(record);
+	delete record;
+	return 1;
+}
 
 int HashExtensible::remove(int key)
 {cout<<"########################################"<<endl;
