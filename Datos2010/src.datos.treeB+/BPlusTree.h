@@ -9,7 +9,7 @@
 #define BPLUSTREE_H_
 
 #include <stdio.h>
-#include <string.h>
+#include <string>
 #include <iostream>
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/RecordFile.h"
