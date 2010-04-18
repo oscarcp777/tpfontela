@@ -22,6 +22,7 @@ void BinaryFile::create(string fileName){
 //	logger->debug(this->toString(),"Se intenta crear un archivo binario");
 	this->name = fileName;
 	this->file.open(fileName.c_str(),ios::trunc|ios::in |ios::out |ios::binary);
+
 //
 //	if (! this->file.is_open()){
 //		flag = true;
@@ -29,7 +30,17 @@ void BinaryFile::create(string fileName){
 //		this->file.open(fileName.c_str(),ios::out | ios::binary);
 //	}
 }
+bool BinaryFile::isCreated(string fileName){
+	this->file.open(fileName.c_str(),ios::in|ios::binary);
+	if (! this->file.is_open()){
+		return false;
+	}
+	else{
+		this->close();
+		return true;
 
+	}
+}
 void BinaryFile::open(string fileName){
 
 //	bool flag = false;
@@ -37,7 +48,9 @@ void BinaryFile::open(string fileName){
 //	logger->debug(this->toString(),"Se intenta abrir el archivo binario en modo lectura-escritura");
 	this->name = fileName;
 	this->file.open(fileName.c_str(),ios::in |ios::out |ios::binary);
-//	if (! this->file.is_open()){
+
+
+	//	if (! this->file.is_open()){
 //		logger->debug(this->toString(),"No se pudo abrir el archivo binario ... Se arroja una excepcion");
 //		logger->error(this->toString(),"No se pudo abrir el archivo binario ... Se arroja una excepcion");
 //		throw string("File not Found");

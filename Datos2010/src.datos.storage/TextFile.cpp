@@ -24,7 +24,7 @@ void TextFile::open(string fileName){
 	//Logger* logger = Logger::getUnicaInstancia();
 
 	//logger->debug(this->toString(),"Se intenta abrir el archivo de texto en modo lectura-escritura");
-	this->file.open(fileName.c_str(),ios::app|ios::in|ios::trunc| ios::out);
+	this->file.open(fileName.c_str(),ios::in|ios::trunc| ios::out);
 
 	if (!this->file.is_open()){
 		//logger->debug(this->toString(),"No se pudo abrir el archivo texto ... se limpian los flags de control del estado del archivo");

@@ -7,6 +7,7 @@
 
 #include "HashExtensible.h"
 
+
 HashExtensible::HashExtensible() {
 	this->table = new Table();
 
@@ -39,6 +40,9 @@ int HashExtensible::create(string fileName){
 	return 1;
 }
 
+bool HashExtensible::isCreated(string fileName){
+	return this->table->isCreated(fileName);
+}
 
 
 int HashExtensible::insert(int key, char *data)
@@ -73,5 +77,3 @@ int HashExtensible::close()
 	this->table->close();
 	return 1;
 }
-
-
