@@ -154,7 +154,7 @@ void colapsarTabla(){
 		delete hash;
 		cout<<"FIN PRUEBA colapsar"<<endl;
 }
-int main(){
+int main2354(){
    /****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
 	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
