@@ -188,7 +188,7 @@ char* search(const keyType key, int dir = -1){
 
 
 protected:
-	typedef BTreeNode<keyType> BNode;
+	typedef BTreeNode <keyType> BNode;
 	VariableFieldBuffer buffer;
 	RecordFile<BNode> bTreeFile;
 	BNode root;				//raiz
