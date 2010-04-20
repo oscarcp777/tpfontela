@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int main(){
+int mainfsdf(){
 
 //	char letra={0};
 //	char* pLetra = letra;
@@ -43,11 +43,11 @@ int main(){
 	string a = "Ale";
 	string b = "Oscar Caseres";
 	string c = "Santiago";
-	string d = "Richard Dubini";
-	string e = "Daniel Sivori";
-	string f = "SebRamoses";
-	string g = "Nelson Castrtooo";
-	string h = "Pasvobbbbb";
+	string d = "Dani";
+	string e = "Ricardo Sivori";
+	string f = "Sebas";
+	string g = "Nelson Castro";
+	string h = "X";
 
 
 	bt.insert(2,a.c_str());

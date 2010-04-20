@@ -10,7 +10,7 @@
 #include "../src.datos.utils/ParserInput.h"
 
 using namespace std;
-void help(){
+static void help(){
 
 	printf("Uso:\n");
 	printf(" ./HashExtensible [options]\n");
@@ -22,7 +22,7 @@ void help(){
 	printf(" 	-Q, --print\t    Quitar un dato de la estructura.\n");
 }
 
-void parse_cmdline(int argc, char * const argv[]){
+static void parse_cmdline(int argc, char * const argv[]){
 
 	int index;
 	char result;
