@@ -57,10 +57,11 @@ public:
 		if (result == -1) return 0; //fallo insercion
 		if (this->isLeaf){
 			string dataAux = data;
+			int tamanio = dataAux.length();
 			int i;
-			cout << dataAux.length() <<endl;
-			char* dat = new char[dataAux.length()];
-			memcpy(dat,data,dataAux.length());
+			cout << "El dato tiene longitud  "  << tamanio <<endl;
+			char* dat = new char[tamanio];
+			strcpy(dat,data);
 			for (i = this->numKeys-1; i>=result; i--) {
 				this->data[i+1]=this->data[i];
 			}
@@ -191,7 +192,8 @@ public:
 				int len = strlen(auxData);
 				this->data[i] = new char[len];
 				memset(this->data[i],0,len);
-				memcpy(this->data[i],auxData,len);
+//				memcpy(this->data[i],auxData,len);
+				strcpy(this->data[i],(char*)auxData);
 				memset(auxData,0,size);
 			}
 		}else{
