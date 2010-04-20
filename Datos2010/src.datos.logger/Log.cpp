@@ -34,22 +34,31 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 
 	int index;
 	char result;
+	FILE* in;
+	in = stdin;
+	string cadena;
 
 	struct option options[] = {
-			{"search", 1, NULL, 'B'},
-			{"insert", 1, NULL, 'I'},
+			{"search", 0, NULL, 'B'},
+			{"insert", 0, NULL, 'I'},
 			{"print", 1, NULL, 'S'},
 			{"help", 0, NULL, 'h'},
 	};
 
 	while ((result = getopt_long(argc, argv,
-			"B:I:S:h", options, &index)) != -1) {
+			"BIS:h", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				search(logger,StringUtils::joinStringCmdLine(argc,argv));
+				while(!feof(in)){
+					cadena = gets((char*)cadena.c_str());
+					search(logger,cadena);
+				}
 				break;
 			case 'I':
-				insert(logger,StringUtils::joinStringCmdLine(argc,argv));
+				while(!feof(in)){
+					cadena = gets((char*)cadena.c_str());
+					insert(logger,cadena);
+				}
 				break;
 			case 'S':
 				print(logger,optarg);
@@ -63,7 +72,7 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 	}
 }
 
-int maindsfsd(int argc, char * const argv[]){
+int mainSDS(int argc, char * const argv[]){
 
 	Logger* logger = Logger::getUnicaInstancia();
 	parse_cmdline(logger,argc,argv);
