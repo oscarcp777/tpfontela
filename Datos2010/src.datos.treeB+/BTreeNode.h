@@ -35,18 +35,22 @@ public:
 		//tamaño del dato)
 		//this->data = new char*[this->maxKeys];
 		this->data = new char*[this->maxKeys];
-		for (int i = 0; i < this->maxKeys; i++) {
-			this->data[i]=NULL;
-		}
 		init(maxSize);
 	 }
 
 	~BTreeNode() {
 		int i;
-		for (i = 0; i < this->numKeys; ++i) {
-			delete this->data[i];
+		if (isLeaf){
+			for (i = 0; i < this->numKeys; i++) {
+						delete this->data[i];
+			}
+		}else{
+			for (int i = 0; i < this->maxKeys; i++) {
+						this->data[i]=NULL;
+					}
 		}
-		delete this->data;
+		//delete this->data;
+
 	}
 
 	int  insert(const keyType key, const char* data, int recAddr = -1){
@@ -57,10 +61,9 @@ public:
 		if (result == -1) return 0; //fallo insercion
 		if (this->isLeaf){
 			string dataAux = data;
-			int tamanio = dataAux.length();
+			int size = dataAux.length();
 			int i;
-			cout << "El dato tiene longitud  "  << tamanio <<endl;
-			char* dat = new char[tamanio];
+			char* dat = new char[size];
 			strcpy(dat,data);
 			for (i = this->numKeys-1; i>=result; i--) {
 				this->data[i+1]=this->data[i];
@@ -222,17 +225,6 @@ public:
 
 	}
 
-	//Inicializa buffer para el nodo
-//	static int initBuffer(FixedFieldBuffer & buffer, int maxKeys, int keySize = sizeof(keyType)){
-//		buffer.addField(sizeof(int));
-//		buffer.addField(sizeof(int));
-//		for (int i = 0; i < maxKeys; i++){
-//			buffer.addField(keySize);
-//			buffer.addField(sizeof(int));
-//		}
-//		return 1;
-//
-//	}
 
 	int getRecAddr() const
 	{
@@ -294,6 +286,11 @@ public:
 		this->isLeaf = value;
 	}
 
+	char** getData() const
+	{
+		return this->data;
+	}
+
 
 protected:
 	int nextNode;   		//direccion del siguiente nodo en el mismo nivel
@@ -332,6 +329,10 @@ protected:
 		this->freeSpace = maxSize*0.7 - blockMetadataSize;
 		//los nodos se inician como hojas
 		this->isLeaf = 1;
+
+		for (int i = 0; i < this->maxKeys; i++) {
+			this->data[i]=NULL;
+		}
 
 		return 1;
 	}

@@ -30,10 +30,11 @@ public:
 	 root(blockSize,keySize) {
  		this->height = 1;
 		this->blockSize = blockSize;
-		this->poolSize = MAX_HEIGHT*2;
-		this->nodes = new BNode * [poolSize];
+		this->nodes = new BNode * [MAX_HEIGHT];
+		for (int i = 0; i < MAX_HEIGHT; i++) {
+					this->nodes[i] = NULL;
+		}
 		this->keySize = keySize;
-//		BNode::initBuffer(this->buffer,this->order);
 		this->nodes[0] = &this->root;
 
 	}
@@ -51,8 +52,11 @@ public:
 		//Leo profundidad
 		result = this->readHeight();
 		if (!result) return result;
+		if (this->height > 1)
+					this->root.setIsLeaf(false);
 		//Carga raiz
 		this->bTreeFile.read(this->root);
+
 		return 1;
 	}
 
@@ -78,12 +82,16 @@ public:
 		if (!result) return result;
 		result = this->bTreeFile.write(this->root);
 		if (result == -1) return 0;
+//		for (int i = this->height -1 ; i >= 0; i--) {
+//			if (this->nodes[i] != NULL)
+//				delete this->nodes[i];
+//		}
 		delete this->nodes;
 		return this->bTreeFile.close();
 	}
 
 	int  insert(const keyType key, const char* data){
-
+		cout << "Insercion clave: " << key << endl;
 		int result; int level = this->height -1;
 		int newLargest = 0;
 		keyType prevKey, largestKey;
@@ -151,11 +159,11 @@ public:
 		return 1;
 	}
 
-char* search(const keyType key, int dir = -1){
+	char* search(const keyType key, int dir = -1){
 		BNode* nodoHoja;
 		nodoHoja = findLeaf(key);
 		int index = nodoHoja->search(key,dir);
-		return nodoHoja->getData[index];
+		return nodoHoja->getData()[index];
 	}
 
 	void  print(ostream & stream){
@@ -206,7 +214,7 @@ protected:
 		for(level = 1; level < this->height; level++){
 //			recaddr = this->nodes[level-1]->search(key,-1,0);
 			recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
-//			if (this->nodes[level]->getRecAddr() != recaddr)
+			if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
 				this->nodes[level] = this->fetch(recaddr,level+1);
 			if (level + 1 == this->height)
 				this->nodes[level]->setIsLeaf(1);
