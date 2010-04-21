@@ -12,7 +12,6 @@
 #include "NodeBSharp.h"
 
 
-
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -33,6 +32,7 @@ public:
 
 	void imprimir(ostream &);
 	void imprimir(ostream &, int dirNodo, int nivel);
+	void imprimirArbol(ostream &);
 
 protected:
 
@@ -51,6 +51,19 @@ protected:
 	NodeBSharp* buscarHoja(char* key);  //FindLeaf
 	NodeBSharp* nuevoNodo();
 	NodeBSharp* leerNodo(int dir); 		//Fetch
+	//int concatenarClaves(NodeBSharp* nodoHoja,NodeBSharp* nodoHojaVecino,NodeBSharp* nodoPadreHoja,char* keyRemovida);
+	int actualizarSeparador(NodeBSharp* nodoPadre,char* keyNueva,char* keyAnterior,int dir);
+	int colocarClaveOrdenadamente(char**keysNodo,int numKeys,char*keyAinsertar);
+	int underflow(NodeBSharp* nodo,char* key);
+	int actualizarIndexSet(char* keyVieja, char* keyNueva,bool escribirNodo);
+	int eliminarIndexSet(char* key,NodeBSharp* nodoHoja,int nivelArbol,bool modificarDireccion,bool underflowNodoInterno);
+	int resolverUnderflowNodoInterno(NodeBSharp* nodoAbuelo,NodeBSharp* nodoPadre, NodeBSharp* nodo, char* key);
+	//char* obtenerClaveRedistribucion(NodeBSharp* nodo,char*keyABorrar);
+	int redistribuirClaves(char*key,NodeBSharp* nodoPadre,NodeBSharp* nodo, NodeBSharp* nodoVecino/*,bool hasNodeFeal*/);
+	int bajarUnNivel(int nivelInferiorNodo);
+	void resolverUnderflowRaiz(NodeBSharp* nodoPadre,char* key);
+	int concatenarNodos(char* key,NodeBSharp* nodoPadre,NodeBSharp* nodo, NodeBSharp* nodoVecino,bool hasNodeFeal);
+	NodeBSharp* obtenerNodoVecino(NodeBSharp* nodoHoja, NodeBSharp* nodoPadreHoja, int indiceClave,bool underflowNodoInterno);
 	int escribirNodo(NodeBSharp* nodo); //Store
 	int escribirProfundidad(char* buffer);
 	int leerProfundidad(char* buffer);

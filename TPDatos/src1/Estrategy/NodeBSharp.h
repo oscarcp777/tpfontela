@@ -33,7 +33,6 @@ public:
 	int serializar(char* buffer);
 	int hidratar(char* buffer);
 	int buscar(char* key, int dir = -1, int exacto = 1);
-
 	void modificarDireccion(char* key,int dir);
 	void imprimir(ostream &);
     int getNodoSiguiente() const
@@ -59,6 +58,10 @@ public:
     void setNumKeys(int numKeys)
     {
         this->numKeys = numKeys;
+    }
+
+    int getMinKeys() const{
+    	return (maxKeys-1)/2;
     }
 
     int *getDirecciones() const
@@ -94,7 +97,7 @@ public:
 
 protected:
 	int numKeys;
-	char* * keys;
+	char** keys;
 	int *direcciones;
 	int maxKeys;
 	int tamanioLlave;

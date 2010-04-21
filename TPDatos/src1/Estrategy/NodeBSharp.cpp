@@ -86,12 +86,13 @@ int NodeBSharp::insert(char* key, int dir){
 int NodeBSharp::remover(char* key, int dir){
 	int indice = this->encontrar(key,dir);
 	if (indice < 0 ) return 0; //no esta en el indice la key
+	this->direcciones[indice]=-1;
 	for (int i = indice; i < this->numKeys; i++){
 		this->keys[i] = this->keys[i+1];
 		this->direcciones[i] = this->direcciones[i+1];
 	}
-	this->numKeys--;
 
+	this->numKeys--;
 	if (this->numKeys < this->minKeys) return -1; //underflow del nodo
 	return 1;
 }
@@ -165,7 +166,12 @@ int NodeBSharp::serializar(char* buffer){
 
 int NodeBSharp::hidratar(char* buffer){
 	int nextByte = 0;
+	/*char charVacio[2] = "0";
+	char numero[2];*/
+
 	memcpy(&this->numKeys,&buffer[nextByte],sizeof(int));
+	//memcpy(&numero,&buffer[0],strlen(buffer));
+	if(strlen(buffer)!=0||this->numKeys==-1){
 	nextByte+=sizeof(int);
 	memcpy(&this->nodoSiguiente,&buffer[nextByte],sizeof(int));
 	nextByte+=sizeof(int);
@@ -179,12 +185,14 @@ int NodeBSharp::hidratar(char* buffer){
 	}
 
 	return 1;
+	}
+	return -1;
 }
 
 int NodeBSharp::buscar(char* key, int dir, int exacto){
 
 	int indice = this->encontrar(key,dir,exacto);
-	if (indice < 0) return indice;
+	if (indice<0 || exacto==-2) return indice;
 	return this->direcciones[indice];
 
 }
