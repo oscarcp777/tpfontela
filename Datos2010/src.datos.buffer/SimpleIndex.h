@@ -15,32 +15,21 @@ using namespace std;
 template <class keyType>
 class SimpleIndex {
 public:
-	//	SimpleIndex(int maxKeys=100,int unique=1);
-	//	~SimpleIndex();
-	//	void clear();
-	//	int insert(const keyType key,int recAddr);
-	//	int remove(const keyType key,const int recAddr=-1);
-	//	int search(const keyType key,const int recAddr=-1,const int exact=1)const;
-	//	void print();
 
-	//	template <class keyType>
 	SimpleIndex(int maxKeys,int unique = 1):
 		numKeys(0),keys(0),recAddrs(0){
 		init(maxKeys,unique);
 	}
 
-	//	template <class keyType>
 	~SimpleIndex(){
 		delete keys;
 		delete recAddrs;
 	}
 
-	//	template <class keyType>
 	void clear(){
 		this->numKeys=0;
 	}
 
-	//	template <class keyType>
 	int insert(const keyType key,int recAddr){
 		int i;
 		int index=find(key);
@@ -61,7 +50,6 @@ public:
 
 	}
 
-	//	template <class keyType>
 	int remove(const keyType key,int recAddr){
 
 		int index=find(key);
@@ -76,33 +64,22 @@ public:
 
 		this->numKeys--;
 		return 1;
-
-
-
 	}
 
-	//	template <class keyType>
 	int search(const keyType key,const int recAddr = -1, const int exact = 1)const{
 
 		int index=find(key,recAddr,exact);
 		if(index< 0)return index;
 		return this->recAddrs[index];
-
 	}
 
-	//	template <class keyType>
 	void print(ostream&) const{
 		cout << "maximo de claves "<<this->maxKeys<<" numero de keys :"<< this->numKeys << endl;
 		for (int var = 0;  var < this->numKeys;  var++) {
 			cout<<"\t tkey [ "<<var<<" ] "<<this->keys[var]<< " recaddr"
 					<<this->recAddrs[var]<<std::endl;
-
-
 		}
-
-
 	}
-
 
 	int getNumKeys() const{
 		return numKeys;
@@ -114,11 +91,8 @@ protected:
 	int numKeys;
 	keyType* keys;
 	int* recAddrs;
-	//	int find(const keyType key ,const int recAddr=-1,const int exact=1)const;
-	//	int init(const int maxKeys,const int unique);
 	int unique;
 
-	//	template <class keyType>
 	int find(const keyType key,const int recAddr = -1, const int exact = 1) const{
 
 		for (int var = 0; var < this->numKeys; ++var) {
@@ -132,10 +106,8 @@ protected:
 		}
 		if(exact==1)return -1;
 		else return this->numKeys-1;
-
 	}
 
-	//	template <class keyType>
 	int init(const int maxKeys,const int unique){
 
 		this->unique=unique!=0;
