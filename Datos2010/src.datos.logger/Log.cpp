@@ -34,8 +34,6 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 
 	int index;
 	char result;
-	FILE* in;
-	in = stdin;
 	string cadena;
 
 	struct option options[] = {
@@ -49,15 +47,17 @@ static void parse_cmdline(Logger* logger,int argc, char * const argv[]){
 			"BIS:h", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				while(!feof(in)){
-					cadena = gets((char*)cadena.c_str());
-					search(logger,cadena);
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0)
+						search(logger,cadena);
 				}
 				break;
 			case 'I':
-				while(!feof(in)){
-					cadena = gets((char*)cadena.c_str());
-					insert(logger,cadena);
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0)
+						insert(logger,cadena);
 				}
 				break;
 			case 'S':
