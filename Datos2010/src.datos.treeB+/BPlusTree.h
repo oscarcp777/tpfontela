@@ -218,10 +218,12 @@ public:
 
 				this->nextKey = node->getKeys()[1];
 				this->nextNode = node->getNextNode();
+				this->endSecuentSet = false;
 			}else{
 
 				this->nextKey = -1;
 				this->nextNode = -1;
+				this->endSecuentSet = true;
 			}
 			return node->getData()[0];
 
@@ -241,6 +243,7 @@ public:
 				}
 			this->nextKey = this->nodes[level]->getKeys()[1];
 			this->nextNode = this->nodes[level]->getNextNode();
+			this->endSecuentSet = false;
 
 			return this->nodes[level]->getData()[0];
 		}
@@ -252,29 +255,49 @@ public:
 	 */
 	char* getNextElementSecuentSet(){
 
-		BNode* node;
-		node = findLeaf(this->nextKey);
-		int index = node->search(this->nextKey);
-		int nextkey;
+		if(!this->endSecuentSet){
 
-		if(index < (node->getNumKeys() - 1)){
-			nextkey = index + 1;
-			this->nextKey = node->getKeys()[nextkey];
-			this->nextNode = node->getNextNode();
+			BNode* node;
+			node = findLeaf(this->nextKey);
+			int index = node->search(this->nextKey);
+			int nextkey;
+
+			if(index < (node->getNumKeys() - 1)){
+				nextkey = index + 1;
+				this->nextKey = node->getKeys()[nextkey];
+				this->nextNode = node->getNextNode();
+			}else{
+
+				BNode* nextNode = fetch(this->nextNode,this->height);
+				//chequear cuando retorna NULL
+				if(nextNode != NULL){
+
+					this->nextKey = nextNode->getKeys()[0];
+					this->nextNode = nextNode->getNextNode();
+				}else{
+
+					this->endSecuentSet = true;
+				}
+
+				//como fetch instancia una BNodo lo tengo que
+				//deetear
+				delete nextNode;
+			}
+			return node->getData()[index];
+
 		}else{
 
-			BNode* nextNode = fetch(this->nextNode, this->height);
-			//chequear cuando retorna NULL
-			if(nextNode != NULL){
-				this->nextKey = nextNode->getKeys()[0];
-				this->nextNode = nextNode->getNextNode();
-			}
-			//como fetch instancia una BNodo lo tengo que
-			//deetear
-			delete nextNode;
+			return NULL;
 		}
-		return node->getData()[index];
+	}
+	/*
+	 * Flag que determina el final del sucuent set.
+	 * Antes de invocar este metodo, se tiene que invoca el
+	 * getFirstElementSecuentSet ...
+	 */
+	bool getEndSecuentSet(){
 
+		return this->endSecuentSet;
 	}
 
 protected:
@@ -289,6 +312,7 @@ protected:
 	int metadataSize;
 	int nextKey;
 	int nextNode;
+	bool endSecuentSet;
 	BNode** nodes; 			//nodos disponibles
 
 
