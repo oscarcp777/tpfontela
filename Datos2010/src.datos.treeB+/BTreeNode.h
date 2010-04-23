@@ -20,9 +20,8 @@
 using namespace std;
 
 template <class keyType>
+
 class BTreeNode : SimpleIndex <keyType> {
-
-
 
 public:
 	BTreeNode(int maxSize,int keySize, int unique = 1)
@@ -326,7 +325,7 @@ protected:
 		//tamaño clave + clave
 		this->keySize = sizeof(short)+sizeof(keyType);
 		// 0,7 del bloque ocupado - metadata bloque
-		this->freeSpace = maxSize*0.7 - blockMetadataSize;
+		this->freeSpace = maxSize - blockMetadataSize;
 		//los nodos se inician como hojas
 		this->isLeaf = 1;
 
@@ -337,9 +336,9 @@ protected:
 		return 1;
 	}
 
-//	#ifndef BPLUSTREE_H_
-//		friend class BPlusTree<keyType>;
-//	#endif
+#ifndef BPLUSTREE_H_
+	template <class keyType> friend class BPlusTree;
+#endif
 };
 
 

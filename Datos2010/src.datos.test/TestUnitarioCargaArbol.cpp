@@ -44,11 +44,10 @@ int main(){
 	string e = "Ricardo Sivori";
 	string f = "Sebas";
 	string g = "Nelson Castro";
-	string h = "X";
 
 
 	bt.insert(2,a.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(4,e.c_str());
 //	bt.print(cout);
 	bt.insert(1,c.c_str());
@@ -61,16 +60,23 @@ int main(){
 //	bt.print(cout);
 	bt.insert(33,g.c_str());
 //	bt.print(cout);
-	bt.insert(34,h.c_str());
 	bt.print(cout);
 	bt.close();
 
 	BPlusTree<int> btAux(100);
 	btAux.open(ruta,ios::in|ios::out);
 
-	char* data = btAux.search(32);
+	char* data = btAux.search(2);
 	cout << "Encontro el dato: " << data << endl;
 
 	//No lo cierro porque el destructor hace el close
+//	BPlusTree<int> btAux(100);
+//	btAux.open(ruta,ios::in|ios::out);
+
+	cout<<"El primer elemento es ... " << bt.getFirstElementSecuentSet()<<endl;
+	cout<<"El Segundo elemento es ... " << bt.getNextElementSecuentSet()<<endl;
+	cout<<"El Tercer elemento es ... " << bt.getNextElementSecuentSet()<<endl;
+	cout<<"El Cuarto elemento es ... " << bt.getNextElementSecuentSet()<<endl;
+	cout<<"El Quinto elemento es ... " << bt.getNextElementSecuentSet()<<endl;
 	return 1;
 }
