@@ -18,9 +18,8 @@
 
 using namespace std;
 const int MAX_HEIGHT = 5;
-template <class keyType>
-class BPlusTree{
 
+template <class keyType> class BPlusTree{
 
 public:
 
@@ -193,7 +192,90 @@ public:
 		//delete currentNode;
 
 	}
+	/*
+	 * Retorna el primer elemento del secuent set. Y posiciona un apuntador
+	 * al siguente elemento del secuent set. Si el apuntador estaba apuntando
+	 * a un elemento en particular, la llamada a este metodo setea este
+	 * al siguiente del primer elemento.
+	 */
+	char* getFirstElementSecuentSet(){
 
+		/*
+		 * Obtengo el primer nodo del secuent set, luego
+		 * obtengo el primer key del vector y asi por
+		 * traer la hoja y sacar el dato.
+		 */
+		BNode* node;
+		node = &this->root;
+		keyType* keysRoot = this->root.getKeys();
+		int key = keysRoot[0];
+
+		if(node->getIsLeaf()){
+
+			node = findLeaf(key);
+			//Verifica si en el nodo hoja hay otra clave
+			if(node->getNumKeys() > 0){
+
+				this->nextKey = node->getKeys()[1];
+				this->nextNode = node->getNextNode();
+			}else{
+
+				this->nextKey = -1;
+				this->nextNode = -1;
+			}
+			return node->getData()[0];
+
+		}else{
+			int recaddr, level;
+			for(level = 1; level < this->height; level++){
+	//			recaddr = this->nodes[level-1]->search(key,-1,0);
+				recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
+				if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
+					this->nodes[level] = this->fetch(recaddr,level+1);
+				/*
+				 * Aca va los de si son hojas.
+				 */
+
+				if (this->nodes[level]->getIsLeaf())
+					break;
+				}
+			this->nextKey = this->nodes[level]->getKeys()[1];
+			this->nextNode = this->nodes[level]->getNextNode();
+
+			return this->nodes[level]->getData()[0];
+		}
+	}
+	/*
+	 * Retorna el elemento actual del secuent set apuntado por el apuntador y
+	 * setea este al siguiente elemento del secuent set. Si no existe el siguiente
+	 * elemento, el apuntador toma un valor invalido.
+	 */
+	char* getNextElementSecuentSet(){
+
+		BNode* node;
+		node = findLeaf(this->nextKey);
+		int index = node->search(this->nextKey);
+		int nextkey;
+
+		if(index < (node->getNumKeys() - 1)){
+			nextkey = index + 1;
+			this->nextKey = node->getKeys()[nextkey];
+			this->nextNode = node->getNextNode();
+		}else{
+
+			BNode* nextNode = fetch(this->nextNode, this->height);
+			//chequear cuando retorna NULL
+			if(nextNode != NULL){
+				this->nextKey = nextNode->getKeys()[0];
+				this->nextNode = nextNode->getNextNode();
+			}
+			//como fetch instancia una BNodo lo tengo que
+			//deetear
+			delete nextNode;
+		}
+		return node->getData()[index];
+
+	}
 
 protected:
 	typedef BTreeNode <keyType> BNode;
@@ -205,6 +287,8 @@ protected:
 	int keySize;
 	int poolSize;			//cantidad de nodos
 	int metadataSize;
+	int nextKey;
+	int nextNode;
 	BNode** nodes; 			//nodos disponibles
 
 

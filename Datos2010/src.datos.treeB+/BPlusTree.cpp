@@ -75,7 +75,7 @@ void parse_cmdline(int argc, char * const argv[]){
 	delete parser;
 }
 
-int main(int argc, char * const argv[]){
+int mainghfgh(int argc, char * const argv[]){
 	parse_cmdline(argc,argv);
 	return 0;
 }

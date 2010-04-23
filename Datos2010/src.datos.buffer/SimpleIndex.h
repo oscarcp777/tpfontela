@@ -122,7 +122,7 @@ protected:
 	}
 
 #ifndef BPLUSTREE_H_
-	friend class BPlusTree<keyType>;
+	template <keyType>friend class BPlusTree;
 #endif
 };
 
