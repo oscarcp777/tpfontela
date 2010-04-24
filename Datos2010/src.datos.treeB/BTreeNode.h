@@ -16,26 +16,27 @@
 #include "../src.datos.buffer/FixedFieldBuffer.h"
 //#include "../src.datos.treeB+/BPlusTree.h"
 
-
 using namespace std;
 
 template <class keyType>
-
 class BTreeNode : SimpleIndex <keyType> {
+
+
 
 public:
 	BTreeNode(int maxSize,int keySize, int unique = 1)
-	//(TamaÃ±o bloque - metadata bloque)/tamaÃ±o clave       //ver init
+	//(Tamaño bloque - metadata bloque)/tamaño clave       //ver init
 	:SimpleIndex<keyType>(((maxSize-sizeof(short) - sizeof(int))/(keySize+sizeof(short)+sizeof(int)+sizeof(short))), unique),
 	 data(0)
 	 {
 		//el array de punteros se inicializa con un max. de posibles referencias
 		//dado por el max. de claves posibles a insertar (es decir sin contar el
-		//tamaÃ±o del dato)
+		//tamaño del dato)
 		//this->data = new char*[this->maxKeys];
 		this->data = new char*[this->maxKeys];
 		init(maxSize);
 	 }
+
 
 	~BTreeNode() {
 		int i;
@@ -52,7 +53,8 @@ public:
 
 	}
 
-	int  insert(const keyType key, const char* data, int recAddr = -1){
+
+int  insert(const keyType key, const char* data, int recAddr = -1){
 		int result;
 
 
@@ -80,7 +82,18 @@ public:
 		return 1;
 	}
 
-	int  remove(const keyType key, int dir){
+
+	void updateAddr(keyType key,int dir){
+		for(int i = 0; i < this->numKeys; i++){
+				if (this->keys[i]==key){ //exact match
+					this->recAddrs[i]=dir;
+				}
+
+			}
+	}
+
+
+	int remove(const keyType key, int dir){
 		int result;
 		result = SimpleIndex<keyType>::remove(key, recAddr);
 		if (!result) return 0; //fallo remover
@@ -88,20 +101,23 @@ public:
 		return 0;
 	}
 
+
 	int search(const keyType key,const int recAddr = -1, const int exact = 1)const{
 		//devuelve la posicion de la key en el vector
 		return SimpleIndex<keyType>::find(key,recAddr,exact);
 		//return SimpleIndex<keyType>::search(key, recAddr, exact);
 	}
 
-	keyType  largestKey(){ 	   //retorna el valor de la clave mayor
+
+	keyType largestKey(){ 	   //retorna el valor de la clave mayor
 		if (this->numKeys > 0)
 			return this->keys[this->numKeys-1];
 		else return this->keys[0];
 
 	}
 
-	int  split(BTreeNode* newNode){ 		//mover al nuevo nodo
+
+	int split(BTreeNode* newNode){ 		//mover al nuevo nodo
 
 //		if (this->numKeys < this->maxKeys) return 0; // chequea si hay suficiente num de claves
 		int midpt = (this->numKeys + 1)/2; //encuentra la primer clave a ser movida al nuevo nodo
@@ -129,7 +145,8 @@ public:
 		return 1;
 	}
 
-	int  merge(BTreeNode* fromNode){		//mueve desde el nodo
+
+	int merge(BTreeNode* fromNode){		//mueve desde el nodo
 
 		//chequea si hay demasiadas claves
 		if (this->numKeys + fromNode->numKeys > this->maxKeys-1) return 0;
@@ -147,7 +164,8 @@ public:
 		return 1;
 	}
 
-	int  updateKey(keyType oldKey, keyType newKey, int recAddr = -1){
+
+	int updateKey(keyType oldKey, keyType newKey, int recAddr = -1){
 
 //		int recaddr = this->search(oldKey,recAddr);
 		int recaddr = this->recAddrs[this->search(oldKey,recAddr)];
@@ -157,7 +175,8 @@ public:
 		return 1;
 	}
 
-	int  pack(IOBuffer& buffer) const{
+
+	int pack(IOBuffer& buffer) const{
 		int result;
 		buffer.clear();
 		result = buffer.pack(&this->numKeys);
@@ -179,7 +198,8 @@ public:
 		return result;
 	}
 
-	int  unpack(IOBuffer& buffer){
+
+	int unpack(IOBuffer& buffer){
 		int result;
 		int size=this->freeSpace;
 		char auxData[size];
@@ -192,7 +212,7 @@ public:
 				result = result && buffer.unPack(&this->keys[i],sizeof(keyType));
 				result = result && buffer.unPack(auxData);
 				int len = strlen(auxData);
-				this->data[i] = new char[len+1];
+				this->data[i] = new char[len];
 				memset(this->data[i],0,len);
 				strcpy(this->data[i],(char*)auxData);
 				memset(auxData,0,size);
@@ -207,7 +227,8 @@ public:
 		return result;
 	}
 
-	void  print(ostream &) const{
+
+	void print(ostream &) const{
 		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
 		for(int i = 0; i<this->numKeys; i++){
 			if (isLeaf)
@@ -229,59 +250,79 @@ public:
 		return recAddr;
 	}
 
+
 	void setRecAddr(int recAddr)
 	{
 		this->recAddr = recAddr;
 	}
+
 
 	int getNextNode() const
 	{
 		return this->nextNode;
 	}
 
+
 	void setNextNode(int nextNode)
 	{
 		this->nextNode = nextNode;
 	}
+
 
 	keyType* getKeys() const
 	{
 		return this->keys;
 	}
 
+
 	void setKeys(keyType* keys)
 	{
 		this->keys = keys;
 	}
+
 
 	int* getRecAddrs() const
 	{
 		return this->recAddrs;
 	}
 
+
 	void setRecAddrs(int* recAddrs)
 	{
 		this->recAddrs = recAddrs;
 	}
+
 
 	int getNumKeys() const
 	{
 		return this->numKeys;
 	}
 
+
 	void setNumKeys(int numKeys)
 	{
 		this->numKeys = numKeys;
 	}
+
 
 	bool getIsLeaf()
 	{
 		return this->isLeaf;
 	}
 
+
 	void setIsLeaf(bool value)
 	{
 		this->isLeaf = value;
+	}
+
+
+	int getFreeSpace(){
+		return this->freeSpace;
+	}
+
+	void setFreeSpace(int freeSpace){
+		this->freeSpace = freeSpace;
 	}
 
 	char** getData() const
@@ -289,8 +330,29 @@ public:
 		return this->data;
 	}
 
+	/**
+	 * El espacio minimo es el 20% del tamaño del bloque
+	 */
 
-protected:
+	int getMinFreeSpace(int blockSize){
+		return blockSize*0.2;
+	}
+
+	/*
+	 * En caso de que el dato a eliminar haga que freeSpace quede por debajo del
+	 * 20% de maxSize devuelvo true y en este caso estara en underflow, caso contrario
+	 * devuelvo false.
+	 */
+
+	int caseDataRemove(int sizeDataRemove,int blockSize){
+		if((freeSpace-sizeDataRemove)<getMinFreeSpace(blockSize))
+			return -1; //underflow
+		else if((freeSpace-sizeDataRemove)==getMinFreeSpace(blockSize))
+			return 0; //en el limite
+		else return 1; //fuera de underflow
+	}
+
+	protected:
 	int nextNode;   		//direccion del siguiente nodo en el mismo nivel
 	int recAddr;			//direccion de este nodo en el archivo del arbol
 	int minKeys;		 	//minimo numero de claves en un nodo
@@ -304,13 +366,13 @@ protected:
 	char** data;
 	//en nodos hojas es el espacio libre del bloque
 	int freeSpace;
-	//tamaÃ±o que ocupa guardar cada key(se va restando por cada insert al freeSpace)
+	//tamaño que ocupa guardar cada key(se va restando por cada insert al freeSpace)
 	int keySize;
 
+	void clear(){
+		this->numKeys = 0; recAddr = -1;
+	}
 
-
-
-	void clear(){ this->numKeys = 0; recAddr = -1; }
 
 	int  init(int maxSize){
 		this->nextNode = -1;
@@ -341,7 +403,5 @@ protected:
 #endif
 };
 
-
-
-
 #endif /* BTREENODE_H_ */
+
