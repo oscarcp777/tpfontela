@@ -5,7 +5,7 @@
  *      Author: santiago
  */
 
-#include "../src.datos.treeB+/BPlusTree.h"
+#include "../src.datos.treeB/BPlusTree.h"
 
 
 const char* keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
