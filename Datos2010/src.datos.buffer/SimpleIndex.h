@@ -8,7 +8,7 @@
 #ifndef SIMPLEINDEX_H_
 #define SIMPLEINDEX_H_
 #include <iostream>
-#include "../src.datos.treeB+/BPlusTree.h"
+#include "../src.datos.treeB/BPlusTree.h"
 
 using namespace std;
 
