@@ -835,6 +835,7 @@ protected:
 		buffer.pack(&this->height);
 		return this->bTreeFile.write(buffer);
 	}
+
 };
 
 #endif /* BPLUSTREE_H_ */
