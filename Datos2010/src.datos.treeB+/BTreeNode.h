@@ -212,7 +212,7 @@ public:
 		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
 		for(int i = 0; i<this->numKeys; i++){
 			if (isLeaf)
-				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<<this->data[i]<<endl;
+				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<< this->data[i]<<endl;
 			else
 				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dir "<<this->recAddrs[i]<<endl;
 		}
@@ -337,7 +337,8 @@ protected:
 	}
 
 #ifndef BPLUSTREE_H_
-	template <class keyType> friend class BPlusTree;
+	template <class keyType>
+	friend class BPlusTree <class keyType>;
 #endif
 };
 

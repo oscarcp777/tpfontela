@@ -30,7 +30,7 @@ int main(){
 //	}
 
 
-	BPlusTree<int> bt(100);
+	BPlusTree<int> bt(128);
 
 	string ruta="files/testbt.dat";
 
@@ -44,45 +44,63 @@ int main(){
 	string e = "Ricardo Sivori";
 	string f = "Sebas";
 	string g = "Nelson Castro";
-	string h = "Leonel Mes";
+	string h = "Lionel Messi";
 	string i = "Carlitos Tevez";
 	string j = "Martin Palermo";
+	//string h = "maxwel Messi";
 
 
 	bt.insert(2,a.c_str());
 	bt.print(cout);
 	bt.insert(4,e.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(1,c.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(5,d.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(3,b.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(32,f.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(33,g.c_str());
-	bt.insert(34,h.c_str());
+	bt.print(cout);
+	bt.insert(20,h.c_str());
+	bt.print(cout);
 	bt.insert(35,i.c_str());
+	bt.print(cout);
 	bt.insert(37,j.c_str());
-//	bt.print(cout);
 	bt.print(cout);
 	bt.close();
 
-	BPlusTree<int> btAux(100);
+	BPlusTree<int> btAux(128);
 	btAux.open(ruta,ios::in|ios::out);
 
-	char* data = btAux.search(33);
-	cout << "Encontro el dato: " << data << endl;
+	/*Hay que ver que retorna search porque cuando la
+	 * clave a buscar no existe se cuelga.
+	 */
+	char* data = btAux.search(2);
+
+	if(data != NULL){
+		cout << "Encontro el dato: " << data << endl;
+	}else{
+		cout << "No existe el dato." << endl;
+	}
+
 
 	//No lo cierro porque el destructor hace el close
 //	BPlusTree<int> btAux(100);
 //	btAux.open(ruta,ios::in|ios::out);
 
-	cout<<"El primer elemento es ... " << btAux.getFirstElementSecuentSet()<<endl;
-	while(!btAux.getEndSecuentSet()){
 
-		cout<<"El elemento es ... " << btAux.getNextElementSecuentSet()<<endl;
+	if(btAux.getFirstElementSecuentSet()!= NULL){
+
+		cout<<"El primer elemento es ... " << btAux.getFirstElementSecuentSet()<<endl;
+		while(!btAux.getEndSecuentSet()){
+			cout<<"El elemento es ... " << btAux.getNextElementSecuentSet()<<endl;
+		}
+
+	}else{
+			cout << "No existe el dato." << endl;
 	}
 
 //	cout<<"El Tercer elemento es ... " << btAux.getNextElementSecuentSet()<<endl;

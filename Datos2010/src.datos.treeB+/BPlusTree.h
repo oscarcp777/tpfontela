@@ -162,7 +162,13 @@ public:
 		BNode* nodoHoja;
 		nodoHoja = findLeaf(key);
 		int index = nodoHoja->search(key,dir);
-		return nodoHoja->getData()[index];
+		if(index != -1){
+
+			return nodoHoja->getData()[index];
+		}else{
+
+			return NULL;
+		}
 	}
 
 	void  print(ostream & stream){
@@ -208,44 +214,57 @@ public:
 		BNode* node;
 		node = &this->root;
 		keyType* keysRoot = this->root.getKeys();
-		int key = keysRoot[0];
 
-		if(node->getIsLeaf()){
+		if (node->getNumKeys() == 0){
 
-			node = findLeaf(key);
-			//Verifica si en el nodo hoja hay otra clave
-			if(node->getNumKeys() > 0){
-
-				this->nextKey = node->getKeys()[1];
-				this->nextNode = node->getNextNode();
-				this->endSecuentSet = false;
-			}else{
-
-				this->nextKey = -1;
-				this->nextNode = -1;
-				this->endSecuentSet = true;
-			}
-			return node->getData()[0];
-
+			return NULL;
 		}else{
-			int recaddr, level;
-			for(level = 1; level < this->height; level++){
-	//			recaddr = this->nodes[level-1]->search(key,-1,0);
-				recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
-				if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
-					this->nodes[level] = this->fetch(recaddr,level+1);
-				/*
-				 * Aca va los de si son hojas.
-				 */
 
-				if (this->nodes[level]->getIsLeaf())
-					break;
+			int key = keysRoot[0];
+			if(node->getIsLeaf()){
+
+				node = findLeaf(key);
+				//Verifica si en el nodo hoja hay otra clave
+				if(node->getNumKeys() > 0){
+
+					this->nextKey = node->getKeys()[1];
+					this->nextNode = node->getNextNode();
+					this->endSecuentSet = false;
+				}else{
+
+					this->nextKey = -1;
+					this->nextNode = -1;
+					this->endSecuentSet = true;
 				}
-			this->nextKey = this->nodes[level]->getKeys()[1];
-			this->nextNode = this->nodes[level]->getNextNode();
-			this->endSecuentSet = false;
+				if(node!=NULL){
 
-			return this->nodes[level]->getData()[0];
+					return node->getData()[0];
+				}else{
+
+					return NULL;
+				}
+
+			}else{
+				int recaddr, level;
+				for(level = 1; level < this->height; level++){
+		//			recaddr = this->nodes[level-1]->search(key,-1,0);
+					recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
+					if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
+						this->nodes[level] = this->fetch(recaddr,level+1);
+					/*
+					 * Aca va los de si son hojas.
+					 */
+
+					if (this->nodes[level]->getIsLeaf())
+						break;
+					}
+				this->nextKey = this->nodes[level]->getKeys()[1];
+				this->nextNode = this->nodes[level]->getNextNode();
+				this->endSecuentSet = false;
+
+				return this->nodes[level]->getData()[0];
+			}
+
 		}
 	}
 	/*
