@@ -221,50 +221,67 @@ public:
 		}else{
 
 			int key = keysRoot[0];
+			/*
+			 * Si el nodo es hoja, obtenemos el primer elemento de este nodo, que
+			 * es tambien el primer dato del arbol. Sino es hoja tenemos que recorrer
+			 * el arbol hasta encontrar el primer elemento.
+			 */
 			if(node->getIsLeaf()){
 
 				node = findLeaf(key);
-				//Verifica si en el nodo hoja hay otra clave
-				if(node->getNumKeys() > 0){
+				/*
+				 * Verifica si en el nodo hoja tiene solo una clave, si es asi
+				 * la siguiente clave tiene que ser -1 al igual que el siguiente
+				 * nodo y se tiene que setear el atributo endSecuentSet.
+				 */
+
+				if(node->getNumKeys()==1){
+
+					this->nextNode = -1;
+					this->nextKey = -1;
+					this->endSecuentSet = true;
+				}else{
 
 					this->nextKey = node->getKeys()[1];
 					this->nextNode = node->getNextNode();
 					this->endSecuentSet = false;
-				}else{
-
-					this->nextKey = -1;
-					this->nextNode = -1;
-					this->endSecuentSet = true;
 				}
-				if(node!=NULL){
 
-					return node->getData()[0];
-				}else{
-
-					return NULL;
-				}
+				return node->getData()[0];
 
 			}else{
+
 				int recaddr, level;
+				/*
+				 * Recorro el arbol, sino esta el nodo en el arbol se carga en
+				 * memoria.
+				 */
 				for(level = 1; level < this->height; level++){
-		//			recaddr = this->nodes[level-1]->search(key,-1,0);
+
 					recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
 					if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
 						this->nodes[level] = this->fetch(recaddr,level+1);
-					/*
-					 * Aca va los de si son hojas.
-					 */
 
-					if (this->nodes[level]->getIsLeaf())
+					if (this->nodes[level]->getIsLeaf()){
 						break;
+					}else{
+						key = this->nodes[level]->getKeys()[0];
 					}
-				this->nextKey = this->nodes[level]->getKeys()[1];
-				this->nextNode = this->nodes[level]->getNextNode();
-				this->endSecuentSet = false;
+				}
 
+				if(this->nodes[level]->getNumKeys()==1){
+
+					this->nextNode = -1;
+					this->nextKey = -1;
+					this->endSecuentSet = true;
+				}else{
+
+					this->nextKey = this->nodes[level]->getKeys()[1];
+					this->nextNode = this->nodes[level]->getNextNode();
+					this->endSecuentSet = false;
+				}
 				return this->nodes[level]->getData()[0];
 			}
-
 		}
 	}
 	/*
@@ -275,33 +292,43 @@ public:
 	char* getNextElementSecuentSet(){
 
 		if(!this->endSecuentSet){
-
+			/*
+			 * Aca tendria q usar el nodo cargano en memoria
+			 * this->nodes[level] ...
+			 */
 			BNode* node;
 			node = findLeaf(this->nextKey);
 			int index = node->search(this->nextKey);
 			int nextkey;
 
 			if(index < (node->getNumKeys() - 1)){
+
 				nextkey = index + 1;
 				this->nextKey = node->getKeys()[nextkey];
 				this->nextNode = node->getNextNode();
 			}else{
 
-				BNode* nextNode = fetch(this->nextNode,this->height);
-				//chequear cuando retorna NULL
-				if(nextNode != NULL){
+				if(this->nextNode != -1){
 
-					this->nextKey = nextNode->getKeys()[0];
-					this->nextNode = nextNode->getNextNode();
+					BNode* nextNode = fetch(this->nextNode,this->height);
+					//chequear cuando retorna NULL
+					if(nextNode != NULL){
+
+						this->nextKey = nextNode->getKeys()[0];
+						this->nextNode = nextNode->getNextNode();
+					}else{
+
+						this->endSecuentSet = true;
+					}
+
+					//como fetch instancia una BNodo lo tengo que
+					//deetear
+					delete nextNode;
 				}else{
 
 					this->endSecuentSet = true;
 				}
-
-				//como fetch instancia una BNodo lo tengo que
-				//deetear
-				delete nextNode;
-			}
+							}
 			return node->getData()[index];
 
 		}else{

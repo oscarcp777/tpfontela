@@ -171,10 +171,10 @@ public:
 	int  pack(IOBuffer& buffer) const{
 		int result;
 		buffer.clear();
-		result = buffer.pack(&this->numKeys);
+		result = buffer.pack(&this->numKeys,sizeof(int));
 		if (this->isLeaf){
-			result = buffer.pack(&this->nextNode);
-			result = buffer.pack(&this->freeSpace);
+			result = buffer.pack(&this->nextNode,sizeof(int));
+			result = buffer.pack(&this->freeSpace,sizeof(int));
 			for (int i = 0; i<this->numKeys; i++){
 				result = result && buffer.pack(&this->keys[i],sizeof(keyType));
 				result = result && buffer.pack(this->data[i],strlen(this->data[i]));
