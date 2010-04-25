@@ -46,15 +46,21 @@ void parse_cmdline(int argc, char * const argv[]){
 	 * entrada. A madida que leo una linea me va tirando las claves con su valor
 	 * y lo parseo con el parser.
 	 */
-	ParserInput* parser = new ParserInput("(123,nelson)");
-
 	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
 				cout<<"Busqueda de una clave en el Arbol"<<endl;
 				break;
 			case 'I':
-				cout<<"Insercion de una clave en el Arbol"<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+						if(cadena.length() != 0){
+							ParserInput* parser = new ParserInput(cadena);
+							bTree.insert(parser->getKey(),parser->getData().c_str());
+							delete parser;
+						}
+					}
+				}
 				break;
 			case 'S':
 				cout<<"Volcado de los datos del arbol en un archivo"<<endl;
