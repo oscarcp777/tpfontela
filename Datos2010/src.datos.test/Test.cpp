@@ -6,11 +6,15 @@
  */
 
 #include "TestIOFile.h"
+#include "TestFreeBlockController.h"
 
-int main22(){
-	TestIOFile* test = new TestIOFile();
-	test->runBinaryFileTest2();
-	//test->runTextFileTest();
+int main(){
+//	TestIOFile* test = new TestIOFile();
+//	test->runBinaryFileTest2();
+//	test->runTextFileTest();
+
+	TestFreeBlockController* test = new TestFreeBlockController();
+	test->runFreeBlockControllerTest();
 
 	delete test;
 
