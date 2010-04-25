@@ -22,7 +22,7 @@ void help(){
 	printf(" 	-Q, --print\t    Quitar un dato de la estructura.\n");
 }
 
-void parse_cmdline(int argc, char * const argv[]){
+void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 
 	int index;
 	char result;
@@ -37,33 +37,44 @@ void parse_cmdline(int argc, char * const argv[]){
 	};
 
 
-	BPlusTree <int>  bTree (128);
-	bTree.create("fileName",ios::out);
-	string cadena = argv[1];
+	BPlusTree <int>  bTree (sizeBlock);
+	bTree.open("./files/ejemplo",ios::in | ios::out);
+	string cadena;
+	//= argv[1];
 
 	/*
 	 * Aca tiene que venir las lineas de codigo que recorren el archivo de
 	 * entrada. A madida que leo una linea me va tirando las claves con su valor
 	 * y lo parseo con el parser.
 	 */
-	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
+	while ((result = getopt_long(argc, argv,"BISMQh", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				cout<<"Busqueda de una clave en el Arbol"<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						ParserInput* parser = new ParserInput(cadena);
+						if(bTree.search(parser->getKey())!= NULL){
+							cout<<bTree.search(parser->getKey())<< endl;
+						}
+						delete parser;
+					}
+				}
 				break;
 			case 'I':
 				while(!cin.eof()){
 					getline(cin,cadena);
-						if(cadena.length() != 0){
-							ParserInput* parser = new ParserInput(cadena);
-							bTree.insert(parser->getKey(),parser->getData().c_str());
-							delete parser;
-						}
+					if(cadena.length() != 0){
+						ParserInput* parser = new ParserInput(cadena);
+						bTree.insert(parser->getKey(),parser->getData().c_str());
+						delete parser;
 					}
 				}
+
 				break;
 			case 'S':
-				cout<<"Volcado de los datos del arbol en un archivo"<<endl;
+				bTree.print(cout);
+//				cout<<"Volcado de los datos del arbol en un archivo"<<endl;
 				break;
 			case 'M':
 				cout<<"Modifiacion de un dato del arbol"<<endl;
@@ -78,10 +89,11 @@ void parse_cmdline(int argc, char * const argv[]){
 				help();
 		}
 	}
-	delete parser;
 }
 
-int mainghfgh(int argc, char * const argv[]){
-	parse_cmdline(argc,argv);
+int main(int argc, char * const argv[]){
+
+	int sizeBlock = 128;
+	parse_cmdline(argc,argv,sizeBlock);
 	return 0;
 }
