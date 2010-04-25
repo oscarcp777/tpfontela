@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int main(){
+int main436747(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
@@ -51,28 +51,24 @@ int main(){
 
 
 	bt.insert(2,a.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(4,e.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(1,c.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(5,d.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(3,b.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(32,f.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(33,g.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(20,h.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(35,i.c_str());
-//	bt.print(cout);
+	bt.print(cout);
 	bt.insert(37,j.c_str());
-//	bt.print(cout);
-//	int clave = 1;
-//	cout<<"Eliminar ..... clave " << clave << endl;
-//	bt.remover(clave,-1);
 	bt.print(cout);
 	bt.close();
 

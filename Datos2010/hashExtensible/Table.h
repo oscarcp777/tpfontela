@@ -29,12 +29,14 @@ private:
 	int countsCubes;
 	Cube* currentCube;
 	int sizeTable;
+	int countCubeFileTable;
 	vector<int> offsetFreeCubes;
 	vector<int> offsetCubes;
 	int diferentDispersionAndSizeTable(int index);
 	int equalsDispersionAndSizeTable(int index);
 	int calculateIndex(int* indexUp, int* indexDown, int index);
 	void printCubes();
+	int packCubeTable(Buffer* buffer,int countElement, int* indexOffset);
 	string fileNameOutput;
 public:
 	Table();
