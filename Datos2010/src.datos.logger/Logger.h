@@ -70,6 +70,8 @@ private:
 	Logger(int sizeFile = 512);
 
 public:
+	int countRead;
+	int countWrite;
 	/*
 	 * Instanciacion del logger. Se obtiene una unica instancia de
 	 * este.

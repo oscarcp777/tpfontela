@@ -10,6 +10,8 @@
 
 #include "File.h"
 
+
+
 class BinaryFile: public File {
 private:
 	string name;

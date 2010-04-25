@@ -128,53 +128,44 @@ bool Cube::hasSpace(int size){
 
 
 int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
-	this->clear();
-	this->setOffsetCube(offsetCube);
-	fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
-	this->loadMetadata();
-	Record* record;
-	int size=0;
-	int key=0;
-	for (int var = 0; var < this->numberOfRecords; var++) {
-		record=new Record();
-		record->clear();
-		this->buffer->unPackField(&(size),sizeof(size));
-		this->buffer->unPackField(&key,sizeof(key));
-		//*########################################
-		/* TODO NECESITO QUE SEA EL DOBLE DE SIZE SINO SE FUMA PORQUE C++ AGREGA UN /0 QUE COME ESPACIO
-		 * PODRIA SER UN POCO MAS GRANDE QUE SIZE Y NO EL DOBLE PERO DEJA EL DOBLE QUE NO MOLESTA
-		 */
-		char* data=new char[size*2];
-		memset(data,0,size*2);
-		this->buffer->unPackField(data,size);
-		record->setKey(key);
-		record->setData(data);
-		this->records.push_back(record);
+	if(this->offsetCube != offsetCube){//TODO VERIFICAR SI ANDA BIEN CON ESTE IF
+		this->clear();
+		this->setOffsetCube(offsetCube);
+		fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
+		this->loadMetadata();
+		Record* record;
+		int size=0;
+		int key=0;
+		for (int var = 0; var < this->numberOfRecords; var++) {
+			record=new Record();
+			record->clear();
+			this->buffer->unPackField(&(size),sizeof(size));
+			this->buffer->unPackField(&key,sizeof(key));
+			//*########################################
+			/* TODO NECESITO QUE SEA EL DOBLE DE SIZE SINO SE FUMA PORQUE C++ AGREGA UN /0 QUE COME ESPACIO
+			 * PODRIA SER UN POCO MAS GRANDE QUE SIZE Y NO EL DOBLE PERO DEJA EL DOBLE QUE NO MOLESTA
+			 */
+			char* data=new char[size*2];
+			memset(data,0,size*2);
+			this->buffer->unPackField(data,size);
+			record->setKey(key);
+			record->setData(data);
+			this->records.push_back(record);
+		}
 	}
 
 	return 1;
 }
 
-int Cube::addRecord(Record *record)
-{
-	int diferentSize=0;
+int Cube::addRecord(Record *record){
 	Record* recordFound=this->search(record->getKey());
 	if(recordFound==NULL){
 		this->records.push_back(record);
 		this->sizeFree=this->sizeFree-record->getSizeRecord();
 		return TRUE;
 
-	}else{// si lo encontro lo actualizo
-		if(record->getSizeRecord()>recordFound->getSizeRecord()){
-			diferentSize=record->getSizeRecord()-recordFound->getSizeRecord();
-			if(!this->hasSpace(diferentSize))
-				return FALSE;
-		}
-		recordFound->setData(record->getData());
-		delete record;
-
-
 	}
+		delete record;
 
 	return TRUE;
 }
@@ -213,6 +204,7 @@ Record *Cube::search(int key)
 
 int Cube::update(Record* record){
 	list<Record*>::iterator iterRecord;
+	//TODO hacer el espacio libre
 	Record* recordFound=this->search(record->getKey());
 		if(recordFound != NULL){
 			recordFound->setData(record->getData());

@@ -25,7 +25,8 @@ public:
 	static void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );
 	static int contadorTag(std::string cadena);
 	static  std::string convertirAString( int numero);
-
+    static int countRead;
+    static int countWrite;
 	/*
 	 * Metodos de la nueva version.
 	 *

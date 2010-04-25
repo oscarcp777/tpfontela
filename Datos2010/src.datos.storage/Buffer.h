@@ -43,6 +43,16 @@ public:
 	 */
 	int unPackField(void* field,int size);
 	int print();
+    int getMaxBytes() const
+    {
+        return maxBytes;
+    }
+
+    void setMaxBytes(int maxBytes)
+    {
+        this->maxBytes = maxBytes;
+    }
+
     char *getData()
     {
         return buffer;

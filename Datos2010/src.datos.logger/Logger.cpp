@@ -72,7 +72,8 @@ void Logger::split(string cadena){
 }
 
 Logger::Logger(int sizeFile){
-
+    this->countRead=0;
+    this->countWrite=0;
 	this->open(&this->file,PATH_LOGGER);
 	this->date = new char[SIZE_SYSTEM_TIME];
 	std::string cadena;
