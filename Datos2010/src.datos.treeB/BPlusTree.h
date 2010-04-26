@@ -212,7 +212,7 @@ public:
 		 * traer la hoja y sacar el dato.
 		 */
 		this->nodeSecuentSet = &this->root;
-		keyType* keysRoot = this->root.getKeys();
+		keyType* keysRoot = this->nodeSecuentSet->getKeys();
 
 		if (this->nodeSecuentSet->getNumKeys() == 0){
 
@@ -238,12 +238,10 @@ public:
 
 					this->nextKey = this->nodeSecuentSet->getKeys()[1];
 					this->nextNode = -1;
-					this->nextIndexKey = -1;
 					this->endSecuentSet = true;
 				}else{
-
+					this->nextKey = this->nodeSecuentSet->getKeys()[1];
 					this->nextNode = this->nodeSecuentSet->getNextNode();
-					this->nextIndexKey = 1;
 					this->endSecuentSet = false;
 				}
 
@@ -259,27 +257,23 @@ public:
 				for(level = 1; level < this->height; level++){
 
 					recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
-					if (this->nodes[level-1] == NULL || this->nodes[level-1]->getRecAddr() != recaddr)
-						this->nodes[level-1] = this->fetch(recaddr,level+1);
+					if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
+						this->nodes[level] = this->fetch(recaddr,level+1);
 
-					if (this->nodes[level-1]->getIsLeaf()){
+					if (this->nodes[level]->getIsLeaf()){
 						break;
 					}else{
-						key = this->nodes[level-1]->getKeys()[0];
+						key = this->nodes[level]->getKeys()[0];
 					}
 				}
-
-				this->nodeSecuentSet = this->nodes[level-1];
+				this->nodeSecuentSet = this->nodes[level];
 				if(this->nodeSecuentSet->getNumKeys()==1){
 
-					this->indexNode = -1;
+					this->nextKey = this->nodeSecuentSet->getKeys()[1];
 					this->nextNode = -1;
-					this->nextIndexKey = -1;
 					this->endSecuentSet = true;
 				}else{
-
-					this->indexNode = level;
-					this->nextIndexKey = 1;
+					this->nextKey = this->nodeSecuentSet->getKeys()[1];
 					this->nextNode = this->nodeSecuentSet->getNextNode();
 					this->endSecuentSet = false;
 				}
@@ -299,16 +293,17 @@ public:
 			 * Aca tendria q usar el nodo cargano en memoria
 			 * this->nodes[level] ...
 			 */
+			char* dataReturn;
 			int index = this->nodeSecuentSet->search(this->nextKey);
 
-			if(index < (this->nodeSecuentSet->getNumKeys() - 1)){
+			if((index < (this->nodeSecuentSet->getNumKeys() - 1)) && (index!=-1)){
 
-				//nextkey = index + 1;
-				this->nextIndexKey++;
-				this->nextKey = this->nodeSecuentSet->getKeys()[this->nextIndexKey];
+				dataReturn = this->nodeSecuentSet->getData()[index];
+				this->nextKey = this->nodeSecuentSet->getKeys()[index + 1];
 				this->nextNode = this->nodeSecuentSet->getNextNode();
 			}else{
 
+				dataReturn = this->nodeSecuentSet->getData()[index];
 				if(this->nextNode != -1){
 
 					BNode* nextNode = fetch(this->nextNode,this->height);
@@ -324,14 +319,14 @@ public:
 					}
 
 					//como fetch instancia una BNodo lo tengo que
-					//deetear
-					delete nextNode;
+					//deetear aca es posible que se cuelgue memoria.
+					//delete nextNode;
 				}else{
 
 					this->endSecuentSet = true;
 				}
 							}
-			return this->nodeSecuentSet->getData()[index];
+			return dataReturn;
 
 		}else{
 
@@ -801,8 +796,6 @@ protected:
 	int poolSize;			//cantidad de nodos
 	int metadataSize;
 	int nextKey;
-	int nextIndexKey;
-	int indexNode;
 	int nextNode;
 	bool endSecuentSet;
 	BNode* nodeSecuentSet;
