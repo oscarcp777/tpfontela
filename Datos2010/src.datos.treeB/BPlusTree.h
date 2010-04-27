@@ -344,15 +344,27 @@ public:
 		return this->endSecuentSet;
 	}
 
+	void updateFreeSpaceDataAddNode(BTreeNode<keyType>* nodo,keyType key,char*data){
+		int sizeRemoveFreeSpace;
+
+		if(nodo->getIsLeaf()){
+			//string data = search(key,-1);
+			sizeRemoveFreeSpace = strlen(data)+sizeof(short)+nodo->getKeySize();
+		}else
+			sizeRemoveFreeSpace = nodo->getKeySize();
+
+		nodo->setFreeSpace(nodo->getFreeSpace()-sizeRemoveFreeSpace);
+	}
+
 	void updateFreeSpaceRemoveDataNode(BTreeNode<keyType>* nodo,keyType key){
 
 		int sizeAddFreeSpace;
 
 		if(nodo->getIsLeaf()){
 			string data = search(key,-1);
-			sizeAddFreeSpace = data.length()+sizeof(short);
+			sizeAddFreeSpace = data.length()+sizeof(short)+nodo->getKeySize();
 		}else
-			sizeAddFreeSpace = sizeof(short);
+			sizeAddFreeSpace = sizeof(short)+nodo->getKeySize();
 
 		nodo->setFreeSpace(nodo->getFreeSpace()+sizeAddFreeSpace);
 	}
@@ -366,15 +378,20 @@ public:
 
 		nivel=this->height-2;
 
-		while(nivel>=0){
+		if(nivel>=0){
+			do{
+				nodo=this->nodes[nivel];
+				//int index=nodo->search(keyVieja);
+				nodo->updateKey(keyVieja,keyNueva);
+				//nodo->updateAddr(keyNueva,nodo->getRecAddrs()[index]);
+				this->store(nodo);
 
-			nodo=this->nodes[nivel];
-			nodo->updateKey(keyVieja,keyNueva);
-			this->store(nodo);
-
-			if(nodo->largestKey()==keyVieja)
+				if(nodo->largestKey()==keyNueva)
 				nivel--;
+				else
+					break;
 
+			}while(nivel>=0);
 		}
 
 		return 1;
@@ -430,7 +447,7 @@ public:
 		nodoPadre=this->nodes[nivelArbol];
 
 			/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
-			if((nodoPadre->caseDataRemove(nodoPadre->getMinFreeSpace(blockSize),blockSize)>0) && key!=nodoPadre->largestKey()){
+			if((nodoPadre->getNumKeys()>nodoPadre->getMinKeys(blockSize)) && key!=nodoPadre->largestKey()){
 				if(modificarDireccion){
 					nodoPadre->updateAddr(nodoHoja->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				}
@@ -441,7 +458,7 @@ public:
 			}/*CASO 2: Si el nodo hoja n tiene mas que el minimo numero de claves y la clave k es la mas grande en n, borrar la clave k y modificar el indice de
 			           mayor nivel que direcciona a la nueva clave mas grande en n.
 			  */
-			else if((nodoPadre->caseDataRemove(nodoPadre->getMinFreeSpace(blockSize),blockSize)>0) && nodoPadre->largestKey()==0){
+			else if((nodoPadre->getNumKeys()>nodoPadre->getMinKeys(blockSize)) && nodoPadre->largestKey()==0){
 				if(modificarDireccion){
 					nodoPadre->updateAddr(nodoHoja->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				}
@@ -453,18 +470,26 @@ public:
 			}/*CASO 3 y 4: Si no salio por el caso 1 ni el caso 2, se produce un underflow con caso 3 o 4. */
 			else{
 
-				if(nodoPadre->caseDataRemove(nodoPadre->getMinFreeSpace(blockSize),blockSize)==0 && underflowNodoInterno){
+				if(nodoPadre->getNumKeys()==nodoPadre->getMinKeys(blockSize) && underflowNodoInterno){
 					bajarUnNivel(nivelArbol);
 
 					return -1; //underflow en nodo interno, se baja un nivel. Reduccion del orden del arbol
 				}
 
-				underflow(nodoPadre,key);
+				underflow(nodoPadre,key,true);
 			}
 
 		return 1;
 	}
 
+	int tamanioDato(keyType key,BTreeNode<keyType>* nodo){
+		int sizeKey=nodo->getKeySize();
+
+		if(nodo->getIsLeaf())
+			return (sizeKey + sizeof(short) +strlen(nodo->getData()[nodo->search(key)]));
+
+		return sizeKey;
+	}
 
 	/**
 	 * Obtiene en nodoVecino al nodoHoja dando prioridad al vecino con cantidad de claves minimas para realizar la concatenacion de este nodo con el nodoHoja
@@ -476,7 +501,6 @@ public:
 	BTreeNode <keyType>* obtenerNodoVecino(BTreeNode <keyType>* nodoHoja, BTreeNode <keyType>* nodoPadreHoja, int indiceClave,int nivel,bool underflowNodoInterno){
 		int direccionNodoHojaVecino;
 		//char* claveAreemplazar;
-
 		BNode* nodoHojaVecino;
 		BNode* nodoHojaVecinoAux;
 
@@ -492,13 +516,13 @@ public:
 
 		//Retornara el nodoHojaVecino de la izquierda para hacer concatenacion en caso de que este en underflow el nodo interno o
 		//redistribucion en caso de estar en underflow un nodo hoja
-		if((nodoHojaVecino->caseDataRemove(nodoHojaVecino->getMinFreeSpace(blockSize),blockSize)>0) || (nodoHojaVecino->caseDataRemove(nodoHojaVecino->getMinFreeSpace(blockSize),blockSize)==0 && underflowNodoInterno))
+		if((nodoHojaVecino->getTamanioOcupado(blockSize)>nodoHojaVecino->getMinFreeSpace(blockSize)) || (nodoHojaVecino->getTamanioOcupado(blockSize)==nodoHojaVecino->getMinFreeSpace(blockSize) && underflowNodoInterno))
 			return nodoHojaVecino;
 		else if(indiceClave+1<nodoPadreHoja->getNumKeys()){ //Retornara el nodoHojaVecino de la derecha
 			direccionNodoHojaVecino = nodoPadreHoja->getRecAddrs()[indiceClave+1];
 					//claveAreemplazar = nodoPadreHoja->getKeys()[indiceClave+1];
 					nodoHojaVecinoAux = this->fetch(direccionNodoHojaVecino,nivel);
-					if((nodoHojaVecinoAux->caseDataRemove(nodoHojaVecinoAux->getMinFreeSpace(blockSize),blockSize)>0) || (nodoHojaVecinoAux->caseDataRemove(nodoHojaVecinoAux->getMinFreeSpace(blockSize),blockSize)==0 && underflowNodoInterno))
+					if((nodoHojaVecinoAux->getTamanioOcupado(blockSize)>nodoHojaVecinoAux->getMinFreeSpace(blockSize)) || (nodoHojaVecinoAux->getMinFreeSpace(blockSize)==nodoHojaVecinoAux->getTamanioOcupado(blockSize) && underflowNodoInterno))
 						return nodoHojaVecinoAux;
 		}
 
@@ -508,36 +532,60 @@ public:
 
 	void resolverUnderflowRaiz(BTreeNode <keyType>* nodoPadre,keyType key){
 		BNode* nodoHoja;
-		bool keyRemovida;
+		bool keyRemovida=false;
 		int numKeys=nodoPadre->getNumKeys();
+		BNode * newNode = new BNode(this->blockSize,this->keySize);
+        keyType* vecKeysRemove = new keyType[newNode->getMaxKeys()];
+        int posKeyRemove=0;
+        int index;
+		newNode->setIsLeaf(1);
 
 		for(int i=0;i<numKeys;i++){
-			nodoHoja=fetch(nodoPadre->getRecAddrs()[i],1);
+			nodoHoja=fetch(nodoPadre->getRecAddrs()[i],this->height);
 
-			if(nodoHoja->largestKey()==key)
-				keyRemovida=true;
+			if(!keyRemovida){
+				index=nodoHoja->search(key);
+				if(nodoHoja->largestKey()==key){
+					updateFreeSpaceRemoveDataNode(nodoPadre,nodoHoja->largestKey());
+					vecKeysRemove[posKeyRemove]=key;
+					posKeyRemove++;
+					keyRemovida=true;
+				}
+				nodoHoja->remove(key,nodoHoja->getRecAddrs()[index]);
+			}else{
+				updateFreeSpaceRemoveDataNode(nodoPadre,nodoHoja->largestKey());
+				vecKeysRemove[posKeyRemove]=nodoHoja->largestKey();
+				posKeyRemove++;
+			}
 
-			updateFreeSpaceRemoveDataNode(nodoHoja,nodoHoja->largestKey());
-			nodoHoja->remove(nodoHoja->largestKey(),nodoHoja->getRecAddrs()[nodoHoja->search(nodoHoja->largestKey(),-1)]);
-			nodoPadre->merge(nodoHoja);
-			store(nodoHoja);
+			newNode->merge(nodoHoja);
+
+			for(int j=0;j<(nodoHoja->getNumKeys());j++){
+				updateFreeSpaceDataAddNode(nodoPadre,nodoHoja->getKeys()[j],nodoHoja->getData()[j]);
+			}
 		}
 
+			for(int i=0;i<=posKeyRemove;i++){
+				keyType keyRemove=vecKeysRemove[i];
+				nodoPadre->remove(keyRemove,nodoPadre->getRecAddrs()[nodoPadre->search(keyRemove)]);
+			}
 
-		if(!keyRemovida){
-			updateFreeSpaceRemoveDataNode(nodoPadre,key);
-			nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
-		}
+			nodoPadre->setIsLeaf(1);
+			nodoPadre->merge(newNode);
 			nodoPadre->setRecAddr(-1);
 			nodoPadre->setNextNode(-1);
 
 			store(nodoPadre);
+
 
 		 //   nodoPadre->serializar(this->buffer);
 
 			this->height--;
 
 			writeHeight();
+
+			//delete newNode;  VER SE ESTA COLGANDO MEMORIA MALL
+			delete[] vecKeysRemove;
 
 	}
 
@@ -568,7 +616,6 @@ public:
 
 		nodoVecino = obtenerNodoVecino(nodoPadre,nodoAbuelo,nodoAbuelo->search(nodoPadre->largestKey()),this->height,true);
 
-
 			int indiceClave=nodoPadre->search(key);
 			if(indiceClave<0)
 				indiceClave=nodoPadre->search(nodoHoja->largestKey());
@@ -577,7 +624,7 @@ public:
 			nodoPadre=this->nodes[this->height-2];
 			concatenarNodos(key,nodoPadre,nodoHoja,nodoVecinoAux,true);
 
-			if(nodoHoja->caseDataRemove(nodoHoja->getMinFreeSpace(blockSize),blockSize)<0){//el nodoVecinoAux se mergeo la hoja
+			if(nodoHoja->getTamanioOcupado(blockSize)<nodoHoja->getMinFreeSpace(blockSize)){//el nodoVecinoAux se mergeo la hoja
 				search(nodoVecinoAux->largestKey());
 				nodoPadre=this->nodes[this->height-2];
 				concatenarNodos(key,nodoPadre,nodoVecinoAux,nodoVecino,false);
@@ -609,8 +656,10 @@ public:
 
 		}else{
 			if(key==nodoPadre->largestKey()){
+
 				updateFreeSpaceRemoveDataNode(nodo,key);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+
 				nodoPadre->updateAddr(key,nodoPadre->getRecAddrs()[nodoPadre->getNumKeys()-2]);
 				updateFreeSpaceRemoveDataNode(nodoPadre,nodoVecino->largestKey());
 				nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey(),-1)]);
@@ -619,8 +668,10 @@ public:
 				nodoVecino->merge(nodo);
 				nodoVecino->setNextNode(nodo->getNextNode());
 			}else if(key==nodo->largestKey()){
+
 				updateFreeSpaceRemoveDataNode(nodo,key);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+
 				if(key<nodoVecino->getKeys()[0]){
 					updateFreeSpaceRemoveDataNode(nodoPadre,nodoVecino->largestKey());
 					nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey(),-1)]);
@@ -637,8 +688,10 @@ public:
 
 				this->store(nodoPadre);
 			}else{
+
 				updateFreeSpaceRemoveDataNode(nodo,key);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+
 				if(key<nodoVecino->getKeys()[0]){
 					updateFreeSpaceRemoveDataNode(nodoPadre,nodoVecino->largestKey());
 					nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey(),-1)]);
@@ -669,19 +722,24 @@ public:
 				actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],false);
 				updateFreeSpaceRemoveDataNode(nodo,key);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+				if(nodo->getIsLeaf())
 				nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+				else{
+					nodo->setIsLeaf(0);
+					nodo->insert(nodoVecino->largestKey(),NULL,nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+				}
 				nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
 				updateFreeSpaceRemoveDataNode(nodoVecino,nodoVecino->largestKey());
 				nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
 			}else if(key==nodo->largestKey()){ //la clave a eliminar esta en el padre pero no es la mayor, por lo que no forma parte del index set
 
 				if(key<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
-					nodo->updateKey(key,nodoVecino->getKeys()[0]);
+					nodo->updateKeyAndData(key,nodoVecino->getKeys()[0],nodoVecino->getData()[0]);
 					nodoPadre->updateKey(key,nodoVecino->getKeys()[0]);
 					updateFreeSpaceRemoveDataNode(nodoVecino,nodoVecino->getKeys()[0]);
 					nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
 				}else{
-					nodo->updateKey(key,nodoVecino->largestKey());
+					nodo->updateKeyAndData(key,nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1]);
 					nodoPadre->updateKey(key,nodo->largestKey());
 					nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
 					updateFreeSpaceRemoveDataNode(nodoVecino,nodoVecino->largestKey());
@@ -692,12 +750,22 @@ public:
 				updateFreeSpaceRemoveDataNode(nodo,key);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 				if(nodo->largestKey()<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
+					if(nodo->getIsLeaf())
 					nodo->insert(nodoVecino->getKeys()[0],nodo->getData()[0],nodoVecino->getRecAddrs()[0]);
+					else{
+						nodo->setIsLeaf(0);
+						nodo->insert(nodoVecino->getKeys()[0],NULL,nodoVecino->getRecAddrs()[0]);
+					}
 					nodoPadre->updateKey(nodo->getKeys()[nodo->getNumKeys()-2],nodoVecino->getKeys()[0]);
 					updateFreeSpaceRemoveDataNode(nodoVecino,nodoVecino->getKeys()[0]);
 					nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
 				}else{
+					if(nodo->getIsLeaf())
 					nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+					else{
+						nodo->setIsLeaf(0);
+						nodo->insert(nodoVecino->largestKey(),NULL,nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+					}
 					nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
 					updateFreeSpaceRemoveDataNode(nodoVecino,nodoVecino->largestKey());
 					nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
@@ -711,38 +779,97 @@ public:
 		return 1;
 	}
 
+	keyType obtenerClaveComparacion(keyType key,BTreeNode <keyType>* nodoVecino){
+		if(nodoVecino->getKeys()[0]>key) //nodoVecino derecho
+				return nodoVecino->getKeys()[0];
 
-	int underflow(BTreeNode<keyType>* nodo,keyType key){
+		return nodoVecino->largestKey(); //nodoVecino izquierdo
+	}
+
+	int pasarDatosYclavesSinRemover(BTreeNode<keyType>* nodoOrigen, BTreeNode<keyType>* nodoDestino){
+		keyType key = obtenerClaveComparacion(nodoDestino->largestKey(),nodoOrigen);
+		int indice=nodoOrigen->search(key);
+		insert(key,nodoOrigen->getData()[indice]);
+		nodoOrigen->remove(key,indice);
+		this->store(nodoOrigen);
+		return 1;
+	}
+
+	int concatenarDatosYclavesSinRemover(BTreeNode<keyType>* nodoOrigen, BTreeNode<keyType>* nodoDestino){
+		if(nodoOrigen->largestKey()>nodoDestino->largestKey()){ //nodoOrigen a derecha y nodoDestino a izquierda
+			nodoDestino->setNextNode(nodoOrigen->getNextNode());
+			nodoDestino->merge(nodoOrigen);
+			//actualizarIndexSet()
+			store(nodoDestino);
+		}else{
+			nodoOrigen->setNextNode(nodoDestino->getNextNode());
+			nodoOrigen->merge(nodoDestino);
+			store(nodoOrigen);
+		}
+		return 1;
+	}
+
+	int underflow(BTreeNode<keyType>* nodo,keyType key,bool eliminarClave){
 
 		BNode* nodoVecino;
 		BNode* nodoPadre;
+
 		int indiceClave;
+		keyType keyNodoVecino;
 
 		nodoPadre=this->nodes[this->height-2];
 		indiceClave=nodoPadre->search(key,-1); //si la encuentra el indice clave me dara la posicion de la clave en el array de claves del nodoPadre.
 
 		if(indiceClave<0) //la clave a eliminar no esta en el padre "no forma parte del index set"
-			indiceClave=nodoPadre->search(nodo->largestKey(),-1); //busca el indice de la clave mayor en el padre
+			indiceClave=nodoPadre->search(nodo->largestKey()); //busca el indice de la clave mayor en el padre
 
 		nodoVecino=obtenerNodoVecino(nodo,nodoPadre,indiceClave,this->height,false);
 
+		keyNodoVecino=obtenerClaveComparacion(key,nodoVecino); //obtiene la clave del nodo vecino con la cual se va a realizar la redistribucion
+
+		if(!eliminarClave){ //redistribuyo las claves por segunda vez y todas las veces que pueda
+			pasarDatosYclavesSinRemover(nodoVecino,nodo);
+			if(nodo->caseDataRemove(0,blockSize)<0 && nodoVecino->caseDataRemove(tamanioDato(keyNodoVecino,nodoVecino),blockSize)>=0)
+				underflow(nodo,obtenerClaveComparacion(nodo->largestKey(),nodoVecino),false);
+			else if(nodo->caseDataRemove(0,blockSize)>=0) //se equilibro el nodo
+				return 1;
+		}else if(nodoVecino->caseDataRemove(tamanioDato(keyNodoVecino,nodoVecino),blockSize)>=0){ //redistribuyo las claves por primera vez
+					redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
+					//si el el nodo sigue estando en underflow al eliminar la clave y el nodoVecino tiene mas claves para redistribuir
+					if(nodo->caseDataRemove(0,blockSize)<0 && nodoVecino->caseDataRemove(tamanioDato(obtenerClaveComparacion(key,nodoVecino),nodoVecino),blockSize)>=0)
+						underflow(nodo,obtenerClaveComparacion(nodo->largestKey(),nodoVecino),false);
+					else if(nodo->caseDataRemove(0,blockSize)<0){ //si el nodo sigue estando en underflow y el nodoVecino no tiene claves para redistribuir
+						int otroIndice=nodoPadre->search(nodo->largestKey());  //obtengo el otro nodoVecino para ver si tiene claves para redistribuir
+						BNode* otroNodoVecino=obtenerNodoVecino(nodo,nodoPadre,otroIndice,this->height,false);
+						if(nodoVecino->largestKey()!=otroNodoVecino->largestKey() && otroNodoVecino->caseDataRemove(tamanioDato(obtenerClaveComparacion(nodo->largestKey(),otroNodoVecino),otroNodoVecino),blockSize)>=0)
+							underflow(nodo,obtenerClaveComparacion(nodo->largestKey(),otroNodoVecino),false);
+					}
+					return 1;
+		}
+
+		//si no se equilibro el nodo debo concatenar
+		keyType newKey=key;
+
+		if(!eliminarClave)
+			newKey=nodo->largestKey();
+
+		if((!nodoPadre->getIsLeaf() && ((nodoPadre->getNumKeys()-1)<nodoPadre->getMinKeys(blockSize)))//caseDataRemove(tamanioDato(key,nodoPadre),blockSize)<0 || (nodoPadre->getNumKeys()==2 && nodoPadre->search(key)!=-1)||
+		  || (nodoPadre->getIsLeaf() && nodoPadre->caseDataRemove(tamanioDato(key,nodoPadre),blockSize)<0)){
+				// nodoPadre->getNumKeys()==1){
+					if(this->height-3 == -1)
+								resolverUnderflowNodoInterno(NULL,nodoPadre,nodo,key);
+								else
+									resolverUnderflowNodoInterno(this->nodes[this->height-3],nodoPadre,nodo,key);
+		}else
+		concatenarNodos(newKey,nodoPadre,nodo,nodoVecino,true);
 		/*CASO 3: Si el nodo n tiene exactamente el minimo numero de claves y uno de los vecinos del nodo n tiene pocas claves (cantidad de claves minima), mergear
 		          n con este vecino y eliminar una clave desde el nodo padre. */
-		if((nodoVecino->caseDataRemove(nodoVecino->getMinFreeSpace(blockSize),blockSize)==0) && (nodo->caseDataRemove(nodo->getMinFreeSpace(blockSize),blockSize)==0)
-			&& (nodoPadre->caseDataRemove(nodoPadre->getMinFreeSpace(blockSize),blockSize)>0))
-			concatenarNodos(key,nodoPadre,nodo,nodoVecino,true);
-		else if((nodoVecino->caseDataRemove(nodoVecino->getMinFreeSpace(blockSize),blockSize)==0) && (nodo->caseDataRemove(nodo->getMinFreeSpace(blockSize),blockSize)==0)
-			&& (nodoPadre->caseDataRemove(nodoPadre->getMinFreeSpace(blockSize),blockSize)==0)){
-			if(this->height-3 == -1)
-			resolverUnderflowNodoInterno(NULL,nodoPadre,nodo,key);
-			else
-				resolverUnderflowNodoInterno(this->nodes[this->height-3],nodoPadre,nodo,key);
-		}
-		 /* CASO 4: Si el nodo n tiene exactamente el minimo numero de claves y uno de los vecinos de n tiene muchas claves (cantidad mayor que la cantidad minima de claves),
+
+
+
+		/* CASO 4: Si el nodo n tiene exactamente el minimo numero de claves y uno de los vecinos de n tiene muchas claves (cantidad mayor que la cantidad minima de claves),
 					redistribuir moviendo algunas claves desde un vecino hacia n, y modificar el indice mas alto para direccionar la nueva clave mayor en los nodos afectados.
 		  */
-		else if((nodoVecino->caseDataRemove(nodoVecino->getMinFreeSpace(blockSize),blockSize)>0) && (nodo->caseDataRemove(nodo->getMinFreeSpace(blockSize),blockSize)==0))
-			redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
 
 
 		return 1;
@@ -750,7 +877,7 @@ public:
 	}
 
 
-	int remover(keyType key, int dir){
+	int remover(keyType key){
 
 		BNode* nodoHoja;
 		int nivelArbol;
@@ -759,8 +886,12 @@ public:
 
 		nivelArbol=this->height-2;
 
+		int index = nodoHoja->search(key);
+
+		int dir = nodoHoja->getRecAddrs()[index];
+
 		/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
-		if(((nodoHoja->caseDataRemove(nodoHoja->getMinFreeSpace(blockSize),blockSize)>0) && key!=nodoHoja->largestKey())||(this->height==1)){
+		if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>0) && key!=nodoHoja->largestKey())||(this->height==1)){
 			updateFreeSpaceRemoveDataNode(nodoHoja,key);
 			nodoHoja->remove(key,dir);
 
@@ -769,7 +900,7 @@ public:
 		}/*CASO 2: Si el nodo hoja n tiene mas que el minimo numero de claves y la clave k es la mas grande en n, borrar la clave k y modificar el indice de
 		           mayor nivel que direcciona a la nueva clave mas grande en n.
 		  */
-		else if((nodoHoja->caseDataRemove(nodoHoja->getMinFreeSpace(blockSize),blockSize)>0) && key==nodoHoja->largestKey()){
+		else if((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>0) && key==nodoHoja->largestKey()){
 			updateFreeSpaceRemoveDataNode(nodoHoja,key);
 			nodoHoja->remove(key,dir);
 			actualizarIndexSet(key,nodoHoja->largestKey(),true);
@@ -777,7 +908,7 @@ public:
 			return 1;
 		}/*CASO 3 y 4: Si no salio por el caso 1 ni el caso 2, se produce un underflow con caso 3 o 4. */
 
-			underflow(nodoHoja,key);
+			underflow(nodoHoja,key,true);
 
 			return 1;
 	}
