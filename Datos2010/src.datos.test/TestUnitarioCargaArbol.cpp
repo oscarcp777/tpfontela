@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int main436747(){
+int main(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
@@ -37,74 +37,80 @@ int main436747(){
 	bt.create(ruta,ios::out);
 
 
-	string a = "Ale";
-	string b = "Oscar Caseres";
-	string c = "Santiago";
-	string d = "Dani";
-	string e = "Ricardo Sivori";
-	string f = "Sebas";
-	string g = "Nelson Castro";
-	string h = "Lionel Messi";
-	string i = "Carlitos Tevez";
-	string j = "Martin Palermo";
-	string k = "Medel";
-	string l = "Agustin";
-	string m = "Torres";
-	string n = "Liberty";
-	string o = "Don Jones";
-	string p = "Puerto Pirata";
-	string q = "Los pibes";
-	string r = "La academia";
-	string rr = "Boquita";
-	string s = "River";
-	string t = "San Lorenzo";
-	string u = "Huracan";
-	string v = "Gimnasia";
-	string w = "All Boys";
-	string x = "Ferro";
-	string y = "Chacarita";
-	string z = "Chicago";
+	string a = "Ale aaaaaaaaaaaaassaaa";
+	string b = "Oscar bbbbbbbbbbbbbb";
+	string c = "Santiago ccccccccccccccccc";
+	string d = "Dani ddddddddddddddddddddddd";
+	string e = "Ricardo Sivori eeeeeeeeeeeeeeee";
+	string f = "Sebas fffffffffffffffffffffff";
+	string g = "Nelson Castro ggggggggggggggggggg";
+	string h = "Lionel Messi hhhhhhhhhhhhhhhhhhhh";
+	string i = "Carlitos Tevez iiiiiiiiiiiiiiiiiii";
+	string j = "Martin Palermo jjjjjjjjjjjjjjjjjjjjj";
+	string k = "Medel kkkkkkkkkkkkkkkkkkkkkkkk";
+	string l = "Agustin lllllllllllllllllllllll";
+	string m = "Torres mmmmmmmmmmmmmmmmmmmm";
+	string n = "Liberty nnnnnnnnnnnnnnnnnnnnnnn";
+	string o = "Don Jones ñññññññññññññññññññññññ";
+	string p = "Puerto Pirata oooooooooooooooooooo";
+	string q = "Los pibes pppppppppppppppppppppppppp";
+	string r = "La academia qqqqqqqqqqqqqqqqqqqqqqq";
+	string rr = "Boquita rrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+	string s = "River sssssssssssssssssssssssssssss";
+	string t = "San Lorenzo tttttttttttttttttttttttttt";
+	string u = "Huracan uuuuuuuuuuuuuuuuuuuuuuuuuuuuu";
+	string v = "Gimnasia vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv";
+	string w = "All Boys wwwwwwwwwwwwwwwwwwwwwwwwwwww";
+	string x = "Ferro xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+	string y = "Chacarita yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy";
+	string z = "Chicago zzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
 
 	//string h = "maxwel Messi";
 
+	cout<<"INSERCION DE CLAVES 1,2,3,4...20"<<endl<<endl;
 
+	bt.insert(1,c.c_str());
 	bt.insert(2,a.c_str());
+	bt.insert(3,e.c_str());
 	//bt.print(cout);
 	bt.insert(4,b.c_str());
 	//bt.print(cout);
-	bt.insert(1,c.c_str());
+	bt.insert(5,z.c_str());
 	//bt.print(cout);
-	bt.insert(5,d.c_str());
-	bt.insert(3,e.c_str());
-	bt.insert(32,f.c_str());
-	bt.insert(33,g.c_str());
-	bt.insert(20,h.c_str());
-	//bt.print(cout);
-//	bt.insert(35,i.c_str());
-	//bt.print(cout);
-//	bt.insert(37,j.c_str());
-//	bt.insert(38,k.c_str());
-//	bt.insert(39,l.c_str());
-//	bt.insert(40,m.c_str());
-//	bt.insert(41,n.c_str());
-//	bt.insert(42,o.c_str());
-//	bt.insert(43,p.c_str());
-//	bt.insert(44,q.c_str());
-//	bt.insert(45,r.c_str());
-//	bt.insert(46,rr.c_str());
-//	bt.insert(47,s.c_str());
-//	bt.insert(48,t.c_str());
-//	bt.insert(49,u.c_str());
-//	bt.insert(50,v.c_str());
-//	bt.insert(51,w.c_str());
-//	bt.insert(52,x.c_str());
-//	bt.insert(53,y.c_str());
-//	bt.insert(54,z.c_str());
+	bt.insert(6,d.c_str());
 
-//	for(int i=55;i<80;i++){
-//		string dataAux = "dato";
-//		bt.insert(i,dataAux.c_str());
-//	}
+	bt.insert(8,f.c_str());
+	bt.insert(10,g.c_str());
+	bt.insert(7,h.c_str());
+	//bt.print(cout);
+	bt.insert(9,i.c_str());
+	//bt.print(cout);
+	bt.insert(11,j.c_str());
+	bt.insert(15,k.c_str());
+	bt.insert(12,l.c_str());
+	bt.insert(13,m.c_str());
+	bt.insert(14,n.c_str());
+	bt.insert(18,o.c_str());
+	bt.insert(16,p.c_str());
+	bt.insert(17,q.c_str());
+	bt.insert(20,r.c_str());
+	bt.insert(19,rr.c_str());
+
+//	bt.print(cout);
+
+	bt.insert(47,s.c_str());
+	bt.insert(48,t.c_str());
+	bt.insert(49,u.c_str());
+	bt.insert(50,v.c_str());
+	bt.insert(51,w.c_str());
+	bt.insert(52,x.c_str());
+	bt.insert(53,y.c_str());
+	bt.insert(54,z.c_str());
+
+	for(int i=55;i<150;i++){
+		string dataAux = "dato dsfsafdfdfdfsssssssssss";
+		bt.insert(i,dataAux.c_str());
+	}
 
 //	bt.print(cout);
 //	bt.remover(79);
@@ -130,13 +136,16 @@ int main436747(){
 //	bt.remover(48);
 //	bt.remover(49);
 
-	bt.remover(2);
-	bt.remover(3);
-	bt.remover(4);
-	bt.remover(20);
-	bt.remover(5);
+//	cout<<endl<<"ELIMINACION DE CLAVES 1,2,3,4,5,20"<<endl<<endl;
+
+//	bt.remover(2);
+//	bt.remover(3);
+//	bt.remover(4);
+//	bt.remover(20);
+//	bt.print(cout);
+//	bt.remover(5);
 	//bt.print(cout);
-	bt.remover(1);
+//	bt.remover(1);
 
 	bt.print(cout);
 
