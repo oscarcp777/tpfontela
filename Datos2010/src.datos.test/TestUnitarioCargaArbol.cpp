@@ -30,61 +30,64 @@ int main(){
 //	}
 
 
-	BPlusTree<int> bt(128);
+	BPlusTree<int> bt(64);
 
 	string ruta="files/testbt.dat";
 
 	bt.create(ruta,ios::out);
 
 
-	string a = "Ale aaaaaaaaaaaaassaaa";
-	string b = "Oscar bbbbbbbbbbbbbb";
-	string c = "Santiago ccccccccccccccccc";
-	string d = "Dani ddddddddddddddddddddddd";
-	string e = "Ricardo Sivori eeeeeeeeeeeeeeee";
-	string f = "Sebas fffffffffffffffffffffff";
-	string g = "Nelson Castro ggggggggggggggggggg";
-	string h = "Lionel Messi hhhhhhhhhhhhhhhhhhhh";
-	string i = "Carlitos Tevez iiiiiiiiiiiiiiiiiii";
-	string j = "Martin Palermo jjjjjjjjjjjjjjjjjjjjj";
-	string k = "Medel kkkkkkkkkkkkkkkkkkkkkkkk";
-	string l = "Agustin lllllllllllllllllllllll";
-	string m = "Torres mmmmmmmmmmmmmmmmmmmm";
-	string n = "Liberty nnnnnnnnnnnnnnnnnnnnnnn";
-	string o = "Don Jones ñññññññññññññññññññññññ";
-	string p = "Puerto Pirata oooooooooooooooooooo";
-	string q = "Los pibes pppppppppppppppppppppppppp";
-	string r = "La academia qqqqqqqqqqqqqqqqqqqqqqq";
-	string rr = "Boquita rrrrrrrrrrrrrrrrrrrrrrrrrrrr";
-	string s = "River sssssssssssssssssssssssssssss";
-	string t = "San Lorenzo tttttttttttttttttttttttttt";
-	string u = "Huracan uuuuuuuuuuuuuuuuuuuuuuuuuuuuu";
-	string v = "Gimnasia vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv";
-	string w = "All Boys wwwwwwwwwwwwwwwwwwwwwwwwwwww";
-	string x = "Ferro xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-	string y = "Chacarita yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy";
-	string z = "Chicago zzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
-
-	//string h = "maxwel Messi";
-
-	cout<<"INSERCION DE CLAVES 1,2,3,4...20"<<endl<<endl;
-
-	bt.insert(1,c.c_str());
-	bt.insert(2,a.c_str());
+	string a = "Ale";
+	string b = "Oscar";
+	string c = "Santiago";
+	string d = "Dani";
+	string e = "Ricardo Sivori";
+	string f = "Sebas";
+	string g = "Nelson Castro";
+	string h = "Lionel Messi";
+	string i = "Carlitos Tevez";
+	string j = "Martin Palermo";
+	string k = "Medel";
+	string l = "Agustin";
+	string m = "Torres";
+	string n = "Liberty";
+	string o = "Don Jones";
+	string p = "Puerto Pirata";
+	string q = "Los pibes";
+	string r = "La academia";
+	string s = "River";
+	string t = "San Lorenzo";
+	string u = "Huracan";
+	string v = "Gimnasia";
+	string w = "All Boys";
+	string x = "Ferro";
+	string y = "Chacarita";
+	string z = "Chicago";
+/*
+ * Print inicial ... Se hace para saber cuanto espacio libre tengo
+ * en el nodo vacio.
+ */
+	bt.print(cout);
+	bt.insert(2,c.c_str());
+//	bt.print(cout);
+	bt.insert(1,a.c_str());
+//	bt.print(cout);
 	bt.insert(3,e.c_str());
-	//bt.print(cout);
+//	bt.print(cout);
 	bt.insert(4,b.c_str());
-	//bt.print(cout);
-	bt.insert(5,z.c_str());
-	//bt.print(cout);
+//	bt.print(cout);
+	bt.insert(5,i.c_str());
+//	bt.print(cout);
 	bt.insert(6,d.c_str());
-
+//	bt.print(cout);
 	bt.insert(8,f.c_str());
+//	bt.print(cout);
 	bt.insert(10,g.c_str());
+//	bt.print(cout);
 	bt.insert(7,h.c_str());
-	//bt.print(cout);
+//	bt.print(cout);
 	bt.insert(9,i.c_str());
-	//bt.print(cout);
+//	bt.print(cout);
 	bt.insert(11,j.c_str());
 	bt.insert(15,k.c_str());
 	bt.insert(12,l.c_str());
@@ -94,10 +97,6 @@ int main(){
 	bt.insert(16,p.c_str());
 	bt.insert(17,q.c_str());
 	bt.insert(20,r.c_str());
-	bt.insert(19,rr.c_str());
-
-//	bt.print(cout);
-
 	bt.insert(47,s.c_str());
 	bt.insert(48,t.c_str());
 	bt.insert(49,u.c_str());
@@ -106,26 +105,24 @@ int main(){
 	bt.insert(52,x.c_str());
 	bt.insert(53,y.c_str());
 	bt.insert(54,z.c_str());
-
-	for(int i=55;i<150;i++){
-		string dataAux = "dato dsfsafdfdfdfsssssssssss";
-		bt.insert(i,dataAux.c_str());
-	}
-
+	bt.print(cout);
+//cout<< "Elimino la clave 3" <<endl;
+//	bt.remover(3);
 //	bt.print(cout);
-//	bt.remover(79);
-//
-//	bt.remover(78);
-//	bt.remover(77);
-//	bt.remover(76);
-//	bt.remover(75);
+//	bt.insert(3,"Na");
+//	bt.print(cout);
+//	bt.remover(3);
+//	bt.remover(2);
+//	bt.print(cout);
+//	bt.remover(2);
+//	bt.remover(6);
 //	bt.remover(74);
 //	bt.remover(73);
 //	bt.print(cout);
 //	bt.remover(72);
 //	bt.remover(71);
 //	bt.print(cout);
-
+cout<<"Llego bien hasta aca" << endl;
 //	bt.remover(55);
 //	bt.remover(60);
 //	bt.remover(65);
@@ -147,7 +144,7 @@ int main(){
 	//bt.print(cout);
 //	bt.remover(1);
 
-	bt.print(cout);
+//	bt.print(cout);
 
 
 	//bt.print(cout);
