@@ -268,8 +268,8 @@ int Table::remove(int key){
 	if(result){
 		int goodDelete=this->currentCube->remove(key);
 		if(goodDelete==0)
-			return 0;
-		//TODO ESTA LINEA NO VA PROBAR this->currentCube->writeCube(this->fileCubes);
+			return 0;//TODO ESTA LINEA NO VA PROBAR this->currentCube->writeCube(this->fileCubes); QUE ES ESTO OSKY???
+
 		if(this->currentCube->getNumberOfRecords() == 0 && this->countsCubes>1){//si queda vacio
 			int indexUp;
 			int indexDown;
@@ -408,13 +408,9 @@ int Table::readTable(){
 
 		}
 	}
+	//*******OSKY NO BORRES LA SIGUIENTE LINEA ES IMPORTANTE LA USO YO
 	this->currentCube->setOffsetCube(this->countsCubes+this->offsetFreeCubes.size()+1);
-//	vector<int>::iterator iterRecord;
-//	int count=0;
-//		for (iterRecord=this->offsetCubes.begin(); iterRecord!=this->offsetCubes.end(); iterRecord++){
-//			cout<<"Elemento["<<count<<"]="<<*iterRecord<<endl;
-//			count++;
-//		}
+
 	delete buffer;
 	return 1;
 }
