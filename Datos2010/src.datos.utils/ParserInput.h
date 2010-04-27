@@ -17,7 +17,8 @@ private:
 	std::string data;
 
 public:
-	ParserInput(std::string line);
+	ParserInput();
+	void parser(std::string line);
 	int getKey();
 	std::string getData();
 	~ParserInput();

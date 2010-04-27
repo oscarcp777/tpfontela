@@ -39,6 +39,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 
 	BPlusTree <int>  bTree (sizeBlock);
 	bTree.open("./files/ejemplo",ios::in | ios::out);
+	ParserInput* parser = new ParserInput();
 	string cadena;
 	//= argv[1];
 
@@ -53,7 +54,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
-						ParserInput* parser = new ParserInput(cadena);
+						parser->parser(cadena);
 						if(bTree.search(parser->getKey())!= NULL){
 							cout<<bTree.search(parser->getKey())<< endl;
 						}
@@ -65,7 +66,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
-						ParserInput* parser = new ParserInput(cadena);
+						parser->parser(cadena);
 						bTree.insert(parser->getKey(),parser->getData().c_str());
 						delete parser;
 					}

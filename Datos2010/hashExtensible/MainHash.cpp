@@ -37,6 +37,7 @@ static void parse_cmdline(int argc, char * const argv[]){
 	};
 
 	HashExtensible* hash = new  HashExtensible();
+	ParserInput* parser = new ParserInput();
 	string cadena = argv[1];
 
 	if(hash->isCreated(cadena))
@@ -45,34 +46,57 @@ static void parse_cmdline(int argc, char * const argv[]){
 	else
 		hash->create(cadena);
 
-	ParserInput* parser = new ParserInput(StringUtils::joinStringCmdLine(argc,argv));
-
-	while ((result = getopt_long(argc, argv,"B:I:S:M:Q:h", options, &index)) != -1) {
+	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				cout<<"Resultado de la busqueda: "<<parser->getKey()<<" = "<<hash->search(parser->getKey())<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						cout<<"Resultado de la busqueda: "<<parser->getKey()<<" = "<<hash->search(parser->getKey())<<endl;
+					}
+				}
 				break;
 			case 'I':
-				if(hash->insert(parser->getKey(),(char*)parser->getData().c_str()))
-					cout<<"Se inserto correctamente la clave: "<<parser->getKey()<<endl;
-				else
-					cout<<"No se pudo insertar la clave: "<<parser->getKey()<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						if(hash->insert(parser->getKey(),(char*)parser->getData().c_str()))
+							cout<<"Se inserto correctamente la clave: "<<parser->getKey()<<endl;
+						else
+							cout<<"No se pudo insertar la clave: "<<parser->getKey()<<endl;
+					}
+				}
 				break;
 			case 'S':
 				hash->print(argv[3]);
 				break;
 			case 'M':
-				if(hash->update(parser->getKey(),(char*)parser->getData().c_str()))
-					cout<<"Se modifico correctamente la clave: "<<parser->getKey()<<endl;
-				else
-					cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						if(hash->update(parser->getKey(),(char*)parser->getData().c_str()))
+							cout<<"Se modifico correctamente la clave: "<<parser->getKey()<<endl;
+						else
+							cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
+					}
+				}
 				break;
 			case 'Q':
-				hash->remove(parser->getKey());
-//				if(hash->remove(parser->getKey()))
-//					cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
-//				else
-//					cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						hash->remove(parser->getKey());
+						//	if(hash->remove(parser->getKey()))
+						//		cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
+						//	else
+						//		cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
+
+					}
+				}
 				break;
 			case 'h':
 				help();
@@ -81,9 +105,10 @@ static void parse_cmdline(int argc, char * const argv[]){
 				help();
 		}
 	}
-	delete parser;
+
 	hash->close();
 	delete hash;
+	delete parser;
 
 }
 

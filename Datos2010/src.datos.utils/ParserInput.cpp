@@ -8,8 +8,10 @@
 #include "ParserInput.h"
 #include "stdlib.h"
 
-ParserInput::ParserInput(std::string line){
+ParserInput::ParserInput(){
 
+}
+void ParserInput::parser(std::string line){
 	std::string begin = "(";
 	std::string separador = ";";
 	std::string end = ")";
@@ -24,7 +26,6 @@ ParserInput::ParserInput(std::string line){
 
 	this->key = atoi(line.substr(inicio + 1,delimitador - 1).c_str());
 	this->data = line.substr(delimitador + 1,fin - delimitador -1);
-
 }
 int ParserInput::getKey(){
 
