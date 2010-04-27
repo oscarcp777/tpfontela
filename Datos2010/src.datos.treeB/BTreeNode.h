@@ -337,16 +337,16 @@ public:
 	 */
 
 	int getMinFreeSpace(int blockSize){
-		return blockSize*0.4;
+		return blockSize*0.5;
 	}
 
 	/**
 	 * Retorna el minimo numero de claves que puede haber en un nodo interno (no hoja)
 	 */
 	int getMinKeys(int blockSize){
-//		int max_Keys=(blockSize)/(keySize);
-//		int ret_minKeys=(max_Keys)/2;
-		return minKeys;//ret_minKeys;
+		int max_Keys=(blockSize)/(keySize);
+		int ret_minKeys=(max_Keys)/2;
+		return ret_minKeys;
 	}
 
 	int getTamanioOcupado(int blockSize){

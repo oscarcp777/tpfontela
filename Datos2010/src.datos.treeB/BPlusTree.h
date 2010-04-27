@@ -790,6 +790,7 @@ public:
 		keyType key = obtenerClaveComparacion(nodoDestino->largestKey(),nodoOrigen);
 		int indice=nodoOrigen->search(key);
 		insert(key,nodoOrigen->getData()[indice]);
+		updateFreeSpaceRemoveDataNode(nodoOrigen,key);
 		nodoOrigen->remove(key,indice);
 		this->store(nodoOrigen);
 		return 1;
