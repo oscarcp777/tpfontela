@@ -92,8 +92,16 @@ public:
 
 	int remove(const keyType key, int dir){
 		int result;
+		int index=SimpleIndex<keyType>::find(key);
 		result = SimpleIndex<keyType>::remove(key, recAddr);
 		if (!result) return 0; //fallo remover
+		if(this->isLeaf){
+		for (int i = index; i<this->numKeys; i++) {
+			if (this->data[i+1]!=NULL){
+				this->data[i]=this->data[i+1];
+			}
+		}
+		}else
 		if (this->numKeys < this->minKeys) return -1; //underflow nodo
 		return 0;
 	}
@@ -149,7 +157,7 @@ public:
 			this->keys[this->numKeys+i] = fromNode->keys[i];
 			this->recAddrs[this->numKeys+i] = fromNode->recAddrs[i];
 			if (isLeaf){
-				fromNode->data[this->numKeys+i] = this->data[i];
+				 this->data[this->numKeys+i]=fromNode->data[i];
 			}
 		}
 		//ajustar numero de claves
@@ -165,6 +173,18 @@ public:
 		if (recaddr < 0) return 0; 		// clave y direccion no encontradas
 		this->remove(oldKey,recAddr);
 		this->insert(newKey,NULL,recaddr);
+		return 1;
+	}
+
+	/*
+	 * Lo mismo que hace updateKey con la diferencia que en lugar de hacer un insert con un dato nulo,
+	 * lo hace con un nuevo dato.
+	 */
+	int updateKeyAndData(keyType oldKey, keyType newKey, char* newData, int recAddr=-1){
+		int recaddr = this->recAddrs[this->search(oldKey,recAddr)];
+		if (recaddr < 0) return 0; 		// clave y direccion no encontradas
+		this->remove(oldKey,recAddr);
+		this->insert(newKey,newData,recaddr);
 		return 1;
 	}
 
@@ -234,6 +254,9 @@ public:
 
 	}
 
+	int getMaxKeys(){
+		return this->maxKeys;
+	}
 
 	int getRecAddr() const
 	{
@@ -314,19 +337,30 @@ public:
 	 */
 
 	int getMinFreeSpace(int blockSize){
-		return blockSize*0.2;
+		return blockSize*0.4;
 	}
 
-	/*
-	 * En caso de que el dato a eliminar haga que freeSpace quede por debajo del
-	 * 20% de maxSize devuelvo true y en este caso estara en underflow, caso contrario
-	 * devuelvo false.
+	/**
+	 * Retorna el minimo numero de claves que puede haber en un nodo interno (no hoja)
 	 */
+	int getMinKeys(int blockSize){
+//		int max_Keys=(blockSize)/(keySize);
+//		int ret_minKeys=(max_Keys)/2;
+		return minKeys;//ret_minKeys;
+	}
+
+	int getTamanioOcupado(int blockSize){
+		return (blockSize-freeSpace);
+	}
+
+	int getKeySize(){
+		return this->keySize;
+	}
 
 	int caseDataRemove(int sizeDataRemove,int blockSize){
-		if((freeSpace-sizeDataRemove)<getMinFreeSpace(blockSize))
+		if((sizeDataRemove+freeSpace)>(blockSize-getMinFreeSpace(blockSize)))
 			return -1; //underflow
-		else if((freeSpace-sizeDataRemove)==getMinFreeSpace(blockSize))
+		else if((sizeDataRemove+freeSpace)==(blockSize-getMinFreeSpace(blockSize)))
 			return 0; //en el limite
 		else return 1; //fuera de underflow
 	}
@@ -359,7 +393,7 @@ protected:
 		this->nextNode = -1;
 		this->recAddr = -1;
 		this->maxBKeys = this->maxKeys-1;
-		this->minKeys = this->maxBKeys / 2;
+		this->minKeys = 2;
 
 		//tamaño del bloque ocupado con datos de metadata del bloque, se resta al freeSpace en este init
 		//tamaño n.keys + n.keys + tamaño espacio libre + espacio libre + tamaño nod.sig. + nod.sig
