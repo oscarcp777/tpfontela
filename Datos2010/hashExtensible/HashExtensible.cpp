@@ -22,8 +22,10 @@ char *HashExtensible::search(int key)
 	Record* record = this->table->search(key);
 	if(record != NULL)
 		return record->getData();
-	else
-		return NULL;
+	else{
+		string cadena = "NO SE ENCONTRO LA CLAVE";
+		return (char*)cadena.c_str();
+	}
 }
 
 
@@ -45,30 +47,19 @@ bool HashExtensible::isCreated(string fileName){
 }
 
 
-int HashExtensible::insert(int key, char *data)
-{
-   cout<<"########################################"<<endl;
-   cout<<"inserto el :"<<key<<endl;
-   cout<<"########################################"<<endl;
+int HashExtensible::insert(int key, char *data){
 	Record* record = new Record(key,data);
-	this->table->insert(record);
-	return 1;
+	return this->table->insert(record);
+
 }
 
 int HashExtensible::update(int key,char* data){
-	cout<<"########################################"<<endl;
-	cout<<"update el :"<<key<<endl;
-	cout<<"########################################"<<endl;
 	Record* record = new Record(key,data);
 	this->table->update(record);
-	delete record;
 	return 1;
 }
 
-int HashExtensible::remove(int key)
-{cout<<"########################################"<<endl;
-cout<<"remove el :"<<key<<endl;
-cout<<"########################################"<<endl;
+int HashExtensible::remove(int key){
 return this->table->remove(key);
 
 }
