@@ -50,19 +50,29 @@ static void parse_cmdline(int argc, char * const argv[]){
 	while ((result = getopt_long(argc, argv,"B:I:S:M:Q:h", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
-				cout<<hash->search(parser->getKey())<<endl;;
+				cout<<"Resultado de la busqueda: "<<parser->getKey()<<" = "<<hash->search(parser->getKey())<<endl;
 				break;
 			case 'I':
-				hash->insert(parser->getKey(),(char*)parser->getData().c_str());
+				if(hash->insert(parser->getKey(),(char*)parser->getData().c_str()))
+					cout<<"Se inserto correctamente la clave: "<<parser->getKey()<<endl;
+				else
+					cout<<"No se pudo insertar la clave: "<<parser->getKey()<<endl;
 				break;
 			case 'S':
 				hash->print(argv[3]);
 				break;
 			case 'M':
-				hash->update(parser->getKey(),(char*)parser->getData().c_str());
+				if(hash->update(parser->getKey(),(char*)parser->getData().c_str()))
+					cout<<"Se modifico correctamente la clave: "<<parser->getKey()<<endl;
+				else
+					cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
 				break;
 			case 'Q':
 				hash->remove(parser->getKey());
+//				if(hash->remove(parser->getKey()))
+//					cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
+//				else
+//					cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
 				break;
 			case 'h':
 				help();
@@ -77,7 +87,7 @@ static void parse_cmdline(int argc, char * const argv[]){
 
 }
 
-int main3333(int argc, char * const argv[]){
+int main(int argc, char * const argv[]){
 	parse_cmdline(argc,argv);
 	return 0;
 }

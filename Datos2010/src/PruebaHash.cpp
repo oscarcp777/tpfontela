@@ -104,7 +104,7 @@ void ejemploCatedra(){
 	delete hash;
 	cout<<"Borro todo bien "<<endl;
 }
-int main(){
+int main523(){
 	/****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
 	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
@@ -115,8 +115,8 @@ int main(){
 	 *    ENTONCES SOLO TENGO LUGAR PARA 3 REGISTROS DE 12
 	 */
 //	createAndInsert();
-	search();
-//	remove();
+//	search();
+	remove();
 //	update();
 //	ejemploCatedra();
 

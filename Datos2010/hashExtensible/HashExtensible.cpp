@@ -55,8 +55,8 @@ int HashExtensible::insert(int key, char *data){
 
 int HashExtensible::update(int key,char* data){
 	Record* record = new Record(key,data);
-	this->table->update(record);
-	return 1;
+	return this->table->update(record);
+
 }
 
 int HashExtensible::remove(int key){
