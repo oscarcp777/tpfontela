@@ -134,8 +134,10 @@ int Table::insert(Record* record){
 	//Si hay lugar en el cubo, hago el alta sin problemas
 	if(!this->existOverflow(offset,record)){
 
-		this->currentCube->addRecord(record);
-		this->currentCube->writeCube(this->fileCubes);
+		if(this->currentCube->addRecord(record))
+			if(this->currentCube->writeCube(this->fileCubes))
+				return 1;
+
 
 	}else{
 		// duplico la table hasta encontar lugar para poner el nuevo registro
@@ -152,27 +154,40 @@ int Table::insert(Record* record){
 		index = Hash::hashMod(record->getKey(),this->sizeTable);
 		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
-		this->currentCube->addRecord(record);
-		this->currentCube->writeCube(this->fileCubes);
+		if(this->currentCube->addRecord(record))
+			if(this->currentCube->writeCube(this->fileCubes))
+				return 1;
+
 
 
 	}
-	return 1;
+	return 0;
 }
 int Table::update(Record* record){
 	int index = Hash::hashMod(record->getKey(),this->sizeTable);
 	int offset = this->offsetCubes[index];
 	this->loadCube(offset,this->currentCube);
-	//Si existe lo actualizo
-	if(this->currentCube->update(record)){
-		this->currentCube->writeCube(this->fileCubes);
-		return TRUE;
+	//Carga el cubo y si encuentra el registro lo borra y lo agrega nuevamente
+	if(this->currentCube->search(record->getKey()) != NULL){
+		if(this->currentCube->remove(record->getKey()))
+			this->insert(record); //agrega el registro
+		 return TRUE;
 	}
-
 	return FALSE;
+
+
+//	//Si existe lo actualizo
+//	if(this->currentCube->update(record)){
+//		this->currentCube->writeCube(this->fileCubes);
+//		return TRUE;
+//	}
+//
+//	return FALSE;
 }
 bool Table::existOverflow(int offsetCube,Record*  record){
-	this->loadCube(offsetCube,this->currentCube);
+	if(this->currentCube->getOffsetCube() != offsetCube)
+		this->loadCube(offsetCube,this->currentCube);
+
 	return (!this->currentCube->hasSpace(record->getSizeRecord()));
 }
 int Table::overFlowInCube(int index,int offsetCubeOverFlow ){
@@ -393,6 +408,7 @@ int Table::readTable(){
 
 		}
 	}
+	this->currentCube->setOffsetCube(this->countsCubes+this->offsetFreeCubes.size()+1);
 //	vector<int>::iterator iterRecord;
 //	int count=0;
 //		for (iterRecord=this->offsetCubes.begin(); iterRecord!=this->offsetCubes.end(); iterRecord++){

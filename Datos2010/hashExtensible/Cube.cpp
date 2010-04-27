@@ -128,7 +128,11 @@ bool Cube::hasSpace(int size){
 
 
 int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
-	if(this->offsetCube != offsetCube){//TODO VERIFICAR SI ANDA BIEN CON ESTE IF
+	if(this->offsetCube != offsetCube){//TODO MAL PORQUE CUANDO ABRE EL HASH ASIGNA 0 POR DEFECTO AL CURRENT CUBE
+	//Y SI BUSCO EN EL BLOQUE 0 O ALGO POR EL ESTILO COMO EL CURRENT TIENE ESE OFFSET NO HACE NADA
+	//LO FIXIE PONIENDO ESTA LINEA EN EL READTABLE:
+	//this->currentCube->setOffsetCube(this->countsCubes+this->offsetFreeCubes.size()+1); entonces siempre tiene un numero
+	//mas que la cantidad existende de cubos
 		this->clear();
 		this->setOffsetCube(offsetCube);
 		fileCube->read(this->buffer->getData(),this->sizeCube,this->getDiskPosition());
@@ -167,7 +171,7 @@ int Cube::addRecord(Record *record){
 	}
 		delete record;
 
-	return TRUE;
+	return FALSE;
 }
 int Cube::remove(int key){
 	list<Record*>::iterator iterRecord=this->records.begin();
