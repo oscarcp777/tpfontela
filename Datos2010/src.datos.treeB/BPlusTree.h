@@ -364,7 +364,7 @@ public:
 			string data = search(key,-1);
 			sizeAddFreeSpace = data.length()+sizeof(short)+nodo->getKeySize();
 		}else
-			sizeAddFreeSpace = sizeof(short)+nodo->getKeySize();
+			sizeAddFreeSpace = nodo->getKeySize();
 
 		nodo->setFreeSpace(nodo->getFreeSpace()+sizeAddFreeSpace);
 	}
