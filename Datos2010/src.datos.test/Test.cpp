@@ -10,6 +10,7 @@
 #include "TestBTree.h"
 
 int main(){
+
 	TestIOFile* testIOFile = new TestIOFile();
 	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
 	TestBTree* testBTree = new TestBTree();
@@ -18,12 +19,9 @@ int main(){
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
 //	testFreeBlockController->runFreeBlockControllerTest();
-	testBTree->runTestInsert("files/testbt.dat", 128);
+//	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
-//	testBTree->runTestRemove("files/testbt.dat",128);
-
-
-
+	testBTree->runTestRemove("files/testbt.dat",128);
 
 	delete testIOFile;
 	delete testFreeBlockController;
