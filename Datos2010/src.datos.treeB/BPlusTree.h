@@ -39,33 +39,31 @@ public:
 	}
 
 	~BPlusTree() {
-		close();
-
 	}
 
-
+	/**
+	 * Abre un BTree existente, valida que tamaño del bloque seteado sea el correcto de lo contrario lanza
+	 * una excepcion
+	 */
 	int  open(string name, ios_base::openmode mode){
-
 		int result = this->bTreeFile.open(name,mode);
 		if (!result) return result;
-		//Leo profundidad
-		result = this->readHeight();
+		//Lee profundidad y valida blockSize
+		result = this->readMetadata();
 		if (!result) return result;
 		if (this->height > 1)
-					this->root.setIsLeaf(false);
+			this->root.setIsLeaf(false);
 		//Carga raiz
 		this->bTreeFile.read(this->root);
-
 		return 1;
 	}
 
-	int  create(string name, ios_base::openmode mode){
-
+	int create(string name, ios_base::openmode mode){
 		int result = this->bTreeFile.create(name, mode);
 		if (!result) return result;
-		//Escribo profundidad
-		result = this->writeHeight();
-		if (!result) return result;
+		//Escribe profundidad
+		result = this->writeMetadata();
+		if (result == -1) return 0;
 		//Agrega nodo raiz
 		result = this->bTreeFile.write(this->root);
 		this->root.setRecAddr(result);
@@ -76,8 +74,7 @@ public:
 
 		int result = this->bTreeFile.BufferFile::reWind();
 		if (!result) return result;
-		//Escribo profundidad
-		result = this->writeHeight();
+		result = this->writeMetadata();
 		if (!result) return result;
 		result = this->bTreeFile.write(this->root);
 		if (result == -1) return 0;
@@ -90,7 +87,6 @@ public:
 	}
 
 	int  insert(const keyType key, const char* data){
-		cout << "Insercion clave: " << key << endl;
 		int result; int level = this->height -1;
 		int newLargest = 0;
 		keyType prevKey, largestKey;
@@ -435,7 +431,7 @@ public:
 
 		this->height--;
 
-		this->writeHeight();
+		this->writeMetadata();
 
 		return 0;
 	}
@@ -582,7 +578,7 @@ public:
 
 			this->height--;
 
-			writeHeight();
+			this->writeMetadata();
 
 			//delete newNode;  VER SE ESTA COLGANDO MEMORIA MALL
 			delete[] vecKeysRemove;
@@ -978,19 +974,34 @@ protected:
 		return this->bTreeFile.write(*node,node->getRecAddr());
 	}
 
-	int readHeight(){
-		cout<<"Leo profundidad"<<endl;
-		FixedFieldBuffer buffer(1,sizeof(int));
+	/**
+	 * Lee un buffer del tamaño de un bloque con la metadata del BTree, aquí se encuentra el tamaño
+	 * del bloque utilizado en el archivo y la profundidad actual del árbol
+	 */
+	int readMetadata(){
+		FixedFieldBuffer buffer(3,this->blockSize);
 		buffer.addField(sizeof(int));
+		buffer.addField(sizeof(int));
+		buffer.addField(this->blockSize-(2*sizeof(int)));
 		this->bTreeFile.read(buffer);
+		int blockSizeAux;
+		buffer.unPack(&blockSizeAux);
 		buffer.unPack(&this->height);
+		if (blockSizeAux != this->blockSize)
+			throw string("BLOCK SIZE ERROR");
 		return this->height != 0;
 	}
 
-	int writeHeight(){
-		cout<<"Escribo profundidad"<<endl;
-		FixedFieldBuffer buffer(1,sizeof(int));
+	/**
+	 * Escribe un buffer del tamaño de un bloque con la metadata del BTree, aquí se guarda el tamaño
+	 * del bloque utilizado en el archivo y la profundidad actual del árbol
+	 */
+	int writeMetadata(){
+		FixedFieldBuffer buffer(3,this->blockSize);
 		buffer.addField(sizeof(int));
+		buffer.addField(sizeof(int));
+		buffer.addField(this->blockSize-(2*sizeof(int)));
+		buffer.pack(&this->blockSize);
 		buffer.pack(&this->height);
 		return this->bTreeFile.write(buffer);
 	}
