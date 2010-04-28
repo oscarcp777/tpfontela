@@ -28,6 +28,7 @@ private:
 	BinaryFile* fileCubesFree;
 	int countsCubes;
 	Cube* currentCube;
+	Cube* SecondarycurrentCube;
 	int sizeTable;
 	int countCubeFileTable;
 	vector<int> offsetFreeCubes;

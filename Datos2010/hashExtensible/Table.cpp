@@ -12,7 +12,8 @@ Table::Table() {
 	this->fileCubes = new BinaryFile();
 	this->fileCubesFree = new BinaryFile();
 	this->fileTable = new BinaryFile();
-	this->currentCube = new Cube(1,0);
+	this->currentCube = new Cube(1,-1);
+	//this->SecondarycurrentCube = new Cube(1,-1); NO VA, SE HACE INSTANCIA CUANDO SE USA
 	this->output=new TextFile();
 	this->countsCubes = 1;
 	this->sizeTable = 1;
@@ -72,7 +73,7 @@ int Table::duplicateTable(){
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
-	Cube* newCube;
+	//Cube* newCube;
 	//tamaño sispersion <> tamaño tabla
 	unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
 	this->currentCube->setSizeOfDispersion(dispersionSize*2);
@@ -88,26 +89,30 @@ int Table::diferentDispersionAndSizeTable(int index){
 		this->offsetFreeCubes.erase(it);
 	}
 
-	newCube = new Cube(dispersionSize*2,offsetNewCube);
+	//newCube = new Cube(dispersionSize*2,offsetNewCube);
+	this->SecondarycurrentCube = new Cube(dispersionSize*2,offsetNewCube);
 
-	for(int i = index; i<this->sizeTable; i+=newCube->getSizeOfDispersion())
-		this->offsetCubes[i] = newCube->getOffsetCube();
+	for(int i = index; i<this->sizeTable; i+=this->SecondarycurrentCube->getSizeOfDispersion())
+		this->offsetCubes[i] = this->SecondarycurrentCube->getOffsetCube();
 
-	for(int j = index; j>=0; j-=newCube->getSizeOfDispersion())
-		this->offsetCubes[j] = newCube->getOffsetCube();
+	for(int j = index; j>=0; j-=this->SecondarycurrentCube->getSizeOfDispersion())
+		this->offsetCubes[j] = this->SecondarycurrentCube->getOffsetCube();
 
 	this->currentCube->writeCube(fileCubes);
-	newCube->writeCube(fileCubes);
+	this->SecondarycurrentCube->writeCube(fileCubes);
+	//newCube->writeCube(fileCubes);
 	this->countsCubes++;
-	delete newCube;
+	delete this->SecondarycurrentCube;
+	//delete newCube;
 	return 1;
 }
 int Table::equalsDispersionAndSizeTable(int index){
-	Cube* newCube;
+	//Cube* newCube;
 	this->duplicateTable();
 	this->currentCube->setSizeOfDispersion(this->sizeTable);
 
-	newCube = new Cube(this->sizeTable,this->countsCubes);
+	this->SecondarycurrentCube = new Cube(this->sizeTable,this->countsCubes);
+	//newCube = new Cube(this->sizeTable,this->countsCubes);
 
 	int size = this->offsetFreeCubes.size();
 	if(size == 0)//si no tengo cubos libres le asigno el numero siguiente
@@ -115,15 +120,17 @@ int Table::equalsDispersionAndSizeTable(int index){
 
 	else{
 		//si tengo cubos libres le asigno el primero libre y lo borro de la lista
-		newCube->setOffsetCube(this->offsetFreeCubes.at(0));
+		this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes.at(0));
+		//newCube->setOffsetCube(this->offsetFreeCubes.at(0));
 		this->offsetCubes[index] = this->offsetFreeCubes.at(0);
 		vector<int>::iterator it = this->offsetFreeCubes.begin();
 		this->offsetFreeCubes.erase(it);
 	}
 	this->countsCubes++;
 	this->currentCube->writeCube(fileCubes);
-	newCube->writeCube(fileCubes);
-	delete newCube;
+	this->SecondarycurrentCube->writeCube(fileCubes);
+	//newCube->writeCube(fileCubes);
+	delete this->SecondarycurrentCube;
 	return 1;
 }
 
@@ -154,9 +161,9 @@ int Table::insert(Record* record){
 		index = Hash::hashMod(record->getKey(),this->sizeTable);
 		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
-		if(this->currentCube->addRecord(record))
-			if(this->currentCube->writeCube(this->fileCubes))
-				return 1;
+			if(this->currentCube->addRecord(record))
+					if(this->currentCube->writeCube(this->fileCubes))
+						return 1;
 
 
 
@@ -209,8 +216,10 @@ int Table::reallocate(int offsetCubeOverFlow){
 	//TODO aca habria que igual que en el reallocate del cubo disérsar todos los regostros del
 	// del bloque debordado solo esos y nos el que queremos ingresar por que eso lo hacemos depues
 	// cuanddo encontremos donde
-	Cube* newCube= new Cube(0,0);
+	//Cube* newCube= new Cube(1,-1);
+	this->SecondarycurrentCube = new Cube(1,-1);
 	this->loadCube(offsetCubeOverFlow,this->currentCube);
+
 	list<Record*>::iterator iterRecord = this->currentCube->getIteratorRecord();
 	Record* record;
 	int max=this->currentCube->getNumberOfRecords();
@@ -219,17 +228,19 @@ int Table::reallocate(int offsetCubeOverFlow){
 		int newOffset = this->offsetCubes[Hash::hashMod(record->getKey(),this->sizeTable)];
 
 		if(offsetCubeOverFlow != newOffset){
-			this->loadCube(newOffset,newCube);
-			newCube->addRecordList(record);
+			this->loadCube(newOffset,this->SecondarycurrentCube);
+			//newCube->addRecordList(record);
+			this->SecondarycurrentCube->addRecordList(record);
 			this->currentCube->eraseRecordList(iterRecord,record);
 			iterRecord--;
-			newCube->writeCube(fileCubes);
+			this->SecondarycurrentCube->writeCube(fileCubes);
+			//newCube->writeCube(fileCubes);
 		}
 		iterRecord++;
 	}
-
 	this->currentCube->writeCube(this->fileCubes);
-	delete newCube;
+	delete this->SecondarycurrentCube;
+	//delete newCube;
 	return 1;
 }
 int Table::loadCube(int offset ,Cube* cube){
@@ -268,7 +279,7 @@ int Table::remove(int key){
 	if(result){
 		int goodDelete=this->currentCube->remove(key);
 		if(goodDelete==0)
-			return 0;//TODO ESTA LINEA NO VA PROBAR this->currentCube->writeCube(this->fileCubes); QUE ES ESTO OSKY???
+			return 0;//SI NO EXISTE LA CLAVE SALE
 
 		if(this->currentCube->getNumberOfRecords() == 0 && this->countsCubes>1){//si queda vacio
 			int indexUp;
@@ -308,7 +319,7 @@ int Table::remove(int key){
 
 	}
 	else{
-		return -1;
+		return -1;// NO PUDO HACER LOAD DEL CUBO
 	}
 
 	this->currentCube->writeCube(this->fileCubes);
@@ -408,10 +419,7 @@ int Table::readTable(){
 
 		}
 	}
-	//*******OSKY NO BORRES LA SIGUIENTE LINEA ES IMPORTANTE LA USO YO
-	this->currentCube->setOffsetCube(this->countsCubes+this->offsetFreeCubes.size()+1);
-
-	delete buffer;
+		delete buffer;
 	return 1;
 }
 

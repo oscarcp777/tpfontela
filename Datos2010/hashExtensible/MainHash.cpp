@@ -112,7 +112,7 @@ static void parse_cmdline(int argc, char * const argv[]){
 
 }
 
-int maingfas(int argc, char * const argv[]){
+int main6546(int argc, char * const argv[]){
 	parse_cmdline(argc,argv);
 	return 0;
 }
