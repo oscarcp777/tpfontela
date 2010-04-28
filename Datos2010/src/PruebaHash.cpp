@@ -109,7 +109,7 @@ void ejemploCatedra(){
 	delete hash;
 	cout<<"Borro todo bien "<<endl;
 }
-int main(){
+int main457(){
 	/****************************************************/
 	/***   IMPORTANTE EL TAMANIO DEL BLOQUE NECESITA    */
 	/**    12 BYTES DE METADATA + 8 BYTES PARA GUARDAR SU TAMANIO Y CLAVE
