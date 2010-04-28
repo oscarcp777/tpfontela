@@ -9,10 +9,10 @@
 using namespace std;
 
 
-int main()
+int mainaaa()
 {
-   /*** CASO DE PRUEBA: "inserción con y sin overflow", "eliminación con y sin posibilidad de liberación de bloque"
-                                "reutilización de cubos liberados"
+   /*** CASO DE PRUEBA: "inserciï¿½n con y sin overflow", "eliminaciï¿½n con y sin posibilidad de liberaciï¿½n de bloque"
+                                "reutilizaciï¿½n de cubos liberados"
    ***/
 
 
@@ -29,7 +29,7 @@ int main()
 	AtributoFijo<int> padron6("padron6");
 	AtributoFijo<int> padron7("padron7");
 
-        //Se usarán claves enteras de valores: 2,3,4,5,6,7,9 (las referencias no son importantes)
+        //Se usarï¿½n claves enteras de valores: 2,3,4,5,6,7,9 (las referencias no son importantes)
         //se eligieron estas claves para facilitar su seguimiento "en el papel"
         unsigned num = 2;
 	padron0.set( &num);
@@ -61,11 +61,11 @@ int main()
 	Clave clave7(&reg7, 1, "padron7");
 
 
-        /**Se crea un índice extensible modular con 32bytes por cubo, y capacidad para 3 registros
+        /**Se crea un ï¿½ndice extensible modular con 32bytes por cubo, y capacidad para 3 registros
 
-        Notar que el último parámetro es NULL, puesto que este índice no usa el comparador de claves
-        Además se pasó la clave0, aunque no se insertará hasta que se llame con insertar().
-        El propósito de clave0 es que el índice conozca la estructura de las claves que manejará
+        Notar que el ï¿½ltimo parï¿½metro es NULL, puesto que este ï¿½ndice no usa el comparador de claves
+        Ademï¿½s se pasï¿½ la clave0, aunque no se insertarï¿½ hasta que se llame con insertar().
+        El propï¿½sito de clave0 es que el ï¿½ndice conozca la estructura de las claves que manejarï¿½
 
         **/
         un_indice.crear("Prueba1", 32, &clave0, NULL);
@@ -74,7 +74,7 @@ int main()
         un_indice.insertar(++ref, &clave1);
         un_indice.insertar(++ref, &clave2);
 
-        /**   Esta inserción producirá un overflow en el cubo 0  **/
+        /**   Esta inserciï¿½n producirï¿½ un overflow en el cubo 0  **/
         un_indice.insertar(++ref, &clave3);
         cout<<"Al insertar la clave 5 se produce un sobreflujo"<<endl;
         un_indice.mostrarEstado();
@@ -97,22 +97,22 @@ int main()
         un_indice.eliminar(&clave0);
         un_indice.mostrarEstado();
         cin >> pausa;
-        /** Se elimina la clave de valor 4 en el cubo 1, vaciándolo.
-                Se puede ver que en este caso, el cubo se puede liberar, quitándo su referencia de la tabla de dispersión.
-                Ahora el cubo tendrá que aparecer 2 veces (dividirá por 2 su tamaño de dispersión == 1)
+        /** Se elimina la clave de valor 4 en el cubo 1, vaciï¿½ndolo.
+                Se puede ver que en este caso, el cubo se puede liberar, quitï¿½ndo su referencia de la tabla de dispersiï¿½n.
+                Ahora el cubo tendrï¿½ que aparecer 2 veces (dividirï¿½ por 2 su tamaï¿½o de dispersiï¿½n == 1)
         **/
         cout<< "Se elimina la clave de valor 4 en el cubo 1, vaciandolo"<<endl;
         un_indice.eliminar(&clave2);
         un_indice.mostrarEstado();
         cin >> pausa;
 
-        //cualquier inserción siguiente ocasionará un sobreflujo
-        /** Se reutilizará el cubo 1 anteriormente liberado (se consignará de nuevo en la tabla de dispersión **/
+        //cualquier inserciï¿½n siguiente ocasionarï¿½ un sobreflujo
+        /** Se reutilizarï¿½ el cubo 1 anteriormente liberado (se consignarï¿½ de nuevo en la tabla de dispersiï¿½n **/
         un_indice.insertar(100, &clave0);
         un_indice.mostrarEstado();
         cin >> pausa;
 
-        //Se produce un nuevo sobreflujo, ahora en el cubo 0, por la inserción de la clave 9.
+        //Se produce un nuevo sobreflujo, ahora en el cubo 0, por la inserciï¿½n de la clave 9.
         //Se duplica la tabla
         un_indice.insertar(101, &clave6);
         un_indice.mostrarEstado();

@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int main(){
+int maindfaf(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
@@ -67,7 +67,7 @@ int main(){
  * Print inicial ... Se hace para saber cuanto espacio libre tengo
  * en el nodo vacio.
  */
-	bt.print(cout);
+//	bt.print(cout);
 	bt.insert(2,c.c_str());
 //	bt.print(cout);
 	bt.insert(1,a.c_str());
@@ -93,6 +93,7 @@ int main(){
 	bt.insert(12,l.c_str());
 	bt.insert(13,m.c_str());
 	bt.insert(14,n.c_str());
+//	bt.print(cout);
 	bt.insert(18,o.c_str());
 	bt.insert(16,p.c_str());
 	bt.insert(17,q.c_str());
@@ -105,7 +106,7 @@ int main(){
 	bt.insert(52,x.c_str());
 	bt.insert(53,y.c_str());
 	bt.insert(54,z.c_str());
-	bt.print(cout);
+//	bt.print(cout);
 //cout<< "Elimino la clave 3" <<endl;
 //	bt.remover(3);
 //	bt.print(cout);
@@ -150,7 +151,7 @@ cout<<"Llego bien hasta aca" << endl;
 	//bt.print(cout);
 	//bt.remover(2,-1);
 	//bt.print(cout);
-	bt.close();
+//	bt.close();
 
 //	BPlusTree<int> btAux(128);
 //	btAux.open(ruta,ios::in|ios::out);
@@ -172,12 +173,13 @@ cout<<"Llego bien hasta aca" << endl;
 //	btAux.open(ruta,ios::in|ios::out);
 
 
-//	if(btAux.getFirstElementSecuentSet()!= NULL){
-//
-//		cout<<"El primer elemento es ... " << btAux.getFirstElementSecuentSet()<<endl;
-//		while(!btAux.getEndSecuentSet()){
-//			cout<<"El elemento es ... " << btAux.getNextElementSecuentSet()<<endl;
-//		}
+	if(bt.getFirstElementSecuentSet()!= NULL){
+
+		cout<<"El primer elemento es ... " << bt.getFirstElementSecuentSet()<<endl;
+		while(!bt.getEndSecuentSet()){
+			cout<<"El elemento es ... " << bt.getNextElementSecuentSet()<<endl;
+		}
+	}
 //
 //	}else{
 //			cout << "No existe el dato." << endl;
