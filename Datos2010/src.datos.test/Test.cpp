@@ -7,16 +7,29 @@
 
 #include "TestIOFile.h"
 #include "TestFreeBlockController.h"
+#include "TestBTree.h"
 
 int main(){
-//	TestIOFile* test = new TestIOFile();
-//	test->runBinaryFileTest2();
-//	test->runTextFileTest();
 
-	TestFreeBlockController* test = new TestFreeBlockController();
-	test->runFreeBlockControllerTest();
+	TestIOFile* testIOFile = new TestIOFile();
+	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
+	TestBTree* testBTree = new TestBTree();
 
-	delete test;
+
+//	testIOFile->runBinaryFileTest2();
+//	testIOFile->runTextFileTest();
+//	testFreeBlockController->runFreeBlockControllerTest();
+	testBTree->runTestInsert("files/testbt.dat", 128);
+//	testBTree->runTestSecuenceSet("files/testbt.dat",128);
+//	testBTree->runTestRemove("files/testbt.dat",128);
+
+
+
+
+	delete testIOFile;
+	delete testFreeBlockController;
+	delete testBTree;
+
 
 	return 0;
 }
