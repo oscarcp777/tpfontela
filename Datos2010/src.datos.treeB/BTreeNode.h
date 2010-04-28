@@ -96,6 +96,9 @@ public:
 		result = SimpleIndex<keyType>::remove(key, recAddr);
 		if (!result) return 0; //fallo remover
 		if(this->isLeaf){
+			string data=this->data[index];
+			freeSpace+=(data.length()+sizeof(short));
+			freeSpace+=this->keySize;
 		for (int i = index; i<this->numKeys; i++) {
 			if (this->data[i+1]!=NULL){
 				this->data[i]=this->data[i+1];
@@ -157,7 +160,10 @@ public:
 			this->keys[this->numKeys+i] = fromNode->keys[i];
 			this->recAddrs[this->numKeys+i] = fromNode->recAddrs[i];
 			if (isLeaf){
+				 string dataAux=fromNode->data[i];
 				 this->data[this->numKeys+i]=fromNode->data[i];
+				 freeSpace-=(dataAux.length()+sizeof(short));
+				 freeSpace-=this->keySize;
 			}
 		}
 		//ajustar numero de claves
@@ -340,13 +346,16 @@ public:
 		return blockSize*0.5;
 	}
 
+	int getBlockMaxSize(){
+		return this->blockMaxSize;
+	}
 	/**
 	 * Retorna el minimo numero de claves que puede haber en un nodo interno (no hoja)
 	 */
 	int getMinKeys(int blockSize){
-		int max_Keys=(blockSize)/(keySize);
-		int ret_minKeys=(max_Keys)/2;
-		return ret_minKeys;
+//		int max_Keys=(blockSize)/(keySize);
+//		int ret_minKeys=(max_Keys)/2;
+		return ((this->getMaxKeys())/2);//ret_minKeys; TODO cuando se solucione el underflow del insert descomentar lo que esta comentado en getMinKeys de BTreeNode.h
 	}
 
 	int getTamanioOcupado(int blockSize){
@@ -358,11 +367,14 @@ public:
 	}
 
 	int caseDataRemove(int sizeDataRemove,int blockSize){
-		if((sizeDataRemove+freeSpace)>(blockSize-getMinFreeSpace(blockSize)))
+		if((sizeDataRemove+freeSpace)>(blockSize-getMinFreeSpace(blockSize))){
 			return -1; //underflow
-		else if((sizeDataRemove+freeSpace)==(blockSize-getMinFreeSpace(blockSize)))
+		}else if((sizeDataRemove+freeSpace)==(blockSize-getMinFreeSpace(blockSize))){
 			return 0; //en el limite
-		else return 1; //fuera de underflow
+		}else if((sizeDataRemove+freeSpace)>blockSize){
+			return -2;
+		}
+		return 1; //ninguna de las anteriores
 	}
 	
 
@@ -372,7 +384,7 @@ protected:
 	int recAddr;			//direccion de este nodo en el archivo del arbol
 	int minKeys;		 	//minimo numero de claves en un nodo
 	int maxBKeys;			//maximo number de claves en un nodo
-
+    int blockMaxSize;
 
 	//Variables agregadas para conversion
 	//Determina si el nodo es hoja o no, para su manejo diferenciado
@@ -402,6 +414,8 @@ protected:
 		this->keySize = sizeof(short)+sizeof(keyType);
 		// 0,7 del bloque ocupado - metadata bloque
 		this->freeSpace = maxSize - blockMetadataSize;
+
+		this->blockMaxSize = this->freeSpace; //lo que ocupa el bloque
 		//los nodos se inician como hojas
 		this->isLeaf = 1;
 
