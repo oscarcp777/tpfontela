@@ -9,6 +9,7 @@
 
 Cubo::Cubo(int cantClaves, int tamanioDispersion){
 	this->cantClaves = cantClaves;
+
     this->tamanioDispersion = tamanioDispersion;
 }
 
