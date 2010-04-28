@@ -85,7 +85,6 @@ public:
 		return numKeys;
 	}
 
-
 protected:
 	int maxKeys;
 	int numKeys;
