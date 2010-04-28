@@ -277,8 +277,8 @@ int Table::remove(int key){
 	int offset = this->offsetCubes[index];
 	int result = this->loadCube(offset,this->currentCube);
 	if(result){
-		int goodDelete=this->currentCube->remove(key);
-		if(goodDelete==0)
+		int noDelete=this->currentCube->remove(key);
+		if(noDelete==0)
 			return 0;//SI NO EXISTE LA CLAVE SALE
 
 		if(this->currentCube->getNumberOfRecords() == 0 && this->countsCubes>1){//si queda vacio
@@ -315,11 +315,12 @@ int Table::remove(int key){
 			return 1;
 		}else{
 			this->currentCube->writeCube(this->fileCubes);
+			return 1;
 		}
 
 	}
 	else{
-		return -1;// NO PUDO HACER LOAD DEL CUBO
+		return 0;// NO PUDO HACER LOAD DEL CUBO
 	}
 
 	this->currentCube->writeCube(this->fileCubes);
