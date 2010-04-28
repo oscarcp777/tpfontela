@@ -9,7 +9,7 @@
 using namespace std;
 
 
-int mainaaa()
+int main434343()
 {
    /*** CASO DE PRUEBA: "inserci�n con y sin overflow", "eliminaci�n con y sin posibilidad de liberaci�n de bloque"
                                 "reutilizaci�n de cubos liberados"
