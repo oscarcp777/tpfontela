@@ -1,5 +1,3 @@
-RICHY FIJATE EN EL CARGAR DE LA CLASE IndiceHashExtensible.CPP EL METODO CARGAR DE AHI 
-SAQUE COMO HACERLO
 
 Operaciones con registros representados por sus claves y los signos + para alta, y - para bajas, en un archivo directo con dispersi�n extensible con bloques con capacidad para tres registros:
 
