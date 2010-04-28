@@ -18,8 +18,6 @@ public:
 	FixedFieldBuffer & operator = (const FixedFieldBuffer & buffer);
 	void clear();
 	int addField(int fieldSize);//define the next field
-	int readHeader(istream & stream);
-	int writeHeader(ostream & stream) const;
 	int pack(const void* field, int size = -1);//set the value of the next field of the bufer
 	int unPack(void* field, int maxBytes = -1);//extract the value of the next field of the buffer
 	void print();

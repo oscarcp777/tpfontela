@@ -28,9 +28,7 @@ public:
 	int read(istream &); //read a buffer from the stream
 	int write(ostream &) const ;//write a buffer to the stream
 	//these header operations return the size of the header
-	int readHeader(istream & stream);
-	int writeHeader(ostream & stream) const;
-    int packFixLen(void*,int);
+	int packFixLen(void*,int);
     int packDelimeted(void*,int);
     int packLenght(void*,int);
     void print() ;

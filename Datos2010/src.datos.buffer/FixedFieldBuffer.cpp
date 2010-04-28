@@ -53,63 +53,6 @@ int FixedFieldBuffer::addField(int fieldSize){
 	return 1;//TRUE
 }
 
-static const char* headerStr = "Field";
-static const int headerStrSize = strlen(headerStr);
-
-int FixedFieldBuffer::readHeader(istream & stream){
-	char* str = new char[headerStrSize+1];
-	int numFields;
-	int* fieldSize;
-	int result;
-	result = FixedLengthBuffer::readHeader(stream);
-	if(result < 0) return -1;
-
-	stream.read(str,headerStrSize);
-	if(!stream.good()) return -1;
-	if(strncmp(str,headerStr,headerStrSize) != 0) return 0;
-
-	stream.read((char*)&numFields, sizeof(numFields));
-	if(!stream.good())return -1;
-	fieldSize = new int[numFields];
-
-	for(int i=0; i <numFields; i++)
-		stream.read((char*)&fieldSize[i], sizeof(fieldSize[i]));
-
-	if(this->initialized){
-		if(numFields != this->numFields) return -1;
-		for(int j=0; j<numFields; j++)
-			if(fieldSize[j] != this->fieldSize[j]) return -1;
-		return stream.tellg();
-	}
-	this->init(numFields,fieldSize);
-	return stream.tellg();
-
-
-}
-
-int FixedFieldBuffer::writeHeader(ostream & stream) const{
-	//a header consists of the
-	//fixedLengthBufferHeader
-	//fixed     5bytes
-	//variable sized record of length fields
-	//that describes the file records
-	//header record size     2bytes
-	//number of fields   4bytes
-	//field sizes    4bytes per field
-	int result;
-	if(!this->initialized) return -1; //cannot write unitialized buffer
-	result = FixedLengthBuffer::writeHeader(stream);
-	if(!result) return -1;
-	stream.write(headerStr,headerStrSize);
-	if(!stream.good()) return -1;
-	stream.write((char*)&this->numFields, sizeof(this->numFields));
-	for(int i=0; i< this->numFields; i++){
-		stream.write((char*)&this->fieldSize[i], sizeof(this->fieldSize[i]));
-	}
-	if(!stream.good()) return -1;
-	return stream.tellp();
-}
-
 int FixedFieldBuffer::pack(const void* field, int size){
 	if(this->nextField == this->numFields || !this->packing)
 		return -1; //buffer is full or not packing mode

@@ -43,48 +43,6 @@ int FixedLengthBuffer::write(ostream& stream) const{
 		return recAddr;
 }
 
-static const char* headerStr = "Fixed";
-static const int headerStrSize = strlen(headerStr);
-
-int FixedLengthBuffer::readHeader(istream& stream){
-	char str[headerStrSize+1];
-	int recordSize;
-	int result;
-	//read the IOBUffer header
-	result = IOBuffer::readHeader(stream);
-	if(result<0) return -1;
-	//read the string "Fixed"
-	stream.read(str, headerStrSize);
-	if(!stream.good()) return -1;
-	if(strncmp(str,headerStr,headerStrSize) != 0) return -1;
-	stream.read((char*)&recordSize, sizeof(recordSize));
-	if(this->initialized){//check for consistency
-		if(recordSize != this->bufferSize) return -1;
-	}
-	else//else initialize the buffer from the header
-		this->changeRecordSize(recordSize);  //TODO en el libro falta ese else, verificar si esta bien
-
-	return stream.tellg();
-
-}
-
-int FixedLengthBuffer::writeHeader(ostream& stream) const{
-	//write a buffer header to the beginning of the stream
-	//a header consists of the
-	//IOBUffer header
-	//FIXED  5 bytes
-	//record size 2 bytes
-	int result;
-	if(!this->initialized) return -1; //cannot write untialized buffer
-	result = IOBuffer::writeHeader(stream);
-	if(!result) return -1;
-	stream.write(headerStr,headerStrSize);
-	if(!stream.good()) return -1;
-	stream.write((char*)&this->bufferSize, sizeof(this->bufferSize));
-	if(!stream.good()) return -1;
-	return stream.tellp();
-}
-
 void FixedLengthBuffer::print(){
 	IOBuffer::print();
 	std::cout<<" Fixed ";
