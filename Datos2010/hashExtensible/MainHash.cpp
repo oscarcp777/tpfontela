@@ -89,11 +89,10 @@ static void parse_cmdline(int argc, char * const argv[]){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
 						parser->parser(cadena);
-						hash->remove(parser->getKey());
-						//	if(hash->remove(parser->getKey()))
-						//		cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
-						//	else
-						//		cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
+						if(hash->remove(parser->getKey()))
+							cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
+						else
+							cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
 
 					}
 				}
