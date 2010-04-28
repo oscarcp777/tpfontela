@@ -50,37 +50,9 @@ int VariableLengthBuffer::write(ostream& stream)const{
 	 return recaddr;
 }
 
-
-const char* headerStr="Variable";
-const int headerSize=strlen(headerStr);
-
-int VariableLengthBuffer::readHeader(istream& stream){
-  char str[headerSize+1];
-  int result;
-  //lee la cabezera del iobuffer
-  result=IOBuffer::readHeader(stream);
-  if(!result)return 0;
-  stream.read(str,headerSize);
-  if(!stream.good())return 0;
-  if(strncmp(str,headerStr,headerSize)!=0) return 0;
-
-  return stream.tellg();
-}
-
-int VariableLengthBuffer::writeHeader(ostream & stream) const{
-
-  int result;
-  //lee la cabezera del iobuffer
-  result=IOBuffer::writeHeader(stream);
-  if(!result)return 0;
-  stream.write(headerStr,headerSize);
-  if(!stream.good())return 0;
-  return stream.tellp();
-}
-
 void VariableLengthBuffer::print(){
-
 }
+
 int VariableLengthBuffer::init(){
 clear(); return 1;
 }

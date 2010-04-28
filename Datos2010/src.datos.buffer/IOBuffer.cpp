@@ -33,41 +33,26 @@ IOBuffer & IOBuffer::operator = (const IOBuffer & buffer){
 		std::cout<<"maxBytes: "<<this->maxBytes<<" BufferSize "<<this->bufferSize;
 	}
 
-	int IOBuffer::init(int maxByte){
+	int IOBuffer::init(int maxBytes){
 		this->initialized = 0;//false
 		if(maxBytes < 0) maxBytes = 0;
-		this->maxBytes = maxByte;
+		this->maxBytes = maxBytes;
 		this->buffer = new char[this->maxBytes];
 		this->bufferSize = 0;
 		this->clear();
 		return 1;
 	}
+
 	int IOBuffer::dRead(istream & stream, int recRef){
 		stream.seekg(recRef, ios::beg);
 		if(stream.tellg() != recRef) return -1;
 		return this->read(stream);
 
 	}
+
 	int IOBuffer::dWrite(ostream& stream, int recRef){
 		stream.seekp(recRef, ios::beg);
 		if(stream.tellp() != recRef) return -1;
 		return this->write(stream);
 	}
 
-	static const char* headerStr = "IOBuffer";
-	static const int headerSize = strlen(headerStr);
-
-	int IOBuffer::readHeader(istream & stream){
-		char str[9];
-		stream.seekg(0, ios::beg);
-		stream.read(str,headerSize);
-		if(!stream.good()) return -1;
-		if(strncmp(str,headerStr,headerSize) == 0) return headerSize;
-		else return -1;
-	}
-	int IOBuffer::writeHeader(ostream &stream) const{
-		stream.seekp(0, ios::beg);
-		stream.write(headerStr, headerSize);
-		if(!stream.good()) return -1;
-		return headerSize;
-	}
