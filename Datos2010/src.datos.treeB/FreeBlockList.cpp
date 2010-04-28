@@ -145,7 +145,7 @@ int FreeBlockList::writeSimpleBlock(int addr){
 		this->simpleBuffer.pack(&(aux));
 		this->freeBlocks.pop_back();
 		cout << " Size: " << this->freeBlocks.size() << endl;
-	}
+	}	
 //	return this->bTreeFile.writeFromBuffer(simpleBuffer,addr);
 	return 1;
 }
@@ -153,7 +153,7 @@ int FreeBlockList::writeSimpleBlock(int addr){
 int FreeBlockList::readSimpleBlock(int addr){
 	unsigned int i;
 	simpleBuffer.clear();
-//	this->bTreeFile.readFromBuffer(simpleBuffer,addr);
+	//this->bTreeFile.readFromBuffer(simpleBuffer,addr);
 	int auxElement;
 	for (i = 0; i < this->maxFields; i++) {
 		auxElement = 0;
