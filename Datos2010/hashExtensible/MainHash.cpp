@@ -15,14 +15,14 @@ static void help(){
 	printf("Uso:\n");
 	printf(" ./HashExtensible [options]\n");
 	printf("Options:\n");
-	printf(" 	-B, --search\t   Busca una clave en la estructura.\n");
-	printf(" 	-I, --insert\t   Ingresa datos a la estructura.\n");
-	printf(" 	-S, --print\t   Vuelca todos los datos de la estructura en un archivo de texto.\n");
-	printf(" 	-M, --modificar\t    Modificar un dato ya existente en la estructura.\n");
-	printf(" 	-Q, --quitar\t    Quitar un dato de la estructura.\n");
+	printf(" 	-B =\t   Busca una clave en la estructura.\n");
+	printf(" 	-I =\t   Ingresa datos a la estructura.\n");
+	printf(" 	-S =\t   Vuelca todos los datos de la estructura en un archivo de texto.\n");
+	printf(" 	-M =\t   Modificar un dato ya existente en la estructura.\n");
+	printf(" 	-Q =\t   Quitar un dato de la estructura.\n");
 	printf("Ejemplos: \n");
 	printf(" 	cat archivo_de_claves | ./hash path­NombreArchivo ­-I \n");
-	printf(" 	echo ""(clave;)"" | ./hash path­NombreArchivo ­-Q \n");
+	printf(" 	echo \"(clave;)\" | ./hash path­NombreArchivo ­-Q \n");
 	printf(" 	./hash path­NombreArchivo -S archivoPrint \n");
 }
 
