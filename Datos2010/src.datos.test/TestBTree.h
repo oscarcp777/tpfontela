@@ -18,6 +18,14 @@ public:
 	void runTestInsert(string fileName, int blockSize);
 	void runTestSecuenceSet(string fileName, int blockSize);
 	void runTestRemove(string fileName, int blockSize);
+
+	/*
+	 * Los siguientes metodos se expesifican distintos casos
+	 * de eliminacion de una clave. Su explicacion esta en .cpp
+	 */
+	void remuveCaseOne(BPlusTree<int>* btree, int clave);
+	void remuveCaseTwo(BPlusTree<int>* btree, int clave);
+	void remuveCaseThree(BPlusTree<int>* btree, int clave);
 };
 
 #endif /* TESTBTREE_H_ */

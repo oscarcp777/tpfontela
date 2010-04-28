@@ -6,6 +6,7 @@
  */
 
 #include "TestBTree.h"
+#include "../src.datos.utils/ParserInput.h"
 
 TestBTree::TestBTree() {
 }
@@ -30,36 +31,26 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	bt.create(fileName,ios::out);
 
 	try{
-	//Con este conjunto de datos el secuence set tiene que quedar ordenado alfabeticamente
-	bt.insert(42,"N--------N");
-	bt.insert(66,"V------V");
-	bt.insert(21,"G---------G");
-	bt.insert(3,"A---A");
-	bt.insert(78,"Z--------Z");
-	bt.insert(33,"K--K");
-	bt.insert(72,"X--------X");
-	bt.insert(54,"R---------R");
-	bt.insert(12,"D------D");
-	bt.insert(69,"W-----W");
-	bt.insert(60,"T----t");
-	bt.insert(27,"I-------I");
-	bt.insert(6,"B------B");
-	bt.insert(45,"O------O");
-	bt.insert(15,"E---E");
-	bt.insert(36,"L--------L");
-	bt.insert(51,"Q-------Q");
-	bt.insert(9,"C---C");
-	bt.insert(18,"F--------F");
-	bt.insert(48,"P----P");
-	bt.insert(24,"H-------H");
-	bt.insert(63,"U----U");
-	bt.insert(30,"J------J");
-	bt.insert(39,"M----M");
-	bt.insert(57,"S---S");
-	bt.insert(75,"Y---Y");
+	/*
+	 * Inserta los datos provenientes de un archivo input.btree.dat.
+	 * Con este conjunto de datos el secuence set tiene
+	 * que quedar ordenado alfabeticamente
+	 */
+		fstream file;
+		file.open("files/input.btree.dat",ios::in|ios::out);
+		ParserInput* parser = new ParserInput();
+		string line;
 
-	//Intenta insertar clave repetida
-	bt.insert(75,"y---y");
+		while(!file.eof()){
+			getline(file,line);
+			if(line.length()!=0){
+				parser->parser(line);
+				bt.insert(parser->getKey(),parser->getData().c_str());
+			}
+		}
+		file.close();
+		//Intenta insertar clave repetida
+		bt.insert(75,"y---y");
 
 	}catch (string& e){
 			cerr << e << endl;
@@ -80,15 +71,14 @@ void TestBTree::runTestSecuenceSet(string fileName, int blockSize){
 
 	BPlusTree<int> bt(blockSize);
 	try {
-	bt.open(fileName,ios::in|ios::out);
-	if(bt.getFirstElementSecuentSet() != NULL){
-		cout<< bt.getFirstElementSecuentSet()<<endl;
-		while(!bt.getEndSecuentSet()){
-			cout<< bt.getNextElementSecuentSet() <<endl;
+		bt.open(fileName,ios::in|ios::out);
+		char* element = bt.getFirstElementSecuentSet();
+		while( element != NULL){
+			cout<< element << endl;
+			element = bt.getNextElementSecuentSet();
 		}
+		bt.close();
 
-	bt.close();
-	}
 	} catch (string& e){
 		cerr << e << endl;
 	}
@@ -99,4 +89,68 @@ void TestBTree::runTestSecuenceSet(string fileName, int blockSize){
  */
 void TestBTree::runTestRemove(string fileName, int blockSize){
 
+	BPlusTree<int> bt(blockSize);
+	/*
+	 * Realizamos test de distinta indole, ya que segun que clave eliminemos
+	 * el arbol estara en un estado u otro.
+	 * Ademas cada ves que eliminemos una clave, esta sera ingresada nuevamente
+	 * para tener el arbol original.
+	 */
+	try {
+
+		bt.open(fileName,ios::in|ios::out);
+		int clave = 39;
+		char* dato = bt.search(clave);
+		cout<<"Arbol antes de la eliminacion de la clave ";
+		cout<< clave <<endl <<endl;
+		bt.print(cout);
+		this->remuveCaseThree(&bt,clave);
+		cout<<"Arbol despues de la eliminacion de la clave ";
+		cout<< clave <<endl << endl;
+		bt.print(cout);
+		bt.insert(clave,dato);
+		cout<<"Arbol reestructurado con la insercion de la clave ";
+		cout<< clave <<endl << endl;
+		bt.print(cout);
+		bt.close();
+	} catch (string& e){
+		cerr << e << endl;
+	}
+
 }
+
+/*
+ * Metodos que diferencian distintos caso de eliminacion de una clave.
+ *
+ * El caso UNO consta de eliminar una clave que no es la mayor de ese nodo
+ * y demas no produce underflow. Es un caso basico en donde no influye en la
+ * estructura del arbol. En este ejemplo eliminaremos la clave 9.
+ */
+void TestBTree::remuveCaseOne(BPlusTree<int>* btree, int clave){
+
+	btree->remover(clave);
+	btree->print(cout);
+}
+
+/* Ver este caso, que no anda. Se cuelga la maquina.
+ * Eliminamos una clave que es la mayor dentro del nodo hoja,
+ * sin provocar underflow. En este ejemplo eliminamos la clave 21.
+ */
+void TestBTree::remuveCaseTwo(BPlusTree<int>* btree, int clave){
+
+	btree->remover(clave);
+	btree->print(cout);
+}
+/*
+ * Ver este caso, no se cuelga pero no elimina.
+ * Eliminamos una clave que no es la mayor dentro de la hoja y
+ * al eliminarla produce underflow.
+ * Para este ejemplo eliminamos la 39.
+ */
+void TestBTree::remuveCaseThree(BPlusTree<int>* btree, int clave){
+
+	btree->remover(clave);
+	btree->print(cout);
+}
+
+

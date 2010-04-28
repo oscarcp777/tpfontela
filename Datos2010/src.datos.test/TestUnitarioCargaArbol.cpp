@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int maindfaf(){
+int maindgfdfgd(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
@@ -30,7 +30,7 @@ int maindfaf(){
 //	}
 
 
-	BPlusTree<int> bt(64);
+	BPlusTree<int> bt(128);
 
 	string ruta="files/testbt.dat";
 
@@ -106,10 +106,13 @@ int maindfaf(){
 	bt.insert(52,x.c_str());
 	bt.insert(53,y.c_str());
 	bt.insert(54,z.c_str());
-//	bt.print(cout);
-//cout<< "Elimino la clave 3" <<endl;
-//	bt.remover(3);
-//	bt.print(cout);
+	bt.print(cout);
+cout<< "Elimino la clave 48" <<endl;
+/*
+ * Cuando elimino la 48 no funca. no elimina.
+ */
+	bt.remover(48);
+	bt.print(cout);
 //	bt.insert(3,"Na");
 //	bt.print(cout);
 //	bt.remover(3);
@@ -173,13 +176,13 @@ cout<<"Llego bien hasta aca" << endl;
 //	btAux.open(ruta,ios::in|ios::out);
 
 
-	if(bt.getFirstElementSecuentSet()!= NULL){
-
-		cout<<"El primer elemento es ... " << bt.getFirstElementSecuentSet()<<endl;
-		while(!bt.getEndSecuentSet()){
-			cout<<"El elemento es ... " << bt.getNextElementSecuentSet()<<endl;
-		}
-	}
+//	if(bt.getFirstElementSecuentSet()!= NULL){
+//
+//		cout<<"El primer elemento es ... " << bt.getFirstElementSecuentSet()<<endl;
+//		while(!bt.getEndSecuentSet()){
+//			cout<<"El elemento es ... " << bt.getNextElementSecuentSet()<<endl;
+//		}
+//	}
 //
 //	}else{
 //			cout << "No existe el dato." << endl;
