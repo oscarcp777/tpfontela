@@ -44,8 +44,6 @@ public:
 	 * restablece al primer registro de datos
 	 */
 	int reWind();
-	 int ReadHeader();
-	  int WriteHeader();
 
 };
 
