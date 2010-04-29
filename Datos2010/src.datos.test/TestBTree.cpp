@@ -49,13 +49,13 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			}
 		}
 		file.close();
-		bt.print(cout);
 
 	}catch (string& e){
 			cerr << e << endl;
 	}
 
-
+	bt.print(cout);
+	this->removeCaseOne(&bt,66);
 	bt.print(cout);
 	bt.close();
 }
@@ -98,13 +98,13 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	try {
 
 		bt.open(fileName,ios::in|ios::out);
-		int clave = 39;
+		int clave = 75;
 		char* dato = bt.search(clave);
 		cout<< endl;
 		cout<<"Arbol antes de la eliminacion de la clave ";
 		cout<< clave <<endl <<endl;
 		bt.print(cout);
-		this->removeCaseThree(&bt,clave);
+		this->removeCaseOne(&bt,clave);
 		cout<<"Arbol despues de la eliminacion de la clave ";
 		cout<< clave <<endl << endl;
 		bt.print(cout);
@@ -125,32 +125,51 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
  * El caso UNO consta de eliminar una clave que no es la mayor de ese nodo
  * y además no produce underflow. Es un caso básico en donde no influye en la
  * estructura del árbol. En este ejemplo eliminaremos la clave 9.
+ *
+ * Test OK
  */
-void TestBTree::removeCaseOne(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseOne(BPlusTree<int>* btree, int clave = 9){
 
 	btree->remover(clave);
 	btree->print(cout);
 }
 
-/* Ver este caso, que no anda. Se cuelga la maquina.
+/*
  * Eliminamos una clave que es la mayor dentro del nodo hoja,
- * sin provocar underflow. En este ejemplo eliminamos la clave 21.
+ * sin provocar underflow en este nodo. En este ejemplo eliminamos la clave 21.
+ *
+ * Test OK
  */
-void TestBTree::removeCaseTwo(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseTwo(BPlusTree<int>* btree, int clave = 21){
 
 	btree->remover(clave);
 	btree->print(cout);
 }
 /*
- * Ver este caso, no se cuelga pero no elimina.
  * Eliminamos una clave que no es la mayor dentro de la hoja y
- * al eliminarla produce underflow.
- * Para este ejemplo eliminamos la 39.
+ * al eliminarla produce underflow. Le pide una la clave menor al vecino
+ * derecho si este no puede pasarle, porque este vecino entra en underflow, se la pide al izquierdo para equilibrar.
+ * Para este ejemplo eliminamos la clave 27.
+ * Aca se contemplan otros casos tambien ya que cuando el nodo entra en underflow, este le
+ * pide una clave al hermano derecho pero este no se la da porque sino entraria en
+ * underflow tambien. Por lo tanto le pide una clave al hermano derecho y este si le puede
+ * prestar.
+ *
+ * Test NO OK.
  */
-void TestBTree::removeCaseThree(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseThree(BPlusTree<int>* btree, int clave = 27){
 
 	btree->remover(clave);
 	btree->print(cout);
 }
+/*
+ * Eliminamos una clave que se encuentra en la raiz. Para este caso
+ * la clave a eliminar es la 66.
+ *
+ * Test NO OK
+ */
+void TestBTree::removeCaseFor(BPlusTree<int>* btree, int clave = 66){
 
-
+	btree->remover(clave);
+	btree->print(cout);
+}
