@@ -9,7 +9,7 @@
 #define RECORDFILE_H_
 
 #include "BufferFile.h"
-#include "FixedFieldBuffer.h"
+
 template <class RecType>
 class RecordFile: public BufferFile {
 public:
@@ -25,9 +25,9 @@ public:
 		return readAddr;
 	}
 
-	int read(FixedFieldBuffer & buffer){
-		return buffer.read(file);
-	}
+//	int read(FixedFieldBuffer & buffer){
+//		return buffer.read(file);
+//	}
 
 	int append(const RecType &record){
 		int result;
@@ -44,9 +44,9 @@ public:
 
 	}
 
-	int write(FixedFieldBuffer & buffer){
-			return buffer.write(file);
-	}
+//	int write(FixedFieldBuffer & buffer){
+//			return buffer.write(file);
+//	}
 
 };
 

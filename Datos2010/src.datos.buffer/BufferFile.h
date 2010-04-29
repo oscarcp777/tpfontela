@@ -9,13 +9,13 @@
 #define BUFFERFILE_H_
 #include "IOBuffer.h"
 #include "../src.datos.utils/Object.h"
+#include "FixedFieldBuffer.h"
 using namespace std;
 class BufferFile :public Object{
 
 protected:
  IOBuffer & buffer;
  fstream file;
- int headerSize;
 
 
 public:
@@ -33,17 +33,18 @@ public:
 	int open(string filename, ios_base::openmode mode);
 	int close();
 	int write(int addr = -1);
-	/**
-	 * escribe el corriente buffer al final de archivo
-	*@autor oscar
-	*@
-	 */
+
 	int append();
 	int create(string filename,ios_base::openmode mode);
 	/**
 	 * restablece al primer registro de datos
 	 */
 	int reWind();
+
+
+	int writeFromBuffer(FixedFieldBuffer & buffer, int addr = -1);
+
+	int readFromBuffer(FixedFieldBuffer & buffer, int addr = -1);
 
 };
 
