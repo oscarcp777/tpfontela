@@ -29,7 +29,12 @@ public:
 	void clear(){
 		this->numKeys=0;
 	}
-
+/*
+ * Inserta la clave dentro del SimpleIndex.
+ * Retorna la posicion donde inserto la clave
+ * dentro del SimpleIndex. Si no se inserto la clave
+ * este metodo retorna -1.
+ */
 	int insert(const keyType key,int recAddr){
 		int i;
 		int index=find(key);
@@ -45,8 +50,6 @@ public:
 		this->recAddrs[i+1]=recAddr;
 		this->numKeys++;
 		return i+1;
-
-
 
 	}
 

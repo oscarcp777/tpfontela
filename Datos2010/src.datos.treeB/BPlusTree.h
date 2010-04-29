@@ -98,10 +98,19 @@ public:
 		if (thisNode->getNumKeys()!=0)
 			if(key > thisNode->largestKey())
 			{newLargest = 1; prevKey = thisNode->largestKey();}
-
+		/*
+		 * En result se encuentra lo que retorna el metodo insert del nodo.
+		 * Si result es -1 entonces se produjo un overflow del
+		 * nodo. Si result es 0, no se pudo realizar la inserccion.
+		 * Y finalmente si result es 1 se realizo la inserccion
+		 * en forma correcta.
+		 */
 		result = thisNode->insert(key,data);
-
-		if (newLargest)
+		/*
+		 * Esto nose bien que hace pero si la inserccion fue
+		 * fallida no tendira que hacer esto.
+		 */
+		if (newLargest && (result != 0))
 			for (int i = 0; i<this->height-1;i++){
 				this->nodes[i]->updateKey(prevKey,key);
 				if (i>0) this->store(this->nodes[i]);
@@ -132,22 +141,28 @@ public:
 
 			thisNode = parentNode;
 		}
-
+		/*
+		 * Chequeo el resultado de result para no acceder a
+		 * disco innecesariamente.
+		 */
+		if(result != 0){
 			this->store(thisNode);
-			if (level >= 0) return 1; //insertar completado
-			//sino hay que splitear la raiz
-			int newAddr =  this->bTreeFile.append(this->root);
-			//poner anterior raiz en archivo
-			//insertar 2 claves en la nueva raiz
-			this->root.getKeys()[0]= thisNode->largestKey();
-			this->root.getRecAddrs()[0]=newAddr;
-			this->root.getKeys()[1]= newNode->largestKey();
-			this->root.getRecAddrs()[1]=newNode->getRecAddr();
-			this->root.setNumKeys(2);
-			this->root.setIsLeaf(0);
-			this->height++;
-			delete newNode;
-			return 1;
+		}
+
+		if (level >= 0) return 1; //insertar completado
+		//sino hay que splitear la raiz
+		int newAddr =  this->bTreeFile.append(this->root);
+		//poner anterior raiz en archivo
+		//insertar 2 claves en la nueva raiz
+		this->root.getKeys()[0]= thisNode->largestKey();
+		this->root.getRecAddrs()[0]=newAddr;
+		this->root.getKeys()[1]= newNode->largestKey();
+		this->root.getRecAddrs()[1]=newNode->getRecAddr();
+		this->root.setNumKeys(2);
+		this->root.setIsLeaf(0);
+		this->height++;
+		delete newNode;
+		return 1;
 	}
 
 	int  remove(const keyType key, int dir){

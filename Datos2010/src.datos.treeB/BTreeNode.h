@@ -52,14 +52,26 @@ public:
 	}
 
 	int  insert(const keyType key, const char* data, int recAddr = -1){
+
 		int result;
-
-
 		result = SimpleIndex<keyType>::insert(key, recAddr);
 		if (result == -1) return 0; //fallo insercion
 		if (this->isLeaf){
 			string dataAux = data;
 			int size = dataAux.length();
+			/*
+			 * Chequeo que el dato no supere un tamaño maximo.
+			 * Si supera ese tamaño, retorna 0 y ese valor es
+			 * considerado que la inserccion no se pudo realizar.
+			 * Ademas de esto, tengo que eliminar la key que inserte en
+			 * el SimpleIndex.
+			 */
+			if(size > (this->blockMaxSize/2)){
+
+				SimpleIndex<keyType>::remove(key,recAddr);
+				return 0;
+			}
+
 			int i;
 			for (i = this->numKeys-2; i>=result; i--) {
 				if (this->data[i]!=NULL){
