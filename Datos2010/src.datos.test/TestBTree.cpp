@@ -34,7 +34,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	/*
 	 * Inserta los datos provenientes de un archivo input.btree.dat.
 	 * Con este conjunto de datos el secuence set tiene
-	 * que quedar ordenado alfabeticamente
+	 * que quedar ordenado alfabéticamente
 	 */
 		fstream file;
 		file.open("files/input.btree.dat",ios::in|ios::out);
@@ -91,10 +91,10 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 
 	BPlusTree<int> bt(blockSize);
 	/*
-	 * Realizamos test de distinta indole, ya que segun que clave eliminemos
-	 * el arbol estara en un estado u otro.
-	 * Ademas cada ves que eliminemos una clave, esta sera ingresada nuevamente
-	 * para tener el arbol original.
+	 * Realizamos test de distinta índole, ya que segun que clave eliminemos
+	 * el árbol estará en un estado u otro.
+	 * Además cada ves que eliminemos una clave, ésta será ingresada nuevamente
+	 * para tener el árbol original.
 	 */
 	try {
 
@@ -104,7 +104,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		cout<<"Arbol antes de la eliminacion de la clave ";
 		cout<< clave <<endl <<endl;
 		bt.print(cout);
-		this->remuveCaseThree(&bt,clave);
+		this->removeCaseThree(&bt,clave);
 		cout<<"Arbol despues de la eliminacion de la clave ";
 		cout<< clave <<endl << endl;
 		bt.print(cout);
@@ -120,13 +120,13 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 }
 
 /*
- * Metodos que diferencian distintos caso de eliminacion de una clave.
+ * Métodos que diferencian distintos caso de eliminación de una clave.
  *
  * El caso UNO consta de eliminar una clave que no es la mayor de ese nodo
- * y demas no produce underflow. Es un caso basico en donde no influye en la
- * estructura del arbol. En este ejemplo eliminaremos la clave 9.
+ * y además no produce underflow. Es un caso básico en donde no influye en la
+ * estructura del árbol. En este ejemplo eliminaremos la clave 9.
  */
-void TestBTree::remuveCaseOne(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseOne(BPlusTree<int>* btree, int clave){
 
 	btree->remover(clave);
 	btree->print(cout);
@@ -136,7 +136,7 @@ void TestBTree::remuveCaseOne(BPlusTree<int>* btree, int clave){
  * Eliminamos una clave que es la mayor dentro del nodo hoja,
  * sin provocar underflow. En este ejemplo eliminamos la clave 21.
  */
-void TestBTree::remuveCaseTwo(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseTwo(BPlusTree<int>* btree, int clave){
 
 	btree->remover(clave);
 	btree->print(cout);
@@ -147,7 +147,7 @@ void TestBTree::remuveCaseTwo(BPlusTree<int>* btree, int clave){
  * al eliminarla produce underflow.
  * Para este ejemplo eliminamos la 39.
  */
-void TestBTree::remuveCaseThree(BPlusTree<int>* btree, int clave){
+void TestBTree::removeCaseThree(BPlusTree<int>* btree, int clave){
 
 	btree->remover(clave);
 	btree->print(cout);

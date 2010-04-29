@@ -8,6 +8,7 @@
 #include "TestIOFile.h"
 #include "TestFreeBlockController.h"
 #include "TestBTree.h"
+#include "../src.datos.utils/Define.h"
 
 int main(){
 
@@ -18,10 +19,12 @@ int main(){
 
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
-//	testFreeBlockController->runFreeBlockControllerTest();
+//	testFreeBlockController->runGeneralTest();
+	testFreeBlockController->runAddTest();
+	testFreeBlockController->runGetTest();
 //	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
-	testBTree->runTestRemove("files/testbt.dat",128);
+//	testBTree->runTestRemove("files/testbt.dat",128);
 
 	delete testIOFile;
 	delete testFreeBlockController;
