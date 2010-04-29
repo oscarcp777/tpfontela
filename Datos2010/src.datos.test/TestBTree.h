@@ -26,6 +26,7 @@ public:
 	void removeCaseOne(BPlusTree<int>* btree, int clave);
 	void removeCaseTwo(BPlusTree<int>* btree, int clave);
 	void removeCaseThree(BPlusTree<int>* btree, int clave);
+	void removeCaseFor(BPlusTree<int>* btree, int clave);
 };
 
 #endif /* TESTBTREE_H_ */
