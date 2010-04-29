@@ -5,8 +5,8 @@
  *      Author: Santiago
  */
 
-#ifndef FREEBLOCKLIST_H_
-#define FREEBLOCKLIST_H_
+#ifndef FREEBLOCKCONTROLLER_H_
+#define FREEBLOCKCONTROLLER_H_
 
 #include "../src.datos.buffer/FixedFieldBuffer.h"
 #include "../src.datos.buffer/BufferFile.h"
@@ -17,19 +17,18 @@
 
 using namespace std;
 
-class FreeBlockList {
+class FreeBlockController {
 public:
-	FreeBlockList(int blocksize);
-	virtual ~FreeBlockList();
+	FreeBlockController(int blocksize);
+	virtual ~FreeBlockController();
 
 	int open(string name, ios_base::openmode mode);
 	int create(string name, ios_base::openmode mode);
 	int close();
 	void add(int blockId);
 	int get();
-	int writeSimpleBlock(int addr);
-	int readSimpleBlock(int addr);
-
+	int getSize();
+	void print();
 
 private:
 	FixedFieldBuffer buffer;			//Buffer que contiene el bloque doble inicial
@@ -38,13 +37,14 @@ private:
 	int blockSize;
 	vector<int> freeBlocks;		//vector con todos los bloques libres
 	unsigned int maxFields;		//Maximo numero de bloques por bloque del archivo de libres
-	int nBlocks;				//Cantidad de bloques libres
-	bool overflow,underflow;
+	int nBlocks;				//Cantidad de bloques cargados en la lista
+	int nBlocksDoubleBuffer;	//Cantidad de bloques cargados en el buffer doble
 
 	int pack();
 	int unpack();
-
+	int writeSimpleBlock(int addr);
+	int readSimpleBlock(int addr);
 
 };
 
-#endif /* FREEBLOCKLIST_H_ */
+#endif /* FREEBLOCKCONTROLLER_H_ */
