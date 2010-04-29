@@ -34,7 +34,7 @@ int BufferFile::create(string name,ios_base::openmode mode){
 	}
     this->close();
     this->open(name, mode);
-	return headerSize!=0;
+	return 1;
 }
 
 int BufferFile::close(){
@@ -64,6 +64,9 @@ int BufferFile::write(int addr){
 	return 0;
 }
 
+/**
+ * Escribe el buffer al final de archivo
+ */
 int BufferFile::append(){
 	file.seekp(0,ios::end);
 	return buffer.write(file);
@@ -72,4 +75,27 @@ int BufferFile::append(){
 IOBuffer & BufferFile::getBuffer(){
 return buffer;
 }
+
+/**
+ * Escribe del archivo desde un buffer distinto al seteado en el constructor
+ */
+int BufferFile::writeFromBuffer(FixedFieldBuffer & buffer, int addr){
+	if(addr==-1)
+		return buffer.write(file);
+	else
+		return buffer.dWrite(file,addr);
+	return 0;
+}
+
+/**
+ * Lee del archivo guardando en un buffer distinto al seteado en el constructor
+ */
+int BufferFile::readFromBuffer(FixedFieldBuffer & buffer, int addr){
+	if(addr==-1)
+		return buffer.read(file);
+	else
+		return buffer.dRead(file,addr);
+	return 0;
+}
+
 
