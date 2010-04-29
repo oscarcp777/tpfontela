@@ -8,14 +8,16 @@
 #ifndef TESTFREEBLOCKCONTROLLER_H_
 #define TESTFREEBLOCKCONTROLLER_H_
 
-#include "../src.datos.treeB/FreeBlockList.h"
+#include "../src.datos.treeB/FreeBlockController.h"
 
 class TestFreeBlockController {
 public:
 	TestFreeBlockController();
 	virtual ~TestFreeBlockController();
 
-	void runFreeBlockControllerTest();
+	void runGeneralTest();
+	void runAddTest();
+	void runGetTest();
 };
 
 #endif /* TESTFREEBLOCKCONTROLLER_H_ */
