@@ -54,7 +54,8 @@ public:
 		if (this->height > 1)
 			this->root.setIsLeaf(false);
 		//Carga raiz
-		this->bTreeFile.read(this->root);
+		result = this->bTreeFile.read(this->root);
+		this->root.setRecAddr(result);
 		return 1;
 	}
 
@@ -1004,7 +1005,7 @@ protected:
 		buffer.addField(sizeof(int));
 		buffer.addField(sizeof(int));
 		buffer.addField(this->blockSize-(2*sizeof(int)));
-		this->bTreeFile.read(buffer);
+		this->bTreeFile.BufferFile::readFromBuffer(buffer,0);
 		int blockSizeAux;
 		buffer.unPack(&blockSizeAux);
 		buffer.unPack(&this->height);
@@ -1024,7 +1025,7 @@ protected:
 		buffer.addField(this->blockSize-(2*sizeof(int)));
 		buffer.pack(&this->blockSize);
 		buffer.pack(&this->height);
-		return this->bTreeFile.write(buffer);
+		return this->bTreeFile.BufferFile::writeFromBuffer(buffer,0);
 	}
 
 };
