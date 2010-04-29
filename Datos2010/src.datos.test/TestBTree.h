@@ -23,9 +23,9 @@ public:
 	 * Los siguientes metodos se expesifican distintos casos
 	 * de eliminacion de una clave. Su explicacion esta en .cpp
 	 */
-	void remuveCaseOne(BPlusTree<int>* btree, int clave);
-	void remuveCaseTwo(BPlusTree<int>* btree, int clave);
-	void remuveCaseThree(BPlusTree<int>* btree, int clave);
+	void removeCaseOne(BPlusTree<int>* btree, int clave);
+	void removeCaseTwo(BPlusTree<int>* btree, int clave);
+	void removeCaseThree(BPlusTree<int>* btree, int clave);
 };
 
 #endif /* TESTBTREE_H_ */
