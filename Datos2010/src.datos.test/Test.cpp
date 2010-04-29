@@ -20,9 +20,9 @@ int main(){
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
 //	testFreeBlockController->runGeneralTest();
-	testFreeBlockController->runAddTest();
-	testFreeBlockController->runGetTest();
-//	testBTree->runTestInsert("files/testbt.dat", 128);
+//	testFreeBlockController->runAddTest();
+//	testFreeBlockController->runGetTest();
+	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
 //	testBTree->runTestRemove("files/testbt.dat",128);
 

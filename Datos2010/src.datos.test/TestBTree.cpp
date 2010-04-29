@@ -49,8 +49,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			}
 		}
 		file.close();
-		//Intenta insertar clave repetida
-		bt.insert(75,"y---y");
+		bt.print(cout);
 
 	}catch (string& e){
 			cerr << e << endl;
@@ -93,7 +92,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	/*
 	 * Realizamos test de distinta índole, ya que segun que clave eliminemos
 	 * el árbol estará en un estado u otro.
-	 * Además cada ves que eliminemos una clave, ésta será ingresada nuevamente
+	 * Además cada vez que eliminemos una clave, ésta será ingresada nuevamente
 	 * para tener el árbol original.
 	 */
 	try {
@@ -101,6 +100,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.open(fileName,ios::in|ios::out);
 		int clave = 39;
 		char* dato = bt.search(clave);
+		cout<< endl;
 		cout<<"Arbol antes de la eliminacion de la clave ";
 		cout<< clave <<endl <<endl;
 		bt.print(cout);
