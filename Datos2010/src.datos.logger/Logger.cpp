@@ -64,6 +64,9 @@ void Logger::split(string cadena){
 	this->open(&newFile,PATH_LOGGER);
 	this->write(&newFile,cadena);
 	this->coutFiles++;
+	/*
+	 * Escribo el archivo de configuracion.
+	 */
 	fstream config;
 	this->open(&config,PATH_CONFIG);
 	config.seekg(0,ios::beg);
@@ -72,6 +75,7 @@ void Logger::split(string cadena){
 }
 
 Logger::Logger(int sizeFile){
+
     this->countRead=0;
     this->countWrite=0;
 	this->open(&this->file,PATH_LOGGER);
@@ -169,38 +173,60 @@ void Logger::print(string fileName){
 	this->open(&this->file,PATH_LOGGER);
 	while(!this->file.eof()){
 		getline(this->file,cadena);
-		this->write(&result,cadena);
+		if(cadena!=""){
+			this->write(&result,cadena);
+		}
 	}
 	result.close();
 }
 
 void Logger::search(string cadena){
 
-	//Me genero un archivo nuevo con todo los log juntos
-	//para realizar la busqueda sobre este.
-	this->print("temp");
-	fstream temp;
-	string linea;
-	string lineaTemp;
+	int countFileTemp = this->coutFiles;
+	countFileTemp--;
+	fstream logTemp;
+	string line;
+	string lineTemp;
+	/*
+	 * Leo todos los archivos parciales del logger
+	 * para buscar la cadena solicitada por el usuario.
+	 */
+	while(countFileTemp > 0){
 
-	this->open(&temp,PATH_TEMP);
+		this->open(&logTemp,PATH_LOGGER + StringUtils::convertIntToString(countFileTemp));
+		while(!logTemp.eof()){
+			getline(logTemp,line);
+			lineTemp = line;
+			int flag = line.find(cadena);
+			if(flag != -1){
+				std::cout << lineTemp << std::endl;
+			}
+		}
+		logTemp.close();
+		countFileTemp--;
+	}
 
-	while(!temp.eof()){
-		getline(temp,linea);
-		lineaTemp = linea;
-		int flag = linea.find(cadena);
+	/*
+	 * Cierro el archivo actual para posicionarme al comienzo de este
+	 * y realizar la busqueda tambien a este archivo.
+	 */
+	this->file.close();
+	this->open(&this->file,PATH_LOGGER);
+
+	while(!this->file.eof()){
+		getline(this->file,line);
+		lineTemp = line;
+		int flag = line.find(cadena);
 		if(flag != -1){
-			std::cout << lineaTemp << std::endl;
+			std::cout << lineTemp << std::endl;
 		}
 	}
-	temp.close();
-	remove(PATH_TEMP);
 }
 
 Logger::~Logger(){
 
-	//Cierra el archivos abierto.
 	delete []this->date;
+	delete logger;
 	this->file.close();
 
 }

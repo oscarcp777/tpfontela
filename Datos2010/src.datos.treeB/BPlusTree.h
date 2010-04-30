@@ -74,10 +74,16 @@ public:
 	int  close(){
 
 		int result = this->bTreeFile.BufferFile::reWind();
-		if (!result) return result;
 		result = this->writeMetadata();
-		if (!result) return result;
+		if (result == -1) return 0;
 		result = this->bTreeFile.write(this->root);
+
+//		int result = this->bTreeFile.BufferFile::reWind();
+//		if (!result) return result;
+//		result = this->writeMetadata();
+//		if (!result) return result;
+//		result = this->bTreeFile.write(this->root);
+
 		if (result == -1) return 0;
 //		for (int i = this->height -1 ; i >= 0; i--) {
 //			if (this->nodes[i] != NULL)

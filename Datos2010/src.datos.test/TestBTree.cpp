@@ -55,8 +55,6 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	}
 
 	bt.print(cout);
-	this->removeCaseOne(&bt,66);
-	bt.print(cout);
 	bt.close();
 }
 
@@ -68,15 +66,15 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
  */
 void TestBTree::runTestSecuenceSet(string fileName, int blockSize){
 
-	BPlusTree<int> bt(blockSize);
+	BPlusTree<int>* bt = new BPlusTree<int>(blockSize);
 	try {
-		bt.open(fileName,ios::in|ios::out);
-		char* element = bt.getFirstElementSecuentSet();
+		bt->open(fileName,ios::in|ios::out);
+		char* element = bt->getFirstElementSecuentSet();
 		while( element != NULL){
 			cout<< element << endl;
-			element = bt.getNextElementSecuentSet();
+			element = bt->getNextElementSecuentSet();
 		}
-		bt.close();
+		bt->close();
 
 	} catch (string& e){
 		cerr << e << endl;
