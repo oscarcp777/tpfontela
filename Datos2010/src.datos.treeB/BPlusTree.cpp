@@ -38,51 +38,63 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 
 
 	BPlusTree <int>  bTree (sizeBlock);
-	bTree.open("./files/ejemplo",ios::in | ios::out);
+	string file;
+	file = argv[1];
+	int ok = bTree.open(file,ios::in | ios::out);
+	std::fstream fileOut;
+	if(!ok){
+
+		bTree.create(file,ios::in | ios::out);
+	}
+
 	ParserInput* parser = new ParserInput();
 	string cadena;
-	//= argv[1];
 
-	/*
-	 * Aca tiene que venir las lineas de codigo que recorren el archivo de
-	 * entrada. A madida que leo una linea me va tirando las claves con su valor
-	 * y lo parseo con el parser.
-	 */
-	while ((result = getopt_long(argc, argv,"BISMQh", options, &index)) != -1) {
-		switch (result) {
+	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
+		switch (result){
 			case 'B':
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
 						parser->parser(cadena);
-						if(bTree.search(parser->getKey())!= NULL){
-							cout<<bTree.search(parser->getKey())<< endl;
+						char* search = bTree.search(parser->getKey());
+						if(search != NULL){
+							cout<<"Resultado de la busqueda: " << parser->getKey() << " = " << search <<endl;
+						}else{
+							cout<<"La clave no se encuentra en el arbol" << endl;
 						}
-						delete parser;
 					}
 				}
 				break;
+
 			case 'I':
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
 						parser->parser(cadena);
-						bTree.insert(parser->getKey(),parser->getData().c_str());
-						delete parser;
+						if(bTree.insert(parser->getKey(),(char*)parser->getData().c_str())){
+							cout<<"Se inserto correctamente la clave: "<<parser->getKey()<<endl;
+						}else{
+							cout<<"No se pudo insertar la clave: "<<parser->getKey()<<endl;
+						}
 					}
 				}
+				break;
 
-				break;
 			case 'S':
-				bTree.print(cout);
-//				cout<<"Volcado de los datos del arbol en un archivo"<<endl;
+				fileOut.open(argv[3],ios::in | ios::out);
+				bTree.print(fileOut);
+				fileOut.close();
 				break;
+
 			case 'M':
 				cout<<"Modifiacion de un dato del arbol"<<endl;
 				break;
+
 			case 'Q':
 				cout<<"Quitar una clave del arbol"<<endl;
 				break;
+
 			case 'h':
 				help();
 				break;
@@ -92,7 +104,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 	}
 }
 
-int main324(int argc, char * const argv[]){
+int mainsdfsd(int argc, char * const argv[]){
 
 	int sizeBlock = 128;
 	parse_cmdline(argc,argv,sizeBlock);

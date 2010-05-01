@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "../src.datos.utils/Define.h"
 
 using namespace std;
 
@@ -67,7 +68,7 @@ private:
 	 * 			512 Bytes, pero el usuario podra cambiar este
 	 * 			tamanio invocando al metodo setSizeFile(...).
 	 */
-	Logger(int sizeFile = 512);
+	Logger(int sizeFile = MAX_FILE_SIZE);
 
 public:
 	int countRead;
