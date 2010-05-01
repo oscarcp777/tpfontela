@@ -17,8 +17,6 @@ BufferFile::~BufferFile() {
 
 int BufferFile::open(string filename,ios_base::openmode  mode){
     this->file.open(filename.c_str(),ios::in|ios::out|ios::binary);
-    if(!this->file.is_open())
-    	cout<<"Open File Error"<<endl;
     if(!file.good())return 0;
     file.seekg(0,ios::beg);
     file.seekp(0,ios::beg);
