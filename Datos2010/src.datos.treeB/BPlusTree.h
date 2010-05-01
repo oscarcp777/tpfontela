@@ -1016,6 +1016,9 @@ public:
 			int caso=0;
 			int ret_ini;
 
+			//hay que hacer que cuando se redistribuye una clave con eliminacion y queda en underflow, intento redistribuir con el otro nodo
+			//vecino con eliminacion de clave. Luego
+
 			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino); //hago la primera redistribucion con eliminacion de la clave del nodo
 
 			if(ret_ini==-2){//no puedo redistribuir con el nodoVecino anterior pues me deja dicho nodoVecino en underflow
@@ -1036,9 +1039,10 @@ public:
 				otroNodoVecino=obtenerNodoVecino(&otroVal,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 				redistribuirSinEliminarClaves(nodo,nodoVecino,otroNodoVecino,caso);
 			}
-			if (redistribucionClaves == 2 && ret_ini==-2){
-				this->remover
-			}
+
+			if (ret_ini==-1)
+				return -1;
+
 
 		return 1;
 	}
