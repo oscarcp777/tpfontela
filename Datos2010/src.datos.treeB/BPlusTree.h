@@ -776,8 +776,8 @@ public:
 				sizeDataUnderflow=nodoVecino->getMinKeys(blockSize);
 
 		    if(key==nodoPadre->largestKey()
-		       && ((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(key,nodo))<=sizeDataUnderflow)
-				|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=nodoVecino->getMinKeys(blockSize)))){ //la clave a eliminar esta en el padre y es la mayor, por lo que forma parte del index set
+		       && ((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->largestKey(),nodoVecino))<=sizeDataUnderflow)
+				|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow))){ //la clave a eliminar esta en el padre y es la mayor, por lo que forma parte del index set
 				actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],true);
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 				if(nodo->getIsLeaf())
@@ -787,10 +787,10 @@ public:
 
 				nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
 				nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
-			}else if(key==nodo->largestKey() && ((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(key,nodo))<=sizeDataUnderflow)
-					|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=nodoVecino->getMinKeys(blockSize)))){ //la clave a eliminar esta en el padre pero no es la mayor, por lo que no forma parte del index set
+			}else if(key==nodo->largestKey()){ //la clave a eliminar esta en el padre pero no es la mayor, por lo que no forma parte del index set
 
-				if(key<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
+				if(key<nodoVecino->getKeys()[0] && 	((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->getKeys()[0],nodoVecino))<=sizeDataUnderflow)
+						|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow))){ //paso la primer clave del nodoVecino
 					if(nodo->getIsLeaf())
 					nodo->updateKeyAndData(key,nodoVecino->getKeys()[0],nodoVecino->getData()[0]);
 					else
@@ -798,7 +798,8 @@ public:
 
 					nodoPadre->updateKey(key,nodoVecino->getKeys()[0]);
 					nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
-				}else{
+				}else if(((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->largestKey(),nodoVecino))<=sizeDataUnderflow)
+									|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow))){
 					if(nodo->getIsLeaf())
 					nodo->updateKeyAndData(key,nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1]);
 					else
@@ -809,28 +810,40 @@ public:
 					nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
 				}
 
-			}else if((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(key,nodo))<=sizeDataUnderflow)
-				|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=nodoVecino->getMinKeys(blockSize))){ //la clave a eliminar no esta en el padre
-				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-				if(nodo->largestKey()<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
-					if(nodo->getIsLeaf())
-					nodo->insert(nodoVecino->getKeys()[0],nodoVecino->getData()[0],nodoVecino->getRecAddrs()[0]);
-					else
-						nodo->insert(nodoVecino->getKeys()[0],NULL,nodoVecino->getRecAddrs()[0]);
+			}else{
 
-					nodoPadre->updateKey(nodo->getKeys()[nodo->getNumKeys()-2],nodoVecino->getKeys()[0]);
-					nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
+				bool isNotUnderflowNodeSibling = false;
+
+				if(nodo->largestKey()<nodoVecino->getKeys()[0]){
+					isNotUnderflowNodeSibling= (nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->getKeys()[0],nodoVecino))<=sizeDataUnderflow)
+											   || (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow);
 				}else{
-					if(nodo->getIsLeaf())
-					nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
-					else
-						nodo->insert(nodoVecino->largestKey(),NULL,nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
-
-					nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
-					nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
+					isNotUnderflowNodeSibling= (nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->largestKey(),nodoVecino))<=sizeDataUnderflow)
+											   || (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow);
 				}
-			}else
-				return -2; //deja al nodo vecino en underflow, probar redistribuir con el otro nodo vecino si es posible
+
+					if(isNotUnderflowNodeSibling){ //la clave a eliminar no esta en el padre
+					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+					if(nodo->largestKey()<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
+						if(nodo->getIsLeaf())
+							nodo->insert(nodoVecino->getKeys()[0],nodoVecino->getData()[0],nodoVecino->getRecAddrs()[0]);
+						else
+							nodo->insert(nodoVecino->getKeys()[0],NULL,nodoVecino->getRecAddrs()[0]);
+
+						nodoPadre->updateKey(nodo->getKeys()[nodo->getNumKeys()-2],nodoVecino->getKeys()[0]);
+						nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
+					}else{
+						if(nodo->getIsLeaf())
+							nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+						else
+							nodo->insert(nodoVecino->largestKey(),NULL,nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
+
+						nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
+						nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
+					}
+				}else
+					return -2; //deja al nodo vecino en underflow, probar redistribuir con el otro nodo vecino si es posible
+			}
 
 			this->store(nodo);
 			this->store(nodoPadre);
@@ -838,7 +851,7 @@ public:
 
 			if((nodo->getIsLeaf() && nodo->getFreeSpace()<=nodo->getMinFreeSpace(blockSize))
 				|| (!nodo->getIsLeaf() && nodo->getNumKeys()>=nodo->getMinKeys(blockSize)))
-				return 1;
+				return 1; //quedo fuera de underflow
 		return -1;
 	}
 
