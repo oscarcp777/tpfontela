@@ -487,7 +487,7 @@ public:
 			}/*CASO 2: Si el nodo interno nodoPadre tiene mas claves que el minimo numero de claves y la clave key es la mas grande en nodoPadre, borrar la clave key y modificar el indice de
 			           mayor nivel que direcciona a la nueva clave mas grande en nodoPadre.
 			  */
-			else if(((nodoPadre->getNumKeys()-1)>nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && nodoPadre->largestKey()==0){
+			else if(((nodoPadre->getNumKeys()-1)>nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && nodoPadre->largestKey()==key){
 				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				actualizarIndexSet(key,nodoPadre->largestKey(),true);
 				this->store(nodoPadre);
