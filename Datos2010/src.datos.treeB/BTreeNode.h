@@ -66,7 +66,7 @@ public:
 			 * Ademas de esto, tengo que eliminar la key que inserte en
 			 * el SimpleIndex.
 			 */
-			if(size > (this->blockMaxSize/2)){
+			if(size > (this->blockMaxSize*PORCENT_BLOCK_SIZE)){
 
 				SimpleIndex<keyType>::remove(key,recAddr);
 				return 0;
@@ -223,7 +223,7 @@ public:
 		}else{
 			for (int i = 0; i<this->numKeys; i++){
 				result = result && buffer.pack(&this->keys[i],sizeof(keyType));
-				result = result && buffer.pack(&this->recAddrs[i]);
+				result = result && buffer.pack(&this->recAddrs[i],sizeof(int));
 			}
 		}
 

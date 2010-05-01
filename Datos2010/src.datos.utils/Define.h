@@ -10,22 +10,30 @@
 #define DEFINE_H_
 
 
-
+/*
+ * Definiciones correspondiente al logger.
+ */
 #define PATH_LOGGER "files/log"
 #define PATH_CONFIG "files/config"
-#define PATH_TEMP "files/temp"
-#define TAB "		"
-#define INFO_FLAG "INFO"
-#define DEBUG_FLAG "DEBUG"
-#define ERROR_FLAG "ERROR"
 #define SIZE_SYSTEM_TIME 25
-#define DEBUG 0
+#define MAX_FILE_SIZE 512
+/*
+ * Definiciones correspondiente al hash.
+ */
 #define EXT_TABLE ".tbl"
 #define EXT_CUBE ".cb"
 #define EXT_FREE_CUBE ".fcb"
 #define PORCENT_FREE_CUBE 0.2
 #define SIZE_METADATA 12
-#define SIZE_CUBE 64
+#define SIZE_CUBE 70
+/*
+ * Definiciones correspondiente al arbol.
+ */
+#define PORCENT_BLOCK_SIZE 0.5
+/*
+ * Definiciones correspondientes a usos generales.
+ */
+#define TAB "		"
 #define TRUE 1;
 #define FALSE 0;
 

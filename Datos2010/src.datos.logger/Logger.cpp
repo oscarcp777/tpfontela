@@ -61,8 +61,9 @@ void Logger::split(string cadena){
 	string newPath = PATH_LOGGER + numero;
 	rename(PATH_LOGGER,newPath.c_str());
 	this->file.close();
-	this->open(&newFile,PATH_LOGGER);
-	this->write(&newFile,cadena);
+	this->open(&this->file,PATH_LOGGER);
+	this->write(&this->file,cadena);
+	this->sizeFile = MAX_FILE_SIZE - cadena.length();
 	this->coutFiles++;
 	/*
 	 * Escribo el archivo de configuracion.
@@ -76,8 +77,6 @@ void Logger::split(string cadena){
 
 Logger::Logger(int sizeFile){
 
-    this->countRead=0;
-    this->countWrite=0;
 	this->open(&this->file,PATH_LOGGER);
 	this->date = new char[SIZE_SYSTEM_TIME];
 	std::string cadena;
@@ -146,17 +145,16 @@ void Logger::print(string fileName){
 	fstream result;
 	fstream logTemp;
 	string cadena;
-	int countFileTemp = this->coutFiles;
-	countFileTemp--;
+	int countFileTemp = 1;
 	this->open(&result,"files/" + fileName);
 
 	/*
 	 * Leo todos los archivos parciales del logger
 	 * y los escribo en uno nuevo.
 	 */
-	while(countFileTemp > 0){
-
-		this->open(&logTemp,PATH_LOGGER + StringUtils::convertIntToString(countFileTemp));
+	while(countFileTemp < this->coutFiles){
+		string path = PATH_LOGGER + StringUtils::convertIntToString(countFileTemp);
+		this->open(&logTemp,path);
 		while(!logTemp.eof()){
 			getline(logTemp,cadena);
 			if(cadena!=""){
@@ -164,7 +162,7 @@ void Logger::print(string fileName){
 			}
 		}
 		logTemp.close();
-		countFileTemp--;
+		countFileTemp++;
 	}
 	//Cierro el archivo actual para posicionarme al comienzo de este
 	//para copiar el contenido en el archivo nuevo. No lo cierro para
@@ -182,18 +180,21 @@ void Logger::print(string fileName){
 
 void Logger::search(string cadena){
 
-	int countFileTemp = this->coutFiles;
-	countFileTemp--;
+	int countFileTemp = 0;
 	fstream logTemp;
 	string line;
 	string lineTemp;
+
 	/*
+	 * Recorro todos los archivos.
 	 * Leo todos los archivos parciales del logger
 	 * para buscar la cadena solicitada por el usuario.
 	 */
-	while(countFileTemp > 0){
-
-		this->open(&logTemp,PATH_LOGGER + StringUtils::convertIntToString(countFileTemp));
+	int countFile = this->coutFiles;
+	countFile--;
+	while(countFileTemp < countFile){
+		string path = PATH_LOGGER + StringUtils::convertIntToString(countFileTemp + 1);
+		this->open(&logTemp,path);
 		while(!logTemp.eof()){
 			getline(logTemp,line);
 			lineTemp = line;
@@ -203,12 +204,12 @@ void Logger::search(string cadena){
 			}
 		}
 		logTemp.close();
-		countFileTemp--;
+		countFileTemp++;
 	}
 
 	/*
 	 * Cierro el archivo actual para posicionarme al comienzo de este
-	 * y realizar la busqueda tambien a este archivo.
+	 * y realizar la busqueda en este archivo.
 	 */
 	this->file.close();
 	this->open(&this->file,PATH_LOGGER);

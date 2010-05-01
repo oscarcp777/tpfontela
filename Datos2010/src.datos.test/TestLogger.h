@@ -15,7 +15,7 @@ public:
 	void runTestLogger();
 	void runTestInsert(Logger* logger);
 	void runTestSearch(Logger* logger);
-
+	void runTestPrint(Logger* logger);
 };
 
 #endif /* TESTLOGGER_H_ */
