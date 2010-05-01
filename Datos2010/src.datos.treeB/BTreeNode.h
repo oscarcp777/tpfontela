@@ -86,9 +86,11 @@ public:
 			if (this->freeSpace <= 0)
 				return -1;
 
-		}else
+		}else{
+			freeSpace-=this->keySize;
 			if (this->numKeys >= this->maxKeys) return -1; //overflow nodo
-		return 1;
+		}
+			return 1;
 	}
 
 
@@ -116,8 +118,10 @@ public:
 				this->data[i]=this->data[i+1];
 			}
 		}
-		}else
+		}else{
+			freeSpace+=this->keySize;
 		if (this->numKeys < this->minKeys) return -1; //underflow nodo
+		}
 		return 0;
 	}
 
@@ -150,6 +154,8 @@ public:
 				this->freeSpace += (strlen(this->data[i])+sizeof(short));
 				this->freeSpace += this->keySize;
 				this->data[i] = NULL;
+			}else{
+				newNode->freeSpace += this->keySize;
 			}
 		}
 		//setea el numero de claves en los 2 nodos
@@ -171,6 +177,8 @@ public:
 				 this->data[this->numKeys+i]=fromNode->data[i];
 				 freeSpace-=(dataAux.length()+sizeof(short));
 				 freeSpace-=this->keySize;
+			}else{
+				freeSpace-=this->keySize;
 			}
 		}
 		//ajustar numero de claves
@@ -351,10 +359,10 @@ public:
 	int getMinFreeSpace(int blockSize){
 		return blockSize*0.5;
 	}
-
+/*
 	int getBlockMaxSize(){
 		return this->blockMaxSize;
-	}
+	}*/
 	/**
 	 * Retorna el minimo numero de claves que puede haber en un nodo interno (no hoja)
 	 */

@@ -12,7 +12,7 @@
 #include "TestHash.h"
 #include "../src.datos.utils/Define.h"
 
-int main(){
+int main8(){
 
 	TestIOFile* testIOFile = new TestIOFile();
 	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
