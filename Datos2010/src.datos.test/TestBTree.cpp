@@ -7,6 +7,7 @@
 
 #include "TestBTree.h"
 #include "../src.datos.utils/ParserInput.h"
+#include "../src.datos.storage/TextFile.h"
 
 TestBTree::TestBTree() {
 }
@@ -37,7 +38,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	 * que quedar ordenado alfabéticamente
 	 */
 		fstream file;
-		file.open("files/input.btree.dat",ios::in|ios::out);
+		file.open("files/input.btree.dat1",ios::in|ios::out);
 		ParserInput* parser = new ParserInput();
 		string line;
 
@@ -54,8 +55,12 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			cerr << e << endl;
 	}
 
-	bt.print(cout);
+	TextFile* output=new TextFile();
+	output->open("files/arbolBien.txt");
+	bt.print(output->getStream());
+	output->close();
 	bt.close();
+	delete output;
 }
 
 /**
@@ -96,21 +101,41 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	try {
 
 		bt.open(fileName,ios::in|ios::out);
-		int clave = 75;
-		char* dato = bt.search(clave);
-		cout<< endl;
-		cout<<"Arbol antes de la eliminacion de la clave ";
-		cout<< clave <<endl <<endl;
-		bt.print(cout);
-		this->removeCaseOne(&bt,clave);
-		cout<<"Arbol despues de la eliminacion de la clave ";
-		cout<< clave <<endl << endl;
-		bt.print(cout);
-		bt.insert(clave,dato);
-		cout<<"Arbol reestructurado con la insercion de la clave ";
-		cout<< clave <<endl << endl;
-		bt.print(cout);
+		TextFile* output=new TextFile();
+		output->open("files/arbolRoto1.txt");
+//		bt.remover(48);//P
+//		bt.remover(63);//U
+//		bt.remover(30);//J
+//		bt.remover(54);//R
+		bt.remover(39);//M
+		bt.remover(36);//L
+		bt.print(output->getStream());
+
+		//output->open("files/arbolRoto2.txt");
+		//bt.print(output->getStream());
+		//bt.remover(36);//L
+		//bt.remover(42);//N
+
 		bt.close();
+
+		output->close();
+		delete output;
+
+//		int clave = 75;
+//		char* dato = bt.search(clave);
+//		cout<< endl;
+//		cout<<"Arbol antes de la eliminacion de la clave ";
+//		cout<< clave <<endl <<endl;
+//		bt.print(cout);
+//		this->removeCaseOne(&bt,clave);
+//		cout<<"Arbol despues de la eliminacion de la clave ";
+//		cout<< clave <<endl << endl;
+//		bt.print(cout);
+//		bt.insert(clave,dato);
+//		cout<<"Arbol reestructurado con la insercion de la clave ";
+//		cout<< clave <<endl << endl;
+//		bt.print(cout);
+
 	} catch (string& e){
 		cerr << e << endl;
 	}
