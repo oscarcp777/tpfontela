@@ -38,7 +38,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	 * que quedar ordenado alfabéticamente
 	 */
 		fstream file;
-		file.open("files/input.btree.dat1",ios::in|ios::out);
+		file.open("files/input.btree.dat",ios::in|ios::out);
 		ParserInput* parser = new ParserInput();
 		string line;
 
@@ -57,7 +57,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	TextFile* output=new TextFile();
 	output->open("files/arbolBien.txt");
-	bt.print(output->getStream());
+	bt.print(cout);
 	output->close();
 	bt.close();
 	delete output;
