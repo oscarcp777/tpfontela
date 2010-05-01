@@ -31,13 +31,13 @@ int main(){
 //	testBTree->runTestRemove("files/testbt.dat",128);
 //	testLogger->runTestLogger();
 
-//*************TEST HASH*******************
+//*************TESTs HASH*******************
 //	testHash->runCreateAndInsertTest();
 //	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
-//	testHash->runExampleCatedraTest();
-//*************FIN TEST HASH*******************
+	testHash->runExampleCatedraTest();
+//*************FIN TESTs HASH*******************
 
 	delete testLogger;
 	delete testIOFile;
