@@ -8,7 +8,7 @@
 #ifndef TESTFREEBLOCKCONTROLLER_H_
 #define TESTFREEBLOCKCONTROLLER_H_
 
-#include "../src.datos.treeB/FreeBlockController.h"
+#include "../src.datos.storage/FreeBlockController.h"
 
 class TestFreeBlockController {
 public:
@@ -18,6 +18,7 @@ public:
 	void runGeneralTest();
 	void runAddTest();
 	void runGetTest();
+	void runPrintTest(ostream&);
 };
 
 #endif /* TESTFREEBLOCKCONTROLLER_H_ */

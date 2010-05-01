@@ -29,7 +29,7 @@ public:
 	void add(int blockId);
 	int get();
 	int getSize();
-	void print();
+	void print(ostream&);
 
 private:
 	FixedFieldBuffer buffer;			//Buffer que contiene el bloque doble inicial
@@ -45,6 +45,7 @@ private:
 	int unpack();
 	int writeSimpleBlock(int addr);
 	int readSimpleBlock(int addr);
+	void printSimpleBlock(ostream &, int addr);
 
 };
 

@@ -137,13 +137,8 @@ public:
 
 	int  split(BTreeNode* newNode){ 		//mover al nuevo nodo
 
-//		if (this->numKeys < this->maxKeys) return 0; // chequea si hay suficiente num de claves
 		int midpt = (this->numKeys + 1)/2; //encuentra la primer clave a ser movida al nuevo nodo
 		int numNewKeys = this->numKeys - midpt;
-		//chequea que el numero de claves para el nuevo nodo este ok
-//		if (numNewKeys > newNode->maxBKeys || numNewKeys < newNode->minKeys)
-//			return 0;
-
 		//mueve las claves y direcciones desde aca al nuevo nodo
 		for(int i = midpt; i < this->numKeys; i++){
 			newNode->keys[i-midpt] = this->keys[i];
@@ -267,7 +262,6 @@ public:
 		if (isLeaf){
 			cout<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
 			cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
-
 		}
 
 	}
@@ -424,7 +418,7 @@ protected:
 		int blockMetadataSize = sizeof(short)*3 + sizeof(int)*3 ;
 		//tamaño clave + clave
 		this->keySize = sizeof(short)+sizeof(keyType);
-		// 0,7 del bloque ocupado - metadata bloque
+		//bloque ocupado - metadata bloque
 		this->freeSpace = maxSize - blockMetadataSize;
 
 		this->blockMaxSize = this->freeSpace; //lo que ocupa el bloque
