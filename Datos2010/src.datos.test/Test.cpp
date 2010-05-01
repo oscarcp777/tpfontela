@@ -26,13 +26,13 @@ int main(){
 //	testFreeBlockController->runAddTest();
 //	testFreeBlockController->runPrintTest(cout);
 //	testFreeBlockController->runGetTest();
-//	testBTree->runTestInsert("files/testbt.dat", 128);
+	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
-//	testBTree->runTestRemove("files/testbt.dat",128);
+	testBTree->runTestRemove("files/testbt.dat",128);
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************
-	testHash->runCreateAndInsertTest();
+//	testHash->runCreateAndInsertTest();
 //	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();

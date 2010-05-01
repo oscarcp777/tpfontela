@@ -10,7 +10,7 @@
 #include <fstream>
 #include "../src.datos.storage/Buffer.h"
 #include "../src.datos.storage/BinaryFile.h"
-#include "../hashExtensible/HashExtensible.h"
+#include "../src.datos.hash/HashExtensible.h"
 using namespace std;
 
 TestHash::TestHash() {
@@ -45,12 +45,12 @@ void TestHash::runCreateAndInsertTest(){
 void TestHash::runSearchTest(){
 	HashExtensible* hash = new HashExtensible();
 	hash->open("files/hashTest");
-	cout<<"resultado:"<<hash->search(3)<<endl;
-	cout<<"resultado:"<<hash->search(99)<<endl;
-	cout<<"resultado:"<<hash->search(17)<<endl;
-	cout<<"resultado:"<<hash->search(80)<<endl;
-	cout<<"resultado:"<<hash->search(37)<<endl;
-	cout<<"resultado:"<<hash->search(124125235)<<endl;
+	cout<<"resultado:"<<hash->search(24)<<endl;
+	cout<<"resultado:"<<hash->search(60)<<endl;
+	cout<<"resultado:"<<hash->search(71)<<endl;
+	cout<<"resultado:"<<hash->search(59)<<endl;
+	cout<<"resultado:"<<hash->search(93)<<endl;
+	cout<<"resultado:"<<hash->search(43)<<endl;
 	hash->close();
 	delete hash;
 	cout<<"FIN TEST OK "<<endl;
