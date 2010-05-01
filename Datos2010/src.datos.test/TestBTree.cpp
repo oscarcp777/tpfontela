@@ -58,6 +58,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	TextFile* output=new TextFile();
 	output->open("files/arbolBien.txt");
 	bt.print(cout);
+	bt.print(output->getStream());
 	output->close();
 	bt.close();
 	delete output;
@@ -103,13 +104,13 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.open(fileName,ios::in|ios::out);
 		TextFile* output=new TextFile();
 		output->open("files/arbolRoto1.txt");
-//		bt.remover(48);//P
-//		bt.remover(63);//U
-//		bt.remover(30);//J
-//		bt.remover(54);//R
+		bt.remover(48);//P
+		bt.remover(63);//U
+		bt.remover(30);//J
+		bt.remover(54);//R
 		bt.remover(39);//M
 		bt.remover(36);//L
-//		bt.remover(42);//N
+		bt.remover(42);//N
 		bt.print(output->getStream());
 
 		//output->open("files/arbolRoto2.txt");
