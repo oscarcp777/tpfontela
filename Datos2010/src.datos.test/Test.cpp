@@ -32,11 +32,11 @@ int main(){
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************
-//	testHash->runCreateAndInsertTest();
+	testHash->runCreateAndInsertTest();
 //	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
-	testHash->runPrintTest();
+//	testHash->runPrintTest();
 //	testHash->runExampleCatedraTest();
 //*************FIN TESTs HASH*******************
 

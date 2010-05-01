@@ -45,7 +45,7 @@ int Table::updateTable()
 		if(range->isModificate()){
 			int indexOffset= range->getMinumun();
 			int* pIndexOffset=&indexOffset;
-          this->packCubeTable(buffer,range->getMaximun(),pIndexOffset);
+          this->packCubeTable(buffer,range->getMaximun()-range->getMinumun(),pIndexOffset);
           this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
 		}
 		this->buffer->clear();
@@ -88,7 +88,7 @@ int Table::reWriteTable(){
 				this->fileTable->write(buffer->getData(),buffer->getMaxBytes(),0);
 				RangeController* range=new RangeController(position,this->countElementFirstCube);
 				this->indexOffsetModified.push_back(range);
-				position+=this->countElementFirstCube+1;
+				position+=this->countElementFirstCube;
 			}
 			else{
 				if(count > this->countElementsCubes){
@@ -99,7 +99,7 @@ int Table::reWriteTable(){
 					this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
 					RangeController* range=new RangeController(position,this->countElementFirstCube);
 					this->indexOffsetModified.push_back(range);
-					position+=this->countElementsCubes+1;
+					position+=this->countElementsCubes;
 				}else{
 					buffer->clear();
 					buffer->packField(&count,sizeof(count));
