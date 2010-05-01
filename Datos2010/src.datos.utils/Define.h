@@ -25,7 +25,7 @@
 #define EXT_FREE_CUBE ".fcb"
 #define PORCENT_FREE_CUBE 0.2
 #define SIZE_METADATA 12
-#define SIZE_CUBE 70
+#define SIZE_CUBE 128
 /*
  * Definiciones correspondiente al arbol.
  */
