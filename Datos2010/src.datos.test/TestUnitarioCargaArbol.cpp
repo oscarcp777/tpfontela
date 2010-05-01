@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int maindgfdfgd(){
+int main(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
@@ -98,21 +98,47 @@ int maindgfdfgd(){
 	bt.insert(16,p.c_str());
 	bt.insert(17,q.c_str());
 	bt.insert(20,r.c_str());
-	bt.insert(47,s.c_str());
-	bt.insert(48,t.c_str());
-	bt.insert(49,u.c_str());
-	bt.insert(50,v.c_str());
-	bt.insert(51,w.c_str());
-	bt.insert(52,x.c_str());
-	bt.insert(53,y.c_str());
-	bt.insert(54,z.c_str());
+	bt.insert(19,s.c_str());
+	bt.insert(21,t.c_str());
+	bt.insert(22,u.c_str());
+	bt.insert(23,v.c_str());
+	bt.insert(24,w.c_str());
+	bt.insert(25,x.c_str());
+	bt.insert(26,y.c_str());
+	bt.insert(27,z.c_str());
+
+	for(int i=28;i<55;i++){
+		bt.insert(i,z.c_str());
+	}
+
 	bt.print(cout);
-cout<< "Elimino la clave 48" <<endl;
+	cout<<endl;
+	cout<< "ELIMINACIONES" <<endl;
 /*
  * Cuando elimino la 48 no funca. no elimina.
  */
-	bt.remover(48);
-	bt.print(cout);
+//	bt.remover(16);
+//	bt.remover(17);
+//	bt.remover(15);
+//	bt.remover(18);
+//	bt.remover(1);
+//	bt.remover(2);
+//	bt.remover(8);
+//	bt.remover(11);
+//	bt.remover(10);
+//	bt.remover(26);
+//	bt.remover(27);
+//	bt.remover(25);
+//	bt.remover(24);
+//	bt.remover(23);
+//	bt.remover(21);
+//	bt.remover(22);
+//	bt.remover(9);
+//	bt.remover(7);
+//	bt.remover(20);
+//	bt.remover(19);
+//    bt.remover(47);
+//	bt.print(cout);
 //	bt.insert(3,"Na");
 //	bt.print(cout);
 //	bt.remover(3);
@@ -126,7 +152,7 @@ cout<< "Elimino la clave 48" <<endl;
 //	bt.remover(72);
 //	bt.remover(71);
 //	bt.print(cout);
-cout<<"Llego bien hasta aca" << endl;
+//cout<<"Llego bien hasta aca" << endl;
 //	bt.remover(55);
 //	bt.remover(60);
 //	bt.remover(65);
