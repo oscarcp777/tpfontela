@@ -10,7 +10,8 @@
 
 Table::Table() {
 	this->fileCubes = new BinaryFile();
-	this->fileCubesFree = new BinaryFile();
+	//this->fileCubesFree = new BinaryFile();
+	offsetFreeCubes = new FreeBlockController(SIZE_CUBE);
 	this->fileTable = new BinaryFile();
 	this->currentCube = new Cube(1,-1);
 	//this->SecondarycurrentCube = new Cube(1,-1); NO VA, SE HACE INSTANCIA CUANDO SE USA
@@ -24,16 +25,18 @@ Table::Table() {
 
 Table::~Table() {
 	delete this->fileCubes;
-	delete this->fileCubesFree;
+	//delete this->fileCubesFree;
+	delete offsetFreeCubes;
 	delete this->fileTable;
 	delete this->currentCube;
 }
 bool Table::isCreated(string fileName){
-	return this->fileCubes->isCreated(fileName+EXT_CUBE) && this->fileCubesFree->isCreated(fileName+EXT_FREE_CUBE) && this->fileTable->isCreated(fileName+EXT_TABLE);
+	return this->fileCubes->isCreated(fileName+EXT_CUBE) && this->offsetFreeCubes->isCreated(fileName)/*this->fileCubesFree->isCreated(fileName+EXT_FREE_CUBE)*/ && this->fileTable->isCreated(fileName+EXT_TABLE);
 }
 int Table::createFiles(string fileName){
 	this->fileCubes->create(fileName+EXT_CUBE);
-	this->fileCubesFree->create(fileName+EXT_FREE_CUBE);
+	this->offsetFreeCubes->create(fileName,ios::trunc|ios::in |ios::out |ios::binary);
+	//this->fileCubesFree->create(fileName+EXT_FREE_CUBE);
 	this->fileTable->create(fileName+EXT_TABLE);
 	this->offsetCubes.push_back(0);
 	this->writeFirstCube();
@@ -41,7 +44,8 @@ int Table::createFiles(string fileName){
 }
 int Table::openFiles(string fileName){
 	this->fileCubes->open(fileName+EXT_CUBE);
-	this->fileCubesFree->open(fileName+EXT_FREE_CUBE);
+	//this->fileCubesFree->open(fileName+EXT_FREE_CUBE);
+	this->offsetFreeCubes->open(fileName,ios::in |ios::out |ios::binary);
 	this->fileTable->open(fileName+EXT_TABLE);
 	this->readTable();
 	this->readFreeCubes();
@@ -50,9 +54,9 @@ int Table::openFiles(string fileName){
 int Table::close(){
 	this->fileCubes->close();
 
-	this->fileCubesFree->clear();//hace que el archivo se pise completo
-	this->writeFreeCubes();
-	this->fileCubesFree->close();
+	//this->fileCubesFree->clear();//hace que el archivo se pise completo
+	//this->writeFreeCubes();
+	this->offsetFreeCubes->close();
 
 	this->fileTable->clear();//hace que el archivo se pise completo (es necesario por si se achica o agranda la table)
 	this->writeTable();
@@ -73,23 +77,22 @@ int Table::duplicateTable(){
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
-	//Cube* newCube;
 	//tamaño sispersion <> tamaño tabla
 	unsigned int dispersionSize = this->currentCube->getSizeOfDispersion();
 	this->currentCube->setSizeOfDispersion(dispersionSize*2);
 	//this->countsCubes++;
 	int offsetNewCube;
 
-	if(this->offsetFreeCubes.size() == 0)//si no tengo cubos libres le asigno el numero siguiente
+	if(this->offsetFreeCubes->getSize() == 0)//si no tengo cubos libres le asigno el numero siguiente
 		offsetNewCube = this->countsCubes;
 
 	else{//si tengo cubos libres le asigno el primero libre y lo borro de la lista
-		offsetNewCube = this->offsetFreeCubes.at(0);
-		vector<int>::iterator it = this->offsetFreeCubes.begin();
-		this->offsetFreeCubes.erase(it);
+		offsetNewCube = this->offsetFreeCubes->get();
+//		offsetNewCube = this->offsetFreeCubes.at(0);
+//		vector<int>::iterator it = this->offsetFreeCubes.begin();
+//		this->offsetFreeCubes.erase(it);
 	}
 
-	//newCube = new Cube(dispersionSize*2,offsetNewCube);
 	this->SecondarycurrentCube = new Cube(dispersionSize*2,offsetNewCube);
 
 	for(int i = index; i<this->sizeTable; i+=this->SecondarycurrentCube->getSizeOfDispersion())
@@ -100,31 +103,29 @@ int Table::diferentDispersionAndSizeTable(int index){
 
 	this->currentCube->writeCube(fileCubes);
 	this->SecondarycurrentCube->writeCube(fileCubes);
-	//newCube->writeCube(fileCubes);
 	this->countsCubes++;
 	delete this->SecondarycurrentCube;
-	//delete newCube;
 	return 1;
 }
 int Table::equalsDispersionAndSizeTable(int index){
-	//Cube* newCube;
 	this->duplicateTable();
 	this->currentCube->setSizeOfDispersion(this->sizeTable);
 
 	this->SecondarycurrentCube = new Cube(this->sizeTable,this->countsCubes);
-	//newCube = new Cube(this->sizeTable,this->countsCubes);
 
-	int size = this->offsetFreeCubes.size();
+
+	int size = this->offsetFreeCubes->getSize();
 	if(size == 0)//si no tengo cubos libres le asigno el numero siguiente
 		this->offsetCubes[index] = this->countsCubes;
 
 	else{
 		//si tengo cubos libres le asigno el primero libre y lo borro de la lista
-		this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes.at(0));
-		//newCube->setOffsetCube(this->offsetFreeCubes.at(0));
-		this->offsetCubes[index] = this->offsetFreeCubes.at(0);
-		vector<int>::iterator it = this->offsetFreeCubes.begin();
-		this->offsetFreeCubes.erase(it);
+		//this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes.at(0));
+		this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes->get());
+		this->offsetCubes[index] = this->offsetFreeCubes->get();
+//		this->offsetCubes[index] = this->offsetFreeCubes.at(0);
+//		vector<int>::iterator it = this->offsetFreeCubes.begin();
+//		this->offsetFreeCubes.erase(it);
 	}
 	this->countsCubes++;
 	this->currentCube->writeCube(fileCubes);
@@ -289,7 +290,10 @@ int Table::remove(int key){
 			//si NO son iguales no puedo borrar el cubo por lo que queda vacio
 			if( this->offsetCubes[indexUp] == this->offsetCubes[indexDown] ){
 				//agrego el numero de cubo (offset) a la lista de cubos libres porque ya no se lo referencia mas
-				this->offsetFreeCubes.push_back(this->currentCube->getOffsetCube());
+
+				//this->offsetFreeCubes.push_back(this->currentCube->getOffsetCube());
+				this->offsetFreeCubes->add(this->currentCube->getOffsetCube());
+
 				this->countsCubes--;
 				//actualizo la tabla
 				this->offsetCubes[index] = this->offsetCubes[indexUp];
@@ -343,7 +347,7 @@ void Table::printCubes(){
 	string buffer;
 	cout<<"************* CUBOS *************"<<endl;
 	this->output->write("************* CUBOS *************");
-	for(unsigned int i=0; i< (this->countsCubes + this->offsetFreeCubes.size()); i++){
+	for(int i=0; i< (this->countsCubes + this->offsetFreeCubes->getSize()); i++){
 		this->loadCube(i,this->currentCube);
 		this->currentCube->print(this->output);
 	}
@@ -375,15 +379,16 @@ void Table::print(string fileName,bool cubes){
 	}
 
 	buffer.append("cant. Cubos libres= :");
-	buffer.append(StringUtils::convertirAString(this->offsetFreeCubes.size()));
+	buffer.append(StringUtils::convertirAString(this->offsetFreeCubes->getSize()));
 	cout<<buffer<<endl;
 	this->output->write(buffer);
 	buffer.clear();
-	for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++){
-		buffer.append(StringUtils::convertirAString(this->offsetFreeCubes[i]));
-		buffer.append(" | ");
-
-	}
+//	for(int i=0; i<this->offsetFreeCubes->getSize(); i++){
+//		buffer.append(StringUtils::convertirAString(this->offsetFreeCubes.at(i)));
+//		buffer.append(" | ");
+//
+//	}
+	this->offsetFreeCubes->print();
 	cout<<buffer<<endl;
 	this->output->write(buffer);
 	cout<<"*************FIN  TABLA*************"<<endl;
@@ -496,45 +501,45 @@ int Table::packCubeTable(Buffer* buffer,int count,int* indexOffset){
 }
 
 int Table::readFreeCubes(){
-	Buffer* buffer= new Buffer(4);
-	buffer->setBufferSize(4);
-	this->fileCubesFree->read(buffer->getData(),sizeof(int));
-	int freeCubes = 0;
-	buffer->unPackField(&freeCubes,sizeof(freeCubes));
-	delete buffer;
-
-	if(freeCubes > 0){//si el archivo no esta vacio
-		buffer = new Buffer(sizeof(int)*freeCubes);
-		buffer->setBufferSize(sizeof(int)*freeCubes);
-		this->fileCubesFree->read(buffer->getData(),sizeof(int)*freeCubes,sizeof(int));
-		int num;
-		for(int i=0; i<freeCubes; i++){
-			buffer->unPackField(&num,sizeof(num));
-			this->offsetFreeCubes.push_back(num);
-
-		}
-
-		delete buffer;
-		return 1;
-	}
+//	Buffer* buffer= new Buffer(4);
+//	buffer->setBufferSize(4);
+//	this->fileCubesFree->read(buffer->getData(),sizeof(int));
+//	int freeCubes = 0;
+//	buffer->unPackField(&freeCubes,sizeof(freeCubes));
+//	delete buffer;
+//
+//	if(freeCubes > 0){//si el archivo no esta vacio
+//		buffer = new Buffer(sizeof(int)*freeCubes);
+//		buffer->setBufferSize(sizeof(int)*freeCubes);
+//		this->fileCubesFree->read(buffer->getData(),sizeof(int)*freeCubes,sizeof(int));
+//		int num;
+//		for(int i=0; i<freeCubes; i++){
+//			buffer->unPackField(&num,sizeof(num));
+//			this->offsetFreeCubes.push_back(num);
+//
+//		}
+//
+//		delete buffer;
+//		return 1;
+//	}
 
 	return 1;
 }
 int Table::writeFreeCubes(){
-	Buffer* buffer= new Buffer(sizeof(int)*(this->offsetFreeCubes.size()+1));
-	buffer->setBufferSize(sizeof(int)*(this->offsetFreeCubes.size()+1));
-	int size = this->offsetFreeCubes.size();
-	int num;
-	buffer->packField(&size,sizeof(size));
-
-	for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++){
-		num =this->offsetFreeCubes.at(i) ;
-		buffer->packField(&num,sizeof(num));
-
-	}
-
-	this->fileCubesFree->write(buffer->getData(),buffer->getBufferSize(),0);
-	delete buffer;
+//	Buffer* buffer= new Buffer(sizeof(int)*(this->offsetFreeCubes.size()+1));
+//	buffer->setBufferSize(sizeof(int)*(this->offsetFreeCubes.size()+1));
+//	int size = this->offsetFreeCubes.size();
+//	int num;
+//	buffer->packField(&size,sizeof(size));
+//
+//	for(unsigned int i=0; i<this->offsetFreeCubes.size(); i++){
+//		num =this->offsetFreeCubes.at(i) ;
+//		buffer->packField(&num,sizeof(num));
+//
+//	}
+//
+//	this->fileCubesFree->write(buffer->getData(),buffer->getBufferSize(),0);
+//	delete buffer;
 	return 1;
 }
 int Table::writeFirstCube(){

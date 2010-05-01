@@ -24,6 +24,7 @@ public:
 
 	int open(string name, ios_base::openmode mode);
 	int create(string name, ios_base::openmode mode);
+	bool isCreated(string fileName);
 	int close();
 	void add(int blockId);
 	int get();
