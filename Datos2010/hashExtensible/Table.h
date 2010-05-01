@@ -14,6 +14,7 @@
 #include "../src.datos.storage/FreeBlockController.h"
 #include "Cube.h"
 #include "Hash.h"
+#include "RangeController.h"
 #include <vector>
 using namespace std;
 typedef struct metadataTable {
@@ -24,6 +25,7 @@ typedef struct metadataTable {
 class Table {
 private:
 	BinaryFile* fileTable;
+	Buffer* buffer;
 	BinaryFile* fileCubes;
 	TextFile* output;
 	//BinaryFile* fileCubesFree;
@@ -35,12 +37,19 @@ private:
 	//vector<int> offsetFreeCubes;
 	FreeBlockController* offsetFreeCubes;
 	vector<int> offsetCubes;
+	vector<RangeController*> indexOffsetModified;
 	int diferentDispersionAndSizeTable(int index);
 	int equalsDispersionAndSizeTable(int index);
 	int calculateIndex(int* indexUp, int* indexDown, int index);
 	void printCubes();
 	int packCubeTable(Buffer* buffer,int countElement, int* indexOffset);
 	string fileNameOutput;
+	int countElementFirstCube;
+	int countElementsCubes;
+	bool modifiedTable;
+	bool modifiedCubeTable;
+	int writeHeaderTable(Buffer* buffer);
+	void clearIndexOffsetModified();
 public:
 	Table();
 	virtual ~Table();
@@ -60,13 +69,35 @@ public:
 	int openFiles(string fileName);
 	int readTable();
 	int writeTable();
+	int reWriteTable();
+	int updateTable();
 	int readFreeCubes();
 	int writeFreeCubes();
 	int writeFirstCube();
 	void print(string output,bool cubes);
 	bool isCreated(string fileName);
+    void setValueVectorOffsetCube(int position,int value);
+    bool isModifiedCubeTable() const
+    {
+        return modifiedCubeTable;
+    }
 
-	int getCountsCubes() const
+    void setModifiedCubeTable(bool modifiedCubeTable)
+    {
+        this->modifiedCubeTable = modifiedCubeTable;
+    }
+
+    bool isModifiedTable() const
+    {
+        return modifiedTable;
+    }
+
+    void setModifiedTable(bool modifiedTable)
+    {
+        this->modifiedTable = modifiedTable;
+    }
+
+    int getCountsCubes() const
     {
 		return countsCubes;
     }

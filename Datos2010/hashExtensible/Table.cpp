@@ -14,21 +14,140 @@ Table::Table() {
 	offsetFreeCubes = new FreeBlockController(SIZE_CUBE);
 	this->fileTable = new BinaryFile();
 	this->currentCube = new Cube(1,-1);
+	this->buffer= new Buffer(SIZE_CUBE);
 	//this->SecondarycurrentCube = new Cube(1,-1); NO VA, SE HACE INSTANCIA CUANDO SE USA
 	this->output=new TextFile();
 	this->countsCubes = 1;
 	this->sizeTable = 1;
 	this->offsetCubes.size();
+	this->countElementFirstCube = (SIZE_CUBE - sizeof(int)*4) / sizeof(int);
+	this->countElementsCubes = (SIZE_CUBE - sizeof(int)) / sizeof(int);
+    this->modifiedCubeTable=false;
+    this->modifiedTable=false;
+
+}
+void Table::clearIndexOffsetModified(){
+	vector<RangeController*>::iterator it;
+		for (it=this->indexOffsetModified.begin(); it!=this->indexOffsetModified.end(); ++it){
+			RangeController* range =*it;
+            delete range;
+		}
+  this->indexOffsetModified.clear();
+}
+int Table::updateTable()
+{
+
+	vector<RangeController*>::iterator it;
+	this->buffer->clear();
+	buffer->setBufferSize(SIZE_CUBE);
+	for (it=this->indexOffsetModified.begin(); it!=this->indexOffsetModified.end(); ++it){
+		RangeController* range =*it;
+		if(range->isModificate()){
+			int indexOffset= range->getMinumun();
+			int* pIndexOffset=&indexOffset;
+          this->packCubeTable(buffer,range->getMaximun(),pIndexOffset);
+          this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
+		}
+		this->buffer->clear();
+	}
+
+	this->setModifiedTable(false);
+	return 1;
+}
+int Table::writeHeaderTable(Buffer* buffer){
+	buffer->packField(&this->sizeTable,sizeof(this->sizeTable));
+	buffer->packField(&this->countsCubes,sizeof(this->countsCubes));
+	this->countCubeFileTable = 1;
+	int elements = this->sizeTable;
+	if(elements > this->countElementFirstCube){
+		elements-= this->countElementFirstCube;
+		this->countCubeFileTable+= (elements/this->countElementsCubes);
+		if(elements % this->countElementsCubes)
+			this->countCubeFileTable++;
+	}
+
+	buffer->packField(&this->countCubeFileTable,sizeof(this->countCubeFileTable));
+	return 1;
+}
+int Table::reWriteTable(){
+	this->buffer->clear();
+	this->clearIndexOffsetModified();
+	buffer->setBufferSize(SIZE_CUBE);
+	int indexOffset = 0;
+	int* pIndexOffset= &indexOffset;
+	int count=0;
+	int position=0;
+	this->writeHeaderTable(buffer);
+	for(int j=0; j<this->countCubeFileTable; j++){
+
+		if(this->countCubeFileTable > 1){
+			if(j==0){
+				buffer->packField(&this->countElementFirstCube,sizeof(this->countElementFirstCube));
+				this->packCubeTable(buffer,this->countElementFirstCube,pIndexOffset);
+				count=this->sizeTable-this->countElementFirstCube;
+				this->fileTable->write(buffer->getData(),buffer->getMaxBytes(),0);
+				RangeController* range=new RangeController(position,this->countElementFirstCube);
+				this->indexOffsetModified.push_back(range);
+				position+=this->countElementFirstCube+1;
+			}
+			else{
+				if(count > this->countElementsCubes){
+					buffer->clear();
+					buffer->packField(&this->countElementsCubes,sizeof(this->countElementsCubes));
+					this->packCubeTable(buffer,this->countElementsCubes,pIndexOffset);
+					count-= this->countElementsCubes;
+					this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
+					RangeController* range=new RangeController(position,this->countElementFirstCube);
+					this->indexOffsetModified.push_back(range);
+					position+=this->countElementsCubes+1;
+				}else{
+					buffer->clear();
+					buffer->packField(&count,sizeof(count));
+					this->packCubeTable(buffer,count,pIndexOffset);
+					this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
+					RangeController* range=new RangeController(position,this->sizeTable);
+					this->indexOffsetModified.push_back(range);
+				}
 
 
+			}
+		}else{
+			buffer->packField(&this->sizeTable,sizeof(this->sizeTable));
+			this->packCubeTable(buffer,this->sizeTable,pIndexOffset);
+			count=this->sizeTable-this->countElementFirstCube;
+			this->fileTable->write(buffer->getData(),buffer->getMaxBytes(),0);
+			RangeController* range=new RangeController(position,this->sizeTable);
+			this->indexOffsetModified.push_back(range);
+
+		}
+
+
+	}
+	this->setModifiedCubeTable(false);
+	return 1;
+}
+
+void Table::setValueVectorOffsetCube(int position,int value){
+	this->offsetCubes[position] = value;
+	this->setModifiedTable(true);
+	vector<RangeController*>::iterator it;
+	for (it=this->indexOffsetModified.begin(); it!=this->indexOffsetModified.end(); ++it){
+		RangeController* range =*it;
+		if(range->isRangeValidator(position)){
+           range->setModificate(true);
+		}
+	}
 }
 
 Table::~Table() {
+	clearIndexOffsetModified();
 	delete this->fileCubes;
 	//delete this->fileCubesFree;
 	delete offsetFreeCubes;
 	delete this->fileTable;
 	delete this->currentCube;
+	delete this->buffer;
+
 }
 bool Table::isCreated(string fileName){
 	return this->fileCubes->isCreated(fileName+EXT_CUBE) && this->offsetFreeCubes->isCreated(fileName)/*this->fileCubesFree->isCreated(fileName+EXT_FREE_CUBE)*/ && this->fileTable->isCreated(fileName+EXT_TABLE);
@@ -40,6 +159,7 @@ int Table::createFiles(string fileName){
 	this->fileTable->create(fileName+EXT_TABLE);
 	this->offsetCubes.push_back(0);
 	this->writeFirstCube();
+	this->reWriteTable();
 	return 0;
 }
 int Table::openFiles(string fileName){
@@ -59,7 +179,7 @@ int Table::close(){
 	this->offsetFreeCubes->close();
 
 	this->fileTable->clear();//hace que el archivo se pise completo (es necesario por si se achica o agranda la table)
-	this->writeTable();
+	this->reWriteTable();
 	this->fileTable->close();
 
 
@@ -73,7 +193,7 @@ int Table::duplicateTable(){
 		this->offsetCubes.push_back(this->offsetCubes[i]);
 	}
 	this->sizeTable = this->sizeTable*2;
-	this->writeTable();
+	this->setModifiedCubeTable(true);
 	return 1;
 }
 int Table::diferentDispersionAndSizeTable(int index){
@@ -96,10 +216,10 @@ int Table::diferentDispersionAndSizeTable(int index){
 	this->SecondarycurrentCube = new Cube(dispersionSize*2,offsetNewCube);
 
 	for(int i = index; i<this->sizeTable; i+=this->SecondarycurrentCube->getSizeOfDispersion())
-		this->offsetCubes[i] = this->SecondarycurrentCube->getOffsetCube();
+		this->setValueVectorOffsetCube(i,this->SecondarycurrentCube->getOffsetCube());
 
 	for(int j = index; j>=0; j-=this->SecondarycurrentCube->getSizeOfDispersion())
-		this->offsetCubes[j] = this->SecondarycurrentCube->getOffsetCube();
+		this->setValueVectorOffsetCube(j,this->SecondarycurrentCube->getOffsetCube());
 
 	this->currentCube->writeCube(fileCubes);
 	this->SecondarycurrentCube->writeCube(fileCubes);
@@ -162,9 +282,12 @@ int Table::insert(Record* record){
 		index = Hash::hashMod(record->getKey(),this->sizeTable);
 		offset = this->offsetCubes[index];
 		this->loadCube(offset,this->currentCube);
-			if(this->currentCube->addRecord(record))
-					if(this->currentCube->writeCube(this->fileCubes))
-						return 1;
+		if(this->currentCube->addRecord(record))
+			if(this->currentCube->writeCube(this->fileCubes)){
+				this->writeTable();
+				return 1;
+			}
+
 
 
 
@@ -296,14 +419,14 @@ int Table::remove(int key){
 
 				this->countsCubes--;
 				//actualizo la tabla
-				this->offsetCubes[index] = this->offsetCubes[indexUp];
+				this->setValueVectorOffsetCube(index,this->offsetCubes[indexUp]);
 				this->loadCube(this->offsetCubes[index],this->currentCube);
 
 				for(int i = index; i<this->sizeTable; i+=this->currentCube->getSizeOfDispersion()){
-					this->offsetCubes[i] = this->currentCube->getOffsetCube();
+					this->setValueVectorOffsetCube(i,this->currentCube->getOffsetCube());
 				}
 				for(int j = index; j>=0; j-=this->currentCube->getSizeOfDispersion()){
-					this->offsetCubes[j] = this->currentCube->getOffsetCube();
+					this->setValueVectorOffsetCube(j,this->currentCube->getOffsetCube());
 				}
 				int sizeDisp = this->currentCube->getSizeOfDispersion();
 				this->currentCube->setSizeOfDispersion(sizeDisp/2);
@@ -316,6 +439,7 @@ int Table::remove(int key){
 			}
 			//guardo el cubo con su nuevo numero de dispersion
 			this->currentCube->writeCube(this->fileCubes);
+			this->writeTable();
 			return 1;
 		}else{
 			this->currentCube->writeCube(this->fileCubes);
@@ -328,6 +452,7 @@ int Table::remove(int key){
 	}
 
 	this->currentCube->writeCube(this->fileCubes);
+	this->writeTable();
 	return 1;
 }
 int Table::isTableDuplicate(){
@@ -341,7 +466,7 @@ int Table::isTableDuplicate(){
 void Table::collapse(){
 	this->sizeTable = this->sizeTable/2;
 	this->offsetCubes.resize(this->sizeTable);
-    this->writeTable();
+	this->setModifiedCubeTable(true);
 }
 void Table::printCubes(){
 	string buffer;
@@ -402,7 +527,7 @@ void Table::print(string fileName,bool cubes){
 }
 
 int Table::readTable(){
-	Buffer* buffer= new Buffer(SIZE_CUBE);
+	this->buffer->clear();
 	buffer->setBufferSize(SIZE_CUBE);
 	this->fileTable->read(buffer->getData(),SIZE_CUBE);
 
@@ -426,68 +551,23 @@ int Table::readTable(){
 
 		}
 	}
-		delete buffer;
+
 	return 1;
 }
 
 
 int Table::writeTable(){
-	Buffer* buffer= new Buffer(SIZE_CUBE);
-	buffer->setBufferSize(SIZE_CUBE);
-	buffer->packField(&this->sizeTable,sizeof(this->sizeTable));
-	buffer->packField(&this->countsCubes,sizeof(this->countsCubes));
-	int countElementFirstCube =0, countElementsCubes=0;
-	countElementFirstCube = (SIZE_CUBE - sizeof(int)*4) / sizeof(int);
-	countElementsCubes = (SIZE_CUBE - sizeof(int)) / sizeof(int);
-	this->countCubeFileTable = 1;
-	int elements = this->sizeTable;
-	int indexOffset = 0;
-	int* pIndexOffset= &indexOffset;
-	if(elements > countElementFirstCube){
-		elements-= countElementFirstCube;
-		this->countCubeFileTable+= (elements/countElementsCubes);
-		if(elements % countElementsCubes)
-			this->countCubeFileTable++;
-	}
-
-	buffer->packField(&this->countCubeFileTable,sizeof(this->countCubeFileTable));
-	int count=0;
-	for(int j=0; j<this->countCubeFileTable; j++){
-
-		if(this->countCubeFileTable > 1){
-			if(j==0){
-				buffer->packField(&countElementFirstCube,sizeof(countElementFirstCube));
-				this->packCubeTable(buffer,countElementFirstCube,pIndexOffset);
-				count=this->sizeTable-countElementFirstCube;
-				this->fileTable->write(buffer->getData(),buffer->getMaxBytes(),0);
-
-			}
-			else{
-				if(count > countElementsCubes){
-					buffer->clear();
-					buffer->packField(&countElementsCubes,sizeof(countElementsCubes));
-					this->packCubeTable(buffer,countElementsCubes,pIndexOffset);
-					count-= countElementsCubes;
-					this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
-				}else{
-					buffer->clear();
-					buffer->packField(&count,sizeof(count));
-					this->packCubeTable(buffer,count,pIndexOffset);
-					this->fileTable->write(buffer->getData(),buffer->getMaxBytes());
-				}
-
-
-			}
-		}else{
-			buffer->packField(&this->sizeTable,sizeof(this->sizeTable));
-			this->packCubeTable(buffer,this->sizeTable,pIndexOffset);
-			count=this->sizeTable-countElementFirstCube;
-			this->fileTable->write(buffer->getData(),buffer->getMaxBytes(),0);
+	//para escirbir la tabla me fijo que haya sido modificada
+	if(this->isModifiedCubeTable()){
+		//aca ase modificaron los cubos es decir se duplico o se colapso
+		this->reWriteTable();
+	}else{
+		if(this->isModifiedTable()){
+			//aca solo se modifico un valor de la tabla
+			this->updateTable();
 		}
 
-
 	}
-	delete buffer;
 	return 1;
 }
 int Table::packCubeTable(Buffer* buffer,int count,int* indexOffset){

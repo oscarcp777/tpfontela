@@ -3,6 +3,11 @@
 #include "Define.h"
  StringUtils::StringUtils(){
 }
+ bool compare(int i,int j) { return (i<j); }
+
+ void StringUtils::sortVector(vector<int> &vector){
+	 sort(vector.begin(), vector.end(), compare);
+ }
  std::string StringUtils::convertirAString( int numero){
        std::stringstream flujo;
        flujo<< numero;
