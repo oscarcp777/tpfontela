@@ -44,15 +44,14 @@ static void parse_cmdline(int argc, char * const argv[]){
 	ParserInput* parser = new ParserInput();
 	string cadena = argv[1];
 
-	if(hash->isCreated(cadena))
-		hash->open(cadena);
-
-	else
-		hash->create(cadena);
-
 	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
 		switch (result) {
 			case 'B':
+				if(hash->isCreated(cadena))
+					hash->open(cadena);
+
+				else
+					hash->create(cadena);
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
@@ -60,8 +59,14 @@ static void parse_cmdline(int argc, char * const argv[]){
 						cout<<"Resultado de la busqueda: "<<parser->getKey()<<" = "<<hash->search(parser->getKey())<<endl;
 					}
 				}
+				hash->close();
 				break;
 			case 'I':
+				if(hash->isCreated(cadena))
+					hash->open(cadena);
+
+				else
+					hash->create(cadena);
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
@@ -72,11 +77,23 @@ static void parse_cmdline(int argc, char * const argv[]){
 							cout<<"No se pudo insertar la clave: "<<parser->getKey()<<endl;
 					}
 				}
+				hash->close();
 				break;
 			case 'S':
+				if(hash->isCreated(cadena))
+					hash->open(cadena);
+
+				else
+					hash->create(cadena);
 				hash->print(argv[3]);
+				hash->close();
 				break;
 			case 'M':
+				if(hash->isCreated(cadena))
+					hash->open(cadena);
+
+				else
+					hash->create(cadena);
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
@@ -87,8 +104,14 @@ static void parse_cmdline(int argc, char * const argv[]){
 							cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
 					}
 				}
+				hash->close();
 				break;
 			case 'Q':
+				if(hash->isCreated(cadena))
+					hash->open(cadena);
+
+				else
+					hash->create(cadena);
 				while(!cin.eof()){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
@@ -100,6 +123,7 @@ static void parse_cmdline(int argc, char * const argv[]){
 
 					}
 				}
+				hash->close();
 				break;
 			case 'h':
 				help();
@@ -109,7 +133,7 @@ static void parse_cmdline(int argc, char * const argv[]){
 		}
 	}
 
-	hash->close();
+
 	delete hash;
 	delete parser;
 
