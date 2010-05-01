@@ -11,6 +11,7 @@
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
 #include "../src.datos.storage/TextFile.h"
+#include "../src.datos.treeB/FreeBlockController.h"
 #include "Cube.h"
 #include "Hash.h"
 #include <vector>
@@ -25,13 +26,14 @@ private:
 	BinaryFile* fileTable;
 	BinaryFile* fileCubes;
 	TextFile* output;
-	BinaryFile* fileCubesFree;
+	//BinaryFile* fileCubesFree;
 	int countsCubes;
 	Cube* currentCube;
 	Cube* SecondarycurrentCube;
 	int sizeTable;
 	int countCubeFileTable;
-	vector<int> offsetFreeCubes;
+	//vector<int> offsetFreeCubes;
+	FreeBlockController* offsetFreeCubes;
 	vector<int> offsetCubes;
 	int diferentDispersionAndSizeTable(int index);
 	int equalsDispersionAndSizeTable(int index);
@@ -94,10 +96,10 @@ public:
         return fileCubes;
     }
 
-	BinaryFile *getFileCubesFree() const
-    {
-        return fileCubesFree;
-    }
+//	BinaryFile *getFileCubesFree() const
+//    {
+//        return fileCubesFree;
+//    }
 
 	BinaryFile *getFileTable() const
     {

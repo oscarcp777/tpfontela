@@ -57,6 +57,18 @@ int FreeBlockController::create(string name, ios_base::openmode mode){
 	if (!result) return result;
 	return result != -1;
 }
+bool FreeBlockController::isCreated(string fileName){
+
+	int result = this->bTreeFile.open(fileName.append(".free"),ios::in|ios::binary);
+	if (!result){
+		return FALSE;
+	}
+	else{
+		this->bTreeFile.close();
+		return TRUE;
+	}
+
+}
 
 int FreeBlockController::close(){
 
