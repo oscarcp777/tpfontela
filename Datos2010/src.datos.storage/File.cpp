@@ -39,7 +39,6 @@ void File::read(std::string& datos){
 void File::read(char* buffer, int tamanio, int pos){
 
 	if (this->file.is_open()) {
-//      cout<<"Accesos a disco numero para read  : "<<Logger::getUnicaInstancia()->countRead++<<endl;
 		if(pos>=0)
 			this->file.seekg(pos);
 		this->file.read(buffer,tamanio);
@@ -83,7 +82,6 @@ int File::write(std::string registro){
 void File::write(char* buffer, int tamanio, int pos){
 
 	if (this->file.is_open()) {
-//		cout<<"Accesos a disco numero para write  : "<<Logger::getUnicaInstancia()->countWrite++<<endl;
 		if (pos >= 0)
 			this->file.seekp(pos);
 		this->file.write(buffer,tamanio);
