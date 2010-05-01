@@ -16,7 +16,7 @@ void createAndInsert(){
 	hash->create("files/hash2");
 	string cadena="r";
 	int num;
-	for (int var = 0; var < 500; ++var) {
+	for (int var = 0; var < 600; ++var) {
 		num = rand()%100+1;
 		cadena.append(StringUtils::convertIntToString(num));
 		hash->insert(num,(char*)cadena.c_str());
