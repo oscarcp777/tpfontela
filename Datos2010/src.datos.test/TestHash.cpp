@@ -28,6 +28,10 @@ void TestHash::runCreateAndInsertTest(){
 	int num;
 	for (int var = 0; var < 50; ++var) {
 		num = rand()%100+1;
+		cout<<"Inserto el valor :"<<num<<" en la posicion :"<<var<<endl;
+		if(var==19){
+         cout<<"PARAR";
+		}
 		cadena.append(StringUtils::convertIntToString(num));
 		hash->insert(num,(char*)cadena.c_str());
 		cadena="reg";
