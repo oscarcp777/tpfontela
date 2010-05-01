@@ -89,7 +89,6 @@ public:
 		if (result == -1) return 0;
 //		result = this->bTreeFile.write(this->root);
 //		if (result == -1) return 0;
-		this->output->close();
 		this->freeBlocks->close();
 		return this->bTreeFile.close();
 	}
@@ -201,7 +200,7 @@ public:
 				this->print(aux, this->root.getRecAddrs()[i], 2);
 			}
 		aux << "end of Arbol B"<<endl;
-
+		this->output->close();
 	}
 
 

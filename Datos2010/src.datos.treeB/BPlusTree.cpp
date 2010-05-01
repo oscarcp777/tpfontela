@@ -119,7 +119,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 	}
 }
 
-int main(int argc, char * const argv[]){
+int main232(int argc, char * const argv[]){
 
 	int sizeBlock = 128;
 	parse_cmdline(argc,argv,sizeBlock);
