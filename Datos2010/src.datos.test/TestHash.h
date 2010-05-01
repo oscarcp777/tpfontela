@@ -17,6 +17,7 @@ public:
 	void runRemoveTest();
 	void runUpdateTest();
 	void runExampleCatedraTest();
+	void runPrintTest();
 
 };
 

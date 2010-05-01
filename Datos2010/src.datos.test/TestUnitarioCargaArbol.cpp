@@ -13,7 +13,7 @@ int numKeys[26] = {3,19,4,20,1,13,16,9,2,23,14,7,21,18,11,5,8,15,12,10,25,17,26,
 
 const int bTreeSize = 4;
 
-int main(){
+int main56846(){
 
 //	string keys="CSDTAMPIBWNGURKEHOLJYQZFXV";
 //	char letra={0};
