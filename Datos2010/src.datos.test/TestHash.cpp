@@ -28,10 +28,7 @@ void TestHash::runCreateAndInsertTest(){
 	int num;
 	for (int var = 0; var < 50; ++var) {
 		num = rand()%100+1;
-		cout<<"Inserto el valor :"<<num<<" en la posicion :"<<var<<endl;
-		if(var==19){
-         cout<<"PARAR";
-		}
+		cout<<"Inserto el valor :"<<num<<endl;
 		cadena.append(StringUtils::convertIntToString(num));
 		hash->insert(num,(char*)cadena.c_str());
 		cadena="reg";
@@ -45,12 +42,12 @@ void TestHash::runCreateAndInsertTest(){
 void TestHash::runSearchTest(){
 	HashExtensible* hash = new HashExtensible();
 	hash->open("files/hashTest");
-	cout<<"resultado:"<<hash->search(24)<<endl;
-	cout<<"resultado:"<<hash->search(60)<<endl;
-	cout<<"resultado:"<<hash->search(71)<<endl;
-	cout<<"resultado:"<<hash->search(59)<<endl;
-	cout<<"resultado:"<<hash->search(93)<<endl;
-	cout<<"resultado:"<<hash->search(43)<<endl;
+	cout<<"resultado:"<<hash->search(3)<<endl;
+	cout<<"resultado:"<<hash->search(99)<<endl;
+	cout<<"resultado:"<<hash->search(17)<<endl;
+	cout<<"resultado:"<<hash->search(80)<<endl;
+	cout<<"resultado:"<<hash->search(37)<<endl;
+	cout<<"resultado:"<<hash->search(124125235)<<endl;
 	hash->close();
 	delete hash;
 	cout<<"FIN TEST OK "<<endl;
