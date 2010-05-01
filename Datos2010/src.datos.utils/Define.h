@@ -25,7 +25,7 @@
 #define EXT_FREE_CUBE ".fcb"
 #define PORCENT_FREE_CUBE 0.2
 #define SIZE_METADATA 12
-#define SIZE_CUBE 70
+#define SIZE_CUBE 64
 #define TRUE 1;
 #define FALSE 0;
 
