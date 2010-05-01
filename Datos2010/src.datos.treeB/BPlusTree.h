@@ -814,7 +814,7 @@ public:
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 				if(nodo->largestKey()<nodoVecino->getKeys()[0]){ //paso la primer clave del nodoVecino
 					if(nodo->getIsLeaf())
-					nodo->insert(nodoVecino->getKeys()[0],nodo->getData()[0],nodoVecino->getRecAddrs()[0]);
+					nodo->insert(nodoVecino->getKeys()[0],nodoVecino->getData()[0],nodoVecino->getRecAddrs()[0]);
 					else
 						nodo->insert(nodoVecino->getKeys()[0],NULL,nodoVecino->getRecAddrs()[0]);
 
@@ -1035,6 +1035,9 @@ public:
 				BNode* otroNodoVecino;
 				otroNodoVecino=obtenerNodoVecino(&otroVal,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 				redistribuirSinEliminarClaves(nodo,nodoVecino,otroNodoVecino,caso);
+			}
+			if (redistribucionClaves == 2 && ret_ini==-2){
+				this->remover
 			}
 
 		return 1;

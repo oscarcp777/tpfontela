@@ -259,17 +259,17 @@ public:
 		return result;
 	}
 
-	void  print(ostream &) const{
-		cout 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
+	void  print(ostream & stream) const{
+		stream 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
 		for(int i = 0; i<this->numKeys; i++){
 			if (isLeaf)
-				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<< this->data[i]<<endl;
+				stream << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<< this->data[i]<<endl;
 			else
-				cout << "\tKey["<<i<<"] "<<this->keys[i] << " dir "<<this->recAddrs[i]<<endl;
+				stream << "\tKey["<<i<<"] "<<this->keys[i] << " dir "<<this->recAddrs[i]<<endl;
 		}
 		if (isLeaf){
-			cout<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
-			cout<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
+			stream<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
+			stream<<"\t\tApunta a direccion: "<<this->nextNode<<endl;
 		}
 
 	}
