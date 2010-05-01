@@ -858,6 +858,12 @@ public:
 		indice=nodoOrigen->search(key);
 		sizeOfData+=tamanioDato(key,nodoOrigen);
 
+		bool isUnderflowNodoOrigen=((nodoOrigen->getIsLeaf() && ((nodoOrigen->getFreeSpace()+sizeOfData)>nodoOrigen->getMinFreeSpace(blockSize)))
+			|| (!nodoOrigen->getIsLeaf() && ((nodoOrigen->getNumKeys()-1)<nodoOrigen->getMinKeys(blockSize))));
+
+		if(isUnderflowNodoOrigen)
+			break;
+
 		if(nodoOrigen->largestKey()==key && !isLargestKeyRedistribuida){
 			isLargestKeyRedistribuida=true;
 			largestKey = key;
@@ -999,7 +1005,7 @@ public:
 		  pasarDatosYclavesSinRemover(nodoVecino,nodo);
 		else if(caso==3){
 			pasarDatosYclavesSinRemover(nodoVecino,nodo);
-			pasarDatosYclavesSinRemover(nodoVecino,otroNodoVecino);
+			pasarDatosYclavesSinRemover(otroNodoVecino,nodo);
 		}
 		return 1;
 
@@ -1011,6 +1017,7 @@ public:
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //intento obtener el nodo derecho
 			int caso=0;
 			int ret_ini;
+			bool redistribuyo=false;
 
 			//hay que hacer que cuando se redistribuye una clave con eliminacion y queda en underflow, intento redistribuir con el otro nodo
 			//vecino con eliminacion de clave. Luego
@@ -1025,18 +1032,21 @@ public:
 			if(redistribucionClaves==1 && ret_val==2 && ret_ini==-1){ //redistribuir con el nodoDerecho
 				caso=1;
 				redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
+				redistribuyo=true;
 			}else if(redistribucionClaves==1 && ret_val==-1 && ret_ini==-1){ //redistribuir con el nodoIzquierdo
 				caso=2;
 				redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
+				redistribuyo=true;
 			}else if(ret_ini==-1){ //redistribuir con ambos nodos
 				caso=3;
 				int otroVal=0;
 				BNode* otroNodoVecino;
 				otroNodoVecino=obtenerNodoVecino(&otroVal,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 				redistribuirSinEliminarClaves(nodo,nodoVecino,otroNodoVecino,caso);
+				redistribuyo=true;
 			}
 
-			if (ret_ini==-1)
+			if (!redistribuyo && ret_ini==-1)
 				return -1;
 
 
