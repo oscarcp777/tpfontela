@@ -15,6 +15,7 @@
 #include "../src.datos.buffer/RecordFile.h"
 #include "../src.datos.buffer/VariableFieldBuffer.h"
 #include "../src.datos.storage/FreeBlockController.h"
+#include "../src.datos.storage/TextFile.h"
 #include "BTreeNode.h"
 
 using namespace std;
@@ -29,6 +30,8 @@ public:
 	:buffer(blockSize),
 	 bTreeFile(this->buffer),
 	 root(blockSize,keySize) {
+
+		this->output=new TextFile();
 		this->freeBlocks = new FreeBlockController(blockSize);
  		this->height = 1;
 		this->blockSize = blockSize;
@@ -44,6 +47,7 @@ public:
 	~BPlusTree() {
 		delete this->nodes;
 		delete this->freeBlocks;
+		delete this->output;
 	}
 
 	/**
@@ -83,8 +87,9 @@ public:
 		int result = this->bTreeFile.BufferFile::reWind();
 		result = this->writeMetadata();
 		if (result == -1) return 0;
-		result = this->bTreeFile.write(this->root);
-		if (result == -1) return 0;
+//		result = this->bTreeFile.write(this->root);
+//		if (result == -1) return 0;
+		this->output->close();
 		this->freeBlocks->close();
 		return this->bTreeFile.close();
 	}
@@ -161,6 +166,7 @@ public:
 		this->root.setNumKeys(2);
 		this->root.setIsLeaf(0);
 		this->height++;
+		this->store(&root);
 		delete newNode;
 		return 1;
 	}
@@ -183,33 +189,22 @@ public:
 		}
 	}
 
-	void  print(ostream & stream){
+	void  print(string fileName){
 
-		stream <<"Arbol B de profundidad " <<this->height<<" es "<<endl;
-		this->root.print(stream);
+		this->output->open(fileName);
+		ostream& aux = this->output->getStream();
+
+		aux <<"Arbol B de profundidad " <<this->height<<" es "<<endl;
+		this->root.print(aux);
 		if (this->height >1)
 			for(int i = 0; i<this->root.getNumKeys();i++){
-				this->print(stream, this->root.getRecAddrs()[i], 2);
+				this->print(aux, this->root.getRecAddrs()[i], 2);
 			}
-		stream << "end of Arbol B"<<endl;
+		aux << "end of Arbol B"<<endl;
 
 	}
 
-	void  print(ostream & stream, int dirNodo, int level){
 
-		BNode* currentNode = this->fetch(dirNodo, level);
-		stream << "\nNodo en nivel "<<level<<" direccion " << dirNodo<< " ";
-		currentNode->print(stream);
-		if (this->height > level){
-			level++;
-			for(int i = 0; i < currentNode->getNumKeys(); i++){
-				this->print(stream, currentNode->getRecAddrs()[i], level);
-			}
-			stream << "final del nivel "<<level <<endl;
-		}
-		//delete currentNode;
-
-	}
 	/*
 	 * Retorna el primer elemento del secuent set. Y posiciona un apuntador
 	 * al siguente elemento del secuent set. Si el apuntador estaba apuntando
@@ -1173,6 +1168,7 @@ protected:
 	BNode** nodes; 			//nodos disponibles
 
 	FreeBlockController* freeBlocks;		//Manejador Bloques Libres
+	TextFile* output;						//Archivo de texto donde se muestra el estado de la estructura
 
 
 	BTreeNode<keyType>*  findLeaf(const keyType key){  //FindLeaf
@@ -1252,6 +1248,22 @@ protected:
 		buffer.pack(&this->blockSize);
 		buffer.pack(&this->height);
 		return this->bTreeFile.BufferFile::writeFromBuffer(buffer,0);
+	}
+
+	void  print(ostream & stream, int dirNodo, int level){
+
+			BNode* currentNode = this->fetch(dirNodo, level);
+			stream << "\nNodo en nivel "<<level<<" direccion " << dirNodo<< " ";
+			currentNode->print(stream);
+			if (this->height > level){
+				level++;
+				for(int i = 0; i < currentNode->getNumKeys(); i++){
+					this->print(stream, currentNode->getRecAddrs()[i], level);
+				}
+				stream << "final del nivel "<<level <<endl;
+			}
+			//delete currentNode;
+
 	}
 
 };

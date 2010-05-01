@@ -55,13 +55,8 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			cerr << e << endl;
 	}
 
-	TextFile* output=new TextFile();
-	output->open("files/arbolBien.txt");
-	bt.print(cout);
-	bt.print(output->getStream());
-	output->close();
+	bt.print("files/Arbol.txt");
 	bt.close();
-	delete output;
 }
 
 /**
@@ -111,7 +106,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(39);//M
 		bt.remover(36);//L
 		bt.remover(42);//N
-		bt.print(output->getStream());
+		bt.print("arbolRoto.txt");
 
 		//output->open("files/arbolRoto2.txt");
 		//bt.print(output->getStream());
@@ -156,7 +151,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 void TestBTree::removeCaseOne(BPlusTree<int>* btree, int clave = 9){
 
 	btree->remover(clave);
-	btree->print(cout);
+	btree->print("treeRemove1.txt");
 }
 
 /*
@@ -168,7 +163,8 @@ void TestBTree::removeCaseOne(BPlusTree<int>* btree, int clave = 9){
 void TestBTree::removeCaseTwo(BPlusTree<int>* btree, int clave = 21){
 
 	btree->remover(clave);
-	btree->print(cout);
+	btree->print("treeRemove2.txt");
+
 }
 /*
  * Eliminamos una clave que no es la mayor dentro de la hoja y
@@ -185,7 +181,7 @@ void TestBTree::removeCaseTwo(BPlusTree<int>* btree, int clave = 21){
 void TestBTree::removeCaseThree(BPlusTree<int>* btree, int clave = 27){
 
 	btree->remover(clave);
-	btree->print(cout);
+	btree->print("treeRemove3.txt");
 }
 /*
  * Eliminamos una clave que se encuentra en la raiz. Para este caso
@@ -196,5 +192,5 @@ void TestBTree::removeCaseThree(BPlusTree<int>* btree, int clave = 27){
 void TestBTree::removeCaseFor(BPlusTree<int>* btree, int clave = 66){
 
 	btree->remover(clave);
-	btree->print(cout);
+	btree->print("treeRemove4.txt");
 }
