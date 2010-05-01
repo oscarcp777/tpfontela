@@ -5,6 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include <list>
+#include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -25,6 +27,7 @@ public:
 	static void Tokenize(const string& str, vector<string>& tokens, const string& delimiters );
 	static int contadorTag(std::string cadena);
 	static  std::string convertirAString( int numero);
+	static void sortVector(vector<int> &vector);
     static int countRead;
     static int countWrite;
 	/*
