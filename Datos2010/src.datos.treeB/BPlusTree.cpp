@@ -40,6 +40,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 	BPlusTree <int>  bTree (sizeBlock);
 	string file;
 	file = argv[1];
+	int ok = -1;
 
 	ParserInput* parser = new ParserInput();
 	string cadena;
@@ -47,8 +48,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 	while ((result = getopt_long(argc, argv,"BIS:MQh", options, &index)) != -1) {
 		switch (result){
 			case 'B':
-				int ok = bTree.open(file,ios::in | ios::out);
-					std::fstream fileOut;
+					ok = bTree.open(file,ios::in | ios::out);
 					if(!ok){
 
 						bTree.create(file,ios::in | ios::out);
@@ -69,8 +69,8 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 				break;
 
 			case 'I':
-				int ok = bTree.open(file,ios::in | ios::out);
-				std::fstream fileOut;
+				ok = bTree.open(file,ios::in | ios::out);
+
 				if(!ok){
 
 					bTree.create(file,ios::in | ios::out);
@@ -91,16 +91,15 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 				break;
 
 			case 'S':
-				int ok = bTree.open(file,ios::in | ios::out);
-				std::fstream fileOut;
+				ok = bTree.open(file,ios::in | ios::out);
+
 				if(!ok){
 
 					bTree.create(file,ios::in | ios::out);
 				}
 
-				fileOut.open(argv[3],ios::in | ios::out);
-//				bTree.print("archivoarbol");
-				fileOut.close();
+				bTree.print(argv[3]);
+				bTree.close();
 				break;
 
 			case 'M':
