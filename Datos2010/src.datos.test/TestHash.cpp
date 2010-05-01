@@ -83,6 +83,14 @@ void TestHash::runUpdateTest(){
 	cout<<"FIN TEST OK "<<endl;
 
 }
+void TestHash::runPrintTest(){
+	HashExtensible* hash = new HashExtensible();
+	hash->open("files/hashTest");
+	hash->print("files/hashPrint");
+	hash->close();
+	delete hash;
+	cout<<"FIN TEST OK "<<endl;
+}
 void TestHash::runExampleCatedraTest(){
 		HashExtensible* hash = new HashExtensible();
 		hash->create("files/hashTest");
@@ -117,4 +125,3 @@ void TestHash::runExampleCatedraTest(){
 		cout<<"FIN TEST OK"<<endl;
 
 }
-
