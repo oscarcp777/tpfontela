@@ -122,7 +122,7 @@ int Table::equalsDispersionAndSizeTable(int index){
 		//si tengo cubos libres le asigno el primero libre y lo borro de la lista
 		//this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes.at(0));
 		this->SecondarycurrentCube->setOffsetCube(this->offsetFreeCubes->get());
-		this->offsetCubes[index] = this->offsetFreeCubes->get();
+		this->offsetCubes[index] = this->SecondarycurrentCube->getOffsetCube();
 //		this->offsetCubes[index] = this->offsetFreeCubes.at(0);
 //		vector<int>::iterator it = this->offsetFreeCubes.begin();
 //		this->offsetFreeCubes.erase(it);
