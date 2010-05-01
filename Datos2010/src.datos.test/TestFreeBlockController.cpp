@@ -117,3 +117,17 @@ void TestFreeBlockController::runGetTest(){
 }
 
 
+/**
+ * Testea el método get del controlador y verifica la correcta recuperación de la estructura luego de
+ * abrirse un archivo existente
+ */
+void TestFreeBlockController::runPrintTest(ostream & stream){
+
+	FreeBlockController list(20);
+	string ruta="files/prueba";
+	list.open(ruta,ios::out);
+	list.print(stream);
+	list.close();
+}
+
+

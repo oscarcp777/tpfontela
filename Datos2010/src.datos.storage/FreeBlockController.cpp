@@ -57,6 +57,7 @@ int FreeBlockController::create(string name, ios_base::openmode mode){
 	if (!result) return result;
 	return result != -1;
 }
+
 bool FreeBlockController::isCreated(string fileName){
 
 	int result = this->bTreeFile.open(fileName.append(".free"),ios::in|ios::binary);
@@ -99,8 +100,8 @@ int FreeBlockController::get(){
 	}
 
 	if (this->freeBlocks.empty()){
-		int dirBlock = (this->nBlocks/this->maxFields)*this->blockSize + this->blockSize;
-		this->readSimpleBlock(dirBlock);
+		int addrBlock = (this->nBlocks/this->maxFields)*this->blockSize + this->blockSize;
+		this->readSimpleBlock(addrBlock);
 	}
 
 	this->nBlocks--;
@@ -113,10 +114,29 @@ int FreeBlockController::get(){
 
 }
 
-void FreeBlockController::print(){
+void FreeBlockController::print(ostream & stream){
 	unsigned int i;
 	for (i = 0; i < this->freeBlocks.size(); ++i) {
-		cout<<"Elemento["<<i<<"]: "<<this->freeBlocks[i]<<endl;
+		stream << this->freeBlocks[i] << "|";
+	}
+	unsigned int j;
+	unsigned int numSimpleBlocks = (this->nBlocks-i)/this->maxFields;
+	for (j = 0; j < numSimpleBlocks; j++) {
+		int addrBlock = (j+1)*this->blockSize + this->blockSize;
+		printSimpleBlock(stream,addrBlock);
+	}
+}
+
+
+void FreeBlockController::printSimpleBlock(ostream & stream, int addr){
+	unsigned int i;
+	simpleBuffer.clear();
+	this->bTreeFile.readFromBuffer(simpleBuffer,addr);
+	int auxElement;
+	for (i = 0; i < this->maxFields; i++) {
+		auxElement = 0;
+		this->simpleBuffer.unPack(&auxElement);
+		stream << auxElement << "|";
 	}
 }
 
@@ -155,9 +175,6 @@ int FreeBlockController::writeSimpleBlock(int addr){
 	this->nBlocksDoubleBuffer-=this->maxFields;
 	for (i = 0; i < this->maxFields; i++) {
 		int aux = this->freeBlocks.back();
-#ifdef DEBUG
-		cout <<"Moviendo a bloque "<<addr/this->blockSize - 1<<": " << aux << endl;
-#endif
 		this->simpleBuffer.pack(&(aux));
 		this->freeBlocks.pop_back();
 	}	
@@ -173,9 +190,6 @@ int FreeBlockController::readSimpleBlock(int addr){
 	for (i = 0; i < this->maxFields; i++) {
 		auxElement = 0;
 		this->simpleBuffer.unPack(&auxElement);
-#ifdef DEBUG
-		cout <<"Sacando de bloque "<< addr/this->blockSize - 1<<": " << auxElement << endl;
-#endif
 		this->freeBlocks.push_back(auxElement);
 	}
 	return 1;

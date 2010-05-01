@@ -388,7 +388,8 @@ void Table::print(string fileName,bool cubes){
 //		buffer.append(" | ");
 //
 //	}
-	this->offsetFreeCubes->print();
+	this->offsetFreeCubes->print(this->output->getStream());
+	this->offsetFreeCubes->print(cout);
 	cout<<buffer<<endl;
 	this->output->write(buffer);
 	cout<<"*************FIN  TABLA*************"<<endl;

@@ -114,28 +114,8 @@ std::string File::toString(){
 }
 
 
-
-/**
- * Posiciona el cursor al comienzo del File
- */
-void File::irAlPrincipio() {
-	this->file.tellg();
-	this->file.clear();
-	this->file.seekg(0);
-	this->file.seekp(0);
-	this->file.tellg();
+ostream& File::getStream(){
+	return file;
 }
-
-/**
- * Posiciona el cursor al final del file
- */
-void File::irAlFinal() {
-	this->file.tellg();
-	this->file.clear();
-	this->file.seekg(0, ios::end);
-	this->file.seekp(0, ios::end);
-	this->file.tellg();
-}
-
 
 

@@ -46,10 +46,6 @@ public:
 
 	string toString();
 
-	//evaluar existencia
-    virtual void irAlPrincipio() = 0;
-
-
 };
 
 #endif /* STORAGE_H_ */

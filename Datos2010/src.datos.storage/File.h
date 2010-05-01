@@ -46,8 +46,8 @@ public:
     void flush();
     std::string toString();
 
-    void irAlPrincipio();
-    void irAlFinal();
+
+    ostream& getStream();
 
 
 };

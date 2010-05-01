@@ -11,7 +11,7 @@
 #include "../src.datos.utils/Define.h"
 #include "../src.datos.storage/BinaryFile.h"
 #include "../src.datos.storage/TextFile.h"
-#include "../src.datos.treeB/FreeBlockController.h"
+#include "../src.datos.storage/FreeBlockController.h"
 #include "Cube.h"
 #include "Hash.h"
 #include <vector>
