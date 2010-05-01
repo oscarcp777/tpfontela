@@ -14,6 +14,7 @@
 #include "../src.datos.utils/Object.h"
 #include "../src.datos.buffer/RecordFile.h"
 #include "../src.datos.buffer/VariableFieldBuffer.h"
+#include "../src.datos.storage/FreeBlockController.h"
 #include "BTreeNode.h"
 
 using namespace std;
@@ -28,6 +29,7 @@ public:
 	:buffer(blockSize),
 	 bTreeFile(this->buffer),
 	 root(blockSize,keySize) {
+		this->freeBlocks = new FreeBlockController(blockSize);
  		this->height = 1;
 		this->blockSize = blockSize;
 		this->nodes = new BNode * [MAX_HEIGHT];
@@ -40,6 +42,8 @@ public:
 	}
 
 	~BPlusTree() {
+		delete this->nodes;
+		delete this->freeBlocks;
 	}
 
 	/**
@@ -57,6 +61,7 @@ public:
 		//Carga raiz
 		result = this->bTreeFile.read(this->root);
 		this->root.setRecAddr(result);
+		this->freeBlocks->open(name, mode);
 		return 1;
 	}
 
@@ -69,6 +74,7 @@ public:
 		//Agrega nodo raiz
 		result = this->bTreeFile.write(this->root);
 		this->root.setRecAddr(result);
+		this->freeBlocks->create(name, mode);
 		return result != -1;
 	}
 
@@ -78,19 +84,8 @@ public:
 		result = this->writeMetadata();
 		if (result == -1) return 0;
 		result = this->bTreeFile.write(this->root);
-
-//		int result = this->bTreeFile.BufferFile::reWind();
-//		if (!result) return result;
-//		result = this->writeMetadata();
-//		if (!result) return result;
-//		result = this->bTreeFile.write(this->root);
-
 		if (result == -1) return 0;
-//		for (int i = this->height -1 ; i >= 0; i--) {
-//			if (this->nodes[i] != NULL)
-//				delete this->nodes[i];
-//		}
-		delete this->nodes;
+		this->freeBlocks->close();
 		return this->bTreeFile.close();
 	}
 
@@ -100,8 +95,6 @@ public:
 		keyType prevKey, largestKey;
 		BNode* thisNode, *newNode, * parentNode;
 		thisNode = this->findLeaf(key);
-		//if(key > nodoActual->claveMayor())
-		//TODO fijarse de cambiar largestKey en vez de int a keyType
 		if (thisNode->getNumKeys()!=0)
 			if(key > thisNode->largestKey())
 			{newLargest = 1; prevKey = thisNode->largestKey();}
@@ -696,7 +689,7 @@ public:
 
 				nodoVecino->merge(nodo);
 				nodoVecino->setNextNode(nodo->getNextNode());
-				//freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
+				freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
 				nodeMergeFather=nodoVecino;
 			}else if(key==nodo->largestKey()){
 
@@ -706,7 +699,7 @@ public:
 					nodoPadre->updateKey(key,nodoVecino->largestKey());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
-					//freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
+					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
 				}else if((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo)))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
@@ -714,7 +707,7 @@ public:
 					ret_removeIndex=eliminarIndexSet(key,nodoPadre,this->height-2);
 					nodoVecino->merge(nodo);
 					nodoVecino->setNextNode(nodo->getNextNode());
-					//freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
+					freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
 					nodeMergeFather=nodoVecino;
 				}else
 					return -1;
@@ -729,7 +722,7 @@ public:
 					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
-					//freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
+					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
 				}else if(((nodoVecino->getFreeSpace())>=((blockSize-(nodo->getFreeSpace())+tamanioDato(key,nodo))))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
@@ -737,7 +730,7 @@ public:
 					nodoPadre->updateKey(nodoVecino->getKeys()[nodoVecino->getNumKeys()-2],nodoVecino->largestKey());
 					nodoVecino->merge(nodo);
 					nodoVecino->setNextNode(nodo->getNextNode());
-					//freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
+					freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
 					nodeMergeFather=nodoVecino;
 				}else
 					return -1;
@@ -756,7 +749,7 @@ public:
 				nodoPadre->setFreeSpace(nodoVecino->getFreeSpace());
 				nodoPadre->setRecAddr(-1);
 				nodoPadre->setNextNode(-1);
-				//freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
+				freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
 				store(nodoPadre);
 				this->height--;
 				this->writeMetadata();
@@ -1179,6 +1172,8 @@ protected:
 	BNode* nodeSecuentSet;
 	BNode** nodes; 			//nodos disponibles
 
+	FreeBlockController* freeBlocks;		//Manejador Bloques Libres
+
 
 	BTreeNode<keyType>*  findLeaf(const keyType key){  //FindLeaf
 
@@ -1199,9 +1194,12 @@ protected:
 
 	BTreeNode<keyType>*  newNode(){
 		//crea un nuevo nodo y lo inserta en el arbol y setea su direccion
-		//TODO agregar en metadata bloques libres y preguntar si hay para escribir un nodo ahi
 		BNode* newNode = new BNode(this->blockSize,this->keySize);
-		int recAddr = this->bTreeFile.append(*newNode);
+		int recAddr = freeBlocks->get();
+		if (recAddr == -1)
+			recAddr = this->bTreeFile.append(*newNode);
+		else
+			this->bTreeFile.write(*newNode,recAddr);
 		newNode->setRecAddr(recAddr);
 		return newNode;
 	}
