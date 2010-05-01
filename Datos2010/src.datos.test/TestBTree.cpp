@@ -109,6 +109,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 //		bt.remover(54);//R
 		bt.remover(39);//M
 		bt.remover(36);//L
+//		bt.remover(42);//N
 		bt.print(output->getStream());
 
 		//output->open("files/arbolRoto2.txt");
