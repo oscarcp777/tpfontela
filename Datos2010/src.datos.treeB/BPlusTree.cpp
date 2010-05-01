@@ -83,7 +83,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 
 			case 'S':
 				fileOut.open(argv[3],ios::in | ios::out);
-				bTree.print(fileOut);
+//				bTree.print("archivoarbol");
 				fileOut.close();
 				break;
 
