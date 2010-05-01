@@ -9,6 +9,7 @@
 #include "TestFreeBlockController.h"
 #include "TestBTree.h"
 #include "TestLogger.h"
+#include "TestHash.h"
 #include "../src.datos.utils/Define.h"
 
 int main(){
@@ -17,7 +18,7 @@ int main(){
 	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
 	TestBTree* testBTree = new TestBTree();
 	TestLogger* testLogger = new TestLogger();
-
+	TestHash* testHash = new TestHash();
 
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
@@ -28,6 +29,14 @@ int main(){
 	testBTree->runTestSecuenceSet("files/testbt.dat",128);
 //	testBTree->runTestRemove("files/testbt.dat",128);
 //	testLogger->runTestLogger();
+
+//*************TEST HASH*******************
+	testHash->runCreateAndInsertTest();
+	testHash->runRemoveTest();
+	testHash->runSearchTest();
+	testHash->runUpdateTest();
+	testHash->runExampleCatedraTest();
+//*************FIN TEST HASH*******************
 
 	delete testLogger;
 	delete testIOFile;
