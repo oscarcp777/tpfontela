@@ -12,7 +12,7 @@
 #include "TestHash.h"
 #include "../src.datos.utils/Define.h"
 
-int main8(){
+int main(){
 
 	TestIOFile* testIOFile = new TestIOFile();
 	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
@@ -23,8 +23,8 @@ int main8(){
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
 //	testFreeBlockController->runGeneralTest();
-	testFreeBlockController->runAddTest();
-	testFreeBlockController->runPrintTest(cout);
+//	testFreeBlockController->runAddTest();
+//	testFreeBlockController->runPrintTest(cout);
 //	testFreeBlockController->runGetTest();
 //	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
@@ -32,11 +32,11 @@ int main8(){
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************
-//	testHash->runCreateAndInsertTest();
-//	testHash->runRemoveTest();
+	testHash->runCreateAndInsertTest();
+	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
-	testHash->runExampleCatedraTest();
+//	testHash->runExampleCatedraTest();
 //*************FIN TESTs HASH*******************
 
 	delete testLogger;

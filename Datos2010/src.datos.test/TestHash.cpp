@@ -117,3 +117,4 @@ void TestHash::runExampleCatedraTest(){
 		cout<<"FIN TEST OK"<<endl;
 
 }
+
