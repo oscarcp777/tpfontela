@@ -146,8 +146,8 @@ Table::~Table() {
 	delete offsetFreeCubes;
 	delete this->fileTable;
 	delete this->currentCube;
+	delete this->output;
 	delete this->buffer;
-
 }
 bool Table::isCreated(string fileName){
 	return this->fileCubes->isCreated(fileName+EXT_CUBE) && this->offsetFreeCubes->isCreated(fileName)/*this->fileCubesFree->isCreated(fileName+EXT_FREE_CUBE)*/ && this->fileTable->isCreated(fileName+EXT_TABLE);
@@ -566,6 +566,7 @@ int Table::writeTable(){
 			//aca solo se modifico un valor de la tabla
 			this->updateTable();
 		}
+
 
 	}
 	return 1;
