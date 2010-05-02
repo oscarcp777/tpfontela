@@ -119,6 +119,7 @@ void FreeBlockController::print(ostream & stream){
 	string buffer="";
 	buffer.append("Cant. Bloques libres= :");
 	buffer.append(StringUtils::convertirAString(this->freeBlocks.size()));
+	buffer.append("\n");
 	stream << buffer;
 	for (i = 0; i < this->freeBlocks.size(); ++i) {
 		stream << this->freeBlocks[i] << "|";
