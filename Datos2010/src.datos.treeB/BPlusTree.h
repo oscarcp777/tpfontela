@@ -160,7 +160,12 @@ public:
 			return 1; //insertar completado
 		}
 		//sino hay que splitear la raiz
-		int newAddr =  this->bTreeFile.append(this->root);
+		int newAddr = freeBlocks->get();
+		if (newAddr == -1)
+			newAddr = this->bTreeFile.append(this->root);
+		else
+			this->bTreeFile.write(this->root,newAddr);
+
 		//poner anterior raiz en archivo
 		//insertar 2 claves en la nueva raiz
 		this->root.getKeys()[0]= thisNode->largestKey();
@@ -1205,12 +1210,15 @@ protected:
 		for(level = 1; level < this->height; level++){
 //			recaddr = this->nodes[level-1]->search(key,-1,0);
 			recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
-			if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr)
+			if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr){
+				if (this->nodes[level]  != NULL)
+					delete this->nodes[level];
 				this->nodes[level] = this->fetch(recaddr,level+1);
-			if (level + 1 == this->height)
-				this->nodes[level]->setIsLeaf(1);
-			else
-				this->nodes[level]->setIsLeaf(0);
+			}
+//			if (level + 1 == this->height)
+//				this->nodes[level]->setIsLeaf(1);
+//			else
+//				this->nodes[level]->setIsLeaf(0);
 		}
 
 		return this->nodes[level-1];
