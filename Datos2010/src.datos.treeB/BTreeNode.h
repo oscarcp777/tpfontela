@@ -31,24 +31,19 @@ public:
 		//el array de punteros se inicializa con un max. de posibles referencias
 		//dado por el max. de claves posibles a insertar (es decir sin contar el
 		//tamaño del dato)
-		//this->data = new char*[this->maxKeys];
 		this->data = new char*[this->maxKeys];
 		init(maxSize);
 	 }
 
 	~BTreeNode() {
 		int i;
-		if (isLeaf){
-			for (i = 0; i < this->numKeys; i++) {
-						delete this->data[i];
-			}
-		}else{
-			for (int i = 0; i < this->maxKeys; i++) {
-						this->data[i]=NULL;
-					}
+		for (i = 0; i < this->numKeys; i++) {
+				if (this->data[i] != NULL){
+					delete this->data[i];
+					this->data[i]=NULL;
+				}
 		}
-		//delete this->data;
-
+		delete this->data;
 	}
 
 	int  insert(const keyType key, const char* data, int recAddr = -1){
@@ -336,6 +331,9 @@ public:
 	void setIsLeaf(bool value)
 	{
 		this->isLeaf = value;
+		if (value == false){
+
+		}
 	}
 
 	int getFreeSpace(){
