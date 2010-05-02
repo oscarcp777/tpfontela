@@ -1150,7 +1150,12 @@ public:
 
 	int update(keyType key, const char* data){
 
-		return 0;
+		int result;
+		result = bt.remover(key);
+		if (result != 1) return 0;
+		result = bt.insert(key,data);
+		if (result != 1) return 0;
+		return 1;
 	}
 	int remover(keyType key){
 
@@ -1301,7 +1306,7 @@ protected:
 				}
 				stream << "final del nivel "<<level <<endl;
 			}
-			//delete currentNode;
+			delete currentNode;
 
 	}
 
