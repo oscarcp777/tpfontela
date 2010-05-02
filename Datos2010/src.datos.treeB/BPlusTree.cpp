@@ -153,7 +153,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 
 int main232(int argc, char * const argv[]){
 
-	int sizeBlock = 128;
+	int sizeBlock = SIZE_CUBE;
 	parse_cmdline(argc,argv,sizeBlock);
 	return 0;
 }
