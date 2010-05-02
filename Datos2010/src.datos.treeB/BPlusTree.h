@@ -1151,9 +1151,9 @@ public:
 	int update(keyType key, const char* data){
 
 		int result;
-		result = bt.remover(key);
+		result = this->remover(key);
 		if (result != 1) return 0;
-		result = bt.insert(key,data);
+		result = this->insert(key,data);
 		if (result != 1) return 0;
 		return 1;
 	}
