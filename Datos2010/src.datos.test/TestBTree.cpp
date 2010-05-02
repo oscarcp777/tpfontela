@@ -38,7 +38,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	 * que quedar ordenado alfabéticamente
 	 */
 		fstream file;
-		file.open("files/input.btree.dat",ios::in|ios::out);
+		file.open("files/input.btree.dat1",ios::in|ios::out);
 		ParserInput* parser = new ParserInput();
 		string line;
 
@@ -59,7 +59,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			cerr << e << endl;
 	}
 
-	bt.print("files/Arbol.txt");
+	bt.print("files/arbol/arbolAltas.txt");
 	bt.close();
 }
 
@@ -101,16 +101,64 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	try {
 
 		bt.open(fileName,ios::in|ios::out);
-		TextFile* output=new TextFile();
-		output->open("files/arbolRoto1.txt");
-		bt.remover(48);//P
-		bt.remover(63);//U
-		bt.remover(30);//J
+		bt.remover(21);//P
+		bt.remover(33);//U
+		bt.remover(42);//J
 		bt.remover(54);//R
-		bt.remover(39);//M
+		bt.remover(66);//M
+		//bt.print("files/arbol/arbol1");
+		bt.remover(78);//L
+//		bt.print("files/arbol/arbolBajas.txt");
+//		bt.print("files/arbol/arbolBajas1.txt");
 		bt.remover(36);//L
-		bt.remover(42);//N
-		bt.print("arbolRoto.txt");
+
+		bt.remover(39);//L
+		bt.remover(45);//L
+		bt.remover(63);//L
+		bt.remover(60);//L
+		bt.remover(57);//L
+		bt.remover(51);//L
+		bt.remover(69);//L
+		bt.remover(72);//L
+		bt.remover(75);//L
+		bt.remover(30);//L
+		bt.remover(48);//L
+		bt.remover(27);//L
+		bt.remover(18);//L
+		bt.print("files/arbol/arbolBajas.txt");
+		//bt.print("files/arbol/arbol2");
+//    	bt.remover(42);//N
+//		bt.remover(72);//X
+//		//bt.print("files/arbol/arbol3");
+//		bt.remover(75);//Y
+//		bt.remover(78);//Z
+//		bt.remover(69);//W
+//		//bt.print("files/arbol/arbol4");
+//		bt.remover(24);//I
+//		//bt.print("files/arbol/arbol5");
+//		bt.remover(21);//K
+//		//bt.print("files/arbol/arbol6");
+//		//bt.remover(75);//Y
+//		//bt.print("files/arbol/arbol7");
+////		bt.remover(48);//P
+//				bt.remover(63);//U
+//				bt.remover(30);//J
+//				bt.remover(54);//R
+//				bt.remover(39);//M
+//				bt.remover(48);//P
+//						bt.remover(63);//U
+//						bt.remover(30);//J
+//						bt.remover(54);//R
+//						bt.remover(39);//M
+
+
+
+		//bt.remover(78);//Z
+		//bt.print("files/arbol/arbol8");
+		//bt.remover(69);//W
+//		bt.print("files/arbol/arbolBajas.txt");
+
+
 
 		//output->open("files/arbolRoto2.txt");
 		//bt.print(output->getStream());
@@ -118,9 +166,6 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		//bt.remover(42);//N
 
 		bt.close();
-
-		output->close();
-		delete output;
 
 //		int clave = 75;
 //		char* dato = bt.search(clave);
