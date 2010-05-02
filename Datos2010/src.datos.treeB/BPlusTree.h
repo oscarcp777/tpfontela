@@ -1149,6 +1149,10 @@ public:
 		return -1;
 	}
 
+	int update(keyType key, const char* data){
+
+		return 0;
+	}
 	int remover(keyType key){
 
 		BNode* nodoHoja;

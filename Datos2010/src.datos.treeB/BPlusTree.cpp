@@ -112,7 +112,7 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 					getline(cin,cadena);
 					if(cadena.length() != 0){
 						parser->parser(cadena);
-						if(1/*bTree.modificar(parser->getKey(),(char*)parser->getData().c_str())*/){
+						if(bTree.update(parser->getKey(),(char*)parser->getData().c_str())){
 							cout<<"Se modifico correctamente la clave: "<<parser->getKey()<<endl;
 						}else{
 							cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
