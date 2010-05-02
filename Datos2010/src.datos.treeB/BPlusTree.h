@@ -216,7 +216,6 @@ public:
 		this->root.print(aux);
 		if (this->height >1)
 			for(int i = 0; i<this->root.getNumKeys();i++){
-			cout<<"  ---- "<<this->root.getRecAddrs()[i]<<endl;
 				this->print(aux, this->root.getRecAddrs()[i], 2);
 			}
 		aux << "end of Arbol B"<<endl;
