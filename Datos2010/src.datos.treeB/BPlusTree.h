@@ -789,8 +789,10 @@ public:
 						|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow))){ //paso la primer clave del nodoVecino
 					if(nodo->getIsLeaf())
 					nodo->updateKeyAndData(key,nodoVecino->getKeys()[0],nodoVecino->getData()[0]);
-					else
+					else{
 						nodo->updateKey(key,nodoVecino->getKeys()[0]);
+						nodo->updateAddr(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[0]);
+					}
 
 					nodoPadre->updateKey(key,nodoVecino->getKeys()[0]);
 					nodoVecino->remove(nodoVecino->getKeys()[0],nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->getKeys()[0],-1)]);
