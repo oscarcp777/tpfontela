@@ -1123,7 +1123,7 @@ public:
 
 	int simpleRemove(BTreeNode<keyType>*nodoHoja,keyType key,int dir,bool removeWithUnderflow){
 		/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
-		if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key!=nodoHoja->largestKey())||(this->height==0)){
+		if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key!=nodoHoja->largestKey())||(this->height==1)){
 			//updateFreeSpaceRemoveDataNode(nodoHoja,key);
 			nodoHoja->remove(key,dir);
 
@@ -1132,7 +1132,7 @@ public:
 		}/*CASO 2: Si el nodo hoja n tiene mas que el minimo numero de claves y la clave k es la mas grande en n, borrar la clave k y modificar el indice de
 				           mayor nivel que direcciona a la nueva clave mas grande en n.
 		 */
-		else if((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key==nodoHoja->largestKey()){
+		else if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key==nodoHoja->largestKey())||(this->height==1)){
 			//updateFreeSpaceRemoveDataNode(nodoHoja,key);
 			nodoHoja->remove(key,dir);
 			actualizarIndexSet(key,nodoHoja->largestKey(),true);
@@ -1156,6 +1156,10 @@ public:
 		nivelPadreHoja=this->height-2;
 
 		int index = nodoHoja->search(key);
+
+		if(index==-1){
+			return -1;
+		}
 
 		int dir = nodoHoja->getRecAddrs()[index];
 
