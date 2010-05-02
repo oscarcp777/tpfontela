@@ -470,13 +470,13 @@ void Table::collapse(){
 }
 void Table::printCubes(){
 	string buffer;
-	cout<<"************* CUBOS *************"<<endl;
+	//cout<<"************* CUBOS *************"<<endl;
 	this->output->write("************* CUBOS *************");
 	for(int i=0; i< (this->countsCubes + this->offsetFreeCubes->getSize()); i++){
 		this->loadCube(i,this->currentCube);
 		this->currentCube->print(this->output);
 	}
-	cout<<"*************FIN  CUBOS *************"<<endl;
+	//cout<<"*************FIN  CUBOS *************"<<endl;
 	this->output->write("*************FIN CUBOS *************");
 
 }
@@ -485,12 +485,12 @@ void Table::print(string fileName,bool cubes){
 	this->output->open(fileName);
 	string buffer;
 	this->output->write("*************TABLA*************");
-	cout<<"*************TABLA*************"<<endl;
+	//cout<<"*************TABLA*************"<<endl;
 	buffer.append("tamaño tabla= ");
 	buffer.append(StringUtils::convertirAString(this->sizeTable));
 	buffer.append(" || cant. Cubos=");
 	buffer.append(StringUtils::convertirAString(this->countsCubes));
-	cout<<buffer<<endl;
+	//cout<<buffer<<endl;
 	this->output->write(buffer);
 	buffer.clear();
 	for(int i=0; i<this->sizeTable; i++){
@@ -498,14 +498,14 @@ void Table::print(string fileName,bool cubes){
 		buffer.append(StringUtils::convertirAString(i));
 		buffer.append("] = ");
 		buffer.append(StringUtils::convertirAString(this->offsetCubes[i]));
-		cout<<buffer<<endl;
+		//cout<<buffer<<endl;
 		this->output->write(buffer);
 		buffer.clear();
 	}
 
 	buffer.append("cant. Cubos libres= :");
 	buffer.append(StringUtils::convertirAString(this->offsetFreeCubes->getSize()));
-	cout<<buffer<<endl;
+	//cout<<buffer<<endl;
 	this->output->write(buffer);
 	buffer.clear();
 //	for(int i=0; i<this->offsetFreeCubes->getSize(); i++){
@@ -514,10 +514,10 @@ void Table::print(string fileName,bool cubes){
 //
 //	}
 	this->offsetFreeCubes->print(this->output->getStream());
-	this->offsetFreeCubes->print(cout);
-	cout<<buffer<<endl;
+	//this->offsetFreeCubes->print(cout);
+	//cout<<buffer<<endl;
 	this->output->write(buffer);
-	cout<<"*************FIN  TABLA*************"<<endl;
+	//cout<<"*************FIN  TABLA*************"<<endl;
 	this->output->write("*************FIN  TABLA*************");
 	if(true){
 		this->printCubes();

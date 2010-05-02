@@ -65,7 +65,7 @@ int Cube::print(TextFile* output){
 		ouputCube.append(record->getData());
 		ouputCube.append(" ) ");
 	}
-	cout<<ouputCube<<endl;
+	//cout<<ouputCube<<endl;
 	output->write(ouputCube);
 	return TRUE;
 }
