@@ -695,8 +695,10 @@ public:
 
 				if((key<nodoVecino->getKeys()[0])&&((nodo->getFreeSpace()+tamanioDato(key,nodo))>=(blockSize-nodoVecino->getFreeSpace()))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+					//ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
+					//nodoPadre->updateKey(key,nodoVecino->largestKey());
 					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
-					nodoPadre->updateKey(key,nodoVecino->largestKey());
+					actualizarIndexSet(key,nodoVecino->largestKey(),true);
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
