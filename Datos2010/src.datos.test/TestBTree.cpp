@@ -30,7 +30,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	BPlusTree<int> bt(blockSize);
 	bt.create(fileName,ios::out);
-	bt.print("files/salidaNueva");
+	bt.print("files/input.btree.dat");
 
 	try{
 	/*
