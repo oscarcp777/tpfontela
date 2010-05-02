@@ -502,6 +502,7 @@ public:
 				/* CASO 4: Si el nodo padre tiene exactamente el minimo numero de claves y uno de los vecinos del nodo padre tiene muchas claves (cantidad mayor que la cantidad minima de claves),
 						   redistribuir moviendo algunas claves desde un vecino hacia n, y modificar el indice mas alto para direccionar la nueva clave mayor en los nodos afectados.
 				 */
+
 				underflow(key,nodoPadre,nivelArbol-1);
 			}
 		}else{ //resolver underflow raiz para 1 clave (subir todo a la raiz)
@@ -684,12 +685,27 @@ public:
 		return 0;
 	}
 
+	bool cumpleCondicionConcatenacion(BTreeNode <keyType>* nodo,BTreeNode <keyType>* nodoVecino, keyType key,int ordenDeComparacionNodos){
+		if(ordenDeComparacionNodos==1 && nodoVecino->getIsLeaf())//verifico que el nodo pueda entrar en el nodo vecino
+		return ((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))));
+		else if(nodoVecino->getIsLeaf())
+		   	return ((nodo->getFreeSpace()+tamanioDato(key,nodo))>=(blockSize-nodoVecino->getFreeSpace()));
+		else{ //no es nodo hoja, verifico condicion por claves
+			if(ordenDeComparacionNodos==1)
+				return (nodoVecino->getMaxKeys()-nodoVecino->getNumKeys())>=((nodo->getNumKeys()-1));
+			else
+				return ((nodo->getMaxKeys()-(nodo->getNumKeys()-1))>=(nodoVecino->getNumKeys()));
+		}
+		return false;
+	}
 
 	int concatenarNodos(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino){
 		int ret_removeIndex=1;
 		BNode* nodeMergeFather;
 
-			if((key==nodoPadre->largestKey())&&((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))))){
+
+
+			if((key==nodoPadre->largestKey())&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1))){
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 
 				if(nodo->getNumKeys()!=0){
@@ -705,7 +721,7 @@ public:
 				nodeMergeFather=nodoVecino;
 			}else if(key==nodo->largestKey()){
 
-				if((key<nodoVecino->getKeys()[0])&&((nodo->getFreeSpace()+tamanioDato(key,nodo))>=(blockSize-nodoVecino->getFreeSpace()))){
+				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					//ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
 					//nodoPadre->updateKey(key,nodoVecino->largestKey());
@@ -715,7 +731,7 @@ public:
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
-				}else if((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo)))){
+				}else if(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1)){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					nodoPadre->updateKey(nodoVecino->largestKey(),nodo->largestKey());
 					ret_removeIndex=eliminarIndexSet(key,nodoPadre,this->height-2);
@@ -729,8 +745,7 @@ public:
 				this->store(nodoPadre);
 			}else{
 
-				if((key<nodoVecino->getKeys()[0]) &&
-				   ((nodo->getFreeSpace()+tamanioDato(key,nodo))>=(blockSize-nodoVecino->getFreeSpace()))){
+				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2); //elimino porque el merge borra y inserta poniendo largestKey
 					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
@@ -738,7 +753,7 @@ public:
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
-				}else if(nodoVecino->getFreeSpace()>=blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))){
+				}else if(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1)){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					ret_removeIndex=eliminarIndexSet(nodo->largestKey(),nodoPadre,this->height-2);
 					actualizarIndexSet(nodoVecino->largestKey(),nodo->largestKey(),true);
@@ -758,7 +773,7 @@ public:
 
 			if(ret_removeIndex==-2){
 				nodoPadre->remove(nodoPadre->getKeys()[0],nodoPadre->getRecAddrs()[0]);
-				nodoPadre->setIsLeaf(1);
+				nodoPadre->setIsLeaf(nodeMergeFather->getIsLeaf());
 				nodoPadre->merge(nodeMergeFather);
 				nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
 				nodoPadre->setRecAddr(-1);
