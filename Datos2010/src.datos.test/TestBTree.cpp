@@ -318,7 +318,55 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	}
 
 }
+/**
+ * Test que evalúa el método remove del BTree
+ */
+void TestBTree::runTestRemoveRompe(string fileName, int blockSize){
 
+	BPlusTree<int> bt(blockSize);
+	/*
+	 * Realizamos test de distinta índole, ya que segun que clave eliminemos
+	 * el árbol estará en un estado u otro.
+	 * Además cada vez que eliminemos una clave, ésta será ingresada nuevamente
+	 * para tener el árbol original.
+	 */
+	try {
+
+		bt.open(fileName,ios::in|ios::out);
+		bt.remover(36);//N
+		bt.remover(39);//N
+		bt.remover(42);//N
+    	bt.print("files/arbol/arbolBajas1.txt");
+		bt.remover(24);//N
+		bt.remover(27);//N
+    	bt.remover(42);//N
+    	bt.print("files/arbol/arbolBajas2.txt");
+		bt.remover(69);//N
+		bt.remover(72);//N
+    	bt.remover(75);//N
+    	bt.remover(78);//N
+    	bt.print("files/arbol/arbolBajas3.txt");
+		bt.remover(112);//N
+		bt.remover(178);//N
+		bt.remover(115);//N
+		bt.print("files/arbol/arbolBajas4.txt");
+		bt.remover(118);//N
+		//ACA VUELA
+    	bt.print("files/arbol/arbolBajas5.txt");
+
+		bt.close();
+		cout<<"todo bien"<<endl;
+
+	} catch (string& e){
+		cerr << e << endl;
+	}
+
+	catch (exception& e){
+		 cerr << "exception caught: " << e.what() << endl;
+		cout<<" se ha producido un error comuniquese con el administrador del sistema"<<endl;
+	}
+
+}
 /*
  * Métodos que diferencian distintos caso de eliminación de una clave.
  *
