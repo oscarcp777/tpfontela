@@ -103,11 +103,43 @@ void parse_cmdline(int argc, char * const argv[], int sizeBlock){
 				break;
 
 			case 'M':
-				cout<<"Modifiacion de un dato del arbol"<<endl;
+				ok = bTree.open(file,ios::in | ios::out);
+				if(!ok){
+					bTree.create(file,ios::in | ios::out);
+				}
+
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						if(1/*bTree.modificar(parser->getKey(),(char*)parser->getData().c_str())*/){
+							cout<<"Se modifico correctamente la clave: "<<parser->getKey()<<endl;
+						}else{
+							cout<<"No se pudo modificar la clave: "<<parser->getKey()<<endl;
+						}
+					}
+				}
+				bTree.close();
 				break;
 
 			case 'Q':
-				cout<<"Quitar una clave del arbol"<<endl;
+				ok = bTree.open(file,ios::in | ios::out);
+				if(!ok){
+					bTree.create(file,ios::in | ios::out);
+				}
+
+				while(!cin.eof()){
+					getline(cin,cadena);
+					if(cadena.length() != 0){
+						parser->parser(cadena);
+						if(bTree.remover(parser->getKey())){
+							cout<<"Se elimino correctamente la clave: "<<parser->getKey()<<endl;
+						}else{
+							cout<<"No se pudo eliminar la clave: "<<parser->getKey()<<endl;
+						}
+					}
+				}
+				bTree.close();
 				break;
 
 			case 'h':
