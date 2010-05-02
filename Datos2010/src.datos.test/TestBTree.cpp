@@ -32,13 +32,13 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	bt.create(fileName,ios::out);
 
 	try{
-	/*
-	 * Inserta los datos provenientes de un archivo input.btree.dat.
-	 * Con este conjunto de datos el secuence set tiene
-	 * que quedar ordenado alfabéticamente
-	 */
+		/*
+		 * Inserta los datos provenientes de un archivo input.btree.dat.
+		 * Con este conjunto de datos el secuence set tiene
+		 * que quedar ordenado alfabéticamente
+		 */
 		fstream file;
-		file.open("files/input.btree.dat1",ios::in|ios::out);
+		file.open("files/input.btree.dat",ios::in|ios::out);
 		ParserInput* parser = new ParserInput();
 		string line;
 
@@ -56,7 +56,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 		file.close();
 
 	}catch (string& e){
-			cerr << e << endl;
+		cerr << e << endl;
 	}
 
 	bt.print("files/arbol/arbolAltas.txt");
@@ -101,89 +101,37 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	try {
 
 		bt.open(fileName,ios::in|ios::out);
-		bt.remover(21);//P
-		bt.remover(33);//U
-		bt.remover(42);//J
-		bt.remover(54);//R
-		bt.remover(66);//M
-		//bt.print("files/arbol/arbol1");
-		bt.remover(78);//L
-//		bt.print("files/arbol/arbolBajas.txt");
-//		bt.print("files/arbol/arbolBajas1.txt");
+		bt.remover(24);//L
+		bt.remover(27);//M
+		bt.remover(30);//N
+		bt.print("files/arbol/arbolBajas2.txt");
 		bt.remover(36);//L
-
-		bt.remover(39);//L
-		bt.remover(45);//L
-		bt.remover(63);//L
-		bt.remover(60);//L
-		bt.remover(57);//L
-		bt.remover(51);//L
-		bt.remover(69);//L
-		bt.remover(72);//L
-		bt.remover(75);//L
-		bt.remover(30);//L
-		bt.remover(48);//L
-		bt.remover(27);//L
+		bt.remover(39);//M
+		bt.remover(42);//N
+		bt.print("files/arbol/arbolBajas3.txt");
 		bt.remover(18);//L
-		bt.print("files/arbol/arbolBajas.txt");
-		//bt.print("files/arbol/arbol2");
-//    	bt.remover(42);//N
-//		bt.remover(72);//X
-//		//bt.print("files/arbol/arbol3");
-//		bt.remover(75);//Y
-//		bt.remover(78);//Z
-//		bt.remover(69);//W
-//		//bt.print("files/arbol/arbol4");
-//		bt.remover(24);//I
-//		//bt.print("files/arbol/arbol5");
-//		bt.remover(21);//K
-//		//bt.print("files/arbol/arbol6");
-//		//bt.remover(75);//Y
-//		//bt.print("files/arbol/arbol7");
-////		bt.remover(48);//P
-//				bt.remover(63);//U
-//				bt.remover(30);//J
-//				bt.remover(54);//R
-//				bt.remover(39);//M
-//				bt.remover(48);//P
-//						bt.remover(63);//U
-//						bt.remover(30);//J
-//						bt.remover(54);//R
-//						bt.remover(39);//M
-
-
-
-		//bt.remover(78);//Z
-		//bt.print("files/arbol/arbol8");
-		//bt.remover(69);//W
-//		bt.print("files/arbol/arbolBajas.txt");
-
-
-
-		//output->open("files/arbolRoto2.txt");
-		//bt.print(output->getStream());
-		//bt.remover(36);//L
-		//bt.remover(42);//N
+		bt.remover(21);//M
+		bt.remover(23);//N
+		bt.print("files/arbol/arbolBajas4.txt");
+		bt.remover(15);//M
+		bt.remover(64);//N
+		bt.print("files/arbol/arbolBajas5.txt");
+		bt.remover(172);//L
+		bt.remover(175);//M
+		bt.print("files/arbol/arbolBajas6.txt");
+		bt.remover(178);//N
+    	bt.print("files/arbol/arbolBajas7.txt");
 
 		bt.close();
-
-//		int clave = 75;
-//		char* dato = bt.search(clave);
-//		cout<< endl;
-//		cout<<"Arbol antes de la eliminacion de la clave ";
-//		cout<< clave <<endl <<endl;
-//		bt.print(cout);
-//		this->removeCaseOne(&bt,clave);
-//		cout<<"Arbol despues de la eliminacion de la clave ";
-//		cout<< clave <<endl << endl;
-//		bt.print(cout);
-//		bt.insert(clave,dato);
-//		cout<<"Arbol reestructurado con la insercion de la clave ";
-//		cout<< clave <<endl << endl;
-//		bt.print(cout);
+		cout<<"todo bien"<<endl;
 
 	} catch (string& e){
 		cerr << e << endl;
+	}
+
+	catch (exception& e){
+		 cerr << "exception caught: " << e.what() << endl;
+		cout<<" se ha producido un error comuniquese con el administrador del sistema"<<endl;
 	}
 
 }
