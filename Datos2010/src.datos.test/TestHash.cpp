@@ -13,6 +13,9 @@
 #include "../src.datos.hash/HashExtensible.h"
 using namespace std;
 
+string fileName = "files/hashTest";
+string printFileName = "files/hashPrint";
+
 TestHash::TestHash() {
 	// TODO Auto-generated constructor stub
 
@@ -23,7 +26,7 @@ TestHash::~TestHash() {
 }
 void TestHash::runCreateAndInsertTest(){
 	HashExtensible* hash = new HashExtensible();
-	hash->create("files/hashTest");
+	hash->create(fileName);
 	string cadena="r";
 	int num;
 	for (int var = 0; var < 50; ++var) {
@@ -33,7 +36,7 @@ void TestHash::runCreateAndInsertTest(){
 		hash->insert(num,(char*)cadena.c_str());
 		cadena="reg";
 	}
-	hash->print("files/hashPrint");
+	hash->print(printFileName);
 	hash->close();
 
 	delete hash;
@@ -41,7 +44,7 @@ void TestHash::runCreateAndInsertTest(){
 }
 void TestHash::runSearchTest(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hashTest");
+	hash->open(fileName);
 	cout<<"resultado:"<<hash->search(3)<<endl;
 	cout<<"resultado:"<<hash->search(99)<<endl;
 	cout<<"resultado:"<<hash->search(17)<<endl;
@@ -55,19 +58,29 @@ void TestHash::runSearchTest(){
 }
 void TestHash::runRemoveTest(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hashTest");
-	cout<<"data borrada : " <<hash->remove(22)<<endl;
-	cout<<"data borrada : " <<hash->remove(70)<<endl;
-	cout<<"data borrada : " <<hash->remove(38)<<endl;
-	cout<<"data borrada : " <<hash->remove(24)<<endl;
-	cout<<"data borrada : " <<hash->remove(93)<<endl;
-	cout<<"data borrada : " <<hash->remove(78)<<endl;
-	cout<<"data borrada : " <<hash->remove(63)<<endl;
-	cout<<"data borrada : " <<hash->remove(31)<<endl;
-	cout<<"data borrada : " <<hash->remove(24)<<endl;
-	cout<<"data borrada : " <<hash->remove(88)<<endl;
-	cout<<"data borrada : " <<hash->remove(44)<<endl;
-   	hash->print("files/hashPrint");
+	hash->open(fileName);
+	vector<int> numVector;
+	numVector.push_back(70);
+	numVector.push_back(38);
+	numVector.push_back(24);
+	numVector.push_back(93);
+	numVector.push_back(78);
+	numVector.push_back(63);
+	numVector.push_back(31);
+	numVector.push_back(24);
+	numVector.push_back(88);
+	numVector.push_back(44);
+	numVector.push_back(19);
+
+	int num;
+	for(unsigned int i = 0; i < numVector.size() ; i++){
+		num = numVector.at(i);
+		if(hash->remove(num))
+			cout<<"clave "<<num<<" borrada correctamente"<<endl;
+		else
+			cout<<"no se encontro la clave "<<num<<endl;
+	}
+   	hash->print(printFileName);
 	hash->close();
 	delete hash;
 	cout<<"FIN TEST OK "<<endl;
@@ -75,10 +88,10 @@ void TestHash::runRemoveTest(){
 }
 void TestHash::runUpdateTest(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hashTest");
+	hash->open(fileName);
 	string cadena = "San Angeles Team";
 	cout<<"resultado:"<<hash->update(3, (char*)cadena.c_str())<<endl;;
-	hash->print("files/hashPrint");
+	hash->print(printFileName);
 	hash->close();
 	delete hash;
 	cout<<"FIN TEST OK "<<endl;
@@ -86,15 +99,15 @@ void TestHash::runUpdateTest(){
 }
 void TestHash::runPrintTest(){
 	HashExtensible* hash = new HashExtensible();
-	hash->open("files/hashTest");
-	hash->print("files/hashPrint");
+	hash->open(fileName);
+	hash->print(printFileName);
 	hash->close();
 	delete hash;
 	cout<<"FIN TEST OK "<<endl;
 }
 void TestHash::runExampleCatedraTest(){
 		HashExtensible* hash = new HashExtensible();
-		hash->create("files/hashTest");
+		hash->create(fileName);
 		//ejemplo del archivo Dispersion Extensible Modular.txt
 		//+123, +915, +629, +411, +200, +863, -629, +408, +34, +510, -863, +775
 		string cadena1 = "r123";
@@ -119,7 +132,7 @@ void TestHash::runExampleCatedraTest(){
 		hash->insert(510,(char*)cadena9.c_str());
 		hash->remove(863);
 		hash->insert(775,(char*)cadena10.c_str());
-		hash->print("files/hashPrint");
+		hash->print(printFileName);
 		hash->close();
 
 		delete hash;
