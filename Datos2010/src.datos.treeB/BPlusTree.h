@@ -209,16 +209,19 @@ public:
 
 
 		this->output->open(fileName);
+		this->output->write("\n-------------   BLOQUES LIBRES  DEL ARBOL B+     ---------------------\n");
 		this->freeBlocks->print(this->output->getStream());
+		this->output->write("\n-------------  FIN DE BLOQUES LIBRES DEL ARBOL B+-----------------------\n");
+		this->output->write("\n-------------   CONTENIDO DEL ARBOL B+ -------------------------------\n");
 		ostream& aux = this->output->getStream();
 
-		aux <<"\nArbol B de profundidad " <<this->height<<" es "<<endl;
+		aux <<"\n Arbol B+ de profundidad " <<this->height<<" es "<<endl;
 		this->root.print(aux);
 		if (this->height >1)
 			for(int i = 0; i<this->root.getNumKeys();i++){
 				this->print(aux, this->root.getRecAddrs()[i], 2);
 			}
-		aux << "end of Arbol B"<<endl;
+		this->output->write("\n------------- FIN DEL ARBOL B+  -------------------------------------\n");
 		this->output->close();
 	}
 

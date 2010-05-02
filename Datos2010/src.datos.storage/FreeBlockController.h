@@ -10,6 +10,7 @@
 
 #include "../src.datos.buffer/FixedFieldBuffer.h"
 #include "../src.datos.buffer/BufferFile.h"
+#include "../src.datos.utils/StringUtils.h"
 #include <stdio.h>
 #include <string>
 #include <iostream>

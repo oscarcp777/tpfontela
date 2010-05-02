@@ -29,7 +29,7 @@ int main(){
 	testBTree->runTestInsert("files/testbt.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
 //	testBTree->runTestRemove("files/testbt.dat",128);
-	testBTree->runTestRemoveRompe("files/testbt.dat",128);
+//	testBTree->runTestRemoveRompe("files/testbt.dat",128);
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************

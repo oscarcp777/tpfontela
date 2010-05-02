@@ -471,21 +471,23 @@ void Table::collapse(){
 void Table::printCubes(){
 	string buffer;
 	//cout<<"************* CUBOS *************"<<endl;
-	this->output->write("************* CUBOS *************");
+	this->output->write("\n------------- CONTENIDO DE LOS CUBOS DEL HASH EXTENSIBLE -------------\n");
+	this->output->write(" Formato de los datos del cubo : Nro. de Cubo | (Tamaño de dispersión) | Registro1 |  Registro2 |  Registro3 |  Registro4 ");
+	this->output->write(" Donde cada Registro tiene el siguiente formato:  | (clave | data ) \n");
 	for(int i=0; i< (this->countsCubes + this->offsetFreeCubes->getSize()); i++){
 		this->loadCube(i,this->currentCube);
 		this->currentCube->print(this->output);
 	}
-	//cout<<"*************FIN  CUBOS *************"<<endl;
-	this->output->write("*************FIN CUBOS *************");
+	//cout<<"------------*FIN  CUBOS ------------*"<<endl;
+	this->output->write("\n------------- FIN CUBOS -----------------------------------------------\n");
 
 }
 void Table::print(string fileName,bool cubes){
 
 	this->output->open(fileName);
 	string buffer;
-	this->output->write("*************TABLA*************");
-	//cout<<"*************TABLA*************"<<endl;
+	this->output->write("\n------------- CONTENIDO DE LA TABLA DEL HASH EXTENSIBLE -------------\n");
+	//cout<<"------------*TABLA------------*"<<endl;
 	buffer.append("tamaño tabla= ");
 	buffer.append(StringUtils::convertirAString(this->sizeTable));
 	buffer.append(" || cant. Cubos=");
@@ -502,26 +504,14 @@ void Table::print(string fileName,bool cubes){
 		this->output->write(buffer);
 		buffer.clear();
 	}
+	this->output->write("\n------------- FIN DE LA  TABLA  -------------------------------------\n");
 
-	buffer.append("cant. Cubos libres= :");
-	buffer.append(StringUtils::convertirAString(this->offsetFreeCubes->getSize()));
-	//cout<<buffer<<endl;
-	this->output->write(buffer);
-	buffer.clear();
-//	for(int i=0; i<this->offsetFreeCubes->getSize(); i++){
-//		buffer.append(StringUtils::convertirAString(this->offsetFreeCubes.at(i)));
-//		buffer.append(" | ");
-//
-//	}
-	this->offsetFreeCubes->print(this->output->getStream());
-	//this->offsetFreeCubes->print(cout);
-	//cout<<buffer<<endl;
-	this->output->write(buffer);
-	//cout<<"*************FIN  TABLA*************"<<endl;
-	this->output->write("*************FIN  TABLA*************");
-	if(true){
 		this->printCubes();
-	}
+
+	this->output->write("\n-------------   CUBOS LIBRES  DEL HASH EXTENSIBLE---------------------\n");
+	this->offsetFreeCubes->print(this->output->getStream());
+	this->output->write("\n------------- FIN DE CUBOS LIBRES  ----------------------------------\n");
+
 	this->output->close();
 
 }

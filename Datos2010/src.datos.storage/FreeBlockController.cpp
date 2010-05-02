@@ -116,6 +116,10 @@ int FreeBlockController::get(){
 
 void FreeBlockController::print(ostream & stream){
 	unsigned int i;
+	string buffer="";
+	buffer.append("Cant. Bloques libres= :");
+	buffer.append(StringUtils::convertirAString(this->freeBlocks.size()));
+	stream << buffer;
 	for (i = 0; i < this->freeBlocks.size(); ++i) {
 		stream << this->freeBlocks[i] << "|";
 	}
@@ -125,6 +129,7 @@ void FreeBlockController::print(ostream & stream){
 		int addrBlock = (j+1)*this->blockSize + this->blockSize;
 		printSimpleBlock(stream,addrBlock);
 	}
+	stream << endl;
 }
 
 
