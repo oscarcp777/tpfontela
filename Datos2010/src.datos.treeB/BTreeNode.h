@@ -255,12 +255,12 @@ public:
 	}
 
 	void  print(ostream & stream) const{
-		stream 	<<" Numero de keys en Nodo = "<<this->numKeys<< endl;
+		stream 	<<" Numero de keys en Nodo = "<<this->numKeys<<" )"<<endl;
 		for(int i = 0; i<this->numKeys; i++){
 			if (isLeaf)
-				stream << "\tKey["<<i<<"] "<<this->keys[i] << " dato "<< this->data[i]<<endl;
+				stream << "\t ( Key["<<i<<"]  |"<<this->keys[i] << "| dato "<< this->data[i]<<" )"<<endl;
 			else
-				stream << "\tKey["<<i<<"] "<<this->keys[i] << " dir "<<this->recAddrs[i]<<endl;
+				stream << "\t ( Key["<<i<<"] |"<<this->keys[i] << "|  dir "<<this->recAddrs[i]<<" )"<<endl;
 		}
 		if (isLeaf){
 			stream<<"\t\tEspacio libre: "<<this->freeSpace<<endl;
