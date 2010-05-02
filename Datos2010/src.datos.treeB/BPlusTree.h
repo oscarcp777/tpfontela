@@ -19,7 +19,7 @@
 #include "BTreeNode.h"
 
 using namespace std;
-const int MAX_HEIGHT = 5;
+const int MAX_HEIGHT = 10;
 
 template <class keyType>
 class BPlusTree{
@@ -45,6 +45,13 @@ public:
 	}
 
 	~BPlusTree() {
+		int i;
+		for (i = MAX_HEIGHT-1; i > 0; i--) {
+			if (this->nodes[i] != NULL){
+				delete this->nodes[i];
+				this->nodes[i]=NULL;
+			}
+		}
 		delete this->nodes;
 		delete this->freeBlocks;
 		delete this->output;
