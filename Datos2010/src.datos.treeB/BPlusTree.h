@@ -195,10 +195,12 @@ public:
 
 	void  print(string fileName){
 
+
 		this->output->open(fileName);
+		this->freeBlocks->print(this->output->getStream());
 		ostream& aux = this->output->getStream();
 
-		aux <<"Arbol B de profundidad " <<this->height<<" es "<<endl;
+		aux <<"\nArbol B de profundidad " <<this->height<<" es "<<endl;
 		this->root.print(aux);
 		if (this->height >1)
 			for(int i = 0; i<this->root.getNumKeys();i++){
@@ -677,9 +679,13 @@ public:
 
 			if((key==nodoPadre->largestKey())&&((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))))){
 				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
+
+				if(nodo->getNumKeys()!=0){
 				nodoPadre->updateAddr(key,nodoPadre->getRecAddrs()[nodoPadre->getNumKeys()-2]);
 				ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
 				this->actualizarIndexSet(key,nodo->largestKey(),true);
+				}else
+					ret_removeIndex=eliminarIndexSet(key,nodoPadre,this->height-2);
 
 				nodoVecino->merge(nodo);
 				nodoVecino->setNextNode(nodo->getNextNode());
@@ -718,10 +724,11 @@ public:
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
-				}else if(((nodoVecino->getFreeSpace())>=((blockSize-(nodo->getFreeSpace())+tamanioDato(key,nodo))))){
+				}else if(nodoVecino->getFreeSpace()>=blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
-					nodoPadre->updateKey(nodoVecino->getKeys()[nodoVecino->getNumKeys()-2],nodoVecino->largestKey());
+					ret_removeIndex=eliminarIndexSet(nodo->largestKey(),nodoPadre,this->height-2);
+					actualizarIndexSet(nodoVecino->largestKey(),nodo->largestKey(),true);
+					//nodoPadre->updateKey(nodoVecino->getKeys()[nodoVecino->getNumKeys()-2],nodoVecino->largestKey());
 					nodoVecino->merge(nodo);
 					nodoVecino->setNextNode(nodo->getNextNode());
 					freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
@@ -874,11 +881,12 @@ public:
 		}
 
 		if(nodoOrigen->getIsLeaf())
-		insert(key,nodoOrigen->getData()[indice]);
+		nodoDestino->insert(key,nodoOrigen->getData()[indice]);
 		else
-			insert(key,NULL);
+			nodoDestino->insert(key,NULL);
+
 		nodoOrigen->remove(key,indice);
-		this->store(nodoOrigen);
+		//this->store(nodoOrigen);
 
 		if((nodoDestino->getIsLeaf() && nodoDestino->getFreeSpace()<=nodoDestino->getMinFreeSpace(blockSize)) ||
 		   (!nodoDestino->getIsLeaf() && nodoDestino->getNumKeys()>=nodoDestino->getMinKeys(blockSize))) //si quedo fuera de underflow no sigo en el while
@@ -887,6 +895,9 @@ public:
 
 		if(isLargestKeyRedistribuida)
 			actualizarIndexSet(largestKey,nodoOrigen->largestKey(),true);
+
+		this->store(nodoOrigen);
+		this->store(nodoDestino);
 
 		return 1;
 	}
