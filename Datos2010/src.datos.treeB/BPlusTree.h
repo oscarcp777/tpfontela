@@ -214,6 +214,10 @@ public:
 		this->output->write("\n-------------  FIN DE BLOQUES LIBRES DEL ARBOL B+-----------------------\n");
 		this->output->write("\n-------------   CONTENIDO DEL ARBOL B+ -------------------------------\n");
 		ostream& aux = this->output->getStream();
+		this->output->write(" Formato de los datos del Arbol :(Nivel del nodo |Direccion en disco del bloque |Numero de claves en el nodo )\n");
+		this->output->write(" Formato nodo ( Pos. en vector de claves | clave | dir. a que apunta ) ");
+		this->output->write(" direccion a la que apunta esa clave en disco en caso de nodos internos y el dato en caso de ser hoja");
+		this->output->write(" si es hoja tambien muestra Espacio libre y direccion al siguiente nodo \n");
 
 		aux <<"\n Arbol B+ de profundidad " <<this->height<<" es "<<endl;
 		this->root.print(aux);
@@ -1345,7 +1349,7 @@ protected:
 	void  print(ostream & stream, int dirNodo, int level){
 
 			BNode* currentNode = this->fetch(dirNodo, level);
-			stream << "\nNodo en nivel "<<level<<" direccion " << dirNodo<< " ";
+			stream << "\n ( Nodo en nivel "<<level<<"| direccion " << dirNodo<< " ";
 			currentNode->print(stream);
 			if (this->height > level){
 				level++;
