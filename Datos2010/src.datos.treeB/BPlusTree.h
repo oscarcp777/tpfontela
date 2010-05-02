@@ -153,7 +153,12 @@ public:
 			this->store(thisNode);
 		}
 
-		if (level >= 0) return 1; //insertar completado
+		if (level >= 0){
+			if(result == 0){
+				return 0;
+			}
+			return 1; //insertar completado
+		}
 		//sino hay que splitear la raiz
 		int newAddr =  this->bTreeFile.append(this->root);
 		//poner anterior raiz en archivo
