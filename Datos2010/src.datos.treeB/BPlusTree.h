@@ -216,6 +216,7 @@ public:
 		this->root.print(aux);
 		if (this->height >1)
 			for(int i = 0; i<this->root.getNumKeys();i++){
+			cout<<"  ---- "<<this->root.getRecAddrs()[i]<<endl;
 				this->print(aux, this->root.getRecAddrs()[i], 2);
 			}
 		aux << "end of Arbol B"<<endl;
@@ -748,6 +749,8 @@ public:
 				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2); //elimino porque el merge borra y inserta poniendo largestKey
+					if (ret_removeIndex == 1)
+						nodoPadre=this->nodes[this->height-2];
 					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
@@ -776,7 +779,7 @@ public:
 				nodoPadre->setIsLeaf(nodeMergeFather->getIsLeaf());
 				nodoPadre->merge(nodeMergeFather);
 				nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
-				nodoPadre->setRecAddr(-1);
+//				nodoPadre->setRecAddr(-1);
 				nodoPadre->setNextNode(-1);
 				freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
 				store(nodoPadre);
