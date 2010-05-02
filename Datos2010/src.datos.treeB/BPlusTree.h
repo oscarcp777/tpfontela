@@ -747,14 +747,13 @@ public:
 				this->store(nodoPadre);
 			}
 
-			this->store(nodoVecino);
-			this->store(nodo);
+			this->store(nodeMergeFather);
 
 			if(ret_removeIndex==-2){
 				nodoPadre->remove(nodoPadre->getKeys()[0],nodoPadre->getRecAddrs()[0]);
 				nodoPadre->setIsLeaf(1);
 				nodoPadre->merge(nodeMergeFather);
-				nodoPadre->setFreeSpace(nodoVecino->getFreeSpace());
+				nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
 				nodoPadre->setRecAddr(-1);
 				nodoPadre->setNextNode(-1);
 				freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
