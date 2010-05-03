@@ -489,14 +489,14 @@ public:
 			 //CASO 1: Si el nodo interno nodoPadre tiene mas claves que el minimo y la key (clave) no es la clave mas grande en el nodoPadre
 			 //		   simplemente borrar key de nodoPadre
 		if((nodoPadre->getNumKeys()-1)>1){
-			if(((nodoPadre->getNumKeys()-1)>nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && key!=nodoPadre->largestKey()){
+			if(((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && key!=nodoPadre->largestKey()){
 				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				this->store(nodoPadre);
 
 			}/*CASO 2: Si el nodo interno nodoPadre tiene mas claves que el minimo numero de claves y la clave key es la mas grande en nodoPadre, borrar la clave key y modificar el indice de
 			           mayor nivel que direcciona a la nueva clave mas grande en nodoPadre.
 			  */
-			else if(((nodoPadre->getNumKeys()-1)>nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && nodoPadre->largestKey()==key){
+			else if(((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && nodoPadre->largestKey()==key){
 				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				actualizarIndexSet(key,nodoPadre->largestKey(),true);
 				this->store(nodoPadre);
@@ -513,6 +513,7 @@ public:
 				underflow(key,nodoPadre,nivelArbol-1);
 			}
 		}else{ //resolver underflow raiz para 1 clave (subir todo a la raiz)
+			//underflow(key,nodoPadre,nivelArbol-1);
 			nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 			return -2;
 		}
@@ -706,7 +707,7 @@ public:
 		return false;
 	}
 
-	int concatenarNodos(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino){
+	int concatenarNodos(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino, int nivelPadre){
 		int ret_removeIndex=1;
 		BNode* nodeMergeFather;
 
@@ -749,14 +750,17 @@ public:
 				}else
 					return -1;
 
-				this->store(nodoPadre);
+//				this->store(nodoPadre);
 			}else{
 
 				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2); //elimino porque el merge borra y inserta poniendo largestKey
-					if (ret_removeIndex == 1)
-						nodoPadre=this->nodes[this->height-2];
+					int auxheight = this->height;
+					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,nivelPadre); //elimino porque el merge borra y inserta poniendo largestKey
+					if (ret_removeIndex == 1 && nivelPadre == 1 && auxheight != this->height)
+						nodoPadre=this->nodes[0];
+					if(nodoPadre->search(nodoVecino->largestKey())>=0) //significa que no cumplio con la condicion de concatenacion y por lo tanto no elimino la clave del nodo padre
+						nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey())]);
 					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
@@ -773,10 +777,10 @@ public:
 					nodeMergeFather=nodoVecino;
 				}else
 					return -1;
-
-				if(ret_removeIndex!=-2)
-				this->store(nodoPadre);
 			}
+
+			if(ret_removeIndex!=-2)
+			this->store(nodoPadre);
 
 			this->store(nodeMergeFather);
 
@@ -922,8 +926,8 @@ public:
 		keyType key;
 		int indice;
 		int sizeOfData=0;
-		keyType largestKey;
-		bool isLargestKeyRedistribuida=false;
+		keyType largestKeyOldNodoDestino=nodoDestino->largestKey();
+		keyType largestKeyOldNodoOrigen=nodoOrigen->largestKey();
 
 		do{
 		key = obtenerClaveComparacion(nodoDestino->largestKey(),nodoOrigen);
@@ -935,11 +939,6 @@ public:
 
 		if(isUnderflowNodoOrigen)
 			break;
-
-		if(nodoOrigen->largestKey()==key && !isLargestKeyRedistribuida){
-			isLargestKeyRedistribuida=true;
-			largestKey = key;
-		}
 
 		if(nodoOrigen->getIsLeaf())
 		nodoDestino->insert(key,nodoOrigen->getData()[indice]);
@@ -954,8 +953,11 @@ public:
 			next=false;
 		}while(next);
 
-		if(isLargestKeyRedistribuida)
-			actualizarIndexSet(largestKey,nodoOrigen->largestKey(),true);
+		if(largestKeyOldNodoDestino<nodoDestino->largestKey())
+		actualizarIndexSet(largestKeyOldNodoDestino,nodoDestino->largestKey(),true);
+		else if(largestKeyOldNodoOrigen>nodoOrigen->largestKey()){
+			actualizarIndexSet(largestKeyOldNodoOrigen,nodoOrigen->largestKey(),true);
+		}
 
 		this->store(nodoOrigen);
 		this->store(nodoDestino);
@@ -1146,9 +1148,10 @@ public:
 
 		//retUnderflowRootNodeInterno=underflowRootNodeInterno(nodoPadre,nodo,key);
 
+		//if(nodo->getIsLeaf())
 		redistribucionClaves=isHasRedistribuirKeysRecursive(key,nodo,nivelPadre,nivelPadre+2);
 
-		if(redistribucionClaves!=-1) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
+		if(redistribucionClaves!=-1 /*&& nodo->getIsLeaf()*/) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
 			redistribuirClavesRecursivoUnderflow(nodoPadre,nodo,key,nivelPadre,redistribucionClaves);
 		else{ //si no era caso de underflow en la raiz o nodo interno, concateno
 			int ret_concatenacion;
@@ -1156,16 +1159,19 @@ public:
 			BNode* nodoVecino;
 			nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0);
 
+//			if(nodo->getRecAddr()==nodoVecino->getAddr())
+//				nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
+
 			//if(val_node!=1)//significa que solo puede obtener un solo nodoVecino (el derecho o izquierdo, no es necesario saberlo aqui)
-				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino);
+				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 
 			//else{ //veo si puedo concatenar con el otro nodo vecino
 
 //				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino);
 
-				if(ret_concatenacion==-1){
+				if(ret_concatenacion==-1 && val_node!=2){
 					BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1); //obtenego el nodo vecino izquierdo
-					ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino);
+					ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
 				}
 
 			//}
