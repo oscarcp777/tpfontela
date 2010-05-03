@@ -754,13 +754,16 @@ public:
 			}else{
 
 				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
+
 					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 					int auxheight = this->height;
 					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,nivelPadre); //elimino porque el merge borra y inserta poniendo largestKey
-					if (ret_removeIndex == 1 && nivelPadre == 1 && auxheight != this->height)
+					if (ret_removeIndex == 1 && nivelPadre == 1 && auxheight != this->height){
 						nodoPadre=this->nodes[0];
+					}
 					if(nodoPadre->search(nodoVecino->largestKey())>=0) //significa que no cumplio con la condicion de concatenacion y por lo tanto no elimino la clave del nodo padre
 						nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey())]);
+
 					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
@@ -785,7 +788,16 @@ public:
 			this->store(nodeMergeFather);
 
 			if(ret_removeIndex==-2){
+
 				nodoPadre->remove(nodoPadre->getKeys()[0],nodoPadre->getRecAddrs()[0]);
+
+				if(nodoPadre->getNumKeys()!=0){
+					int numKeys=nodoPadre->getNumKeys();
+					for(int i=0;i<numKeys;i++){
+					nodoPadre->remove(nodoPadre->getKeys()[i],nodoPadre->getRecAddrs()[i]);
+					}
+				}
+
 				nodoPadre->setIsLeaf(nodeMergeFather->getIsLeaf());
 				nodoPadre->merge(nodeMergeFather);
 				nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
