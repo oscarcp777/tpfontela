@@ -161,8 +161,8 @@ public:
 
 	int  merge(BTreeNode* fromNode){		//mueve desde el nodo
 
-		//chequea si hay demasiadas claves
-		if (this->numKeys + fromNode->numKeys > this->maxKeys-1) return 0;
+		//chequea si hay demasiadas claves, si supero el maximo
+		if (this->numKeys + fromNode->numKeys > this->maxKeys) return 0;
 		//mueve claves y direcciones desde fromNode a este nodo
 		for(int i = 0; i < fromNode->numKeys; i++){
 			this->keys[this->numKeys+i] = fromNode->keys[i];
@@ -176,6 +176,7 @@ public:
 				freeSpace-=this->keySize;
 			}
 		}
+
 		//ajustar numero de claves
 		this->numKeys += fromNode->numKeys;
 

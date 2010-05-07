@@ -376,39 +376,11 @@ public:
 		return this->endSecuentSet;
 	}
 
-	/*void updateFreeSpaceDataAddNode(BTreeNode<keyType>* nodo,keyType key,char*data){
-		int sizeRemoveFreeSpace;
-
-		if(nodo->getIsLeaf()){
-			//string data = search(key,-1);
-			sizeRemoveFreeSpace = strlen(data)+sizeof(short)+nodo->getKeySize();
-		}else
-			sizeRemoveFreeSpace = nodo->getKeySize();
-
-		nodo->setFreeSpace(nodo->getFreeSpace()-sizeRemoveFreeSpace);
-	}*/
-
-	/*void updateFreeSpaceRemoveDataNode(BTreeNode<keyType>* nodo,keyType key){
-
-		int sizeAddFreeSpace;
-
-		if(nodo->getIsLeaf()){
-			string data = search(key,-1);
-			sizeAddFreeSpace = data.length()+sizeof(short)+nodo->getKeySize();
-		}else
-			sizeAddFreeSpace = nodo->getKeySize();
-
-		nodo->setFreeSpace(nodo->getFreeSpace()+sizeAddFreeSpace);
-	}*/
-
 	/* METODOS PARA LA BAJA DEL ARBOL */
 
-	int actualizarIndexSet(keyType keyVieja, keyType keyNueva,bool escribirNodo){
+	int actualizarIndexSet(keyType keyVieja, keyType keyNueva,bool escribirNodo,int nivel){
 
 		BNode* nodo;
-		int nivel;
-
-		nivel=this->height-2;
 
 		if(nivel>=0){
 			do{
@@ -428,79 +400,56 @@ public:
 	}
 
 
-	int bajarUnNivel(int nivelInferiorNodo){
+	void bajarUnNivel(BTreeNode<keyType>* nodoPadre,BTreeNode<keyType>* nodeMergeFather){
 
-		BNode* nodoNivelInferior = this->nodes[nivelInferiorNodo];
-		BNode* nodoInterno;
-		int numKeys=nodoNivelInferior->getNumKeys();
-		int numKeysNodoInterno=0;
-		int* direccionesAux = new int[nodoNivelInferior->getNumKeys()];
-
-		memcpy(direccionesAux,nodoNivelInferior->getRecAddrs(),(nodoNivelInferior->getNumKeys())*sizeof(int));
-
-		for(int i=0;i<numKeys;i++){
-
-			nodoInterno=this->fetch(direccionesAux[i],nivelInferiorNodo);
-			numKeysNodoInterno=nodoInterno->getNumKeys();
-
-			for(int j=0;j<numKeysNodoInterno;j++){
-
-				if(j==numKeysNodoInterno-1){
-					nodoNivelInferior->updateAddr(nodoInterno->largestKey(),nodoInterno->getRecAddrs()[j]);
-				}else
-					nodoNivelInferior->insert(nodoInterno->getKeys()[j],nodoInterno->getData()[j],nodoInterno->getRecAddrs()[j]);
-
-
+		if(nodoPadre->getNumKeys()!=0){
+			int numKeys=nodoPadre->getNumKeys();
+			for(int i=0;i<numKeys;i++){
+				nodoPadre->remove(nodoPadre->getKeys()[i],nodoPadre->getRecAddrs()[i]);
 			}
-
 		}
 
-		delete(direccionesAux);
-
-		this->store(nodoNivelInferior);
-
-		this->findLeaf(nodoInterno->largestKey());
-
+		nodoPadre->setIsLeaf(nodeMergeFather->getIsLeaf());
+		nodoPadre->merge(nodeMergeFather);
+		nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
+		nodoPadre->setNextNode(-1);
+		freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
+		store(nodoPadre);
 		this->height--;
-
 		this->writeMetadata();
-
-		return 0;
 	}
 
-//	int underflowNodoInterno(BTreeNode<keyType>* nodo,keyType key, int nivel){
-//
-//	}
+	int eliminarKeyRaiz(keyType key, BTreeNode<keyType>* nodoPadre,int nivel){
+		if(nivel==0){
+		nodoPadre->remove(key,-1);
+		if(nodoPadre->getNumKeys()==1)
+			return -2;
 
-	int underflowRootNodeInterno(BTreeNode<keyType>* nodoPadre,BTreeNode<keyType>* nodo,keyType key){
-//			if((nodoPadre->search(key)!=-1) && ((!nodoPadre->getIsLeaf() && ((nodoPadre->getNumKeys()-1)<nodoPadre->getMinKeys(blockSize)))
-//					|| (nodoPadre->getIsLeaf() && nodoPadre->caseDataRemove(tamanioDato(key,nodoPadre),blockSize)==-1))){
-//				if((this->height-2 == 0)&&((nodoPadre->getNumKeys()-1)==1)) //si solo tengo 2 niveles y el padre tiene 1 sola clave, subo todo a la raiz
-//					resolverUnderflowNodoInterno(NULL,nodoPadre,nodo,key);
-//				else
-//					resolverUnderflowNodoInterno(this->nodes[this->height-3],nodoPadre,nodo,key);
-//
-//			}
-			return 1;
+		return 1;
+		}
+		return -1;
+
 	}
 
 	int eliminarIndexSet(keyType key, BTreeNode<keyType>* nodoPadre,int nivelArbol){
 
 			 //CASO 1: Si el nodo interno nodoPadre tiene mas claves que el minimo y la key (clave) no es la clave mas grande en el nodoPadre
 			 //		   simplemente borrar key de nodoPadre
-		if((nodoPadre->getNumKeys()-1)>1){
-			if(((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && key!=nodoPadre->largestKey()){
+
+			if((((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize)) && key!=nodoPadre->largestKey())){
 				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
 				this->store(nodoPadre);
+				return 1;
 
 			}/*CASO 2: Si el nodo interno nodoPadre tiene mas claves que el minimo numero de claves y la clave key es la mas grande en nodoPadre, borrar la clave key y modificar el indice de
 			           mayor nivel que direcciona a la nueva clave mas grande en nodoPadre.
 			  */
-			else if(((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize) || nivelArbol==0) && nodoPadre->largestKey()==key){
+			else if(((nodoPadre->getNumKeys()-1)>=nodoPadre->getMinKeys(blockSize)) && nodoPadre->largestKey()==key){
 				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
-				actualizarIndexSet(key,nodoPadre->largestKey(),true);
-				this->store(nodoPadre);
+				actualizarIndexSet(key,nodoPadre->largestKey(),true,nivelArbol-1);
 
+				this->store(nodoPadre);
+				return 1;
 			}else{
 
 			    /*CASO 3: Si el nodo padre tiene exactamente el minimo numero de claves y uno de los vecinos del nodo padre tiene pocas claves (cantidad de claves minima), mergear
@@ -510,15 +459,20 @@ public:
 						   redistribuir moviendo algunas claves desde un vecino hacia n, y modificar el indice mas alto para direccionar la nueva clave mayor en los nodos afectados.
 				 */
 
-				underflow(key,nodoPadre,nivelArbol-1);
-			}
-		}else{ //resolver underflow raiz para 1 clave (subir todo a la raiz)
-			//underflow(key,nodoPadre,nivelArbol-1);
-			nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
-			return -2;
-		}
 
-		return 1;
+				if((nodoPadre->getNumKeys()-1)==1){
+					nodoPadre->remove(key,-1);
+				    return -2;
+				}
+
+				underflow(key,nodoPadre,nivelArbol-1);
+
+
+				return 1;
+
+			}
+
+		return 0; //retorno 0 no hago nada en el concatenar
 	}
 
 	int tamanioDato(keyType key,BTreeNode<keyType>* nodo){
@@ -586,113 +540,6 @@ public:
 	}
 
 
-	void resolverUnderflowRaiz(BTreeNode <keyType>* nodoPadre,keyType key){
-		BNode* nodoHoja;
-		bool keyRemovida=false;
-		int numKeys=nodoPadre->getNumKeys();
-		BNode * newNode = new BNode(this->blockSize,this->keySize);
-        keyType* vecKeysRemove = new keyType[newNode->getMaxKeys()];
-        int posKeyRemove=0;
-        int index;
-		newNode->setIsLeaf(1);
-
-		for(int i=0;i<numKeys;i++){
-			nodoHoja=fetch(nodoPadre->getRecAddrs()[i],this->height);
-
-			if(!keyRemovida){
-				index=nodoHoja->search(key);
-				if(nodoHoja->largestKey()==key){
-					vecKeysRemove[posKeyRemove]=key;
-					posKeyRemove++;
-					keyRemovida=true;
-				}
-				nodoHoja->remove(key,nodoHoja->getRecAddrs()[index]);
-			}else{
-				vecKeysRemove[posKeyRemove]=nodoHoja->largestKey();
-				posKeyRemove++;
-			}
-
-			newNode->merge(nodoHoja);
-		}
-
-			for(int i=0;i<=posKeyRemove;i++){
-				keyType keyRemove=vecKeysRemove[i];
-				nodoPadre->remove(keyRemove,nodoPadre->getRecAddrs()[nodoPadre->search(keyRemove)]);
-			}
-
-			nodoPadre->setIsLeaf(1);
-			nodoPadre->merge(newNode);
-			nodoPadre->setRecAddr(-1);
-			nodoPadre->setNextNode(-1);
-
-			store(nodoPadre);
-
-			this->height--;
-
-			this->writeMetadata();
-
-			//delete newNode;  VER SE ESTA COLGANDO MEMORIA MALL
-			delete[] vecKeysRemove;
-
-	}
-
-	/**
-	 * En caso de que no se pueda hacer una redistribucion de nodos ni una concatenacion habra que balancear el arbol a un nivel anterior
-	 * viendo el nodo interno (nodo padre) de la key a eliminar del nodo hoja, si tiene un nodo vecino con el cual se pueda redistribuir claves y/o
-	 * realizar concatenacion, balanceando el arbol.
-	 */
-
-
-	int resolverUnderflowNodoInterno(BTreeNode <keyType>* nodoAbuelo, BTreeNode <keyType>* nodoPadre, BTreeNode <keyType>* nodoHoja, keyType key){
-
-		if(nodoAbuelo==NULL){
-			BNode* nodo = this->findLeaf(key);
-			if(nodo!=nodoPadre)
-				resolverUnderflowRaiz(nodoPadre,key);
-			else{
-				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
-				this->store(nodoPadre);
-			}
-
-			return 1;
-		}
-
-	/*	BNode* nodoVecino;
-		BNode* nodoVecinoAux;
-
-		if(nodoAbuelo==NULL){
-			BNode* nodo = this->findLeaf(key);
-			if(nodo!=nodoPadre)
-			resolverUnderflowRaiz(nodoPadre,key);
-			else{
-				nodoPadre->remove(key,nodoPadre->getRecAddrs()[nodoPadre->search(key,-1)]);
-				this->store(nodoPadre);
-			}
-
-			return 1;
-		}
-
-		nodoVecino = obtenerNodoVecino(nodoPadre,nodoAbuelo,nodoAbuelo->search(nodoPadre->largestKey()),this->height,true);
-
-			int indiceClave=nodoPadre->search(key);
-			if(indiceClave<0)
-				indiceClave=nodoPadre->search(nodoHoja->largestKey());
-			nodoVecinoAux=obtenerNodoVecino(nodoHoja,nodoPadre,indiceClave,this->height,true);
-			search(nodoHoja->largestKey()); //para actualizar la profundidad
-			nodoPadre=this->nodes[this->height-2];
-			concatenarNodos(key,nodoPadre,nodoHoja,nodoVecinoAux,true);
-
-			if(nodoHoja->getTamanioOcupado(blockSize)<nodoHoja->getMinFreeSpace(blockSize)){//el nodoVecinoAux se mergeo la hoja
-				search(nodoVecinoAux->largestKey());
-				nodoPadre=this->nodes[this->height-2];
-				concatenarNodos(key,nodoPadre,nodoVecinoAux,nodoVecino,false);
-			}else //el nodoHoja se mergeo con el nodoVecinoAux
-				concatenarNodos(key,nodoPadre,nodoHoja,nodoVecino,false);
-
-		return 1;*/
-		return 0;
-	}
-
 	bool cumpleCondicionConcatenacion(BTreeNode <keyType>* nodo,BTreeNode <keyType>* nodoVecino, keyType key,int ordenDeComparacionNodos){
 		if(ordenDeComparacionNodos==1 && nodoVecino->getIsLeaf())//verifico que el nodo pueda entrar en el nodo vecino
 		return ((nodoVecino->getFreeSpace())>=(blockSize-(nodo->getFreeSpace()+tamanioDato(key,nodo))));
@@ -708,112 +555,97 @@ public:
 	}
 
 	int concatenarNodos(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino, int nivelPadre){
-		int ret_removeIndex=1;
 		BNode* nodeMergeFather;
-
-
+		int ret_removeIndex=1;
 
 			if((key==nodoPadre->largestKey())&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1))){
-				nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 
-				if(nodo->getNumKeys()!=0){
-				nodoPadre->updateAddr(key,nodoPadre->getRecAddrs()[nodoPadre->getNumKeys()-2]);
-				ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
-				this->actualizarIndexSet(key,nodo->largestKey(),true);
-				}else
-					ret_removeIndex=eliminarIndexSet(key,nodoPadre,this->height-2);
-
+				nodo->remove(key,-1);
+				//int addrNodeLeaf=nodo->getRecAddr();
+				actualizarIndexSet(key,nodo->largestKey(),true,nivelPadre);
+				nodoPadre->updateAddr(nodo->largestKey(),nodoVecino->getRecAddr());
+				keyType keyAremover = nodoVecino->largestKey();
 				nodoVecino->merge(nodo);
 				nodoVecino->setNextNode(nodo->getNextNode());
-				freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
+				freeBlocks->add(nodo->getRecAddr());
 				nodeMergeFather=nodoVecino;
+				ret_removeIndex=eliminarKeyRaiz(keyAremover,nodoPadre,nivelPadre);
+				if(ret_removeIndex==-1)
+				ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre);
+
 			}else if(key==nodo->largestKey()){
 
 				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
-					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					//ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
-					//nodoPadre->updateKey(key,nodoVecino->largestKey());
-					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,this->height-2);
-					actualizarIndexSet(key,nodoVecino->largestKey(),true);
+
+					nodo->remove(key,-1);
+					nodoPadre->updateAddr(nodoVecino->largestKey(),nodo->getRecAddr());
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
-				}else if(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1)){
-					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					nodoPadre->updateKey(nodoVecino->largestKey(),nodo->largestKey());
-					ret_removeIndex=eliminarIndexSet(key,nodoPadre,this->height-2);
+					ret_removeIndex=eliminarKeyRaiz(key,nodoPadre,nivelPadre);
+					if(ret_removeIndex==-1)
+					ret_removeIndex=eliminarIndexSet(key,nodoPadre,nivelPadre);
+				}else if(key>nodoVecino->largestKey() && (cumpleCondicionConcatenacion(nodo,nodoVecino,key,1))){
+					nodo->remove(key,-1);
+					//int addrNodeLeaf=nodo->getRecAddr();
+					nodoPadre->updateKey(key,nodo->largestKey());
+					nodoPadre->updateAddr(nodo->largestKey(),nodoVecino->getRecAddr());
+					keyType keyAremover = nodoVecino->largestKey();
 					nodoVecino->merge(nodo);
 					nodoVecino->setNextNode(nodo->getNextNode());
-					freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
+					freeBlocks->add(nodo->getRecAddr());
 					nodeMergeFather=nodoVecino;
+					ret_removeIndex=eliminarKeyRaiz(keyAremover,nodoPadre,nivelPadre);
+					if(ret_removeIndex==-1)
+					ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre);
 				}else
-					return -1;
+					ret_removeIndex = -1; //no se pudo concatenar
 
-//				this->store(nodoPadre);
-			}else{
+			}else{ //es una clave que no es la mayor en el nodo
 
 				if((key<nodoVecino->getKeys()[0])&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,0))){
 
-					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					int auxheight = this->height;
-					ret_removeIndex=eliminarIndexSet(nodoVecino->largestKey(),nodoPadre,nivelPadre); //elimino porque el merge borra y inserta poniendo largestKey
-					if (ret_removeIndex == 1 && nivelPadre == 1 && auxheight != this->height){
-						nodoPadre=this->nodes[0];
-					}
-					if(nodoPadre->search(nodoVecino->largestKey())>=0) //significa que no cumplio con la condicion de concatenacion y por lo tanto no elimino la clave del nodo padre
-						nodoPadre->remove(nodoVecino->largestKey(),nodoPadre->getRecAddrs()[nodoPadre->search(nodoVecino->largestKey())]);
-
-					nodoPadre->updateKey(nodo->largestKey(),nodoVecino->largestKey());
+					nodo->remove(key,-1);
+					nodoPadre->updateAddr(nodoVecino->largestKey(),nodo->getRecAddr());
+					keyType keyAremover = nodo->largestKey();
 					nodo->merge(nodoVecino);
 					nodo->setNextNode(nodoVecino->getNextNode());
 					freeBlocks->add(nodoVecino->getRecAddr()); //al concatenar marco como libre el nodo vecino
 					nodeMergeFather=nodo;
-				}else if(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1)){
-					nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
-					ret_removeIndex=eliminarIndexSet(nodo->largestKey(),nodoPadre,this->height-2);
-					actualizarIndexSet(nodoVecino->largestKey(),nodo->largestKey(),true);
-					//nodoPadre->updateKey(nodoVecino->getKeys()[nodoVecino->getNumKeys()-2],nodoVecino->largestKey());
+					ret_removeIndex=eliminarKeyRaiz(keyAremover,nodoPadre,nivelPadre);
+					if(ret_removeIndex==-1)
+					ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre); //elimino porque el merge borra y inserta poniendo largestKey
+				}else if(key>nodoVecino->largestKey() && (cumpleCondicionConcatenacion(nodo,nodoVecino,key,1))){
+					nodo->remove(key,-1);
+					nodoPadre->updateAddr(nodo->largestKey(),nodoVecino->getRecAddr());
+					keyType keyAremover = nodoVecino->largestKey();
 					nodoVecino->merge(nodo);
 					nodoVecino->setNextNode(nodo->getNextNode());
 					freeBlocks->add(nodo->getRecAddr()); //al concatenar marco como libre el nodo hoja
 					nodeMergeFather=nodoVecino;
+					ret_removeIndex=eliminarKeyRaiz(keyAremover,nodoPadre,nivelPadre);
+					if(ret_removeIndex==-1)
+					ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre);
 				}else
-					return -1;
+					ret_removeIndex = -1;
 			}
 
-			if(ret_removeIndex!=-2)
+			if(ret_removeIndex==1){
 			this->store(nodoPadre);
-
 			this->store(nodeMergeFather);
-
-			if(ret_removeIndex==-2){
-
-				nodoPadre->remove(nodoPadre->getKeys()[0],nodoPadre->getRecAddrs()[0]);
-
-				if(nodoPadre->getNumKeys()!=0){
-					int numKeys=nodoPadre->getNumKeys();
-					for(int i=0;i<numKeys;i++){
-					nodoPadre->remove(nodoPadre->getKeys()[i],nodoPadre->getRecAddrs()[i]);
-					}
-				}
-
-				nodoPadre->setIsLeaf(nodeMergeFather->getIsLeaf());
-				nodoPadre->merge(nodeMergeFather);
-				nodoPadre->setFreeSpace(nodeMergeFather->getFreeSpace());
-//				nodoPadre->setRecAddr(-1);
-				nodoPadre->setNextNode(-1);
-				freeBlocks->add(nodeMergeFather->getRecAddr()); //al concatenar marco como libre el nodo que se mergeo con el padre
-				store(nodoPadre);
-				this->height--;
-				this->writeMetadata();
+			}else if(ret_removeIndex==-1){
+				simpleRemove(nodo,key,-1,true);
+			}else if(ret_removeIndex==-2){
+				this->store(nodeMergeFather);
+				bajarUnNivel(nodoPadre,nodeMergeFather);
 			}
 
 		return 1;
 	}
 
 	void redistribuirNodeFatherLargestEqualsKey(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino){
-		actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],true);
+		actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],true,this->height-2);
 		nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 		if(nodo->getIsLeaf())
 			nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
@@ -966,27 +798,14 @@ public:
 		}while(next);
 
 		if(largestKeyOldNodoDestino<nodoDestino->largestKey())
-		actualizarIndexSet(largestKeyOldNodoDestino,nodoDestino->largestKey(),true);
+		actualizarIndexSet(largestKeyOldNodoDestino,nodoDestino->largestKey(),true,this->height-2);
 		else if(largestKeyOldNodoOrigen>nodoOrigen->largestKey()){
-			actualizarIndexSet(largestKeyOldNodoOrigen,nodoOrigen->largestKey(),true);
+			actualizarIndexSet(largestKeyOldNodoOrigen,nodoOrigen->largestKey(),true,this->height-2);
 		}
 
 		this->store(nodoOrigen);
 		this->store(nodoDestino);
 
-		return 1;
-	}
-
-	int concatenarDatosYclavesSinRemover(BTreeNode<keyType>* nodoOrigen, BTreeNode<keyType>* nodoDestino){
-		if(nodoOrigen->largestKey()>nodoDestino->largestKey()){ //nodoOrigen a derecha y nodoDestino a izquierda
-			nodoDestino->setNextNode(nodoOrigen->getNextNode());
-			nodoDestino->merge(nodoOrigen);
-			store(nodoDestino);
-		}else{
-			nodoOrigen->setNextNode(nodoDestino->getNextNode());
-			nodoOrigen->merge(nodoDestino);
-			store(nodoOrigen);
-		}
 		return 1;
 	}
 
@@ -1147,48 +966,28 @@ public:
 
 		BNode* nodoPadre=NULL;
 
-		int indiceClave;
 		int redistribucionClaves;
-//		int retUnderflowRootNodeInterno;
-
 
 		nodoPadre=this->nodes[nivelPadre];
-		indiceClave=nodoPadre->search(key,-1); //si la encuentra el indice clave me dara la posicion de la clave en el array de claves del nodoPadre.
 
-		if(indiceClave<0) //la clave a eliminar no esta en el padre "no forma parte del index set"
-			indiceClave=nodoPadre->search(nodo->largestKey()); //busca el indice de la clave mayor en el padre
-
-		//retUnderflowRootNodeInterno=underflowRootNodeInterno(nodoPadre,nodo,key);
-
-		//if(nodo->getIsLeaf())
 		redistribucionClaves=isHasRedistribuirKeysRecursive(key,nodo,nivelPadre,nivelPadre+2);
 
-		if(redistribucionClaves!=-1 /*&& nodo->getIsLeaf()*/) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
+		if(redistribucionClaves!=-1) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
 			redistribuirClavesRecursivoUnderflow(nodoPadre,nodo,key,nivelPadre,redistribucionClaves);
 		else{ //si no era caso de underflow en la raiz o nodo interno, concateno
 			int ret_concatenacion;
 			int val_node=0;
 			BNode* nodoVecino;
-			nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0);
+			nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 
-//			if(nodo->getRecAddr()==nodoVecino->getAddr())
-//				nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
-
-			//if(val_node!=1)//significa que solo puede obtener un solo nodoVecino (el derecho o izquierdo, no es necesario saberlo aqui)
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 
-			//else{ //veo si puedo concatenar con el otro nodo vecino
-
-//				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino);
-
 				if(ret_concatenacion==-1 && val_node!=2){
-					BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1); //obtenego el nodo vecino izquierdo
+					BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
 					ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
 				}
 
-			//}
-
-			return ret_concatenacion;
+				return ret_concatenacion;
 
 		}
 
@@ -1199,7 +998,7 @@ public:
 	int simpleRemove(BTreeNode<keyType>*nodoHoja,keyType key,int dir,bool removeWithUnderflow){
 		/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
 		if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key!=nodoHoja->largestKey())||(this->height==1)){
-			//updateFreeSpaceRemoveDataNode(nodoHoja,key);
+
 			nodoHoja->remove(key,dir);
 
 			this->store(nodoHoja);
@@ -1208,9 +1007,9 @@ public:
 				           mayor nivel que direcciona a la nueva clave mas grande en n.
 		 */
 		else if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja),blockSize)>=0 || removeWithUnderflow) && key==nodoHoja->largestKey())||(this->height==1)){
-			//updateFreeSpaceRemoveDataNode(nodoHoja,key);
+
 			nodoHoja->remove(key,dir);
-			actualizarIndexSet(key,nodoHoja->largestKey(),true);
+			actualizarIndexSet(key,nodoHoja->largestKey(),true,this->height-2);
 			this->store(nodoHoja);
 			return 1;
 		}
@@ -1286,17 +1085,14 @@ protected:
 
 		int recaddr, level;
 		for(level = 1; level < this->height; level++){
-//			recaddr = this->nodes[level-1]->search(key,-1,0);
+
 			recaddr = this->nodes[level-1]->getRecAddrs()[this->nodes[level-1]->search(key,-1,0)];
 			if (this->nodes[level] == NULL || this->nodes[level]->getRecAddr() != recaddr){
 				if (this->nodes[level]  != NULL)
 					delete this->nodes[level];
 				this->nodes[level] = this->fetch(recaddr,level+1);
 			}
-//			if (level + 1 == this->height)
-//				this->nodes[level]->setIsLeaf(1);
-//			else
-//				this->nodes[level]->setIsLeaf(0);
+
 		}
 
 		return this->nodes[level-1];
