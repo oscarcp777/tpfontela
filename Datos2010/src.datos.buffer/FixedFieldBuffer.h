@@ -24,7 +24,7 @@ public:
 	int numberOfFields() const;
 	int init(int maxFields);
 	int init(int numFields, int* fieldSize);
-
+	int close();
 protected:
 	int* fieldSize; //array to hold field sizes
 	int maxFields; //maximum number of fields

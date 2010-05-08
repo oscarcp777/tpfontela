@@ -119,6 +119,11 @@ int FixedFieldBuffer::init(int numFields, int* fieldSize){
 FixedFieldBuffer::FixedFieldBuffer(const FixedFieldBuffer & ){
 
 }
+int FixedFieldBuffer::close(){
+   delete [] fieldSize;
+   delete [] this->buffer;
+   return 1;
+}
 
 FixedFieldBuffer::~FixedFieldBuffer(){
 

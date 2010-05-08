@@ -11,6 +11,10 @@ IOBuffer::IOBuffer(int maxBytes) {
 	this->init(maxBytes);
 
 }
+int IOBuffer::close(){
+   delete [] this->buffer;
+   return 1;
+}
 
 IOBuffer::~IOBuffer() {
 

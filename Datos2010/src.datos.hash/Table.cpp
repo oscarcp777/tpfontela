@@ -142,8 +142,7 @@ void Table::setValueVectorOffsetCube(int position,int value){
 Table::~Table() {
 	clearIndexOffsetModified();
 	delete this->fileCubes;
-	//delete this->fileCubesFree;
-	delete offsetFreeCubes;
+	delete this->offsetFreeCubes;
 	delete this->fileTable;
 	delete this->currentCube;
 	delete this->output;
