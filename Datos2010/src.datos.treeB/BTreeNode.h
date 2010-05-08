@@ -43,7 +43,7 @@ public:
 					this->data[i]=NULL;
 				}
 		}
-		delete this->data;
+		delete []this->data;
 	}
 
 	int  insert(const keyType key, const char* data, int recAddr = -1){
@@ -176,7 +176,6 @@ public:
 				freeSpace-=this->keySize;
 			}
 		}
-
 		//ajustar numero de claves
 		this->numKeys += fromNode->numKeys;
 

@@ -13,7 +13,8 @@ IOBuffer::IOBuffer(int maxBytes) {
 }
 
 IOBuffer::~IOBuffer() {
-	// TODO Auto-generated destructor stub
+
+	delete []this->buffer;
 }
 
 IOBuffer & IOBuffer::operator = (const IOBuffer & buffer){

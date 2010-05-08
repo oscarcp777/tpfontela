@@ -122,6 +122,8 @@ FixedFieldBuffer::FixedFieldBuffer(const FixedFieldBuffer & ){
 
 FixedFieldBuffer::~FixedFieldBuffer(){
 
+	delete []this->fieldSize;
+
 }
 
 
