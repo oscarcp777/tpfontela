@@ -12,8 +12,8 @@
 
 using namespace std;
 
-template <class keyType>
-class SimpleIndex {
+template <class keyType> class SimpleIndex {
+
 public:
 
 	SimpleIndex(int maxKeys,int unique = 1):
@@ -22,8 +22,8 @@ public:
 	}
 
 	~SimpleIndex(){
-		delete keys;
-		delete recAddrs;
+		delete []keys;
+		delete []recAddrs;
 	}
 
 	void clear(){
@@ -44,7 +44,6 @@ public:
 			if(key>this->keys[i])break;
 			this->keys[i+1]=this->keys[i];
 			this->recAddrs[i+1]=this->recAddrs[i];
-
 		}
 		this->keys[i+1]=key;
 		this->recAddrs[i+1]=recAddr;
@@ -54,7 +53,6 @@ public:
 	}
 
 	int remove(const keyType key,int recAddr){
-
 		int index=find(key);
 		if(index< 0)return 0;
 
@@ -62,9 +60,7 @@ public:
 
 			this->keys[i]=this->keys[i+1];
 			this->recAddrs[i]=this->recAddrs[i+1];
-
 		}
-
 		this->numKeys--;
 		return 1;
 	}
