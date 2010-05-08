@@ -21,7 +21,7 @@ void Buffer::init(){
 	this->nextByte = 0;
 }
 Buffer::~Buffer() {
-	delete(this->buffer);
+	  delete[] buffer;
 }
 
 void Buffer::clear(){

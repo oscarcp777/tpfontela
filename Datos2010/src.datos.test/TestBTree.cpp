@@ -30,8 +30,6 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	BPlusTree<int> bt(blockSize);
 	bt.create(fileName,ios::out);
-	bt.print("files/input.btree.dat");
-
 	try{
 	/*
 	 * Inserta los datos provenientes de un archivo input.btree.dat.
@@ -102,7 +100,6 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 	try {
 
 		bt.open(fileName,ios::in|ios::out);
-		bt.print("files/salida");
 		bt.remover(3);//P
 		bt.remover(6);//U
 		bt.remover(9);//J
@@ -111,6 +108,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(18);//L
 		bt.remover(21);//L
 		bt.remover(24);//
+		bt.print("files/arbol1");
 		bt.remover(27);//
 		bt.remover(30);//L
 		bt.remover(33);//L
@@ -155,7 +153,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(172);//I
 		bt.remover(175);//K
 		bt.remover(178);//K
-		//bt.print("files/salida");
+
 		bt.remover(203);//P
 		bt.remover(206);//U
 		bt.remover(209);//J
@@ -241,6 +239,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(515);//L
 		bt.remover(518);//L
 		bt.remover(521);//L
+
 		bt.remover(524);//L
 		bt.remover(527);//L
 		bt.remover(530);//L
@@ -313,6 +312,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(775);//K
 		bt.remover(778);//K
 
+
 	} catch (string& e){
 		cerr << e << endl;
 	}
@@ -350,9 +350,6 @@ void TestBTree::runTestRemoveRompe(string fileName, int blockSize){
 		bt.remover(178);//N
 		bt.remover(115);//N
 		bt.print("files/arbol/arbolBajas4.txt");
-		bt.remover(118);//N
-		//ACA VUELA
-    	bt.print("files/arbol/arbolBajas5.txt");
 
 		bt.close();
 		cout<<"todo bien"<<endl;

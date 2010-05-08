@@ -28,12 +28,9 @@ void TestHash::runCreateAndInsertTest(){
 	HashExtensible* hash = new HashExtensible();
 	hash->create(fileName);
 	string cadena="r";
-	int num;
-	for (int var = 0; var < 50; ++var) {
-		num = rand()%100+1;
-		cout<<"Inserto el valor :"<<num<<endl;
-		cadena.append(StringUtils::convertIntToString(num));
-		hash->insert(num,(char*)cadena.c_str());
+	for (int var = 0; var < 5; ++var) {
+		cadena.append(StringUtils::convertIntToString(var));
+		hash->insert(var,(char*)cadena.c_str());
 		cadena="reg";
 	}
 	hash->print(printFileName);

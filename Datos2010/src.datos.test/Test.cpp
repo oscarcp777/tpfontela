@@ -11,13 +11,13 @@
 #include "TestLogger.h"
 #include "TestHash.h"
 #include "../src.datos.utils/Define.h"
-
+#include "../src.datos.storage/Buffer.h"
 int main(){
 
-	TestIOFile* testIOFile = new TestIOFile();
-	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
-	TestBTree* testBTree = new TestBTree();
-	TestLogger* testLogger = new TestLogger();
+//	TestIOFile* testIOFile = new TestIOFile();
+//	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
+//	TestBTree* testBTree = new TestBTree();
+//	TestLogger* testLogger = new TestLogger();
 	TestHash* testHash = new TestHash();
 
 //	testIOFile->runBinaryFileTest2();
@@ -26,14 +26,14 @@ int main(){
 //	testFreeBlockController->runAddTest();
 //	testFreeBlockController->runPrintTest(cout);
 //	testFreeBlockController->runGetTest();
-	testBTree->runTestInsert("files/testbt.dat", 128);
+//	testBTree->runTestInsert("files/testbt.dat", SIZE_CUBE);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
-//	testBTree->runTestRemove("files/testbt.dat",128);
+//	testBTree->runTestRemoveRompe("files/testbt.dat",SIZE_CUBE);
 //	testBTree->runTestRemoveRompe("files/testbt.dat",128);
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************
-//	testHash->runCreateAndInsertTest();
+	testHash->runCreateAndInsertTest();
 //	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
@@ -41,10 +41,10 @@ int main(){
 //	testHash->runExampleCatedraTest();
 //*************FIN TESTs HASH*******************
 
-	delete testLogger;
-	delete testIOFile;
-	delete testFreeBlockController;
-	delete testBTree;
+//	delete testLogger;
+//	delete testIOFile;
+//	delete testFreeBlockController;
+//	delete testBTree;
 	delete testHash;
 
 

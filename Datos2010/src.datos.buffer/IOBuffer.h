@@ -27,7 +27,7 @@ public:
 	virtual int dRead(istream & stream, int recRef); //read specified record
 	virtual int dWrite(ostream& stream, int recRef);//write specified record
 	//these header operations return the size of the header
-
+    int close();
 
 protected:
 	int initialized; //true if buffer is initializes

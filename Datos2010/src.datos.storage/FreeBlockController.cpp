@@ -72,7 +72,8 @@ bool FreeBlockController::isCreated(string fileName){
 }
 
 int FreeBlockController::close(){
-
+	this->buffer.close();
+    this->simpleBuffer.close();
 	int result = this->bTreeFile.BufferFile::reWind();
 	if (!result) return result;
 	return this->bTreeFile.close();

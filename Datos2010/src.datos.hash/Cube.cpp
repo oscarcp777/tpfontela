@@ -155,6 +155,7 @@ int Cube::loadCube(BinaryFile *fileCube, int offsetCube){
 			record->setKey(key);
 			record->setData(data);
 			this->records.push_back(record);
+			delete[] data;
 		}
 	}
 
