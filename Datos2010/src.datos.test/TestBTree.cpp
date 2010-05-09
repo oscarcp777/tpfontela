@@ -53,7 +53,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 			}
 		}
 		file.close();
-
+		delete parser;
 	}catch (string& e){
 			cerr << e << endl;
 	}

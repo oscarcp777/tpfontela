@@ -28,7 +28,7 @@ void TestHash::runCreateAndInsertTest(){
 	HashExtensible* hash = new HashExtensible();
 	hash->create(fileName);
 	string cadena="r";
-	for (int var = 0; var < 5; ++var) {
+	for (int var = 0; var < 500; ++var) {
 		cadena.append(StringUtils::convertIntToString(var));
 		hash->insert(var,(char*)cadena.c_str());
 		cadena="reg";
@@ -57,17 +57,17 @@ void TestHash::runRemoveTest(){
 	HashExtensible* hash = new HashExtensible();
 	hash->open(fileName);
 	vector<int> numVector;
-	numVector.push_back(70);
-	numVector.push_back(38);
-	numVector.push_back(24);
-	numVector.push_back(93);
-	numVector.push_back(78);
-	numVector.push_back(63);
-	numVector.push_back(31);
-	numVector.push_back(24);
-	numVector.push_back(88);
-	numVector.push_back(44);
-	numVector.push_back(19);
+	numVector.push_back(34);
+	numVector.push_back(510);
+//	numVector.push_back(408);
+//	numVector.push_back(775);
+//	numVector.push_back(78);
+//	numVector.push_back(63);
+//	numVector.push_back(31);
+//	numVector.push_back(24);
+//	numVector.push_back(88);
+//	numVector.push_back(44);
+//	numVector.push_back(19);
 
 	int num;
 	for(unsigned int i = 0; i < numVector.size() ; i++){
