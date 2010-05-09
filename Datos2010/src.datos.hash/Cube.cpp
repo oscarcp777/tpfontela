@@ -116,7 +116,6 @@ int Cube::addRecordList(Record* record){
 
 int Cube::eraseRecordList(list<Record*>::iterator iterRecord,Record* record ){
 	this->sizeFree=this->sizeFree+record->getSizeRecord();
-	this->records.erase(iterRecord);
 	return TRUE;
 }
 

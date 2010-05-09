@@ -336,6 +336,7 @@ int Table::overFlowInCube(int index,int offsetCubeOverFlow ){
 	return 1;
 }
 int Table::reallocate(int offsetCubeOverFlow){
+	list<Record*> listAux;
 	//TODO aca habria que igual que en el reallocate del cubo disérsar todos los regostros del
 	// del bloque debordado solo esos y nos el que queremos ingresar por que eso lo hacemos depues
 	// cuanddo encontremos donde
@@ -352,15 +353,15 @@ int Table::reallocate(int offsetCubeOverFlow){
 
 		if(offsetCubeOverFlow != newOffset){
 			this->loadCube(newOffset,this->SecondarycurrentCube);
-			//newCube->addRecordList(record);
 			this->SecondarycurrentCube->addRecordList(record);
 			this->currentCube->eraseRecordList(iterRecord,record);
-			iterRecord--;
 			this->SecondarycurrentCube->writeCube(fileCubes);
-			//newCube->writeCube(fileCubes);
+		}else{
+			listAux.push_back(record);
 		}
 		iterRecord++;
 	}
+    this->currentCube->setRecords(listAux);
 	this->currentCube->writeCube(this->fileCubes);
 	delete this->SecondarycurrentCube;
 	//delete newCube;
