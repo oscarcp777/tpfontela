@@ -113,6 +113,7 @@ public:
 
 	void setRecords(list<Record*> records)
 	{
+		this->records.clear();
 		this->records = records;
 	}
 
