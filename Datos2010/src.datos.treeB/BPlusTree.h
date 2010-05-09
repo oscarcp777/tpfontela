@@ -45,16 +45,7 @@ public:
 	}
 
 	~BPlusTree() {
-		int i;
-		for (i = MAX_HEIGHT-1; i > 0; i--) {
-			if (this->nodes[i] != NULL){
-				delete this->nodes[i];
-				this->nodes[i]=NULL;
-			}
-		}
-		delete this->nodes;
-		delete this->freeBlocks;
-		delete this->output;
+   //TODO libero la memoria en el close por que nunca se llama al destructor
 	}
 
 	/**
@@ -94,10 +85,21 @@ public:
 		int result = this->bTreeFile.BufferFile::reWind();
 		result = this->writeMetadata();
 		if (result == -1) return 0;
-//		result = this->bTreeFile.write(this->root);
-//		if (result == -1) return 0;
+		//		result = this->bTreeFile.write(this->root);
+		//		if (result == -1) return 0;
 		this->freeBlocks->close();
-		return this->bTreeFile.close();
+		this->bTreeFile.close();
+		this->buffer.close();
+		int i;
+		for (i = MAX_HEIGHT-1; i > 0; i--) {
+			if (this->nodes[i] != NULL){
+				delete  this->nodes[i];
+			}
+		}
+		delete [] this->nodes;
+		delete this->freeBlocks;
+		delete this->output;
+		return 1;
 	}
 
 	int  insert(const keyType key, const char* data){
@@ -1143,6 +1145,7 @@ protected:
 		buffer.unPack(&this->height);
 		if (blockSizeAux != this->blockSize)
 			throw string("BLOCK SIZE ERROR");
+		buffer.close();
 		return this->height != 0;
 	}
 
@@ -1157,7 +1160,9 @@ protected:
 		buffer.addField(this->blockSize-(2*sizeof(int)));
 		buffer.pack(&this->blockSize);
 		buffer.pack(&this->height);
-		return this->bTreeFile.BufferFile::writeFromBuffer(buffer,0);
+		int num=this->bTreeFile.BufferFile::writeFromBuffer(buffer,0);
+		buffer.close();
+		return num;
 	}
 
 	void  print(ostream & stream, int dirNodo, int level){

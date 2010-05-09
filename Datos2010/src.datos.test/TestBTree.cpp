@@ -60,6 +60,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	bt.print("files/arbolAltas.txt");
 	bt.close();
+	cout<<"FIN TEST OK "<<endl;
 }
 
 /**
@@ -108,7 +109,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(18);//L
 		bt.remover(21);//L
 		bt.remover(24);//
-		bt.print("files/arbol1");
+		bt.print("files/arbol/arbol1.txt");
 		bt.remover(27);//
 		bt.remover(30);//L
 		bt.remover(33);//L
@@ -239,7 +240,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(515);//L
 		bt.remover(518);//L
 		bt.remover(521);//L
-
+		bt.print("files/arbol/arbol2.txt");
 		bt.remover(524);//L
 		bt.remover(527);//L
 		bt.remover(530);//L
@@ -295,6 +296,7 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(724);//L
 		bt.remover(727);//L
 		bt.remover(730);//L
+		bt.print("files/arbol/arbol3.txt");
 		bt.remover(733);//L
 		bt.remover(736);//L
 		bt.remover(739);//L
@@ -304,19 +306,22 @@ void TestBTree::runTestRemove(string fileName, int blockSize){
 		bt.remover(751);//L
 		bt.remover(754);//L
 		bt.remover(757);//N
+		bt.print("files/arbol/arbol4.txt");
 		bt.remover(760);//X
 		bt.remover(763);//Y
 		bt.remover(766);//Z
 		bt.remover(769);//W
 		bt.remover(772);//I
 		bt.remover(775);//K
+		bt.print("files/arbol/arbol5.txt");
 		bt.remover(778);//K
-
+		bt.print("files/arbol/arbol6.txt");
 
 	} catch (string& e){
 		cerr << e << endl;
 	}
-
+	bt.close();
+	cout<<"FIN TEST REMOVE OK "<<endl;
 }
 /**
  * Test que evalúa el método remove del BTree
@@ -362,7 +367,8 @@ void TestBTree::runTestRemoveRompe(string fileName, int blockSize){
 		 cerr << "exception caught: " << e.what() << endl;
 		cout<<" se ha producido un error comuniquese con el administrador del sistema"<<endl;
 	}
-
+	bt.close();
+	cout<<"FIN TEST REMOVE OK "<<endl;
 }
 /*
  * Métodos que diferencian distintos caso de eliminación de una clave.
