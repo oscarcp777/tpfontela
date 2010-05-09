@@ -18,7 +18,7 @@ int IOBuffer::close(){
 
 IOBuffer::~IOBuffer() {
 
-	delete []this->buffer;
+	//delete []this->buffer;
 }
 
 IOBuffer & IOBuffer::operator = (const IOBuffer & buffer){

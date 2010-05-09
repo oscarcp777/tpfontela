@@ -127,7 +127,7 @@ int FixedFieldBuffer::close(){
 
 FixedFieldBuffer::~FixedFieldBuffer(){
 
-	delete []this->fieldSize;
+	//delete []this->fieldSize;
 
 }
 
