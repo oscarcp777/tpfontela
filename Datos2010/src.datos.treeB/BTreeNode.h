@@ -39,8 +39,7 @@ public:
 		int i;
 		for (i = 0; i < this->numKeys; i++) {
 				if (this->data[i] != NULL){
-					delete this->data[i];
-					this->data[i]=NULL;
+					delete [] this->data[i];
 				}
 		}
 		delete []this->data;

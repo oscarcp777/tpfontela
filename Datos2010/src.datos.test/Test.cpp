@@ -16,9 +16,9 @@ int main(){
 
 //	TestIOFile* testIOFile = new TestIOFile();
 //	TestFreeBlockController* testFreeBlockController = new TestFreeBlockController();
-//	TestBTree* testBTree = new TestBTree();
+	TestBTree* testBTree = new TestBTree();
 //	TestLogger* testLogger = new TestLogger();
-	TestHash* testHash = new TestHash();
+//	TestHash* testHash = new TestHash();
 
 //	testIOFile->runBinaryFileTest2();
 //	testIOFile->runTextFileTest();
@@ -26,16 +26,16 @@ int main(){
 //	testFreeBlockController->runAddTest();
 //	testFreeBlockController->runPrintTest(cout);
 //	testFreeBlockController->runGetTest();
-//	testBTree->runTestInsert("files/testbt.dat", SIZE_CUBE);
+	testBTree->runTestInsert("files/testbt.dat", SIZE_CUBE);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
-//	testBTree->runTestRemoveRompe("files/testbt.dat",SIZE_CUBE);
+	testBTree->runTestRemove("files/testbt.dat",SIZE_CUBE);
 //	testBTree->runTestRemoveRompe("files/testbt.dat",128);
 //	testLogger->runTestLogger();
 
 //*************TESTs HASH*******************
 //	testHash->runCreateAndInsertTest();
 //	testHash->runExampleCatedraTest();
-    testHash->runRemoveTest();
+//    testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
 //	testHash->runPrintTest();
@@ -44,8 +44,8 @@ int main(){
 //	delete testLogger;
 //	delete testIOFile;
 //	delete testFreeBlockController;
-//	delete testBTree;
-	delete testHash;
+	delete testBTree;
+//	delete testHash;
 
 
 	return 0;

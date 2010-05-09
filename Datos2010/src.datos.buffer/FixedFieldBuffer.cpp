@@ -126,7 +126,7 @@ int FixedFieldBuffer::close(){
 }
 
 FixedFieldBuffer::~FixedFieldBuffer(){
-
+//TODO se libera la memoria en el metodo close por que aca volaba no cambiar anda bien
 	//delete []this->fieldSize;
 
 }
