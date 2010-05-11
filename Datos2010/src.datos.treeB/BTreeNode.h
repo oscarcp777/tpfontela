@@ -443,7 +443,4 @@ protected:
 #endif
 };
 
-
-
-
 #endif /* BTREENODE_H_ */
