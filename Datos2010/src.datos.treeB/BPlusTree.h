@@ -85,8 +85,10 @@ public:
 		int result = this->bTreeFile.BufferFile::reWind();
 		result = this->writeMetadata();
 		if (result == -1) return 0;
-		//		result = this->bTreeFile.write(this->root);
-		//		if (result == -1) return 0;
+
+		result = this->bTreeFile.write(this->root);
+		if (result == -1) return 0;
+
 		this->freeBlocks->close();
 		this->bTreeFile.close();
 		this->buffer.close();

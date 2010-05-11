@@ -16,6 +16,7 @@ public:
 	virtual ~TestBTree();
 
 	void runTestInsert(string fileName, int blockSize);
+	void runTestInsertWithRandom(string fileName, int blockSize);
 	void runTestSecuenceSet(string fileName, int blockSize);
 	void runTestRemove(string fileName, int blockSize);
 	void runTestRemoveRompe(string fileName, int blockSize);
