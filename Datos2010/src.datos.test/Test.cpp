@@ -30,10 +30,10 @@ int main(){
 /*
  * Les comento que me genere un archivo de datos, basado en el
  * medodo runTestInsertWithRamdom que como su nombre lo indica esta hecho mediante
- * ramdon.
+ * random.
  * El archivo es input.
  */
-	testBTree->runTestInsert("files/newTest.dat", 128);
+//	testBTree->runTestInsert("files/newTest.dat", 128);
 //	testBTree->runTestInsertWithRandom("files/newDate.dat", 128);
 //	testBTree->runTestSecuenceSet("files/testbt.dat",128);
 /*
@@ -44,8 +44,22 @@ int main(){
  * la cantidad de bloques libres no me dio lo que esperaba ... tenia que darme un numero
  * inmenso sin embargo de dio un numero bajo tipo 60.
  */
-	testBTree->runTestRemove("files/newTest.dat",128);
+//	testBTree->runTestRemove("files/newTest.dat",128);
 //	testLogger->runTestLogger();
+
+
+//*************TESTs BTree*******************
+	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel1.dat", 128, 1);
+	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel1.dat", 128, 1);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel2.dat", 128, 2);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel2.dat", 128, 2);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel4.dat", 128, 4);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel4.dat", 128, 4);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
+//*************FIN TESTs BTree*******************
 
 //*************TESTs HASH*******************
 //	testHash->runCreateAndInsertTest();

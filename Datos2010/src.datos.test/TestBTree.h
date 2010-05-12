@@ -10,6 +10,9 @@
 
 #include "../src.datos.treeB/BPlusTree.h"
 
+
+using namespace std;
+
 class TestBTree {
 public:
 	TestBTree();
@@ -29,6 +32,12 @@ public:
 	void removeCaseTwo(BPlusTree<int>* btree, int clave);
 	void removeCaseThree(BPlusTree<int>* btree, int clave);
 	void removeCaseFor(BPlusTree<int>* btree, int clave);
+
+//****** Nuevos Tests ************
+	void runTestInsert	(string fileName, int blockSize, int level);
+	void runTestRemove	(string fileName, int blockSize, int level);
+//********************************
+
 };
 
 #endif /* TESTBTREE_H_ */

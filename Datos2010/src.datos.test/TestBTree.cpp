@@ -10,6 +10,9 @@
 #include "../src.datos.utils/StringUtils.h"
 #include "../src.datos.storage/TextFile.h"
 #include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sstream>
 
 TestBTree::TestBTree() {
 }
@@ -31,8 +34,9 @@ TestBTree::~TestBTree() {
 void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	BPlusTree<int> bt(blockSize);
-	bt.create(fileName,ios::out);
+	ParserInput* parser = new ParserInput();
 
+	bt.create(fileName,ios::out);
 	try{
 	/*
 	 * Inserta los datos provenientes de un archivo input.btree.dat.
@@ -41,7 +45,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 	 */
 		fstream file;
 		file.open("files/input",ios::in|ios::out);
-		ParserInput* parser = new ParserInput();
+
 		string line;
 
 		while(!file.eof()){
@@ -63,6 +67,7 @@ void TestBTree::runTestInsert(string fileName, int blockSize){
 
 	bt.print("files/arbolAltas.txt");
 	bt.close();
+	delete parser;
 }
 
 void TestBTree::runTestInsertWithRandom(string fileName, int blockSize){
@@ -109,6 +114,7 @@ void TestBTree::runTestSecuenceSet(string fileName, int blockSize){
 	} catch (string& e){
 		cerr << e << endl;
 	}
+	delete bt;
 }
 
 /**
@@ -206,3 +212,100 @@ void TestBTree::removeCaseFor(BPlusTree<int>* btree, int clave = 66){
 	btree->remover(clave);
 	btree->print("treeRemove4.txt");
 }
+
+//*********************************************************
+//**************** Nuevos Tests  **************************
+//*********************************************************
+
+void TestBTree::runTestInsert(string fileName, int blockSize, int level){
+
+	BPlusTree<int>* bt = new BPlusTree<int>(blockSize);
+	ParserInput* parser = new ParserInput();
+
+	std::string numLevel;
+	std::stringstream out;
+	out << level;
+	numLevel = out.str();
+
+	bt->create(fileName,ios::out);
+	try{
+		fstream file;
+		string inputFileName = "files/inputFolder/insertBtreeLevel" + numLevel + ".txt";
+		file.open(inputFileName.c_str(),ios::in|ios::out);
+		string line;
+
+		while(!file.eof()){
+			getline(file,line);
+			if(line.length()!=0){
+				parser->parser(line);
+				if(bt->insert(parser->getKey(),parser->getData().c_str())){
+					cout << "Inserto el dato con la clave = " << parser->getKey() << endl;
+				}else{
+					cout << "No se inserto el dato " << parser->getKey() << endl;
+				}
+			}
+		}
+		file.close();
+
+	}catch (string& e){
+		cerr << e << endl;
+	}
+
+	string outputFileName = "files/outputFolder/insertBtreeLevel" + numLevel + ".txt";
+	bt->print(outputFileName);
+	bt->close();
+	delete parser;
+	delete bt;
+
+}
+
+
+void TestBTree::runTestRemove(string fileName, int blockSize, int level){
+
+	BPlusTree<int>* bt = new BPlusTree<int>(blockSize);
+	ParserInput* parser = new ParserInput();
+	bt->open(fileName,ios::in|ios::out);
+
+	std::string numLevel;
+	std::stringstream out;
+	out << level;
+	numLevel = out.str();
+
+	try {
+
+		fstream file;
+		string deleteFileName = "files/inputFolder/removeBtreeLevel" + numLevel + ".txt";
+		file.open(deleteFileName.c_str(),ios::in|ios::out);
+
+		string line;
+
+		while(!file.eof()){
+			getline(file,line);
+			if(line.length()!=0){
+				parser->parser(line);
+				if(bt->remover(parser->getKey())){
+					cout << "Se elimino la clave = " << parser->getKey() << endl;
+				}else{
+					cout << "No se pudo eliminar la clave = " << parser->getKey() << endl;
+				}
+			}
+		}
+		file.close();
+	} catch (string& e){
+		cerr << e << endl;
+	}
+
+	string deleteFileName = "files/outputFolder/removeBtreeLevel" + numLevel + ".txt";
+	bt->print(deleteFileName);
+	bt->close();
+	delete parser;
+	delete bt;
+}
+
+//*********************************************************************
+//*********************Fin Nuevos Tests********************************
+//*********************************************************************
+
+
+
+
