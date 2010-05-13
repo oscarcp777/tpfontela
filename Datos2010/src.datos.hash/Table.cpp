@@ -391,7 +391,7 @@ int Table::calculateIndex(int* indexUp, int* indexDown, int index){
 	if((*indexUp) < 0)
 		(*indexUp) = this->sizeTable + *indexUp;
 
-	if((*indexDown) > this->sizeTable)
+	if((*indexDown) >= this->sizeTable)
 		(*indexDown) = (*indexDown) - this->sizeTable;
 
 	return 1;
