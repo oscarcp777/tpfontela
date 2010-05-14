@@ -59,10 +59,14 @@ int main(){
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel4.dat", 128, 4);
 //	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
+	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel5.dat", 128, 6);
+	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 6);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel7.dat", 128, 7);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel7.dat", 128, 7);
 //*************FIN TESTs BTree*******************
 
 //*************TESTs HASH*******************
-//	testHash->runInsertFile();
+//	testHash->runCreateAndInsertTest();
 //	testHash->runRemoveTest();
 //	testHash->runSearchTest();
 //	testHash->runUpdateTest();
