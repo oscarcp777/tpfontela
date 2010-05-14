@@ -18,6 +18,7 @@ public:
 	void runUpdateTest();
 	void runExampleCatedraTest();
 	void runPrintTest();
+	void runInsertFile();
 
 };
 

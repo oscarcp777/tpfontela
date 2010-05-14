@@ -10,7 +10,7 @@
 Record::Record() {
 	// TODO Auto-generated constructor stub
 }
-Record::Record(int key,char* data){
+Record::Record(int key,const char* data){
 	this->key =key;
 	this->data=data;
 

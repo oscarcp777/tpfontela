@@ -23,7 +23,7 @@ public:
 	int open(string fileName);
 	int create(string fileName);
 	int close();
-	int insert(int key,char* data);
+	int insert(int key,const char* data);
 	int remove(int key);
 	int update(int key,char* data);
 	char* search(int key);
