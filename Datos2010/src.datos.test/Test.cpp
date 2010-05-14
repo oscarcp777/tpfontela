@@ -53,14 +53,14 @@ int main(){
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel1.dat", 128, 1);
 //	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel2.dat", 128, 2);
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel2.dat", 128, 2);
-//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
-//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
+	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
+	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel3.dat", 128, 3);
 //	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel4.dat", 128, 4);
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel4.dat", 128, 4);
 //	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
-	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel5.dat", 128, 6);
-	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 6);
+//	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel6.dat", 128, 6);
+//	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel5.dat", 128, 5);
 //	testBTree->runTestInsert("files/dataFolder/insertBtreeLevel7.dat", 128, 7);
 //	testBTree->runTestRemove("files/dataFolder/insertBtreeLevel7.dat", 128, 7);
 //*************FIN TESTs BTree*******************
