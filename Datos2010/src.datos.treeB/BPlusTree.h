@@ -989,9 +989,15 @@ public:
 
 			ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 
+			if(ret_concatenacion==-1)
+			delete nodoVecino;
+
 			if(ret_concatenacion==-1 && val_node!=2){
 				BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
+
+				if(ret_concatenacion==-1)
+					delete nodoVecino;
 			}
 
 			return ret_concatenacion;
@@ -1022,7 +1028,7 @@ public:
 		}
 
 		/*CASO 3 y 4: Si no salio por el caso 1 ni el caso 2, se produce un underflow con caso 3 o 4. */
-		return -1;
+		return 0;
 	}
 
 	int update(keyType key, const char* data){
@@ -1047,20 +1053,22 @@ public:
 		int index = nodoHoja->search(key);
 
 		if(index==-1){
-			return -1;
+			return 0;
 		}
 
 		int dir = nodoHoja->getRecAddrs()[index];
 
 		ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
 
-		if(ret_remove==-1)
+		if(ret_remove==0)
 			ret_remove=underflow(key,nodoHoja,nivelPadreHoja);
 
 		if(ret_remove==-1){
 			removeWithUnderflow=true;
-			simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
+			ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
 		}
+
+	//	delete nodoHoja;
 
 		return ret_remove;
 	}
