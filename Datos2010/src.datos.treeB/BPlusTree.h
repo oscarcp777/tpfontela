@@ -541,9 +541,7 @@ public:
 
 		}
 
-
 		return nodoVecino;
-
 	}
 
 
@@ -950,15 +948,18 @@ public:
 			delete nodoVecino;
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
+			delete nodoVecino;
 		}
 
 		if(redistribucionClaves==1 && ret_val==2 && ret_ini==-1){ //redistribuir con el nodoDerecho
 			caso=1;
 			redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
+			delete nodoVecino;
 			redistribuyo=true;
 		}else if(redistribucionClaves==1 && ret_val==-1 && ret_ini==-1){ //redistribuir con el nodoIzquierdo
 			caso=2;
 			redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
+			delete nodoVecino;
 			redistribuyo=true;
 		}else if(ret_ini==-1){ //redistribuir con ambos nodos
 			caso=3;
@@ -966,13 +967,18 @@ public:
 			BNode* otroNodoVecino;
 			otroNodoVecino=obtenerNodoVecino(&otroVal,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 			redistribuirSinEliminarClaves(nodo,nodoVecino,otroNodoVecino,caso);
+			delete nodoVecino;
+			delete otroNodoVecino;
 			redistribuyo=true;
 		}
 
-		if (!redistribuyo && ret_ini==-1)
+		if (!redistribuyo && ret_ini==-1){
+
+			delete nodoVecino;
 			return -1;
+		}
 
-
+		delete nodoVecino;
 		return 1;
 	}
 
@@ -1002,13 +1008,14 @@ public:
 			if(ret_concatenacion==-1 && val_node!=2){
 				BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
+				delete otroVecino;
 
 				if(ret_concatenacion==-1)
 					delete nodoVecino;
 			}
 
+			delete nodoVecino;
 			return ret_concatenacion;
-
 		}
 
 		return 1;
