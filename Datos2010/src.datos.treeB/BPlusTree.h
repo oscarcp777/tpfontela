@@ -541,7 +541,9 @@ public:
 
 		}
 
+
 		return nodoVecino;
+
 	}
 
 
@@ -795,6 +797,7 @@ public:
 				nodoDestino->insert(key,NULL);
 
 			nodoOrigen->remove(key,indice);
+			//this->store(nodoOrigen);
 
 			if((nodoDestino->getIsLeaf() && nodoDestino->getFreeSpace()<=nodoDestino->getMinFreeSpace(blockSize)) ||
 					(!nodoDestino->getIsLeaf() && nodoDestino->getNumKeys()>=nodoDestino->getMinKeys(blockSize))) //si quedo fuera de underflow no sigo en el while
@@ -880,20 +883,16 @@ public:
 			ret_valUnderflow=isContinueUnderflow(nodo,key,nodoVecino,sizeData);
 			if(ret_valUnderflow!=-1){ //si no continua en underflow, (overflow, underflow del nodo vecino, o haber solucionado el underflow)
 				pos_i=i;
-
 				break;
 			}
 
 		}
 
-		if(ret_valUnderflow==1){
-			delete nodoVecino;
+		if(ret_valUnderflow==1)
 			return 1; //se puede redistribuir con un nodo vecino
-		}
 
 		if(ret_valUnderflow==-2 && continueRedistribucion){ //significa que la ultima clave para redistribuir hizo quedar en overflow el nodo, o en underflow el nodo vecino, y como posiblemente se puede redistribuir tambien con el otro nodo, lo evaluo
 			sizeData-=tamanioDato(nodoVecino->getKeys()[pos_i],nodoVecino);
-			delete nodoVecino;
 			if(valNodeSibling==1){ //significa que puedo obtener el nodoVecino izquierdo y ver si puedo redistribuir con este nodo tambien sin quedar en overflow
 				nodoVecino=obtenerNodoVecino(&valNodeSibling,nodoPadre,nodo->largestKey(),nivelNodo,1); //cambia la referencia del nodoVecino
 
@@ -902,15 +901,12 @@ public:
 					sizeData+=tamanioDato(nodoVecino->getKeys()[i],nodoVecino);
 					ret_valUnderflow=isContinueUnderflow(nodo,key,nodoVecino,sizeData);
 					if(ret_valUnderflow!=-1){
-						delete nodoVecino;
 						break;
 					}
 				}
 			}
-		}else{
-			delete nodoVecino;
+		}else
 			return -1; //no se puede redistribuir con ningun nodo vecino
-	    }
 
 		if(ret_valUnderflow==1)
 			return 2; //se puede redistribuir con dos nodos vecinos
@@ -945,7 +941,6 @@ public:
 		ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino); //hago la primera redistribucion con eliminacion de la clave del nodo
 
 		if(ret_ini==-2){//no puedo redistribuir con el nodoVecino anterior pues me deja dicho nodoVecino en underflow
-			delete nodoVecino;
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
 		}
@@ -953,12 +948,10 @@ public:
 		if(redistribucionClaves==1 && ret_val==2 && ret_ini==-1){ //redistribuir con el nodoDerecho
 			caso=1;
 			redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
-			delete nodoVecino;
 			redistribuyo=true;
 		}else if(redistribucionClaves==1 && ret_val==-1 && ret_ini==-1){ //redistribuir con el nodoIzquierdo
 			caso=2;
 			redistribuirSinEliminarClaves(nodo,nodoVecino,NULL,caso);
-			delete nodoVecino;
 			redistribuyo=true;
 		}else if(ret_ini==-1){ //redistribuir con ambos nodos
 			caso=3;
@@ -971,7 +964,8 @@ public:
 
 		if (!redistribuyo && ret_ini==-1)
 			return -1;
-			
+
+
 		return 1;
 	}
 
@@ -995,18 +989,13 @@ public:
 
 			ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 
-			if(ret_concatenacion==-1)
-			delete nodoVecino;
-
 			if(ret_concatenacion==-1 && val_node!=2){
 				BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
-
-				if(ret_concatenacion==-1)
-					delete nodoVecino;
 			}
 
 			return ret_concatenacion;
+
 		}
 
 		return 1;
@@ -1033,7 +1022,7 @@ public:
 		}
 
 		/*CASO 3 y 4: Si no salio por el caso 1 ni el caso 2, se produce un underflow con caso 3 o 4. */
-		return 0;
+		return -1;
 	}
 
 	int update(keyType key, const char* data){
@@ -1058,19 +1047,19 @@ public:
 		int index = nodoHoja->search(key);
 
 		if(index==-1){
-			return 0;
+			return -1;
 		}
 
 		int dir = nodoHoja->getRecAddrs()[index];
 
 		ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
 
-		if(ret_remove==0)
+		if(ret_remove==-1)
 			ret_remove=underflow(key,nodoHoja,nivelPadreHoja);
 
 		if(ret_remove==-1){
 			removeWithUnderflow=true;
-			ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
+			simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
 		}
 
 		return ret_remove;

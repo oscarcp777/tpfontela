@@ -283,8 +283,9 @@ void TestBTree::runTestRemove(string fileName, int blockSize, int level){
 			getline(file,line);
 			if(line.length()!=0){
 				parser->parser(line);
-				if((bt->remover(parser->getKey())) != -1){
+				if((bt->remover(parser->getKey())) == 1){
 					cout << "Se elimino la clave = " << parser->getKey() << endl;
+					bt->print("files/dataFolder/output");
 				}else{
 					cout << "No se pudo eliminar la clave = " << parser->getKey() << endl;
 				}
