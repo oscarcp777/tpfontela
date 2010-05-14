@@ -36,7 +36,7 @@
 #define TAB "		"
 #define TRUE 1;
 #define FALSE 0;
-#define SIZE_CUBE 128
+#define SIZE_CUBE 512
 
 
 

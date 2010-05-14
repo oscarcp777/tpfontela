@@ -15,7 +15,7 @@ private:
    int key;
    std::string data;
 public:
-	Record(int key,char* data);
+	Record(int key,const char* data);
 	Record();
 	virtual ~Record();
 	/**

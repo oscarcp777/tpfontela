@@ -47,7 +47,7 @@ bool HashExtensible::isCreated(string fileName){
 }
 
 
-int HashExtensible::insert(int key, char *data){
+int HashExtensible::insert(int key,const char *data){
 	Record* record = new Record(key,data);
 	return this->table->insert(record);
 
