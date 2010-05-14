@@ -797,7 +797,6 @@ public:
 				nodoDestino->insert(key,NULL);
 
 			nodoOrigen->remove(key,indice);
-			//this->store(nodoOrigen);
 
 			if((nodoDestino->getIsLeaf() && nodoDestino->getFreeSpace()<=nodoDestino->getMinFreeSpace(blockSize)) ||
 					(!nodoDestino->getIsLeaf() && nodoDestino->getNumKeys()>=nodoDestino->getMinKeys(blockSize))) //si quedo fuera de underflow no sigo en el while
@@ -883,16 +882,20 @@ public:
 			ret_valUnderflow=isContinueUnderflow(nodo,key,nodoVecino,sizeData);
 			if(ret_valUnderflow!=-1){ //si no continua en underflow, (overflow, underflow del nodo vecino, o haber solucionado el underflow)
 				pos_i=i;
+
 				break;
 			}
 
 		}
 
-		if(ret_valUnderflow==1)
+		if(ret_valUnderflow==1){
+			delete nodoVecino;
 			return 1; //se puede redistribuir con un nodo vecino
+		}
 
 		if(ret_valUnderflow==-2 && continueRedistribucion){ //significa que la ultima clave para redistribuir hizo quedar en overflow el nodo, o en underflow el nodo vecino, y como posiblemente se puede redistribuir tambien con el otro nodo, lo evaluo
 			sizeData-=tamanioDato(nodoVecino->getKeys()[pos_i],nodoVecino);
+			delete nodoVecino;
 			if(valNodeSibling==1){ //significa que puedo obtener el nodoVecino izquierdo y ver si puedo redistribuir con este nodo tambien sin quedar en overflow
 				nodoVecino=obtenerNodoVecino(&valNodeSibling,nodoPadre,nodo->largestKey(),nivelNodo,1); //cambia la referencia del nodoVecino
 
@@ -901,12 +904,15 @@ public:
 					sizeData+=tamanioDato(nodoVecino->getKeys()[i],nodoVecino);
 					ret_valUnderflow=isContinueUnderflow(nodo,key,nodoVecino,sizeData);
 					if(ret_valUnderflow!=-1){
+						delete nodoVecino;
 						break;
 					}
 				}
 			}
-		}else
+		}else{
+			delete nodoVecino;
 			return -1; //no se puede redistribuir con ningun nodo vecino
+	    }
 
 		if(ret_valUnderflow==1)
 			return 2; //se puede redistribuir con dos nodos vecinos
@@ -941,6 +947,7 @@ public:
 		ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino); //hago la primera redistribucion con eliminacion de la clave del nodo
 
 		if(ret_ini==-2){//no puedo redistribuir con el nodoVecino anterior pues me deja dicho nodoVecino en underflow
+			delete nodoVecino;
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
 		}
@@ -1067,8 +1074,6 @@ public:
 			removeWithUnderflow=true;
 			ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
 		}
-
-	//	delete nodoHoja;
 
 		return ret_remove;
 	}
