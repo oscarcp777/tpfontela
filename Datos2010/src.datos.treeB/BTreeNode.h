@@ -353,8 +353,8 @@ public:
 	 * El espacio minimo es el 20% del tama�o del bloque
 	 */
 
-	int getMinFreeSpace(int blockSize){
-		return blockSize*0.5;
+	int getMinFreeSpace(){
+		return this->blockMaxSize*0.5;
 	}
 /*
 	int getBlockMaxSize(){
@@ -363,31 +363,35 @@ public:
 	/**
 	 * Retorna el minimo numero de claves que puede haber en un nodo interno (no hoja)
 	 */
-	int getMinKeys(int blockSize){
+	int getMinKeys(){
 //		int max_Keys=(blockSize)/(keySize);
 //		int ret_minKeys=(max_Keys)/2;
 		return ((this->getMaxKeys())/2);//ret_minKeys; TODO cuando se solucione el underflow del insert descomentar lo que esta comentado en getMinKeys de BTreeNode.h
 	}
 
-	int getTamanioOcupado(int blockSize){
-		return (blockSize-freeSpace);
+	int getTamanioOcupado(){
+		return (this->blockMaxSize-freeSpace);
 	}
 
 	int getKeySize(){
 		return this->keySize;
 	}
 
-	int caseDataRemove(int sizeDataRemove,int blockSize){
-		if((sizeDataRemove+freeSpace)>(blockSize-getMinFreeSpace(blockSize))){
+	int caseDataRemove(int sizeDataRemove){
+		if((sizeDataRemove+freeSpace)>(this->blockMaxSize-getMinFreeSpace())){
 			return -1; //underflow
-		}else if((sizeDataRemove+freeSpace)==(blockSize-getMinFreeSpace(blockSize))){
+		}else if((sizeDataRemove+freeSpace)==(this->blockMaxSize-getMinFreeSpace())){
 			return 0; //en el limite
-		}else if((sizeDataRemove+freeSpace)>blockSize){
+		}else if((sizeDataRemove+freeSpace)>this->blockMaxSize){
 			return -2;
 		}
 		return 1; //ninguna de las anteriores
 	}
 	
+	int getBlockMaxSize(){
+		return this->blockMaxSize;
+	}
+
 
 
 protected:
@@ -406,8 +410,6 @@ protected:
 	int freeSpace;
 	//tamaño que ocupa guardar cada key(se va restando por cada insert al freeSpace)
 	int keySize;
-
-
 
 
 	void clear(){ this->numKeys = 0; recAddr = -1; }
