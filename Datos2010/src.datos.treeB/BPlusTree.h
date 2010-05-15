@@ -607,7 +607,7 @@ public:
 				if(ret_removeIndex==-1)
 					ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre);
 			}else
-				ret_removeIndex = -1; //no se pudo concatenar
+				return -1; //no se pudo concatenar
 
 		}else{ //es una clave que no es la mayor en el nodo
 
@@ -635,14 +635,12 @@ public:
 				if(ret_removeIndex==-1)
 					ret_removeIndex=eliminarIndexSet(keyAremover,nodoPadre,nivelPadre);
 			}else
-				ret_removeIndex = -1;
+				return -1;
 		}
 
 		if(ret_removeIndex==1){
 			this->store(nodoPadre);
 			this->store(nodeMergeFather);
-		}else if(ret_removeIndex==-1){
-			simpleRemove(nodo,key,-1,true);
 		}else if(ret_removeIndex==-2){
 			this->store(nodeMergeFather);
 			bajarUnNivel(nodoPadre,nodeMergeFather);
@@ -1007,7 +1005,15 @@ public:
 					//delete otroVecino;
 			}
 
-			return ret_concatenacion;
+			if(ret_concatenacion==-1){
+				if(nodo->getNumKeys()-1==0){
+					nodo->remove(key,-1);
+					eliminarIndexSet(key,nodoPadre,nivelPadre);
+				}else
+					simpleRemove(nodo,key,-1,true);
+			}
+
+
 
 		}
 
