@@ -29,7 +29,7 @@
 /*
  * Definiciones correspondiente al arbol.
  */
-#define PORCENT_BLOCK_SIZE 0.5
+#define PORCENT_BLOCK_SIZE 0.2
 /*
  * Definiciones correspondientes a usos generales.
  */
