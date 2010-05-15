@@ -1008,7 +1008,8 @@ public:
 			if(ret_concatenacion==-1){
 				if(nodo->getNumKeys()-1==0){
 					nodo->remove(key,-1);
-					eliminarIndexSet(key,nodoPadre,nivelPadre);
+					if(simpleRemove(nodoPadre,key,-1,false)==0)
+						underflow(key,nodoPadre,nivelPadre);
 				}else
 					simpleRemove(nodo,key,-1,true);
 			}
