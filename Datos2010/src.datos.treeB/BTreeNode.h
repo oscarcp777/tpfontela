@@ -354,8 +354,9 @@ public:
 	 */
 
 	int getMinFreeSpace(){
-		return this->blockMaxSize*0.5;
-	}
+	               return this->blockMaxSize *(PORCENT_BLOCK_SIZE+0.5);
+    }
+
 /*
 	int getBlockMaxSize(){
 		return this->blockMaxSize;
