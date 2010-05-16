@@ -1006,7 +1006,7 @@ public:
 
 		redistribucionClaves=isHasRedistribuirKeysRecursive(key,nodo,nivelPadre,nivelPadre+2);
 
-		if(redistribucionClaves!=-1) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
+		if(redistribucionClaves!=-1 && nodo->getIsLeaf()) //si no era caso de underflow en la raiz o nodo interno y se puede redistribuir
 			redistribuirClavesRecursivoUnderflow(nodoPadre,nodo,key,nivelPadre,redistribucionClaves);
 		else{ //si no era caso de underflow en la raiz o nodo interno, concateno
 			int ret_concatenacion;
@@ -1049,15 +1049,12 @@ public:
 						underflow(key,nodoPadre,nivelPadre-1);
 				}else
 					simpleRemove(nodo,key,-1,true,nivelPadre);
-			}
-
-
-
+		   }
 		}
 
-		return 1;
+	return 1;
 
-	}
+}
 
 	int simpleRemove(BTreeNode<keyType>*nodoHoja,keyType key,int dir,bool removeWithUnderflow,int nivelPadre){
 		/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
