@@ -1022,6 +1022,9 @@ public:
 
 			if(ret_concatenacion==-1 && val_node!=2){
 				otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
+
+
+
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
 
 //				if(ret_concatenacion==-1)
@@ -1036,7 +1039,9 @@ public:
 					nodo->remove(key,-1);
 					freeBlocks->add(nodo->getRecAddr());
 					store(nodo);
-					if(simpleRemove(nodoPadre,key,-1,false,nivelPadre)==0)
+					if(nivelPadre==0){
+						simpleRemove(nodoPadre,key,-1,true,nivelPadre);
+					}else if(simpleRemove(nodoPadre,key,-1,false,nivelPadre)==0)
 						underflow(key,nodoPadre,nivelPadre-1);
 				}else
 					simpleRemove(nodo,key,-1,true,nivelPadre);
