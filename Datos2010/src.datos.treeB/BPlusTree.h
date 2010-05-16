@@ -565,6 +565,10 @@ public:
 		BNode* nodeMergeFather;
 		int ret_removeIndex=1;
 
+		if(nodo->getNumKeys()-1==0){
+			return -1;
+		}
+
 		if((key==nodoPadre->largestKey())&&(cumpleCondicionConcatenacion(nodo,nodoVecino,key,1))){
 
 			nodo->remove(key,-1);
@@ -887,13 +891,13 @@ public:
 		}
 
 		if(ret_valUnderflow==1){
-			//delete nodoVecino;
+			delete nodoVecino;
 			return 1; //se puede redistribuir con un nodo vecino
 		}
 
 		if(ret_valUnderflow==-2 && continueRedistribucion){ //significa que la ultima clave para redistribuir hizo quedar en overflow el nodo, o en underflow el nodo vecino, y como posiblemente se puede redistribuir tambien con el otro nodo, lo evaluo
 			sizeData-=tamanioDato(nodoVecino->getKeys()[pos_i],nodoVecino);
-			//delete nodoVecino;
+			delete nodoVecino;
 			if(valNodeSibling==1){ //significa que puedo obtener el nodoVecino izquierdo y ver si puedo redistribuir con este nodo tambien sin quedar en overflow
 				nodoVecino=obtenerNodoVecino(&valNodeSibling,nodoPadre,nodo->largestKey(),nivelNodo,1); //cambia la referencia del nodoVecino
 
@@ -902,7 +906,7 @@ public:
 					sizeData+=tamanioDato(nodoVecino->getKeys()[i],nodoVecino);
 					ret_valUnderflow=isContinueUnderflow(nodo,key,nodoVecino,sizeData);
 					if(ret_valUnderflow!=-1){
-						//delete nodoVecino;
+						delete nodoVecino;
 						break;
 					}
 				}
@@ -945,7 +949,7 @@ public:
 		ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino); //hago la primera redistribucion con eliminacion de la clave del nodo
 
 		if(ret_ini==-2){//no puedo redistribuir con el nodoVecino anterior pues me deja dicho nodoVecino en underflow
-			//delete nodoVecino;
+			delete nodoVecino;
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
 		}
@@ -994,24 +998,24 @@ public:
 
 			ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 
-			//if(ret_concatenacion==-1)
-			//delete nodoVecino;
+			if(ret_concatenacion==-1)
+			delete nodoVecino;
 
 			if(ret_concatenacion==-1 && val_node!=2){
 				BNode* otroVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,0); //obtenego el nodo vecino izquierdo
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
 
-				//if(ret_concatenacion==-1)
-					//delete otroVecino;
+				if(ret_concatenacion==-1)
+					delete otroVecino;
 			}
 
 			if(ret_concatenacion==-1){
 				if(nodo->getNumKeys()-1==0){
 					nodo->remove(key,-1);
-					if(simpleRemove(nodoPadre,key,-1,false)==0)
-						underflow(key,nodoPadre,nivelPadre);
+					if(simpleRemove(nodoPadre,key,-1,false,nivelPadre)==0)
+						underflow(key,nodoPadre,nivelPadre-1);
 				}else
-					simpleRemove(nodo,key,-1,true);
+					simpleRemove(nodo,key,-1,true,nivelPadre);
 			}
 
 
@@ -1022,7 +1026,7 @@ public:
 
 	}
 
-	int simpleRemove(BTreeNode<keyType>*nodoHoja,keyType key,int dir,bool removeWithUnderflow){
+	int simpleRemove(BTreeNode<keyType>*nodoHoja,keyType key,int dir,bool removeWithUnderflow,int nivelPadre){
 		/*CASO 1: Si el nodo hoja n tiene mas claves que el minimo y k (clave) no es la clave mas grande en n, simplemente borrar k de n*/
 		if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja))>=0 || removeWithUnderflow) && key!=nodoHoja->largestKey())||(this->height==1)){
 
@@ -1036,7 +1040,7 @@ public:
 		else if(((nodoHoja->caseDataRemove(tamanioDato(key,nodoHoja))>=0 || removeWithUnderflow) && key==nodoHoja->largestKey())||(this->height==1)){
 
 			nodoHoja->remove(key,dir);
-			actualizarIndexSet(key,nodoHoja->largestKey(),true,this->height-2);
+			actualizarIndexSet(key,nodoHoja->largestKey(),true,nivelPadre);
 			this->store(nodoHoja);
 			return 1;
 		}
@@ -1075,7 +1079,7 @@ public:
 
 		int dir = nodoHoja->getRecAddrs()[index];
 
-		ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow);
+		ret_remove=simpleRemove(nodoHoja,key,dir,removeWithUnderflow,nivelPadreHoja);
 
 		if(ret_remove==0)
 			ret_remove=underflow(key,nodoHoja,nivelPadreHoja);
