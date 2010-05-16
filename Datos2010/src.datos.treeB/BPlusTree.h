@@ -987,11 +987,11 @@ public:
 				otroNodoVecino->setNextNode(nodoVecino->getRecAddr());
 				store(otroNodoVecino);
 			}
-		}else if(nodoVecino!=NULL){
-			nodoVecino->setNextNode(-1);
+		}else if(nodoVecino!=NULL && keyAcomparar>nodoVecino->largestKey()){
+			nodoVecino->setNextNode(nodo->getNextNode());
 			store(nodoVecino);
-		}else if(otroNodoVecino!=NULL){
-			otroNodoVecino->setNextNode(-1);
+		}else if(otroNodoVecino!=NULL && keyAcomparar>otroNodoVecino->largestKey()){
+			otroNodoVecino->setNextNode(nodo->getNextNode());
 			store(otroNodoVecino);
 		}
 	}
@@ -1032,7 +1032,7 @@ public:
 			}
 
 			if(ret_concatenacion==-1){
-				if(nodo->getIsLeaf())
+				if(nodo->getIsLeaf() && nodo->getNumKeys()-1==0)
 				actualizarDireccionNodoVecino(nodoVecino,otroVecino,nodo,key);
 
 				if(nodo->getNumKeys()-1==0){
