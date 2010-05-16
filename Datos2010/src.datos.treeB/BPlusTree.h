@@ -1013,10 +1013,11 @@ public:
 			int val_node=0;
 			BNode* nodoVecino=NULL;
 			BNode* otroVecino=NULL;
+			BNode* nodoVecinoAux=NULL;
 			nodoVecino=obtenerNodoVecino(&val_node,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
 
 			ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,nodoVecino,nivelPadre);
-
+			nodoVecinoAux=nodoVecino;
 //			if(ret_concatenacion==-1)
 //			delete nodoVecino;
 
@@ -1027,6 +1028,7 @@ public:
 
 				ret_concatenacion=concatenarNodos(key,nodoPadre,nodo,otroVecino,nivelPadre);
 
+				nodoVecinoAux=otroVecino;
 //				if(ret_concatenacion==-1)
 //					delete otroVecino;
 			}
@@ -1040,7 +1042,9 @@ public:
 					freeBlocks->add(nodo->getRecAddr());
 					store(nodo);
 					if(nivelPadre==0){
-						simpleRemove(nodoPadre,key,-1,true,nivelPadre);
+						if(eliminarIndexSet(key,nodoPadre,nivelPadre)==-2){
+							bajarUnNivel(nodoPadre,nodoVecinoAux);
+						}
 					}else if(simpleRemove(nodoPadre,key,-1,false,nivelPadre)==0)
 						underflow(key,nodoPadre,nivelPadre-1);
 				}else
