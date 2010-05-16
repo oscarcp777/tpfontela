@@ -35,7 +35,7 @@ public:
 		init(maxSize);
 	 }
 
-	~BTreeNode() {
+	~BTreeNode(){
 		int i;
 		for (i = 0; i < this->numKeys; i++) {
 				if (this->data[i] != NULL){
