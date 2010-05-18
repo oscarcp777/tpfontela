@@ -653,16 +653,22 @@ public:
 		return 1;
 	}
 
-	void redistribuirNodeFatherLargestEqualsKey(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino){
-		actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],true,this->height-2);
+	void redistribuirNodeFatherLargestEqualsKey(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino,int nivelPadre){
+		if(nodo->getNumKeys()-1 == 0){
+			nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
+			actualizarIndexSet(key,nodoVecino->largestKey(),true,nivelPadre);
+			nodoVecino->remove(nodoVecino->largestKey(),-1);
+		}else{
+			actualizarIndexSet(key,nodo->getKeys()[nodo->getNumKeys()-2],true,nivelPadre);
+			nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
+			nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
+		}
+
 		nodo->remove(key,nodo->getRecAddrs()[nodo->search(key,-1)]);
 		if(nodo->getIsLeaf())
 			nodo->insert(nodoVecino->largestKey(),nodoVecino->getData()[nodoVecino->getNumKeys()-1],nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
 		else
 			nodo->insert(nodoVecino->largestKey(),NULL,nodoVecino->getRecAddrs()[nodoVecino->getNumKeys()-1]);
-
-		nodoPadre->updateKey(nodoVecino->largestKey(),nodoVecino->getKeys()[nodoVecino->getNumKeys()-2]);
-		nodoVecino->remove(nodoVecino->largestKey(),nodoVecino->getRecAddrs()[nodoVecino->search(nodoVecino->largestKey(),-1)]);
 	}
 
 	int redistribuirNodeFealLargestKey(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino,int sizeDataUnderflow){
@@ -721,7 +727,7 @@ public:
 	}
 
 
-	int redistribuirClaves(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino){
+	int redistribuirClaves(keyType key,BTreeNode <keyType>* nodoPadre,BTreeNode <keyType>* nodo, BTreeNode <keyType>* nodoVecino,int nivelPadre){
 
 		int sizeDataUnderflow=0;
 
@@ -733,7 +739,7 @@ public:
 		if(key==nodoPadre->largestKey()
 				&& ((nodoVecino->getIsLeaf() && (nodoVecino->getFreeSpace()+tamanioDato(nodoVecino->largestKey(),nodoVecino))<=sizeDataUnderflow)
 						|| (!nodoVecino->getIsLeaf() && (nodoVecino->getNumKeys()-1)>=sizeDataUnderflow))){ //la clave a eliminar esta en el padre y es la mayor, por lo que forma parte del index set
-			redistribuirNodeFatherLargestEqualsKey(key,nodoPadre,nodo,nodoVecino);
+			redistribuirNodeFatherLargestEqualsKey(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 		}else if(key==nodo->largestKey()){ //la clave a eliminar esta en el padre pero no es la mayor, por lo que no forma parte del index set
 			int ret_val=redistribuirNodeFealLargestKey(key,nodoPadre,nodo,nodoVecino,sizeDataUnderflow);
 
@@ -946,12 +952,12 @@ public:
 		//hay que hacer que cuando se redistribuye una clave con eliminacion y queda en underflow, intento redistribuir con el otro nodo
 		//vecino con eliminacion de clave. Luego
 
-		ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino); //hago la primera redistribucion con eliminacion de la clave del nodo
+		ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino,nivelPadre); //hago la primera redistribucion con eliminacion de la clave del nodo
 
 		if(ret_ini==-2){//no puedo redistribuir con el nodoVecino anterior pues me deja dicho nodoVecino en underflow
 			//delete nodoVecino;
 			nodoVecino=obtenerNodoVecino(&ret_val,nodoPadre,nodo->largestKey(),nivelPadre+2,1);
-			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino);
+			ret_ini=redistribuirClaves(key,nodoPadre,nodo,nodoVecino,nivelPadre);
 		}
 
 		if(redistribucionClaves==1 && ret_val==2 && ret_ini==-1){ //redistribuir con el nodoDerecho
