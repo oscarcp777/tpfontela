@@ -11,7 +11,7 @@ package tp.robots;
   * @version 1.0
   */
 
-public class SampleData implements Comparable,Cloneable {
+public class SampleData implements Comparable<SampleData>,Cloneable {
 
 /**
   * The downsampled data as a grid of booleans.
@@ -21,7 +21,7 @@ public class SampleData implements Comparable,Cloneable {
 /**
   * The letter.
   */
-   protected char letter;
+   protected String letter;
 
 /**
   * The constructor
@@ -30,7 +30,7 @@ public class SampleData implements Comparable,Cloneable {
   * @param width The width
   * @param height The height
   */
-   public SampleData(char letter,int width,int height)
+   public SampleData(String letter,int width,int height)
    {
      grid = new boolean[width][height];
      this.letter = letter;
@@ -95,7 +95,7 @@ public class SampleData implements Comparable,Cloneable {
   *
   * @return The letter that this sample represents.
   */
-   public char getLetter()
+   public String getLetter()
    {
      return letter;
    }
@@ -105,7 +105,7 @@ public class SampleData implements Comparable,Cloneable {
   *
   * @param letter The letter that this sample represents.
   */
-   public void setLetter(char letter)
+   public void setLetter(String letter)
    {
      this.letter = letter;
    }
@@ -115,14 +115,12 @@ public class SampleData implements Comparable,Cloneable {
   * @param o The object being compared against.
   * @return Same as String.compareTo
   */
-
-   public int compareTo(Object o)
-   {
+   @Override
+   public int compareTo(SampleData o) {
+   
      SampleData obj = (SampleData)o;
-     if ( this.getLetter()>obj.getLetter() )
-       return 1;
-     else
-       return -1;
+     return this.getLetter().compareTo(obj.getLetter());
+      
    }
 
 /**
@@ -151,5 +149,6 @@ public class SampleData implements Comparable,Cloneable {
          obj.setData(x,y,getData(x,y));
      return obj;
    }
+
 
 }

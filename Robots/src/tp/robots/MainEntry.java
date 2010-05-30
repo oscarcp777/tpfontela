@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.StringTokenizer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -34,12 +35,12 @@ public class MainEntry extends JFrame implements Runnable {
 /**
     * The downsample width for the application.
     */
-   static final int DOWNSAMPLE_WIDTH = 5;
+   static final int DOWNSAMPLE_WIDTH = 20;
 
    /**
     * The down sample height for the application.
     */
-   static final int DOWNSAMPLE_HEIGHT = 7;
+   static final int DOWNSAMPLE_HEIGHT = 20;
 
    /**
     * The entry component for the user to draw into.
@@ -70,94 +71,95 @@ public class MainEntry extends JFrame implements Runnable {
    /**
     * The constructor.
     */
-   MainEntry()
+   @SuppressWarnings("deprecation")
+MainEntry()
    {
      getContentPane().setLayout(null);
      entry = new Entry();
-     entry.reshape(168,25,200,128);
+     entry.reshape(250,25,200,200);
      getContentPane().add(entry);
 
      sample = new Sample(DOWNSAMPLE_WIDTH,DOWNSAMPLE_HEIGHT);
-     sample.reshape(307,210,65,70);
+     sample.reshape(307,300,100,100);
      entry.setSample(sample);
      getContentPane().add(sample);
 
      //{{INIT_CONTROLS
      setTitle("Java Neural Network");
      getContentPane().setLayout(null);
-     setSize(405,382);
+     setSize(500,450);
      setVisible(false);
-     JLabel1.setText("Letters Known");
+     JLabel1.setText("Figuras reconocidas");
      getContentPane().add(JLabel1);
-     JLabel1.setBounds(12,12,84,12);
+     JLabel1.setBounds(12,12,200,12);
      JLabel2.setText("Tries:");
      getContentPane().add(JLabel2);
-     JLabel2.setBounds(12,264,72,24);
-     downSample.setText("Down Sample");
+     JLabel2.setBounds(12,300,72,24);
+     downSample.setText("Mostrar ejemplo en mapa");
      downSample.setActionCommand("Down Sample");
      getContentPane().add(downSample);
-     downSample.setBounds(252,180,120,24);
-     add.setText("Add");
+     downSample.setBounds(250,273,200,24);
+     add.setText("Agregar");
      add.setActionCommand("Add");
      getContentPane().add(add);
-     add.setBounds(168,156,84,24);
-     clear.setText("Clear");
+     add.setBounds(250,226,100,24);
+     clear.setText("Limpiar");
      clear.setActionCommand("Clear");
      getContentPane().add(clear);
-     clear.setBounds(168,180,84,24);
-     recognize.setText("Recognize");
+     clear.setBounds(350,226,100,24);
+     recognize.setText("Reconocer");
      recognize.setActionCommand("Recognize");
      getContentPane().add(recognize);
-     recognize.setBounds(252,156,120,24);
+     recognize.setBounds(250,250,200,24);
      JScrollPane1.setVerticalScrollBarPolicy(
        javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
      JScrollPane1.setOpaque(true);
      getContentPane().add(JScrollPane1);
-     JScrollPane1.setBounds(12,24,144,132);
+     JScrollPane1.setBounds(12,24,200,200);
      JScrollPane1.getViewport().add(letters);
      letters.setBounds(0,0,126,129);
-     del.setText("Delete");
+     del.setText("Borrar");
      del.setActionCommand("Delete");
      getContentPane().add(del);
-     del.setBounds(12,156,144,24);
-     load.setText("Load");
+     del.setBounds(12,250,200,24);
+     load.setText("Cargar");
      load.setActionCommand("Load");
      getContentPane().add(load);
-     load.setBounds(12,180,72,24);
-     save.setText("Save");
+     load.setBounds(12,226,100,24);
+     save.setText("Guardar");
      save.setActionCommand("Save");
      getContentPane().add(save);
-     save.setBounds(84,180,72,24);
-     train.setText("Begin Training");
+     save.setBounds(112,226,100,24);
+     train.setText("Empezar entrenamiento");
      train.setActionCommand("Begin Training");
      getContentPane().add(train);
-     train.setBounds(12,204,144,24);
-     JLabel3.setText("Last Error:");
+     train.setBounds(12,274,200,24);
+     JLabel3.setText("Ultimo Error:");
      getContentPane().add(JLabel3);
-     JLabel3.setBounds(12,288,72,24);
-     JLabel4.setText("Best Error:");
+     JLabel3.setBounds(12,324,72,24);
+     JLabel4.setText("Mejor Error:");
      getContentPane().add(JLabel4);
-     JLabel4.setBounds(12,312,72,24);
+     JLabel4.setBounds(12,348,72,24);
      tries.setText("0");
      getContentPane().add(tries);
-     tries.setBounds(96,264,72,24);
+     tries.setBounds(96,300,72,24);
      lastError.setText("0");
      getContentPane().add(lastError);
-     lastError.setBounds(96,288,72,24);
+     lastError.setBounds(96,324,200,24);
      bestError.setText("0");
      getContentPane().add(bestError);
-     bestError.setBounds(96,312,72,24);
+     bestError.setBounds(96,348,200,24);
      JLabel8.setHorizontalTextPosition(
        javax.swing.SwingConstants.CENTER);
      JLabel8.setHorizontalAlignment(
        javax.swing.SwingConstants.CENTER);
-     JLabel8.setText("Training Results");
+     JLabel8.setText("Resultados del entrenamiento");
      getContentPane().add(JLabel8);
      JLabel8.setFont(new Font("Dialog", Font.BOLD, 14));
      JLabel8.setBounds(12,240,120,24);
-     JLabel5.setText("Draw Letters Here");
+     JLabel5.setText("Dibuje la letra aqui :");
      getContentPane().add(JLabel5);
-     JLabel5.setBounds(204,12,144,12);
+     JLabel5.setBounds(250,12,200,12);
      //}}
 
      //{{REGISTER_LISTENERS
@@ -184,7 +186,8 @@ public class MainEntry extends JFrame implements Runnable {
     *
     * @param args Args not really used.
     */
-   public static void main(String args[])
+   @SuppressWarnings("deprecation")
+public static void main(String args[])
    {
      (new MainEntry()).show();
    }
@@ -314,39 +317,35 @@ public class MainEntry extends JFrame implements Runnable {
     */
    void add_actionPerformed(java.awt.event.ActionEvent event)
    {
-     int i;
+  
 
      String letter = JOptionPane.showInputDialog(
-       "Please enter a letter you would like to assign this sample to.");
+       "Por favor ingrese el nombre de la figura que dibujo: ");
      if ( letter==null )
        return;
 
-     if ( letter.length()>1 ) {
-       JOptionPane.showMessageDialog(this,
-                                     "Please enter only a single letter.","Error", JOptionPane.ERROR_MESSAGE);
-       return;
-     }
+   
 
      entry.downSample();
      SampleData sampleData = (SampleData)sample.getData().clone();
-     sampleData.setLetter(letter.charAt(0));
+     sampleData.setLetter(letter);
 
-     for ( i=0;i<letterListModel.size();i++ ) {
-       Comparable str = (Comparable)letterListModel.getElementAt(i);
-       if ( str.equals(letter) ) {
-         JOptionPane.showMessageDialog(this,
-                                       "That letter is already defined, delete it first!","Error",
-                                       JOptionPane.ERROR_MESSAGE);
-         return;
-       }
-
-       if ( str.compareTo(sampleData)>0 ) {
-         letterListModel.add(i,sampleData);
-         return;
-       }
-     }
-     letterListModel.add(letterListModel.size(),sampleData);
-     letters.setSelectedIndex(i);
+//     for ( i=0;i<letterListModel.size();i++ ) {
+//    	 SampleData str = (SampleData)letterListModel.getElementAt(i);
+//       if ( str.equals(letter) ) {
+//         JOptionPane.showMessageDialog(this,
+//                                       "That letter is already defined, delete it first!","Error",
+//                                       JOptionPane.ERROR_MESSAGE);
+//         return;
+//       }
+//
+//       if ( str.compareTo(sampleData)>0 ) {
+//         letterListModel.add(i,sampleData);
+//         return;
+//       }
+//     }
+    letterListModel.add(letterListModel.size(),sampleData);
+     letters.setSelectedIndex(letterListModel.getSize()-1);
      entry.clear();
      sample.repaint();
 
@@ -363,7 +362,7 @@ public class MainEntry extends JFrame implements Runnable {
 
      if ( i==-1 ) {
        JOptionPane.showMessageDialog(this,
-                                     "Please select a letter to delete.","Error",
+                                     "Por favor seleccione la figura a borrar.","Error",
                                      JOptionPane.ERROR_MESSAGE);
        return;
      }
@@ -408,7 +407,7 @@ public class MainEntry extends JFrame implements Runnable {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
 
-       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\sample.dat") );
+       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat") );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -416,15 +415,15 @@ public class MainEntry extends JFrame implements Runnable {
        letterListModel.clear();
 
        while ( (line=r.readLine()) !=null ) {
-         SampleData ds =
-           new 
-SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT); 
-
+    	   StringTokenizer tokenizer= new StringTokenizer(line,":");
+    	  
+         SampleData ds =new SampleData(tokenizer.nextToken(),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT); 
+    	   String serieBits=tokenizer.nextToken();
          letterListModel.add(i++,ds);
-         int idx=2;
+         int idx=0;
          for ( int y=0;y<ds.getHeight();y++ ) {
            for ( int x=0;x<ds.getWidth();x++ ) {
-             ds.setData(x,y,line.charAt(idx++)=='1');
+             ds.setData(x,y,serieBits.charAt(idx++)=='1');
            }
          }
        }
@@ -433,10 +432,11 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
        f.close();
        clear_actionPerformed(null);
        JOptionPane.showMessageDialog(this,
-                                     "Loaded from 'sample.dat'.","Training",
+                                     "Cargando de 'figuras.dat'.","Training",
                                      JOptionPane.PLAIN_MESSAGE);
 
      } catch ( Exception e ) {
+    	 e.printStackTrace();
        JOptionPane.showMessageDialog(this,
                                      "Error: " + e,"Training",
                                      JOptionPane.ERROR_MESSAGE);
@@ -455,7 +455,7 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
 
-       os = new FileOutputStream( "./sample.dat",false );
+       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat",false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -473,11 +473,12 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
        os.close();
        clear_actionPerformed(null);
        JOptionPane.showMessageDialog(this,
-                                     "Saved to 'sample.dat'.",
+                                     "Guardado en  'figuras.dat' .",
                                      "Training",
                                      JOptionPane.PLAIN_MESSAGE);
 
      } catch ( Exception e ) {
+    	 e.printStackTrace();
        JOptionPane.showMessageDialog(this,"Error: " +
                                      e,"Training",
                                      JOptionPane.ERROR_MESSAGE);
@@ -512,6 +513,7 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
        net.setTrainingSet(set);
        net.learn();
      } catch ( Exception e ) {
+    	 e.printStackTrace();
        JOptionPane.showMessageDialog(this,"Error: " + e,
                                      "Training",
                                      JOptionPane.ERROR_MESSAGE);
@@ -535,7 +537,7 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
        trainThread = null;
        train.setText("Begin Training");
        JOptionPane.showMessageDialog(this,
-                                     "Training has completed.","Training",
+                                     "El entenamineto ha terminado.","Training",
                                      JOptionPane.PLAIN_MESSAGE);
      }
      UpdateStats stats = new UpdateStats();
@@ -545,6 +547,7 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
      try {
        SwingUtilities.invokeAndWait(stats);
      } catch ( Exception e ) {
+    	 e.printStackTrace();
        JOptionPane.showMessageDialog(this,"Error: " + e,"Training",
                                      JOptionPane.ERROR_MESSAGE);
      }
@@ -576,13 +579,13 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
    {
      if ( net==null ) {
        JOptionPane.showMessageDialog(this,
-                                     "I need to be trained first!","Error",
+                                     "Se necesita entrenar primero la red !","Error",
                                      JOptionPane.ERROR_MESSAGE);
        return;
      }
      entry.downSample();
-
-     double input[] = new double[5*7];
+//TODO
+     double input[] = new double[DOWNSAMPLE_WIDTH*DOWNSAMPLE_HEIGHT];
      int idx=0;
      SampleData ds = sample.getData();
      for ( int y=0;y<ds.getHeight();y++ ) {
@@ -595,10 +598,10 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
      double synth[] = new double[1];
 
      int best = net.winner ( input , normfac , synth ) ;
-     char map[] = mapNeurons();
+     String map[] = mapNeurons();
      JOptionPane.showMessageDialog(this,
-                                   "  " + map[best] + "   (Neuron #"
-                                   + best + " fired)","That Letter Is",
+                                   "  " + map[best] + "   (La neurona #"
+                                   + best + " es la ganadora)","La figura es",
                                    JOptionPane.PLAIN_MESSAGE);
      clear_actionPerformed(null);
 
@@ -609,16 +612,16 @@ SampleData(line.charAt(0),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT
     *
     * @return The current mapping between neurons and letters as an array.
     */
-   char []mapNeurons()
+   String []mapNeurons()
    {
-     char map[] = new char[letterListModel.size()];
+	   String map[] = new String[letterListModel.size()];
      double normfac[] = new double[1];
      double synth[] = new double[1];
 
      for ( int i=0;i<map.length;i++ )
-       map[i]='?';
+       map[i]="?";
      for ( int i=0;i<letterListModel.size();i++ ) {
-       double input[] = new double[5*7];
+    	 double input[] = new double[DOWNSAMPLE_WIDTH*DOWNSAMPLE_HEIGHT];
        int idx=0;
        SampleData ds = (SampleData)letterListModel.getElementAt(i);
        for ( int y=0;y<ds.getHeight();y++ ) {

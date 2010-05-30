@@ -37,7 +37,7 @@ public class Sample extends JPanel {
     */
    Sample(int width,int height)
    {
-     data = new SampleData(' ',width,height);
+     data = new SampleData("",width,height);
    }
 
    /**
