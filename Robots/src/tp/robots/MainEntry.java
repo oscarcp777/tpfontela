@@ -145,7 +145,7 @@ MainEntry()
      tries.setBounds(96,300,72,24);
      lastError.setText("0");
      getContentPane().add(lastError);
-     lastError.setBounds(96,324,200,24);
+     lastError.setBounds(96,324,500,24);
      bestError.setText("0");
      getContentPane().add(bestError);
      bestError.setBounds(96,348,200,24);
@@ -406,8 +406,8 @@ public static void main(String args[])
      try {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
-
-       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat") );
+//TODO 
+       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras5x5.dat") );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -454,8 +454,8 @@ public static void main(String args[])
      try {
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
-
-       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat",false );
+//TODO
+       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras5x5.dat",false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -535,9 +535,9 @@ public static void main(String args[])
 
      if ( net.halt ) {
        trainThread = null;
-       train.setText("Begin Training");
+       train.setText("Empezar entrenamiento");
        JOptionPane.showMessageDialog(this,
-                                     "El entenamineto ha terminado.","Training",
+                                     "El entrenamineto ha terminado.","Training",
                                      JOptionPane.PLAIN_MESSAGE);
      }
      UpdateStats stats = new UpdateStats();
@@ -561,7 +561,7 @@ public static void main(String args[])
    void train_actionPerformed(java.awt.event.ActionEvent event)
    {
      if ( trainThread==null ) {
-       train.setText("Stop Training");
+       train.setText("Parar entrenamiento");
        train.repaint();
        trainThread = new Thread(this);
        trainThread.start();
