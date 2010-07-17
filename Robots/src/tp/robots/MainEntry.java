@@ -1,5 +1,6 @@
 package tp.robots;
 
+
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,14 +55,24 @@ public class MainEntry extends JFrame implements Runnable {
    Sample sample;
 
    /**
-    * The letters that have been defined.
+    * The figures that have been defined.
     */
    DefaultListModel letterListModel = new DefaultListModel();
+   
+   /**
+    * The figures that have been defined in the second network.
+    */
+   DefaultListModel letterListModelOptimized = new DefaultListModel();
 
    /**
     * The neural network.
     */
    KohonenNetwork net;
+   
+   /**
+    * The second neural network.
+    */
+   KohonenNetwork netOptimized;
 
    /**
     * The background thread used for training.
@@ -145,7 +156,7 @@ MainEntry()
      tries.setBounds(96,300,72,24);
      lastError.setText("0");
      getContentPane().add(lastError);
-     lastError.setBounds(96,324,500,24);
+     lastError.setBounds(96,324,200,24);
      bestError.setText("0");
      getContentPane().add(bestError);
      bestError.setBounds(96,348,200,24);
@@ -276,7 +287,7 @@ public static void main(String args[])
        else if ( object == del )
          del_actionPerformed(event);
        else if ( object == load )
-         load_actionPerformed(event);
+         load_actionPerformed(event, letterListModel);
        else if ( object == save )
          save_actionPerformed(event);
        else if ( object == train )
@@ -401,13 +412,13 @@ public static void main(String args[])
     *
     * @param event The event
     */
-   void load_actionPerformed(java.awt.event.ActionEvent event)
+   void load_actionPerformed(java.awt.event.ActionEvent event, DefaultListModel letterListModel)
    {
      try {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
-//TODO 
-       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras5x5.dat") );
+      
+       f = new FileReader( new File("C:\\Users\\Dan\\workspace\\Robots\\files\\figuras.dat") );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -454,8 +465,8 @@ public static void main(String args[])
      try {
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
-//TODO
-       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras5x5.dat",false );
+
+       os = new FileOutputStream( "C:\\Users\\Dan\\workspace\\Robots\\files\\figuras2.dat",false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -495,6 +506,7 @@ public static void main(String args[])
        int inputNeuron = MainEntry.DOWNSAMPLE_HEIGHT*
          MainEntry.DOWNSAMPLE_WIDTH;
        int outputNeuron = letterListModel.size();
+//       int outputNeuronOptimized = 
 
        TrainingSet set = new TrainingSet(inputNeuron,outputNeuron);
        set.setTrainingSetCount(letterListModel.size());
@@ -510,6 +522,7 @@ public static void main(String args[])
        }
 
        net = new KohonenNetwork(inputNeuron,outputNeuron,this);
+       netOptimized = new KohonenNetwork(inputNeuron,outputNeuron,this);
        net.setTrainingSet(set);
        net.learn();
      } catch ( Exception e ) {
@@ -535,9 +548,9 @@ public static void main(String args[])
 
      if ( net.halt ) {
        trainThread = null;
-       train.setText("Empezar entrenamiento");
+       train.setText("Begin Training");
        JOptionPane.showMessageDialog(this,
-                                     "El entrenamineto ha terminado.","Training",
+                                     "El entenamineto ha terminado.","Training",
                                      JOptionPane.PLAIN_MESSAGE);
      }
      UpdateStats stats = new UpdateStats();
@@ -561,7 +574,7 @@ public static void main(String args[])
    void train_actionPerformed(java.awt.event.ActionEvent event)
    {
      if ( trainThread==null ) {
-       train.setText("Parar entrenamiento");
+       train.setText("Stop Training");
        train.repaint();
        trainThread = new Thread(this);
        trainThread.start();
@@ -601,9 +614,9 @@ public static void main(String args[])
      String map[] = mapNeurons();
      JOptionPane.showMessageDialog(this,
                                    "  " + map[best] + "   (La neurona #"
-                                   + best + " es la ganadora)","La figura es",
+                                   + best + " es la ganadora) \n Con un error de: " + (1-net.getRecognizeError())*100+"%","La figura es",
                                    JOptionPane.PLAIN_MESSAGE);
-     clear_actionPerformed(null);
+  //   clear_actionPerformed(null);
 
    }
 
