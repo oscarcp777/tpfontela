@@ -61,6 +61,12 @@ public class KohonenNetwork extends Network {
     * The training set.
     */
    protected TrainingSet train;
+   
+   
+   /**
+    *  Recognize Figure Error
+    */
+   private double recognizeError;
 
    /**
     * The constructor.
@@ -226,6 +232,7 @@ public class KohonenNetwork extends Network {
        output[i] = 0.5 * (output[i] + 1.0) ;
        if ( output[i] > biggest ) {
          biggest = output[i] ;
+         recognizeError = biggest;
          win = i ;
        }
 // account for rounding
@@ -234,11 +241,19 @@ public class KohonenNetwork extends Network {
        if ( output[i] < 0.0 )
          output[i] = 0.0 ;
      }
-
+    
      return win ;
    }
 
-   /**
+   public double getRecognizeError() {
+	return recognizeError;
+   }
+
+   public void setRecognizeError(double recognizeError) {
+	this.recognizeError = recognizeError;
+   }
+
+/**
     * This method does much of the work of the learning process.
     * This method evaluates the weights against the training
     * set.
@@ -473,7 +488,6 @@ public class KohonenNetwork extends Network {
 
        evaluateErrors ( rate , learnMethod , won ,
                         bigerr , correc , work ) ;
-
        totalError = bigerr[0] ;
 
        if ( totalError < best_err ) {
