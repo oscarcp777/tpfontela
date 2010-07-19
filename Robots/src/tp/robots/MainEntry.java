@@ -8,12 +8,16 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.StringTokenizer;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
+import sun.nio.cs.ext.Big5;
 
 /**
   * Java Neural Network Example
@@ -417,8 +421,8 @@ public static void main(String args[])
      try {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
-      
-       f = new FileReader( new File("C:\\Users\\Dan\\workspace\\Robots\\files\\figuras.dat") );
+//TODO 
+       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat") );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -465,8 +469,8 @@ public static void main(String args[])
      try {
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
-
-       os = new FileOutputStream( "C:\\Users\\Dan\\workspace\\Robots\\files\\figuras2.dat",false );
+//TODO
+       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat",false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -611,10 +615,14 @@ public static void main(String args[])
      double synth[] = new double[1];
 
      int best = net.winner ( input , normfac , synth ) ;
+     System.out.println("el super ganador  es    :" +best);
+     BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+     System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+     System.out.println("#######################################################################################");
      String map[] = mapNeurons();
      JOptionPane.showMessageDialog(this,
                                    "  " + map[best] + "   (La neurona #"
-                                   + best + " es la ganadora) \n Con un error de: " + (1-net.getRecognizeError())*100+"%","La figura es",
+                                   + best + " es la ganadora) \n Con un error de: " +error.setScale(2, RoundingMode.HALF_UP) +"%","La figura es",
                                    JOptionPane.PLAIN_MESSAGE);
   //   clear_actionPerformed(null);
 
