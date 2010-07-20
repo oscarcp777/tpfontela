@@ -21,8 +21,17 @@ public class KohonenNetwork extends Network {
     * input neurons.
     */
    double outputWeights[][];
+   boolean debug=false;
 
-   /**
+   public boolean isDebug() {
+	return debug;
+}
+
+public void setDebug(boolean debug) {
+	this.debug = debug;
+}
+
+/**
     * The learning method.
     */
    protected int learnMethod = 1;
@@ -233,6 +242,8 @@ public class KohonenNetwork extends Network {
        output[i] = 0.5 * (output[i] + 1.0) ;
        if ( output[i] > biggest ) {
          biggest = output[i] ;
+         if(debug)
+         System.out.println("el error :"+biggest);
          recognizeError = biggest;
          win = i ;
        }
@@ -514,9 +525,9 @@ public class KohonenNetwork extends Network {
 
        adjustWeights ( rate , learnMethod , won , bigcorr, correc ) ;
 
-       owner.updateStats(n_retry,totalError,best_err);
+       owner.updateStats(n_retry,totalError,best_err,this);
        if ( halt ) {
-         owner.updateStats(n_retry,totalError,best_err);
+         owner.updateStats(n_retry,totalError,best_err,this);
          break;
        }
        Thread.yield();
@@ -544,7 +555,7 @@ public class KohonenNetwork extends Network {
 
      halt = true;
      n_retry++;
-     owner.updateStats(n_retry,totalError,best_err);
+     owner.updateStats(n_retry,totalError,best_err,this);
 
 
    }
