@@ -20,7 +20,16 @@ public class KohonenNetwork extends Network {
     * The weights of the output neurons base on the input from the
     * input neurons.
     */
-   double outputWeights[][];
+	int numeroDeRed=1;
+   public int getNumeroDeRed() {
+	return numeroDeRed;
+}
+
+public void setNumeroDeRed(int numeroDeRed) {
+	this.numeroDeRed = numeroDeRed;
+}
+
+double outputWeights[][];
    boolean debug=false;
 
    public boolean isDebug() {

@@ -539,10 +539,10 @@ public static void main(String args[])
     */
    public void run()
    {
-	   net= entrenar( letterListModel);
-	   netOptimized=entrenar( letterListModelOptimized);
+	   net= entrenar( letterListModel,1);
+	   netOptimized=entrenar( letterListModelOptimized,2);
    }
-public KohonenNetwork entrenar( DefaultListModel letterListModel){
+public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed){
 	KohonenNetwork net = null;
     try {
       int inputNeuron = MainEntry.DOWNSAMPLE_HEIGHT*
@@ -565,6 +565,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel){
 
       net = new KohonenNetwork(inputNeuron,outputNeuron,this);
       net.setTrainingSet(set);
+      net.setNumeroDeRed(numeroDeRed);
       net.learn();
     } catch ( Exception e ) {
    	 e.printStackTrace();
@@ -591,7 +592,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel){
        trainThread = null;
        train.setText("Empezar el entrenamiento");
        JOptionPane.showMessageDialog(this,
-                                     "El entrenamineto ha terminado.","Entrenando",
+                                     "Ha terminado el entrenamineto de la red "+net.getNumeroDeRed(),"Entrenando",
                                      JOptionPane.PLAIN_MESSAGE);
      }
      UpdateStats stats = new UpdateStats();
