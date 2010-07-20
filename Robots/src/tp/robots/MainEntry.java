@@ -17,8 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import sun.nio.cs.ext.Big5;
-
 /**
   * Java Neural Network Example
   * Handwriting Recognition
@@ -164,8 +162,19 @@ MainEntry()
      bestError.setText("0");
      getContentPane().add(bestError);
      bestError.setBounds(96,348,200,24);
+     test.setText("Correr Test");
+     test.setActionCommand("Begin Test");
+     getContentPane().add(test);
+     test.setBounds(12,375,200,24);
+     JLabel6.setHorizontalTextPosition(
+    		 javax.swing.SwingConstants.CENTER);
+     JLabel6.setHorizontalAlignment(
+    		 javax.swing.SwingConstants.CENTER);
+     JLabel6.setText("Resultados Test");
+     getContentPane().add(JLabel6);
+     JLabel6.setBounds(12,375,200,24);
      JLabel8.setHorizontalTextPosition(
-       javax.swing.SwingConstants.CENTER);
+    		 javax.swing.SwingConstants.CENTER);
      JLabel8.setHorizontalAlignment(
        javax.swing.SwingConstants.CENTER);
      JLabel8.setText("Resultados del entrenamiento");
@@ -189,6 +198,7 @@ MainEntry()
      save.addActionListener(lSymAction);
      train.addActionListener(lSymAction);
      recognize.addActionListener(lSymAction);
+     test.addActionListener(lSymAction);
      //}}
      letters.setModel(letterListModel);
      //{{INIT_MENUS
@@ -257,6 +267,12 @@ public static void main(String args[])
    javax.swing.JButton train = new javax.swing.JButton();
    javax.swing.JLabel JLabel3 = new javax.swing.JLabel();
    javax.swing.JLabel JLabel4 = new javax.swing.JLabel();
+   
+   /**
+    * The test button
+    */
+   javax.swing.JButton test = new javax.swing.JButton();
+   javax.swing.JLabel JLabel6 = new javax.swing.JLabel();
 
    /**
     * How many tries
@@ -298,6 +314,8 @@ public static void main(String args[])
          train_actionPerformed(event);
        else if ( object == recognize )
          recognize_actionPerformed(event);
+       else if ( object == test )
+           test_actionPerformed(event);
      }
    }
 
@@ -421,8 +439,7 @@ public static void main(String args[])
      try {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
-//TODO 
-       f = new FileReader( new File("C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat") );
+       f = new FileReader( new File("files\\figuras.dat") );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -469,8 +486,8 @@ public static void main(String args[])
      try {
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
-//TODO
-       os = new FileOutputStream( "C:\\eclipse\\workspaces\\Robots\\Robots\\files\\figuras.dat",false );
+
+       os = new FileOutputStream("files\\figuras.dat",false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -625,6 +642,97 @@ public static void main(String args[])
                                    + best + " es la ganadora) \n Con un error de: " +error.setScale(2, RoundingMode.HALF_UP) +"%","La figura es",
                                    JOptionPane.PLAIN_MESSAGE);
   //   clear_actionPerformed(null);
+
+   }
+   
+   
+   /**
+    * Called when the test button is pressed.
+    *
+    * @param event The event.
+    */
+   void test_actionPerformed(java.awt.event.ActionEvent event)
+   {
+	   if ( net==null ) {
+		   JOptionPane.showMessageDialog(this,
+				   "Se necesita entrenar primero la red !","Error",
+				   JOptionPane.ERROR_MESSAGE);
+		   return;
+	   }
+
+	   try {
+		   FileReader f;// the actual file stream
+		   BufferedReader r;// used to read the file line by line
+		   f = new FileReader( new File("files\\test.dat") );
+		   r = new BufferedReader(f);
+		   String line;
+		   int i=0;
+
+		   DefaultListModel testLetterListModel = new DefaultListModel();
+		   Integer win=0;
+		   Integer loss=0;
+		   Double winPerformance = 0.0;
+		   String map[] = mapNeurons();
+		   while ( (line=r.readLine()) !=null ) {
+			   StringTokenizer tokenizer= new StringTokenizer(line,":");
+
+			   SampleData ds =new SampleData(tokenizer.nextToken(),MainEntry.DOWNSAMPLE_WIDTH,MainEntry.DOWNSAMPLE_HEIGHT); 
+			   String serieBits=tokenizer.nextToken();
+			   testLetterListModel.add(i++,ds);
+			   int idx=0;
+			   for ( int y=0;y<ds.getHeight();y++ ) {
+				   for ( int x=0;x<ds.getWidth();x++ ) {
+					   ds.setData(x,y,serieBits.charAt(idx++)=='1');
+				   }
+			   }
+			   double input[] = new double[DOWNSAMPLE_WIDTH*DOWNSAMPLE_HEIGHT];
+			   idx=0;
+			   for ( int y=0;y<ds.getHeight();y++ ) {
+				   for ( int x=0;x<ds.getWidth();x++ ) {
+					   input[idx++] = ds.getData(x,y)?.5:-.5;
+				   }
+			   }
+			   double normfac[] = new double[1];
+			   double synth[] = new double[1];
+
+			   int best = net.winner ( input , normfac , synth ) ;
+			   
+			   System.out.println("La figura numero " + i + " es: "+ map[best] + " con valor: " + net.getRecognizeError());
+			   if (net.getRecognizeError() >= 0.85){
+				   win += 1;
+			   }else{
+				   loss += 1;
+			   }
+		   }
+
+		   r.close();
+		   f.close();
+		   clear_actionPerformed(null);
+		   winPerformance = win.doubleValue() / (win.doubleValue()+loss.doubleValue());
+		   
+		   JOptionPane.showMessageDialog(this,
+				   "Performance: " + winPerformance,"Resultado",
+				   JOptionPane.PLAIN_MESSAGE);
+		   return;
+
+	   } catch ( Exception e ) {
+		   e.printStackTrace();
+		   JOptionPane.showMessageDialog(this,
+				   "Error: " + e,"Carga archivo de test",
+				   JOptionPane.ERROR_MESSAGE);
+	   }
+
+
+
+
+
+
+	   clear_actionPerformed(null);
+	   JOptionPane.showMessageDialog(this,
+			   "Test Ejecutado","Test",
+			   JOptionPane.PLAIN_MESSAGE);
+
+	   return;
 
    }
 

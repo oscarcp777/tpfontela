@@ -224,6 +224,7 @@ public class KohonenNetwork extends Network {
      normalizeInput( input , normfac , synth ) ;  // Normalize input
 
      biggest = -1.E30;
+     recognizeError = biggest;
      for ( i=0 ; i<outputNeuronCount; i++ ) {
        optr = outputWeights[i];
        output[i] = dotProduct (input , optr ) * normfac[0]
