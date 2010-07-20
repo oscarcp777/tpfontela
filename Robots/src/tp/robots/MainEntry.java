@@ -2,6 +2,9 @@ package tp.robots;
 
 
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,11 +37,14 @@ public class MainEntry extends JFrame implements Runnable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final double ERROR_PERMITIDO_AL_RECONOCER = 25;
 
 /**
     * The downsample width for the application.
     */
    static final int DOWNSAMPLE_WIDTH = 20;
+   static final String PATH = "files\\";
+   static final String NOMBRE_ARCH = "figuras";
 
    /**
     * The down sample height for the application.
@@ -200,7 +206,7 @@ MainEntry()
      recognize.addActionListener(lSymAction);
      test.addActionListener(lSymAction);
      //}}
-     letters.setModel(letterListModel);
+     letters.setModel(letterListModelOptimized);
      //{{INIT_MENUS
      //}}
    }
@@ -211,10 +217,19 @@ MainEntry()
     *
     * @param args Args not really used.
     */
-   @SuppressWarnings("deprecation")
+
 public static void main(String args[])
    {
-     (new MainEntry()).show();
+	  final MainEntry mainEntry= new MainEntry();
+	  mainEntry.setVisible(true);
+	   WindowListener wndListenEvt = new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				mainEntry.setVisible(false);
+				System.exit(0);
+			}
+		};
+		mainEntry.addWindowListener(wndListenEvt);
+   
    }
    //{{DECLARE_CONTROLS
    javax.swing.JLabel JLabel1 = new javax.swing.JLabel();
@@ -303,19 +318,21 @@ public static void main(String args[])
        else if ( object == clear )
          clear_actionPerformed(event);
        else if ( object == add )
-         add_actionPerformed(event);
+         add_actionPerformed(event,letterListModelOptimized);
        else if ( object == del )
          del_actionPerformed(event);
-       else if ( object == load )
-         load_actionPerformed(event, letterListModel);
+       else if ( object == load ){
+         load_actionPerformed(event, letterListModel,NOMBRE_ARCH+".dat");
+         load_actionPerformed(event, letterListModelOptimized,NOMBRE_ARCH+"1"+".dat");
+       }
        else if ( object == save )
-         save_actionPerformed(event);
+         save_actionPerformed(event,NOMBRE_ARCH+"1"+".dat",letterListModelOptimized);
        else if ( object == train )
          train_actionPerformed(event);
        else if ( object == recognize )
          recognize_actionPerformed(event);
        else if ( object == test )
-           test_actionPerformed(event);
+           test_actionPerformed(event,"test.dat");
      }
    }
 
@@ -348,7 +365,7 @@ public static void main(String args[])
     *
     * @param event The event
     */
-   void add_actionPerformed(java.awt.event.ActionEvent event)
+   void add_actionPerformed(java.awt.event.ActionEvent event, DefaultListModel letterListModel)
    {
   
 
@@ -422,7 +439,7 @@ public static void main(String args[])
      if ( letters.getSelectedIndex()==-1 )
        return;
      SampleData selected =
-       (SampleData)letterListModel.getElementAt(letters.getSelectedIndex());
+       (SampleData)letterListModelOptimized.getElementAt(letters.getSelectedIndex());
      sample.setData((SampleData)selected.clone());
      sample.repaint();
      entry.clear();
@@ -434,12 +451,12 @@ public static void main(String args[])
     *
     * @param event The event
     */
-   void load_actionPerformed(java.awt.event.ActionEvent event, DefaultListModel letterListModel)
+   void load_actionPerformed(java.awt.event.ActionEvent event, DefaultListModel letterListModel,String arch)
    {
      try {
        FileReader f;// the actual file stream
        BufferedReader r;// used to read the file line by line
-       f = new FileReader( new File("files\\figuras.dat") );
+       f = new FileReader( new File(PATH+arch) );
        r = new BufferedReader(f);
        String line;
        int i=0;
@@ -464,7 +481,7 @@ public static void main(String args[])
        f.close();
        clear_actionPerformed(null);
        JOptionPane.showMessageDialog(this,
-                                     "Cargando de 'figuras.dat'.","Training",
+                                     "Cargando de '"+arch+"'.","Training",
                                      JOptionPane.PLAIN_MESSAGE);
 
      } catch ( Exception e ) {
@@ -481,13 +498,12 @@ public static void main(String args[])
     *
     * @param event The event
     */
-   void save_actionPerformed(java.awt.event.ActionEvent event)
+   void save_actionPerformed(java.awt.event.ActionEvent event,String arch,DefaultListModel letterListModel)
    {
      try {
        OutputStream os;// the actual file stream
        PrintStream ps;// used to read the file line by line
-
-       os = new FileOutputStream("files\\figuras.dat",false );
+       os = new FileOutputStream( PATH+arch,false );
        ps = new PrintStream(os);
 
        for ( int i=0;i<letterListModel.size();i++ ) {
@@ -505,7 +521,7 @@ public static void main(String args[])
        os.close();
        clear_actionPerformed(null);
        JOptionPane.showMessageDialog(this,
-                                     "Guardado en  'figuras.dat' .",
+                                     "Guardado en  '"+arch+"' .",
                                      "Training",
                                      JOptionPane.PLAIN_MESSAGE);
 
@@ -523,38 +539,42 @@ public static void main(String args[])
     */
    public void run()
    {
-     try {
-       int inputNeuron = MainEntry.DOWNSAMPLE_HEIGHT*
-         MainEntry.DOWNSAMPLE_WIDTH;
-       int outputNeuron = letterListModel.size();
-//       int outputNeuronOptimized = 
-
-       TrainingSet set = new TrainingSet(inputNeuron,outputNeuron);
-       set.setTrainingSetCount(letterListModel.size());
-
-       for ( int t=0;t<letterListModel.size();t++ ) {
-         int idx=0;
-         SampleData ds = (SampleData)letterListModel.getElementAt(t);
-         for ( int y=0;y<ds.getHeight();y++ ) {
-           for ( int x=0;x<ds.getWidth();x++ ) {
-             set.setInput(t,idx++,ds.getData(x,y)?.5:-.5);
-           }
-         }
-       }
-
-       net = new KohonenNetwork(inputNeuron,outputNeuron,this);
-       netOptimized = new KohonenNetwork(inputNeuron,outputNeuron,this);
-       net.setTrainingSet(set);
-       net.learn();
-     } catch ( Exception e ) {
-    	 e.printStackTrace();
-       JOptionPane.showMessageDialog(this,"Error: " + e,
-                                     "Training",
-                                     JOptionPane.ERROR_MESSAGE);
-     }
-
+	   net= entrenar( letterListModel);
+	   netOptimized=entrenar( letterListModelOptimized);
    }
+public KohonenNetwork entrenar( DefaultListModel letterListModel){
+	KohonenNetwork net = null;
+    try {
+      int inputNeuron = MainEntry.DOWNSAMPLE_HEIGHT*
+        MainEntry.DOWNSAMPLE_WIDTH;
+      int outputNeuron = letterListModel.size();
+//      int outputNeuronOptimized = 
 
+      TrainingSet set = new TrainingSet(inputNeuron,outputNeuron);
+      set.setTrainingSetCount(letterListModel.size());
+
+      for ( int t=0;t<letterListModel.size();t++ ) {
+        int idx=0;
+        SampleData ds = (SampleData)letterListModel.getElementAt(t);
+        for ( int y=0;y<ds.getHeight();y++ ) {
+          for ( int x=0;x<ds.getWidth();x++ ) {
+            set.setInput(t,idx++,ds.getData(x,y)?.5:-.5);
+          }
+        }
+      }
+
+      net = new KohonenNetwork(inputNeuron,outputNeuron,this);
+      net.setTrainingSet(set);
+      net.learn();
+    } catch ( Exception e ) {
+   	 e.printStackTrace();
+      JOptionPane.showMessageDialog(this,"Error: " + e,
+                                    "Entrenando",
+                                    JOptionPane.ERROR_MESSAGE);
+    }
+   return net;
+  
+}
    /**
     * Called to update the stats, from the neural network.
     *
@@ -562,16 +582,16 @@ public static void main(String args[])
     * @param error The current error.
     * @param best The best error.
     */
-   void updateStats(long trial,double error,double best)
+   void updateStats(long trial,double error,double best,KohonenNetwork net)
    {
      if ( (((trial%100)!=0) || (trial==10)) && !net.halt )
        return;
 
      if ( net.halt ) {
        trainThread = null;
-       train.setText("Begin Training");
+       train.setText("Empezar el entrenamiento");
        JOptionPane.showMessageDialog(this,
-                                     "El entenamineto ha terminado.","Training",
+                                     "El entrenamineto ha terminado.","Entrenando",
                                      JOptionPane.PLAIN_MESSAGE);
      }
      UpdateStats stats = new UpdateStats();
@@ -595,12 +615,13 @@ public static void main(String args[])
    void train_actionPerformed(java.awt.event.ActionEvent event)
    {
      if ( trainThread==null ) {
-       train.setText("Stop Training");
+       train.setText("Parar entrenamiento");
        train.repaint();
        trainThread = new Thread(this);
        trainThread.start();
      } else {
        net.halt=true;
+       netOptimized.halt=true;
      }
    }
 
@@ -630,13 +651,25 @@ public static void main(String args[])
 
      double normfac[] = new double[1];
      double synth[] = new double[1];
-
+     net.setDebug(true);
      int best = net.winner ( input , normfac , synth ) ;
+     net.setDebug(false);
      System.out.println("el super ganador  es    :" +best);
+     
      BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+     String map[];
+     //si el error es mayor que el 15% va a la otra red
+     if(error.compareTo(new BigDecimal(50))==-1){
      System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
      System.out.println("#######################################################################################");
-     String map[] = mapNeurons();
+      map = mapNeurons(letterListModel,net);
+     }else{
+    	  netOptimized.setDebug(true);
+    	  best = netOptimized.winner ( input , normfac , synth ) ;
+    	  netOptimized.setDebug(false);
+    	  error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+    	  map = mapNeurons(letterListModelOptimized,netOptimized);
+     }
      JOptionPane.showMessageDialog(this,
                                    "  " + map[best] + "   (La neurona #"
                                    + best + " es la ganadora) \n Con un error de: " +error.setScale(2, RoundingMode.HALF_UP) +"%","La figura es",
@@ -651,7 +684,7 @@ public static void main(String args[])
     *
     * @param event The event.
     */
-   void test_actionPerformed(java.awt.event.ActionEvent event)
+   void test_actionPerformed(java.awt.event.ActionEvent event,String arch)
    {
 	   if ( net==null ) {
 		   JOptionPane.showMessageDialog(this,
@@ -663,7 +696,7 @@ public static void main(String args[])
 	   try {
 		   FileReader f;// the actual file stream
 		   BufferedReader r;// used to read the file line by line
-		   f = new FileReader( new File("files\\test.dat") );
+		   f = new FileReader( new File(PATH+arch) );
 		   r = new BufferedReader(f);
 		   String line;
 		   int i=0;
@@ -672,7 +705,7 @@ public static void main(String args[])
 		   Integer win=0;
 		   Integer loss=0;
 		   Double winPerformance = 0.0;
-		   String map[] = mapNeurons();
+		 
 		   while ( (line=r.readLine()) !=null ) {
 			   StringTokenizer tokenizer= new StringTokenizer(line,":");
 
@@ -692,12 +725,31 @@ public static void main(String args[])
 					   input[idx++] = ds.getData(x,y)?.5:-.5;
 				   }
 			   }
-			   double normfac[] = new double[1];
-			   double synth[] = new double[1];
-
-			   int best = net.winner ( input , normfac , synth ) ;
 			   
-			   System.out.println("La figura numero " + i + " es: "+ map[best] + " con valor: " + net.getRecognizeError());
+			   double normfac[] = new double[1];
+			     double synth[] = new double[1];
+			     //primero busca en la primera red
+			     int best = net.winner ( input , normfac , synth ) ;
+			     BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+			     String map[];
+			     //si el error es mayor que el 15% va a la otra red
+			     //TODO
+			     //TODO
+			     //TODO ACA VA EL ERROR QUE ES ACEPTABLE EN LA RED
+			     //TODO
+			     //TODO
+			     //TODO
+			     if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
+			      map = mapNeurons(letterListModel,net);
+			     }else{
+			    	  best = netOptimized.winner ( input , normfac , synth ) ;
+			    	  error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+			    	  map = mapNeurons(letterListModelOptimized,netOptimized);
+			     }
+				   
+			  
+			   
+			   System.out.println("La figura numero " + i + " es: "+ map[best] + " con error del : " +error.setScale(2, RoundingMode.HALF_UP));
 			   if (net.getRecognizeError() >= 0.85){
 				   win += 1;
 			   }else{
@@ -741,7 +793,7 @@ public static void main(String args[])
     *
     * @return The current mapping between neurons and letters as an array.
     */
-   String []mapNeurons()
+   String []mapNeurons( DefaultListModel letterListModel, KohonenNetwork net)
    {
 	   String map[] = new String[letterListModel.size()];
      double normfac[] = new double[1];
