@@ -655,22 +655,51 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      net.setDebug(true);
      int best = net.winner ( input , normfac , synth ) ;
      net.setDebug(false);
-     System.out.println("el super ganador  es    :" +best);
+     System.out.println("El super ganador  es    :" +best);
+     String map[];
      
      BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
-     String map[];
      //si el error es mayor que el 15% va a la otra red
-     if(error.compareTo(new BigDecimal(50))==-1){
-     System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
-     System.out.println("#######################################################################################");
-      map = mapNeurons(letterListModel,net);
+     if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
+    	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+    	 System.out.println("Por red 1");
+    	 System.out.println("#######################################################################################");
+    	 map = mapNeurons(letterListModel,net);
      }else{
-    	  netOptimized.setDebug(true);
-    	  best = netOptimized.winner ( input , normfac , synth ) ;
-    	  netOptimized.setDebug(false);
-    	  error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
-    	  map = mapNeurons(letterListModelOptimized,netOptimized);
-     }
+    	 netOptimized.setDebug(true);
+    	 best = netOptimized.winner ( input , normfac , synth ) ;
+    	 netOptimized.setDebug(false);
+    	 BigDecimal error1=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+    	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+    	 System.out.println("Por red 2");
+    	 System.out.println("#######################################################################################");
+    	 map = mapNeurons(letterListModelOptimized,netOptimized);
+     }	 
+/////////////////////////////////
+    	 //Con esta variante no se usa la red 2 cuando la 1 se pasa de error, calcula las dos distancias y se queda
+    	 //con la de menor error, pense esta posibilidad porque a veces fallaba con un error bajo, decia cuadrado con 
+    	 //10% de error y era un triangulo por ejemplo, entonces nunca entraba a la red 2 a comprobar
+    	 
+//     	 BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+//    	 netOptimized.setDebug(true);
+//    	 int best1 = netOptimized.winner ( input , normfac , synth ) ;
+//    	 netOptimized.setDebug(false);
+//    	 BigDecimal error1=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+//         
+//         //si el error es mayor que el 15% va a la otra red
+//         if(error.compareTo(error1)==-1){
+//        	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+//        	 System.out.println("Por red 1");
+//        	 System.out.println("#######################################################################################");
+//        	 map = mapNeurons(letterListModel,net);
+//         }else{
+//        	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+//        	 System.out.println("Por red 2");
+//        	 System.out.println("#######################################################################################");
+//        	 map = mapNeurons(letterListModelOptimized,netOptimized);
+//        	 best = best1;
+//         }
+     
      JOptionPane.showMessageDialog(this,
                                    "  " + map[best] + "   (La neurona #"
                                    + best + " es la ganadora) \n Con un error de: " +error.setScale(2, RoundingMode.HALF_UP) +"%","La figura es",
@@ -706,7 +735,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 		   Integer win=0;
 		   Integer loss=0;
 		   Double winPerformance = 0.0;
-		 
+
 		   while ( (line=r.readLine()) !=null ) {
 			   StringTokenizer tokenizer= new StringTokenizer(line,":");
 
@@ -726,32 +755,50 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 					   input[idx++] = ds.getData(x,y)?.5:-.5;
 				   }
 			   }
-			   
+
 			   double normfac[] = new double[1];
-			     double synth[] = new double[1];
-			     //primero busca en la primera red
-			     int best = net.winner ( input , normfac , synth ) ;
-			     BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
-			     String map[];
-			     //si el error es mayor que el 15% va a la otra red
-			     //TODO
-			     //TODO
-			     //TODO ACA VA EL ERROR QUE ES ACEPTABLE EN LA RED
-			     //TODO
-			     //TODO
-			     //TODO
-			     if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
-			      map = mapNeurons(letterListModel,net);
-			     }else{
-			    	  best = netOptimized.winner ( input , normfac , synth ) ;
-			    	  error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
-			    	  map = mapNeurons(letterListModelOptimized,netOptimized);
-			     }
-				   
-			  
+			   double synth[] = new double[1];
+			   //primero busca en la primera red
+			   int best = net.winner ( input , normfac , synth ) ;
+			   BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+			   String map[];
+			   //si el error es mayor que el 15% va a la otra red
+			   //TODO
+			   //TODO
+			   //TODO ACA VA EL ERROR QUE ES ACEPTABLE EN LA RED
+			   //TODO
+			   //TODO
+			   //TODO
+			   if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
+				   map = mapNeurons(letterListModel,net);
+				   System.out.print("Por Red 1: ");
+			   }else{
+				   best = netOptimized.winner ( input , normfac , synth ) ;
+				   error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+				   map = mapNeurons(letterListModelOptimized,netOptimized);
+				   System.out.print("Por Red 2: ");
+			   }
 			   
-			   System.out.println("La figura numero " + i + " es: "+ map[best] + " con error del : " +error.setScale(2, RoundingMode.HALF_UP));
-			   if (net.getRecognizeError() >= 0.85){
+			   //**********************
+//			   int best = net.winner ( input , normfac , synth ) ;
+//			   BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+//			   String map[];
+//			   
+//			   int best1 = netOptimized.winner ( input , normfac , synth ) ;
+//			   BigDecimal error1=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+//			   map = mapNeurons(letterListModelOptimized,netOptimized);
+//			   
+//			   if(error.compareTo(error1)==-1){
+//				   map = mapNeurons(letterListModel,net);
+//				   System.out.print("Por Red 1: ");
+//			   }else{
+//				   map = mapNeurons(letterListModelOptimized,netOptimized);
+//				   System.out.print("Por Red 2: ");
+//				   best = best1;
+//			   }
+			   //////////////////
+			   System.out.println("La figura numero " + i + " es: "+ map[best] + " con error del: " +error.setScale(2, RoundingMode.HALF_UP));
+			   if ((1-net.getRecognizeError())*100 <= ERROR_PERMITIDO_AL_RECONOCER){
 				   win += 1;
 			   }else{
 				   loss += 1;
@@ -762,7 +809,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 		   f.close();
 		   clear_actionPerformed(null);
 		   winPerformance = win.doubleValue() / (win.doubleValue()+loss.doubleValue());
-		   
+
 		   JOptionPane.showMessageDialog(this,
 				   "Performance: " + winPerformance,"Resultado",
 				   JOptionPane.PLAIN_MESSAGE);
@@ -774,11 +821,6 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 				   "Error: " + e,"Carga archivo de test",
 				   JOptionPane.ERROR_MESSAGE);
 	   }
-
-
-
-
-
 
 	   clear_actionPerformed(null);
 	   JOptionPane.showMessageDialog(this,
