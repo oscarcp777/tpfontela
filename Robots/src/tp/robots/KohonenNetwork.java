@@ -236,34 +236,32 @@ public void setDebug(boolean debug) {
     */
    public int winner(double input[] ,double normfac[] ,double synth[])
    {
-     int i, win=0;
-     double biggest, optr[];
+	   int i, win=0;
+	   double biggest, optr[];
+	   normalizeInput( input , normfac , synth ) ;  // Normalize input
 
-     normalizeInput( input , normfac , synth ) ;  // Normalize input
-
-     biggest = -1.E30;
-     recognizeError = biggest;
-     for ( i=0 ; i<outputNeuronCount; i++ ) {
-       optr = outputWeights[i];
-       output[i] = dotProduct (input , optr ) * normfac[0]
-                   + synth[0] * optr[inputNeuronCount] ;
-       // Remap to bipolar(-1,1 to 0,1)
-       output[i] = 0.5 * (output[i] + 1.0) ;
-       if ( output[i] > biggest ) {
-         biggest = output[i] ;
-         if(debug)
-         System.out.println("el error :"+biggest);
-         recognizeError = biggest;
-         win = i ;
-       }
-// account for rounding
-       if ( output[i] > 1.0 )
-         output[i] = 1.0 ;
-       if ( output[i] < 0.0 )
-         output[i] = 0.0 ;
-     }
-    
-     return win ;
+	   biggest = -1.E30;
+	   recognizeError = biggest;
+	   for ( i=0 ; i<outputNeuronCount; i++ ) {
+		   optr = outputWeights[i];
+		   output[i] = dotProduct (input , optr ) * normfac[0]
+                                   + synth[0] * optr[inputNeuronCount] ;
+		   // Remap to bipolar(-1,1 to 0,1)
+		   output[i] = 0.5 * (output[i] + 1.0) ;
+		   if ( output[i] > biggest ) {
+			   biggest = output[i] ;
+			   if(debug)
+				   System.out.println("el error de " +i+": "+biggest);
+			   recognizeError = biggest;
+			   win = i ;
+		   }
+		   // account for rounding
+		   if ( output[i] > 1.0 )
+			   output[i] = 1.0 ;
+		   if ( output[i] < 0.0 )
+			   output[i] = 0.0 ;
+	   }
+	   return win ;
    }
 
    public double getRecognizeError() {
