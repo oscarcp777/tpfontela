@@ -37,7 +37,7 @@ public class MainEntry extends JFrame implements Runnable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final double ERROR_PERMITIDO_AL_RECONOCER = 25;
+	private static final double ERROR_PERMITIDO_AL_RECONOCER = 15;
 
 /**
     * The downsample width for the application.
@@ -153,31 +153,31 @@ MainEntry()
      train.setActionCommand("Begin Training");
      getContentPane().add(train);
      train.setBounds(12,274,200,24);
-     JLabel3.setText("Ultimo Error:");
-     getContentPane().add(JLabel3);
+//     JLabel3.setText("Ultimo Error:");
+//     getContentPane().add(JLabel3);
      JLabel3.setBounds(12,324,72,24);
-     JLabel4.setText("Mejor Error:");
-     getContentPane().add(JLabel4);
+//     JLabel4.setText("Mejor Error:");
+//     getContentPane().add(JLabel4);
      JLabel4.setBounds(12,348,72,24);
      tries.setText("0");
      getContentPane().add(tries);
      tries.setBounds(96,300,72,24);
-     lastError.setText("0");
-     getContentPane().add(lastError);
-     lastError.setBounds(96,324,200,24);
-     bestError.setText("0");
-     getContentPane().add(bestError);
-     bestError.setBounds(96,348,200,24);
+//     lastError.setText("0");
+//     getContentPane().add(lastError);
+//     lastError.setBounds(96,324,200,24);
+//     bestError.setText("0");
+//     getContentPane().add(bestError);
+//     bestError.setBounds(96,348,200,24);
      test.setText("Correr Test");
      test.setActionCommand("Begin Test");
      getContentPane().add(test);
-     test.setBounds(12,375,200,24);
+     test.setBounds(12,335,200,34);
      JLabel6.setHorizontalTextPosition(
     		 javax.swing.SwingConstants.CENTER);
      JLabel6.setHorizontalAlignment(
     		 javax.swing.SwingConstants.CENTER);
      JLabel6.setText("Resultados Test");
-     getContentPane().add(JLabel6);
+//     getContentPane().add(JLabel6);
      JLabel6.setBounds(12,375,200,24);
      JLabel8.setHorizontalTextPosition(
     		 javax.swing.SwingConstants.CENTER);
@@ -657,21 +657,23 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      net.setDebug(false);
      System.out.println("El super ganador  es    :" +best);
      String map[];
-     
+     int numeroDeRed=1;
      BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
      //si el error es mayor que el 15% va a la otra red
      if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
     	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
     	 System.out.println("Por red 1");
+    	 numeroDeRed=1;
     	 System.out.println("#######################################################################################");
     	 map = mapNeurons(letterListModel,net);
      }else{
     	 netOptimized.setDebug(true);
     	 best = netOptimized.winner ( input , normfac , synth ) ;
     	 netOptimized.setDebug(false);
-    	 BigDecimal error1=new BigDecimal((1-netOptimized.getRecognizeError())*100);
+    	  error=new BigDecimal((1-netOptimized.getRecognizeError())*100);
     	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
     	 System.out.println("Por red 2");
+    	 numeroDeRed=2;
     	 System.out.println("#######################################################################################");
     	 map = mapNeurons(letterListModelOptimized,netOptimized);
      }	 
@@ -702,7 +704,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      
      JOptionPane.showMessageDialog(this,
                                    "  " + map[best] + "   (La neurona #"
-                                   + best + " es la ganadora) \n Con un error de: " +error.setScale(2, RoundingMode.HALF_UP) +"%","La figura es",
+                                   + best + " es la ganadora) \n "/*Con un error de: " +error.setScale(2, RoundingMode.HALF_UP)+"%"*/ +" en la red :"+numeroDeRed,"La figura es",
                                    JOptionPane.PLAIN_MESSAGE);
   //   clear_actionPerformed(null);
 
@@ -734,7 +736,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 		   DefaultListModel testLetterListModel = new DefaultListModel();
 		   Integer win=0;
 		   Integer loss=0;
-		   Double winPerformance = 0.0;
+		   BigDecimal winPerformance =new BigDecimal(0.0);
 
 		   while ( (line=r.readLine()) !=null ) {
 			   StringTokenizer tokenizer= new StringTokenizer(line,":");
@@ -808,10 +810,10 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
 		   r.close();
 		   f.close();
 		   clear_actionPerformed(null);
-		   winPerformance = win.doubleValue() / (win.doubleValue()+loss.doubleValue());
+		   winPerformance = new BigDecimal(win.doubleValue() / (win.doubleValue()+loss.doubleValue()));
 
 		   JOptionPane.showMessageDialog(this,
-				   "Performance: " + winPerformance,"Resultado",
+				   "Performance: " + winPerformance.setScale(3, RoundingMode.HALF_UP),"Resultado",
 				   JOptionPane.PLAIN_MESSAGE);
 		   return;
 
