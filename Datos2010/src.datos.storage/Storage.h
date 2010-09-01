@@ -14,11 +14,10 @@
 #include <string.h>
 #include <fstream>
 #include <sstream>
-#include "../src.datos.utils/Object.h"
 #include "../src.datos.utils/Define.h"
 using namespace std;
 
-class Storage:public Object{
+class Storage{
 
 
 public:
