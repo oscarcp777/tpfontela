@@ -2,6 +2,8 @@ package tp.ia;
 
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -14,14 +16,20 @@ import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
 
 /**
   * Java Neural Network Example
@@ -32,6 +40,8 @@ import javax.swing.SwingUtilities;
   *
   * @author Jeff Heaton (http://www.jeffheaton.com)
   * @version 1.0
+  *
+
   */
 
 public class MainEntry extends JFrame implements Runnable {
@@ -99,16 +109,24 @@ public class MainEntry extends JFrame implements Runnable {
     * The background thread used for training.
     */
    Thread trainThread = null;
-
+   static final int X_BOTONES = 270;
+   static final int X_BOTONES_I = 12;
+   static final int Y_BOTONES_I = 380;
+   static final int Y_BOTONES = 400;
+   static final int ANCHO_BOTONES = 240;
+   static final int ANCHO_BOTONES_I = 140;
+   static final int ALTO_BOTONES = 35;
+   private JTextField imageLoc;
    /**
     * The constructor.
     */
-   @SuppressWarnings("deprecation")
+  
 MainEntry()
    {
      getContentPane().setLayout(null);
      entry = new Entry();
-     entry.reshape(250,25,200,200);
+//     entry.reshape(250,25,200,200);
+     entry.setBounds(X_BOTONES,25,500,310);
      getContentPane().add(entry);
 
      initSamples();
@@ -116,85 +134,89 @@ MainEntry()
      //{{INIT_CONTROLS
      setTitle("Java Neural Network");
      getContentPane().setLayout(null);
-     setSize(500,450);
+     setSize(800,650);
      setVisible(false);
      JLabel1.setText("Figuras reconocidas");
      getContentPane().add(JLabel1);
-     JLabel1.setBounds(12,12,200,12);
-     JLabel2.setText("Tries:");
-     getContentPane().add(JLabel2);
-     JLabel2.setBounds(12,300,72,24);
+     JLabel1.setBounds(X_BOTONES_I,12,200,12);
+     selectImage.setText("Cargar Imagen");
+     selectImage.addActionListener(getImageSelectAction());
+     selectImage.setBounds(X_BOTONES,Y_BOTONES-40,ANCHO_BOTONES,ALTO_BOTONES);
+     getContentPane().add(selectImage);
      downSample.setText("Mostrar ejemplo en mapa");
      downSample.setActionCommand("Down Sample");
      getContentPane().add(downSample);
-     downSample.setBounds(250,273,200,24);
+     downSample.setBounds(X_BOTONES,Y_BOTONES+40,ANCHO_BOTONES,ALTO_BOTONES);
      add.setText("Agregar");
      add.setActionCommand("Add");
      getContentPane().add(add);
-     add.setBounds(250,226,100,24);
+     add.setBounds(X_BOTONES,Y_BOTONES+80,ANCHO_BOTONES,ALTO_BOTONES);
      clear.setText("Limpiar");
      clear.setActionCommand("Clear");
      getContentPane().add(clear);
-     clear.setBounds(350,226,100,24);
+     clear.setBounds(X_BOTONES,Y_BOTONES+120,ANCHO_BOTONES,ALTO_BOTONES);
      recognize.setText("Reconocer");
      recognize.setActionCommand("Recognize");
      getContentPane().add(recognize);
-     recognize.setBounds(250,250,200,24);
+     recognize.setBounds(X_BOTONES,Y_BOTONES,ANCHO_BOTONES,ALTO_BOTONES);
 
-     next.setText("Sig.");
+     next.setText("Siguiente.");
      next.setActionCommand("Next");
      getContentPane().add(next);
-     next.setBounds(250,320,60,30);
+     next.setBounds(X_BOTONES,Y_BOTONES+160,ANCHO_BOTONES,ALTO_BOTONES);
 
      JScrollPane1.setVerticalScrollBarPolicy(
        javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
      JScrollPane1.setOpaque(true);
      getContentPane().add(JScrollPane1);
-     JScrollPane1.setBounds(12,24,200,200);
+     JScrollPane1.setBounds(X_BOTONES_I,24,250,350);
      JScrollPane1.getViewport().add(letters);
      letters.setBounds(0,0,126,129);
      del.setText("Borrar");
      del.setActionCommand("Delete");
      getContentPane().add(del);
-     del.setBounds(12,250,200,24);
+     del.setBounds(X_BOTONES_I,Y_BOTONES_I+40,ANCHO_BOTONES_I+100,ALTO_BOTONES);
      load.setText("Cargar");
      load.setActionCommand("Load");
      getContentPane().add(load);
-     load.setBounds(12,226,100,24);
+     load.setBounds(X_BOTONES_I,Y_BOTONES_I,ANCHO_BOTONES_I-10,ALTO_BOTONES);
      save.setText("Guardar");
      save.setActionCommand("Save");
      getContentPane().add(save);
-     save.setBounds(112,226,100,24);
+     save.setBounds(X_BOTONES_I+110,Y_BOTONES_I,ANCHO_BOTONES_I-10,ALTO_BOTONES);
      train.setText("Empezar entrenamiento");
      train.setActionCommand("Begin Training");
      getContentPane().add(train);
-     train.setBounds(12,274,200,24);
-//     JLabel3.setText("Ultimo Error:");
-//     getContentPane().add(JLabel3);
-     JLabel3.setBounds(12,324,72,24);
-//     JLabel4.setText("Mejor Error:");
-//     getContentPane().add(JLabel4);
-     JLabel4.setBounds(12,348,72,24);
+     train.setBounds(X_BOTONES_I,Y_BOTONES_I+80,ANCHO_BOTONES_I+100,ALTO_BOTONES);
+     JLabel2.setText("Tries:");
+     getContentPane().add(JLabel2);
+     JLabel2.setBounds(X_BOTONES_I,Y_BOTONES_I+152,ANCHO_BOTONES_I,24);
      tries.setText("0");
      getContentPane().add(tries);
-     tries.setBounds(96,300,72,24);
-//     lastError.setText("0");
-//     getContentPane().add(lastError);
-//     lastError.setBounds(96,324,200,24);
-//     bestError.setText("0");
-//     getContentPane().add(bestError);
-//     bestError.setBounds(96,348,200,24);
-     test.setText("Correr Test");
-     test.setActionCommand("Begin Test");
-     getContentPane().add(test);
-     test.setBounds(12,335,200,34);
-     JLabel6.setHorizontalTextPosition(
-    		 javax.swing.SwingConstants.CENTER);
-     JLabel6.setHorizontalAlignment(
-    		 javax.swing.SwingConstants.CENTER);
-     JLabel6.setText("Resultados Test");
+     tries.setBounds(X_BOTONES_I+100,Y_BOTONES_I+152,ANCHO_BOTONES_I,24);
+     JLabel3.setText("Ultimo Error:");
+     getContentPane().add(JLabel3);
+     JLabel3.setBounds(X_BOTONES_I,Y_BOTONES_I+200,ANCHO_BOTONES_I,24);
+     lastError.setText("0");
+     getContentPane().add(lastError);
+     lastError.setBounds(X_BOTONES_I+100,Y_BOTONES_I+200,ANCHO_BOTONES_I,24);
+     JLabel4.setText("Mejor Error:");
+     getContentPane().add(JLabel4);
+     JLabel4.setBounds(X_BOTONES_I,Y_BOTONES_I+176,ANCHO_BOTONES_I,24);
+     bestError.setText("0");
+     getContentPane().add(bestError);
+     bestError.setBounds(X_BOTONES_I+100,Y_BOTONES_I+176,ANCHO_BOTONES_I,24);
+//     test.setText("Correr Test");
+//     test.setActionCommand("Begin Test");
+////     getContentPane().add(test);
+//     test.setBounds(X_BOTONES_I,335,200,34);
+//     JLabel6.setHorizontalTextPosition(
+//    		 javax.swing.SwingConstants.CENTER);
+//     JLabel6.setHorizontalAlignment(
+//    		 javax.swing.SwingConstants.CENTER);
+//     JLabel6.setText("Resultados Test");
 //     getContentPane().add(JLabel6);
-     JLabel6.setBounds(12,375,200,24);
+//     JLabel6.setBounds(X_BOTONES_I,375,200,24);
      JLabel8.setHorizontalTextPosition(
     		 javax.swing.SwingConstants.CENTER);
      JLabel8.setHorizontalAlignment(
@@ -202,10 +224,10 @@ MainEntry()
      JLabel8.setText("Resultados del entrenamiento");
      getContentPane().add(JLabel8);
      JLabel8.setFont(new Font("Dialog", Font.BOLD, 14));
-     JLabel8.setBounds(12,240,120,24);
-     JLabel5.setText("Dibuje la letra aqui :");
+     JLabel8.setBounds(X_BOTONES_I,Y_BOTONES_I+125,ANCHO_BOTONES_I+100,24);
+     JLabel5.setText("Imagen a reconocer :");
      getContentPane().add(JLabel5);
-     JLabel5.setBounds(250,12,200,12);
+     JLabel5.setBounds(X_BOTONES,12,200,12);
      //}}
 
      //{{REGISTER_LISTENERS
@@ -227,12 +249,36 @@ MainEntry()
      //{{INIT_MENUS
      //}}
    }
+private ActionListener getImageSelectAction()
+{
+    return new ActionListener()
+    {
+
+        public void actionPerformed(ActionEvent e)
+        {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            Set<String> filters= new HashSet<String>();
+            filters.add("jpg");
+            filters.add("png");
+            filters.add("PNG");
+            filters.add("JPG");
+            FileFilter filter1 = new FiltroImagenes(filters);
+            chooser.setFileFilter(filter1);
+            int returnVal = chooser.showOpenDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION)
+            {
+                entry.initImage(chooser.getSelectedFile());
+            }
+        }
+    };
+}
 
    protected void initSamples(){
 	   	 samples = new ArrayList<Sample>();
 	     sampleIterator = samples.iterator();
 	     currentSample = new Sample(DOWNSAMPLE_WIDTH,DOWNSAMPLE_HEIGHT);
-	     currentSample.setBounds(320,300,100,100);
+	     currentSample.setBounds(520,350,250,250);
 	     samples.add(currentSample);
 	     entry.setSamples(samples);
 	     getContentPane().add(currentSample);
@@ -260,7 +306,7 @@ public static void main(String args[])
    //{{DECLARE_CONTROLS
    javax.swing.JLabel JLabel1 = new javax.swing.JLabel();
    javax.swing.JLabel JLabel2 = new javax.swing.JLabel();
-
+   JButton selectImage = new JButton();
    /**
     * THe downsample button.
     */
@@ -713,13 +759,11 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
     	 net.setDebug(false);
     	 System.out.println("El super ganador  es:" +best);
     	 String map[];
-    	 int numeroDeRed=1;
     	 BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
     	 //si el error es mayor que el 15% va a la otra red
     	 //     if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
     	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
     	 System.out.println("Por red 1");
-    	 numeroDeRed=1;
     	 System.out.println("#######################################################################################");
     	 map = mapNeurons(letterListModel,net);
     	 //     }
