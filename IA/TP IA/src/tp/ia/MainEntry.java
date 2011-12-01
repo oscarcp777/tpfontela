@@ -55,9 +55,9 @@ public class MainEntry extends JFrame implements Runnable {
 /**
     * The downsample width for the application.
     */
-   static final int DOWNSAMPLE_WIDTH = 20;
+   static final int DOWNSAMPLE_WIDTH = 30;
    static final String PATH = "files/";
-   static final String NOMBRE_ARCH = "numeros";
+   static final String NOMBRE_ARCH = "data";
 
    /**
     * The down sample height for the application.
@@ -116,7 +116,6 @@ public class MainEntry extends JFrame implements Runnable {
    static final int ANCHO_BOTONES = 240;
    static final int ANCHO_BOTONES_I = 140;
    static final int ALTO_BOTONES = 35;
-   private JTextField imageLoc;
    /**
     * The constructor.
     */
@@ -256,7 +255,7 @@ private ActionListener getImageSelectAction()
 
         public void actionPerformed(ActionEvent e)
         {
-            JFileChooser chooser = new JFileChooser();
+            JFileChooser chooser = new JFileChooser(new File("/home/oscar/workspace/TPInteligencia/TP Inteligencia/"));
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             Set<String> filters= new HashSet<String>();
             filters.add("jpg");
@@ -403,7 +402,7 @@ public static void main(String args[])
 //         load_actionPerformed(event, letterListModelOptimized,NOMBRE_ARCH+"1"+".dat");
        }
        else if ( object == save )
-         save_actionPerformed(event,NOMBRE_ARCH+"1"+".dat",letterListModel);
+         save_actionPerformed(event,NOMBRE_ARCH+".dat",letterListModel);
        else if ( object == train )
          train_actionPerformed(event);
        else if ( object == recognize )
@@ -449,7 +448,7 @@ public static void main(String args[])
   
 
      String letter = JOptionPane.showInputDialog(
-       "Por favor ingrese los nombres de los numeros o simbolos (coma) que dibujo (separados por comas): ");
+       "Por favor ingrese el nombre del numero o simbolos (coma,punto) de la imagen: ");
      if ( letter==null )
        return;
 
