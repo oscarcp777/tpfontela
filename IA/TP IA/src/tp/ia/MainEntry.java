@@ -57,12 +57,13 @@ public class MainEntry extends JFrame implements Runnable {
     */
    static final int DOWNSAMPLE_WIDTH = 30;
    static final String PATH = "files/";
+//   static final String NOMBRE_ARCH = "numeros";
    static final String NOMBRE_ARCH = "data";
 
    /**
     * The down sample height for the application.
     */
-   static final int DOWNSAMPLE_HEIGHT = 20;
+   static final int DOWNSAMPLE_HEIGHT = 50;
 
    /**
     * The entry component for the user to draw into.
@@ -255,7 +256,7 @@ private ActionListener getImageSelectAction()
 
         public void actionPerformed(ActionEvent e)
         {
-            JFileChooser chooser = new JFileChooser(new File("/home/oscar/workspace/TPInteligencia/TP Inteligencia/"));
+            JFileChooser chooser = new JFileChooser(new File("/home/oscar/workspace/TPInteligencia/TP Inteligencia//imagenes/nu meros/"));
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             Set<String> filters= new HashSet<String>();
             filters.add("jpg");
@@ -802,7 +803,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
     	 //        	 best = best1;
     	 //         }
     	 
-    	finalNumber+=convertToNumberString(map[best]);
+    	finalNumber+=map[best];
     	 //   clear_actionPerformed(null);
      }
      JOptionPane.showMessageDialog(this,
