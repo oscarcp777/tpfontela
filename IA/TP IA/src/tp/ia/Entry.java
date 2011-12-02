@@ -1,16 +1,20 @@
 package tp.ia;
 
 import java.awt.AWTEvent;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -40,7 +44,7 @@ public class Entry extends JPanel {
 	 * The image that the user is drawing into.
 	 */
 	protected Image entryImage;
-
+	private final static BasicStroke grosor1 = new BasicStroke(3.5f); //thickness
 	/**
 	 * A graphics handle to the image that the
 	 * user is drawing into.
@@ -190,10 +194,15 @@ public class Entry extends JPanel {
 		g.setColor(Color.red);
 		for (int i = 0; i < samples.size(); i++) {
 			if (downSampleLeft.size()>0)
-				g.drawRect(downSampleLeft.get(i),
-						downSampleTop.get(i),
-						downSampleRight.get(i)-downSampleLeft.get(i),
-						downSampleBottom.get(i)-downSampleTop.get(i)); 
+				g.drawRect(downSampleLeft.get(i),downSampleTop.get(i),
+						   downSampleRight.get(i)-downSampleLeft.get(i),
+						   downSampleBottom.get(i)-downSampleTop.get(i)); 
+//			System.out.println("-----------------------------------------");
+//			System.out.println("downSampleLeft "+downSampleLeft.get(i));
+//			System.out.println("downSampleTop "+downSampleTop.get(i));
+//			System.out.println("downSampleRight: "+(downSampleRight.get(i)-downSampleLeft.get(i)));
+//			System.out.println("downSampleBottom : "+(downSampleBottom.get(i)-downSampleTop.get(i)));
+//			System.out.println("area ocupada : "+(downSampleRight.get(i)-downSampleLeft.get(i))*(downSampleBottom.get(i)-downSampleTop.get(i)));
 		}
 
 
@@ -223,7 +232,14 @@ public class Entry extends JPanel {
 			return;
 
 		entryGraphics.setColor(Color.black);
-		entryGraphics.drawLine(lastX,lastY,e.getX(),e.getY());
+		
+		Graphics2D grafico = (Graphics2D) entryGraphics;
+		grafico.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		grafico.setStroke(grosor1);
+		grafico.draw(new Line2D.Double(lastX,lastY,e.getX(),e.getY()));
+//		entryGraphics.drawLine(lastX,lastY,e.getX(),e.getY());
+//		entryGraphics.drawLine(lastX,lastY,e.getX()+1,e.getY()+1);
+//		entryGraphics.drawLine(lastX,lastY,e.getX()-1,e.getY()-1);
 		getGraphics().drawImage(entryImage,0,0,this);
 		lastX = e.getX();
 		lastY = e.getY();
@@ -397,7 +413,46 @@ public class Entry extends JPanel {
 		return false;
 	}
 
+     private int limpiarSamplesInvalidos(int nSamples){
+    	 Integer rihgt,left,top,bottom;
+    	 double ancho,alto;
+    	 int samplesValidos=nSamples;
+    	 List<Integer> invalidosRihgt= new ArrayList<Integer>();
+    	 List<Integer> invalidosleft= new ArrayList<Integer>();
+    	 List<Integer> invalidostop= new ArrayList<Integer>();
+    	 List<Integer> invalidosbottom= new ArrayList<Integer>();
+    	 
+    	 for (int i = 0; i < nSamples; i++) {
+    		 rihgt=downSampleRight.get(i);
+    		 left=downSampleLeft.get(i);
+    		 top=downSampleTop.get(i);
+    		 bottom=downSampleBottom.get(i);
+ 			 ancho = (double)(rihgt-left)/(double)samples.get(0).getData().getWidth();
+ 			alto = (double)(bottom-top)/(double)samples.get(0).getData().getHeight();
+			System.out.println(i+" 1 ratioX "+(downSampleRight.get(i)-downSampleLeft.get(i))+" ratioY "+(downSampleBottom.get(i)-downSampleTop.get(i)));
+ 			System.out.println(" 1 area "+alto*ancho);
+ 			if(alto*ancho<0.2){
+				invalidosRihgt.add(rihgt);
+				invalidosleft.add(left);
+				invalidostop.add(top);
+				invalidosbottom.add(bottom);
+				samplesValidos--;
+			}
+    	 }
+    		downSampleRight.removeAll(invalidosRihgt);
+			downSampleLeft.removeAll(invalidosleft);
+			downSampleBottom.removeAll(invalidosbottom);
+			downSampleTop.removeAll(invalidostop);
+		
+    	 for (int i = 0; i < samplesValidos; i++) {
+ 			ancho = (double)(downSampleRight.get(i)-downSampleLeft.get(i));//(double)samples.get(0).getData().getWidth();
+ 			alto = (double)(downSampleBottom.get(i)-downSampleTop.get(i));//(double)samples.get(0).getData().getHeight();
+ 			System.out.println(i+" _ratioX "+ancho+" ratioY "+alto);
+ 			System.out.println(" area "+alto*ancho);
 
+    	 }
+    	 return samplesValidos;
+     }
 	/**
 	 * Called to downsample the image and store
 	 * it in the down sample component.
@@ -406,19 +461,13 @@ public class Entry extends JPanel {
 	{
 		int w = entryImage.getWidth(this);
 		int h = entryImage.getHeight(this);
-		PixelGrabber grabber = new PixelGrabber(
-				entryImage,
-				0,
-				0,
-				w,
-				h,
-				true);
+		PixelGrabber grabber = new PixelGrabber(entryImage,0,0,	w,h,true);
 		try {
 
 			grabber.grabPixels();
 			pixelMap = (int[])grabber.getPixels();
 			int nSamples = findBounds(w,h);
-
+			nSamples=limpiarSamplesInvalidos(nSamples);
 			for (int i = 0; i < nSamples; i++) {
 
 				if (i>0){
@@ -432,7 +481,7 @@ public class Entry extends JPanel {
 						downSampleLeft.get(i))/(double)data.getWidth();
 				ratioY = (double)(downSampleBottom.get(i)-
 						downSampleTop.get(i))/(double)data.getHeight();
-
+              
 				for ( int y=0;y<data.getHeight();y++ ) {
 					for ( int x=0;x<data.getWidth();x++ ) {
 						if ( downSampleQuadrant(x,y,i) )
@@ -441,6 +490,7 @@ public class Entry extends JPanel {
 							data.setData(x,y,false);
 					}
 				}
+				
 			}
 
 			samples.get(0).repaint();
