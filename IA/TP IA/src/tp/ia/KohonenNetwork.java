@@ -251,7 +251,7 @@ public void setDebug(boolean debug) {
 		   if ( output[i] > biggest ) {
 			   biggest = output[i] ;
 			   if(debug)
-				   System.out.println("el error de " +i+": "+biggest);
+//				   System.out.println("el error de " +i+": "+biggest);
 			   recognizeError = biggest;
 			   win = i ;
 		   }

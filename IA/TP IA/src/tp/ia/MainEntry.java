@@ -27,7 +27,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 
@@ -58,7 +57,7 @@ public class MainEntry extends JFrame implements Runnable {
    static final int DOWNSAMPLE_WIDTH = 30;
    static final String PATH = "files/";
 //   static final String NOMBRE_ARCH = "numeros";
-   static final String NOMBRE_ARCH = "data";
+   static final String NOMBRE_ARCH = "datos";
 
    /**
     * The down sample height for the application.
@@ -256,7 +255,7 @@ private ActionListener getImageSelectAction()
 
         public void actionPerformed(ActionEvent e)
         {
-            JFileChooser chooser = new JFileChooser(new File("/home/oscar/workspace/TPInteligencia/TP Inteligencia//imagenes/nu meros/"));
+            JFileChooser chooser = new JFileChooser(new File("/home/oscar/workspace/TPInteligencia/TP Inteligencia//imagenes/standar/"));
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             Set<String> filters= new HashSet<String>();
             filters.add("jpg");
@@ -809,7 +808,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      JOptionPane.showMessageDialog(this,
 			 "  El numero es: " + finalNumber,"Resultado",
 					 JOptionPane.PLAIN_MESSAGE);
-     
+     initSamples();
    }
    
    protected String convertToNumberString(String number){
