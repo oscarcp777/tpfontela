@@ -147,20 +147,32 @@ public class Entry extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		 
+		
 		entryGraphics = entryImage.getGraphics();
 		entryGraphics.setColor(Color.white);
 		//     entryGraphics.fillRect(0,0,ancho,alto);
 		repaint();
 	}
 	private static BufferedImage resizeImage(BufferedImage originalImage,int height,int width, int type){
-		BufferedImage resizedImage = new BufferedImage(width, height, type);
+		BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
 		Graphics2D g = resizedImage.createGraphics();
 		g.drawImage(originalImage, 0, 0, width, height, null);
 		g.dispose();
-
+	
 		return resizedImage;
 	}
-
+	 /**
+	   * Setup the internal image that the user draws onto.
+	   */
+	  protected void initImage()
+	  {
+	    entryImage = createImage(getBounds().width, getBounds().height);
+	    entryGraphics = entryImage.getGraphics();
+	    entryGraphics.setColor(Color.white);
+	    entryGraphics.fillRect(0, 0, getBounds().width, getBounds().height);
+	  }
 	/**
 	 * Paint the drawn image and cropping box
 	 * (if active).
@@ -169,10 +181,12 @@ public class Entry extends JPanel {
 	 */
 	public void paint(Graphics g)
 	{
-
+	 if (entryImage == null)
+		      initImage();
 		g.drawImage(entryImage,0,0,this);
 		g.setColor(Color.black);
 		g.drawRect(0,0,getWidth(),getHeight());
+		
 		g.setColor(Color.red);
 		for (int i = 0; i < samples.size(); i++) {
 			if (downSampleLeft.size()>0)
@@ -441,16 +455,16 @@ public class Entry extends JPanel {
 	 */
 	public void clear()
 	{
-//		this.entryGraphics.setColor(Color.white);
-//		this.entryGraphics.fillRect(0,0,getWidth(),getHeight());
-//		this.downSampleBottom.clear();
-//		this.downSampleTop.clear();
-//		this.downSampleLeft.clear();
-//		this.downSampleRight.clear();
-//		this.downSampleLeft.add(0);
-//		this.downSampleRight.add(0);
-//		this.downSampleTop.add(0);
-//		this.downSampleBottom.add(0);
-//		repaint();
+		this.entryGraphics.setColor(Color.white);
+		this.entryGraphics.fillRect(0,0,getWidth(),getHeight());
+		this.downSampleBottom.clear();
+		this.downSampleTop.clear();
+		this.downSampleLeft.clear();
+		this.downSampleRight.clear();
+		this.downSampleLeft.add(0);
+		this.downSampleRight.add(0);
+		this.downSampleTop.add(0);
+		this.downSampleBottom.add(0);
+		repaint();
 	}
 }

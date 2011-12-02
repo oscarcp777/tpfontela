@@ -740,7 +740,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      }
      entry.downSample();
      sampleIterator = samples.iterator();
-     String finalNumber = new String();
+     String finalNumber = "";
      for (Iterator<Sample> iterator = samples.iterator(); iterator.hasNext();) {
     	 Sample sample = (Sample) iterator.next();
     	 double input[] = new double[DOWNSAMPLE_WIDTH*DOWNSAMPLE_HEIGHT];
@@ -757,14 +757,14 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
     	 net.setDebug(true);
     	 int best = net.winner ( input , normfac , synth ) ;
     	 net.setDebug(false);
-    	 System.out.println("El super ganador  es:" +best);
+    	 System.out.println("El neurona ganadora  es:" +best);
     	 String map[];
-    	 BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
+//    	 BigDecimal error=new BigDecimal((1-net.getRecognizeError())*100);
     	 //si el error es mayor que el 15% va a la otra red
     	 //     if(error.compareTo(new BigDecimal(ERROR_PERMITIDO_AL_RECONOCER))==-1){
-    	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
-    	 System.out.println("Por red 1");
-    	 System.out.println("#######################################################################################");
+//    	 System.out.println("con un Error de  :" +error.setScale(2, RoundingMode.HALF_UP));
+//    	 System.out.println("Por red 1");
+//    	 System.out.println("#######################################################################################");
     	 map = mapNeurons(letterListModel,net);
     	 //     }
     	 //     else{
@@ -809,6 +809,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
      JOptionPane.showMessageDialog(this,
 			 "  El numero es: " + finalNumber,"Resultado",
 					 JOptionPane.PLAIN_MESSAGE);
+     
    }
    
    protected String convertToNumberString(String number){
