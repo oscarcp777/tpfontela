@@ -327,10 +327,7 @@ public void setDebug(boolean debug) {
 
      }
      
-//     for (int i = 0; i < bigerr.length; i++) {
-//    	 System.out.println("error : "+bigerr[i]+" rate "+rate);
-//    	 System.out.println("error 2 : "+Math.sqrt (bigerr[i]));
-//	}
+
      bigerr[0] = Math.sqrt ( bigerr[0] ) ;
    }
 
@@ -487,7 +484,6 @@ public void setDebug(boolean debug) {
      best_err = 1.e30 ;
 
 // main loop:
-     System.out.println("  MIENTRAS  EL ERROR NO SEA  MENOR A "+quitError*100+" % SIGUE ENTRENANDO ");
      n_retry = 0 ;
      for ( iter=0 ; ; iter++ ) {
 
@@ -495,7 +491,6 @@ public void setDebug(boolean debug) {
                         bigerr , correc , work ) ;
        totalError = bigerr[0] ;
      
-       System.out.println(" Error total :"+totalError*100+" %"  );
        if ( totalError < best_err ) {
          best_err = totalError ;
          copyWeights ( bestnet , this ) ;
@@ -508,9 +503,6 @@ public void setDebug(boolean debug) {
 
 
        if ( bigerr[0] < quitError ){
-    	   System.out.println("######################   TERMINO DE ENTREMAR EL ERROR ES MENOR A "+quitError*100+" %  #####################");
-    	   
-    	   System.out.println("##########################  ERROR :"+bigerr[0]*100+" %     #################");
          break ;
        }
 

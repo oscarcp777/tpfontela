@@ -286,7 +286,6 @@ public class Controler {
 		   if(ventanaPrincipal.getIndex().intValue()<ventanaPrincipal.getSamples().size()){
 		  CuadriculaGrafico currentSample= ventanaPrincipal.getSamples().get(ventanaPrincipal.getIndex());
 		  currentSample.setBounds(520,350,250,250);
-		  System.out.println(currentSample.hashCode());
 		  ventanaPrincipal.getContentPane().add(currentSample);
 		  currentSample.repaint();
 		  ventanaPrincipal.incrementarIndex();
