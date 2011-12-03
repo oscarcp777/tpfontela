@@ -355,12 +355,7 @@ public KohonenNetwork entrenar( DefaultListModel letterListModel,int numeroDeRed
       int inputNeuron = VentanaPrincipal.DOWNSAMPLE_HEIGHT*
         VentanaPrincipal.DOWNSAMPLE_WIDTH;
       int outputNeuron = letterListModel.size();
-//      int outputNeuronOptimized = 
-      System.out.println("##################################################");
-      System.out.println("          EMPIEZA EL ENTRENAMIENTO CON : ");
-      System.out.println(inputNeuron+" neuronas de entrada ");
-      System.out.println(outputNeuron+" neuronas de salida ");
-      System.out.println("##################################################");
+
       TrainingSet set = new TrainingSet(inputNeuron,outputNeuron);
       set.setTrainingSetCount(letterListModel.size());
 
